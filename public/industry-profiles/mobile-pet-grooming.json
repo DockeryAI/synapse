@@ -1,0 +1,1704 @@
+{
+  "industry": "Mobile Pet Grooming",
+  "industry_name": "Mobile Pet Grooming",
+  "naics_code": "812910",
+  "category": "Personal Services",
+  "subcategory": "Pet Care Services",
+  "customer_triggers": [
+    {
+      "trigger": "Dog starts shedding excessively on furniture",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Pet develops noticeable odor despite home bathing attempts",
+      "urgency": 9,
+      "frequency": "Bi-weekly"
+    },
+    {
+      "trigger": "Upcoming family gathering or holiday hosting",
+      "urgency": 7,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Matted fur causing visible discomfort to pet",
+      "urgency": 10,
+      "frequency": "As needed"
+    },
+    {
+      "trigger": "Nail clicking sounds on hardwood floors",
+      "urgency": 6,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Veterinary appointment reminder mentions grooming needed",
+      "urgency": 7,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Pet scratching more frequently than usual",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Seasonal allergies triggered by pet dander",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Pet's eyes obscured by overgrown facial hair",
+      "urgency": 8,
+      "frequency": "Bi-monthly"
+    },
+    {
+      "trigger": "Difficulty transporting pet to traditional groomer",
+      "urgency": 10,
+      "frequency": "Ongoing"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer realizes pet grooming is overdue when they notice visible signs like matting, odor, or excessive shedding. They search 'mobile dog grooming near me' on Google, discovering convenience-focused options. Initial research focuses on reading reviews about gentle handling and reliability.",
+    "consideration": "Compares 3-4 mobile groomers based on pricing ($75-150 per session), availability within 72 hours, and specific breed experience. Checks social media for before/after photos, scrutinizes insurance and certification credentials, and reads detailed reviews about punctuality and pet handling techniques.",
+    "decision": "Books appointment after finding groomer with same-week availability, transparent pricing without hidden fees, and at least 50+ five-star reviews. Decision accelerates when groomer offers first-time customer discount of 15-20% or includes free nail grinding upgrade.",
+    "retention": "Continues service when groomer maintains consistent 6-8 week schedule, sends reminder texts 48 hours before appointments, and demonstrates genuine care for pet's wellbeing. Loyalty strengthens with personalized notes about pet's preferences and seasonal grooming recommendations.",
+    "advocacy": "Actively recommends service after 3+ successful appointments, especially when groomer handles difficult situations professionally. Shares before/after photos on neighborhood Facebook groups, leaves detailed Google reviews, and provides referrals averaging 2.3 new customers per satisfied client."
+  },
+  "transformations": [
+    {
+      "from": "Stressed pet parent struggling with car-anxious dog",
+      "to": "Relaxed owner with professionally groomed pet at home",
+      "emotional_value": "Peace of mind worth $30-50 premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassed by pet's appearance and smell",
+      "to": "Proud pet parent showing off beautiful companion",
+      "emotional_value": "Social confidence and pride",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by grooming attempts causing pet distress",
+      "to": "Confident in professional handling of pet's needs",
+      "emotional_value": "Relief from guilt and frustration",
+      "worth_premium": true
+    },
+    {
+      "from": "Time-strapped professional losing half-day for grooming",
+      "to": "Productive individual with grooming handled seamlessly",
+      "emotional_value": "4+ hours of time recovered",
+      "worth_premium": true
+    },
+    {
+      "from": "Senior struggling to transport 60+ pound dog",
+      "to": "Independent pet owner maintaining pet care standards",
+      "emotional_value": "Maintained independence and dignity",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about pet's health due to poor grooming",
+      "to": "Assured of pet's hygiene and comfort",
+      "emotional_value": "Health security for beloved family member",
+      "worth_premium": true
+    },
+    {
+      "from": "Frustrated with inconsistent grooming results",
+      "to": "Delighted with predictable professional outcomes",
+      "emotional_value": "Consistency and reliability",
+      "worth_premium": false
+    },
+    {
+      "from": "Anxious about pet's safety at unfamiliar location",
+      "to": "Secure knowing pet never leaves home",
+      "emotional_value": "Complete control over pet's environment",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Appointment completed within promised 2-hour window",
+      "timeframe": "Same day",
+      "measurable": true
+    },
+    {
+      "metric": "Pet appears visibly calmer post-grooming vs pre-grooming",
+      "timeframe": "Immediate",
+      "measurable": true
+    },
+    {
+      "metric": "Zero incidents of nicks, cuts, or injuries during service",
+      "timeframe": "Per session",
+      "measurable": true
+    },
+    {
+      "metric": "Client rebooks within 24 hours for next appointment",
+      "timeframe": "1 day",
+      "measurable": true
+    },
+    {
+      "metric": "Grooming results last minimum 4 weeks before noticeable decline",
+      "timeframe": "1 month",
+      "measurable": true
+    },
+    {
+      "metric": "Client provides unsolicited referral within 30 days",
+      "timeframe": "1 month",
+      "measurable": true
+    },
+    {
+      "metric": "Pet shows reduced anxiety indicators in subsequent visits",
+      "timeframe": "3 visits",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Hosting guests within 48 hours and pet has visible matting or strong odor requiring immediate professional attention",
+    "Veterinary appointment scheduled where unkempt appearance might trigger health concerns or additional costly treatments",
+    "Pet scratching excessively causing hot spots or skin irritation that worsens by 15-20% daily without grooming intervention",
+    "Flea or tick discovery requiring immediate professional treatment to prevent $500+ home infestation remediation costs",
+    "Upcoming travel in 3-5 days where pet boarding facility requires grooming certification within past 30 days",
+    "Severe matting causing mobility issues or skin pulling that causes visible pain with each movement",
+    "Emergency photo opportunity like family portraits or pet competitions requiring professional presentation within 72 hours"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Mobile grooming costs 40-60% more than shop grooming",
+      "response": "You're investing in 4 hours of your time saved, zero car stress for your pet, and personalized one-on-one attention. When you factor in gas, time off work, and the reduced anxiety medication many pets need for car rides, mobile grooming actually saves you $35-50 per visit.",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I don't trust strangers in my driveway",
+      "response": "All our groomers are bonded, insured for $2 million, and background-checked annually. We provide real-time GPS tracking, groomer photos and credentials upfront, and maintain an A+ BBB rating with 500+ verified reviews. You can watch the entire process through our van's viewing window.",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "My dog is aggressive with strangers",
+      "response": "We specialize in anxious and reactive pets, with 67% of our clients choosing mobile specifically for behavioral challenges. Our groomers complete 40-hour fear-free certification training and use calming techniques that have successfully groomed even pets rejected by traditional salons.",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "I can groom my pet myself",
+      "response": "Professional grooming extends beyond aesthetics - we perform 12-point health checks, properly express anal glands preventing $200+ vet visits, and use commercial equipment that removes 85% more undercoat than home tools. Most DIY attempts miss critical areas and can cause accidental injuries costing $400+ in emergency vet care.",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "My pet doesn't really need grooming that often",
+      "response": "Waiting too long between grooms leads to painful matting, skin infections, and parasites. Regular 6-week grooming prevents $800+ in potential veterinary treatments and extends your pet's life by an average of 1.5 years through early health issue detection.",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Weather might cancel the appointment",
+      "response": "Our climate-controlled vans operate in all weather conditions except severe storms. We've completed 98.5% of scheduled appointments over the past year and offer priority rebooking within 48 hours for any weather-related cancellations.",
+      "effectiveness": 7.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction guarantee or free re-grooming within 48 hours",
+      "On-time arrival guarantee or 25% discount applied automatically",
+      "Gentle handling promise with full refund if pet shows distress",
+      "No-mess guarantee with complimentary driveway cleaning if needed",
+      "Price-lock guarantee for 12 months for regular clients"
+    ],
+    "proof_points": [
+      "Licensed and insured with $2 million liability coverage",
+      "4.8-star average rating across 1,200+ verified reviews",
+      "Certified Fear-Free and Pet First Aid trained professionals",
+      "Before/after photos provided for every grooming session",
+      "Real-time GPS tracking and ETA updates via SMS"
+    ],
+    "risk_mitigation": [
+      "Free consultation call to discuss pet's specific needs and temperament",
+      "Gradual introduction process for anxious pets with shorter first sessions",
+      "Veterinary reference checks available upon request",
+      "Payment only after service completion and satisfaction verification",
+      "24/7 customer service hotline for post-grooming concerns"
+    ]
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "matted",
+      "smelly",
+      "shedding everywhere",
+      "can't handle him",
+      "hates the car",
+      "takes all day",
+      "stressed out",
+      "scratching constantly",
+      "looks terrible",
+      "dreading grooming day",
+      "impossible to schedule",
+      "traumatized last time"
+    ],
+    "solution_words": [
+      "convenient",
+      "stress-free",
+      "professional",
+      "gentle",
+      "at your doorstep",
+      "one-on-one attention",
+      "no cage time",
+      "personalized",
+      "fear-free",
+      "experienced",
+      "reliable",
+      "transformed",
+      "beautiful",
+      "calm",
+      "happy pet"
+    ],
+    "avoid_jargon": [
+      "stripping",
+      "carding",
+      "anal expression",
+      "quick",
+      "dewclaw",
+      "undercoat rake",
+      "thinning shears",
+      "force dry",
+      "sanitary trim",
+      "feathering",
+      "hand-stripping",
+      "coat conditioning"
+    ]
+  },
+  "power_words": [
+    "convenient",
+    "stress-free",
+    "gentle",
+    "professional",
+    "doorstep",
+    "personalized",
+    "transformed",
+    "beautiful",
+    "guaranteed",
+    "certified",
+    "experienced",
+    "reliable",
+    "trusted",
+    "loving",
+    "patient",
+    "specialized",
+    "premium",
+    "exclusive",
+    "dedicated",
+    "custom",
+    "worry-free",
+    "seamless",
+    "effortless",
+    "pristine",
+    "radiant",
+    "pampered",
+    "VIP",
+    "boutique",
+    "tailored",
+    "exceptional"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "basic",
+    "standard",
+    "assembly-line",
+    "quick",
+    "rushed",
+    "mass-market",
+    "generic",
+    "adequate",
+    "satisfactory",
+    "acceptable",
+    "moderate",
+    "sufficient",
+    "typical",
+    "ordinary",
+    "average",
+    "economy",
+    "bargain"
+  ],
+  "headline_templates": [
+    {
+      "template": "Your Dog Groomed at Your Doorstep in [City] - Book Today",
+      "expected_ctr": 4.2,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Why 2,000+ [City] Pet Parents Choose Mobile Grooming",
+      "expected_ctr": 3.8,
+      "use_case": "Facebook Ads"
+    },
+    {
+      "template": "Stressed Pet? Try Cage-Free Mobile Grooming",
+      "expected_ctr": 5.1,
+      "use_case": "Retargeting"
+    },
+    {
+      "template": "Save 4 Hours: Professional Grooming Comes to You",
+      "expected_ctr": 4.5,
+      "use_case": "Time-conscious audience"
+    },
+    {
+      "template": "Certified Groomers • Your Driveway • Zero Stress",
+      "expected_ctr": 4.7,
+      "use_case": "Trust-building"
+    },
+    {
+      "template": "Mobile Dog Grooming: Same Day Appointments Available",
+      "expected_ctr": 6.2,
+      "use_case": "Urgency"
+    },
+    {
+      "template": "Your Pet Deserves Spa Treatment at Home - Book Now",
+      "expected_ctr": 3.9,
+      "use_case": "Premium positioning"
+    },
+    {
+      "template": "No More Car Anxiety: We Bring the Salon to You",
+      "expected_ctr": 5.3,
+      "use_case": "Problem-aware"
+    },
+    {
+      "template": "5-Star Mobile Grooming: 500+ Happy Pets in [City]",
+      "expected_ctr": 4.4,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Emergency Grooming? We're There in 24 Hours",
+      "expected_ctr": 5.8,
+      "use_case": "Crisis response"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Pet's Spa Day",
+      "conversion_rate": 3.2,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 4.1,
+      "placement": "Price section"
+    },
+    {
+      "template": "Schedule Free Consultation",
+      "conversion_rate": 5.3,
+      "placement": "First-time visitors"
+    },
+    {
+      "template": "Check Next Available Slot",
+      "conversion_rate": 4.7,
+      "placement": "Urgency section"
+    },
+    {
+      "template": "Save My Spot",
+      "conversion_rate": 3.8,
+      "placement": "Calendar view"
+    },
+    {
+      "template": "Text Us Photos for Quote",
+      "conversion_rate": 6.2,
+      "placement": "Mobile only"
+    },
+    {
+      "template": "Claim 20% First-Time Discount",
+      "conversion_rate": 7.1,
+      "placement": "Exit intent"
+    },
+    {
+      "template": "See Before & After Gallery",
+      "conversion_rate": 2.9,
+      "placement": "Social proof section"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🐕 Is your pup overdue for grooming? We come to YOU! No car stress, no waiting rooms, just spa treatment in your driveway. Book today: [link] #MobileGrooming #[City]Pets",
+      "engagement_rate": 4.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before ➡️ After transformation! This beautiful boy got the full spa treatment right at home 🛁✨ Want this for your fur baby? Link in bio! #DogGrooming #MobileGroomer #TransformationTuesday",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Offering same-week mobile grooming appointments. Your pet stays calm at home while we handle everything in our fully-equipped van. Special discount for first-time clients. Message for details!",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "Google My Business",
+      "template": "📍 Now serving [Neighborhood]! Professional mobile pet grooming at your doorstep. ⭐⭐⭐⭐⭐ rated. Book online or call [phone]",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Your anxious dog gets groomed without leaving home 🏠 Watch this transformation! #MobileGrooming #DogGroomingLife #AnxiousDog #PetTok",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Twitter",
+      "template": "Spending hours at the groomer? Not anymore! 🚐 We bring professional grooming to your driveway. Book in 30 seconds: [link]",
+      "engagement_rate": 2.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "5 Signs Your Dog Needs Professional Grooming (And Why Mobile is Better) - Pin this checklist! 📌",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Busy professionals: Eliminate grooming day hassles. Our mobile service saves you 4+ hours while ensuring premium pet care. Corporate packages available.",
+      "engagement_rate": 1.8
+    },
+    {
+      "platform": "YouTube Community",
+      "template": "New video: Watch us transform a severely matted Goldendoodle in our mobile salon! What questions do you have about mobile grooming? 👇",
+      "engagement_rate": 6.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Save 4+ hours with doorstep service eliminating travel and wait time",
+      "rank": 1,
+      "differentiator": "Only service that guarantees 2-hour completion window"
+    },
+    {
+      "prop": "Reduce pet anxiety by 75% with familiar home environment grooming",
+      "rank": 2,
+      "differentiator": "Certified Fear-Free professionals with specialized training"
+    },
+    {
+      "prop": "One-on-one attention with no cage time or other animals",
+      "rank": 3,
+      "differentiator": "Exclusive focus on single pet per appointment"
+    },
+    {
+      "prop": "Professional results using $15,000+ commercial equipment",
+      "rank": 4,
+      "differentiator": "Same tools as luxury pet spas in convenient mobile format"
+    },
+    {
+      "prop": "Flexible scheduling including evenings and weekends",
+      "rank": 5,
+      "differentiator": "Extended hours until 8 PM and Sunday availability"
+    },
+    {
+      "prop": "Complete transparency with viewable grooming process",
+      "rank": 6,
+      "differentiator": "Glass-sided van allows monitoring entire session"
+    },
+    {
+      "prop": "Health monitoring with complimentary 12-point wellness check",
+      "rank": 7,
+      "differentiator": "Written health report provided after each visit"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience white-glove pet grooming service designed for discerning pet parents who demand excellence. Our master groomers bring salon luxury to your estate, using premium organic products and artisan techniques perfected over decades. Your cherished companion receives undivided attention in our state-of-the-art mobile spa, ensuring a transformative experience that reflects your commitment to their wellbeing.",
+    "budget_conscious": "Professional grooming doesn't have to break the bank. Our efficient mobile service eliminates salon overhead, passing savings to you. Get quality grooming at fair prices, with transparent pricing and no hidden fees. Payment plans available, and our maintenance packages reduce per-visit costs by 25%. Quality care for your pet, respect for your budget.",
+    "enterprise": "Streamline employee benefits with corporate mobile grooming packages. Boost productivity by eliminating 4-hour grooming errands. Our B2B program includes priority scheduling, volume discounts starting at 10 employees, and monthly billing. Enhance your pet-friendly workplace culture while demonstrating genuine care for work-life balance. ROI-positive benefit that costs less than one sick day."
+  },
+  "trust_signals": [
+    {
+      "signal": "Licensed and insured with visible certificate display",
+      "importance": 10,
+      "format": "Physical and digital credentials"
+    },
+    {
+      "signal": "Before/after photos from 500+ local clients",
+      "importance": 8,
+      "format": "Instagram gallery and website portfolio"
+    },
+    {
+      "signal": "Real-time GPS tracking of groomer arrival",
+      "importance": 7,
+      "format": "SMS updates with live map link"
+    },
+    {
+      "signal": "Uniformed professionals with branded vehicles",
+      "importance": 6,
+      "format": "Visual professionalism"
+    },
+    {
+      "signal": "Transparent pricing calculator on website",
+      "importance": 9,
+      "format": "Interactive online tool"
+    },
+    {
+      "signal": "Video testimonials from recognized community members",
+      "importance": 8,
+      "format": "YouTube and website embeds"
+    },
+    {
+      "signal": "Partnership with local veterinary clinics",
+      "importance": 9,
+      "format": "Co-branded materials and referrals"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "92% of clients rebook within 8 weeks",
+      "credibility_score": 9,
+      "context": "Based on 2,400 clients over 24 months"
+    },
+    {
+      "stat": "4.8-star average from 1,200+ Google reviews",
+      "credibility_score": 10,
+      "context": "Independently verified ratings"
+    },
+    {
+      "stat": "Zero reported injuries in 5 years of operation",
+      "credibility_score": 10,
+      "context": "Insurance claims record"
+    },
+    {
+      "stat": "87% reduction in pet anxiety versus salon grooming",
+      "credibility_score": 7,
+      "context": "Client survey of 300 pet parents"
+    },
+    {
+      "stat": "3.2 average referrals per satisfied customer",
+      "credibility_score": 8,
+      "context": "CRM tracking over 18 months"
+    },
+    {
+      "stat": "15-minute average response time for bookings",
+      "credibility_score": 6,
+      "context": "Automated system metrics"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Japanese steel shears, organic shampoos, heated drying, hand-finishing, aromatherapy options",
+    "Standard: Professional-grade tools, quality products, efficient service, thorough grooming, basic finishing",
+    "Budget: Focus on essentials, time-efficient, standard products, functional results, limited add-ons",
+    "Red flags: Unusually low prices, no insurance mentioned, cash-only, no reviews, unmarked vehicles",
+    "Excellence markers: Certified professionals, detailed contracts, health reports, follow-up calls, guarantee offers"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 2,
+    "trigger_event": "48 hours post-grooming when transformation is still fresh but pet has settled",
+    "ask_method": "Automated SMS with one-click video testimonial link, 20% next booking discount incentive"
+  },
+  "competitive_advantages": [
+    "Only mobile groomer with veterinary partnership network providing medical referrals",
+    "Proprietary booking system with 30-second scheduling and automatic reminders",
+    "Industry-leading 2-hour service window guarantee with GPS tracking",
+    "Exclusive organic product line not available in traditional salons",
+    "Only service offering evening appointments until 8 PM weekdays"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium package at $180 first, making $120 standard package appear reasonable",
+    "sensitivity": "Price breaks at $99, $149, and $199 align with psychological thresholds",
+    "sweet_spots": [
+      "$89-109 for small dogs",
+      "$119-139 for medium dogs",
+      "$149-179 for large dogs"
+    ],
+    "decoy_pricing": "Offer 'Express Groom' at $99 to make $120 'Complete Groom' seem better value with only $21 more"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 200,
+    "competitor_research": 125
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$75-95",
+      "target_customer": "Budget-conscious regular maintenance",
+      "margin": 35
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$120-150",
+      "target_customer": "Quality-focused pet parents",
+      "margin": 55
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$180-250",
+      "target_customer": "Affluent demanding perfection",
+      "margin": 65
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle nail grinding with basic service for $15 add-on at 80% margin",
+    "Implement 6-visit package pricing with 10% discount but improved cash flow",
+    "Upsell teeth cleaning service at point of booking for $25 with 70% margin",
+    "Charge travel fees beyond 10-mile radius at $2/mile pure profit",
+    "Offer premium shampoo upgrades at 3x markup on $8 cost difference",
+    "Create recurring revenue with monthly maintenance plans at 15% discount but 40% higher LTV"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "New Year special promotions"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Winter weather challenges",
+      "opportunity": "Valentine's pet photo prep"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring shedding begins",
+      "opportunity": "De-shedding treatment packages"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Easter and spring events",
+      "opportunity": "Holiday photo specials"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Pre-summer grooming surge",
+      "opportunity": "Summer cut promotions"
+    },
+    {
+      "month": "June",
+      "variation": 30,
+      "reason": "Peak summer prep",
+      "opportunity": "Flea/tick prevention bundles"
+    },
+    {
+      "month": "July",
+      "variation": 15,
+      "reason": "Vacation season",
+      "opportunity": "Pre-boarding groom packages"
+    },
+    {
+      "month": "August",
+      "variation": 10,
+      "reason": "Late summer maintenance",
+      "opportunity": "Back-to-school family photos"
+    },
+    {
+      "month": "September",
+      "variation": 5,
+      "reason": "Routine stabilization",
+      "opportunity": "Fall coat prep services"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Halloween and fall events",
+      "opportunity": "Creative grooming options"
+    },
+    {
+      "month": "November",
+      "variation": 35,
+      "reason": "Thanksgiving hosting prep",
+      "opportunity": "Multi-pet household discounts"
+    },
+    {
+      "month": "December",
+      "variation": 40,
+      "reason": "Holiday gatherings and photos",
+      "opportunity": "Gift certificate sales"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Recovering weekend mishaps",
+      "avoid": "Early morning slots",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Regular maintenance bookings",
+      "avoid": "Late evening",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week availability seekers",
+      "avoid": "Nothing specific",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend prep",
+      "avoid": "Rush hour times",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Friday",
+      "best_for": "Weekend event preparation",
+      "avoid": "After 6 PM",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Premium service requests",
+      "avoid": "Early morning",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency and luxury clients",
+      "avoid": "Standard pricing",
+      "conversion_rate": 4.9
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Avoid scheduling on 1st and 15th when mortgage/rent due, target 5th-10th and 20th-25th",
+    "cash_flow_peaks": "Highest booking acceptance days 3-5 after typical payday cycles",
+    "slow_periods": "Days 25-31 typically show 30% lower booking rates except for emergencies"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 4-7 PM",
+      "crisis_type": "Weekend event discovery",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Monday meeting realization",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Holiday minus 2 days",
+      "crisis_type": "Hosting preparation panic",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Saturday morning",
+      "crisis_type": "Unexpected guests",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Quick & Clean",
+      "components": [
+        "Bath",
+        "Dry",
+        "Nail trim",
+        "Ear cleaning"
+      ],
+      "pricing_model": "Fixed $75-95",
+      "margin": 40
+    },
+    {
+      "name": "Full Groom",
+      "components": [
+        "All Quick & Clean",
+        "Full haircut",
+        "Teeth cleaning",
+        "Gland expression"
+      ],
+      "pricing_model": "Size-based $120-180",
+      "margin": 55
+    },
+    {
+      "name": "Spa Package",
+      "components": [
+        "All Full Groom",
+        "Moisturizing treatment",
+        "Paw massage",
+        "Cologne",
+        "Bow/bandana"
+      ],
+      "pricing_model": "Premium $200-280",
+      "margin": 65
+    },
+    {
+      "name": "Maintenance Plan",
+      "components": [
+        "Monthly Full Groom",
+        "Priority booking",
+        "10% discount",
+        "Free emergency visits"
+      ],
+      "pricing_model": "Subscription $99-159/month",
+      "margin": 60
+    }
+  ],
+  "upsell_paths": [
+    "First visit basic groom → Add nail grinding for $15 → Next visit upgrade to full groom",
+    "Single service → 3-visit package for 10% off → 6-visit package for 15% off → Monthly membership",
+    "Standard shampoo → Medicated shampoo +$20 → Organic spa shampoo +$35 → Full spa package",
+    "Basic grooming → Add teeth cleaning +$25 → Add flea treatment +$30 → Complete health package",
+    "Individual pet → Second pet same day 25% off → Household package for all pets → Neighborhood group discount",
+    "Daytime service → Evening convenience +$20 → Weekend priority +$30 → On-demand availability +$50"
+  ],
+  "retention_hooks": [
+    "Automated rebooking at checkout with 10% discount for scheduling within 8 weeks",
+    "Pet birthday grooming reminders with special birthday bandana included free",
+    "Loyalty program earning free groom after every 8 paid services",
+    "Exclusive access to emergency same-day slots for regular clients",
+    "Personalized grooming notes maintained for consistent results across visits",
+    "Seasonal coat care education and reminders based on breed-specific needs",
+    "VIP client status after 12 visits with priority booking and premium perks"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both parties get $25 off next service",
+      "timing": "Immediately after service completion",
+      "incentive": "$25 credit each",
+      "conversion_rate": 32
+    },
+    {
+      "strategy": "Social media share contest for free groom",
+      "timing": "Monthly drawing",
+      "incentive": "Free full groom valued at $150",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Neighborhood group discount for 5+ households",
+      "timing": "Community outreach events",
+      "incentive": "15% off for all participants",
+      "conversion_rate": 45
+    },
+    {
+      "strategy": "Pet photo before/after sharing program",
+      "timing": "With permission post-groom",
+      "incentive": "$10 credit per shared photo",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Veterinary clinic partnership referrals",
+      "timing": "Ongoing professional network",
+      "incentive": "Mutual referral benefits",
+      "conversion_rate": 52
+    },
+    {
+      "strategy": "Email forward campaign with tracking",
+      "timing": "Quarterly promotional periods",
+      "incentive": "Escalating rewards per successful referral",
+      "conversion_rate": 24
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Flea/tick prevention treatment",
+      "attach_rate": 35,
+      "timing": "April-September peak season"
+    },
+    {
+      "service": "Nail grinding upgrade from clipping",
+      "attach_rate": 45,
+      "timing": "Every visit opportunity"
+    },
+    {
+      "service": "Teeth cleaning add-on",
+      "attach_rate": 28,
+      "timing": "Every other visit push"
+    },
+    {
+      "service": "De-shedding treatment",
+      "attach_rate": 40,
+      "timing": "Spring and fall transitions"
+    },
+    {
+      "service": "Paw pad moisturizing",
+      "attach_rate": 22,
+      "timing": "Winter months focus"
+    },
+    {
+      "service": "Express anal gland service",
+      "attach_rate": 30,
+      "timing": "As needed basis"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Cat grooming services",
+      "market_size": "25% of existing dog market",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Pet photography add-on",
+      "market_size": "$50-150 per session",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Mobile pet spa retail products",
+      "market_size": "$30-60 average transaction",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Pet transportation services",
+      "market_size": "$40-80 per trip",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "In-home pet training coordination",
+      "market_size": "$200-500 packages",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Emergency after-hours service",
+      "market_size": "3x standard pricing",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Aussie Pet Mobile's before-and-after transformation videos on Facebook showing matted dogs transformed into fluffy, clean pets with emotional owner reactions",
+        "platform": "Facebook",
+        "why_it_worked": "Visual transformation content triggers emotional response, demonstrates expertise, and shows tangible results. The before-after format is highly shareable and relatable to pet owners dealing with similar issues",
+        "metrics": "Average 2,500-5,000 engagements per post, 300+ shares on top-performing content",
+        "source": "Aussie Pet Mobile Facebook page analysis and pet grooming industry reports from Pet Business Magazine",
+        "confidence": "high"
+      },
+      {
+        "example": "Mobile grooming businesses using TikTok videos showing 'satisfying' de-shedding sessions with calming music, particularly content from Pawsitive Mobile Grooming showing fur removal from Golden Retrievers and Huskies",
+        "platform": "TikTok",
+        "why_it_worked": "Taps into 'oddly satisfying' content trend, addresses major pain point (shedding), short-form video format ideal for mobile viewing, uses trending sounds to increase discoverability",
+        "metrics": "Top videos reach 100K-500K views, 5-8% engagement rate",
+        "source": "TikTok mobile pet grooming content analysis and Social Media Today pet industry reports",
+        "confidence": "high"
+      },
+      {
+        "example": "Email campaigns featuring 'Your pet is overdue for grooming' subject lines with personalized pet names and photos, used by Zoomin Groomin franchise",
+        "platform": "Email",
+        "why_it_worked": "Personalization increases open rates, creates urgency without being pushy, reminds customers of service need, includes pet's name which triggers emotional connection",
+        "metrics": "42% open rate vs industry average of 21%, 8.5% click-through rate",
+        "source": "Zoomin Groomin marketing case study and pet services email marketing benchmarks from Constant Contact",
+        "confidence": "medium"
+      },
+      {
+        "example": "Instagram Reels showing anxious or difficult dogs being calmed and successfully groomed in mobile van, particularly content showing senior dogs or rescue dogs with grooming trauma",
+        "platform": "Instagram",
+        "why_it_worked": "Addresses specific pain point of pet anxiety, demonstrates gentle handling expertise, builds trust with difficult-to-groom pet owners, emotional storytelling",
+        "metrics": "3-5x higher engagement than static posts, average 15,000-25,000 views for top performers",
+        "source": "Instagram mobile pet grooming business accounts and Hootsuite pet industry social media report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Google My Business posts with seasonal promotions tied to holidays (pre-Thanksgiving grooming specials, summer de-shedding packages) with strong calls-to-action",
+        "platform": "Google My Business",
+        "why_it_worked": "Captures high-intent local search traffic, seasonal timing aligns with customer triggers (hosting events), appears in local search results when customers are actively looking",
+        "metrics": "40% increase in booking inquiries during promotional periods, 3x more engagement than non-promotional posts",
+        "source": "Local service business marketing data from BrightLocal and mobile grooming business owner forums",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13-0.18% for business pages, 2-4% for video content",
+        "best_content_format": "Video (especially before/after transformations), live grooming sessions, customer testimonial videos",
+        "optimal_frequency": "4-5 posts per week, with 1-2 videos weekly",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when pet owners are planning their week",
+        "source": "Rival IQ Social Media Benchmark Report 2024 and pet services industry data from Pet Business Magazine"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.70-1.5% for posts, 2-3% for Reels in pet services",
+        "best_content_format": "Reels showing grooming process, carousel posts with before/after shots, Stories with polls and questions",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels, daily Stories",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM, Wednesday 7-9 PM, Sunday 9 AM",
+        "source": "Later.com Instagram Engagement Report 2024 and Hootsuite pet industry benchmarks"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.69% average for service businesses, 7-12% for viral pet content",
+        "best_content_format": "Short-form video (15-30 seconds), satisfying grooming content, pet transformation reveals, educational tips",
+        "optimal_frequency": "3-5 videos per week minimum, daily for growth phase",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-9 PM EST, Friday 5-7 PM",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.33% open rate, 2.62% click-through rate for pet services industry",
+        "best_content_format": "Personalized appointment reminders, seasonal promotions, educational content about pet health, loyalty rewards",
+        "optimal_frequency": "2-3 emails per month, with additional triggered emails for appointment reminders",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM, avoid Mondays and weekends",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Constant Contact industry reports"
+      },
+      {
+        "platform": "Google My Business",
+        "avg_engagement_rate": "Local service businesses see 35% more direction requests and 42% more website clicks with weekly posts",
+        "best_content_format": "Photos of recent grooms, special offers, service updates, Q&A responses",
+        "optimal_frequency": "2-3 posts per week, respond to all reviews within 24 hours",
+        "best_posting_times": "Post offers on Monday-Tuesday for week-ahead bookings",
+        "source": "BrightLocal Local Consumer Review Survey 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Problem-agitation-solution with specific pet scenario",
+        "example": "Is your dog's shedding taking over your couch? Here's what professional de-shedding can do...",
+        "why_it_works": "Immediately identifies with specific pain point, creates visual image of problem, promises solution without being salesy",
+        "source": "Mobile grooming business Facebook ads and Google Ads copy analysis"
+      },
+      {
+        "hook_pattern": "Time-saving quantification",
+        "example": "Get 4 hours of your Saturday back - We come to you",
+        "why_it_works": "Quantifies the convenience benefit, speaks to busy professionals, emphasizes key differentiator of mobile service",
+        "source": "Zoomin Groomin and Aussie Pet Mobile marketing materials"
+      },
+      {
+        "hook_pattern": "Emotional transformation promise",
+        "example": "From stressed and matted to fluffy and happy - without leaving your driveway",
+        "why_it_works": "Creates before/after mental image, addresses pet welfare concern, reinforces convenience, uses emotional language",
+        "source": "Instagram captions from top mobile grooming accounts"
+      },
+      {
+        "hook_pattern": "Anxiety/stress relief angle",
+        "example": "Does your dog hate car rides? We bring the spa to them",
+        "why_it_works": "Identifies with major pain point (car-anxious pets), positions service as solution to pet stress, uses calming spa imagery",
+        "source": "Mobile grooming service websites and email subject lines"
+      },
+      {
+        "hook_pattern": "Social proof with specificity",
+        "example": "How [local area] pet parents are getting salon-quality grooms at home",
+        "why_it_works": "Local relevance builds trust, implies social proof, creates FOMO, positions as premium service",
+        "source": "Google Ads and Facebook ad copy from successful campaigns"
+      },
+      {
+        "hook_pattern": "Urgency tied to pet health",
+        "example": "Matted fur isn't just ugly - it's painful. Book before it gets worse",
+        "why_it_works": "Educates while creating urgency, appeals to pet welfare concern, positions grooming as health necessity not luxury",
+        "source": "Email marketing campaigns and blog content from mobile groomers"
+      },
+      {
+        "hook_pattern": "Seasonal/event-driven urgency",
+        "example": "Guests coming for Thanksgiving? Get your pet camera-ready",
+        "why_it_works": "Ties to specific upcoming event, creates deadline, appeals to pride in pet's appearance",
+        "source": "Seasonal promotional emails and social media posts"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My dog absolutely hates going to the groomer and shakes the entire car ride",
+        "I can't lift my 70-pound dog into the car anymore",
+        "Every time I try to bathe him myself it's a disaster and he still smells",
+        "The fur is taking over my house no matter how much I vacuum",
+        "His nails are so long they're clicking on the floor and I'm worried he'll hurt himself",
+        "She has mats behind her ears that I can't get out and she won't let me near them",
+        "I don't have 3 hours to waste sitting at a grooming salon",
+        "He gets so stressed around other dogs at regular groomers",
+        "I'm embarrassed when people come over because my dog looks and smells terrible",
+        "The groomer is 30 minutes away and my dog gets carsick"
+      ],
+      "solution_phrases": [
+        "They came right to my driveway - so convenient",
+        "My dog was so much calmer getting groomed at home in familiar surroundings",
+        "I could watch through the window and she wasn't stressed at all",
+        "I got to stay productive working from home while they groomed him",
+        "No more wrestling a wet dog into my car",
+        "They were so gentle with her matted fur",
+        "He looks like a completely different dog - I'm so proud to show him off now",
+        "The groomer took extra time because she wasn't rushed with other appointments",
+        "I can finally have people over without being embarrassed",
+        "They texted me when they were 10 minutes away - so easy to plan around"
+      ],
+      "objection_phrases": [
+        "Isn't mobile grooming more expensive than regular groomers?",
+        "I'm worried about letting a stranger in my driveway",
+        "Do they have everything they need in the van?",
+        "What if my dog doesn't behave for them?",
+        "How do I know they're qualified and certified?",
+        "Can they handle large breed dogs in a van?",
+        "What if they damage my driveway or property?",
+        "Do I need to provide water and electricity?",
+        "How far in advance do I need to book?",
+        "What happens if my dog has special needs or health issues?"
+      ],
+      "decision_factors": [
+        "Convenience of not having to transport my dog",
+        "One-on-one attention without other dogs around",
+        "Groomer's experience with anxious or difficult dogs",
+        "Certification and professional training",
+        "Reviews from other local pet owners",
+        "Ability to book online or through text",
+        "Clear pricing with no hidden fees",
+        "Gentle handling and patience with my pet",
+        "Quality of the final result - how my dog looks and smells",
+        "Flexibility with scheduling and last-minute changes",
+        "They use high-quality shampoos and products"
+      ],
+      "emotional_language": [
+        "Peace of mind knowing he's not stressed",
+        "Relief that I don't have to struggle anymore",
+        "So proud of how beautiful she looks",
+        "Grateful for the extra time in my day",
+        "Confidence that he's being handled by a professional",
+        "Happy that she's comfortable and calm",
+        "Excited to show him off to family",
+        "Amazed at the transformation",
+        "Reassured by how gentle they were",
+        "Thrilled that it was so easy"
+      ],
+      "sources": [
+        "Google Reviews for Aussie Pet Mobile, Zoomin Groomin, and local mobile groomers",
+        "Yelp reviews for mobile pet grooming services nationwide",
+        "Reddit threads in r/dogs, r/DogGrooming discussing mobile grooming experiences",
+        "Facebook comments on mobile grooming business posts",
+        "Nextdoor neighborhood recommendations and discussions"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about pet health indicators visible during grooming (skin conditions, ear infections, lumps) - most focus only on aesthetics",
+      "Behind-the-scenes content showing van setup, equipment, and sanitation processes - builds trust but rarely shown",
+      "Content specifically for senior pet owners emphasizing accessibility and dignity",
+      "Breed-specific grooming education and demonstrations",
+      "Mental health benefits for pets (reduced anxiety) with expert veterinary backing",
+      "Integration with veterinary care coordination - positioning as part of pet wellness routine",
+      "Content for multi-pet households showing efficiency and package deals",
+      "Environmental angle - water usage comparison vs traditional groomers, eco-friendly products",
+      "Male pet owner content - most marketing skews heavily female",
+      "Corporate/professional pet owner angle - positioning as time-saving for high-earners"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "November-December (Holiday Season)",
+        "opportunity": "Pet parents hosting family gatherings, holiday photos, visiting relatives with pets",
+        "content_angle": "Get your pet holiday-ready, camera-ready pets for family photos, pre-guest grooming packages, gift certificates for pet-loving family members"
+      },
+      {
+        "period": "March-May (Spring Shedding Season)",
+        "opportunity": "Heavy shedding season for double-coated breeds, spring cleaning motivation",
+        "content_angle": "De-shedding treatments, blow-out packages, before/after shedding content, furniture protection tips, allergy relief for family members"
+      },
+      {
+        "period": "June-August (Summer)",
+        "opportunity": "Heat relief for pets, vacation prep, outdoor activities increase",
+        "content_angle": "Summer cuts for heat relief, pre-vacation grooming, tick/flea prevention tie-ins, beach/lake prep grooming"
+      },
+      {
+        "period": "September (Back to School)",
+        "opportunity": "Families establishing new routines, more time at home for appointments",
+        "content_angle": "Establish regular grooming schedule, routine care packages, work-from-home convenience"
+      },
+      {
+        "period": "January-February (New Year)",
+        "opportunity": "New Year's resolutions for pet care, post-holiday budget consciousness",
+        "content_angle": "Pet wellness goals, membership/subscription packages, fresh start for pet care routine"
+      },
+      {
+        "period": "October (Adopt a Shelter Dog Month)",
+        "opportunity": "New pet adoptions, rescue dog grooming needs",
+        "content_angle": "First groom for rescue dogs, transformation stories, gentle handling for traumatized pets, new pet parent packages"
+      },
+      {
+        "period": "Year-round - Every 6-8 weeks",
+        "opportunity": "Regular grooming cycle timing, appointment reminders",
+        "content_angle": "Automated reminder campaigns, subscription models, loyalty rewards for regular customers"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Aussie Pet Mobile Facebook and Instagram accounts",
+      "Zoomin Groomin franchise marketing materials",
+      "Google Reviews for mobile pet grooming services",
+      "Yelp mobile pet grooming reviews",
+      "Reddit r/dogs and r/DogGrooming communities",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Hootsuite Social Media Trends Report 2024",
+      "Later.com Instagram Engagement Report 2024",
+      "Influencer Marketing Hub TikTok Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Constant Contact industry reports",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Pet Business Magazine industry reports",
+      "Social Media Today pet industry analysis",
+      "Nextdoor community recommendations",
+      "TikTok mobile pet grooming content analysis",
+      "Mobile grooming business websites and blogs"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook variations",
+      "Exact conversion rates for most content examples not publicly disclosed",
+      "Industry-wide mobile grooming specific benchmarks are limited - had to extrapolate from broader pet services data",
+      "TikTok engagement rates vary widely and platform doesn't provide business analytics publicly",
+      "Some engagement metrics estimated from visible public data rather than official analytics"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: De-shedding treatment reveal - teasing the transformation power of professional blow-out packages",
+        "Week 2: Stress-free grooming revolution - showcasing anxious dog success stories and calm mobile environment",
+        "Week 3: Time-saving proof - real customers sharing how they got their Saturday back",
+        "Week 4: Holiday-ready urgency - final push for pre-Thanksgiving grooming appointments"
+      ],
+      "weekly_hooks": [
+        [
+          "What if your dog could get salon-quality grooming without the car ride panic? Coming next week...",
+          "We've been perfecting something that will save [local area] pet parents 4+ hours every month",
+          "Your couch is about to get a break from all that shedding - here's a sneak peek"
+        ],
+        [
+          "From stressed and matted to fluffy and happy - without leaving your driveway. [New service] is here!",
+          "Does your dog hate car rides? We're bringing the spa to them with our new [service package]",
+          "Get 4 hours of your Saturday back - [New mobile grooming package] now available in [area]"
+        ],
+        [
+          "How [customer name]'s car-anxious Golden Retriever stayed calm for his first professional groom",
+          "'I could watch through the window and she wasn't stressed at all' - Meet [customer] and [pet name]",
+          "This 70-pound senior dog hasn't been groomed in 2 years. Watch what happened when we came to him"
+        ],
+        [
+          "Guests coming for Thanksgiving? Only 12 spots left for pre-holiday grooming",
+          "Matted fur isn't just ugly - it's painful. Book [new service] before the holiday rush",
+          "Last chance: Get your pet camera-ready before family arrives. [Limited slots] remaining"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if my dog doesn't behave for them?' through gentle handling previews",
+        "Week 2: Address 'Do they have everything they need in the van?' with behind-the-scenes equipment tours",
+        "Week 3: Address 'Isn't mobile grooming more expensive?' with time-savings ROI calculator",
+        "Week 4: Address 'How far in advance do I need to book?' with urgency-based availability updates"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce groomer certifications and fear-free training credentials",
+        "Week 2: Share van setup video showing professional equipment and sanitation process",
+        "Week 3: Feature 3-5 video testimonials from beta customers with before/after transformations",
+        "Week 4: Final credibility push with '500+ local pets groomed' milestone and A+ BBB rating"
+      ],
+      "cta_progression": [
+        "Week 1: 'Get notified when [new service] launches in your area' - email capture",
+        "Week 2: 'See if we service your neighborhood' - interactive map engagement",
+        "Week 3: 'Schedule your first appointment and save 20%' - early adopter discount",
+        "Week 4: 'Book now - only [X] holiday slots remaining' - scarcity-driven conversion"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - primary platform for video testimonials and before/after transformations",
+        "Instagram (7 posts/week including 4 Reels) - visual transformation content and Stories",
+        "Google My Business (3 posts/week) - capture high-intent local search traffic",
+        "Email (2 sends) - Week 2 launch announcement and Week 4 urgency reminder"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Aussie Pet Mobile's before-after transformation videos achieving 2,500-5,000 engagements and Zoomin Groomin's personalized email campaigns with 42% open rates. Launch timing aligned with November-December holiday season opportunity when pet parents are hosting gatherings."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Shedding solutions - de-shedding education and furniture protection tips",
+        "Week 2: Anxious pet success stories - gentle handling demonstrations with difficult dogs",
+        "Week 3: Health indicators during grooming - educational content on skin conditions and early detection",
+        "Week 4: Breed-specific grooming needs - tailored care for different coat types",
+        "Week 5: Senior pet care - accessibility and dignity for aging companions",
+        "Week 6: Time-saving testimonials - busy professional success stories",
+        "Week 7: Grooming cycle reminders - 6-8 week maintenance education",
+        "Week 8: Multi-pet household efficiency - package deals and scheduling tips"
+      ],
+      "weekly_hooks": [
+        [
+          "Is your dog's shedding taking over your couch? Here's what professional de-shedding can do",
+          "The fur is taking over my house no matter how much I vacuum - sound familiar?",
+          "Spring shedding season: Why your vacuum isn't enough and what actually works"
+        ],
+        [
+          "This rescue dog shakes during car rides. Watch how mobile grooming changed everything",
+          "Does your dog absolutely hate going to the groomer? Here's the stress-free alternative",
+          "From terrified to transformed: How we groom pets with severe anxiety"
+        ],
+        [
+          "What your groomer sees that you don't - 7 health warning signs we check every visit",
+          "This routine grooming appointment caught a skin infection early, saving $800 in vet bills",
+          "Beyond aesthetics: How professional grooming is part of your pet's wellness routine"
+        ],
+        [
+          "Golden Retriever vs. Poodle grooming: Why one-size-fits-all doesn't work",
+          "Your Husky needs different care than your neighbor's Labradoodle - here's why",
+          "Breed-specific grooming mistakes that damage your dog's coat"
+        ],
+        [
+          "I can't lift my 70-pound dog into the car anymore - here's how we help senior pet parents",
+          "Gentle grooming for senior dogs: Maintaining dignity and comfort in their golden years",
+          "This 12-year-old dog got his first professional groom in 3 years - the transformation"
+        ],
+        [
+          "'I got to stay productive working from home while they groomed him' - Meet Sarah",
+          "Get 4 hours of your Saturday back - how [local area] professionals are grooming smarter",
+          "Time is money: The hidden cost of traditional grooming for busy pet parents"
+        ],
+        [
+          "Your pet is overdue for grooming - here's why the 6-week cycle matters",
+          "Waiting too long between grooms? The painful consequences of matted fur",
+          "How often should [breed] be groomed? The science behind the 6-8 week rule"
+        ],
+        [
+          "3 dogs, 1 appointment: How we make multi-pet grooming efficient and affordable",
+          "Save $40 per visit with our multi-pet package - here's how it works",
+          "Managing multiple pets? Why mobile grooming is your secret weapon"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can groom my pet myself' with professional equipment comparison",
+        "Week 2: Address 'My dog is aggressive with strangers' with fear-free certification proof",
+        "Week 3: Address 'My pet doesn't really need grooming that often' with health consequence education",
+        "Week 4: Address 'Can they handle large breed dogs in a van?' with size accommodation proof",
+        "Week 5: Address 'What if my dog has special needs?' with senior care expertise",
+        "Week 6: Address 'Isn't mobile grooming more expensive?' with time-savings ROI breakdown",
+        "Week 7: No objection - reinforcement week",
+        "Week 8: Address 'Do I need to provide water and electricity?' with self-sufficient van features"
+      ],
+      "proof_timing": [
+        "Week 1: Share satisfying de-shedding videos showing fur removal results",
+        "Week 2: Feature anxious dog testimonial with owner reaction video",
+        "Week 3: Introduce veterinary partnerships and health screening credentials",
+        "Week 4: Showcase breed-specific expertise with diverse portfolio",
+        "Week 5: Share senior pet success stories with emotional owner testimonials",
+        "Week 6: Feature time-tracking comparison and customer time-savings data",
+        "Week 7: Display loyalty program members and repeat customer statistics",
+        "Week 8: Show multi-pet appointment behind-the-scenes efficiency"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our free de-shedding guide' - lead magnet",
+        "Week 2: 'Does this sound like your dog? Comment below' - engagement",
+        "Week 3: 'Schedule your pet's wellness grooming check' - soft conversion",
+        "Week 4: 'Find your breed's grooming plan' - interactive tool",
+        "Week 5: 'Book a gentle senior grooming session' - targeted conversion",
+        "Week 6: 'Calculate how much time you'll save' - ROI calculator",
+        "Week 7: 'Join our 6-week grooming membership' - subscription pitch",
+        "Week 8: 'Get multi-pet pricing for your household' - package inquiry"
+      ],
+      "platform_priority": [
+        "Instagram (7 posts/week including 4 Reels) - primary platform for transformation content and educational Reels",
+        "Facebook (5 posts/week with 2 videos) - video testimonials and longer educational content",
+        "TikTok (4 videos/week) - satisfying grooming content and viral-optimized tips",
+        "Email (2-3 sends/month) - appointment reminders and educational newsletters",
+        "Google My Business (2 posts/week) - local SEO and review generation"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Instagram Reels showing anxious dogs achieving 3-5x higher engagement than static posts, and TikTok satisfying de-shedding content reaching 100K-500K views with 5-8% engagement. Cycle addresses competitive gaps in educational content about pet health indicators and breed-specific grooming education."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral transformation content - maximum shareability before/after reveals",
+        "Week 2: Community engagement blitz - local area targeting and user-generated content push"
+      ],
+      "weekly_hooks": [
+        [
+          "This matted rescue dog hasn't been groomed in 18 months. You won't believe the after",
+          "POV: Your Golden Retriever during de-shedding season (the results are oddly satisfying)",
+          "From embarrassed by my pet's smell to proud to show him off - the 90-minute transformation",
+          "Watch this anxious senior dog's reaction to his first stress-free grooming experience",
+          "Is your [breed] shedding like this? Here's the professional solution [local area] pet parents are using"
+        ],
+        [
+          "Tag a [local area] pet parent who needs to see this transformation",
+          "Show us your pet's before grooming photo - best submission wins free de-shedding treatment",
+          "How many [local area] pet owners are dealing with this shedding nightmare? 🙋",
+          "Your neighbor's dog looks amazing - here's their secret (and it comes to your driveway)",
+          "Which [local area] dog needs our mobile spa next? Nominate a friend in the comments"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't trust strangers in my driveway' with bonded/insured credentials and real-time tracking",
+        "Week 2: Address 'How do I know they're qualified?' with certification showcase and local testimonials"
+      ],
+      "proof_timing": [
+        "Week 1: Launch 5-7 dramatic before/after transformation videos with emotional owner reactions",
+        "Week 2: Share 15-20 local customer testimonials with neighborhood-specific references and tagged locations"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily transformation reveals' - follower growth focus",
+        "Week 1: 'Share this with a pet parent who needs to see it' - viral spread",
+        "Week 2: 'Comment your neighborhood - we'll tell you if we service your area' - engagement and data collection",
+        "Week 2: 'First 20 new customers get 25% off - book now' - conversion with scarcity"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 videos/week) - primary viral growth platform with satisfying grooming content",
+        "Instagram Reels (10-12 Reels/week) - secondary viral platform with transformation reveals",
+        "Facebook (8-10 posts/week) - community sharing and local targeting",
+        "Instagram Stories (3-5 daily) - behind-the-scenes and polls for algorithm boost"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok satisfying de-shedding content achieving 100K-500K views with 7-12% engagement rates, and Instagram Reels with anxious dogs generating 15,000-25,000 views. High-frequency posting optimized for TikTok's Tuesday-Thursday 7-9 AM/PM peak times and Instagram's Monday-Friday 11 AM-1 PM windows."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Pet health education - skin conditions, ear infections, and lumps detected during grooming",
+        "Week 2: Behavioral science - understanding and managing pet anxiety during grooming",
+        "Week 3: Coat science - breed-specific grooming requirements and common mistakes",
+        "Week 4: Senior pet wellness - age-appropriate grooming and mobility considerations",
+        "Week 5: Veterinary collaboration - positioning grooming as preventive healthcare",
+        "Week 6: Industry standards - certification, training, and what separates professionals from amateurs"
+      ],
+      "weekly_hooks": [
+        [
+          "What your groomer sees that could save your pet's life - 12 health indicators we check",
+          "This routine grooming caught a cancerous lump early. Here's what we look for every session",
+          "Beyond the fluff: How professional groomers perform health screenings your vet will thank you for"
+        ],
+        [
+          "The science behind why your dog hates the groomer (and how we use fear-free techniques)",
+          "Car anxiety isn't stubbornness - it's a stress response. Here's the neuroscience",
+          "Why one-on-one grooming reduces cortisol levels by 40% compared to salon environments"
+        ],
+        [
+          "You're damaging your Poodle's coat - here's the science of proper grooming cycles",
+          "Double-coated vs. single-coated breeds: Why your Husky needs different care than your Yorkie",
+          "The anatomy of matting: Why waiting too long causes pain (with veterinary explanation)"
+        ],
+        [
+          "Grooming senior dogs: Joint-friendly positioning and dignity-preserving techniques",
+          "When arthritis makes grooming painful - adaptations that keep aging pets comfortable",
+          "The correlation between regular grooming and lifespan extension in senior pets"
+        ],
+        [
+          "What we report to your vet: How professional groomers support your pet's healthcare team",
+          "Anal gland expression prevents $200+ vet visits - here's the medical explanation",
+          "Integrating grooming into your pet's preventive care routine: A veterinary perspective"
+        ],
+        [
+          "Not all groomers are created equal - certifications that actually matter",
+          "Our 40-hour fear-free training vs. unlicensed competitors: What you're really paying for",
+          "Behind the scenes: The sanitation protocols that protect your pet from disease transmission"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My pet doesn't really need grooming that often' with health consequence data",
+        "Week 2: Address 'My dog is aggressive with strangers' with behavioral science and training credentials",
+        "Week 3: Address 'I can groom my pet myself' with professional expertise comparison",
+        "Week 4: Address 'Can they handle special needs pets?' with senior care specialization proof",
+        "Week 5: Address 'Is this really necessary?' with veterinary-backed preventive care argument",
+        "Week 6: Address 'How do I know they're qualified?' with comprehensive certification breakdown"
+      ],
+      "proof_timing": [
+        "Week 1: Share case study of health issue detected during routine grooming with vet confirmation",
+        "Week 2: Introduce fear-free certification credentials and behavioral training background",
+        "Week 3: Feature breed-specific grooming portfolio with expert commentary",
+        "Week 4: Showcase senior pet testimonials with age-appropriate handling techniques",
+        "Week 5: Present veterinary partnerships and referral relationships",
+        "Week 6: Display all certifications, insurance, background checks, and industry memberships"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our 12-point health screening checklist' - educational lead magnet",
+        "Week 2: 'Take our pet anxiety assessment quiz' - interactive engagement",
+        "Week 3: 'Find your breed's grooming requirements guide' - personalized content",
+        "Week 4: 'Schedule a gentle senior wellness groom' - soft conversion for specific segment",
+        "Week 5: 'Request your pet's grooming health report' - value-add service intro",
+        "Week 6: 'Book with certified professionals - see our credentials' - credibility-driven conversion"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - primary platform for longer educational content and article shares",
+        "Instagram (6 posts/week including 3 educational Reels) - visual education and infographics",
+        "Email (weekly newsletter) - deep-dive educational content with expert positioning",
+        "Google My Business (2 posts/week) - Q&A responses demonstrating expertise",
+        "Blog/Website (1 long-form article/week) - SEO-optimized thought leadership content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing lack of educational content about pet health indicators visible during grooming and veterinary care coordination positioning. Addresses the opportunity to position grooming as part of pet wellness routine rather than purely aesthetic service."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive pet parent community building - polls, questions, and shared experiences",
+        "Week 2: User-generated content celebration - customer transformation showcases and nominations"
+      ],
+      "weekly_hooks": [
+        [
+          "What's your biggest struggle with grooming your pet? (Wrong answers only) 😂",
+          "Show us your pet's reaction when you say 'bath time' - funniest video wins",
+          "Poll: Does your dog shed more than you vacuum? 🙋 Let's commiserate together",
+          "Fill in the blank: My dog's grooming appointment is overdue because ___",
+          "Which [local area] neighborhood has the fluffiest dogs? Rep your area in the comments",
+          "Tag someone whose dog desperately needs a grooming appointment (we'll wait) 👀"
+        ],
+        [
+          "Share your pet's before/after glow-up - best transformation gets featured on our page",
+          "Nominate a [local area] pet parent who deserves a free grooming session and tell us why",
+          "Drop a photo of your freshly groomed pet below - let's celebrate these beautiful babies",
+          "Which local dog park has the best-groomed pups? We're settling this debate",
+          "Show us your pet's most dramatic grooming transformation - the messier the before, the better",
+          "Your pet made our groomer's day - share your experience and tag us for a repost"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Soft address of 'I'm worried about letting strangers in my driveway' through community trust-building",
+        "Week 2: Soft address of 'Isn't mobile grooming more expensive?' through value demonstration in UGC"
+      ],
+      "proof_timing": [
+        "Week 1: Feature 8-10 customer poll responses and shared experiences showing community",
+        "Week 2: Showcase 15-20 user-generated transformation photos with customer testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in our poll' - low-barrier engagement",
+        "Week 1: 'Share your story in the comments' - conversation starter",
+        "Week 2: 'Submit your pet's photo for a chance to win' - UGC collection",
+        "Week 2: 'Tag a friend who needs this' - viral spread and referral generation",
+        "Week 2: 'Book your pet's transformation - show us the results' - conversion with engagement hook"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 daily) - primary engagement platform with polls, questions, and quizzes",
+        "Facebook (8-10 posts/week) - community discussion and comment engagement",
+        "Instagram Feed (10-12 posts/week) - UGC reposts and transformation galleries",
+        "TikTok (5-7 videos/week) - trending sounds and duet-worthy content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Reels achieving 2-3% engagement rates for pet services and Facebook video content generating 2,500-5,000 engagements per post for Aussie Pet Mobile. High-frequency posting optimized for Instagram's daily Stories recommendation and Facebook's Tuesday-Thursday 1-3 PM engagement peaks."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Pet owners lose an average of 4 hours every grooming appointment. Here's the hidden cost nobody talks about:\n\n❌ PROBLEM: Traditional grooming means:\n- 30-45 min drive each way\n- 2-3 hour wait time\n- Stressed pets from car rides\n- Lost productivity for pet parents\n\n💡 SOLUTION: Mobile grooming eliminates ALL of this.\n\nAs a mobile pet grooming professional, I've seen how this model transforms the pet care industry. Pet parents work from home while we groom. Senior citizens maintain independence without heavy lifting. Anxious dogs stay calm in familiar surroundings.\n\nThe convenience economy isn't just for humans - our pets benefit too.\n\n[BUSINESS_NAME] serves [CITY/REGION] with certified, professional grooming right at your doorstep.\n\nWhat's the biggest time-waster in your pet care routine? Let's discuss solutions below. 👇\n\n#PetCare #MobileServices #PetGrooming #SmallBusiness #ConvenienceEconomy",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [NUMBER] years grooming [NUMBER]+ pets, I've learned something critical:\n\nThe environment matters MORE than the technique.\n\n🎯 ATTENTION: Most grooming anxiety isn't about the grooming - it's about the chaos.\n\n📊 INTEREST: Here's what I've observed:\n- Dogs groomed at home show 60% less stress behaviors\n- One-on-one attention = better results in less time\n- Owners who can monitor feel 10x more confident\n\n✨ DESIRE: Mobile grooming isn't a luxury - it's a welfare improvement. When pets aren't overstimulated by other animals, unfamiliar spaces, and car anxiety, the entire experience transforms.\n\n🚐 ACTION: The future of pet services is personalized, convenient, and stress-free.\n\nI'm [YOUR_NAME], certified groomer and founder of [BUSINESS_NAME]. We're reimagining pet care in [CITY] by bringing professional services to your driveway.\n\nThoughts from fellow pet professionals? How are you adapting to the convenience economy?\n\n#PetGrooming #AnimalWelfare #MobileBusiness #PetIndustry #ThoughtLeadership",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Clients told me \"I dread grooming day\" 😰\n\nAFTER: Now they say \"I didn't even know you left!\" 🎉\n\n🔄 THE BRIDGE: Mobile grooming at [BUSINESS_NAME]\n\nWhat changed?\n\n✅ No more wrestling pets into cars\n✅ No more waiting rooms with barking dogs\n✅ No more losing half your Saturday\n✅ Professional results without leaving home\n\nOur fully-equipped mobile salon brings:\n→ Certified grooming professionals\n→ Premium products and equipment\n→ Personalized one-on-one attention\n→ Stress-free experience for anxious pets\n\n[CITY/REGION] pet parents: We're currently booking [TIMEFRAME] appointments.\n\nFirst-time clients: Mention this post for [DISCOUNT_AMOUNT] off your first groom.\n\nBook online: [WEBSITE_LINK]\nQuestions? Comment below or DM directly.\n\n#MobileGrooming #[City]Pets #PetCare #DogGrooming #ProfessionalServices",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your dog's nails shouldn't click on the floor 🔊 Here's why it matters:\n\nLong nails = joint pain, posture problems, and potential injury. Most pet parents wait too long between trims.\n\n🐾 SWIPE to see:\n1️⃣ How to tell nails are too long\n2️⃣ What happens to joints over time\n3️⃣ Proper nail length (hear the difference!)\n4️⃣ How often YOUR breed needs trims\n5️⃣ Why mobile grooming = less nail anxiety\n\nWe come to you every [FREQUENCY] to keep [PET_NAME] comfortable and healthy. No car stress, no waiting.\n\n📍 Serving [CITY] • Link in bio to book\n\nDoes your pup's nails click? Drop a 🔊 below! #DogNails #PetHealth #MobileGrooming #DogCare #[City]Dogs",
+        "visual": "Carousel: 1) Close-up of dog paw with long nails on hardwood floor 2) Diagram showing joint stress from long nails 3) Side-by-side proper vs too-long nails 4) Breed-specific nail growth chart 5) Happy dog in mobile grooming van getting nails done calmly"
+      },
+      "authority": {
+        "caption": "I've groomed over [NUMBER] anxious dogs. Here's what actually works:\n\nIt's not treats. It's not restraints. It's ENVIRONMENT.\n\nWatch how [DOG_NAME] went from terrified at salons to relaxed at home 👆\n\nThe difference? \n✨ Familiar smells\n✨ No other dogs\n✨ Owner nearby\n✨ One-on-one attention\n✨ No car ride trauma\n\nMobile grooming isn't just convenient - it's therapeutic for anxious pets.\n\n[NUMBER] years certified • [NUMBER]+ calm grooms • Your driveway 🚐\n\nHas your dog ever been scared at the groomer? You're not alone. Link in bio 💙\n\n#AnxiousDog #DogGrooming #MobileGroomer #DogAnxiety #GentleGrooming #[City]Pets",
+        "visual": "Reel: Split-screen showing same dog at traditional groomer (shaking, stressed) vs in mobile van at home (calm, relaxed). Overlay text: 'Same dog. Different environment. Everything changed.' End frame: Dog happily jumping out of van at home"
+      },
+      "promotional": {
+        "caption": "From matted mess to fluffy perfection 🤩 Without leaving the driveway\n\nBEFORE ➡️ AFTER magic happening in [CITY] driveways every week!\n\n[PET_NAME] got:\n🛁 De-shedding treatment\n✂️ Full haircut\n💅 Nail trim\n👂 Ear cleaning\n🎀 Bow tie ready for [UPCOMING_EVENT]\n\nTotal time: [TIME] • Owner stayed productive at home • Zero car stress\n\n🎉 [SEASONAL_PROMOTION]: Book by [DATE] and save [DISCOUNT]\n\nPerfect timing for:\n→ Holiday photos\n→ Family gatherings  \n→ Finally tackling that shedding\n\nLink in bio or text [PHONE] 📱\nServing [CITY/AREAS]\n\n👇 Tag someone whose pup needs this glow-up!\n\n#DogTransformation #BeforeAndAfter #MobileGrooming #[City]Dogs #DogGroomer #PetGrooming",
+        "visual": "Carousel: 1) Dramatic before photo of matted, dirty dog 2) Action shot of grooming in progress in van 3) Stunning after photo of fluffy, clean dog 4) Happy owner holding transformed pet 5) Promotional graphic with pricing/offer details"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🐕 SHEDDING TAKING OVER YOUR HOUSE? Here's what actually works (and what doesn't):\n\nI see this every spring: Pet parents vacuuming 3x daily, lint rolling before leaving the house, finding fur in their COFFEE ☕\n\nLet's talk solutions:\n\n❌ WHAT DOESN'T WORK:\n- Regular brushing alone (you're only getting surface fur)\n- \"Shedding\" shampoos from the store\n- Hoping it stops on its own\n\n✅ WHAT ACTUALLY WORKS:\n- Professional de-shedding treatment (removes undercoat properly)\n- High-velocity dryer that blasts out loose fur\n- Specialized tools for your dog's specific coat type\n- Consistent grooming every 4-6 weeks during shedding season\n\n💡 THE DIFFERENCE: When I de-shed a Golden Retriever, we remove POUNDS of undercoat. Literally. Your vacuum can't do this.\n\nOne professional de-shedding = 2-3 weeks of significantly less fur at home.\n\nAnd here's the best part: We come to YOUR driveway. All that fur stays in our van, not your bathroom. Your dog stays calm at home. You stay productive.\n\n📍 Serving [CITY] and surrounding areas\n🚐 Fully equipped mobile grooming salon\n📅 Booking [TIMEFRAME] appointments now\n\nQuestions about your breed's shedding? Ask below! I'll answer every single one 👇\n\n[LINK to booking]\n\n#[City]Pets #DogShedding #MobileGrooming #PetCareTips"
+      },
+      "authority": {
+        "template": "Can we talk about something that's been bothering me in the pet grooming industry?\n\nThe \"drop-off\" model is broken. And it's stressing out our pets unnecessarily.\n\nHere's what I mean:\n\nTraditional grooming = Your dog spends 2-4 hours in a kennel waiting their turn, surrounded by barking dogs, in an unfamiliar place, wondering if you're coming back.\n\nI've been grooming professionally for [NUMBER] years. I've worked in salons. I've seen the stress.\n\nThen I switched to mobile grooming, and everything changed:\n\n🐾 Average appointment time: 60-90 minutes (not 4 hours)\n🐾 Zero kennel time - we start immediately  \n🐾 One-on-one attention - no distractions\n🐾 Familiar environment - their home, their smells\n🐾 Owner can check in - peace of mind for everyone\n\nThe results speak for themselves:\n→ Dogs that \"hate\" grooming relax in our van\n→ Senior dogs don't need stressful car rides\n→ Anxious pets don't shut down from overstimulation\n→ Aggressive dogs behave better without triggers\n\nI'm not saying mobile grooming is the only answer. But I AM saying we need to prioritize pet welfare over convenience and profit.\n\nOur pets trust us to make good decisions for them. Sometimes that means paying a bit more for a better experience.\n\nWhat do you think? Pet parents of [CITY], how does your dog react to grooming appointments?\n\nLet's have a real conversation about this 👇\n\n#PetWelfare #DogGrooming #MobileGrooming #[City] #PetCare #AnimalWellness"
+      },
+      "promotional": {
+        "template": "⏰ [CITY] PET PARENTS: We have [NUMBER] last-minute appointments available this week!\n\nPerfect timing if:\n✅ You're hosting for [UPCOMING_HOLIDAY]\n✅ Your pup is looking (and smelling) a little rough\n✅ Those nails are clicking on the hardwood\n✅ Shedding is out of control\n✅ You've been putting it off because you're too busy\n\nHere's how easy we make it:\n\n1️⃣ Book online in 2 minutes: [LINK]\n2️⃣ We text you 10 minutes before arrival\n3️⃣ We pull up to your driveway with our fully-equipped van\n4️⃣ You go back to your day (work, errands, Netflix... we don't judge!)\n5️⃣ 60-90 minutes later: Transformed, beautiful pet 🎉\n\nNo car rides. No waiting rooms. No wasted Saturdays.\n\nOUR SERVICES:\n🛁 Full grooming packages\n✂️ Haircuts & styling  \n🐾 De-shedding treatments\n💅 Nail trims & grinding\n👂 Ear cleaning\n🦷 Teeth brushing\n\n💰 PRICING: [PRICE_RANGE] depending on size/breed/services\n📍 SERVING: [CITY and specific neighborhoods/areas]\n⭐ [NUMBER] 5-star reviews on Google\n\n🎁 FIRST-TIME CLIENT SPECIAL: Save [DISCOUNT_AMOUNT] - mention this post!\n\nBook now: [WEBSITE_LINK]\nText us: [PHONE_NUMBER]\nCall: [PHONE_NUMBER]\n\nQuestions? Drop them below or send a message. We respond fast! 💬\n\nP.S. - We're also booking regular monthly appointments. Get on the schedule before we're fully booked for [NEXT_MONTH]!\n\n#MobileGrooming #[City]Pets #DogGrooming #PetGrooming #[Neighborhood]Pets #[City]Dogs"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "Your groomer should NEVER do this to matted fur 😱",
+        "script": "HOOK: Your groomer should NEVER do this to matted fur 😱\n\n[0-3s] Show matted dog fur close-up with text: 'If your groomer does THIS...'\n\n[3-10s] Show WRONG way: quickly cutting mats with scissors close to skin. Text: 'RUN 🚩 This can cut your dog!'\n\n[10-20s] Show RIGHT way: Using mat splitter, working gently, showing patience. Text: 'Professional groomers do THIS ✅'\n\n[20-35s] Explain while demonstrating: 'Mats need to be carefully split, then brushed out in sections. It takes TIME. If your groomer rushes, your dog can get hurt.'\n\n[35-45s] Show before/after of successfully de-matted dog. Text: 'This took 45 minutes. Worth it.'\n\n[45-55s] 'Mobile grooming = no rush, one-on-one attention, time to do it right'\n\n[55-60s] CTA: 'Link in bio to book // Serving [CITY]' Show happy dog post-groom\n\nON-SCREEN TEXT: 'Mobile groomer reveals', 'Red flags vs green flags', 'Your dog deserves patience'\n\nSOUNDS: Use trending 'storytime' or 'educational' audio"
+      },
+      "authority": {
+        "hook": "POV: You're a dog who hates car rides and just found out about mobile grooming 🤯",
+        "script": "HOOK: POV: You're a dog who hates car rides and just found out about mobile grooming 🤯\n\n[0-3s] Show anxious dog in car shaking. Text: 'Me on the way to the groomer'\n\n[3-8s] Cut to same dog looking stressed in waiting room. Text: 'Me waiting with 10 other barking dogs'\n\n[8-15s] Text: 'WAIT... there's mobile grooming?!'\n\n[15-25s] Show mobile van pulling up to house. Dog watching from window, tail wagging. Text: 'They come to MY house?!'\n\n[25-35s] Show dog calmly walking to van in own driveway. Text: 'No car ride? No other dogs?'\n\n[35-45s] Show dog getting groomed peacefully, owner visible through window. Text: 'My human is RIGHT THERE if I need them'\n\n[45-55s] Show finished groom, dog hopping out of van at home. Text: 'I'm already home?! This is the BEST'\n\n[55-60s] CTA: 'Your anxious pup deserves this // [CITY] mobile grooming // Link in bio'\n\nON-SCREEN TEXT: 'Dog POV', 'Mind = blown', 'Game changer'\n\nSOUNDS: Use trending 'realization' or comedy audio"
+      },
+      "promotional": {
+        "hook": "Removing THIS MUCH fur from one dog 🤢 (oddly satisfying)",
+        "script": "HOOK: Removing THIS MUCH fur from one dog 🤢 (oddly satisfying)\n\n[0-3s] Show massive pile of removed undercoat. Text: 'This came from ONE Golden Retriever'\n\n[3-10s] Cut to beginning: Show fluffy dog before de-shedding. Text: 'Before: Walking fur tornado'\n\n[10-25s] Show satisfying de-shedding process: High-velocity dryer blowing out clouds of fur, special brush removing undercoat, fur piling up. Use multiple angles.\n\n[25-35s] Show the pile growing bigger and bigger. Text: 'Still going... and going...'\n\n[35-45s] Final pile reveal next to dog for scale. Text: 'That's literally POUNDS of fur'\n\n[45-52s] Show after: Clean, less-fluffy dog. Owner's shocked face. Text: 'Owner: I vacuum this DAILY?!'\n\n[52-60s] Text: 'Mobile de-shedding // We come to you // [CITY] // Link in bio' Show clean house interior with minimal fur\n\nON-SCREEN TEXT: 'De-shedding treatment', 'Professional vs DIY', 'Your vacuum could never'\n\nSOUNDS: Use satisfying/ASMR trending audio or 'before and after' trend sounds"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[PET_NAME] might be overdue for a nail trim - here's how to tell",
+        "preview_text": "If you hear clicking sounds, it's time. Here's why it matters...",
+        "body": "Hi [OWNER_NAME],\n\nQuick question: When [PET_NAME] walks on your hardwood floors, do you hear clicking sounds? 🔊\n\nIf yes, those nails are too long - and it's affecting more than just your floors.\n\n**WHY IT MATTERS:**\n\nLong nails force dogs to shift their weight awkwardly, leading to:\n→ Joint pain and arthritis over time\n→ Posture problems\n→ Difficulty walking on smooth surfaces\n→ Potential for painful breaks or tears\n\n**HOW TO TELL:**\n✅ Nails should NOT touch the ground when standing\n✅ You should NOT hear clicking on hard floors  \n✅ Nails shouldn't curve into the paw pad\n\n**THE SOLUTION:**\n\nMost dogs need nail trims every 3-4 weeks. We know that's hard to remember, which is why we offer:\n\n🗓️ **Auto-schedule service:** We text you when [PET_NAME] is due\n🚐 **Mobile convenience:** We come to your driveway\n💅 **Nail-only appointments:** Just 15 minutes, [NAIL_TRIM_PRICE]\n\nWant to get [PET_NAME] on a regular schedule? Reply to this email or book online:\n\n[BOOKING_LINK]\n\nYour pup's joints will thank you! 🐾\n\n[YOUR_NAME]\n[BUSINESS_NAME]\n[PHONE] // [WEBSITE]\n\nP.S. - If [PET_NAME] is anxious about nail trims, mobile grooming helps! They're calmer at home, and we take our time."
+      },
+      "authority": {
+        "subject": "Why I switched from salon grooming to mobile (after 10 years)",
+        "preview_text": "The difference in pet stress levels changed everything...",
+        "body": "Hi [OWNER_NAME],\n\nI need to share something that's been on my mind.\n\nAfter 10 years grooming in traditional salons, I made a big change: I went fully mobile.\n\nWant to know why?\n\n**THE BREAKING POINT:**\n\nI watched too many dogs shake with fear in kennels. Too many owners call asking \"Is Buddy okay?\" because they were worried. Too many pets stressed by car rides and waiting rooms.\n\nThe grooming itself? I was great at that. But the EXPERIENCE for the pets? It bothered me.\n\n**WHAT CHANGED WITH MOBILE:**\n\n✨ Dogs relax in familiar surroundings\n✨ No kennel anxiety or wait times  \n✨ Owners can check in anytime\n✨ One-on-one attention = better results\n✨ Senior pets avoid difficult car transfers\n\nI've now groomed [NUMBER]+ pets in their driveways, and the difference is night and day.\n\n**YOUR PET DESERVES THIS:**\n\nIf [PET_NAME] gets anxious about grooming, or if you're tired of the hassle of traditional groomers, let's try something different.\n\nOur mobile salon brings everything to you:\n→ Professional equipment\n→ Premium products  \n→ Certified, experienced grooming\n→ Stress-free experience\n\nFirst mobile grooming session: [DISCOUNT_AMOUNT] off with code MOBILE[NUMBER]\n\nBook here: [BOOKING_LINK]\n\nLet's give [PET_NAME] the calm, personalized grooming experience they deserve.\n\n[YOUR_NAME]\nCertified Professional Groomer\n[BUSINESS_NAME]\n[PHONE] // [WEBSITE]\n\nP.S. - Have questions about how mobile grooming works? Just reply to this email. I personally answer every message."
+      },
+      "promotional": {
+        "subject": "[PET_NAME] is due for grooming - Book by [DATE] and save [DISCOUNT]",
+        "preview_text": "Plus: [SEASONAL_PROMOTION] perfect timing for [UPCOMING_EVENT]",
+        "body": "Hi [OWNER_NAME],\n\nOur records show [PET_NAME] is due for grooming! 🛁\n\n**LAST GROOMED:** [LAST_APPOINTMENT_DATE]\n**RECOMMENDED:** Every [FREQUENCY] for [BREED_TYPE]\n\n**PERFECT TIMING FOR:**\n→ [UPCOMING_HOLIDAY] family photos\n→ Getting ahead of [SEASONAL_ISSUE] season\n→ Finally tackling that shedding situation\n\n**[SEASONAL_PROMOTION]:**\n\nBook by [DATE] and get:\n✅ [DISCOUNT_AMOUNT] off full grooming\n✅ FREE [ADD_ON_SERVICE] ([$VALUE] value)\n✅ Priority scheduling for [BUSY_SEASON]\n\n**YOUR MOBILE GROOMING INCLUDES:**\n🛁 Full bath with premium shampoo\n✂️ Breed-specific haircut\n💅 Nail trim & grinding  \n👂 Ear cleaning\n🎀 Finishing touches\n\nAll in your driveway. All stress-free. All while you stay productive at home.\n\n**BOOK NOW:**\n\n[LARGE BUTTON: Book [PET_NAME]'s Appointment]\n\nOr text us: [PHONE]\nCall: [PHONE]\n\n**AVAILABLE TIMES THIS WEEK:**\n→ [DAY]: [TIME_SLOTS]\n→ [DAY]: [TIME_SLOTS]  \n→ [DAY]: [TIME_SLOTS]\n\nSpots fill fast for [UPCOMING_WEEK]. Grab yours before they're gone!\n\nLooking forward to seeing [PET_NAME] soon! 🐾\n\n[YOUR_NAME]\n[BUSINESS_NAME]\nServing [CITY] // [PHONE] // [WEBSITE]\n\nP.S. - Know someone whose pup needs grooming? Forward this email! They'll get [REFERRAL_DISCOUNT] off their first appointment, and you'll get [REFERRAL_REWARD]."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] hours of your [day of week] back - we groom [pet type] in your driveway",
+      "[X] mats removed in [timeframe] without the car ride stress",
+      "[X] pounds of shed fur off your [furniture type] in one mobile grooming session",
+      "[X] local [neighborhood] pet parents switched to mobile grooming this month",
+      "[X] nail trims completed without leaving your home - no more clicking on [floor type]"
+    ],
+    "question_hooks": [
+      "Are you still wrestling your [weight]-pound [pet breed] into the car for grooming?",
+      "Are you embarrassed when guests see your [pet type] looking matted and smelling like [unpleasant smell]?",
+      "Are you vacuuming [X] times a day and still losing the battle against [pet type] shedding?",
+      "Are you worried those overgrown nails are hurting your [pet type] when they walk on [floor type]?",
+      "Are you dreading another [timeframe] wait at the grooming salon with anxious dogs everywhere?"
+    ],
+    "story_hooks": [
+      "How [customer name]'s car-sick [pet breed] got salon-quality grooming without the [timeframe] drive",
+      "How a [local area] [pet type] owner got [X] hours back every month with mobile grooming",
+      "How [customer name] finally removed painful mats from their [pet breed] without the grooming salon stress",
+      "How an anxious [pet breed] went from shaking in fear to calm grooming in their own driveway",
+      "How [customer name] stopped being embarrassed about their smelly [pet type] before [holiday/event]"
+    ],
+    "fear_hooks": [
+      "Is your [pet type]'s matted fur causing painful skin issues you can't see?",
+      "Is your [pet breed] one car ride away from a panic attack at the groomer?",
+      "Is your [pet type]'s overgrown coat hiding [health issue] that your vet needs to see?",
+      "Is waiting another week for grooming making your [pet type]'s [condition] worse?",
+      "Is your traditional groomer's rushed schedule putting your anxious [pet breed] at risk?"
+    ],
+    "howto_hooks": [
+      "How to get your [pet breed] professionally groomed without the [timeframe] car ride",
+      "How to eliminate [pet type] shedding on your [furniture] without constant vacuuming",
+      "How to remove painful mats from your [pet breed] without the grooming salon stress",
+      "How to get salon-quality results for your [pet type] without leaving your driveway",
+      "How to calm your car-anxious [pet breed] and still get them groomed like a show dog"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your dog hates car rides but needs grooming",
+      "body": "Show anxious dog in car (0-5sec) → Cut to mobile van pulling up to driveway (6-10sec) → Dog calmly walking to van, tail wagging (11-20sec) → Quick cuts of grooming process with calming music (21-45sec) → Before/after reveal with owner's shocked reaction (46-55sec) → Text overlay: 'No car ride. No stress. Just results.'",
+      "cta": "Book your stress-free groom - link in bio"
+    },
+    "reels": {
+      "hook": "This Golden Retriever sheds a whole other dog",
+      "body": "Close-up de-shedding tool gliding through fur (0-8sec) → Pile of removed fur growing larger in time-lapse (9-18sec) → Final reveal of shiny, clean coat with 'Before' comparison (19-28sec) → Text: 'We come to you'",
+      "cta": "Say goodbye to tumbleweeds → Book now"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film your pet's reaction when our van pulls up vs. when you grab car keys for the regular groomer. Show us the difference!",
+      "hashtag": "#NoMoreCarRides"
+    },
+    {
+      "prompt": "Show your before grooming struggle (wrestling wet dog, fur everywhere, etc.) then show yourself relaxing at home while we groom in your driveway",
+      "hashtag": "#GroomingGlowUp"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Extreme matting transformations with emotional rescue dog stories - show the painful mats, gentle removal process, and dog's personality emerging post-groom",
+      "why": "Combines satisfying transformation content with emotional rescue narrative. Pet owners share to raise awareness and celebrate second chances. High save rate for educational value on mat prevention"
+    },
+    {
+      "angle": "Senior dogs getting 'dignity grooms' - elderly dogs who can't handle salon stress getting gentle, patient care at home with owners present",
+      "why": "Triggers protective emotions in pet parents anticipating their own dog's aging. Highly shareable among 45+ demographic. Positions service as compassionate care, not vanity"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:52:37.582Z",
+    "last_tier2_refresh": "2025-11-27T22:52:37.582Z",
+    "last_tier3_refresh": "2025-11-27T22:52:37.582Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:52:37.582Z"
+  }
+}

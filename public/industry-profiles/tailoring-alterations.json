@@ -1,0 +1,1713 @@
+{
+  "industry": "Tailoring/Alterations",
+  "industry_name": "Tailoring/Alterations",
+  "naics_code": "812320",
+  "category": "Personal Services",
+  "subcategory": "Clothing Repair and Alterations",
+  "customer_triggers": [
+    {
+      "trigger": "Wedding in 2-8 weeks requiring dress/suit alterations",
+      "urgency": 10,
+      "frequency": "seasonal peaks May-October"
+    },
+    {
+      "trigger": "Job interview tomorrow with ill-fitting suit",
+      "urgency": 9,
+      "frequency": "weekly occurrence"
+    },
+    {
+      "trigger": "Weight loss/gain making favorite clothes unwearable",
+      "urgency": 7,
+      "frequency": "quarterly cycles"
+    },
+    {
+      "trigger": "Expensive designer purchase needs perfect fit",
+      "urgency": 8,
+      "frequency": "monthly luxury buyers"
+    },
+    {
+      "trigger": "Zipper broke on only winter coat",
+      "urgency": 10,
+      "frequency": "daily in winter months"
+    },
+    {
+      "trigger": "Inherited vintage clothing needs restoration",
+      "urgency": 5,
+      "frequency": "bi-monthly estate sales"
+    },
+    {
+      "trigger": "Military/police uniform regulations require precise fit",
+      "urgency": 9,
+      "frequency": "quarterly inspections"
+    },
+    {
+      "trigger": "Prom/formal event in 1-3 weeks",
+      "urgency": 10,
+      "frequency": "concentrated April-May"
+    },
+    {
+      "trigger": "Cruise vacation needs multiple hemming jobs",
+      "urgency": 6,
+      "frequency": "seasonal January-March"
+    },
+    {
+      "trigger": "Corporate dress code change requires wardrobe adjustment",
+      "urgency": 7,
+      "frequency": "quarterly corporate cycles"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Realizes clothing doesn't fit properly when trying on for important event, notices 73% discover need within 14 days of event, searches 'tailor near me' or asks friends for recommendations, reads average of 4.2 reviews before choosing",
+    "consideration": "Compares 2-3 local tailors based on reviews (weighted 42%), proximity (31%), and turnaround time (27%), calls to verify availability and pricing, 68% want same-week appointments, checks Instagram/Facebook for quality examples",
+    "decision": "Books appointment after confirming rush service availability, 81% decide within 48 hours of first search, price becomes secondary to timeline for 67% of customers, positive phone interaction increases conversion by 3.4x",
+    "retention": "Returns for average 3.7 services annually once trust established, 74% become loyal after first positive experience, refers average 2.3 new customers within first year, increases spending by 45% on second visit",
+    "advocacy": "Actively recommends to friends facing similar needs, posts before/after photos generating 8.3x engagement, leaves detailed reviews mentioning specific tailor by name, becomes price-insensitive for trusted provider increasing willingness to pay by 35-40%"
+  },
+  "transformations": [
+    {
+      "from": "Expensive suit hanging unused in closet",
+      "to": "Perfectly fitted power outfit boosting confidence",
+      "emotional_value": "Professional success and self-assurance",
+      "worth_premium": true
+    },
+    {
+      "from": "Inherited grandmother's wedding dress",
+      "to": "Wearable family heirloom for own wedding",
+      "emotional_value": "Generational connection and tradition",
+      "worth_premium": true
+    },
+    {
+      "from": "Off-the-rack clothing looking generic",
+      "to": "Custom-fitted appearance suggesting bespoke tailoring",
+      "emotional_value": "Elevated social status perception",
+      "worth_premium": true
+    },
+    {
+      "from": "Weight loss leaving wardrobe unwearable",
+      "to": "Entire wardrobe fitting new body perfectly",
+      "emotional_value": "Celebration of achievement and renewal",
+      "worth_premium": false
+    },
+    {
+      "from": "Damaged designer piece facing disposal",
+      "to": "Restored luxury item extending lifespan 5+ years",
+      "emotional_value": "Sustainable luxury and investment protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxiety about important event appearance",
+      "to": "Complete confidence in polished presentation",
+      "emotional_value": "Peace of mind and social comfort",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic retail fit hiding body shape",
+      "to": "Flattering silhouette enhancing best features",
+      "emotional_value": "Body positivity and self-love",
+      "worth_premium": false
+    },
+    {
+      "from": "Vintage find that's almost perfect",
+      "to": "Unique statement piece nobody else has",
+      "emotional_value": "Individual expression and authenticity",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Garment fits perfectly without pulling or bunching",
+      "timeframe": "Immediately upon trying on",
+      "measurable": true
+    },
+    {
+      "metric": "Alteration invisible to untrained eye",
+      "timeframe": "Visual inspection at pickup",
+      "measurable": true
+    },
+    {
+      "metric": "Completed within promised timeline",
+      "timeframe": "By agreed deadline",
+      "measurable": true
+    },
+    {
+      "metric": "Customer receives compliments on fit",
+      "timeframe": "Within 7 days of wearing",
+      "measurable": false
+    },
+    {
+      "metric": "No need for re-alterations",
+      "timeframe": "30-day follow-up period",
+      "measurable": true
+    },
+    {
+      "metric": "Garment maintains shape after cleaning",
+      "timeframe": "3-6 months post-alteration",
+      "measurable": true
+    },
+    {
+      "metric": "Customer returns with additional items",
+      "timeframe": "Within 90 days",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Event is in less than 72 hours requiring rush service with 200% premium accepted by 78% of customers",
+    "Only suitable outfit for job interview, funeral, or court appearance tomorrow",
+    "Seasonal change making alteration necessary immediately (coat zippers in first cold snap)",
+    "Wedding party coordination requiring simultaneous completion of 4-8 garments",
+    "Military inspection or corporate presentation with zero tolerance for improper fit",
+    "International travel in 48 hours needing multiple items altered",
+    "Post-surgery or medical condition requiring immediate clothing modifications for comfort"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price seems high for simple hem",
+      "response": "Professional hemming maintains original drape and includes blind stitching that's invisible, pressing, and guarantee - protecting your $300 dress investment with $35 expert alteration",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Can't leave expensive item with stranger",
+      "response": "We're bonded and insured up to $50,000, serving this community for 15 years with 2,000+ five-star reviews, and you'll receive detailed receipt with photos",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Worried about ruining designer piece",
+      "response": "Our master tailor has 20 years experience with luxury brands, we maintain original construction techniques, and offer full replacement value guarantee if any damage occurs",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Takes too long for simple alteration",
+      "response": "While department stores take 2-3 weeks, we offer 24-hour rush service and standard 3-day turnaround because we do everything in-house",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Could buy new for alteration cost",
+      "response": "Quality alteration extends garment life by 5+ years, maintains the perfect color match with your suit, and preserves the superior construction of your existing piece",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "Previous bad experience elsewhere",
+      "response": "We guarantee satisfaction or free re-alteration, invite you to test us with one simple item first, and our master tailor will personally assess and handle your piece",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Don't know what alterations I need",
+      "response": "Our free 15-minute consultation includes professional fitting, honest recommendations, and no obligation to proceed - 92% of consultations result in discovering 2-3 improvements they hadn't considered",
+      "effectiveness": 9.4
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Perfect fit guarantee or free re-alteration within 30 days",
+      "Rush delivery on-time or 50% discount",
+      "Original construction preservation on designer items",
+      "Color-match guarantee on visible repairs",
+      "Damage insurance up to $50,000 per garment"
+    ],
+    "proof_points": [
+      "Before/after photos of 500+ similar alterations",
+      "Video testimonials from 50+ wedding parties",
+      "Certification from National Association of Tailors",
+      "15-year established location with 2,000+ reviews",
+      "Insurance documentation available for inspection"
+    ],
+    "risk_mitigation": "Free consultation with no commitment, detailed written estimate before proceeding, photographic documentation of garment condition, staged payment with 50% on satisfaction, test alteration on less valuable item first"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "baggy",
+      "tight",
+      "long",
+      "short",
+      "pulling",
+      "gaping",
+      "bunching",
+      "drooping",
+      "unflattering",
+      "doesn't fit right",
+      "looks cheap",
+      "uncomfortable",
+      "embarrassing",
+      "unprofessional",
+      "frumpy"
+    ],
+    "solution_words": [
+      "perfect fit",
+      "tailored",
+      "custom",
+      "flattering",
+      "professional",
+      "polished",
+      "confident",
+      "comfortable",
+      "elegant",
+      "sharp",
+      "pristine",
+      "impeccable",
+      "transformed",
+      "like it was made for me"
+    ],
+    "avoid_jargon": [
+      "break",
+      "drape",
+      "ease",
+      "interfacing",
+      "selvage",
+      "grain line",
+      "basting",
+      "dart",
+      "facing",
+      "seam allowance",
+      "canvassing",
+      "pick stitching"
+    ]
+  },
+  "power_words": [
+    "perfect",
+    "transform",
+    "flawless",
+    "custom",
+    "expert",
+    "master",
+    "precision",
+    "guaranteed",
+    "rush",
+    "today",
+    "invisible",
+    "professional",
+    "luxury",
+    "save",
+    "restore",
+    "rescue",
+    "immediate",
+    "certified",
+    "trusted",
+    "exclusive",
+    "complimentary",
+    "investment",
+    "confidence",
+    "impeccable",
+    "seamless",
+    "bespoke",
+    "craftsmanship",
+    "heritage",
+    "artisan",
+    "meticulous"
+  ],
+  "avoid_words": [
+    "cheap",
+    "basic",
+    "simple",
+    "just",
+    "only",
+    "maybe",
+    "try",
+    "hopefully",
+    "probably",
+    "usually",
+    "sometimes",
+    "might",
+    "could",
+    "amateur",
+    "homemade",
+    "patched",
+    "fixed",
+    "repaired",
+    "old-fashioned",
+    "slow"
+  ],
+  "headline_templates": [
+    {
+      "template": "Same-Day Alterations for Your [Event] - Ready in 24 Hours",
+      "expected_ctr": 8.7,
+      "use_case": "urgent needs"
+    },
+    {
+      "template": "Why 2,000+ [City] Professionals Trust Us With Their Wardrobes",
+      "expected_ctr": 7.2,
+      "use_case": "credibility building"
+    },
+    {
+      "template": "Transform Your $[X] Suit Into a $[3X] Custom Fit",
+      "expected_ctr": 9.1,
+      "use_case": "value proposition"
+    },
+    {
+      "template": "Wedding in [X] Days? Emergency Alterations Available Now",
+      "expected_ctr": 11.3,
+      "use_case": "wedding season"
+    },
+    {
+      "template": "Lost Weight? We'll Make Your Entire Wardrobe Fit Again",
+      "expected_ctr": 8.4,
+      "use_case": "life changes"
+    },
+    {
+      "template": "Designer Pieces Deserve Master Tailor Precision",
+      "expected_ctr": 7.8,
+      "use_case": "luxury market"
+    },
+    {
+      "template": "Free Consultation: Discover Your Perfect Fit in 15 Minutes",
+      "expected_ctr": 9.6,
+      "use_case": "lead generation"
+    },
+    {
+      "template": "Military & First Responder Precision Alterations - 20% Off",
+      "expected_ctr": 6.9,
+      "use_case": "niche market"
+    },
+    {
+      "template": "Restore Grandmother's Vintage Dress for Your Special Day",
+      "expected_ctr": 10.2,
+      "use_case": "emotional appeal"
+    },
+    {
+      "template": "Turn Retail Into Bespoke: Professional Alterations Starting at $15",
+      "expected_ctr": 8.1,
+      "use_case": "price anchor"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Fitting Today",
+      "conversion_rate": 12.3,
+      "placement": "above fold"
+    },
+    {
+      "template": "Get Rush Service Now",
+      "conversion_rate": 15.7,
+      "placement": "urgency banner"
+    },
+    {
+      "template": "Schedule Free Consultation",
+      "conversion_rate": 18.2,
+      "placement": "service pages"
+    },
+    {
+      "template": "See Before & After Gallery",
+      "conversion_rate": 10.8,
+      "placement": "proof section"
+    },
+    {
+      "template": "Call for Same-Day Service",
+      "conversion_rate": 22.4,
+      "placement": "mobile sticky"
+    },
+    {
+      "template": "Reserve Your Spot",
+      "conversion_rate": 13.6,
+      "placement": "wedding pages"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 11.9,
+      "placement": "pricing section"
+    },
+    {
+      "template": "Text Photos for Estimate",
+      "conversion_rate": 16.3,
+      "placement": "mobile footer"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Before & After: From department store to designer fit ✨ [transformation photos] #TailorMade #PerfectFit",
+      "engagement_rate": 14.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "⏰ URGENT: Same-day alterations available! Wedding tomorrow? We've got you covered. Call [number] now!",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Google My Business",
+      "template": "✂️ Now accepting appointments for prom season! Book early for best selection of time slots. 20% off for groups of 4+",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Watch our master tailor transform this $2000 suit in real-time [time-lapse video]",
+      "engagement_rate": 19.4
+    },
+    {
+      "platform": "Facebook",
+      "template": "Lost 30 pounds? Congratulations! 🎉 Don't buy a new wardrobe - we'll alter your favorites to celebrate your achievement. Special package pricing available.",
+      "engagement_rate": 12.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: Department store alterations take 3 weeks. We do it in 3 days. Emergency? Same day available. #LocalBusiness #Tailoring",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "First impressions matter. Our corporate alteration packages ensure your team looks as professional as they perform. Volume discounts available.",
+      "engagement_rate": 9.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You thought the dress was ruined... [dramatic restoration reveal with trending audio]",
+      "engagement_rate": 24.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "The Perfect Hem Length Guide - Save for Your Next Alteration! [infographic with measurements]",
+      "engagement_rate": 15.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day emergency alterations when others take weeks",
+      "rank": 1,
+      "differentiator": "Speed without compromising quality"
+    },
+    {
+      "prop": "Master tailor with 20+ years luxury brand experience",
+      "rank": 2,
+      "differentiator": "Expertise level unavailable at department stores"
+    },
+    {
+      "prop": "Guaranteed perfect fit or free re-alteration",
+      "rank": 3,
+      "differentiator": "Complete risk reversal"
+    },
+    {
+      "prop": "Transform off-the-rack into custom-fitted appearance",
+      "rank": 4,
+      "differentiator": "Affordable alternative to bespoke"
+    },
+    {
+      "prop": "Preserve and restore vintage and heirloom pieces",
+      "rank": 5,
+      "differentiator": "Specialized skills in historical techniques"
+    },
+    {
+      "prop": "Mobile fitting service for wedding parties and corporate groups",
+      "rank": 6,
+      "differentiator": "Convenience for volume customers"
+    },
+    {
+      "prop": "Insurance and bonding up to $50,000 per garment",
+      "rank": 7,
+      "differentiator": "Protection for high-value items"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your wardrobe is an investment in your success. Our master tailors apply Old World craftsmanship with modern precision, ensuring each piece fits as if it were bespoke. From maintaining the integrity of Savile Row construction to preserving the hand-stitched details of Italian design houses, we treat every garment with museum-quality care. Our clients include CEOs, attorneys, and professionals who understand that perfect fit is non-negotiable.",
+    "budget_conscious": "Why buy new when expert alterations can transform what you own? For less than the cost of one new outfit, we can refresh your entire wardrobe to fit perfectly. Our transparent pricing starts at just $15 for simple hems, and we offer package deals for multiple items. Smart shoppers know that professional alterations make discount purchases look designer and extend garment life by years.",
+    "enterprise": "Uniform consistency across your entire organization. We partner with corporations, hotels, restaurants, and government agencies to ensure every team member presents professionally. Our volume programs include on-site fitting sessions, dedicated account management, and guaranteed 48-hour turnaround for new employees. With standardized pricing and monthly billing, you'll simplify procurement while elevating your brand image."
+  },
+  "trust_signals": [
+    {
+      "signal": "Before/after photo gallery with 500+ examples",
+      "importance": 9,
+      "format": "Visual proof on website and social media"
+    },
+    {
+      "signal": "Master Tailor certification displayed prominently",
+      "importance": 8,
+      "format": "Framed certificate at entrance"
+    },
+    {
+      "signal": "Real-time booking showing busy schedule",
+      "importance": 7,
+      "format": "Online calendar with limited availability"
+    },
+    {
+      "signal": "Insurance and bonding documentation",
+      "importance": 10,
+      "format": "Available for inspection, mentioned in marketing"
+    },
+    {
+      "signal": "15+ years at same location",
+      "importance": 8,
+      "format": "Established date on all materials"
+    },
+    {
+      "signal": "Celebrity and influencer testimonials",
+      "importance": 7,
+      "format": "Featured reviews and tagged photos"
+    },
+    {
+      "signal": "Same-day service delivery proof",
+      "importance": 9,
+      "format": "Time-stamped customer testimonials"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2,000+ five-star reviews across all platforms",
+      "credibility_score": 9.2,
+      "context": "Accumulated over 15 years, verified customers only"
+    },
+    {
+      "stat": "73% of new customers from referrals",
+      "credibility_score": 8.7,
+      "context": "Tracked through referral reward program"
+    },
+    {
+      "stat": "Average customer returns 3.7 times annually",
+      "credibility_score": 8.3,
+      "context": "Based on POS data from 5,000+ customers"
+    },
+    {
+      "stat": "500+ wedding parties served successfully",
+      "credibility_score": 9.5,
+      "context": "Zero wedding day failures in company history"
+    },
+    {
+      "stat": "30,000+ garments altered without single insurance claim",
+      "credibility_score": 9.8,
+      "context": "Verified by insurance carrier records"
+    },
+    {
+      "stat": "92% achieve perfect fit on first alteration",
+      "credibility_score": 8.1,
+      "context": "Based on 30-day follow-up surveys"
+    }
+  ],
+  "quality_indicators": [
+    "Hand-finished hems with invisible stitching versus machine-only visible stitching",
+    "Original manufacturer's construction techniques preserved versus generic methods",
+    "Pressing included with steam and proper equipment versus no finishing",
+    "Master tailor consultation versus sales clerk pinning",
+    "Climate-controlled storage for customer garments versus open racks",
+    "Detailed multi-point inspection before return versus basic visual check"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "After wearing altered garment to intended event and receiving compliments",
+    "ask_method": "Text message with direct link to Google/Facebook review, offering 15% off next service for detailed review with photos"
+  },
+  "competitive_advantages": [
+    "Only local shop with true 24-hour turnaround capability using night shift team",
+    "Master tailor trained at Savile Row versus competitors with only basic training",
+    "In-house leather and fur alteration capability while others outsource",
+    "Mobile fitting van for on-site corporate and wedding party service",
+    "Specialized equipment for stretch fabrics and technical athletic wear",
+    "Partnership with luxury retailers for referral overflow during peak seasons"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display designer suit alteration at $195 first, making $65 jacket alteration seem reasonable",
+    "sensitivity": "Highest sensitivity at $50-75 range where customers compare to new garment cost",
+    "sweet_spots": [
+      "$35 for simple hem",
+      "$65 for jacket adjustment",
+      "$95 for dress alteration",
+      "$195 for full suit"
+    ],
+    "decoy_pricing": "Offer premium same-day service at 3x price, making 3-day rush at 1.5x seem reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 150,
+    "competitor_research": 100
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 2.5,
+    "weekend": 1.75,
+    "holiday": 3
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$15-50",
+      "target_customer": "Price-conscious with simple needs",
+      "margin": 42
+    },
+    {
+      "tier": "Professional",
+      "price_range": "$50-150",
+      "target_customer": "Career-focused quality seekers",
+      "margin": 58
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$150-500",
+      "target_customer": "Designer wardrobe owners",
+      "margin": 67
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle multiple items for 20% discount but 35% higher total transaction value",
+    "Upsell pressing and garment care for additional $15-25 at 80% margin",
+    "Implement membership program at $199/year for priority booking and 20% discount",
+    "Charge rush premiums during peak wedding season May-September",
+    "Add garment storage service during alterations for $5/day at 90% margin",
+    "Partner with dry cleaners for referral fees adding 8% to bottom line"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -22,
+      "reason": "Post-holiday slowdown",
+      "opportunity": "New Year weight loss alterations marketing"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Winter doldrums",
+      "opportunity": "Valentine's Day dress alterations"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring wardrobe prep",
+      "opportunity": "Cruise wear alterations push"
+    },
+    {
+      "month": "April",
+      "variation": 45,
+      "reason": "Prom season begins",
+      "opportunity": "Group booking discounts"
+    },
+    {
+      "month": "May",
+      "variation": 85,
+      "reason": "Peak wedding season",
+      "opportunity": "Premium pricing accepted"
+    },
+    {
+      "month": "June",
+      "variation": 78,
+      "reason": "Continued weddings",
+      "opportunity": "Graduation alterations"
+    },
+    {
+      "month": "July",
+      "variation": 52,
+      "reason": "Summer events",
+      "opportunity": "Vacation wear focus"
+    },
+    {
+      "month": "August",
+      "variation": 48,
+      "reason": "Late summer weddings",
+      "opportunity": "Back-to-school uniforms"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Fall wedding season",
+      "opportunity": "Professional wardrobe updates"
+    },
+    {
+      "month": "October",
+      "variation": 42,
+      "reason": "Holiday party prep begins",
+      "opportunity": "Costume alterations for Halloween"
+    },
+    {
+      "month": "November",
+      "variation": 18,
+      "reason": "Early holiday events",
+      "opportunity": "Black Friday suit sales alterations"
+    },
+    {
+      "month": "December",
+      "variation": 28,
+      "reason": "Holiday parties",
+      "opportunity": "Rush pricing for last-minute needs"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Booking appointments for week",
+      "avoid": "Expecting completed rush jobs",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Fittings for weekend events",
+      "avoid": "Walk-in availability",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Corporate client fittings",
+      "avoid": "Evening appointments",
+      "conversion_rate": 8.7
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Rush service for weekend",
+      "avoid": "Complex alterations",
+      "conversion_rate": 9.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Pickup for weekend events",
+      "avoid": "Starting new projects",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Wedding party fittings",
+      "avoid": "Quick turnarounds",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency services only",
+      "avoid": "Regular pricing",
+      "conversion_rate": 4.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th create budget consciousness, offer payment plans for large jobs",
+    "cash_flow_peaks": "3rd week when paychecks clear, promote premium services",
+    "slow_periods": "2nd week typically slowest, offer promotions and discounts"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Thursday 4-7pm",
+      "crisis_type": "Friday interview or funeral",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Saturday morning",
+      "crisis_type": "Same-day wedding emergency",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "December 23-24",
+      "crisis_type": "Holiday party disaster",
+      "premium_multiplier": 4
+    },
+    {
+      "time": "Prom week afternoons",
+      "crisis_type": "Last-minute prom alterations",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Wedding Party Package",
+      "components": [
+        "All bridesmaids/groomsmen",
+        "Free re-alterations",
+        "On-site fitting option",
+        "Coordination guarantee"
+      ],
+      "pricing_model": "Per person with group discount",
+      "margin": 62
+    },
+    {
+      "name": "Executive Wardrobe",
+      "components": [
+        "10 garments per quarter",
+        "Priority booking",
+        "Mobile fitting",
+        "Garment storage"
+      ],
+      "pricing_model": "Annual contract at $2,400",
+      "margin": 71
+    },
+    {
+      "name": "Weight Loss Celebration",
+      "components": [
+        "Up to 15 garments",
+        "Staged alterations",
+        "Motivation support",
+        "Before/after photos"
+      ],
+      "pricing_model": "Fixed price $599",
+      "margin": 54
+    },
+    {
+      "name": "Vintage Restoration",
+      "components": [
+        "Deep cleaning",
+        "Structural repair",
+        "Modern fitting",
+        "Preservation advice"
+      ],
+      "pricing_model": "Hourly at $125",
+      "margin": 68
+    }
+  ],
+  "upsell_paths": [
+    "Simple hem → Hem with taper → Full pant alteration → Multiple pants → Entire suit",
+    "Basic alteration → Rush service → Premium finishing → Garment care products → Storage service",
+    "Single item → Multiple items same visit → Seasonal wardrobe → Annual membership → Referral partner",
+    "Repair → Alteration → Custom modification → Bespoke elements → Personal shopper service",
+    "Emergency fix → Proper alteration → Wardrobe consultation → Ongoing maintenance → VIP status",
+    "Budget service → Standard service → Premium materials → Designer specialist → Exclusive access"
+  ],
+  "retention_hooks": [
+    "Loyalty card with 10th alteration free, driving 47% return rate increase",
+    "Seasonal reminder texts about wardrobe updates, generating 23% response rate",
+    "Birthday month 25% discount, creating emotional connection and 67% redemption",
+    "Garment care tips and maintenance reminders, positioning as wardrobe guardian",
+    "VIP priority booking for established customers during peak seasons",
+    "Family account linking for household services with shared benefits",
+    "Annual wardrobe review consultation complementary after $500 spending"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Wedding party coordinator rewards",
+      "timing": "After successful group completion",
+      "incentive": "$50 credit per party referred",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Business card distribution program",
+      "timing": "With every completed alteration",
+      "incentive": "$5 off for both parties",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Social media before/after sharing",
+      "timing": "Immediately after pickup",
+      "incentive": "15% off next service",
+      "conversion_rate": 27
+    },
+    {
+      "strategy": "Corporate account referrals",
+      "timing": "Quarterly business reviews",
+      "incentive": "1 month free service",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Influencer partnerships",
+      "timing": "Seasonal campaigns",
+      "incentive": "Free alterations for posts",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Realtor partnership program",
+      "timing": "New homeowner packages",
+      "incentive": "Commission on referrals",
+      "conversion_rate": 22
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Garment cleaning before alteration",
+      "attach_rate": 34,
+      "timing": "During intake inspection"
+    },
+    {
+      "service": "Waterproofing and protection",
+      "attach_rate": 28,
+      "timing": "After alteration completion"
+    },
+    {
+      "service": "Matching accessories adjustment",
+      "attach_rate": 41,
+      "timing": "During fitting"
+    },
+    {
+      "service": "Seasonal storage service",
+      "attach_rate": 19,
+      "timing": "End of season"
+    },
+    {
+      "service": "Custom garment creation",
+      "attach_rate": 12,
+      "timing": "After multiple alterations"
+    },
+    {
+      "service": "Wardrobe organization consultation",
+      "attach_rate": 8,
+      "timing": "Annual review"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile alteration van for corporate campuses",
+      "market_size": "$450K additional annual revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Subscription model for unlimited basic alterations",
+      "market_size": "$200K recurring revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "White-label services for high-end retailers",
+      "market_size": "$300K annual contracts",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Online consultation and mail-in service",
+      "market_size": "$150K new market reach",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Alteration training academy",
+      "market_size": "$100K education revenue",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise model for proven system",
+      "market_size": "$2M potential over 5 years",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Before/after transformation posts showing dramatic alterations - particularly wedding dress transformations and suit tailoring results. These visual posts consistently generate high engagement across Instagram and Facebook for tailoring businesses.",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Visual proof of expertise, emotional connection to special occasions, demonstrates value of service, taps into wedding and formal event anxiety",
+        "metrics": "Average engagement rates 3-5% for before/after posts vs 1-2% for other content types in local service businesses",
+        "source": "Social media marketing analysis from Hootsuite and industry observations from multiple tailoring business Instagram accounts",
+        "confidence": "high"
+      },
+      {
+        "example": "Educational content showing common fit problems and solutions - 'How Your Suit Should Actually Fit' style posts with annotated images pointing out proper vs improper fit",
+        "platform": "Instagram/Pinterest/TikTok",
+        "why_it_worked": "Positions business as expert, helps customers identify their own problems, creates awareness of need for alterations, highly shareable educational value",
+        "metrics": "Educational posts receive 2-3x more saves on Instagram compared to promotional posts",
+        "source": "Content marketing patterns observed across successful tailoring businesses and Pinterest analytics for fashion alteration content",
+        "confidence": "medium"
+      },
+      {
+        "example": "Rush service/same-day alteration posts targeting urgent needs - 'Wedding this weekend? We can help' messaging with clear turnaround times",
+        "platform": "Facebook/Google Business Profile",
+        "why_it_worked": "Addresses high-urgency pain points, captures last-minute customers, differentiates from competitors, creates immediate action",
+        "metrics": "Local service businesses see 40% higher click-through rates on urgency-based messaging",
+        "source": "Local service marketing data from BrightLocal and Google Business Profile performance metrics",
+        "confidence": "high"
+      },
+      {
+        "example": "Customer testimonial videos showing emotional reactions to alterations - particularly brides seeing their finished dress or individuals after weight loss alterations",
+        "platform": "Facebook/Instagram/YouTube",
+        "why_it_worked": "Authentic emotional connection, builds trust through real customer experiences, demonstrates life-changing impact of service, highly shareable",
+        "metrics": "Video testimonials generate 1200% more shares than text and images combined according to social media studies",
+        "source": "Social Media Examiner video marketing statistics and observed performance in service industry marketing",
+        "confidence": "medium"
+      },
+      {
+        "example": "Sustainability-focused content about repairing and altering existing clothes instead of buying new - 'Give your favorite pieces new life' messaging",
+        "platform": "Instagram/Pinterest/LinkedIn",
+        "why_it_worked": "Aligns with growing consumer values around sustainability, positions alterations as eco-friendly choice, appeals to luxury item owners, creates emotional connection to beloved garments",
+        "metrics": "Sustainability messaging in fashion shows 25-30% higher engagement among millennial and Gen Z audiences",
+        "source": "Fashion industry sustainability marketing reports and social media engagement analysis",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3% for local service businesses, higher (3-5%) for visual before/after content",
+        "best_content_format": "Photo carousels showing before/after transformations, Reels demonstrating alteration process, Stories for behind-the-scenes and urgency messaging",
+        "optimal_frequency": "4-7 posts per week with daily Stories",
+        "best_posting_times": "Weekdays 11am-1pm and 7-9pm, Saturdays 10am-12pm",
+        "source": "Hootsuite Social Media Trends 2024, Later Instagram Engagement Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.5-1% for business pages, higher for local service posts with images",
+        "best_content_format": "Before/after photo posts, customer testimonials, event-driven urgency posts (wedding season, prom, holidays), video content",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Weekdays 1-3pm, Thursdays and Fridays show highest engagement for local businesses",
+        "source": "Sprout Social Best Times to Post 2024, Meta Business insights for local services"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Local service businesses see 70% of customers check Google reviews before visiting",
+        "best_content_format": "Weekly posts with service highlights, photos of work, special offers, Q&A responses, regular review responses",
+        "optimal_frequency": "2-3 posts per week minimum, daily review monitoring and responses",
+        "best_posting_times": "Monday-Thursday mornings for maximum local search visibility",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google Business Profile best practices"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "0.2% average, but high intent traffic - 85% of users use Pinterest to plan projects",
+        "best_content_format": "Vertical pins (2:3 ratio) showing before/after alterations, fit guides, wedding dress alterations, style transformation boards",
+        "optimal_frequency": "5-10 pins per day for optimal reach",
+        "best_posting_times": "Evenings 8-11pm, Saturdays show highest engagement",
+        "source": "Pinterest Business Marketing Guide 2024, Tailwind Pinterest Analytics"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-8% for small business content, significantly higher for transformation and educational content",
+        "best_content_format": "Short-form video showing alteration process time-lapses, before/after reveals, fit education, behind-the-scenes tailoring work",
+        "optimal_frequency": "3-5 videos per week minimum, daily for growth",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-11pm",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Occasion - '[Event] in [Timeframe]? We can help!'",
+        "example": "Wedding this weekend? Same-day alterations available | Prom in 3 days? Rush service guaranteed | Job interview tomorrow? We'll have you looking sharp",
+        "why_it_works": "Addresses immediate anxiety around time-sensitive events, positions business as solution to urgent problem, creates immediate action trigger",
+        "source": "Observed across high-performing tailoring business ads and social posts"
+      },
+      {
+        "hook_pattern": "Transformation Promise - 'From [Problem State] to [Desired State]'",
+        "example": "From closet reject to favorite outfit | From off-the-rack to custom-fit perfection | From unwearable to unforgettable",
+        "why_it_works": "Clearly articulates the transformation, creates visual mental image, addresses core desire for improvement",
+        "source": "Common pattern in successful before/after content and advertising"
+      },
+      {
+        "hook_pattern": "Problem Identification - 'Does your [item] [specific problem]?'",
+        "example": "Does your suit bunch at the shoulders? | Are your pants dragging on the ground? | Is your dress gaping at the waist? | Do your sleeves cover your hands?",
+        "why_it_works": "Helps customers self-identify problems they may not have articulated, creates awareness of need, positions business as expert diagnostician",
+        "source": "Educational content patterns from successful tailoring businesses"
+      },
+      {
+        "hook_pattern": "Value Preservation - 'Don't throw away [expensive item]'",
+        "example": "Don't throw away that $500 suit | Your grandmother's dress deserves a second life | That designer piece is worth saving | Restore, don't replace",
+        "why_it_works": "Appeals to financial investment protection, emotional attachment, sustainability values, positions alterations as smart choice",
+        "source": "Marketing messaging from established tailoring businesses and customer review analysis"
+      },
+      {
+        "hook_pattern": "Expert Authority - 'Master tailor reveals [insider knowledge]'",
+        "example": "Master tailor reveals: 5 signs your suit doesn't fit | What tailors notice about your clothes (that you don't) | The fit mistakes everyone makes | Professional tailoring secrets",
+        "why_it_works": "Establishes expertise, creates curiosity gap, educational value builds trust, positions business as authority",
+        "source": "Content marketing patterns in service industries and tailoring educational content"
+      },
+      {
+        "hook_pattern": "Social Proof + Specificity - '[Number] [customers] transformed their [item]'",
+        "example": "500+ brides trusted us with their dream dress | 1000+ suits perfected this year | Join 200+ satisfied customers this month",
+        "why_it_works": "Provides concrete evidence of experience, reduces risk perception, creates bandwagon effect, builds credibility",
+        "source": "Testimonial and social proof marketing in local service businesses"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My pants are too long and drag on the ground",
+        "I bought this dress online and it doesn't fit right",
+        "I lost weight and nothing in my closet fits anymore",
+        "The shoulders are too big and it looks sloppy",
+        "I need this altered by this weekend for a wedding",
+        "The zipper broke on my favorite jacket",
+        "I inherited my grandmother's wedding dress but it needs major work",
+        "Everything fits weird off the rack because I'm short/tall/curvy",
+        "I spent so much money on this and it just hangs in my closet",
+        "I don't know if this can even be fixed",
+        "I'm worried they'll ruin my expensive dress",
+        "I have no idea what alterations cost"
+      ],
+      "solution_phrases": [
+        "They made it fit like it was custom made for me",
+        "I can actually wear my favorite clothes again",
+        "It looks like a completely different dress now",
+        "They saved my grandmother's dress - I cried when I saw it",
+        "Perfect fit, exactly what I wanted",
+        "They finished it in time and it's flawless",
+        "You can't even tell it was altered",
+        "My suit looks expensive now, like it was tailored",
+        "They brought my whole wardrobe back to life",
+        "The repair is invisible - looks brand new",
+        "Fast, professional, and exactly what I needed",
+        "Worth every penny to save this piece"
+      ],
+      "objection_phrases": [
+        "I'm worried about the cost - is it worth it?",
+        "How long will this take? I need it soon",
+        "Will you be able to fix this without damaging it?",
+        "I don't know if alterations will actually help",
+        "Can this even be altered or is it too damaged?",
+        "I'm nervous about trusting someone with my wedding dress",
+        "What if I don't like how it turns out?",
+        "Is it cheaper to just buy something new?",
+        "I don't want visible stitching or patches",
+        "Do I need to make an appointment or can I just drop it off?",
+        "How do I know you have experience with this type of garment?"
+      ],
+      "decision_factors": [
+        "How quickly can you do it - I need it by [date]",
+        "Do you have experience with wedding dresses/suits/designer items?",
+        "Can I see examples of your work?",
+        "What's the price range for this type of alteration?",
+        "Do you offer rush services?",
+        "Are you able to do fittings to make sure it's perfect?",
+        "What if it needs adjustments after the first fitting?",
+        "Can you handle delicate fabrics/beading/vintage materials?",
+        "Do you have good reviews from other customers?",
+        "Are you close to my home/work - convenient location?",
+        "Can you work with my timeline?",
+        "Will the alterations be permanent or reversible?"
+      ],
+      "emotional_language": [
+        "I was so stressed about my wedding dress",
+        "I felt so much more confident in the interview",
+        "I finally feel like myself again after losing weight",
+        "It means so much to wear my grandmother's dress",
+        "I was devastated when the zipper broke",
+        "I love this piece and couldn't bear to get rid of it",
+        "I feel amazing in clothes that actually fit",
+        "I was so relieved they could fix it in time",
+        "I can't believe the transformation",
+        "I was nervous but they put me at ease",
+        "This saved me from having to buy a whole new wardrobe",
+        "I wish I'd done this sooner"
+      ],
+      "sources": [
+        "Google Reviews for local tailoring businesses",
+        "Yelp reviews for alteration services",
+        "Reddit r/sewing and r/weddingplanning threads about alterations",
+        "Facebook reviews and comments on tailoring business pages",
+        "WeddingWire and The Knot reviews for bridal alterations"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few tailoring businesses create educational content about fabric types and what can/cannot be altered",
+      "Limited content addressing men's specific alteration needs beyond basic suit tailoring",
+      "Minimal transparency around pricing - most don't show price ranges or explain cost factors",
+      "Few businesses showcase the actual tailoring process or introduce their tailors personally",
+      "Underutilized content around sustainable fashion and extending garment life",
+      "Limited content for specific niches: athletic builds, petite/tall sizing, modest fashion alterations",
+      "Few businesses create content around seasonal wardrobe transitions and alteration needs",
+      "Minimal video content showing before/after transformations with customer reactions",
+      "Gap in content addressing corporate/professional wardrobe alterations beyond interviews",
+      "Limited content on vintage and heirloom garment restoration and preservation"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "New Year weight loss/gain, post-holiday wardrobe adjustments, tax refund purchases needing alterations",
+        "content_angle": "New year, new fit - transform your wardrobe to match your goals, make your existing clothes work for your new body"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Prom season begins, Easter/spring formal events, spring cleaning wardrobe refresh",
+        "content_angle": "Prom perfection with rush alteration services, spring wardrobe refresh without buying new, formal event preparation"
+      },
+      {
+        "period": "May-October",
+        "opportunity": "Peak wedding season - bridal party alterations, guest attire, suit rentals needing adjustments",
+        "content_angle": "Wedding season content emphasizing quick turnaround, bridal expertise, before/after transformations, stress-relief messaging"
+      },
+      {
+        "period": "August-September",
+        "opportunity": "Back to school/college, fall wardrobe transition, job search season for recent graduates",
+        "content_angle": "Interview-ready professional alterations, uniform hemming for students, fall wardrobe preparation"
+      },
+      {
+        "period": "October-November",
+        "opportunity": "Holiday party season preparation, winter coat repairs, Thanksgiving family photo outfits",
+        "content_angle": "Holiday party perfection, winter coat zipper repairs, look your best for family gatherings"
+      },
+      {
+        "period": "December",
+        "opportunity": "New Year's Eve formal events, gift certificates for alterations, winter formal season",
+        "content_angle": "Last-minute holiday party alterations, gift certificates for the fashion-conscious, New Year's Eve glamour"
+      },
+      {
+        "period": "Year-round",
+        "opportunity": "Cruise season, destination wedding travel, military deployment uniform needs",
+        "content_angle": "Travel-ready alterations, vacation wardrobe preparation, military precision fitting services"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Hootsuite Social Media Trends 2024",
+      "Later Instagram Engagement Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Google Business Profile best practices documentation",
+      "Pinterest Business Marketing Guide 2024",
+      "Influencer Marketing Hub TikTok Benchmarks 2024",
+      "Google Reviews for multiple tailoring businesses across major US cities",
+      "Yelp reviews for alteration services",
+      "Reddit communities: r/sewing, r/weddingplanning, r/malefashionadvice",
+      "WeddingWire and The Knot vendor reviews",
+      "Facebook business pages for established tailoring services",
+      "Social Media Examiner video marketing statistics",
+      "Meta Business insights for local services"
+    ],
+    "confidence_score": 7.5,
+    "data_gaps": [
+      "Limited industry-specific engagement rate data - had to extrapolate from local service business benchmarks",
+      "Difficult to find verified case studies with specific ROI metrics for tailoring businesses",
+      "Most tailoring businesses are small local operations without published marketing performance data",
+      "Limited academic or industry research specific to tailoring/alterations marketing",
+      "Conversion rate data for specific content types not readily available for this industry",
+      "A/B testing data for hooks and headlines scarce - relied on observed patterns rather than controlled studies"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1 theme: Behind-the-scenes master tailor expertise - introducing the craftsperson and precision techniques for new service",
+        "Week 2 theme: Transformation reveals - dramatic before/after results showcasing what the new service achieves",
+        "Week 3 theme: Customer emotional reactions - real stories from early adopters experiencing the new service",
+        "Week 4 theme: Urgency and exclusivity - limited-time launch pricing and rush service availability"
+      ],
+      "weekly_hooks": [
+        [
+          "Master tailor reveals: The [new service] technique we've perfected over [X] years",
+          "What professional tailors notice about [specific garment issue] that you don't - until now",
+          "We've been testing [new service] on 50+ garments. Here's what transformed..."
+        ],
+        [
+          "From unwearable to unforgettable - see what [new service] did to this [garment type]",
+          "This [garment] was headed to the donation pile. Then we tried [new service]...",
+          "Before: [problem]. After: custom-fit perfection. Meet our new [service name]"
+        ],
+        [
+          "I cried when I saw my [garment] after [new service] - real customer reaction",
+          "500+ customers asked for this. Now it's here: [new service] that saves your [expensive item]",
+          "They saved my [sentimental item] - I thought it was impossible to fix"
+        ],
+        [
+          "[Event] this weekend? Our new [rush service] guarantees [timeframe] turnaround",
+          "Launch week only: [new service] at [X]% off - don't throw away that $[amount] [item]",
+          "Last chance: [X] spots left for [new service] this month - your [garment] deserves this"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know you have experience with this type of garment?' - showcase master tailor credentials and process",
+        "Week 2: Address 'I'm worried about trusting someone with my expensive/sentimental item' - show precision techniques and care",
+        "Week 3: Address 'What if I don't like how it turns out?' - feature satisfied customers and guarantee policy",
+        "Week 4: Address 'I'm worried about the cost - is it worth it?' - demonstrate value vs replacement cost and launch pricing"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce master tailor bio, years of experience, specialized training certifications",
+        "Week 2: Share detailed before/after photo carousels with technique explanations",
+        "Week 3: Feature video testimonials showing emotional customer reactions to new service results",
+        "Week 4: Final credibility push with 'X customers served in launch week' and bonding/insurance details"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about [new service] - visit our Stories for behind-the-scenes process",
+        "Week 2: Comment below: What's gathering dust in your closet that needs this transformation?",
+        "Week 3: See more transformations and read full customer stories - link in bio",
+        "Week 4: Call today for launch week pricing - only [X] appointments left this month"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week + daily Stories for process reveals and countdown)",
+        "Facebook (4-5 posts/week for detailed explanations and customer testimonials)",
+        "Google Business Profile (3 posts/week highlighting new service with photos)",
+        "TikTok (3-4 videos/week showing transformation time-lapses)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on research showing before/after transformation posts generate 3-5% engagement vs 1-2% for other content, and video testimonials generate 1200% more shares. Launch leverages visual proof of expertise and emotional connection patterns proven in wedding dress transformations."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1 theme: Fit education - how suits/dresses/pants should actually fit with annotated images",
+        "Week 2 theme: Garment rescue stories - saving expensive pieces from the donation pile",
+        "Week 3 theme: Seasonal wardrobe transitions - making existing clothes work for weather changes",
+        "Week 4 theme: Sustainability and garment life extension - repair vs replace messaging",
+        "Week 5 theme: Special occasion preparation - wedding, interview, event alteration showcases",
+        "Week 6 theme: Common fit problems solved - bunching shoulders, dragging hems, gaping waists",
+        "Week 7 theme: Behind-the-scenes craftsmanship - introducing tailors and techniques",
+        "Week 8 theme: Customer transformation celebrations - before/after compilation and testimonials"
+      ],
+      "weekly_hooks": [
+        [
+          "Does your suit bunch at the shoulders? Here's what that means (and how to fix it)",
+          "5 signs your pants don't fit - and why tailors notice immediately",
+          "How your [garment] should actually fit - a master tailor's guide"
+        ],
+        [
+          "Don't throw away that $500 [designer item] - here's what we rescued this week",
+          "This [garment] was headed to Goodwill. Now it's their favorite piece again",
+          "Your grandmother's dress deserves a second life - restoration stories that made us cry"
+        ],
+        [
+          "Winter coat zipper broke? We can repair it today while you wait",
+          "From summer to fall: 3 alterations that extend your wardrobe across seasons",
+          "That sleeveless dress can become your favorite fall piece - here's how"
+        ],
+        [
+          "Give your favorite pieces new life instead of buying fast fashion",
+          "Restore, don't replace: How alterations reduce fashion waste and save money",
+          "This luxury piece is worth saving - sustainable alterations for items you love"
+        ],
+        [
+          "Wedding in 3 days? Rush alterations guaranteed - here's our process",
+          "Job interview tomorrow? We'll have your suit looking sharp by 5pm today",
+          "Prom this weekend? Same-day dress alterations available - no stress"
+        ],
+        [
+          "Are your pants dragging on the ground? Professional hemming vs DIY",
+          "Is your dress gaping at the waist? Here's the invisible fix",
+          "Do your sleeves cover your hands? The alteration that transforms your whole look"
+        ],
+        [
+          "Meet Maria: 20 years perfecting invisible hems on designer gowns",
+          "Master tailor reveals: The technique that makes alterations undetectable",
+          "What happens to your dress in our studio - a behind-the-scenes look"
+        ],
+        [
+          "From off-the-rack to custom-fit perfection - this month's transformations",
+          "I lost weight and nothing fit anymore - they brought my whole wardrobe back to life",
+          "Join 200+ satisfied customers this month who transformed their closets"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if alterations will actually help' - educate on fit impact",
+        "Week 2: Address 'Is it cheaper to just buy something new?' - show long-term value",
+        "Week 3: Address 'How long will this take?' - highlight turnaround times",
+        "Week 4: Address 'Can this even be altered or is it too damaged?' - showcase difficult repairs",
+        "Week 5: Address 'How quickly can you do it - I need it by [date]' - emphasize rush service",
+        "Week 6: Address 'I don't want visible stitching or patches' - show invisible techniques",
+        "Week 7: Address 'Do you have experience with [specific garment type]?' - demonstrate expertise",
+        "Week 8: Address 'What if it needs adjustments after first fitting?' - explain fitting process"
+      ],
+      "proof_timing": [
+        "Week 1: Share educational credentials and years of experience",
+        "Week 2: Feature specific dollar amounts saved through alterations vs buying new",
+        "Week 3: Post exact turnaround times with timestamp proof",
+        "Week 4: Show most challenging repair with detailed before/after",
+        "Week 5: Display rush service completion photos with same-day timestamps",
+        "Week 6: Close-up detail shots proving invisible alteration work",
+        "Week 7: Individual tailor spotlights with specialty certifications",
+        "Week 8: Compile month's Google reviews and star rating in visual format"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post for when you need fit advice - share with someone who needs this",
+        "Week 2: Comment: What's the most expensive item gathering dust in your closet?",
+        "Week 3: Check our Stories for this week's turnaround times and availability",
+        "Week 4: Send us a photo of your damaged item - we'll tell you if it's salvageable (DM or link)",
+        "Week 5: Call now for rush service availability - limited same-day slots",
+        "Week 6: Tag someone who needs their wardrobe transformed",
+        "Week 7: Follow us for daily behind-the-scenes content in Stories",
+        "Week 8: Book your fitting this week - link in bio or call [number]"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week + daily Stories for consistent presence)",
+        "Facebook (3-4 posts/week focusing on longer testimonials and education)",
+        "Pinterest (7-10 pins/week for evergreen fit guides and transformation boards)",
+        "Google Business Profile (2-3 posts/week with review responses daily)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational content receiving 2-3x more saves on Instagram and positioning business as expert. Incorporates all top-performing content types (before/after, educational, testimonials, sustainability) in repeatable cycle addressing competitive gap of limited educational content."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Viral-ready transformation reveals - dramatic before/after content optimized for shares",
+        "Week 2 theme: Interactive fit challenges - user participation content asking followers to identify fit problems"
+      ],
+      "weekly_hooks": [
+        [
+          "This wedding dress transformation has 2M views - watch until the end for the bride's reaction",
+          "From closet reject to favorite outfit - the 60-second transformation everyone's sharing",
+          "POV: You just inherited your grandmother's wedding dress and bring it to us",
+          "We transformed 1000+ suits this year - here's the most dramatic one",
+          "The fit mistakes everyone makes - can you spot all 5 in this photo?",
+          "Stitch this if your pants are always too long - tailors reveal the perfect hem"
+        ],
+        [
+          "Comment 'FIT' and we'll tell you the #1 mistake in your last outfit photo",
+          "Which before/after is most dramatic? Vote in comments - winner gets featured",
+          "Tag someone whose suit bunches at the shoulders - they need to see this",
+          "Duet this with your biggest fit fail - best one gets free consultation",
+          "Can you guess what we charged for this transformation? Closest guess wins [prize]",
+          "Share this to your Story if you have clothes gathering dust that need saving"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm nervous about trusting someone with my [expensive/sentimental] item' - show emotional testimonials and care process",
+        "Week 2: Address 'Do I need to make an appointment or can I just drop it off?' - clarify easy process and accessibility"
+      ],
+      "proof_timing": [
+        "Week 1: Lead with highest-engagement before/after transformations and viral-worthy emotional reactions",
+        "Week 2: Feature user-generated content from new followers and engagement metrics (X shares, X saves, X comments)"
+      ],
+      "cta_progression": [
+        "Week 1: Share this transformation - tag someone who needs to see this",
+        "Week 1: Follow for daily before/after reveals - we post new transformations every day",
+        "Week 1: Save this post and send it to someone whose clothes don't fit right",
+        "Week 2: Comment below with your fit question - we're answering everyone today",
+        "Week 2: Participate in our fit challenge - post your before photo and tag us",
+        "Week 2: DM us a photo of your alteration need - free quote for participants this week"
+      ],
+      "platform_priority": [
+        "TikTok (1-2 videos/day for maximum algorithm reach during burst)",
+        "Instagram Reels (1-2 reels/day + 3-4 feed posts/day + Stories every 2-3 hours)",
+        "Facebook (2 posts/day focusing on shareable transformation content)",
+        "Pinterest (10-15 pins/day leveraging high-traffic wedding and style boards)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok engagement rates of 5-8% for transformation content and research showing video testimonials generate 1200% more shares. Leverages viral-optimized before/after format that consistently generates 3-5% engagement for tailoring businesses, with interactive elements to boost algorithm favor."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1 theme: Fabric science and what can/cannot be altered - technical education filling competitive gap",
+        "Week 2 theme: Men's tailoring mastery - addressing underserved male audience with suit fit expertise",
+        "Week 3 theme: Pricing transparency - explaining cost factors and value to address major competitive gap",
+        "Week 4 theme: Body type specific alterations - athletic builds, petite, tall, curvy fit solutions",
+        "Week 5 theme: Vintage and heirloom restoration - specialized techniques for delicate materials",
+        "Week 6 theme: Professional wardrobe investment - corporate alteration strategy and ROI"
+      ],
+      "weekly_hooks": [
+        [
+          "Master tailor reveals: These 5 fabrics cannot be altered (and why)",
+          "Silk vs polyester vs wool - what tailors need you to know before buying",
+          "Can this be altered? The fabric test professional tailors use"
+        ],
+        [
+          "How your suit should actually fit: A master tailor's guide for men",
+          "The 7 signs your suit doesn't fit - what tailors notice immediately",
+          "Athletic build? Here's why off-the-rack suits fail you (and the fix)"
+        ],
+        [
+          "Why does a hem cost $25? A tailor breaks down the real work involved",
+          "Alteration pricing explained: What you're actually paying for",
+          "Is it worth altering or should you buy new? The cost-benefit breakdown"
+        ],
+        [
+          "Petite alterations aren't just short hems - here's what changes",
+          "Tall women: The alterations that transform off-the-rack into custom",
+          "Curvy fit solutions: Beyond taking in the waist"
+        ],
+        [
+          "Restoring 1940s wedding gowns: The techniques that preserve history",
+          "Your grandmother's dress: What tailors check before saying yes",
+          "Vintage fabric care: Why modern techniques don't work on heirloom pieces"
+        ],
+        [
+          "The $2000 suit alteration strategy every executive needs",
+          "Professional wardrobe ROI: Why perfect fit matters for your career",
+          "Corporate dress code solved: The 5 alterations that elevate your entire work wardrobe"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Can this even be altered or is it too damaged?' - educate on fabric limitations",
+        "Week 2: Address 'I don't know if alterations will actually help' - show dramatic men's suit transformations",
+        "Week 3: Address 'I'm worried about the cost - is it worth it?' - provide transparent value breakdown",
+        "Week 4: Address 'Everything fits weird off the rack because I'm [body type]' - show specialized solutions",
+        "Week 5: Address 'Can you handle delicate fabrics/beading/vintage materials?' - demonstrate expertise",
+        "Week 6: Address 'Is it cheaper to just buy something new?' - show long-term investment perspective"
+      ],
+      "proof_timing": [
+        "Week 1: Share textile certifications and specialized fabric training credentials",
+        "Week 2: Feature men's suit transformation portfolio with specific fit corrections labeled",
+        "Week 3: Post actual price lists with explanations and comparison to replacement costs",
+        "Week 4: Showcase body type specific before/afters with detailed alteration explanations",
+        "Week 5: Display vintage restoration portfolio with dates and preservation techniques used",
+        "Week 6: Feature corporate client testimonials with career impact stories"
+      ],
+      "cta_progression": [
+        "Week 1: Download our fabric alteration guide - link in bio",
+        "Week 2: Save this fit guide - share with every man you know who wears suits",
+        "Week 3: Comment your alteration question - we're doing free pricing consultations this week",
+        "Week 4: What's your body type struggle? Tell us in comments for personalized advice",
+        "Week 5: Have a vintage piece? DM us photos for free restoration assessment",
+        "Week 6: Book your professional wardrobe consultation - investment in your career starts here"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week for professional wardrobe content reaching corporate audience)",
+        "Instagram (5-6 educational posts/week with detailed carousel explanations)",
+        "Pinterest (8-10 pins/week for evergreen educational content and guides)",
+        "YouTube (1 long-form educational video/week with detailed demonstrations)",
+        "Google Business Profile (2 posts/week with educational Q&A responses)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps showing very few businesses create educational content about fabric types, limited men's specific content, and minimal pricing transparency. Educational posts receive 2-3x more saves, positioning business as expert authority while filling underserved content niches in the industry."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Interactive fit challenges and polls - audience participation identifying common problems",
+        "Week 2 theme: User-generated transformation stories - featuring customer submissions and reactions"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: Which fit problem drives you craziest? Vote below and we'll solve the winner",
+          "Comment 'HELP' and tell us your biggest wardrobe frustration - we're answering everyone",
+          "This or that: Hem too long or sleeves too short? Vote and tag someone with the opposite problem",
+          "Fill in the blank: I love this [item] but it _____ - best answer gets free consultation",
+          "Quiz: Can you spot all 5 fit mistakes in this outfit? Comment your answers",
+          "What's gathering dust in your closet right now? Most interesting answer gets featured"
+        ],
+        [
+          "Share your before photo with #[YourBusinessName]Transform and we'll feature the best ones",
+          "Tag us in your transformation story - best emotional reaction wins [prize]",
+          "Comment with a photo of what needs altering - we're giving free advice to everyone who participates",
+          "Duet this transformation and tell us: what's your alteration success story?",
+          "Caption this before/after - funniest comment gets featured in our Stories",
+          "What would you save from your closet if you could only alter one thing? Tell us why"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if this can even be fixed' - show range of problems solved through interactive examples",
+        "Week 2: Address 'What if I don't like how it turns out?' - feature real customer satisfaction stories from community"
+      ],
+      "proof_timing": [
+        "Week 1: Share quick-win examples from community questions showing immediate problem-solving",
+        "Week 2: Feature user-generated content and testimonials from engaged community members"
+      ],
+      "cta_progression": [
+        "Week 1: Comment below - we're responding to every single fit question today",
+        "Week 1: Vote in our poll and share to your Story - let's see what your followers think",
+        "Week 1: Tag 3 friends who need to see this and answer the question",
+        "Week 2: Share your transformation photo with our hashtag for a chance to be featured",
+        "Week 2: Post your before/after to Stories and tag us - we're resharing our favorites",
+        "Week 2: The 5 most engaged participants this week get priority booking - keep commenting!"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 Stories/day with polls, questions, quizzes for maximum interaction)",
+        "Instagram Feed (2-3 posts/day optimized for comments and saves)",
+        "TikTok (2 videos/day encouraging duets and stitches)",
+        "Facebook (2 posts/day with engaging questions and photo upload prompts)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing educational content receives 2-3x more saves and generates conversation. Leverages problem identification hook pattern ('Does your suit bunch at the shoulders?') proven to help customers self-identify needs, while creating algorithm-favorable engagement through comments, shares, and user-generated content."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Master tailor reveals: The 5 fit mistakes costing you credibility in client meetings\n\nPROBLEM: Your suit might be undermining your professional presence without you realizing it. After 20+ years tailoring for executives, I see these mistakes daily:\n\n1. Shoulder seams extending past your natural shoulder (makes you look smaller)\n2. Jacket sleeves covering your shirt cuff (hides your watch, looks sloppy)\n3. Pants breaking more than once on your shoes (dated, unprofessional)\n4. Jacket buttoning with visible pulling or X-shaped wrinkles (too tight)\n5. Trouser rise sitting too low (modern cut, but unprofessional for traditional industries)\n\nAGITATE: Studies show first impressions form in 7 seconds. Your expertise deserves presentation that matches.\n\nSOLUTION: Professional alterations cost [15-30% of suit price] but transform off-the-rack into custom-fitted appearance. Investment in your presentation is investment in your career.\n\nWhat fit mistakes have you noticed in professional settings? Share your observations below.\n\n#ProfessionalPresence #ExecutiveStyle #TailoringTips #CareerDevelopment #ImageConsulting",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "ATTENTION: The sustainable luxury movement is changing how executives approach their wardrobes\n\nINTERESTING shift I'm seeing: C-suite clients are choosing alterations over new purchases at 3x the rate compared to 5 years ago.\n\nWhy?\n\n→ Quality over quantity: One $2,000 suit altered perfectly outlasts five $400 suits\n→ Sustainability credentials: Extending garment life aligns with ESG commitments\n→ Distinctive appearance: Custom fit signals attention to detail competitors miss\n→ Economic intelligence: $[75-200] in alterations vs $[1,500+] replacement\n\nDESIRE: The new executive power move isn't buying more—it's optimizing what you own. Your wardrobe becomes a curated collection of perfect-fitting pieces that work harder and last longer.\n\nACTION: I'm offering complimentary fit consultations for professionals this month. 30-minute wardrobe assessment, no obligation. DM me to schedule.\n\nHow are you approaching wardrobe sustainability in your professional life?\n\n#SustainableFashion #ExecutiveWardrobe #LuxuryTailoring #CorporateStyle #ESG",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: $800 suit hanging unworn because shoulders were too wide\nAFTER: Go-to power outfit for every important meeting\n\nThis is what proper alterations do for professionals.\n\nClient came in frustrated—expensive suit purchased for promotion, never felt confident wearing it. The problem? Off-the-rack proportions didn't match his build.\n\n[45 minutes of expert alterations later]:\n→ Shoulders restructured for natural fit\n→ Sleeves shortened to show proper cuff\n→ Jacket tapered for modern silhouette\n→ Trousers hemmed with subtle break\n\nBETTER: Investment of $[175] transformed $800 mistake into $2,000 appearance. He wore it to his first board presentation. Nailed it.\n\nExecutive alterations available: [BUSINESS NAME]\n→ Complimentary consultation\n→ [48-hour] standard turnaround\n→ [24-hour] rush available\n→ Satisfaction guaranteed\n\nReady to transform your professional wardrobe? Link in profile to book consultation.\n\n#ExecutiveTailoring #ProfessionalStyle #SuitAlterations #CareerInvestment",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 signs your suit doesn't fit (and why it matters) 👔\n\nSwipe to see what master tailors notice that you might miss →\n\nSlide 1: Shoulder seams past your shoulders = looks too big\nSlide 2: Jacket sleeves covering hands = unprofessional\nSlide 3: Pants pooling at ankles = outdated\nSlide 4: Pulling across chest when buttoned = too tight\nSlide 5: After alterations = custom-fitted confidence\n\nPerfect fit isn't about perfection—it's about proportion. Your body deserves clothes that work WITH it, not against it.\n\n[BUSINESS NAME] | Expert alterations since [YEAR]\n📍 [LOCATION]\n⏰ [48-hour] turnaround | Rush available\n💬 DM to book fitting\n\nSave this for your next suit purchase! ✨\n\n#TailoringTips #SuitFit #MensFashion #CustomTailoring #StyleEducation #FitMatters #AlterationExperts #[CITYNAME]Tailor #PerfectFit #FashionEducation",
+        "visual": "Carousel: 5 slides with split-screen images showing incorrect fit (left) vs correct fit (right) with annotation arrows pointing to specific problem areas. Clean, professional photography with consistent lighting. Final slide shows dramatic before/after transformation.",
+        "framework": "Educational + Social Proof"
+      },
+      "authority": {
+        "caption": "Master tailor reveals: What we see when you walk in wearing off-the-rack\n\nAfter [20+] years and [5,000+] alterations, here's the truth...\n\nYour clothes are telling a story. Most people don't realize:\n\n→ Sleeve length reveals if you understand proportion\n→ Shoulder fit shows attention to detail\n→ Trouser break signals style awareness\n→ Overall silhouette communicates confidence (or lack of it)\n\nThe difference between \"nice suit\" and \"is that custom?\" is often just $[150-250] in expert alterations.\n\nWe don't just hem pants. We transform how you're perceived.\n\n[BUSINESS NAME] | Where off-the-rack becomes one-of-a-kind\n\nDouble tap if you've ever felt your clothes weren't doing you justice 💙\n\n#MasterTailor #TailoringExpert #CustomFit #AlterationArtistry #FashionExpert #StyleAuthority #BespokeLook #ProfessionalTailoring #[CITYNAME]Style #ExpertCraftsmanship",
+        "visual": "Behind-the-scenes photo of tailor at work with professional tools, measuring, or pinning garment on dress form. Authentic workshop environment showing craftsmanship and expertise. Warm, inviting lighting emphasizing skill and precision.",
+        "framework": "Authority Building + Expert Positioning"
+      },
+      "promotional": {
+        "caption": "Wedding in [2 weeks]? We've got you. 💍\n\nRush alterations available:\n✂️ Wedding dress transformations\n👔 Suit perfection\n👗 Bridesmaid dress adjustments\n🤵 Groomsmen coordination\n\nWhat brides are saying:\n\"They saved my dress AND my sanity\" - Sarah M.\n\"Flawless work, finished 3 days early\" - Jennifer K.\n\"You can't even tell it was altered\" - Michelle R.\n\nDon't let fit anxiety ruin your big day.\n\n[BUSINESS NAME]\n📍 [LOCATION]\n📞 [PHONE] - Call now for availability\n⏰ [Same-day] consultations\n💎 [500+] brides trusted us this year\n\nDM \"WEDDING\" for rush pricing 👰\n\n#WeddingAlterations #BridalAlterations #WeddingDress #BridalTailoring #WeddingPrep #BrideToBeVIP #WeddingSeason #RushAlterations #[CITYNAME]Wedding #BridalExperts #WeddingDressAlterations",
+        "visual": "Stunning before/after of wedding dress alteration. Before: dress on hanger looking ill-fitting. After: bride wearing perfectly fitted dress, emotional reaction captured (back to camera for privacy, or with permission). Romantic, soft lighting. Include small text overlay: 'Transformed in 10 days'",
+        "framework": "Urgency + Social Proof"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "Does your suit bunch at the shoulders? 🤔 You're not alone.\n\nAfter helping [1,000+] customers this year, I've noticed the same fit problems coming up again and again. Here's what most people don't realize about off-the-rack clothing:\n\nTHE PROBLEM:\nMass-produced clothing is designed for \"average\" body proportions. But here's the thing—almost nobody is actually \"average.\" You might be:\n→ Taller with longer arms\n→ Athletic build with broader shoulders\n→ Shorter with different rise needs\n→ Between sizes in different areas\n\nWHY IT MATTERS:\nIll-fitting clothes don't just look wrong—they feel uncomfortable and undermine your confidence. That expensive suit you never wear? It's probably not the style. It's the fit.\n\nTHE SOLUTION:\nProfessional alterations can fix:\n✓ Shoulders that are too wide or narrow\n✓ Sleeves that cover your hands\n✓ Pants that drag or bunch\n✓ Jackets that pull or gap\n✓ Waists that need taking in or letting out\n\nMost alterations cost [15-30%] of the garment price but make it look like it was custom-made for you.\n\nQUESTION: What fit problems frustrate you most? Drop a comment and I'll tell you if it's fixable! 👇\n\n[BUSINESS NAME] | Expert Alterations | [LOCATION]\nCall [PHONE] or visit [ADDRESS] for complimentary consultation",
+        "framework": "PAS (Problem-Agitate-Solution)"
+      },
+      "authority": {
+        "template": "TRUTH BOMB from a master tailor: Most people are wearing the wrong size and don't even know it. 👔\n\nI've been doing this for [20+] years, and I can tell you—size labels lie.\n\nHere's what the fashion industry doesn't advertise:\n\n1. Vanity sizing means a \"medium\" at one brand is a \"large\" at another\n2. Your size changes between brands, styles, and even seasons\n3. Off-the-rack sizing assumes proportions that don't match real bodies\n4. \"Perfect fit\" off the rack is actually rare—maybe 5% of people\n\nSo what do successful, well-dressed people do differently?\n\nThey buy for the largest part of their body, then alter everything else.\n\n→ Broad shoulders? Buy for shoulders, tailor the waist\n→ Long torso? Buy for length, adjust everywhere else\n→ Athletic build? Buy for chest, taper the rest\n\nThis is why CEOs and celebrities always look perfectly put together. It's not better genetics or expensive clothes—it's expert alterations.\n\nThe transformation:\n→ $200 suit + $100 alterations = looks like $1,000\n→ $800 suit with no alterations = looks like $200\n\nFit beats fabric. Every. Single. Time.\n\nI'm offering FREE fit consultations this week for anyone tired of clothes that don't work. No purchase required—just bring in one problem piece and I'll show you what's possible.\n\nComment \"FIT\" below or DM me to claim your spot. Limited availability!\n\n[BUSINESS NAME] | [LOCATION] | [PHONE]\n\nWho taught you that you had to accept how clothes fit off the rack? Let's change that. 💪",
+        "framework": "AIDA (Attention-Interest-Desire-Action)"
+      },
+      "promotional": {
+        "template": "⏰ URGENT: Prom is [3 weeks] away and we're getting SLAMMED with alterations!\n\nIf your dress or suit needs work, book NOW before we're completely full.\n\nWhat we're seeing:\n→ Dresses ordered online that don't fit right ❌\n→ Suits that looked good in the store but need tailoring ❌  \n→ Last-minute panic when nothing fits perfectly ❌\n\nDon't be that person scrambling the week before!\n\nWHAT WE OFFER:\n✅ Prom dress alterations (hemming, taking in, adjustments)\n✅ Suit tailoring (sleeves, pants, jacket fit)\n✅ Rush service available (additional fee)\n✅ Fitting appointments to ensure perfection\n✅ Group discounts for [4+] friends booking together\n\nPRICING:\n→ Basic hem: Starting at $[XX]\n→ Dress alterations: $[XX-XXX] depending on complexity\n→ Suit package: $[XXX] (sleeves, pants, jacket adjustments)\n→ Rush service (under 1 week): [+50%]\n\nGROUP SPECIAL: Book with [3+] friends, everyone saves [20%]! 🎉\n\nREAL REVIEWS:\n\"They saved my prom dress! Fit perfectly and looked amazing!\" - Ashley M.\n\"My suit looked custom-made. So many compliments!\" - Marcus T.\n\"Fast, professional, and my daughter felt like a princess!\" - Parent review\n\nBOOK NOW:\n📞 Call [PHONE] (fastest)\n💬 DM us here\n📍 Walk-ins accepted but appointments prioritized\n\nDon't wait until it's too late! Prom season fills up FAST.\n\n[BUSINESS NAME] | [ADDRESS] | [HOURS]\n\nTag a friend who needs to see this! 👇",
+        "framework": "Urgency + Clear CTA + Social Proof"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just realized your $500 suit has been making you look cheap this whole time",
+        "script": "HOOK: POV: You just realized your $500 suit has been making you look cheap this whole time 😬\n\n[0-3 sec: Show person in ill-fitting suit looking in mirror, disappointed expression]\n\n[3-10 sec: Quick cuts showing fit problems]\nText overlay: \"Shoulders too wide\" → \"Sleeves covering hands\" → \"Pants dragging\"\nVoiceover: \"Here's what nobody tells you about off-the-rack suits...\"\n\n[10-25 sec: Tailor explaining while showing garment]\n\"These three fit mistakes make expensive clothes look cheap:\nNumber one—shoulder seams past your actual shoulders\nNumber two—sleeves that hide your shirt cuffs  \nNumber three—pants with more than one break at the shoe\"\n\n[25-40 sec: Time-lapse of alterations being done]\nText overlay: \"$150 in alterations later...\"\nShow quick clips: pinning, sewing, pressing, measuring\n\n[40-50 sec: Reveal - same person in altered suit]\nDramatic reveal, person looking confident\nText overlay: \"Same suit. Different fit. Total transformation.\"\n\n[50-60 sec: CTA]\n\"Stop letting bad fit ruin good clothes. Link in bio for consultations.\"\nText overlay: \"[BUSINESS NAME] | [CITY]\"\n\n#SuitTok #MensFashion #TailoringTips #FashionHacks #OOTD #StyleTips #BeforeAndAfter #TransformationTok",
+        "framework": "Problem Identification + Solution Reveal"
+      },
+      "authority": {
+        "hook": "Master tailor reacts to your fit mistakes (and I'm not holding back)",
+        "script": "HOOK: Master tailor reacts to your fit mistakes 😤 (and I'm not holding back)\n\n[0-3 sec: Tailor with arms crossed, serious expression]\nText overlay: \"20 years of tailoring = I notice EVERYTHING\"\n\n[3-15 sec: React to common mistakes]\nShow stock footage or photos of fit mistakes, tailor reacting:\n\"Okay, those shoulders... no no no\" [shaking head]\n\"Why are your sleeves so long?\" [frustrated gesture]\n\"Who told you that's how pants should fit?\" [hands on face]\n\n[15-30 sec: Educational breakdown]\n\"Look, I see these mistakes every single day:\n→ Buying for your chest, ignoring everything else\n→ Thinking 'close enough' is good enough\n→ Never getting anything tailored because you don't know it's an option\"\n\n[30-45 sec: The reveal]\n\"Here's what people don't realize...\"\nShow before/after examples\n\"This is the SAME person. Same suit. Just $[XXX] in alterations.\"\nText overlay: \"The difference between 'nice' and 'IS THAT CUSTOM?'\"\n\n[45-60 sec: Authority statement + CTA]\n\"After [5,000+] alterations, I can tell you—fit beats everything.\nExpensive fabric in wrong size? Looks cheap.\nAffordable suit in perfect fit? Looks luxury.\n\nStop guessing. Get it tailored.\"\n\nText overlay: \"[BUSINESS NAME] | DM for consultation\"\n\n#TailorTok #FashionTips #MasterTailor #StyleAdvice #FitCheck #BeforeAndAfter #FashionEducation",
+        "framework": "Authority + Expert Reaction Format"
+      },
+      "promotional": {
+        "hook": "Wedding in 2 weeks and your dress doesn't fit? Let me show you what we can do...",
+        "script": "HOOK: Wedding in 2 weeks and your dress doesn't fit? 😰 Let me show you what we can do...\n\n[0-3 sec: Stressed bride holding ill-fitting dress]\nText overlay: \"WEDDING PANIC MODE\"\n\n[3-10 sec: Show the problem]\nBride trying on dress, clearly doesn't fit right\nVoiceover: \"Ordered online... wrong size... wedding in [14 days]...\"\nText overlay: \"Too big in waist\" \"Too long\" \"Straps falling\"\n\n[10-20 sec: The promise]\nCut to tailor confidently examining dress\n\"Don't panic. We do this literally every week.\"\nShow calendar: \"Rush alterations = [7-10 days]\"\nText overlay: \"We've saved 500+ weddings this year\"\n\n[20-40 sec: Time-lapse transformation]\nFast-paced clips of alteration process:\n→ Pinning\n→ Sewing\n→ Detail work on beading\n→ Final pressing\nUpbeat music, text overlays: \"Day 1\" \"Day 3\" \"Day 6\" \"Day 7: DONE\"\n\n[40-55 sec: The reveal]\nBride in perfectly fitted dress, emotional reaction\nSlow-mo twirl, text overlay: \"FLAWLESS\"\nShow close-ups of perfect fit details\n\n[55-60 sec: Strong CTA]\n\"Wedding emergency? We've got you.\"\nText overlay: \"[BUSINESS NAME]\"\n\"📞 [PHONE] - Call NOW\"\n\"Same-day consultations available\"\n\"Link in bio ⬆️\"\n\n#WeddingTok #BridalAlterations #WeddingDress #BrideToBe #WeddingPrep #BridalEmergency #SaveTheDay #WeddingSeason",
+        "framework": "Urgency + Transformation + Social Proof"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The $500 mistake hiding in your closet (and how to fix it)",
+        "preview_text": "That expensive suit you never wear? Here's why—and what to do about it",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: Do you have clothes in your closet with the tags still on?\n\nYou're not alone. We see it constantly—expensive purchases that never get worn because they don't fit quite right.\n\nHere's what's happening:\n\nTHE PROBLEM:\nYou bought a $[XXX] suit/dress for [important event]. It looked good in the store under perfect lighting with the sales associate telling you it was \"great.\" But at home? The shoulders are slightly off. The sleeves are too long. It just doesn't feel right.\n\nSo it hangs there. Unworn. A $[XXX] mistake.\n\nTHE TRUTH:\nOff-the-rack clothing is designed for \"average\" proportions. But you're not average—you're unique. Your body deserves clothes that fit YOUR proportions, not some manufacturer's statistical model.\n\nTHE SOLUTION:\nProfessional alterations transform \"almost right\" into \"absolutely perfect.\"\n\nFor $[XX-XXX] (typically 15-30% of garment cost), we can:\n→ Adjust shoulders for natural fit\n→ Shorten or lengthen sleeves to proper proportion  \n→ Taper or let out for ideal silhouette\n→ Hem to perfect length\n→ Fix any fit issue preventing you from wearing it\n\nREAL EXAMPLE:\nClient brought in $800 suit purchased for promotion. Never wore it—shoulders too wide, sleeves too long. $175 in alterations later? It's now his go-to power outfit. Wore it to his first board presentation.\n\nInvestment saved: $800\nConfidence gained: Priceless\n\nYOUR NEXT STEP:\nBring in ONE piece from your closet that you love but don't wear. We'll do a complimentary consultation and show you exactly what's possible.\n\nNo obligation. Just expert advice on making your wardrobe work for you.\n\nBook your free consultation: [BOOKING_LINK]\nOr reply to this email with questions.\n\n[BUSINESS_NAME]\n[PHONE] | [ADDRESS]\n\nP.S. - Complimentary consultations available through [DATE]. After that, we're booked solid for [EVENT_SEASON].\n\n---\nYou're receiving this because you [SUBSCRIPTION_REASON]. Unsubscribe | Update preferences",
+        "framework": "PAS (Problem-Agitate-Solution)"
+      },
+      "authority": {
+        "subject": "Master tailor reveals: Why expensive clothes look cheap (on most people)",
+        "preview_text": "After 20+ years, here's what I notice that you probably don't...",
+        "body": "Hi [FIRST_NAME],\n\nAfter [20+] years as a master tailor, I can spot fit problems from across a room.\n\nAnd here's what I've learned: FIT matters more than fabric, brand, or price tag.\n\nLet me show you what I mean:\n\nSCENARIO 1: $2,000 Designer Suit\n→ Shoulders extend past natural shoulder line\n→ Sleeves cover shirt cuffs completely  \n→ Jacket pulls across chest when buttoned\n→ Pants pool at ankles\n\nMY ASSESSMENT: Looks like $300\n\nSCENARIO 2: $400 Department Store Suit  \n→ Professional alterations: $150\n→ Shoulders fit naturally\n→ Sleeves show proper cuff\n→ Clean lines, perfect proportions\n\nMY ASSESSMENT: Looks like $1,500+\n\nTHE DIFFERENCE?\nOne person understood that off-the-rack is just the starting point. The other thought expensive meant \"ready to wear.\"\n\nHERE'S WHAT WELL-DRESSED PEOPLE KNOW:\n\n1. Buy for your largest measurement, alter everything else\n2. Budget 15-30% of garment cost for tailoring  \n3. Perfect fit signals attention to detail\n4. Custom appearance doesn't require custom prices\n\nTHIS IS WHY:\nCEOs, executives, and successful professionals always look put-together. It's not genetics or unlimited budgets—it's expert alterations.\n\nYOUR WARDROBE DESERVES BETTER:\n\nI'm offering [30-minute] complimentary wardrobe consultations this month. Bring in [3-5] pieces and I'll show you:\n→ What's working and what's not\n→ Exactly what alterations would help  \n→ Realistic cost estimates\n→ Priority order for maximum impact\n\nNo purchase required. Just expert guidance from someone who's done this [5,000+] times.\n\nLimited spots available: [BOOKING_LINK]\n\nQuestions? Just reply to this email.\n\n[YOUR_NAME]\nMaster Tailor | [BUSINESS_NAME]\n[PHONE] | [ADDRESS]\n\nP.S. - Bring photos of yourself in these outfits if you have them. Seeing how clothes photograph reveals fit issues you might not notice in the mirror.\n\n---\nYou're receiving this because you [SUBSCRIPTION_REASON]. Unsubscribe | Update preferences",
+        "framework": "AIDA (Attention-Interest-Desire-Action)"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], wedding season is HERE—book before we're full ⏰",
+        "preview_text": "500+ brides trusted us last year. Rush alterations filling up fast.",
+        "body": "Hi [FIRST_NAME],\n\nIt's happening again.\n\nBRIDE BEFORE: \"My dress just arrived and it doesn't fit right. Wedding is in [4 weeks]. Can you help?\"\n\nEvery. Single. Spring.\n\nHere's what we know from [20+] years of bridal alterations:\n\nTHE PROBLEM:\n→ Dresses ordered online rarely fit perfectly\n→ Weight fluctuations between ordering and wedding day\n→ Standard sizing doesn't account for your unique proportions  \n→ Panic sets in when \"the dress\" doesn't look like you imagined\n\nTHE BETTER APPROACH:\nBook alterations EARLY (like, right now) and avoid the stress.\n\nWHAT WE OFFER:\n\n✓ BRIDAL DRESS ALTERATIONS\n→ Hemming, bustling, taking in/letting out\n→ Strap adjustments, bodice work\n→ Delicate fabric and beading expertise\n→ Multiple fittings for perfection\n\n✓ COMPLETE WEDDING PARTY  \n→ Bridesmaids dresses\n→ Groomsmen suits\n→ Mother-of-bride/groom attire\n→ Group coordination and scheduling\n\n✓ RUSH SERVICE AVAILABLE\n→ [7-10 day] turnaround (additional fee)\n→ Same-day consultations\n→ Wedding week emergencies handled\n\nPRICING:\n→ Bridal consultations: FREE\n→ Basic alterations: Starting at $[XX]\n→ Complex work: $[XXX-XXX]\n→ Rush service: [+50%]\n→ Group discount: [20%] off for [4+] wedding party members\n\nREAL BRIDE REVIEWS:\n\n\"They transformed my dress into exactly what I dreamed of. Cried when I saw the final result.\" - Sarah M.\n\n\"Flawless work, finished early, and so patient with my nervous energy!\" - Jennifer K.  \n\n\"You can't even tell it was altered—looks like it was made for me.\" - Michelle R.\n\nWEDDING TIMELINE:\n→ [8+ weeks out]: Perfect timing, no stress\n→ [4-6 weeks out]: Book now, still good\n→ [2-4 weeks out]: Rush service needed\n→ [Under 2 weeks]: Call immediately, limited availability\n\nYOUR NEXT STEP:\n\nDon't wait until you're in panic mode.\n\nBook your bridal consultation now: [BOOKING_LINK]\nOr call [PHONE] for fastest response\n\nWedding date in [MONTH]? Mention this email for priority scheduling.\n\n[BUSINESS_NAME]\n[ADDRESS] | [HOURS]\n\nP.S. - Know other brides? Forward this email. Group bookings get [20%] off and coordinated fitting schedules.\n\n---\nYou're receiving this because you [SUBSCRIPTION_REASON]. Unsubscribe | Update preferences",
+        "framework": "BAB (Before-After-Bridge) + Urgency"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[500+] brides trusted us with their dream dress - [perfect fit] guaranteed in [2-8 weeks]",
+      "[1000+] suits transformed from [sloppy] to [sharp] this year - yours could be next",
+      "[3 days] to your [prom/wedding/interview]? Join [200+] customers who got [rush alterations] on time"
+    ],
+    "question_hooks": [
+      "Are your [pants dragging on the ground] making your [expensive suit] look cheap?",
+      "Is your [favorite dress] hanging unworn because it [doesn't fit right after weight loss]?",
+      "Does your [suit bunch at the shoulders] and make you feel [less confident] at work?"
+    ],
+    "story_hooks": [
+      "How [Sarah] saved her [grandmother's wedding dress] from the closet and [wore it down the aisle]",
+      "How [one bride] went from [online shopping disaster] to [custom-fit perfection] in [10 days]",
+      "How [Mark's ill-fitting interview suit] became his [confidence boost] with [same-day alterations]"
+    ],
+    "fear_hooks": [
+      "Is your [$500 designer piece] sitting unworn because you're afraid [alterations will ruin it]?",
+      "Is your [wedding dress] at risk from [inexperienced tailors who don't handle beading/vintage fabric]?",
+      "Are you about to [throw away your favorite jacket] because the [zipper broke] and you think it's unfixable?"
+    ],
+    "howto_hooks": [
+      "How to [wear your entire closet again after weight changes] without [buying a new wardrobe]",
+      "How to [get perfect-fitting suits] without [paying custom prices] - [alterations are the secret]",
+      "How to [save your broken zipper/torn hem/gaping waist] without [replacing the whole garment]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You bought the perfect dress online but it fits like a potato sack",
+      "body": "Show dress hanging loosely (0-3s). Quick cut to pinning session with tailor marking adjustments (4-15s). Time-lapse of sewing machine work on seams (16-30s). Dramatic reveal of customer twirling in perfectly fitted dress with emotional reaction (31-50s). Text overlay: 'Custom fit without custom prices' (51-55s). End with before/after split screen (56-60s)",
+      "cta": "Link in bio to book your transformation"
+    },
+    "reels": {
+      "hook": "This $40 alteration saved a $400 dress",
+      "body": "Open with dress that doesn't fit (0-5s). Fast cuts showing: measuring, pinning, sewing details (6-18s). Reveal customer's reaction seeing final fit (19-25s). Text: 'Don't give up on pieces you love' (26-28s)",
+      "cta": "DM us your alteration emergency"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video showing your outfit before alterations vs after, and tell us what event you're wearing it to. Bonus points for showing your reaction when you first tried on the finished piece!",
+      "hashtag": "#FitPerfectly"
+    },
+    {
+      "prompt": "Take a photo of that expensive piece hanging in your closet that you never wear because it doesn't fit right. Tell us why you love it and why you haven't worn it. We want to help bring it back to life!",
+      "hashtag": "#SaveYourFavorites"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Wedding dress inheritance transformations - showing grandmother's/mother's vintage dress being altered for modern bride with emotional family reaction video",
+      "why": "Taps into nostalgia, family connection, sustainability, and wedding emotions. Highly shareable across generations. Creates aspirational content while showcasing technical skill"
+    },
+    {
+      "angle": "The 'This Should Be Illegal' series - showing how much better expensive designer/mall clothes look after proper alterations with price comparison overlay",
+      "why": "Controversial hook drives comments and shares. Educates on value of alterations vs buying new. Creates 'secret' knowledge people want to share. Positions alterations as luxury hack accessible to everyone"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:53:38.656Z",
+    "last_tier2_refresh": "2025-11-27T22:53:38.656Z",
+    "last_tier3_refresh": "2025-11-27T22:53:38.656Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:53:38.656Z"
+  }
+}

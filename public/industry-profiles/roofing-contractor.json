@@ -1,0 +1,1658 @@
+{
+  "industry": "Roofing Contractor",
+  "industry_name": "Roofing Contractor",
+  "naics_code": "238160",
+  "category": "Construction",
+  "subcategory": "Specialty Trade Contractors",
+  "customer_triggers": [
+    {
+      "trigger": "Visible water stains on ceiling",
+      "urgency": 10,
+      "frequency": "Monthly during rain season"
+    },
+    {
+      "trigger": "Missing or damaged shingles after storm",
+      "urgency": 9,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Insurance claim approval letter",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Neighbor getting new roof",
+      "urgency": 4,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Real estate agent recommendation for sale",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Energy bills increasing 30%+",
+      "urgency": 6,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Roof age exceeding 20 years",
+      "urgency": 5,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Black streaks or moss growth visible",
+      "urgency": 3,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Home inspection failure",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Granules in gutters increasing",
+      "urgency": 6,
+      "frequency": "Monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Homeowner notices water stain, missing shingles, or receives insurance settlement check - searches 'roof repair near me' or 'emergency roof leak' at 2AM during storm",
+    "consideration": "Compares 3-5 contractors within 48 hours, reads 50+ reviews, checks BBB ratings, verifies insurance and licensing, gets multiple quotes ranging from $8,000-$25,000",
+    "decision": "Chooses based on 40% price, 30% availability (can start within 7 days), 20% warranty terms (minimum 10-year workmanship), 10% financing options with 0% for 12 months",
+    "retention": "Annual roof inspections at $150-250, gutter cleaning twice yearly at $200-400, priority storm response membership at $99/year, 24/7 emergency hotline access",
+    "advocacy": "Refers neighbors after visible transformation, posts before/after photos getting 200+ likes, leaves detailed Google review within 14 days, provides video testimonial for 10% future discount"
+  },
+  "transformations": [
+    {
+      "from": "Anxiety about home damage",
+      "to": "Peace of mind during storms",
+      "emotional_value": "Worth $2,000 premium for 50-year warranty",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassing curb appeal",
+      "to": "Neighborhood showpiece",
+      "emotional_value": "Increases home value by $15,000-20,000",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant repair expenses",
+      "to": "Predictable home maintenance",
+      "emotional_value": "Saves $500/year in patch repairs",
+      "worth_premium": false
+    },
+    {
+      "from": "Insurance cancellation threat",
+      "to": "Preferred insurance rates",
+      "emotional_value": "Reduces premiums by $800/year",
+      "worth_premium": true
+    },
+    {
+      "from": "Energy waste concerns",
+      "to": "30% utility savings",
+      "emotional_value": "ROI in 7 years with cool roof technology",
+      "worth_premium": true
+    },
+    {
+      "from": "Selling obstacles",
+      "to": "Move-in ready listing",
+      "emotional_value": "Sells 23 days faster with new roof",
+      "worth_premium": true
+    },
+    {
+      "from": "Family safety worries",
+      "to": "Protected investment",
+      "emotional_value": "Prevents $40,000 in water damage",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Zero leaks for 10+ years",
+      "timeframe": "Measured annually",
+      "measurable": true
+    },
+    {
+      "metric": "Energy bills reduced by 25-35%",
+      "timeframe": "Within 3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Home value increase of $15,000",
+      "timeframe": "Immediate appraisal",
+      "measurable": true
+    },
+    {
+      "metric": "Insurance premium reduction of $600-1200/year",
+      "timeframe": "Next renewal cycle",
+      "measurable": true
+    },
+    {
+      "metric": "Complete installation in 1-2 days",
+      "timeframe": "Weather permitting",
+      "measurable": true
+    },
+    {
+      "metric": "Pass inspection first attempt",
+      "timeframe": "Within 48 hours",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Active leak causing $500/day in damage to interior",
+    "Insurance claim expires in 180 days or loses $15,000 coverage",
+    "Rainy season starting in 3 weeks with 40% more precipitation expected",
+    "Home sale closing contingent on roof replacement within 30 days",
+    "Materials prices increasing 8% next month due to tariffs",
+    "Current promotion saves $1,500 but ends Friday at midnight",
+    "Crew availability booked solid for next 6 weeks after tomorrow"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price is $3,000 higher than other quote",
+      "response": "We include upgraded ice/water shield on entire deck, not just edges, preventing the $15,000 damage claim Mrs. Johnson down the street just filed. Our crews are actual employees with workers comp, not subcontractors who might sue you if injured.",
+      "effectiveness": 78
+    },
+    {
+      "objection": "Can't afford $15,000 right now",
+      "response": "Our 0% financing for 18 months means just $833/month with no interest. Most customers save $200/month on energy bills, making net cost only $633. We also offer a patch-and-monitor program starting at $2,500 to buy you 2-3 years.",
+      "effectiveness": 82
+    },
+    {
+      "objection": "Need to get more quotes first",
+      "response": "Absolutely, here's our detailed 47-point inspection report with photos to share with others. We're confident you won't find anyone else including architectural shingles, synthetic underlayment, and transferable warranty at this price. Lock in today's price for 30 days while you decide.",
+      "effectiveness": 71
+    },
+    {
+      "objection": "How do I know you'll be around for warranty?",
+      "response": "Family-owned since 1978 with $5M insurance bond, 4,200 roofs in your zip code with references available, A+ BBB rating for 22 years. We're the only company that registers your warranty directly with manufacturer and provides GPS-tagged photos of every phase.",
+      "effectiveness": 85
+    },
+    {
+      "objection": "Want to wait until spring",
+      "response": "Winter installations save you $2,000 due to slower season, plus you'll capture energy savings through entire winter worth $800. Small leaks become major problems with freeze-thaw cycles causing $10,000+ in damage. We guarantee same quality with cold-weather adhesives.",
+      "effectiveness": 69
+    },
+    {
+      "objection": "Insurance should cover more",
+      "response": "We work with your adjuster to maximize coverage, typically finding additional 15-20% in supplemental claims. Our public adjuster partnership has recovered over $2.3M in underpaid claims. We handle all paperwork and only collect deductible upfront.",
+      "effectiveness": 88
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "10-year workmanship warranty with no leak guarantee",
+      "Price match plus 10% if identical scope",
+      "48-hour rain response guarantee or $500 credit",
+      "Lifetime material warranty through manufacturer"
+    ],
+    "proof_points": [
+      "4,847 completed roofs in county with photos",
+      "Zero BBB complaints in 5 years",
+      "Licensed, bonded, insured with certificates provided",
+      "$5M general liability policy",
+      "GAF Master Elite certification (only 2% of contractors)"
+    ],
+    "risk_mitigation": "Pay only $1,000 deposit, progress payments tied to inspection milestones, final payment after your complete satisfaction and city permit sign-off, 72-hour cooling off period, independent inspection included"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "leaking",
+      "dripping",
+      "stains",
+      "buckets",
+      "emergency",
+      "damage",
+      "mold",
+      "rotting",
+      "sagging",
+      "insurance claim"
+    ],
+    "solution_words": [
+      "protected",
+      "peace of mind",
+      "guaranteed",
+      "warranty",
+      "energy efficient",
+      "beautiful",
+      "increased value",
+      "professional",
+      "certified",
+      "trusted"
+    ],
+    "avoid_jargon": [
+      "decking",
+      "flashing",
+      "underlayment",
+      "ridge vents",
+      "fascia",
+      "soffit",
+      "ice dam",
+      "cricket",
+      "valley",
+      "dormer"
+    ]
+  },
+  "power_words": [
+    "Guaranteed",
+    "Lifetime",
+    "Emergency",
+    "Free",
+    "Certified",
+    "Insured",
+    "Local",
+    "Family-owned",
+    "Same-day",
+    "Warranty",
+    "Professional",
+    "Licensed",
+    "Trusted",
+    "Award-winning",
+    "Affordable",
+    "Quality",
+    "Expert",
+    "Reliable",
+    "Honest",
+    "Experienced",
+    "Fast",
+    "Beautiful",
+    "Energy-saving",
+    "Durable",
+    "Premium",
+    "Value",
+    "Protected",
+    "Proven",
+    "Recommended",
+    "Satisfaction"
+  ],
+  "avoid_words": [
+    "Cheap",
+    "Discount",
+    "Budget",
+    "Economy",
+    "Basic",
+    "Standard",
+    "Adequate",
+    "Sufficient",
+    "Temporary",
+    "Quick-fix",
+    "Patch",
+    "Used",
+    "Recycled",
+    "Subcontractor",
+    "Trying",
+    "Maybe",
+    "Hopefully",
+    "Should",
+    "Might",
+    "Usually"
+  ],
+  "headline_templates": [
+    {
+      "template": "Emergency Roof Leak? Fixed Today - Call [PHONE]",
+      "expected_ctr": 8.2,
+      "use_case": "Google Ads during storms"
+    },
+    {
+      "template": "Insurance Approved Roofer - $0 Down Today",
+      "expected_ctr": 6.7,
+      "use_case": "Facebook after storms"
+    },
+    {
+      "template": "[CITY] Homeowners Save $3,000 This Week Only",
+      "expected_ctr": 5.9,
+      "use_case": "Direct mail campaign"
+    },
+    {
+      "template": "Warning: 73% of [CITY] Roofs Fail Inspection",
+      "expected_ctr": 7.1,
+      "use_case": "Email subject line"
+    },
+    {
+      "template": "GAF Master Elite Installer - 50 Year Warranty",
+      "expected_ctr": 4.8,
+      "use_case": "Billboard/signage"
+    },
+    {
+      "template": "Roof Replacement in 1 Day - Guaranteed",
+      "expected_ctr": 6.3,
+      "use_case": "Landing page hero"
+    },
+    {
+      "template": "Free Roof Inspection Reveals $10,000 in Hidden Damage",
+      "expected_ctr": 9.1,
+      "use_case": "Social media post"
+    },
+    {
+      "template": "Your Neighbors Chose Us - See Why (Before/After)",
+      "expected_ctr": 7.8,
+      "use_case": "Retargeting ads"
+    },
+    {
+      "template": "Metal vs Shingle: Which Saves You More?",
+      "expected_ctr": 5.2,
+      "use_case": "Blog post title"
+    },
+    {
+      "template": "Storm Damage? We Work Directly With Insurance",
+      "expected_ctr": 8.9,
+      "use_case": "PPC after weather"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Free Inspection Today",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Call Now: [PHONE] - 24/7 Emergency",
+      "conversion_rate": 15.7,
+      "placement": "Sticky header"
+    },
+    {
+      "template": "Schedule Your Free Quote →",
+      "conversion_rate": 9.8,
+      "placement": "End of content"
+    },
+    {
+      "template": "Claim Your $1,500 Discount",
+      "conversion_rate": 11.2,
+      "placement": "Exit intent popup"
+    },
+    {
+      "template": "See If You Qualify for 0% Financing",
+      "conversion_rate": 13.4,
+      "placement": "Sidebar"
+    },
+    {
+      "template": "Get Instant Estimate",
+      "conversion_rate": 8.9,
+      "placement": "Calculator tool"
+    },
+    {
+      "template": "Text Photos for Quick Quote: [NUMBER]",
+      "conversion_rate": 14.1,
+      "placement": "Mobile sticky"
+    },
+    {
+      "template": "Download Free Roof Maintenance Guide",
+      "conversion_rate": 7.6,
+      "placement": "Blog posts"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Storm damage? We're responding to emergency calls NOW. Comment 'HELP' for priority service. [before/after photo]",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Transformation Tuesday! 🏠 Swipe to see this amazing 1-day roof replacement. What style would you choose? #[CITY]Roofing",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "🚨 [CITY] residents: Check your roof after last night's storm. Free inspections this week only. RT to help neighbors! Call: [PHONE]",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Commercial property managers: How one preventive maintenance program saved $240,000 in emergency repairs. Case study: [LINK]",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "YouTube",
+      "template": "Hidden Roof Damage: 5 Signs You Need Immediate Repair [3:42 video] - Could save you $15,000",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a shingle in a category 3 hurricane 😱 Here's what quality installation looks like... #RoofTok",
+      "engagement_rate": 19.4
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Roof Styles That Increase Home Value by $20,000+ [Infographic] Save for your next project!",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "Google Business",
+      "template": "Thank you [NAME] for trusting us with your home! Another beautiful GAF Timberline HDZ installation completed in 1 day.",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! After yesterday's hail, we're offering free damage assessments. We've done 47 roofs on [STREET NAME]. References available!",
+      "engagement_rate": 12.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only GAF Master Elite contractor in 50-mile radius with lifetime warranty",
+      "rank": 1,
+      "differentiator": "2% of contractors achieve this certification"
+    },
+    {
+      "prop": "Complete roof replacement in 1 day with 100% cleanup guarantee",
+      "rank": 2,
+      "differentiator": "Competitors average 3-4 days"
+    },
+    {
+      "prop": "Insurance claim specialists recover 35% more than adjusters initial estimate",
+      "rank": 3,
+      "differentiator": "In-house public adjuster on staff"
+    },
+    {
+      "prop": "24/7 emergency response within 2 hours for active leaks",
+      "rank": 4,
+      "differentiator": "Dedicated emergency crew"
+    },
+    {
+      "prop": "0% financing for 18 months with instant approval",
+      "rank": 5,
+      "differentiator": "No credit check under $15,000"
+    },
+    {
+      "prop": "Energy Star certified installations reduce cooling costs by 30%",
+      "rank": 6,
+      "differentiator": "Infrared testing included"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Protect your largest investment with GAF Master Elite installation, architectural designer shingles, and our exclusive lifetime warranty. Your home deserves uncompromising quality from the area's only certified premium installer.",
+    "budget_conscious": "Quality roofing doesn't mean breaking the bank. Our value line offers 30-year protection with flexible payment plans starting at $189/month. Same expert installation, honest pricing, no hidden fees.",
+    "enterprise": "Minimize operational disruption with our commercial roofing division. Single-source warranty, predictive maintenance programs, and dedicated project management. Trusted by 200+ property managers for 20+ years."
+  },
+  "trust_signals": [
+    {
+      "signal": "GAF Master Elite Certification Badge",
+      "importance": 9,
+      "format": "Logo placement on all materials"
+    },
+    {
+      "signal": "4.8 stars from 1,247 Google reviews",
+      "importance": 10,
+      "format": "Review widget on website"
+    },
+    {
+      "signal": "BBB A+ Rating for 22 consecutive years",
+      "importance": 8,
+      "format": "Accreditation seal"
+    },
+    {
+      "signal": "Before/after gallery with 500+ local projects",
+      "importance": 7,
+      "format": "Interactive map"
+    },
+    {
+      "signal": "$5 Million insurance bond certificate",
+      "importance": 6,
+      "format": "Downloadable PDF"
+    },
+    {
+      "signal": "Local address: Serving [CITY] since 1978",
+      "importance": 8,
+      "format": "Footer information"
+    },
+    {
+      "signal": "Real crew photos with names and years of service",
+      "importance": 7,
+      "format": "Team page"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "4,847 roofs completed with 98.7% satisfaction rate",
+      "credibility_score": 9.2,
+      "context": "Based on post-project surveys"
+    },
+    {
+      "stat": "Average customer saves $3,200 vs. initial quotes",
+      "credibility_score": 7.8,
+      "context": "Documented savings through value engineering"
+    },
+    {
+      "stat": "73% of customers from referrals",
+      "credibility_score": 8.9,
+      "context": "Tracked through CRM since 2019"
+    },
+    {
+      "stat": "Zero warranty claims in past 3 years",
+      "credibility_score": 9.5,
+      "context": "Verified through insurance records"
+    },
+    {
+      "stat": "15-minute average response time for emergencies",
+      "credibility_score": 8.3,
+      "context": "GPS-tracked response data"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: GAF Timberline HDZ or Owens Corning Duration shingles, synthetic underlayment, copper flashing",
+    "Mid-range: Architectural shingles with 30-year warranty, ice and water shield, aluminum flashing",
+    "Budget: 3-tab shingles with 20-year warranty, felt paper underlayment, galvanized flashing",
+    "Red flags: No manufacturer certification, subcontracted crews, cash-only payment, no permit pulled"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "Final inspection passed and warranty registered",
+    "ask_method": "Personal call from owner followed by email with direct review links and video testimonial request offering $100 future service credit"
+  },
+  "competitive_advantages": [
+    "Only company with in-house insurance advocacy team recovering average $4,500 additional per claim",
+    "Proprietary 73-point inspection process with infrared moisture detection included free",
+    "Same crews for 10+ years versus competitors' rotating subcontractors",
+    "Manufacturing facility relationship enables 15% material cost savings passed to customer",
+    "24/7 emergency response team when competitors offer business hours only"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Start with premium metal roof option at $45,000 making $15,000 architectural shingle seem reasonable",
+    "sensitivity": "Price breaks at $9,999, $14,999, and $19,999 to stay under psychological barriers",
+    "sweet_spots": [
+      "$12,000-15,000 for full replacement",
+      "$3,500-5,000 for repair",
+      "$450-750 for maintenance"
+    ],
+    "decoy_pricing": "Offer mid-tier at $14,500 to push customers to best value at $15,999 with extended warranty"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 5000,
+    "approval_required": 10000,
+    "competitor_research": 8000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.35,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Premium Protection",
+      "price_range": "$18,000-25,000",
+      "target_customer": "Luxury homes, lifetime owners",
+      "margin": 42
+    },
+    {
+      "tier": "Value Plus",
+      "price_range": "$12,000-17,999",
+      "target_customer": "Middle market, 10+ year owners",
+      "margin": 35
+    },
+    {
+      "tier": "Essential Coverage",
+      "price_range": "$8,000-11,999",
+      "target_customer": "Budget conscious, selling soon",
+      "margin": 28
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle gutter replacement at 45% margin when doing roof for only 28% incremental labor",
+    "Upgrade to premium ridge vents adds $1,200 revenue at 65% margin",
+    "Annual maintenance contracts at $400/year with 70% margin and 85% retention",
+    "Referral program reduces CAC by 60% improving net margin by 8 points",
+    "Skylight installation during roofing adds $3,000 at 55% margin with minimal extra time",
+    "Extended warranty sales add $800 pure profit with zero additional cost"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -35,
+      "reason": "Post-holiday budgets, cold weather",
+      "opportunity": "Insurance deductible reset messaging"
+    },
+    {
+      "month": "February",
+      "variation": -25,
+      "reason": "Winter weather delays",
+      "opportunity": "Tax refund pre-marketing"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring storms begin",
+      "opportunity": "Inspection season launch"
+    },
+    {
+      "month": "April",
+      "variation": 45,
+      "reason": "Tax refunds plus storm season",
+      "opportunity": "Peak advertising ROI"
+    },
+    {
+      "month": "May",
+      "variation": 65,
+      "reason": "Prime weather and urgency",
+      "opportunity": "Crew capacity maximization"
+    },
+    {
+      "month": "June",
+      "variation": 70,
+      "reason": "Hurricane season prep",
+      "opportunity": "Premium pricing period"
+    },
+    {
+      "month": "July",
+      "variation": 40,
+      "reason": "Vacation schedules",
+      "opportunity": "Commercial focus"
+    },
+    {
+      "month": "August",
+      "variation": 55,
+      "reason": "Back-to-school prep",
+      "opportunity": "Fall booking incentives"
+    },
+    {
+      "month": "September",
+      "variation": 60,
+      "reason": "Fall storms, winter prep",
+      "opportunity": "Maintenance contracts"
+    },
+    {
+      "month": "October",
+      "variation": 35,
+      "reason": "Holiday budget concerns",
+      "opportunity": "Year-end insurance claims"
+    },
+    {
+      "month": "November",
+      "variation": -10,
+      "reason": "Holiday spending priority",
+      "opportunity": "Black Friday promotions"
+    },
+    {
+      "month": "December",
+      "variation": -40,
+      "reason": "Holidays and weather",
+      "opportunity": "Next year pre-booking"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Following up weekend inquiries",
+      "avoid": "Cold calling before 9am",
+      "conversion_rate": 12.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Scheduling inspections",
+      "avoid": "Major promotion launches",
+      "conversion_rate": 14.7
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Closing deals mid-week",
+      "avoid": "Nothing - best overall day",
+      "conversion_rate": 16.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Urgent close before weekend",
+      "avoid": "Complex proposals",
+      "conversion_rate": 13.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency response marketing",
+      "avoid": "First contact attempts",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Homeowner inspections",
+      "avoid": "B2B outreach",
+      "conversion_rate": 11.6
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Digital marketing engagement",
+      "avoid": "Phone calls before noon",
+      "conversion_rate": 8.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage due 1st, insurance 15th - avoid these dates for payment requests",
+    "cash_flow_peaks": "Days 5-10 and 20-25 after payday cycles show 40% higher close rates",
+    "slow_periods": "Days 26-31 see 50% lower engagement, focus on nurturing not closing"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "During thunderstorm 6-10pm",
+      "crisis_type": "Active leak emergency",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Morning after hailstorm",
+      "crisis_type": "Insurance inspection rush",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "72 hours before hurricane",
+      "crisis_type": "Storm preparation",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "December 20-25 holidays",
+      "crisis_type": "Family gathering emergency",
+      "premium_multiplier": 3
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Complete Protection Plus",
+      "components": [
+        "Full replacement",
+        "Premium materials",
+        "Lifetime warranty",
+        "Annual inspections"
+      ],
+      "pricing_model": "Fixed price",
+      "margin": 42
+    },
+    {
+      "name": "Repair & Maintain",
+      "components": [
+        "Targeted repairs",
+        "2-year warranty",
+        "Bi-annual check"
+      ],
+      "pricing_model": "Time and materials",
+      "margin": 48
+    },
+    {
+      "name": "Storm Response",
+      "components": [
+        "Emergency tarp",
+        "Insurance documentation",
+        "Priority repair"
+      ],
+      "pricing_model": "Insurance direct",
+      "margin": 38
+    },
+    {
+      "name": "Preventive Care",
+      "components": [
+        "Annual inspection",
+        "Gutter cleaning",
+        "Minor repairs",
+        "Priority storm response"
+      ],
+      "pricing_model": "Annual subscription",
+      "margin": 65
+    }
+  ],
+  "upsell_paths": [
+    "Emergency tarp ($500) → Temporary repair ($2,500) → Full replacement ($15,000)",
+    "Inspection (Free) → Minor repair ($1,500) → Maintenance plan ($400/year) → Replacement ($15,000)",
+    "Shingle repair ($2,000) → Partial replacement ($7,000) → Full replacement with upgrade ($18,000)",
+    "Basic shingles ($12,000) → Architectural shingles ($15,000) → Impact resistant ($18,000) → Metal roof ($25,000)",
+    "Roof only ($15,000) → Add gutters ($3,000) → Add skylights ($3,500) → Add solar prep ($2,000)",
+    "Single home ($15,000) → Neighbor referral ($14,000) → Property management contract ($50,000/year)"
+  ],
+  "retention_hooks": [
+    "Annual inspection membership with priority emergency response saves customers average $2,000 in prevented damage",
+    "Loyalty pricing guarantee: Previous customers get lowest price automatically without negotiation",
+    "Transferable warranty adds $5,000 to home sale value, keeping brand connection through property",
+    "Free storm damage assessment within 24 hours for all past customers maintains relationship",
+    "Birthday month discount of $500 off any service creates annual touchpoint opportunity",
+    "Referral rewards program paying $500 per roof sold maintains engagement for years",
+    "Exclusive customer-only financing rates 2% below market keeps you first choice for future needs"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Neighbor discount cards distributed post-project",
+      "timing": "Day of completion while visible",
+      "incentive": "$500 off for neighbor, $500 credit for referrer",
+      "conversion_rate": 18.3
+    },
+    {
+      "strategy": "Social media before/after contest",
+      "timing": "2 weeks post-completion",
+      "incentive": "$1,000 grand prize",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Realtor partnership program",
+      "timing": "Ongoing relationship building",
+      "incentive": "$300 per closed referral",
+      "conversion_rate": 22.4
+    },
+    {
+      "strategy": "Customer appreciation BBQ",
+      "timing": "Annual spring event",
+      "incentive": "Free food, door prizes, exclusive discounts",
+      "conversion_rate": 14.2
+    },
+    {
+      "strategy": "Three-way introduction warm calls",
+      "timing": "When referral mentioned",
+      "incentive": "Both parties get $250 credit",
+      "conversion_rate": 31.6
+    },
+    {
+      "strategy": "Yard sign incentive program",
+      "timing": "During installation",
+      "incentive": "$50/week up to $200",
+      "conversion_rate": 11.3
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Gutter replacement",
+      "attach_rate": 34,
+      "timing": "During roof quote presentation"
+    },
+    {
+      "service": "Skylight installation",
+      "attach_rate": 12,
+      "timing": "After attic inspection"
+    },
+    {
+      "service": "Attic insulation upgrade",
+      "attach_rate": 23,
+      "timing": "During energy efficiency discussion"
+    },
+    {
+      "service": "Solar panel prep",
+      "attach_rate": 8,
+      "timing": "For homes built after 2010"
+    },
+    {
+      "service": "Exterior painting",
+      "attach_rate": 18,
+      "timing": "Post-roofing for complete transformation"
+    },
+    {
+      "service": "Annual maintenance plan",
+      "attach_rate": 41,
+      "timing": "At final walkthrough"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Commercial flat roof division",
+      "market_size": "$45M locally untapped",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Insurance restoration full service",
+      "market_size": "$30M annual regional",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Solar panel installation integration",
+      "market_size": "$60M growing 30% yearly",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise model for expansion",
+      "market_size": "$200M across three states",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Preventive maintenance subscriptions",
+      "market_size": "$12M recurring revenue potential",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Storm chasing geographic expansion",
+      "market_size": "$75M seasonal opportunity",
+      "difficulty": 5
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Storm damage inspection video showing drone footage of roof damage with immediate before/after repair shots. Video included homeowner testimonial about insurance claim process.",
+        "platform": "Facebook",
+        "why_it_worked": "Visual proof of damage combined with solution demonstration. Drone footage creates authority and modern professional image. Insurance angle addresses major pain point.",
+        "metrics": "Average roofing contractor Facebook videos get 3-5x more engagement than static posts, with storm damage content performing 40% better than general roofing content",
+        "source": "Roofing Contractor Magazine - 2024 Digital Marketing Survey",
+        "confidence": "high"
+      },
+      {
+        "example": "Before/after photo carousel posts on Instagram showing dramatic curb appeal transformations with specific neighborhood locations tagged (with permission). Posts included roof age, materials used, and project timeline.",
+        "platform": "Instagram",
+        "why_it_worked": "Hyperlocal targeting builds trust and social proof. Before/after format is highly shareable. Tagging neighborhoods creates FOMO among neighbors.",
+        "metrics": "Before/after posts generate 2.3x more saves and 1.8x more shares than other roofing content types on Instagram",
+        "source": "Home Services Marketing Benchmarks 2024 - ServiceTitan",
+        "confidence": "high"
+      },
+      {
+        "example": "Educational email series titled 'Is Your Roof Trying to Tell You Something?' with 5 warning signs homeowners miss. Each email focused on one sign with photos and urgency indicators.",
+        "platform": "Email",
+        "why_it_worked": "Educational approach builds authority without being salesy. Series format keeps brand top-of-mind. Warning signs trigger self-inspection and create urgency.",
+        "metrics": "Educational email sequences for roofing contractors show 28% open rates vs 18% for promotional emails, with 12% click-through rates",
+        "source": "Constant Contact Home Services Industry Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "TikTok video series showing 'Roof Fails' from inspections - highlighting dangerous DIY repairs and explaining proper fixes. Short 15-30 second clips with text overlays.",
+        "platform": "TikTok",
+        "why_it_worked": "Entertainment value combined with education. Short format fits platform. Shows expertise while creating fear of DIY mistakes.",
+        "metrics": "Roofing contractors using TikTok report 300-500% higher engagement rates compared to Facebook, with 'fail' content getting 5-10x more views",
+        "source": "Roofing Contractor Magazine - Social Media Trends 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Google Business Profile posts featuring same-day emergency repairs with timestamps and real-time updates. Posts included damage photos, crew photos, and completion photos within 24-hour timeline.",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Demonstrates responsiveness and emergency capability. Real-time updates build trust. Local SEO benefit for emergency searches.",
+        "metrics": "Roofing contractors posting 3+ times weekly on GBP see 40% more direction requests and 25% more calls than those posting monthly",
+        "source": "BrightLocal Local Consumer Review Survey 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.08% to 0.13% for roofing/construction services",
+        "best_content_format": "Video (especially drone footage and before/after transformations) outperforms static images by 3-5x. Live video for storm damage updates gets highest engagement.",
+        "optimal_frequency": "3-5 posts per week, with daily posting during storm season",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when homeowners are planning weekend projects",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Home Services Industry"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for home improvement/contractor accounts (higher than Facebook)",
+        "best_content_format": "Carousel posts with before/after sequences, Reels showing time-lapse installations, Stories for behind-the-scenes crew content",
+        "optimal_frequency": "4-7 posts per week, daily Stories, 3-4 Reels per week",
+        "best_posting_times": "Wednesday-Friday 11 AM-1 PM, evenings 7-9 PM when homeowners browse",
+        "source": "Later.com Instagram Engagement Benchmarks 2024 - Construction & Home Services"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 40% more direction requests and 25% more calls when posted 3+ times weekly",
+        "best_content_format": "Photo posts with project updates, Q&A posts addressing common roofing questions, Offer posts for seasonal promotions",
+        "optimal_frequency": "3-5 posts per week minimum, daily during peak season",
+        "best_posting_times": "Monday-Friday mornings 8-10 AM when people search for emergency services",
+        "source": "BrightLocal Local Consumer Review Survey 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Home improvement videos average 2-4% engagement rate, with how-to content performing best",
+        "best_content_format": "Educational videos (roof maintenance tips, what to look for), customer testimonial videos, project walkthroughs with drone footage",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month",
+        "best_posting_times": "Weekend mornings (Saturday-Sunday 9 AM-12 PM) when homeowners research projects",
+        "source": "Think With Google - Home Services Consumer Journey 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "28% open rate for educational content, 18% for promotional, 12% click-through rate for educational sequences",
+        "best_content_format": "Educational series, seasonal maintenance reminders, storm alerts with inspection offers, financing announcements",
+        "optimal_frequency": "Bi-weekly for newsletters, immediate for storm/emergency alerts, monthly for past customers",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM, avoid Mondays and Fridays",
+        "source": "Constant Contact Home Services Industry Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Fear-based warning + timeline urgency",
+        "example": "Your roof is telling you something. These 5 signs mean you have less than 6 months before major damage.",
+        "why_it_works": "Creates immediate concern and specific timeline triggers action. Homeowners fear catastrophic damage and want to avoid it.",
+        "source": "Roofing contractor email campaigns analyzed in Constant Contact 2024 report"
+      },
+      {
+        "hook_pattern": "Neighbor social proof + FOMO",
+        "example": "3 homes on [Street Name] got new roofs this month. Here's what they know that you don't.",
+        "why_it_works": "Hyperlocal specificity builds credibility. FOMO is powerful motivator in residential services. Implies insider knowledge.",
+        "source": "High-performing Facebook ads from roofing contractors per WordStream 2024 analysis"
+      },
+      {
+        "hook_pattern": "Financial consequence + solution",
+        "example": "Insurance companies are dropping homeowners with roofs over 15 years old. Here's your protection plan.",
+        "why_it_works": "Addresses real fear about insurance cancellation. Positions service as protection rather than expense. Offers immediate solution.",
+        "source": "Top-performing roofing contractor landing pages analyzed by Unbounce 2024"
+      },
+      {
+        "hook_pattern": "Question + pain point amplification",
+        "example": "Is that water stain getting bigger? What starts as a $500 repair becomes $15,000 in structural damage.",
+        "why_it_works": "Question format engages reader immediately. Specific dollar amounts make consequences real and tangible. Escalation creates urgency.",
+        "source": "A/B tested email subject lines from roofing contractors via Mailchimp industry benchmarks"
+      },
+      {
+        "hook_pattern": "Seasonal trigger + limited availability",
+        "example": "Storm season starts in 3 weeks. We have 12 inspection slots left before the rush.",
+        "why_it_works": "Seasonal awareness creates natural urgency. Scarcity (limited slots) triggers immediate action. Implies high demand.",
+        "source": "Seasonal campaign analysis from Roofing Contractor Magazine 2024"
+      },
+      {
+        "hook_pattern": "Authority demonstration + free value",
+        "example": "After inspecting 10,000+ roofs, here's the #1 mistake homeowners make (and how to avoid it).",
+        "why_it_works": "Large numbers establish credibility and experience. Free educational value builds trust. Single focus makes it digestible.",
+        "source": "High-engagement LinkedIn posts from roofing company executives"
+      },
+      {
+        "hook_pattern": "Myth-busting + truth reveal",
+        "example": "Roofing companies don't want you to know this: Your 'lifetime' warranty probably expires in 10 years.",
+        "why_it_works": "Conspiracy angle creates curiosity. Industry insider positioning builds authority. Challenges common assumptions.",
+        "source": "Viral roofing contractor social media posts documented in industry forums"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I have water stains on my ceiling and I'm freaking out about what's behind the drywall",
+        "My insurance company sent a letter saying they'll drop me if I don't replace my roof",
+        "There are shingles in my yard after every storm and I don't know how bad it really is",
+        "I'm embarrassed when people come over because my roof looks terrible from the street",
+        "I keep patching leaks but it's costing me a fortune and never really fixes anything",
+        "My energy bills have gone through the roof (no pun intended) and I think it's the attic",
+        "The home inspector failed my roof and now the buyers want $20,000 off",
+        "There's black streaks all over my roof and my neighbors are complaining it brings down property values",
+        "I can't sleep when it rains because I'm worried about leaks",
+        "Every contractor gives me a different answer about whether I need repair or replacement"
+      ],
+      "solution_phrases": [
+        "I just want peace of mind when it storms and not worry about my ceiling caving in",
+        "I need a roof that will last long enough that I never have to do this again",
+        "I want my house to be the best looking one on the block again",
+        "I need someone who can work directly with my insurance company so I don't have to deal with it",
+        "I want a warranty that actually means something and a company that will be around to honor it",
+        "I'm looking for someone local who I can call if there's a problem, not some national chain",
+        "I need this done fast before the next storm season hits",
+        "I want to stop throwing money at temporary fixes and actually solve the problem",
+        "I need a roof that will help me sell my house without the buyers freaking out",
+        "I want lower energy bills and a cooler house in the summer"
+      ],
+      "objection_phrases": [
+        "How do I know you're not just trying to sell me a new roof when I only need repairs?",
+        "Every contractor gives me a different price and I don't know who to trust",
+        "I'm worried about getting scammed by storm chasers who won't be here next year",
+        "Can I really trust the warranty or is it full of loopholes?",
+        "I don't have $15,000 sitting around and I'm scared of financing",
+        "What if you damage my property or someone gets hurt on my roof?",
+        "How long will this take? I can't have workers here for weeks",
+        "I'm afraid my HOA won't approve the shingle color I want",
+        "What happens if it rains in the middle of the job?",
+        "I've heard horror stories about contractors who don't clean up or protect landscaping"
+      ],
+      "decision_factors": [
+        "They need to be licensed, insured, and bonded - I checked their license number with the state",
+        "I wanted someone local who has been in business at least 10 years, not a fly-by-night company",
+        "The warranty was huge - 50 years on materials AND workmanship, not just materials",
+        "They showed me examples of their work in my actual neighborhood",
+        "The salesperson wasn't pushy and actually educated me about what I needed",
+        "They handle all the insurance paperwork and deal with the adjuster for me",
+        "I could get references from neighbors who used them years ago and were still happy",
+        "They use their own crews, not subcontractors, so there's accountability",
+        "The online reviews were consistently good over many years, not just recent",
+        "They offered financing with reasonable terms so I didn't have to drain my savings"
+      ],
+      "emotional_language": [
+        "terrified",
+        "peace of mind",
+        "embarrassed",
+        "worried sick",
+        "relief",
+        "stressed out",
+        "proud",
+        "anxious",
+        "confident",
+        "overwhelmed",
+        "frustrated",
+        "scared",
+        "protected",
+        "secure",
+        "nervous",
+        "reassured",
+        "panicked",
+        "comfortable",
+        "concerned",
+        "grateful"
+      ],
+      "sources": [
+        "Reddit r/HomeImprovement roofing threads 2023-2024",
+        "Google Reviews for top roofing contractors in Texas, Florida, Georgia (500+ reviews analyzed)",
+        "HomeAdvisor and Angi customer reviews and questions",
+        "Facebook community groups for homeowners discussing roofing projects",
+        "Yelp reviews for roofing contractors (filtering for detailed reviews)",
+        "Nextdoor neighborhood discussions about roofing recommendations"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few contractors create educational content about insurance claim process - most just say 'we handle insurance' without explaining how",
+      "Limited content addressing the emotional/stress aspect of roofing decisions - mostly feature/benefit focused",
+      "Gap in content for specific home types (historic homes, HOA communities, coastal properties with special requirements)",
+      "Few contractors create content for the 'research phase' customer who is 1-2 years out from needing a roof",
+      "Minimal transparency around pricing - most require contact for quote, creating barrier for researchers",
+      "Lack of content comparing different roofing materials for specific climates/situations in educational rather than sales tone",
+      "Limited behind-the-scenes content showing crew training, safety protocols, quality control",
+      "Few contractors address the 'repair vs replace' decision with objective criteria",
+      "Gap in content for real estate agents and home inspectors (B2B referral sources)",
+      "Limited use of customer success stories focused on specific pain points rather than generic testimonials"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Spring (March-May)",
+        "opportunity": "Post-winter damage inspection season, homeowners discovering leaks from ice dams and winter storms. Peak buying season begins.",
+        "content_angle": "Spring inspection checklists, winter damage identification guides, 'get ready for storm season' urgency messaging, before/after transformations for curb appeal"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Peak installation season, good weather for projects, homeowners planning before school starts. Energy bill concerns peak.",
+        "content_angle": "Cool roof technology for energy savings, installation time-lapse videos, 'beat the fall rush' messaging, summer storm preparation"
+      },
+      {
+        "period": "Fall (September-November)",
+        "opportunity": "Hurricane season (coastal areas), preparing for winter, last chance before weather turns. Insurance renewal season.",
+        "content_angle": "Hurricane preparation and post-storm content, winter readiness checks, insurance deadline urgency, leaf and gutter content"
+      },
+      {
+        "period": "Winter (December-February)",
+        "opportunity": "Slow season for installation but high for emergency repairs, ice dam issues, planning season for spring projects. Tax refund planning.",
+        "content_angle": "Emergency repair content, ice dam prevention, winter maintenance tips, financing and tax refund promotions, planning guides for spring"
+      },
+      {
+        "period": "Storm Events (Year-round)",
+        "opportunity": "Immediate spike in searches and demand after severe weather, hail, hurricanes, tornadoes",
+        "content_angle": "Real-time storm damage assessment offers, insurance claim guidance, emergency repair availability, safety warnings about storm chasers"
+      },
+      {
+        "period": "Tax Season (January-April)",
+        "opportunity": "Homeowners receiving refunds and planning major purchases, looking for tax-deductible improvements",
+        "content_angle": "Financing options, tax refund promotions, energy-efficient tax credits for qualifying roofs, investment in home value"
+      },
+      {
+        "period": "Real Estate Season (March-August)",
+        "opportunity": "Peak home buying/selling season, pre-listing inspections revealing roof issues, buyers requesting repairs",
+        "content_angle": "Content for sellers about ROI of new roof, fast turnaround for closings, working with real estate agents, home inspection failure solutions"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Roofing Contractor Magazine 2024 Digital Marketing Survey",
+      "ServiceTitan Home Services Marketing Benchmarks 2024",
+      "Constant Contact Home Services Industry Report 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Engagement Benchmarks 2024",
+      "Think With Google Home Services Consumer Journey 2024",
+      "WordStream Industry Benchmarks 2024",
+      "Unbounce Landing Page Benchmarks",
+      "Mailchimp Industry Benchmarks",
+      "Reddit r/HomeImprovement",
+      "Google Reviews (500+ analyzed)",
+      "HomeAdvisor and Angi platforms",
+      "Yelp roofing contractor reviews",
+      "Nextdoor community discussions",
+      "Facebook homeowner groups"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited specific A/B testing data publicly available for roofing contractor campaigns",
+      "TikTok benchmarks for roofing contractors are emerging but less established than other platforms",
+      "Exact conversion rate data difficult to obtain as most contractors don't publish this information",
+      "LinkedIn benchmarks for roofing contractors specifically are limited (more data available for general construction)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1 theme: Insurance-approved roofing systems that prevent policy cancellation",
+        "Week 2 theme: Cool roof technology delivering 30% energy savings with proven ROI",
+        "Week 3 theme: Neighborhood transformation stories with before/after proof",
+        "Week 4 theme: Limited installation slots before storm season rush"
+      ],
+      "weekly_hooks": [
+        [
+          "Insurance companies are dropping homeowners with roofs over 15 years old. Our new [Product Name] system keeps you covered and saves you $800/year in premiums.",
+          "After inspecting 10,000+ roofs, we've developed [Product Name] to solve the #1 problem that causes $15,000 in hidden damage.",
+          "3 homes on [Street Name] are getting [Product Name] this month. Here's what they know about insurance requirements that you don't."
+        ],
+        [
+          "Your energy bills are about to drop 30%. [Product Name] is now available in [City] with guaranteed savings or your money back.",
+          "Is that water stain getting bigger? [Product Name] includes upgraded ice/water shield on the entire deck, not just edges like other systems.",
+          "Storm season starts in [X] weeks. We're installing [Product Name] on 12 homes before the rush - here's why it's different."
+        ],
+        [
+          "Your roof is telling you something. [Neighbor Name] on [Street] ignored these 5 signs and paid $20,000 in structural damage. They now have [Product Name].",
+          "[Product Name] transformed the worst-looking house on [Street Name] into the neighborhood showpiece. See the before/after that has everyone talking.",
+          "After [Number] installations this month, here's what [Product Name] customers are saying about peace of mind during storms."
+        ],
+        [
+          "FINAL 8 SLOTS: [Product Name] installation schedule closes [Date]. After that, you're waiting until [Season] and paying [Amount] more.",
+          "Roofing companies don't want you to know this: Most 'lifetime' warranties expire in 10 years. [Product Name] includes transferable 50-year coverage.",
+          "We have [Number] inspection slots left before storm season. [Product Name] customers get priority emergency service for life."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address skepticism about need for new system vs. traditional roofing with educational content on insurance requirements and hidden damage costs",
+        "Week 2: Address 'need to get more quotes' by providing detailed comparison guide and 30-day price lock guarantee",
+        "Week 3: Address 'how do I know you'll be around for warranty' with local longevity proof, GPS-tagged installation photos, and manufacturer registration",
+        "Week 4: Address 'can't afford right now' with 0% financing for 18 months, energy savings offset calculations, and limited-time incentives"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce certifications, insurance bonds, and license verification - establish legitimacy and safety",
+        "Week 2: Share technical specifications, third-party energy efficiency testing, and manufacturer partnerships",
+        "Week 3: Feature hyperlocal customer testimonials with specific addresses (permission-based), before/after transformations, and neighborhood case studies",
+        "Week 4: Final credibility push with total installations to date, years in business, BBB rating, and warranty registration proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide: 'Insurance Company Roof Requirements - What You Need to Know Before Your Policy Renewal'",
+        "Week 2: Take our 2-minute roof assessment quiz to see if you qualify for energy tax credits",
+        "Week 3: Schedule free 47-point inspection with drone footage and no-obligation detailed report",
+        "Week 4: Lock in pre-season pricing - Call now for same-day inspection or claim one of 8 remaining installation slots"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - Video demonstrations and neighborhood before/after content for homeowner age demographic",
+        "Google Business Profile (daily posts) - Product updates, inspection availability, and local SEO dominance",
+        "Instagram (4 posts/week, daily Stories, 3 Reels/week) - Visual transformations and behind-the-scenes installation process",
+        "Email (3 sends over 4 weeks) - Detailed product education to existing database with segmentation by roof age"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on storm damage video performance (3-5x engagement), before/after carousel success (2.3x saves, 1.8x shares), educational email 28% open rates vs 18% promotional, and insurance angle addressing major pain point per Facebook and email benchmarks"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1 theme: Warning signs your roof is trying to tell you before catastrophic damage",
+        "Week 2 theme: Insurance claim process demystified with step-by-step homeowner guidance",
+        "Week 3 theme: Hyperlocal social proof with neighborhood-specific transformations",
+        "Week 4 theme: Repair vs. replacement decision framework with objective criteria",
+        "Week 5 theme: Energy efficiency and utility savings through proper roofing",
+        "Week 6 theme: Storm preparation and emergency response capabilities",
+        "Week 7 theme: Roofing material education for specific climate and home types",
+        "Week 8 theme: Behind-the-scenes crew training, safety protocols, and quality control"
+      ],
+      "weekly_hooks": [
+        [
+          "Your roof is telling you something. These 5 signs mean you have less than 6 months before major damage hits your wallet.",
+          "Is that water stain getting bigger? What starts as a $500 repair becomes $15,000 in structural damage when ignored.",
+          "I'm terrified about what's behind my ceiling drywall. Here's how to know if that water stain is an emergency or can wait."
+        ],
+        [
+          "Insurance companies denied 40% of roof claims last year. Here's the documentation that gets you approved every time.",
+          "Your insurance adjuster works for the insurance company, not you. Here's what they don't tell you about depreciation.",
+          "After handling 1,000+ insurance claims, here's the #1 mistake that costs homeowners $8,000 in denied coverage."
+        ],
+        [
+          "3 homes on [Street Name] got new roofs this month. Here's what they know about property values that you don't.",
+          "Before/After: How we transformed the most embarrassing roof on [Street] into the neighborhood showpiece in 3 days.",
+          "Your neighbors at [Address] just increased their home value by $18,000. Here's the roof upgrade that made it happen."
+        ],
+        [
+          "Roofing companies don't want you to know this: 60% of 'replacements' could have been $3,000 repairs instead.",
+          "Here's the honest truth about when you actually need replacement vs. repair - with photos of both scenarios.",
+          "Every contractor gives me a different answer. Here are the 7 objective criteria we use to recommend repair or replace."
+        ],
+        [
+          "My energy bills went through the roof (no pun intended). Here's how proper ventilation cut one customer's AC costs by $200/month.",
+          "Cool roof technology isn't just marketing hype. Here's the thermal imaging proof of 30% energy savings in [Climate].",
+          "Your attic is 140 degrees right now. Here's what that's costing you every month and how to fix it permanently."
+        ],
+        [
+          "Storm season starts in 3 weeks. We have 12 inspection slots left before the rush - here's what we're looking for.",
+          "I can't sleep when it rains because I'm worried about leaks. Here's the emergency response plan that gives customers peace of mind.",
+          "There are shingles in my yard after every storm. Here's how to know if it's cosmetic or catastrophic damage."
+        ],
+        [
+          "Architectural shingles vs. 3-tab: Here's what actually matters for [Climate] homes and what's just marketing.",
+          "Your HOA rejected your shingle choice? Here's the approval strategy that works 95% of the time with color restrictions.",
+          "Metal vs. asphalt for coastal homes: After 500 installations, here's the honest comparison no one tells you."
+        ],
+        [
+          "Our crews train for 200 hours before touching your roof. Here's what that means for your project quality and safety.",
+          "What happens if it rains in the middle of your roof job? Here's our weather protocol and protection guarantee.",
+          "We use our own employees, not subcontractors. Here's why that matters when someone gets hurt on your property."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objections - pure education to build authority and trust",
+        "Week 2: Address 'how do I know you're not just trying to sell me' with transparent insurance education",
+        "Week 3: Address 'every contractor gives different price' with neighborhood pricing transparency",
+        "Week 4: Address skepticism about recommendations with objective repair vs. replace criteria",
+        "Week 5: Address 'is energy savings real or marketing' with thermal imaging proof and customer bills",
+        "Week 6: Address 'worried about storm chasers' with local longevity proof and emergency protocols",
+        "Week 7: Address 'HOA won't approve' and material confusion with specific guidance",
+        "Week 8: Address 'what if you damage property or someone gets hurt' with insurance, training, and employee status proof"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce inspection count (10,000+ roofs) and years of pattern recognition",
+        "Week 2: Share successful insurance claim examples with redacted approval letters",
+        "Week 3: Feature specific neighborhood projects with addresses and homeowner testimonials",
+        "Week 4: Show side-by-side repair vs. replace examples with 5-year follow-ups",
+        "Week 5: Provide thermal imaging before/after and actual utility bills (permission-based)",
+        "Week 6: Demonstrate real-time storm response with timestamped emergency repair documentation",
+        "Week 7: Display manufacturer certifications and material performance data for climate",
+        "Week 8: Showcase crew certifications, safety records, and workers comp insurance proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download free checklist: '5 Warning Signs Your Roof is Failing'",
+        "Week 2: Get free insurance claim preparation guide with documentation checklist",
+        "Week 3: See before/after gallery for your specific neighborhood",
+        "Week 4: Take our repair vs. replace assessment quiz",
+        "Week 5: Request free thermal imaging scan during your inspection",
+        "Week 6: Sign up for storm alert notifications and priority emergency service",
+        "Week 7: Download material comparison guide for your home type and climate",
+        "Week 8: Schedule free 47-point inspection with crew introduction"
+      ],
+      "platform_priority": [
+        "Facebook (3-4 posts/week) - Educational videos and neighborhood transformations for homeowner demographic",
+        "Email (bi-weekly newsletter) - Deep-dive educational content with 28% open rate potential",
+        "Google Business Profile (3 posts/week) - Q&A format addressing common questions for local SEO",
+        "Instagram (4 posts/week, daily Stories) - Before/after carousels and behind-the-scenes crew content",
+        "YouTube (1 video/week) - Long-form educational content for weekend research phase"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational email 28% open rates vs 18% promotional, competitive gap in insurance process education, lack of repair vs. replace transparency, and before/after Instagram performance at 2.3x saves. Addresses research phase customers 1-2 years out per competitive gaps analysis."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Viral-worthy roof fails and dangerous DIY disasters with expert fixes",
+        "Week 2 theme: Shocking neighborhood before/after transformations with dramatic reveals"
+      ],
+      "weekly_hooks": [
+        [
+          "This homeowner tried to save $500 with DIY repair. It cost them $22,000. Here's what went wrong.",
+          "Roof Fail Friday: After inspecting 10,000+ roofs, this is the worst DIY disaster I've ever seen. Don't try this at home.",
+          "Your neighbor's 'handyman' did this to their roof. Here's why it failed inspection and what it should have been."
+        ],
+        [
+          "This house was the neighborhood eyesore. 72 hours later, it's the showpiece. Watch the transformation.",
+          "Before: Embarrassed to have guests over. After: Featured in neighborhood newsletter. Here's the 3-day transformation story.",
+          "We transformed 5 houses on [Street Name] this month. Here's the time-lapse that has the whole neighborhood talking."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can do it myself cheaper' with fail examples and true cost calculations",
+        "Week 2: Address 'all roofing companies are the same' with dramatic quality and speed differentiation"
+      ],
+      "proof_timing": [
+        "Week 1: Show inspection photos of failed DIY and handyman work with cost to fix properly",
+        "Week 2: Feature rapid transformation case studies with homeowner reaction videos and neighbor testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this, comment with your worst roof fail story",
+        "Week 2: Share this transformation, DM us your address for a free drone inspection and before/after preview"
+      ],
+      "platform_priority": [
+        "TikTok (daily posts) - Short 15-30 second fail clips for 300-500% higher engagement and viral potential",
+        "Instagram Reels (daily) - Transformation time-lapses and fail content for high shareability",
+        "Facebook (daily posts, 2 live videos) - Longer fail explanations and live Q&A sessions during peak times",
+        "YouTube Shorts (5 per week) - Repurposed viral content for search discovery"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok 300-500% higher engagement for roofing contractors, 'fail' content getting 5-10x more views, before/after Instagram posts at 2.3x saves and 1.8x shares, and entertainment value combined with education driving viral potential per platform benchmarks"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1 theme: Advanced roofing science - ventilation, thermal dynamics, and moisture management",
+        "Week 2 theme: Insurance industry insider knowledge and claim optimization strategies",
+        "Week 3 theme: Climate-specific roofing solutions with data-driven material selection",
+        "Week 4 theme: Real estate and home value impact of roofing decisions",
+        "Week 5 theme: Warranty deep-dive - what actually matters and loophole exposure",
+        "Week 6 theme: Future of roofing technology and sustainable solutions"
+      ],
+      "weekly_hooks": [
+        [
+          "After analyzing thermal data from 1,000+ attics, here's the ventilation mistake that's costing you $2,400/year.",
+          "Your attic is a science experiment. Here's the physics of why proper ventilation extends shingle life by 10 years.",
+          "Moisture kills more roofs than age. Here's the condensation pattern 80% of contractors miss during installation."
+        ],
+        [
+          "Insurance adjusters use this depreciation formula to reduce your claim by $8,000. Here's how to challenge it legally.",
+          "After negotiating 1,000+ claims, here's the documentation that turns a $12,000 settlement into $24,000 approved.",
+          "Insurance companies changed their roof policies in 2024. Here's what homeowners with 15+ year roofs need to know immediately."
+        ],
+        [
+          "We installed 500 roofs in coastal [State]. Here's the data on which materials actually survive hurricane-force winds.",
+          "Cool roof technology works in [Climate], but not how you think. Here's the thermal imaging data from 100 installations.",
+          "Your climate has [X] freeze-thaw cycles per year. Here's the shingle composition that survives vs. fails in 10 years."
+        ],
+        [
+          "Real estate agents: Your sellers are leaving $15,000 on the table. Here's the pre-listing roof strategy that maximizes offers.",
+          "We analyzed 200 home sales. New roof ROI is 107% if done right, 62% if done wrong. Here's the difference.",
+          "Home inspectors flag these 7 roof issues that kill deals. Here's the pre-inspection fix strategy for sellers."
+        ],
+        [
+          "Read the fine print: Your 'lifetime' warranty excludes wind damage, algae, and installation errors. Here's what actually matters.",
+          "Roofing warranties have 23 potential loopholes. Here's the 4-question test to know if yours is worth the paper it's printed on.",
+          "After reviewing 500 warranty claims, here's why manufacturer AND workmanship coverage is non-negotiable."
+        ],
+        [
+          "Solar-integrated roofing is here. Here's the cost analysis for [State] homeowners with net metering.",
+          "Sustainable roofing materials have 40% better ROI in 2024 with new tax credits. Here's what qualifies.",
+          "Smart roof technology can detect leaks before you see damage. Here's the IoT future of roofing and what's available now."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objections - establish pure expertise and technical authority",
+        "Week 2: Address 'insurance process is too complicated' with insider simplification",
+        "Week 3: Address 'confused by material options' with climate-specific data clarity",
+        "Week 4: Address 'is new roof worth it for resale' with ROI proof and agent testimonials",
+        "Week 5: Address 'can I trust the warranty' with loophole exposure and protection criteria",
+        "Week 6: Address 'new technology is risky' with early adoption data and qualified recommendations"
+      ],
+      "proof_timing": [
+        "Week 1: Share thermal imaging data sets, ventilation calculations, and moisture analysis reports",
+        "Week 2: Provide redacted insurance negotiation examples with before/after settlement amounts",
+        "Week 3: Display material performance data across climate zones with failure rate statistics",
+        "Week 4: Feature real estate agent partnerships, MLS data analysis, and appraisal impact studies",
+        "Week 5: Show actual warranty documents with highlighted exclusions vs. comprehensive coverage examples",
+        "Week 6: Demonstrate emerging technology installations with performance monitoring and tax credit documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Download technical guide: 'The Science of Roof Ventilation and Energy Efficiency'",
+        "Week 2: Get free insurance claim maximization checklist used by our claims specialists",
+        "Week 3: Request climate-specific material recommendation report for your home",
+        "Week 4: Real estate professionals - download our pre-listing roof assessment protocol",
+        "Week 5: Get your warranty reviewed free - we'll identify loopholes and coverage gaps",
+        "Week 6: Schedule consultation on solar-ready or sustainable roofing options with tax credit analysis"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - B2B content for real estate agents, inspectors, and insurance professionals",
+        "YouTube (2 videos/week) - Long-form educational content for serious researchers with 2-4% engagement",
+        "Email (weekly deep-dive) - Technical content for engaged subscribers with 28% open rate potential",
+        "Facebook (2 posts/week) - Simplified versions of technical content for homeowner education",
+        "Blog/Website (weekly) - SEO-optimized authority content for organic search capture"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap in insurance process education, lack of climate-specific material guidance, minimal B2B content for referral sources (real estate/inspectors), and research phase customer need for deep educational content. YouTube how-to content 2-4% engagement supports long-form authority building."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Interactive roof assessment and community problem-solving",
+        "Week 2 theme: User-generated content showcase and neighborhood pride"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop a photo of your roof in the comments. I'll tell you the #1 thing to watch for based on what I see. (Free assessments all week)",
+          "Finish this sentence: 'I knew I needed a new roof when...' Best story wins a free drone inspection.",
+          "Quiz time: Repair or Replace? Comment your guess and I'll reveal the answer with full explanation. (Photo in comments)"
+        ],
+        [
+          "Tag your street name if you'd like to see your neighborhood featured in our before/after showcase next month.",
+          "Homeowner poll: What stresses you most about roofing decisions? A) Price B) Finding trustworthy contractor C) Knowing when to act D) Other (comment)",
+          "Share your #RoofTransformation story. Best before/after gets featured on our page and $500 toward next service."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'don't know who to trust' through transparent public assessments and education",
+        "Week 2: Address 'all contractors are the same' by showcasing diverse customer experiences and personalization"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate expertise through live comment assessments and problem-solving in real-time",
+        "Week 2: Amplify customer testimonials and user-generated content as social proof at scale"
+      ],
+      "cta_progression": [
+        "Week 1: Engage in comments with questions and photos for personalized responses",
+        "Week 2: Share your story, tag neighbors, submit photos for feature consideration and prize eligibility"
+      ],
+      "platform_priority": [
+        "Facebook (2-3 posts/day) - High engagement potential during peak times Tuesday-Thursday 1-3 PM for homeowner interaction",
+        "Instagram Stories (multiple daily) - Polls, questions, and quiz stickers for algorithm boost",
+        "Instagram Feed (daily posts) - User-generated content reposts and engagement prompts",
+        "Google Business Profile (daily Q&A posts) - Community questions answered publicly for SEO benefit"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Facebook engagement peak times Tuesday-Thursday 1-3 PM and Saturday 9-11 AM, Instagram 0.47% engagement rate outperforming Facebook, competitive gap in authentic customer stories vs. generic testimonials, and algorithm favor for high-interaction content per platform benchmarks"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "After inspecting 10,000+ roofs, here's what 8 out of 10 homeowners miss:\n\nPROBLEM: Most homeowners wait until they see water stains on their ceiling. By then, the average repair cost has jumped from $500 to $15,000 in structural damage.\n\nAGITATE: Insurance companies know this. That's why they're now dropping policies on roofs over 15 years old—before catastrophic failure happens on their dime.\n\nSOLUTION: The 5 warning signs we check during every inspection:\n• [WARNING_SIGN_1] - indicates [TIMEFRAME] until failure\n• [WARNING_SIGN_2] - costs $[AMOUNT] now vs $[HIGHER_AMOUNT] later\n• [WARNING_SIGN_3] - [SPECIFIC_CONSEQUENCE]\n• [WARNING_SIGN_4] - [INSURANCE_IMPLICATION]\n• [WARNING_SIGN_5] - [ENERGY_COST_IMPACT]\n\nWe've created a free inspection checklist that homeowners can use themselves. Comment 'CHECKLIST' and I'll send it over.\n\nWhat warning signs have you seen that made you finally call a professional?\n\n#RoofingContractor #HomeMaintenanceTips #PropertyManagement #InsuranceClaims #[CITY]Business",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "ATTENTION: Insurance carriers are quietly changing roof coverage policies in [STATE], and most homeowners have no idea.\n\nINTEREST: Starting [MONTH/YEAR], [INSURANCE_COMPANY] joined 12 other carriers requiring roof replacements on homes with roofs 15+ years old. Miss the deadline? Your policy gets non-renewed.\n\nDESIRE: Here's what we're doing for our commercial property management clients:\n\n✓ Bulk inspection programs - $[AMOUNT] per unit vs $[HIGHER_AMOUNT] individual\n✓ Direct adjuster relationships - average claim approval in [TIMEFRAME]\n✓ Phased replacement schedules - spread CapEx over [TIMEFRAME]\n✓ Warranty programs that satisfy carrier requirements\n\nOne client saved $[AMOUNT] across [NUMBER] properties by getting ahead of the mandate.\n\nACTION: We're hosting a [VIRTUAL/IN-PERSON] briefing on [DATE] covering the new requirements and compliance strategies. Limited to [NUMBER] attendees.\n\nDM me 'BRIEFING' for the registration link.\n\n#CommercialRoofing #PropertyManagement #InsuranceCompliance #RiskManagement #[CITY]CRE",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: \"Every contractor gives me a different answer about repair vs replacement.\"\n\nAFTER: \"They showed me drone footage of my actual roof and explained exactly what I needed—no sales pressure.\"\n\nBRIDGE: The difference? Our [CERTIFICATION/TECHNOLOGY] inspection process.\n\nWhat we do differently:\n\n1. Drone thermal imaging shows moisture you can't see from the ground\n2. [NUMBER]-point inspection (not the industry standard [LOWER_NUMBER])\n3. Written report with photos—yours to keep, even if you don't hire us\n4. Three options: repair, restore, or replace (we let YOU decide)\n5. Insurance advocacy—we deal with adjusters so you don't have to\n\nReal result: [CLIENT_NAME] at [COMPANY] got $[AMOUNT] approved by insurance when they were initially offered $[LOWER_AMOUNT].\n\n[NUMBER] commercial properties inspected in [CITY] this year. [NUMBER]% of clients choose us for the actual work after seeing our inspection process.\n\nFree inspection for LinkedIn connections through [DATE]. Comment 'INSPECT' below.\n\n#RoofingServices #CommercialProperty #FacilityManagement #[CITY]Business #PreventiveMaintenance",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your roof is trying to tell you something 👀\n\nThese 5 signs mean you have less than 6 months before major damage:\n\n1️⃣ [WARNING_SIGN] → Swipe to see what this looks like\n2️⃣ [WARNING_SIGN] → Costs $[AMOUNT] now vs $[HIGHER_AMOUNT] in 6 months\n3️⃣ [WARNING_SIGN] → This is what insurance adjusters look for first\n4️⃣ [WARNING_SIGN] → Your energy bills are probably 30% higher because of this\n5️⃣ [WARNING_SIGN] → The #1 reason insurance companies drop policies\n\nSave this post for when you're ready to inspect your own roof 📌\n\nSeen any of these? Drop a 🚨 in the comments.\n\n#RoofingTips #HomeOwnerTips #RoofMaintenance #[CITY]Homes #HomeImprovement #RoofRepair #DIYHomeInspection #PreventiveMaintenance #HomeownerEducation #RoofWarning",
+        "visual": "Carousel post: Slide 1 - Attention-grabbing cover image showing damaged roof with text overlay '5 WARNING SIGNS'. Slides 2-6 - Close-up photos of each warning sign with arrows and annotations. Slide 7 - Before/after transformation showing what happens when caught early vs. late. Use consistent branding and clear text overlays on each slide.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "After inspecting [NUMBER]+ roofs in [CITY], here's the #1 mistake that costs homeowners $15K+ 💸\n\nMost people wait until they see water stains on their ceiling.\n\nBy then? The damage looks like slide 3. 😳\n\nWhat they don't know: Your roof shows warning signs 6-12 months BEFORE the ceiling stain appears.\n\nSwipe to see:\n→ What we look for during inspections\n→ The hidden damage you can't see from the ground\n→ Drone thermal imaging showing moisture (this is 🤯)\n→ What a $500 fix looks like vs. a $15K structural repair\n\nWe've saved homeowners over $[AMOUNT] this year by catching problems early.\n\nTag a homeowner who needs to see this 👇\n\n#[CITY]Roofing #RoofingContractor #DroneInspection #HomeInspection #RoofExperts #[CITY]Homes #RoofingPros #HomeOwnerLife #PreventiveMaintenance #RoofingSeason",
+        "visual": "Carousel post: Slide 1 - Professional photo of inspector with drone, text overlay 'The $15K Mistake'. Slide 2 - Graphic showing timeline of roof deterioration. Slide 3 - Dramatic photo of severe ceiling/structural damage. Slide 4 - Checklist graphic of warning signs. Slide 5 - Drone thermal imaging showing heat/moisture. Slide 6 - Side-by-side comparison of early fix vs. late fix costs. Slide 7 - Team photo with CTA.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "3 homes on [STREET_NAME] got new roofs this month. Here's what they know that you don't. 👀\n\nBEFORE: \"My insurance company sent a letter saying they'll drop me if I don't replace my roof\" 😰\n\nAFTER: \"They handled everything with insurance and I paid $0 out of pocket\" ✨\n\nSwipe to see the transformation →\n\n✓ [NEIGHBORHOOD] complete reroof in [TIMEFRAME]\n✓ Insurance approved $[AMOUNT] (we dealt with the adjuster)\n✓ 50-year warranty on materials + workmanship\n✓ [BRAND] architectural shingles in [COLOR]\n✓ Increased home value by $[AMOUNT]\n\nWe have [NUMBER] inspection slots left before storm season hits.\n\nTap the link in bio or DM 'INSPECT' for your free inspection 📲\n\nYour neighbors already did. 🏠\n\n#[CITY]Roofing #[NEIGHBORHOOD]Homes #RoofReplacement #BeforeAndAfter #HomeTransformation #NewRoof #[CITY]Homes #RoofingContractor #CurbAppeal #HomeImprovement",
+        "visual": "Carousel post: Slide 1 - Stunning before photo of old, damaged roof with text overlay 'Your neighbors know something you don't'. Slide 2 - After photo showing beautiful new roof, same angle. Slide 3 - Aerial drone shot of completed project. Slide 4 - Close-up of new shingles with warranty badge. Slide 5 - Happy homeowner testimonial quote on branded background. Slide 6 - Map showing multiple completed projects in neighborhood with pins. Slide 7 - CTA slide with contact info and urgency message.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ [CITY] HOMEOWNERS: Is that water stain getting bigger?\n\nWhat starts as a $500 repair becomes $15,000 in structural damage. Here's the timeline:\n\n📅 MONTH 1-2: Small leak starts (usually invisible from inside)\n→ Cost to fix: $300-500\n→ What's happening: Single damaged shingle or flashing issue\n\n📅 MONTH 3-6: You notice a small stain on ceiling\n→ Cost to fix: $1,500-3,000\n→ What's happening: Decking is now wet, insulation compromised\n\n📅 MONTH 7-12: Stain is growing, maybe some dripping\n→ Cost to fix: $5,000-8,000\n→ What's happening: Structural wood rot, mold in attic\n\n📅 MONTH 12+: Ceiling damage, visible mold, sagging\n→ Cost to fix: $15,000-25,000\n→ What's happening: Rafter damage, interior repairs needed, possible mold remediation\n\nI'm sharing this because we just finished a job where the homeowner waited 18 months. What could have been a $400 shingle replacement turned into $22,000 in structural repairs. Insurance covered some, but not all.\n\n5 WARNING SIGNS to check this weekend:\n\n1. Shingles in your yard after storms\n2. Dark streaks or discoloration on roof\n3. Curling or missing shingles (use binoculars from ground)\n4. Granules in gutters (looks like coarse sand)\n5. Light coming through attic boards\n\nFound any of these? Comment below and I'll tell you how urgent it is.\n\nWe're offering free inspections this week for [CITY] homeowners. No obligation, no sales pressure—just a honest assessment with photos you can keep.\n\nComment 'INSPECT' or call/text [PHONE_NUMBER].\n\nP.S. - If you've had storm damage in the last year, your insurance might cover it even if you didn't file a claim yet. We can check for you.\n\n#[CITY]Roofing #HomeMaintenanceTips #RoofRepair #[CITY]Homeowners #RoofingContractor",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "🚨 INSURANCE UPDATE FOR [CITY] HOMEOWNERS 🚨\n\nI've been in roofing for [NUMBER] years, and I've never seen insurance companies move this fast on roof policies.\n\nHere's what's happening RIGHT NOW:\n\n[INSURANCE_COMPANY_1] - Requiring roof replacement on homes with roofs 15+ years old. Non-renewal notices going out [MONTH].\n\n[INSURANCE_COMPANY_2] - New inspection requirements for policy renewal. If your roof fails, you have 90 days to replace or they drop you.\n\n[INSURANCE_COMPANY_3] - No longer covering \"cosmetic\" storm damage. Only structural damage qualifies.\n\nWHY THIS MATTERS:\n\nWe're getting 3-4 calls per day from panicked homeowners who got non-renewal letters. The problem? Every roofing company is now booked 6-8 weeks out.\n\nIf you wait until you GET the letter, you might not be able to get it done before your deadline.\n\nWHAT TO DO:\n\n1. Check your roof age (it's on your home inspection report or ask your insurance agent)\n2. If it's 12+ years old, get an inspection NOW before you get the letter\n3. If you've had storm damage in the last 2 years, file a claim ASAP (new policies are stricter)\n4. Get your inspection report in writing—you'll need it for insurance\n\nWE'RE HELPING [CITY] HOMEOWNERS BY:\n\n✓ Free inspections with written reports (yours to keep)\n✓ Direct communication with insurance adjusters\n✓ Priority scheduling for insurance deadline cases\n✓ Financing options if insurance doesn't cover it all\n\nWe've helped [NUMBER] homeowners navigate this in the last [TIMEFRAME], with an average insurance approval of $[AMOUNT].\n\nReal example: [CLIENT_NAME] on [STREET] got a non-renewal notice on March 15th with a May 1st deadline. We inspected March 18th, filed claim March 20th, insurance approved $18,500 on April 2nd, and completed the roof April 28th. She kept her insurance.\n\nQuestions? Drop them below and I'll answer every one.\n\nNeed an inspection? Call [PHONE_NUMBER] or comment 'INSURANCE' and I'll DM you.\n\nShare this with your neighbors—they need to know.\n\n#[CITY]Homeowners #InsuranceClaim #RoofReplacement #[CITY]Community #HomeownersInsurance #RoofingContractor",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: \"I'm embarrassed when people come over because my roof looks terrible from the street\" 😞\n\nAFTER: \"My house is now the best-looking one on the block and my property value went up $20,000\" 🏆\n\nThis is [CLIENT_NAME]'s story from [NEIGHBORHOOD].\n\nTHE SITUATION:\n\n[CLIENT_NAME]'s roof was 22 years old. Black streaks everywhere. Several neighbors had complained it was bringing down property values. They were thinking about selling but knew the roof would kill the deal.\n\nTHE SOLUTION:\n\nWe did a complete reroof in [TIMEFRAME]:\n• [BRAND] architectural shingles in [COLOR]\n• New ridge vents for better attic airflow\n• Ice and water shield in valleys\n• 50-year warranty on materials AND workmanship\n• Insurance covered $[AMOUNT] of the $[TOTAL_AMOUNT] cost\n\nTHE RESULTS:\n\n✓ Home appraised $20,000 higher than before\n✓ Energy bills down 28% (better ventilation)\n✓ Neighbors asking for our number\n✓ Peace of mind during storms\n✓ No more embarrassment\n\nBut here's the best part...\n\n[CLIENT_NAME] wasn't planning to file an insurance claim. We found hail damage from a storm 8 months earlier that they didn't even know about. Insurance paid $16,800 of the $19,500 total cost.\n\nThey paid $2,700 out of pocket for a $20,000 increase in home value.\n\nWe're currently working on 4 other homes in [NEIGHBORHOOD]. When neighbors see the transformation, they want it too.\n\nWE HAVE [NUMBER] INSPECTION SLOTS AVAILABLE THIS WEEK.\n\nWhat we'll do:\n\n1. Free inspection with drone footage\n2. Check for insurance-claimable damage (even old storms)\n3. Show you exactly what you need (repair vs replace)\n4. Handle all insurance paperwork if there's a claim\n5. Give you 3 options with pricing\n6. No pressure—the report is yours to keep\n\nIf you've been putting this off because you're worried about cost, let us check for insurance coverage first. You might be surprised.\n\nComment 'TRANSFORM' below or call/text [PHONE_NUMBER].\n\nFinancing available for the portion insurance doesn't cover.\n\nP.S. - See the before/after photos in the comments 👇\n\n#[CITY]Roofing #[NEIGHBORHOOD] #BeforeAndAfter #HomeTransformation #RoofReplacement #CurbAppeal #[CITY]Homes",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're about to waste $15,000 because you don't know this",
+        "script": "HOOK (0-3 sec): [Show water stain on ceiling] \"POV: You're about to waste $15,000 because you don't know this\"\n\nPROBLEM (3-15 sec): [Point to stain] \"See this water stain? Most homeowners think 'I'll call someone next month.' WRONG. Here's what's happening right now behind your ceiling...\" [Cut to attic footage showing wet insulation and wood rot]\n\nAGITATE (15-30 sec): [Show timeline graphic] \"Month 1: $500 fix. Month 6: $3,000 fix. Month 12: $15,000 structural damage.\" [Show dramatic reveal of severe damage] \"This is what waiting looks like.\"\n\nSOLUTION (30-50 sec): [Show yourself doing inspection] \"5 warning signs you can check yourself RIGHT NOW:\" [Quick cuts showing each sign with text overlay]\n1. Shingles in yard ✓\n2. Granules in gutters ✓  \n3. Curling shingles ✓\n4. Dark streaks ✓\n5. Light through attic ✓\n\n[Show before/after of early fix] \"Caught early? $500. Waited? $15,000. Your choice.\"\n\nCTA (50-60 sec): [Direct to camera] \"Comment 'CHECKLIST' and I'll send you the full inspection guide. Don't be the $15K person.\"\n\nTEXT OVERLAYS: \"This is what $15K in damage looks like\" / \"You have 6 months before this happens\" / \"Save this before you forget\"\n\nSOUND: Trending anxious/urgent audio or original voice",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Roofing companies don't want you to know this about warranties",
+        "script": "HOOK (0-3 sec): [Hold up warranty document] \"Roofing companies don't want you to know this about 'lifetime' warranties\"\n\nATTENTION (3-10 sec): [Flip through document dramatically] \"See this? Says 'LIFETIME WARRANTY' in huge letters. But check this out...\" [Point to fine print]\n\nINTEREST (10-25 sec): [Show highlighted sections] \"Your 'lifetime' warranty? Actually expires in 10 years for workmanship. The 50-year materials warranty? Only covers defects, not installation problems. And get this...\" [Zoom in] \"It's prorated. Year 20? You get 40% coverage.\"\n\nDESIRE (25-45 sec): [Show comparison] \"Here's what we do different:\" [Show your warranty] \"50 years on BOTH materials AND workmanship. Non-prorated for first 25 years. Transferable if you sell. And we're local—been here [NUMBER] years, will be here [NUMBER] more.\"\n\n[Show real example] \"This homeowner had a 'lifetime' warranty from a national chain. Company went bankrupt. Warranty worthless. We fixed it.\"\n\nACTION (45-60 sec): [Direct to camera] \"After [NUMBER] roofs, here's my advice: Read the warranty. Ask who honors it in 10 years. Choose local.\"\n\n\"Want me to review your warranty? Comment 'REVIEW' below.\"\n\nTEXT OVERLAYS: \"'Lifetime' = 10 years\" / \"Prorated = You pay more later\" / \"National chain = Gone in 5 years\" / \"Choose local\"\n\nSOUND: Trending 'truth reveal' audio or original voice",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "Insurance companies are dropping homeowners and nobody's talking about it",
+        "script": "HOOK (0-3 sec): [Show insurance letter] \"Insurance companies are dropping homeowners and nobody's talking about it\"\n\nBEFORE (3-15 sec): [Act out reading letter] \"Dear homeowner, your roof is 15 years old so we're non-renewing your policy. You have 90 days.\" [Panic reaction] \"This is happening RIGHT NOW in [CITY]. I'm getting 5 calls a day about this.\"\n\nBRIDGE (15-35 sec): [Show inspection footage] \"Here's what we're doing: Free inspections to check if insurance will cover it.\" [Show drone footage] \"Most homeowners don't know they have storm damage from [TIMEFRAME] ago. Insurance will still pay.\"\n\n[Show before/after] \"This homeowner got non-renewal letter. We found hail damage. Insurance paid $18,000. New roof, kept insurance, zero panic.\"\n\nAFTER (35-55 sec): [Show happy customer] \"From 'I'm losing my insurance' to 'I have a new roof and paid $2,000 out of pocket.' We deal with the adjuster. You get peace of mind.\"\n\n[Show calendar] \"We have [NUMBER] inspection slots this week before the rush.\"\n\nCTA (55-60 sec): [Direct to camera] \"Link in bio or call [PHONE_NUMBER]. Don't wait for the letter. Your neighbors already called.\"\n\nTEXT OVERLAYS: \"This letter = 90 days to replace roof\" / \"We found damage they didn't know about\" / \"Insurance paid $18K\" / \"[NUMBER] slots left\"\n\nSOUND: Trending urgent/helpful audio or original voice with captions",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Is your roof trying to tell you something? [5 warning signs]",
+        "preview_text": "What starts as $500 becomes $15,000. Here's the timeline...",
+        "body": "SUBJECT: Is your roof trying to tell you something? [5 warning signs]\nPREVIEW: What starts as $500 becomes $15,000. Here's the timeline...\n\n---\n\nHi [FIRST_NAME],\n\nPROBLEM:\nYour roof shows warning signs 6-12 months BEFORE you see water stains on your ceiling. By the time you notice the stain, the average repair cost has jumped from $500 to $15,000.\n\nI'm sharing this because we just completed a $22,000 structural repair for a homeowner who waited 18 months. It could have been a $400 shingle replacement.\n\nAGITATE:\nHere's the timeline of what happens when you ignore the warning signs:\n\n• Month 1-2: Small leak (invisible) - $500 fix\n• Month 3-6: Ceiling stain appears - $2,500 fix  \n• Month 7-12: Growing stain, dripping - $6,000 fix\n• Month 12+: Structural damage, mold - $15,000+ fix\n\nSOLUTION:\n5 warning signs you can check THIS WEEKEND:\n\n1. [WARNING_SIGN_1] → Indicates [TIMEFRAME] until failure\n2. [WARNING_SIGN_2] → Costs $[AMOUNT] now vs $[AMOUNT] later\n3. [WARNING_SIGN_3] → What insurance adjusters look for first\n4. [WARNING_SIGN_4] → Adds 30% to your energy bills\n5. [WARNING_SIGN_5] → #1 reason for policy non-renewal\n\n[BUTTON: Download Free Inspection Checklist]\n\nSeen any of these signs? Reply to this email and I'll tell you how urgent it is.\n\nWe're offering free inspections for [CITY] homeowners through [DATE]. No obligation—just an honest assessment with photos you keep.\n\n[BUTTON: Schedule Free Inspection]\n\nP.S. - If you've had storm damage in the last year, your insurance might cover repairs even if you didn't file a claim yet. We can check during your inspection.\n\n[SIGNATURE]\n[NAME]\n[COMPANY]\n[PHONE] | [WEBSITE]\n\nLicensed & Insured | [LICENSE_NUMBER]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "🚨 Insurance alert: [CITY] homeowners with 15+ year roofs",
+        "preview_text": "Non-renewal notices going out next month. Here's your action plan...",
+        "body": "SUBJECT: 🚨 Insurance alert: [CITY] homeowners with 15+ year roofs\nPREVIEW: Non-renewal notices going out next month. Here's your action plan...\n\n---\n\nHi [FIRST_NAME],\n\nATTENTION:\nIn [NUMBER] years of roofing, I've never seen insurance companies move this fast. [INSURANCE_COMPANY_1], [INSURANCE_COMPANY_2], and [INSURANCE_COMPANY_3] are now requiring roof replacements on homes with roofs 15+ years old.\n\nNon-renewal notices start going out [MONTH].\n\nINTEREST:\nHere's what's happening:\n\n• [INSURANCE_COMPANY_1]: Roof inspection required for renewal. Fail = 90 days to replace or lose coverage\n• [INSURANCE_COMPANY_2]: Automatic non-renewal for roofs 15+ years\n• [INSURANCE_COMPANY_3]: No longer covering \"cosmetic\" storm damage\n\nWe're getting 3-4 panic calls per day from homeowners who got letters. The problem? Every roofing company is now booked 6-8 weeks out.\n\nDESIRE:\nWe're helping [CITY] homeowners by:\n\n✓ Priority inspections for insurance deadline cases\n✓ Direct adjuster communication (we handle the paperwork)\n✓ Storm damage assessment (you might have coverage you don't know about)\n✓ Written reports that satisfy carrier requirements\n\nReal example: [CLIENT_NAME] got a non-renewal notice March 15 with May 1 deadline. We inspected March 18, filed claim March 20, insurance approved $18,500 April 2, completed roof April 28. She kept her insurance.\n\nACTION:\nCheck your roof age (it's on your home inspection report). If it's 12+ years old, get inspected NOW before you get the letter.\n\n[BUTTON: Schedule Priority Inspection]\n\nWe have [NUMBER] inspection slots available this week.\n\nWhat we'll do:\n1. Free inspection with written report (yours to keep)\n2. Check for insurance-claimable damage from past storms\n3. Provide timeline and options\n4. Handle all insurance communication if needed\n\nAverage insurance approval: $[AMOUNT]\nAverage out-of-pocket after insurance: $[AMOUNT]\n\n[BUTTON: Check My Roof Age]\n\nQuestions? Just reply to this email.\n\n[SIGNATURE]\n[NAME]\n[COMPANY]\n[PHONE] | [WEBSITE]\n\nP.S. - Forward this to neighbors who might need it. This affects most homeowners in [CITY].",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your neighbors on [STREET] just did this...",
+        "preview_text": "3 homes got new roofs this month. Here's what they paid (you'll be surprised)",
+        "body": "SUBJECT: [FIRST_NAME], your neighbors on [STREET] just did this...\nPREVIEW: 3 homes got new roofs this month. Here's what they paid (you'll be surprised)\n\n---\n\nHi [FIRST_NAME],\n\nBEFORE:\n\"My insurance company said they'd drop me if I didn't replace my roof. I was panicking about the cost.\" - [CLIENT_NAME], [NEIGHBORHOOD]\n\nAFTER:\n\"They found storm damage I didn't know about. Insurance paid $18,500. I paid $2,100 out of pocket for a complete new roof. And my home value went up $20,000.\" - [CLIENT_NAME], [NEIGHBORHOOD]\n\nBRIDGE:\nWe just completed 3 roofs in your neighborhood this month. Here's what happened:\n\n🏠 [ADDRESS_1]: Insurance paid $17,200 of $19,800 total\n🏠 [ADDRESS_2]: Insurance paid $16,800 of $18,500 total  \n🏠 [ADDRESS_3]: Insurance paid $19,100 of $21,000 total\n\nAverage out-of-pocket: $2,400\nAverage home value increase: $18,000-22,000\n\nThe secret? Most homeowners don't know they have insurance-claimable damage from storms [TIMEFRAME] ago.\n\nWHAT WE DO:\n\n✓ Free inspection with drone footage\n✓ Check for storm damage (even from old storms)\n✓ Handle all insurance paperwork and adjuster meetings\n✓ Provide 3 options: repair, restore, or replace\n✓ 50-year warranty on materials AND workmanship\n✓ Financing available for portion insurance doesn't cover\n\n[BUTTON: Schedule Free Inspection]\n\nWe have [NUMBER] inspection slots available before storm season hits.\n\nNo obligation. No pressure. Just an honest assessment with photos you keep.\n\nEven if you don't have insurance coverage, we'll show you exactly what you need and give you options that fit your budget.\n\nYour neighbors already called. Your turn?\n\n[BUTTON: Yes, Inspect My Roof]\n\nP.S. - We're local. [NUMBER] years in [CITY]. We'll be here to honor your warranty in 10, 20, even 50 years. Can't say that about national chains.\n\n[SIGNATURE]\n[NAME]\n[COMPANY]\n[PHONE] | [WEBSITE]\n\nLicensed & Insured | [LICENSE_NUMBER]\n\n---\n\n[IMAGES: Before/after photos from neighborhood projects]",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] shingles in your yard means [Y] months before water damage hits your ceiling",
+      "[X] homes on [Street Name] replaced their roofs this year - here's the [Y] insurance changes they knew about",
+      "[X] warning signs your roof won't survive the next storm season (and the $[Y] in damage each one causes)"
+    ],
+    "question_hooks": [
+      "Are those water stains on your ceiling getting bigger every time it rains?",
+      "Is your insurance company threatening to drop you because your roof is over [X] years old?",
+      "Are you embarrassed every time neighbors comment on the black streaks covering your roof?"
+    ],
+    "story_hooks": [
+      "How a [City] homeowner avoided $[X] in structural damage by catching these [Y] signs early",
+      "How [Name] got their insurance to pay for their entire roof replacement (and you can too)",
+      "How a failed home inspection turned into a quick sale after this [X]-day roof replacement"
+    ],
+    "fear_hooks": [
+      "Is your roof warranty full of loopholes that leave you paying out of pocket when leaks start?",
+      "Is that small leak you're patching every few months already causing $[X] in hidden attic damage?",
+      "Is your [X]-year-old roof about to cost you the home sale and $[Y] in buyer concessions?"
+    ],
+    "howto_hooks": [
+      "How to get your insurance company to approve your roof claim without fighting the adjuster yourself",
+      "How to stop throwing money at temporary leak repairs and actually solve the problem for good",
+      "How to choose between [X] roofing contractors when they all give you different answers about repairs vs replacement"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your insurance is about to drop you",
+      "body": "Show letter from insurance company demanding roof replacement. Cut to drone footage revealing actual roof damage homeowner couldn't see from ground. Quick cuts: adjuster meeting, material selection, crew install timelapse. End with homeowner holding new insurance approval letter. Text overlays: 'Day 1: Panic call', 'Day 2: Free inspection', 'Day 7: Insurance approved', 'Day 14: New roof, policy saved'",
+      "cta": "Link in bio for free insurance inspection"
+    },
+    "reels": {
+      "hook": "This $200 repair just cost them $15,000",
+      "body": "Show small roof patch from DIY repair. Zoom out to reveal massive water damage in attic from improper seal. Side-by-side: proper repair method vs DIY disaster. Text overlay: 'Small leak + time = big problem'. Show crew doing proper repair with warranty documentation",
+      "cta": "Free inspection before it's too late - link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second video showing your roof before we started (even just a photo on screen), then pan to show your new roof. Tell us in one sentence what you were most worried about and how you feel now. Bonus: show your reaction when neighbors compliment it!",
+      "hashtag": "#RoofTransformation"
+    },
+    {
+      "prompt": "Take a quick video during a rainstorm showing you relaxed inside (reading, cooking, etc.) and say 'First storm with my new roof and I'm not worried for the first time in years.' Share what room used to leak.",
+      "hashtag": "#PeaceOfMindRoofing"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Hidden camera catching storm chasers lying to homeowners. Show actual inspection revealing they recommended full replacement for minor repairs. Include 'what you should actually ask any roofer' checklist",
+      "why": "Exposes industry scams, positions you as consumer advocate, highly shareable among homeowner groups and neighborhood forums"
+    },
+    {
+      "angle": "Neighborhood transformation map showing before/after aerial footage of entire street where you've done multiple roofs. Blur addresses but show dramatic curb appeal improvement spreading house by house",
+      "why": "Creates FOMO and social proof simultaneously, neighbors tag each other, hyperlocal virality in target service areas"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:22:27.604Z",
+    "last_tier2_refresh": "2025-11-27T21:22:27.604Z",
+    "last_tier3_refresh": "2025-11-27T21:22:27.604Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:22:27.604Z"
+  }
+}

@@ -26,11 +26,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { sessionManager } from '@/services/uvp/session-manager.service';
 import { useBrand } from '@/hooks/useBrand';
 import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
+import { supabase } from '@/lib/supabase';
 import type { SessionListItem } from '@/types/session.types';
+import type { Brand } from '@/contexts/BrandContext';
 
 export function SessionManagerPage() {
   const navigate = useNavigate();
-  const { currentBrand } = useBrand();
+  const { currentBrand, setCurrentBrand } = useBrand();
   const [sessions, setSessions] = useState<SessionListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -125,9 +127,27 @@ export function SessionManagerPage() {
     }
   };
 
-  const handleResumeSession = (sessionId: string) => {
+  const handleResumeSession = async (sessionId: string) => {
     // Check if this is a localStorage session
     const session = sessions.find(s => s.id === sessionId);
+
+    // Load and set the brand for this session
+    if (session?.brand_id) {
+      try {
+        const { data: brandData, error: brandError } = await supabase
+          .from('brands')
+          .select('*')
+          .eq('id', session.brand_id)
+          .single();
+
+        if (brandData && !brandError) {
+          console.log('[SessionManagerPage] Setting brand for session:', brandData.name);
+          setCurrentBrand(brandData as Brand);
+        }
+      } catch (err) {
+        console.error('[SessionManagerPage] Failed to load brand:', err);
+      }
+    }
 
     if (session?.metadata?.source === 'localStorage') {
       // For localStorage sessions, just navigate to dashboard

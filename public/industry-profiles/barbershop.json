@@ -1,0 +1,1734 @@
+{
+  "industry": "Barbershop",
+  "industry_name": "Barbershop",
+  "naics_code": "812111",
+  "category": "Personal Services",
+  "subcategory": "Men's Grooming",
+  "customer_triggers": [
+    {
+      "trigger": "Hair touching ears or collar",
+      "urgency": 8,
+      "frequency": "every 3-4 weeks"
+    },
+    {
+      "trigger": "Important business meeting or presentation",
+      "urgency": 10,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Date night or social event",
+      "urgency": 9,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Partner mentions looking scruffy",
+      "urgency": 9,
+      "frequency": "every 2-3 weeks"
+    },
+    {
+      "trigger": "Job interview scheduled",
+      "urgency": 10,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Beard becoming unruly or itchy",
+      "urgency": 7,
+      "frequency": "every 2 weeks"
+    },
+    {
+      "trigger": "Military or law enforcement grooming standards",
+      "urgency": 10,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Vacation or travel plans",
+      "urgency": 6,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Seeing well-groomed colleague or friend",
+      "urgency": 5,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Payday routine",
+      "urgency": 4,
+      "frequency": "bi-weekly or monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Catches reflection looking unkempt, notices other men's fresh cuts, sees barbershop social media, drives by shop regularly, gets reminder from partner",
+    "consideration": "Checks Google reviews (reads 5-8 average), looks at Instagram for barber's work, asks male friends or colleagues, considers convenience vs quality, compares prices of 2-3 shops",
+    "decision": "Books based on barber reputation (40%), convenience to work/home (35%), walk-in availability (25%), typically decides within 24 hours of trigger",
+    "retention": "Returns every 2-3 weeks if satisfied, develops relationship with specific barber, tips consistently, brings sons or friends, becomes regular after 3rd visit",
+    "advocacy": "Recommends to male colleagues, brings friends directly, posts fresh cut photos, leaves review after becoming regular (typically 5+ visits)"
+  },
+  "transformations": [
+    {
+      "from": "Unkempt, unprofessional appearance",
+      "to": "Sharp, executive presence",
+      "emotional_value": "Professional confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Outdated dad look",
+      "to": "Modern, stylish gentleman",
+      "emotional_value": "Renewed youth",
+      "worth_premium": true
+    },
+    {
+      "from": "Patchy, scraggly beard",
+      "to": "Sculpted, masculine facial hair",
+      "emotional_value": "Masculine pride",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic supercuts style",
+      "to": "Signature personalized look",
+      "emotional_value": "Individual identity",
+      "worth_premium": true
+    },
+    {
+      "from": "Grown-out military cut",
+      "to": "Clean regulation fade",
+      "emotional_value": "Discipline and standards",
+      "worth_premium": false
+    },
+    {
+      "from": "Uneven home haircut attempt",
+      "to": "Professional clean lines",
+      "emotional_value": "Mistake corrected",
+      "worth_premium": false
+    },
+    {
+      "from": "Boy's haircut",
+      "to": "Man's sophisticated style",
+      "emotional_value": "Maturity milestone",
+      "worth_premium": true
+    },
+    {
+      "from": "Messy weekend look",
+      "to": "Monday morning ready",
+      "emotional_value": "Week preparation",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Client returns within 3 weeks",
+      "timeframe": "21 days",
+      "measurable": true
+    },
+    {
+      "metric": "Requests same barber",
+      "timeframe": "next visit",
+      "measurable": true
+    },
+    {
+      "metric": "Tips above 20%",
+      "timeframe": "same visit",
+      "measurable": true
+    },
+    {
+      "metric": "Brings friend or family member",
+      "timeframe": "60 days",
+      "measurable": true
+    },
+    {
+      "metric": "Purchases grooming product",
+      "timeframe": "within 3 visits",
+      "measurable": true
+    },
+    {
+      "metric": "Joins membership program",
+      "timeframe": "after 4 visits",
+      "measurable": true
+    },
+    {
+      "metric": "Books standing appointment",
+      "timeframe": "after 6 visits",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Weekend coming up - 'Look sharp for Friday night'",
+    "Walk-ins welcome but filling fast - 'Only 2 chairs open'",
+    "Big game weekend - 'Get cleaned up before kickoff'",
+    "Holiday approaching - 'Thanksgiving appointments booking now'",
+    "Barber vacation schedule - 'Tony out next week, book today'",
+    "Monthly special ending - 'Beard trim combo deal expires Sunday'",
+    "Weather change - 'Summer fade season is here'"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Just need a quick trim",
+      "response": "Our express cut is only $18 and takes 15 minutes - faster than driving to another shop",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "My barber moved/retired",
+      "response": "We understand that relationship - let us earn your trust with a satisfaction guarantee on first cut",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Don't like barbershop talk",
+      "response": "We respect quiet time - just let us know you prefer to zone out and relax",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Too expensive for just a haircut",
+      "response": "Our $30 cut lasts 3 weeks - that's $1.40 per day to look your best",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Can't grow a good beard",
+      "response": "Our beard specialists work with all growth patterns - we'll show you how to maximize what you have",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Takes too long",
+      "response": "Book our 7am express slot - you'll be at work by 7:30 looking sharp",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Nervous about trying new style",
+      "response": "We start conservative and adjust - you're in control every step",
+      "effectiveness": 8.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free cleanup within 48 hours if not satisfied",
+      "Perfect fade or we'll fix it free",
+      "Hot towel shave comfort guaranteed or no charge"
+    ],
+    "proof_points": [
+      "3rd generation master barber",
+      "1,500+ five-star reviews",
+      "Certified in 20+ cut styles",
+      "8 years same location"
+    ],
+    "risk_mitigation": "Clear communication before starting, mirror checks during cut, photo reference welcomed, adjustment policy clearly posted"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "shaggy",
+      "messy",
+      "overgrown",
+      "scraggly",
+      "uneven",
+      "wild",
+      "unprofessional",
+      "itchy",
+      "irritated",
+      "patchy"
+    ],
+    "solution_words": [
+      "clean",
+      "sharp",
+      "fresh",
+      "crisp",
+      "tight",
+      "professional",
+      "smooth",
+      "styled",
+      "groomed",
+      "confident"
+    ],
+    "avoid_jargon": [
+      "taper ratio",
+      "guard numbers",
+      "blend point",
+      "weight line",
+      "disconnected",
+      "texture point cutting",
+      "graduation"
+    ]
+  },
+  "power_words": [
+    "precision",
+    "classic",
+    "gentleman",
+    "executive",
+    "sharp",
+    "fresh",
+    "clean",
+    "professional",
+    "master",
+    "authentic",
+    "traditional",
+    "modern",
+    "signature",
+    "crafted",
+    "detailed",
+    "military-grade",
+    "old-school",
+    "brotherhood",
+    "legacy",
+    "timeless",
+    "distinguished",
+    "commanding",
+    "respect",
+    "authority",
+    "elite",
+    "exclusive",
+    "champion",
+    "legendary",
+    "trusted",
+    "established"
+  ],
+  "avoid_words": [
+    "salon",
+    "beauty",
+    "pamper",
+    "delicate",
+    "gentle",
+    "soft",
+    "feminine",
+    "trendy",
+    "fashionable",
+    "cute",
+    "pretty",
+    "lovely",
+    "gorgeous",
+    "beautiful",
+    "stylish",
+    "chic",
+    "fabulous",
+    "glamorous",
+    "elegant",
+    "graceful"
+  ],
+  "headline_templates": [
+    {
+      "template": "The [Neighborhood]'s Barbershop for Real Men",
+      "expected_ctr": 7.8,
+      "use_case": "local authority"
+    },
+    {
+      "template": "Get That [Day] Meeting Look in 20 Minutes",
+      "expected_ctr": 8.4,
+      "use_case": "professional targeting"
+    },
+    {
+      "template": "Where [Number]+ Men Get Their Signature Cut",
+      "expected_ctr": 7.2,
+      "use_case": "social proof"
+    },
+    {
+      "template": "Military Fades Done Right - [Location]",
+      "expected_ctr": 9.1,
+      "use_case": "specialty service"
+    },
+    {
+      "template": "Walk In Looking Rough, Walk Out Sharp",
+      "expected_ctr": 8.6,
+      "use_case": "transformation promise"
+    },
+    {
+      "template": "[Price] Cuts Today Only - No Appointment Needed",
+      "expected_ctr": 9.3,
+      "use_case": "promotional urgency"
+    },
+    {
+      "template": "Your Grandfather's Barbershop Experience, Modern Precision",
+      "expected_ctr": 7.9,
+      "use_case": "nostalgia marketing"
+    },
+    {
+      "template": "From Bed Head to Boardroom in 30 Minutes",
+      "expected_ctr": 8.8,
+      "use_case": "time-conscious professional"
+    },
+    {
+      "template": "The Barbershop Where [Local Team] Players Go",
+      "expected_ctr": 8.2,
+      "use_case": "celebrity association"
+    },
+    {
+      "template": "[Number]-Star Fades and Shaves Since [Year]",
+      "expected_ctr": 7.5,
+      "use_case": "reputation building"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Chair Now",
+      "conversion_rate": 11.8,
+      "placement": "header bar"
+    },
+    {
+      "template": "Walk-Ins Welcome Today",
+      "conversion_rate": 13.2,
+      "placement": "Google My Business"
+    },
+    {
+      "template": "Reserve Your Barber",
+      "conversion_rate": 10.9,
+      "placement": "service pages"
+    },
+    {
+      "template": "Check Wait Times Live",
+      "conversion_rate": 15.7,
+      "placement": "mobile homepage"
+    },
+    {
+      "template": "Join the Brotherhood",
+      "conversion_rate": 8.4,
+      "placement": "membership section"
+    },
+    {
+      "template": "Get Directions Now",
+      "conversion_rate": 14.3,
+      "placement": "local search ads"
+    },
+    {
+      "template": "Claim Your First-Time Discount",
+      "conversion_rate": 17.2,
+      "placement": "pop-up offer"
+    },
+    {
+      "template": "See Today's Schedule",
+      "conversion_rate": 12.6,
+      "placement": "social media bio"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Fresh fade Friday! 💈 [Before/After] This is why we're booked all weekend. Walk-ins welcome until 8pm",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "GAME DAY SPECIAL: Show your [team] gear for $5 off any cut! Let's go [team]! 🏈",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Time-lapse: Watch this transformation in 60 seconds ⚡ Book your cut: [link]",
+      "engagement_rate": 14.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "Rating haircuts my dad thinks are 'too fancy' 😂 #BarberLife #[City]Barber",
+      "engagement_rate": 18.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "Shoutout to [Customer Name] - loyal customer for [X] years! Who's been coming here longest? Comment below!",
+      "engagement_rate": 6.4
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "POV: You finally found a barber who can fade properly 🔥 #FadeGame #BarberShop",
+      "engagement_rate": 16.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "Real talk: Your haircut is your daily uniform. Invest accordingly. 💯 #MensGrooming",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Beard shaping 101: The difference between looking homeless and looking distinguished",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Saturday is booked solid! Sunday spots still available. Don't wait until Monday looking rough 💈",
+      "engagement_rate": 8.5
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "No-appointment needed with average 15-minute wait",
+      "rank": 1,
+      "differentiator": "Convenience factor"
+    },
+    {
+      "prop": "Master barbers with 50+ years combined experience",
+      "rank": 2,
+      "differentiator": "Expertise level"
+    },
+    {
+      "prop": "Open until 8pm weekdays and Sundays",
+      "rank": 3,
+      "differentiator": "Accessibility"
+    },
+    {
+      "prop": "Complimentary beer or whiskey while you wait",
+      "rank": 4,
+      "differentiator": "Experience enhancement"
+    },
+    {
+      "prop": "Hot towel shave included with every cut",
+      "rank": 5,
+      "differentiator": "Premium touch"
+    },
+    {
+      "prop": "Kids cut free with dad's service on Sundays",
+      "rank": 6,
+      "differentiator": "Family value"
+    },
+    {
+      "prop": "Text alerts when your barber is ready",
+      "rank": 7,
+      "differentiator": "Tech convenience"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the lost art of master barbering. Our craftsmen blend old-world tradition with modern precision. Premium cuts start at $45 with complimentary straight-razor cleanup and imported pomade finish. This is grooming for the distinguished gentleman.",
+    "budget_conscious": "Quality cuts don't require a trust fund. Starting at just $18, our experienced barbers deliver sharp, clean cuts that last. Walk-ins always welcome, no fancy appointments needed. Just real barbering at honest prices.",
+    "enterprise": "Keep your team looking sharp with our corporate grooming programs. On-site services, volume discounts, and monthly billing available. We'll handle your executive grooming needs so you can focus on business."
+  },
+  "trust_signals": [
+    {
+      "signal": "Barber licenses displayed",
+      "importance": 9,
+      "format": "Wall-mounted frames by each chair"
+    },
+    {
+      "signal": "Years in business sign",
+      "importance": 8,
+      "format": "Window decal and about section"
+    },
+    {
+      "signal": "Customer photos wall",
+      "importance": 7,
+      "format": "Polaroid wall of regulars"
+    },
+    {
+      "signal": "Google reviews rating",
+      "importance": 10,
+      "format": "Review sticker on door and website"
+    },
+    {
+      "signal": "Barber competition trophies",
+      "importance": 7,
+      "format": "Display case at entrance"
+    },
+    {
+      "signal": "Celebrity/athlete clients",
+      "importance": 8,
+      "format": "Signed photos and social posts"
+    },
+    {
+      "signal": "Cleanliness and sanitization",
+      "importance": 10,
+      "format": "Visible Barbicide jars and clean tools"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "15,000+ cuts delivered since 2018",
+      "credibility_score": 8.6,
+      "context": "Established neighborhood presence"
+    },
+    {
+      "stat": "92% request same barber on return visit",
+      "credibility_score": 9.1,
+      "context": "Consistency and skill"
+    },
+    {
+      "stat": "Average 4.8 stars from 1,100+ reviews",
+      "credibility_score": 9.3,
+      "context": "Verified Google reviews"
+    },
+    {
+      "stat": "3 generations of customers",
+      "credibility_score": 8.8,
+      "context": "Grandfather to grandson loyalty"
+    },
+    {
+      "stat": "Zero wait time for 60% of walk-ins",
+      "credibility_score": 8.2,
+      "context": "Efficient operation"
+    },
+    {
+      "stat": "Featured in local 'Best Barber' list 4 years running",
+      "credibility_score": 8.4,
+      "context": "Media recognition"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Appointments available, hot towel service, premium products, shoe shine station",
+    "Budget: Walk-in only, basic clippers, quick turnover focus, minimal product selection",
+    "Premium: Individual consultation, beard sculpting included, complimentary beverage service",
+    "Budget: Standard cuts only, no beard services, water fountain only",
+    "Premium: Straight razor finishing, imported pomades, 30+ minute service time",
+    "Budget: Clipper only, basic gel available, 15-minute target time"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 0,
+    "trigger_event": "Immediately after revealing cut when customer checks mirror and smiles",
+    "ask_method": "QR code at station for instant Google review while still in chair, followed by text reminder if regular customer"
+  },
+  "competitive_advantages": [
+    "Only shop with certified master barber in 10-mile radius",
+    "Live wait-time app reduces uncertainty for walk-ins",
+    "Specializes in ethnic hair textures competitors can't handle",
+    "Former military barber knows all regulation cuts perfectly",
+    "Sunday hours capture weekend-only customers",
+    "In-house beard product line with exclusive scents"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $65 'Executive Package' first, making $30 regular cut seem like great value",
+    "sensitivity": "Price resistance kicks in above $35 for basic cut, sweet spot is $25-30",
+    "sweet_spots": [
+      "$25 basic cut",
+      "$30 fade",
+      "$45 cut and beard",
+      "$65 full service"
+    ],
+    "decoy_pricing": "Offer $40 'Precision Cut' between $25 basic and $45 premium to push premium"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 45,
+    "approval_required": 60,
+    "competitor_research": 35
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.4,
+    "weekend": 1.1,
+    "holiday": 1.8
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Quick Cut",
+      "price_range": "$18-25",
+      "target_customer": "Students, budget-conscious",
+      "margin": 48
+    },
+    {
+      "tier": "Professional",
+      "price_range": "$30-45",
+      "target_customer": "Working professionals",
+      "margin": 62
+    },
+    {
+      "tier": "Executive",
+      "price_range": "$50-75",
+      "target_customer": "Executives, special occasions",
+      "margin": 73
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Push beard services - adds $15-20 to ticket with only 10 minutes extra time",
+    "Retail product sales generate 65% margins with zero labor after recommendation",
+    "Membership programs ensure predictable cash flow and reduce transaction fees",
+    "Standing appointments reduce no-shows by 70% and marketing costs",
+    "Father-son packages increase average ticket by 60% with minimal extra time",
+    "Early bird specials before 10am fill dead time with 40% margin maintenance"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -10,
+      "reason": "Post-holiday budget recovery",
+      "opportunity": "New Year fresh start promos"
+    },
+    {
+      "month": "February",
+      "variation": 5,
+      "reason": "Valentine's prep",
+      "opportunity": "Date night packages"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring cleaning mindset",
+      "opportunity": "Beard-to-clean transition"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Easter and spring events",
+      "opportunity": "Father-son Easter cuts"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Graduations and weddings",
+      "opportunity": "Group bookings"
+    },
+    {
+      "month": "June",
+      "variation": 30,
+      "reason": "Wedding season",
+      "opportunity": "Groomsmen packages"
+    },
+    {
+      "month": "July",
+      "variation": 10,
+      "reason": "Vacation season",
+      "opportunity": "Pre-vacation cleanup"
+    },
+    {
+      "month": "August",
+      "variation": 20,
+      "reason": "Back to school/work",
+      "opportunity": "Student discounts"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Return to routine",
+      "opportunity": "Standing appointment sign-ups"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Fall maintenance",
+      "opportunity": "Beard season prep"
+    },
+    {
+      "month": "November",
+      "variation": 25,
+      "reason": "Holiday prep begins",
+      "opportunity": "Pre-book December"
+    },
+    {
+      "month": "December",
+      "variation": 50,
+      "reason": "Holiday parties and photos",
+      "opportunity": "Gift cards and packages"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Quiet cuts for introverts",
+      "avoid": "Walk-in rushes",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Senior specials",
+      "avoid": "Evening appointments",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week maintenance",
+      "avoid": "Complex styles",
+      "conversion_rate": 7.4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep begins",
+      "avoid": "Quick trims",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "After-work rush",
+      "avoid": "Long services",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Full service day",
+      "avoid": "Appointments",
+      "conversion_rate": 9.6
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Father-son cuts",
+      "avoid": "Late appointments",
+      "conversion_rate": 8.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Military and first responders cut on 1st and 15th for payday, 50% traffic increase",
+    "cash_flow_peaks": "Days 1-5 and 15-20 show highest tips, averaging 25% vs 18% other days",
+    "slow_periods": "Days 8-12 and 23-27 typically 30% slower, perfect for walk-in availability"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 5-7pm",
+      "crisis_type": "Date night emergency",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Morning of job interview",
+      "crisis_type": "Professional emergency",
+      "premium_multiplier": 1.7
+    },
+    {
+      "time": "Day before military inspection",
+      "crisis_type": "Regulation cut needed",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Wedding morning",
+      "crisis_type": "Groomsmen emergency",
+      "premium_multiplier": 2.2
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Monday meeting prep",
+      "premium_multiplier": 1.4
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "The Regular",
+      "components": [
+        "Cut",
+        "Neck shave",
+        "Style"
+      ],
+      "pricing_model": "$30 flat",
+      "margin": 55
+    },
+    {
+      "name": "The Executive",
+      "components": [
+        "Cut",
+        "Beard trim",
+        "Hot towel",
+        "Shoulder massage"
+      ],
+      "pricing_model": "$65 flat",
+      "margin": 68
+    },
+    {
+      "name": "Father & Son",
+      "components": [
+        "2 cuts",
+        "Matching styles",
+        "Photo"
+      ],
+      "pricing_model": "$45 bundle",
+      "margin": 58
+    },
+    {
+      "name": "Monthly Membership",
+      "components": [
+        "Unlimited cuts",
+        "Product discounts",
+        "Priority booking"
+      ],
+      "pricing_model": "$79/month",
+      "margin": 61
+    }
+  ],
+  "upsell_paths": [
+    "Walk-in trim ($18) → Regular cut ($25) → Cut with beard ($40) → Full service ($65)",
+    "Buzz cut ($15) → Fade ($30) → Fade with design ($45) → Premium package ($65)",
+    "Beard trim only ($20) → Cut and beard ($40) → Add hot shave ($55) → Executive package ($75)",
+    "Kid's cut ($15) → Teen style ($25) → Adult cut ($30) → Regular customer membership ($79/mo)",
+    "One-time visit ($30) → Every 3 weeks ($30) → Standing appointment ($28) → VIP membership ($99/mo)",
+    "Basic cut ($25) → Add beard ($40) → Add products ($55) → Full grooming service ($75)"
+  ],
+  "retention_hooks": [
+    "10th cut free punch card - increases visit frequency by 40%",
+    "Text reminders at 3-week mark - reduces time between visits by 5 days average",
+    "Same barber request system - builds relationship and 85% return rate",
+    "Product recommendations with samples - 35% purchase full size within month",
+    "Sports talk and game coverage - creates community atmosphere and loyalty",
+    "Kid's first haircut certificate - creates generational customers",
+    "Standing appointment discount - $2 off for pre-booking creates predictability"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Bring a friend discount",
+      "timing": "Any visit",
+      "incentive": "Both get $5 off",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Business card distribution",
+      "timing": "After great cut",
+      "incentive": "$3 off per referral",
+      "conversion_rate": 22
+    },
+    {
+      "strategy": "Social media check-in",
+      "timing": "During service",
+      "incentive": "Free beard trim next visit",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Corporate referral program",
+      "timing": "Ongoing",
+      "incentive": "Company discount code",
+      "conversion_rate": 45
+    },
+    {
+      "strategy": "Team/group bookings",
+      "timing": "Sports seasons",
+      "incentive": "Coach cuts free",
+      "conversion_rate": 52
+    },
+    {
+      "strategy": "Family tree program",
+      "timing": "Ongoing",
+      "incentive": "Multi-generation discounts",
+      "conversion_rate": 41
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Beard oil and balm",
+      "attach_rate": 48,
+      "timing": "After beard trim service"
+    },
+    {
+      "service": "Pomade or styling product",
+      "attach_rate": 35,
+      "timing": "During styling education"
+    },
+    {
+      "service": "Home trimmer for maintenance",
+      "attach_rate": 18,
+      "timing": "When discussing next appointment"
+    },
+    {
+      "service": "Shampoo and conditioner",
+      "attach_rate": 22,
+      "timing": "After commenting on hair health"
+    },
+    {
+      "service": "Gift cards",
+      "attach_rate": 42,
+      "timing": "November-December holiday season"
+    },
+    {
+      "service": "Grooming kit bundles",
+      "attach_rate": 28,
+      "timing": "Father's Day and Christmas"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Add straight razor shave station",
+      "market_size": "$40K annual revenue increase",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Mobile barbering for offices",
+      "market_size": "$60K with corporate contracts",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Barbering school/apprenticeship",
+      "market_size": "$50K supplemental income",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Private label grooming products",
+      "market_size": "$35K annual with 70% margins",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Shoe shine service addition",
+      "market_size": "$20K annual add-on revenue",
+      "difficulty": 2
+    },
+    {
+      "opportunity": "Second location in business district",
+      "market_size": "80% revenue duplication potential",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Barbershop transformation videos showing before/after cuts with time-lapse editing, often featuring classic cuts like fades and tapers with ASMR-style audio of clippers and scissors",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Visual transformation content triggers dopamine response, ASMR elements increase watch time, before/after format shows clear value proposition, short-form video aligns with platform algorithms",
+        "metrics": "Top barbershop transformation videos average 50K-500K views on TikTok, 3-8% engagement rate on Instagram Reels, with some viral examples exceeding 1M views",
+        "source": "Social media analysis from Barbershop Connect industry reports and observable performance on @the_barber_post (850K followers), @barbershopconnect (1.2M followers)",
+        "confidence": "high"
+      },
+      {
+        "example": "Educational content teaching men how to maintain their haircut between appointments, including product recommendations and styling techniques specific to their cut",
+        "platform": "YouTube/Instagram",
+        "why_it_worked": "Provides ongoing value beyond the service, positions barbershop as expert advisor, creates touch points between visits, drives product sales, builds loyalty through education",
+        "metrics": "How-to barbering videos average 15K-100K views on YouTube for established shops, 2-4% engagement on Instagram educational posts",
+        "source": "Analysis of successful barbershop YouTube channels like Beardbrand (1.7M subscribers) and The Barber Post",
+        "confidence": "high"
+      },
+      {
+        "example": "Behind-the-scenes content showing the barbershop culture, barber personalities, and client interactions that humanize the brand",
+        "platform": "Instagram Stories/TikTok",
+        "why_it_worked": "Builds personal connection with barbers, reduces anxiety for new clients, showcases shop atmosphere and culture, creates community feeling, makes the service feel less transactional",
+        "metrics": "Stories featuring barber personalities see 20-30% higher completion rates than promotional content, according to barbershop social media management data",
+        "source": "Insights from The Modern Barbershop marketing guide and Squire Technologies industry reports",
+        "confidence": "medium"
+      },
+      {
+        "example": "Client testimonial content featuring professional men discussing how their haircut impacted confidence for important events (job interviews, weddings, dates)",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Social proof from relatable personas, connects service to meaningful life moments, addresses emotional transformation not just physical, builds trust through authentic voices",
+        "metrics": "Testimonial posts generate 2-3x higher engagement than standard promotional posts in local service industries",
+        "source": "Local service business benchmarks from BrightLocal and observable patterns in successful barbershop marketing",
+        "confidence": "medium"
+      },
+      {
+        "example": "Limited-time booking promotions tied to specific events (Father's Day grooming packages, back-to-school cuts, holiday gift certificates) with urgency-driven messaging",
+        "platform": "Email/Instagram",
+        "why_it_worked": "Creates urgency through scarcity and deadlines, ties service to existing customer triggers, provides gift-giving solution, drives immediate booking action",
+        "metrics": "Event-based promotions see 15-25% higher open rates than regular emails, 30-40% booking increase during promotional periods",
+        "source": "Email marketing benchmarks from Constant Contact service industry reports and Booksy barbershop booking data trends",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.5% for barbershops (higher than general 0.9% average due to visual nature)",
+        "best_content_format": "Reels and transformation videos (5-8x higher reach than static posts), carousel posts for before/after comparisons",
+        "optimal_frequency": "4-7 posts per week, daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm, evenings 6-9pm when men browse during commute/downtime",
+        "source": "Later.com social media benchmarks 2024, Hootsuite industry reports"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for local service businesses",
+        "best_content_format": "Video content (especially live videos showing cuts), customer reviews/testimonials, community engagement posts",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Saturday mornings 9-11am",
+        "source": "Sprout Social 2024 benchmarks, BrightLocal local business data"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-9% for barbershop content (significantly higher than other platforms)",
+        "best_content_format": "Short transformation videos (15-30 seconds), ASMR cutting sounds, trending audio with barbering overlay, educational quick tips",
+        "optimal_frequency": "1-3 posts per day for maximum algorithm favor",
+        "best_posting_times": "Tuesday-Thursday 7-9am, 7-10pm EST",
+        "source": "Influencer Marketing Hub 2024 TikTok benchmarks, observable performance of top barbershop accounts"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "20-25% open rate, 2-4% click-through rate for appointment reminders and promotions",
+        "best_content_format": "Appointment reminders (highest open rates 40-50%), monthly newsletters with tips, exclusive booking links, loyalty rewards",
+        "optimal_frequency": "2-4 emails per month (plus transactional emails)",
+        "best_posting_times": "Sunday evenings 6-8pm, Tuesday mornings 9-11am for planning the week ahead",
+        "source": "Mailchimp industry benchmarks 2024, Constant Contact service business data"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts reach 50-70% of profile viewers when posted weekly",
+        "best_content_format": "Updates about availability, special hours, new services, photos of recent work, Q&A responses",
+        "optimal_frequency": "2-3 posts per week minimum",
+        "best_posting_times": "Monday mornings for week planning, Thursday for weekend bookings",
+        "source": "Google Business Profile Insights, BrightLocal local SEO reports 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Transformation Promise Hook",
+        "example": "From dad bod to dapper in 30 minutes | Walk out looking 10 years younger | Turn heads at your next meeting",
+        "why_it_works": "Focuses on the end result and emotional transformation rather than the service itself, creates clear before/after mental image, time-bound promise reduces perceived commitment",
+        "source": "Common pattern in high-performing barbershop Instagram and TikTok content"
+      },
+      {
+        "hook_pattern": "Social Proof Authority Hook",
+        "example": "Where [local professionals/athletes/influencers] get their cuts | Trusted by 1,000+ executives downtown | The barbershop your barber goes to",
+        "why_it_works": "Leverages social proof and aspirational identity, creates exclusivity and insider status, builds credibility through association",
+        "source": "Analysis of successful barbershop websites and Google Business descriptions"
+      },
+      {
+        "hook_pattern": "Problem Agitation Hook",
+        "example": "Tired of looking like you cut your own hair? | Your haircut shouldn't be a gamble | Stop explaining what you want to barbers who don't listen",
+        "why_it_works": "Identifies common frustrations immediately, creates empathy and understanding, positions barbershop as the solution to specific pain point",
+        "source": "Reddit discussions r/malegrooming and barbershop review analysis"
+      },
+      {
+        "hook_pattern": "Urgency/Scarcity Hook",
+        "example": "Last-minute slots for Friday (only 3 left) | Same-day appointments filling fast | Book now before the holiday rush",
+        "why_it_works": "Creates FOMO and immediate action trigger, leverages scarcity principle, appeals to procrastinators who need a push",
+        "source": "Email subject line analysis from Booksy and barbershop booking platforms"
+      },
+      {
+        "hook_pattern": "Lifestyle Identity Hook",
+        "example": "For the modern gentleman who values his appearance | Grooming for men who mean business | Where tradition meets contemporary style",
+        "why_it_works": "Appeals to self-image and aspirational identity, creates tribal belonging, elevates barbering from commodity to lifestyle choice",
+        "source": "Premium barbershop brand messaging analysis (Fellow Barber, Blind Barber, The Art of Shaving)"
+      },
+      {
+        "hook_pattern": "Educational Value Hook",
+        "example": "5 signs you need a new barber | How to make your fade last longer | The haircut that works for your face shape",
+        "why_it_works": "Provides immediate value before asking for anything, positions as expert advisor, attracts organic search traffic, builds trust through education",
+        "source": "High-performing barbershop blog posts and YouTube video titles"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My hair is touching my ears and it's driving me crazy",
+        "I look like a homeless person",
+        "I can't get the same barber twice at [chain]",
+        "They never listen to what I actually want",
+        "I have no idea how to style this cut they gave me",
+        "My beard looks patchy and uneven",
+        "I feel sloppy going into important meetings",
+        "My girlfriend said I need to do something about my hair",
+        "The fade grows out weird after two weeks",
+        "I'm tired of looking older than I am",
+        "Generic haircuts that everyone else has",
+        "Waiting forever without an appointment",
+        "They rushed through my cut in 10 minutes"
+      ],
+      "solution_phrases": [
+        "Finally found a barber who gets what I want",
+        "Walk out feeling like a new man",
+        "Consistently great cuts every single time",
+        "They remember exactly how I like it",
+        "The attention to detail is incredible",
+        "Actually looks good for 3-4 weeks",
+        "Feel confident in meetings now",
+        "My wife noticed immediately",
+        "They take their time and do it right",
+        "The hot towel shave is next level",
+        "It's an experience, not just a haircut",
+        "Finally have a signature look",
+        "Book online and they're always on time",
+        "They showed me how to style it at home"
+      ],
+      "objection_phrases": [
+        "It's expensive compared to Supercuts",
+        "I don't have time for an appointment",
+        "Not sure if they can handle my hair type",
+        "Do I need to tip on top of the price?",
+        "Seems pretentious for just a haircut",
+        "What if I don't like the barber?",
+        "I've been going to the same place for years",
+        "How do I know what to ask for?",
+        "Is it weird to go to a barbershop alone?",
+        "They might not have availability when I need it",
+        "I don't want to commit to appointments",
+        "My hair is too thin/thick/curly for that style"
+      ],
+      "decision_factors": [
+        "Consistency - getting the same quality every time",
+        "The barber remembers me and my preferences",
+        "Can book online easily",
+        "Reasonable wait times or appointment availability",
+        "They listen and understand what I want",
+        "The vibe and atmosphere of the shop",
+        "Proximity to work or home",
+        "Price transparency upfront",
+        "Other customers look well-groomed",
+        "Reviews mentioning specific barbers by name",
+        "They're skilled with my hair type/texture",
+        "The cut lasts and grows out well",
+        "Professional but relaxed environment",
+        "They offer beard trimming too"
+      ],
+      "emotional_language": [
+        "Confidence boost",
+        "Feel sharp and put-together",
+        "Like a million bucks",
+        "Ready to take on the world",
+        "Professional and polished",
+        "Actually feel handsome",
+        "Masculine and well-groomed",
+        "Respect for myself",
+        "Pride in my appearance",
+        "Fresh and clean feeling",
+        "Worth the investment in myself",
+        "Part of my self-care routine",
+        "Therapeutic and relaxing",
+        "Tradition and ritual"
+      ],
+      "sources": [
+        "Reddit r/malegrooming discussions and recommendations",
+        "Google Reviews for top-rated barbershops in major cities",
+        "Yelp reviews filtered for 4-5 star barbershop ratings",
+        "Facebook community discussions about local barbershops",
+        "Quora questions about finding a good barber",
+        "YouTube comments on barbershop transformation videos"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about maintaining cuts between appointments - most shops don't teach clients how to extend the life of their haircut",
+      "Transparent pricing and service menus online - many barbershops still require calling or visiting to learn prices",
+      "Content addressing specific hair challenges (thinning hair, cowlicks, receding hairlines) - most focus on showcasing perfect transformations only",
+      "Behind-the-scenes barber training and skill development content - opportunity to showcase expertise and craftsmanship",
+      "Product education without pushy sales - helping clients understand what products actually do and why they matter",
+      "Addressing anxiety and uncertainty for first-time barbershop clients - most assume everyone knows the unwritten rules",
+      "Content for different life stages - teen first cuts, professional transitions, mature gentleman grooming",
+      "Grooming advice for specific professions (military precision, corporate conservative, creative industries)",
+      "Sustainability and product ingredient transparency - growing concern not being addressed",
+      "Mental health and self-care angle of grooming - barbers as community figures and the therapeutic aspect"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "New Year's resolutions, fresh start mentality, return to work after holidays",
+        "content_angle": "New Year, New Look campaigns, professional refresh for Q1, grooming resolutions, transformation content"
+      },
+      {
+        "period": "February (Valentine's Day)",
+        "opportunity": "Date night preparation, gift certificates for partners, romantic occasions",
+        "content_angle": "Look your best for date night, gift packages for him, couples grooming experiences, romantic transformation stories"
+      },
+      {
+        "period": "May-June (Wedding Season & Graduations)",
+        "opportunity": "Weddings, proms, graduations, formal events peak",
+        "content_angle": "Groom packages, groomsmen group bookings, special event preparation, father-son graduation cuts"
+      },
+      {
+        "period": "August-September (Back to School/Work)",
+        "opportunity": "Students returning to school, professionals returning from summer, fresh start mentality",
+        "content_angle": "Back to business looks, student discounts, father-son back-to-school cuts, professional refresh content"
+      },
+      {
+        "period": "November (Movember/No-Shave November)",
+        "opportunity": "Beard growing campaigns, men's health awareness, grooming focus",
+        "content_angle": "Beard shaping and maintenance, Movember support content, men's health partnership, beard care education"
+      },
+      {
+        "period": "December (Holiday Season)",
+        "opportunity": "Holiday parties, family gatherings, gift certificate sales, end-of-year grooming",
+        "content_angle": "Holiday party ready, gift certificates as presents, year-end self-care, New Year's Eve preparation"
+      },
+      {
+        "period": "Weekly Pattern: Thursday-Friday",
+        "opportunity": "Weekend preparation, date nights, social events",
+        "content_angle": "Weekend ready messaging, last-minute Friday slots, date night preparation content"
+      },
+      {
+        "period": "Monthly: First Week & Mid-Month",
+        "opportunity": "Payday timing (1st, 15th for many), fresh month mentality",
+        "content_angle": "Payday treat yourself messaging, monthly maintenance reminders, subscription/membership promotions"
+      },
+      {
+        "period": "Sunday Evenings",
+        "opportunity": "Week planning, Sunday scaries, preparing for Monday",
+        "content_angle": "Monday-ready booking reminders, week-ahead appointment availability, professional preparation content"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit r/malegrooming and r/barber communities",
+      "Google Business Profile reviews for top-rated barbershops",
+      "Yelp barbershop reviews in major metropolitan areas",
+      "Instagram accounts: @the_barber_post, @barbershopconnect, @modernbarbermagazine",
+      "TikTok barbershop transformation content analysis",
+      "YouTube channels: Beardbrand, The Barber Post",
+      "Later.com and Hootsuite social media benchmarks 2024",
+      "Sprout Social platform engagement reports",
+      "Mailchimp and Constant Contact industry benchmarks",
+      "BrightLocal local service business reports 2024",
+      "Booksy and Squire Technologies barbershop industry data",
+      "Influencer Marketing Hub TikTok benchmarks",
+      "Premium barbershop brand websites and messaging",
+      "Quora barbershop recommendation discussions"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Specific conversion rate data from barbershop marketing campaigns (proprietary to individual businesses)",
+      "Exact A/B testing results for hook patterns (limited publicly available data)",
+      "Precise ROI metrics for different content types (businesses rarely share detailed financial performance)",
+      "LinkedIn engagement data specific to barbershops (limited presence on this platform for most shops)",
+      "Demographic breakdown of engagement by age/income (aggregated data not readily available)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes barber training on [new service] - showcasing craftsmanship and expertise being developed",
+        "Week 2: Transformation reveals using [new service] - before/after content with ASMR audio and time-lapse editing",
+        "Week 3: Client testimonials from professionals who tried [new service] for important life events",
+        "Week 4: Limited availability urgency - last chance to book [new service] at launch pricing"
+      ],
+      "weekly_hooks": [
+        [
+          "We've been perfecting something for months... and our master barbers are finally ready to reveal it",
+          "What if your cut could last an extra week and grow out cleaner? We found the answer",
+          "The technique [local influencer/professional] uses for his signature look - coming to [shop name]"
+        ],
+        [
+          "From corporate dad to modern gentleman in 45 minutes - see the [new service] transformation",
+          "This is what happens when traditional barbering meets [new technique/product] (watch til the end)",
+          "Turn heads at your next meeting - the [new service] that executives downtown are already booking"
+        ],
+        [
+          "I had a job interview Monday and needed to look sharp - this [new service] gave me the confidence I needed",
+          "My wife noticed immediately - the [new service] actually makes the cut last 4 weeks instead of 2",
+          "Finally found a barbershop that gets what I want - the attention to detail with [new service] is incredible"
+        ],
+        [
+          "Only 12 slots left at launch pricing before we go to regular rates Friday",
+          "Last chance: Book [new service] this week and lock in founding member pricing",
+          "Weekend slots for [new service] filling fast - 3 spots left for Saturday"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Seems pretentious for just a haircut' - show the craft and skill development behind the scenes",
+        "Week 2: Address 'Not sure if they can handle my hair type' - demonstrate [new service] on various hair textures and types",
+        "Week 3: Address 'What if I don't like the result?' - satisfaction guarantee and testimonials from hesitant first-timers",
+        "Week 4: Address 'It's expensive compared to Supercuts' - break down cost per day and longevity of results"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce barber credentials and training certifications for [new service]",
+        "Week 2: Share transformation video metrics and side-by-side comparisons with traditional methods",
+        "Week 3: Feature 5-7 client testimonials from different professional backgrounds and hair types",
+        "Week 4: Final credibility push with limited slots remaining and early adopter success stories"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about [new service] - watch the full training video on our YouTube",
+        "Week 2: Comment below: Would you try this? Tag someone who needs this transformation",
+        "Week 3: Book your [new service] appointment - DM us or click link in bio for launch week availability",
+        "Week 4: Last 12 slots at launch pricing - book now before Friday price increase (link in bio)"
+      ],
+      "platform_priority": [
+        "Instagram (1 Reel daily, 2 Stories daily) - transformation videos perform 5-8x better",
+        "TikTok (1-2 posts daily) - 5-9% engagement rate for barbershop content",
+        "Facebook (4 posts/week) - testimonial content for local professional audience",
+        "Email (2 sends: Week 2 announcement, Week 4 urgency) - 20-25% open rate for promotions"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on transformation video content averaging 50K-500K views on TikTok with 3-8% engagement on Instagram Reels, combined with event-based promotions seeing 30-40% booking increases and limited-time urgency hooks driving immediate action"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Educational content - How to make your fade last longer between appointments",
+        "Week 2: Barber personality spotlight - Behind-the-scenes culture and humanizing the team",
+        "Week 3: Client transformation stories - Professional men discussing confidence impact for important events",
+        "Week 4: Product education - What products actually do and how to use them at home without pushy sales",
+        "Week 5: Hair challenge solutions - Addressing thinning hair, cowlicks, receding hairlines specifically",
+        "Week 6: Lifestyle identity content - Grooming for the modern gentleman who values appearance",
+        "Week 7: Maintenance tips - Teaching clients how to style their specific cut at home",
+        "Week 8: Community engagement - Showcasing shop atmosphere and client interactions"
+      ],
+      "weekly_hooks": [
+        [
+          "5 signs you need a new barber (number 3 will surprise you)",
+          "The haircut maintenance routine that adds 10 days between appointments",
+          "How to make your fade grow out evenly - professional tips from 15-year master barber"
+        ],
+        [
+          "Meet Marcus: The barber who remembers every client's exact preferences after one visit",
+          "A day in the life at [shop name] - the tradition and ritual behind every cut",
+          "Why our barbers spend 30 minutes on a cut when chains do it in 10"
+        ],
+        [
+          "This executive had a board presentation and needed to look sharp - here's what happened",
+          "From looking like I cut my own hair to feeling like a million bucks in 45 minutes",
+          "My girlfriend said I needed to do something about my hair - she noticed this transformation immediately"
+        ],
+        [
+          "What pomade actually does vs what gel does - and why it matters for your hair type",
+          "You don't need 10 products - here's the only 2 that matter for [specific cut style]",
+          "How to use the product we sent you home with (most guys do this wrong)"
+        ],
+        [
+          "Thinning hair? This cutting technique actually makes it look fuller and thicker",
+          "The cowlick solution that finally works - stop fighting your hair's natural pattern",
+          "Receding hairline cuts that look sharp and professional, not like you're hiding something"
+        ],
+        [
+          "For the modern gentleman who values his appearance - where tradition meets contemporary style",
+          "Grooming for men who mean business - your appearance is part of your professional toolkit",
+          "The barbershop your barber goes to - where downtown professionals get their signature look"
+        ],
+        [
+          "How to style your specific cut at home - the exact technique we use in the chair",
+          "3 styling mistakes that make your fresh cut look grown out after 3 days",
+          "The 90-second morning routine that keeps you looking sharp all day"
+        ],
+        [
+          "This is what 'consistently great cuts every single time' actually looks like",
+          "The shop atmosphere where you can zone out and relax or catch up with your barber - your choice",
+          "Where [local professionals/athletes] get their cuts - see why they keep coming back"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know what to ask for' through education",
+        "Week 2: Address 'What if I don't like the barber?' by showcasing personalities",
+        "Week 3: Address 'Generic haircuts that everyone else has' with custom transformations",
+        "Week 4: Address 'They showed me how to style it at home' gap most shops miss",
+        "Week 5: Address 'Not sure if they can handle my hair type' with specific solutions",
+        "Week 6: Address 'Seems pretentious for just a haircut' by elevating to lifestyle",
+        "Week 7: Address 'The cut doesn't last long enough' with maintenance education",
+        "Week 8: Address 'I've been going to the same place for years' with community proof"
+      ],
+      "proof_timing": [
+        "Week 1: Expert educational content establishes authority",
+        "Week 2: Barber credentials and years of experience",
+        "Week 3: Client testimonials with specific outcomes",
+        "Week 4: Product knowledge demonstrates expertise",
+        "Week 5: Before/after solutions for difficult hair challenges",
+        "Week 6: Association with local professionals and influencers",
+        "Week 7: Teaching ability proves mastery",
+        "Week 8: Community engagement and repeat client loyalty"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post - you'll need these tips after your next cut",
+        "Week 2: Follow us to meet the rest of the team - each barber has their specialty",
+        "Week 3: Share this with someone who needs a confidence boost - tag them below",
+        "Week 4: DM us about which products work best for your hair type",
+        "Week 5: Book a consultation - we'll assess your hair and create a custom plan",
+        "Week 6: Join 1,000+ professionals who trust us - link in bio to book",
+        "Week 7: Try this technique and comment below how it worked for you",
+        "Week 8: Experience the difference - book your first cut with satisfaction guarantee"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week, daily Stories) - 1.5-3.5% engagement for visual transformation content",
+        "YouTube (1 long-form educational video/week) - 15K-100K views for established shops",
+        "TikTok (4-5 posts/week) - repurpose Instagram Reels for 5-9% engagement",
+        "Facebook (3-4 posts/week) - testimonial and community content for local audience",
+        "Google Business Profile (2-3 posts/week) - reaches 50-70% of profile viewers"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational content teaching maintenance between appointments being an identified competitive gap, combined with behind-the-scenes barber personality content seeing 20-30% higher Story completion rates, and how-to videos averaging 15K-100K views on YouTube for established shops"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 Mon-Wed: Viral transformation videos with ASMR audio and trending sounds",
+        "Week 1 Thu-Fri: Controversial opinion content about barbering industry standards",
+        "Week 1 Sat-Sun: User-generated content challenge - clients share their transformation",
+        "Week 2 Mon-Wed: Educational quick-tip series addressing common hair frustrations",
+        "Week 2 Thu-Fri: Local professional spotlight series featuring recognizable community figures",
+        "Week 2 Sat-Sun: Behind-the-scenes mastery content showing detailed technique work"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You've been going to Supercuts and finally try a real barbershop (watch the transformation)",
+          "The before/after that went viral last week - hair touching ears to executive presence in 30 minutes",
+          "This sound + this fade = perfection (turn up volume for the ASMR clippers)",
+          "Tired of looking like you cut your own hair? This is the solution",
+          "Stop explaining what you want to barbers who don't listen - see what happens when they actually get it",
+          "From dad bod to dapper - the transformation nobody expected"
+        ],
+        [
+          "Unpopular opinion: If your barber finishes in under 20 minutes, you're getting a generic cut",
+          "5 signs you need a new barber immediately (most guys ignore number 3)",
+          "Why your $15 haircut is actually costing you more - the math that changed my mind",
+          "The secret every master barber knows that chain shops won't tell you",
+          "Your haircut shouldn't be a gamble - here's how to know you found the right shop",
+          "What your barber wishes they could tell you but can't"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Generic haircuts that everyone else has' with unique transformations",
+        "Week 2: Address 'They never listen to what I actually want' with consultation process reveals"
+      ],
+      "proof_timing": [
+        "Week 1: Social proof through viral transformation metrics and view counts",
+        "Week 2: Authority through educational expertise and local professional associations"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily transformations - we post the best cuts every day",
+        "Week 1: Tag someone who needs this transformation - share this with your friend who's been putting it off",
+        "Week 2: Save this for when you need it - screenshot these tips for your next cut",
+        "Week 2: Click link in bio to see availability - DM us to book your transformation"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts daily) - highest engagement at 5-9% and viral potential for transformation content",
+        "Instagram Reels (1-2 daily) - cross-post TikTok content, 5-8x higher reach than static posts",
+        "Instagram Stories (3-5 daily) - behind-the-scenes and real-time content",
+        "Facebook (1 post daily) - share viral content to local community audience"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on top barbershop transformation videos averaging 50K-500K views on TikTok with some viral examples exceeding 1M views, TikTok's 5-9% engagement rate being significantly higher than other platforms, and ASMR-style audio increasing watch time while before/after format triggers dopamine response"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Mastering the fundamentals - Deep dive into classic cut techniques and why they matter",
+        "Week 2: Hair science education - Understanding different hair types, textures, and growth patterns",
+        "Week 3: Professional grooming standards - Industry-specific advice for corporate, creative, and service professionals",
+        "Week 4: Product ingredient transparency - What's actually in grooming products and why it matters",
+        "Week 5: Life stage grooming - From teen first cuts to mature gentleman maintenance",
+        "Week 6: The barbershop as community pillar - Mental health, self-care, and the therapeutic ritual of grooming"
+      ],
+      "weekly_hooks": [
+        [
+          "The precision fade technique: Why master barbers spend 15 minutes on what seems like one section",
+          "Classic cuts that never go out of style - the traditional techniques every gentleman should know",
+          "What 15 years of barbering taught me about the perfect taper (it's not what you think)"
+        ],
+        [
+          "Your hair type determines everything - here's the science behind why some cuts work and others don't",
+          "Why your cowlick isn't the problem - understanding your hair's natural growth pattern",
+          "Thinning hair vs fine hair - the crucial difference that changes your entire cutting strategy"
+        ],
+        [
+          "The executive cut: Grooming standards for men who mean business in the boardroom",
+          "Military precision vs corporate conservative vs creative professional - matching your cut to your career",
+          "What your haircut says in the first 7 seconds of a job interview (according to hiring managers)"
+        ],
+        [
+          "What's actually in your pomade and why natural ingredients matter for scalp health",
+          "The truth about sulfates, parabens, and why we switched to cleaner product lines",
+          "Sustainability in barbering - from product sourcing to waste reduction in our shop"
+        ],
+        [
+          "The teen's first real barbershop cut - building confidence during formative years",
+          "Transitioning from college to corporate - the grooming upgrade that signals professional maturity",
+          "Grooming for the mature gentleman - working with receding hairlines and gray hair with dignity"
+        ],
+        [
+          "Why barbershops are more important than ever for men's mental health and community",
+          "The therapeutic ritual of the hot towel shave - self-care isn't just for women",
+          "Your barber as confidant - the unspoken role we play in men's lives beyond the cut"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'They rushed through my cut in 10 minutes' by explaining proper technique time investment",
+        "Week 2: Address 'Not sure if they can handle my hair type' with comprehensive hair science",
+        "Week 3: Address 'I don't know what to ask for' with profession-specific guidance",
+        "Week 4: Address 'What's actually in these products?' transparency gap",
+        "Week 5: Address 'Is this appropriate for my age/stage?' with life stage content",
+        "Week 6: Address 'Seems pretentious for just a haircut' by elevating to self-care and mental health"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate technical mastery through detailed technique breakdowns",
+        "Week 2: Establish scientific knowledge and professional training credentials",
+        "Week 3: Show understanding of diverse professional contexts and requirements",
+        "Week 4: Build trust through transparency and ethical business practices",
+        "Week 5: Prove experience across all demographics and life stages",
+        "Week 6: Position as community leader and trusted advisor beyond just service provider"
+      ],
+      "cta_progression": [
+        "Week 1: Learn the full technique - watch our 10-minute YouTube tutorial on classic fades",
+        "Week 2: Download our free hair type guide - link in bio to determine your exact hair profile",
+        "Week 3: Book a professional consultation - we'll assess your career needs and create a signature look",
+        "Week 4: Ask us about our product line - DM any questions about ingredients or recommendations",
+        "Week 5: Share this with someone at a life transition - tag a graduate, new professional, or proud dad",
+        "Week 6: Experience the full barbershop ritual - book your appointment and discover why it's more than a haircut"
+      ],
+      "platform_priority": [
+        "YouTube (1 long-form video weekly, 8-12 minutes) - educational content averages 15K-100K views",
+        "Instagram (4-5 educational posts/week, carousel format) - detailed breakdowns with multiple images",
+        "Facebook (3-4 posts/week) - longer-form written content for professional audience",
+        "Email newsletter (weekly) - deep-dive content for engaged subscribers, 20-25% open rate",
+        "Google Business Profile (2 posts/week) - Q&A responses demonstrating expertise"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational content being a major competitive gap (maintenance education, hair challenge solutions, product transparency, life stage content all underserved), combined with how-to barbering videos averaging 15K-100K views on YouTube and educational posts building trust through expertise positioning rather than direct selling"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 Mon-Wed: Interactive polls and questions about grooming preferences and habits",
+        "Week 1 Thu-Sun: User-generated content campaign - clients share their transformation stories",
+        "Week 2 Mon-Wed: Controversial opinion threads and debate starters about barbering standards",
+        "Week 2 Thu-Sun: Community spotlight series - featuring regular clients and their stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Quick poll: Pomade or gel? Comment below and tell us why (barbers are split on this)",
+          "What's your biggest haircut pet peeve? We're reading every comment",
+          "Finish this sentence: I knew I found the right barber when _____",
+          "Hot take: You should tip your barber more than your server. Agree or disagree?",
+          "What's the longest you've gone between cuts? (Be honest, we won't judge)",
+          "Would you rather: Perfect haircut that only lasts 2 weeks OR decent cut that lasts 6 weeks?"
+        ],
+        [
+          "Show us your transformation - post your before/after and tag us for a feature",
+          "Caption this barbershop moment (wrong answers only)",
+          "Share your barber horror story - we'll react to the wildest ones",
+          "Tag your barber and tell us what makes them the best",
+          "What's the best compliment you got after a fresh cut? Drop it in the comments",
+          "Describe your ideal barbershop experience in 3 words - go"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Waiting forever without an appointment' through booking discussion and solutions",
+        "Week 2: Address 'The vibe and atmosphere' concerns by showcasing real client experiences and community"
+      ],
+      "proof_timing": [
+        "Week 1: Social proof through poll participation numbers and community size",
+        "Week 2: Authentic testimonials through user-generated content and client spotlights"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in our poll - your opinion shapes what we focus on",
+        "Week 1: Comment below with your answer - we're reading and responding to everyone",
+        "Week 1: Tag 3 friends who need to see this - start the conversation",
+        "Week 2: Share your story and tag us - we'll feature the best transformations on our main feed",
+        "Week 2: DM us your before/after for a chance to be featured",
+        "Week 2: Join our community - follow us and turn on notifications so you never miss the conversation"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 daily with polls, questions, quizzes) - highest engagement tool for interaction",
+        "Instagram Feed (2 posts daily with conversation-starting captions) - 1.5-3.5% engagement rate",
+        "TikTok (1-2 posts daily with comment prompts) - 5-9% engagement rate and duet/stitch potential",
+        "Facebook (2 posts daily in community discussion format) - longer comment threads from local audience"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on behind-the-scenes barber personality content seeing 20-30% higher Story completion rates when humanizing the brand, client testimonial posts generating 2-3x higher engagement than promotional content, and the competitive gap around addressing first-time client anxiety through community showcase and real client interactions"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your appearance speaks before you do.\n\nI've watched countless professionals sabotage their credibility with one overlooked detail: their grooming.\n\nHere's what 15 years behind the chair taught me about executive presence:\n\n→ Your haircut should last 3-4 weeks, not 10 days\n→ The right cut for your face shape adds perceived authority\n→ Consistency beats perfection (same barber, same result)\n→ Maintenance between cuts extends your professional look\n→ [SPECIFIC STYLE TIP FOR YOUR INDUSTRY]\n\nThe executives who advance fastest? They treat grooming like any other professional investment.\n\n[PERSONAL STORY: CLIENT TRANSFORMATION]\n\nWhat's the one grooming mistake you see most often in your industry?\n\n#ExecutivePresence #ProfessionalDevelopment #LeadershipStyle #CareerAdvancement #PersonalBranding",
+        "framework": "PAS",
+        "character_count": "850"
+      },
+      "authority": {
+        "template": "15 years. 50,000+ cuts. One truth:\n\nMost men are getting the wrong haircut for their lifestyle.\n\nAttention: You're paying $30-$80 for a cut that doesn't match how you actually live.\n\nInterest: Here's what I mean—\nThe corporate executive needs a cut that looks sharp on day 1 AND day 21.\nThe entrepreneur needs low-maintenance that photographs well for content.\nThe hybrid worker needs versatility between Zoom calls and client meetings.\n\nDesire: At [BARBERSHOP NAME], we don't ask \"what do you want?\" We ask:\n→ What does your calendar look like?\n→ How much time do you spend styling?\n→ What impression do you need to make?\n\nThen we craft a cut around your reality, not a Pinterest photo.\n\nAction: This is what 'custom' actually means. Not just the cut—the entire consultation process.\n\nWho else is rethinking their approach to professional grooming?\n\n#ModernGrooming #ExecutiveStyle #PersonalBranding #ProfessionalServices",
+        "framework": "AIDA",
+        "character_count": "980"
+      },
+      "promotional": {
+        "template": "Before: Explaining your haircut to every new barber\nAfter: Walking in and they already know\n\nThis is the difference between a transaction and a relationship.\n\nMost men waste 10 minutes every visit describing what they want. Then hope the barber gets it right.\n\nBridge: We built a different system—\n→ Your preferences documented after first visit\n→ Same master barber every appointment\n→ Online booking that actually respects your time\n→ Cuts designed to grow out well, not just look good day-one\n\n[CLIENT TESTIMONIAL QUOTE]\n\nAfter: Consistency. Confidence. 30 minutes that actually improve your week.\n\nWe're accepting [NUMBER] new executive clients this month. Book your consultation: [LINK]\n\n#ExecutiveGrooming #TimeManagement #QualityService #ProfessionalAppearance",
+        "framework": "BAB",
+        "character_count": "820"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 signs you need a new barber 💈\n\nYour cut shouldn't be a gamble. Save this if you've been settling.\n\n1️⃣ They rush through in under 15 minutes\n2️⃣ Fade grows out uneven after 2 weeks\n3️⃣ You have to re-explain what you want every visit\n4️⃣ They can't work with your hair texture\n5️⃣ Zero advice on styling or maintenance\n\n[BARBERSHOP NAME] difference: We take our time. We remember. We educate.\n\nWhich one hits hardest? Drop a number 👇\n\n#BarberTips #MensGrooming #FadeGame #BarberLife #MensHaircut #GroomingTips #BarbershopCulture #FreshCut #MaleGrooming #BarberEducation",
+        "visual": "Carousel: Each slide shows one sign with before/after comparison or visual example. Slide 1: Hook text overlay on barbershop interior. Slides 2-6: Each sign illustrated. Final slide: CTA with booking info.",
+        "framework": "Educational Value Hook + Problem Identification"
+      },
+      "authority": {
+        "caption": "Where [LOCAL PROFESSIONALS/TEAM] get their cuts 🏆\n\nTrusted by 1,000+ executives, athletes, and gentlemen who refuse to settle.\n\nThis is what happens when you combine:\n→ 15+ years master barber experience\n→ Precision cuts that last 3-4 weeks\n→ The attention to detail you actually deserve\n\nSwipe to see this week's transformations ➡️\n\nBook your spot: [LINK IN BIO]\n\n#ExecutiveCuts #MensGrooming #BarberShop #FadeSpecialist #BeardTrim #MensHaircut #BarberLife #GroomingForMen #SharpLook #ProfessionalGrooming #[CITY]Barber #MasterBarber",
+        "visual": "Carousel: Slide 1: Shop exterior or signature chair with text overlay. Slides 2-5: Before/after transformations of actual clients. Slide 6: Barber at work (action shot). Slide 7: Booking CTA with availability.",
+        "framework": "Social Proof Authority Hook + Transformation Evidence"
+      },
+      "promotional": {
+        "caption": "From dad bod to dapper in 30 minutes ⚡\n\nLast-minute slots for [DAY] (only [NUMBER] left)\n\n✂️ Precision fade\n💈 Beard sculpting\n🔥 Hot towel finish\n⏱️ Same-day booking available\n\nStop explaining what you want. Start walking out looking 10 years younger.\n\nBook now before the [WEEKEND/HOLIDAY] rush 👇\n[BOOKING LINK]\n\n#FreshCut #BarberShop #MensGrooming #FadeHaircut #BeardGrooming #TransformationTuesday #BarberLife #MensStyle #GroomingGoals #SharpLook #[CITY]Barbershop #BookNow",
+        "visual": "Reel: 15-30 second transformation time-lapse. Opens with 'before' client looking scruffy. Quick cuts of clippers, scissors, beard trim with ASMR audio. Dramatic reveal of final look. Text overlays: 'BEFORE', process steps, 'AFTER', booking CTA. Trending audio underneath.",
+        "framework": "Transformation Promise Hook + Urgency/Scarcity"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "GENTLEMAN'S GUIDE: How to Make Your Haircut Last Longer 💈\n\nTired of looking fresh for only a week? Here's what I tell every client:\n\n🔹 WEEK 1-2: The Golden Period\n- Style with lightweight products (heavy pomades cause buildup)\n- Wash every 2-3 days, not daily (preserves the cut)\n- Sleep on a silk pillowcase (reduces bedhead)\n\n🔹 WEEK 3: The Maintenance Zone\n- Clean up your neckline at home (I'll show you how)\n- Use a boar bristle brush to train your hair\n- Adjust your part if needed\n\n🔹 WEEK 4: The Decision Point\n- If it's touching your ears = time to book\n- Beard looking patchy = come in for a trim\n- Important event coming up = don't wait\n\nPRO TIP: [SPECIFIC PRODUCT RECOMMENDATION FOR YOUR HAIR TYPE]\n\nThe best clients? They book their next appointment before leaving. Consistency is everything.\n\nQuestions? Drop them below. And if this helped, share it with a guy who needs it.\n\n#BarberTips #MensGrooming #HaircutMaintenance #GroomingAdvice #[CITY]Barbershop",
+        "framework": "Educational Value Hook + Actionable Steps"
+      },
+      "authority": {
+        "template": "REAL TALK: Your Haircut Shouldn't Be a Gamble 🎯\n\nI've been cutting hair in [CITY] for 15 years. Here's what I've learned about the difference between a $20 cut and a $50 cut:\n\nIt's not the price. It's the system.\n\nThe $20 cut:\n→ Different barber every time\n→ Rushed in 10 minutes\n→ No consultation, just \"what do you want?\"\n→ Looks good for a week, then falls apart\n→ You're a number, not a client\n\nThe $50 experience:\n→ Same master barber who knows your head\n→ 30-45 minutes of focused attention\n→ Consultation about your lifestyle and needs\n→ Cut designed to grow out well for 3-4 weeks\n→ Education on styling and maintenance\n→ You're remembered, not just served\n\n[CLIENT SUCCESS STORY]\n\nAt [BARBERSHOP NAME], we're not trying to be the cheapest. We're trying to be the last barbershop you'll ever need to find.\n\nWho else is done gambling with their appearance?\n\nBook a consultation: [LINK] or call [PHONE]\n\n#BarberShopLife #QualityOverPrice #MensGrooming #ProfessionalCuts #[CITY]Business",
+        "framework": "Problem Agitation + Authority Positioning"
+      },
+      "promotional": {
+        "template": "🔥 [EVENT] SPECIAL: Limited Slots Available 🔥\n\n[FATHER'S DAY/HOLIDAY/BACK TO SCHOOL] is coming up fast. Don't show up looking like you cut your own hair.\n\nSPECIAL OFFER:\n✂️ Premium Cut + Beard Trim: [PRICE]\n💈 Father/Son Package: [PRICE]\n🎁 Gift Certificates Available\n\n⏰ BOOK BY [DATE] TO GUARANTEE YOUR SPOT\n\nWhy guys choose us for important events:\n→ Consistently sharp results (check our reviews)\n→ We remember exactly how you like it\n→ Professional atmosphere, no wait time chaos\n→ Same-day appointments still available\n→ Your cut will still look great on [EVENT DAY]\n\n\"Got my cut here before my wedding. Best decision. Looked sharp all day and my wife still talks about it.\" - Marcus T.\n\n📞 Call [PHONE] or book online: [LINK]\n📍 [ADDRESS]\n\nTag someone who needs this before [EVENT] 👇\n\n#[Event]Special #MensGrooming #BarberShop #[City]Barber #FreshCut #BookNow #LimitedAvailability",
+        "framework": "Urgency Hook + Event-Tied Promotion + Social Proof"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your barber actually listens to what you want",
+        "script": "HOOK (0-3s): [Text overlay: 'When your barber actually listens'] Show confused client explaining cut\n\nPROBLEM (3-10s): Quick cuts of common bad experiences - barber not paying attention, rushed cut, client disappointment. [Text: 'We've all been there']\n\nSOLUTION (10-30s): Show proper consultation - barber asking questions, showing photos, checking angles. [Text overlays: 'Face shape matters' 'Lifestyle matters' 'Hair texture matters']\n\nEDUCATION (30-50s): Demonstrate one specific technique - like how to describe the fade you want. [Text: '3 things to tell your barber']\n\nRESULT (50-60s): Happy client reveal, confident look. [Text: 'This is the difference' + CTA: 'Book link in bio']\n\nAUDIO: Trending sound or ASMR clipper sounds\n\n#BarberTok #MensGrooming #HaircutTips #BarberTutorial #FadeGame #BarberLife",
+        "framework": "Educational Value Hook + Problem-Solution Format"
+      },
+      "authority": {
+        "hook": "15 years. 50,000 cuts. Here's what I learned.",
+        "script": "HOOK (0-3s): Barber in chair, serious look. [Text: '15 years behind the chair taught me this']\n\nATTENTION (3-8s): Quick montage of transformations. [Text: '50,000+ cuts later']\n\nINSIGHT 1 (8-20s): Show technique detail - proper fade blending. [Text: 'Most barbers rush this part']\n\nINSIGHT 2 (20-35s): Show consultation moment. [Text: 'The cut starts with listening']\n\nINSIGHT 3 (35-50s): Show finished result growing out well. [Text: 'A good cut looks better at week 3']\n\nCLOSE (50-60s): Direct to camera. [Text: 'This is what mastery looks like' + Shop name + Location]\n\nAUDIO: Confident, authoritative trending sound\n\n#MasterBarber #BarberSkills #ProfessionalCuts #BarberLife #BarberTok #FadeSpecialist",
+        "framework": "Authority Hook + Demonstration of Expertise"
+      },
+      "promotional": {
+        "hook": "POV: You finally look good for more than 3 days",
+        "script": "BEFORE (0-5s): Guy looking scruffy, hair messy, touching ears. [Text: 'When your hair is touching your ears']\n\nAGITATION (5-12s): Show frustration - checking mirror, trying to style, giving up. [Text: 'And you have that meeting tomorrow']\n\nTRANSFORMATION (12-45s): Time-lapse of actual cut - consultation, cutting, fading, styling. ASMR sounds of clippers and scissors. [Text overlays: 'Precision fade' 'Beard sculpting' 'The detail']\n\nAFTER (45-55s): Confident reveal, client checking himself out, smiling. [Text: 'Walk out feeling like a new man']\n\nCTA (55-60s): Shop name, location, booking info. [Text: 'Last minute slots available' 'Link in bio']\n\nAUDIO: Trending transformation sound or ASMR\n\n#Transformation #BarberMagic #FreshCut #BeforeAndAfter #BarberShop #MensGrooming",
+        "framework": "Transformation Promise Hook + Visual Proof + Urgency"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], your cut is growing out—here's how to maintain it",
+        "preview_text": "3 pro tips to look sharp between appointments",
+        "body": "Hey [FIRSTNAME],\n\nIt's been [WEEKS] since your last cut. Here's how to keep looking sharp until your next appointment:\n\n**WEEK 3 MAINTENANCE CHECKLIST:**\n\n✓ Clean up your neckline (here's how: [LINK TO VIDEO])\n✓ Switch to [PRODUCT RECOMMENDATION] for better hold\n✓ Adjust your styling routine as it grows\n\n**PRO TIP:** The cut I gave you is designed to look good at week 3-4, not just day 1. Here's what to expect:\n- [SPECIFIC GUIDANCE FOR THEIR CUT TYPE]\n- [STYLING TIP]\n- [WHEN TO BOOK NEXT]\n\n**READY FOR YOUR NEXT CUT?**\nBook online in 60 seconds: [BOOKING LINK]\nOr reply to this email with your preferred time.\n\nYour usual slot: [DAY] at [TIME]\n\nStay sharp,\n[BARBER NAME]\n[BARBERSHOP NAME]\n\nP.S. Refer a friend and you both get [INCENTIVE]",
+        "framework": "Educational nurture with soft CTA"
+      },
+      "authority": {
+        "subject": "The real reason your haircut doesn't last",
+        "preview_text": "It's not your hair. It's the cut.",
+        "body": "Hey [FIRSTNAME],\n\n**REAL TALK:**\n\nIf your haircut only looks good for a week, it's not a good haircut.\n\nI've been cutting hair for 15 years. Here's what separates a $20 cut from a $50 experience:\n\n**THE $20 CUT:**\n→ Looks great on day 1\n→ Falls apart by week 2\n→ Designed for speed, not longevity\n\n**THE $50 EXPERIENCE:**\n→ Looks better as it grows\n→ Still sharp at week 3-4\n→ Designed for your specific hair and lifestyle\n\nThis is why our clients book 4-6 weeks out, not every 10 days.\n\n**[CLIENT TESTIMONIAL QUOTE]**\n\nWant to experience the difference?\n\n→ Book your consultation: [LINK]\n→ New clients: [SPECIAL OFFER IF APPLICABLE]\n→ Questions? Just reply to this email.\n\nWe're accepting [NUMBER] new clients this month.\n\nYour appearance is an investment, not an expense.\n\n[BARBER NAME]\n[BARBERSHOP NAME]\n[PHONE] | [ADDRESS]",
+        "framework": "Authority positioning with education"
+      },
+      "promotional": {
+        "subject": "⏰ [FIRSTNAME], only 3 slots left for [DAY]",
+        "preview_text": "Last-minute availability before the weekend rush",
+        "body": "Hey [FIRSTNAME],\n\n**HEADS UP:**\n\nWe have 3 last-minute slots for [DAY]:\n→ [TIME 1]\n→ [TIME 2]\n→ [TIME 3]\n\nAfter that, next availability is [NEXT AVAILABLE DATE].\n\n**WHAT YOU GET:**\n✂️ Precision cut designed for your face shape\n💈 Beard trim and hot towel finish\n🎯 30-45 minutes of focused attention\n📱 Easy online booking\n\n**[SPECIAL OFFER IF APPLICABLE]:**\n[OFFER DETAILS]\n\n**BOOK YOUR SPOT:**\n[BOOKING LINK - TIME 1]\n[BOOKING LINK - TIME 2]\n[BOOKING LINK - TIME 3]\n\nOr call/text: [PHONE]\n\n**WHY BOOK NOW:**\n→ [UPCOMING EVENT/WEEKEND/HOLIDAY] is coming\n→ Walk in looking sharp, not scruffy\n→ Your cut will still look great next week\n\nThese slots fill fast. Grab yours while you can.\n\nSee you in the chair,\n[BARBER NAME]\n\nP.S. Can't make these times? Reply with your preferred day/time and I'll add you to the priority list.",
+        "framework": "Urgency/Scarcity with clear action steps"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "3 reasons your fade grows out weird after [2 weeks]",
+      "5 signs you need a new barber (number [3] will surprise you)",
+      "From sloppy to sharp in [30 minutes] - here's how",
+      "7 grooming mistakes making you look [10 years older]",
+      "The [4-week] haircut - how we make your cut last longer"
+    ],
+    "question_hooks": [
+      "Tired of barbers who don't listen to what you actually want?",
+      "Is your hair touching your ears and driving you crazy?",
+      "Why does your [chain barbershop] never give you the same barber twice?",
+      "Does your beard look patchy and uneven no matter what you try?",
+      "Feel sloppy walking into important meetings because of your haircut?"
+    ],
+    "story_hooks": [
+      "How [Mark] went from looking homeless to landing his dream job",
+      "The executive who finally found a barber who remembers exactly how he likes it",
+      "How [this regular] turned heads at his next meeting with one appointment",
+      "From dad bod hair to dapper gentleman - [James's] transformation story",
+      "The guy whose girlfriend said 'finally' after [15 years] of bad cuts"
+    ],
+    "fear_hooks": [
+      "Is your rushed [10-minute haircut] costing you job opportunities?",
+      "Are generic cuts making you blend in when you need to stand out?",
+      "Is your barber's lack of attention to detail aging you prematurely?",
+      "Could your uneven beard be killing your first impressions?",
+      "Is your current barbershop gambling with your professional image?"
+    ],
+    "howto_hooks": [
+      "How to get consistently great cuts without explaining yourself every time",
+      "How to look sharp for [3-4 weeks] without constant touch-ups",
+      "How to find a barber who actually listens without trial and error",
+      "How to style your cut at home without looking like you tried too hard",
+      "How to book your cut online without waiting forever or calling around"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally found a barber who remembers your name",
+      "body": "0-3sec: Close-up of overgrown hair touching ears. 3-15sec: Time-lapse transformation showing fade progression with ASMR clipper sounds. 15-35sec: Barber greeting by name, showing consultation, detail work on lineup. 35-50sec: Before/after split screen, client checking himself out, genuine smile. 50-60sec: Text overlay: 'Book your barber, not just an appointment' with booking link in bio",
+      "cta": "Link in bio to book with YOUR barber"
+    },
+    "reels": {
+      "hook": "This is why your fade grows out weird",
+      "body": "0-2sec: Show poorly blended fade. 2-10sec: Quick cuts showing proper fade technique - guard changes, detail work, blending. 10-25sec: Side-by-side comparison of rushed vs. detailed fade work. 25-30sec: Text: 'We take 45 min, not 10' with location tag",
+      "cta": "Experience the difference - book now"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick before/after selfie video when you arrive vs. when you leave. Caption: 'Walked in looking like [your description], walked out ready to [your plan]'",
+      "hashtag": "#TransformationTuesday"
+    },
+    {
+      "prompt": "Record your barber when they greet you by name or remember your usual cut without asking. Show your reaction. Caption: 'This is what $X extra gets you'",
+      "hashtag": "#WorthIt"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Expose bad barbering techniques with educational callouts - 'If your barber does THIS, run' showing common mistakes vs. proper methods",
+      "why": "Controversy drives comments and shares, positions you as expert, makes viewers tag friends with bad barbers, educational value encourages saves"
+    },
+    {
+      "angle": "Barber reacts to celebrity haircut fails or DIY disasters with professional fixes - 'Fixing what [celebrity/trend] did to men's hair'",
+      "why": "Piggybacks on existing trends and celebrity interest, satisfying transformation narrative, demonstrates expertise, highly shareable to warn friends"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:59:09.600Z",
+    "last_tier2_refresh": "2025-11-27T21:59:09.600Z",
+    "last_tier3_refresh": "2025-11-27T21:59:09.600Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:59:09.600Z"
+  }
+}

@@ -1,0 +1,1709 @@
+{
+  "industry": "Women's Health",
+  "industry_name": "Women's Health",
+  "naics_code": "621111",
+  "category": "Healthcare",
+  "subcategory": "Specialized Medical Services",
+  "customer_triggers": [
+    {
+      "trigger": "Missed period or pregnancy symptoms",
+      "urgency": 10,
+      "frequency": "Monthly concern"
+    },
+    {
+      "trigger": "Abnormal bleeding or severe menstrual pain",
+      "urgency": 9,
+      "frequency": "Recurring monthly"
+    },
+    {
+      "trigger": "Annual exam reminder or insurance deadline",
+      "urgency": 6,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "UTI symptoms or vaginal infection discomfort",
+      "urgency": 10,
+      "frequency": "Episodic acute"
+    },
+    {
+      "trigger": "Birth control needs or contraception changes",
+      "urgency": 8,
+      "frequency": "Every 1-3 months"
+    },
+    {
+      "trigger": "Fertility concerns after 6-12 months trying",
+      "urgency": 9,
+      "frequency": "Progressive urgency"
+    },
+    {
+      "trigger": "Menopause symptoms disrupting daily life",
+      "urgency": 7,
+      "frequency": "Daily for years"
+    },
+    {
+      "trigger": "Abnormal mammogram or pap smear results",
+      "urgency": 10,
+      "frequency": "Screening-triggered"
+    },
+    {
+      "trigger": "Sexual health concerns or pain during intercourse",
+      "urgency": 8,
+      "frequency": "Ongoing issue"
+    },
+    {
+      "trigger": "Postpartum complications or concerns",
+      "urgency": 10,
+      "frequency": "Weeks after delivery"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Triggered by symptoms (65%), routine screening reminders (25%), or life events like pregnancy planning. Google searches for symptoms spike 400% between 10pm-2am. Friend recommendations influence 58% of provider choices",
+    "consideration": "Research phase averages 2-3 weeks including insurance verification, reading 20+ reviews focusing on bedside manner, checking provider gender preferences (67% prefer female), and location convenience within 15 minutes",
+    "decision": "Booking accelerates with online scheduling (78% preference), same-week availability for urgent needs, clear insurance acceptance, and female provider options. Telemedicine for routine care increases conversion 45%",
+    "retention": "Long-term relationships average 8-12 years based on trust, consistent provider availability, comprehensive care approach, and life stage transitions from contraception through pregnancy to menopause",
+    "advocacy": "Strong advocacy after positive pregnancy/delivery experience (89% referral rate), successful fertility treatment, or compassionate miscarriage care. Online reviews posted by 42% of satisfied patients"
+  },
+  "transformations": [
+    {
+      "from": "Monthly debilitating period pain missing work",
+      "to": "Manageable symptoms with normal functioning",
+      "emotional_value": "Career and life freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with infertility and hopelessness",
+      "to": "Successful pregnancy and healthy baby",
+      "emotional_value": "Priceless family creation",
+      "worth_premium": true
+    },
+    {
+      "from": "Menopause symptoms ruining sleep and mood",
+      "to": "Balanced hormones and quality of life",
+      "emotional_value": "Vitality restoration",
+      "worth_premium": true
+    },
+    {
+      "from": "Pregnancy anxiety and uncertainty",
+      "to": "Confident motherhood with healthy delivery",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Chronic UTIs disrupting intimacy",
+      "to": "Infection-free comfortable lifestyle",
+      "emotional_value": "Relationship preservation",
+      "worth_premium": true
+    },
+    {
+      "from": "Unplanned pregnancy crisis",
+      "to": "Empowered decision with compassionate care",
+      "emotional_value": "Life control",
+      "worth_premium": true
+    },
+    {
+      "from": "Cancer screening anxiety",
+      "to": "Early detection and successful treatment",
+      "emotional_value": "Life-saving intervention",
+      "worth_premium": true
+    },
+    {
+      "from": "PCOS affecting fertility and appearance",
+      "to": "Managed symptoms and successful conception",
+      "emotional_value": "Complete transformation",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Successful pregnancy rate of 85% within 12 months",
+      "timeframe": "1 year fertility treatment",
+      "measurable": true
+    },
+    {
+      "metric": "Pain reduction from 8/10 to 3/10 for dysmenorrhea",
+      "timeframe": "2-3 menstrual cycles",
+      "measurable": true
+    },
+    {
+      "metric": "Menopause symptom improvement in 78% of patients",
+      "timeframe": "6-8 weeks HRT",
+      "measurable": true
+    },
+    {
+      "metric": "UTI recurrence reduced from monthly to annually",
+      "timeframe": "3-6 months prevention",
+      "measurable": true
+    },
+    {
+      "metric": "Successful VBAC delivery rate of 72%",
+      "timeframe": "9 months pregnancy",
+      "measurable": true
+    },
+    {
+      "metric": "Abnormal pap resolution in 91% of cases",
+      "timeframe": "6-12 months follow-up",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction scores averaging 4.9/5",
+      "timeframe": "Annual survey",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Positive pregnancy test requiring immediate prenatal care initiation",
+    "Insurance deductible met making procedures financially optimal before year-end",
+    "Fertility window closing with age-related concerns after 35",
+    "Severe pain or bleeding requiring same-day evaluation",
+    "Birth control prescription expiring with no refills remaining",
+    "Abnormal test results requiring immediate follow-up within 2 weeks",
+    "Preconception planning with specific pregnancy timeline goals",
+    "Sexual assault requiring immediate STI prophylaxis and emergency contraception"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Male doctor makes me uncomfortable",
+      "response": "We have 5 female providers and guarantee you'll only see female staff. 73% of our patients specifically choose us for this reason",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "I can't afford fertility treatments",
+      "response": "We offer payment plans starting at $200/month, multi-cycle discounts saving 25%, and work with 6 financing companies. Many patients spend less than a car payment for their family",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Taking time off work for appointments",
+      "response": "Early morning appointments at 7am, lunch-hour visits, and telemedicine for routine care mean you never miss work. We also offer Saturday hours",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Embarrassed about my symptoms",
+      "response": "We see these concerns daily - nothing surprises us. Our compassionate team has helped 10,000+ women with similar issues. Everything is completely confidential",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Previous bad experience with gynecologists",
+      "response": "We understand - 40% of our patients come from negative experiences elsewhere. We prioritize comfort with longer appointments, warming equipment, and explaining everything before we do it",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Insurance doesn't cover what I need",
+      "response": "We'll maximize your benefits and many services like annual exams are 100% covered. We also offer cash discounts of 35% and HSA/FSA payment options",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Second opinion consultations at no charge",
+      "Satisfaction guarantee with provider switch option",
+      "Price transparency with written estimates before procedures",
+      "24/7 nurse hotline for urgent questions"
+    ],
+    "proof_points": [
+      "Board-certified physicians with 15+ years average experience",
+      "Certified Baby-Friendly hospital designation",
+      "Top 10% patient satisfaction scores nationally",
+      "Advanced minimally invasive surgery capabilities"
+    ],
+    "risk_mitigation": "Comprehensive informed consent process, detailed treatment planning with alternatives discussed, conservative approach starting with least invasive options, and coordination with specialists when needed"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "irregular periods",
+      "trying to conceive",
+      "painful sex",
+      "heavy bleeding",
+      "hot flashes",
+      "mood swings",
+      "vaginal dryness",
+      "frequent UTIs",
+      "pregnancy symptoms",
+      "birth control options",
+      "abnormal discharge",
+      "pelvic pain"
+    ],
+    "solution_words": [
+      "relief",
+      "answers",
+      "options",
+      "natural",
+      "gentle",
+      "experienced",
+      "compassionate",
+      "understanding",
+      "personalized",
+      "comfortable",
+      "convenient",
+      "comprehensive"
+    ],
+    "avoid_jargon": [
+      "dyspareunia",
+      "menorrhagia",
+      "nulliparous",
+      "multiparous",
+      "amenorrhea",
+      "dysmenorrhea",
+      "endometrium",
+      "corpus luteum",
+      "primigravida",
+      "cervical ectropion"
+    ]
+  },
+  "power_words": [
+    "gentle",
+    "compassionate",
+    "experienced",
+    "female-focused",
+    "comprehensive",
+    "personalized",
+    "comfortable",
+    "convenient",
+    "trusted",
+    "specialized",
+    "advanced",
+    "minimally-invasive",
+    "natural",
+    "hormone-free",
+    "evidence-based",
+    "board-certified",
+    "award-winning",
+    "recommended",
+    "preferred",
+    "leading",
+    "innovative",
+    "holistic",
+    "integrative",
+    "supportive",
+    "empowering",
+    "confidential",
+    "respectful",
+    "nurturing",
+    "expert",
+    "dedicated"
+  ],
+  "avoid_words": [
+    "sterile",
+    "barren",
+    "failure",
+    "incompetent",
+    "hostile",
+    "insufficient",
+    "defective",
+    "abnormal",
+    "geriatric",
+    "advanced age",
+    "habitual aborter",
+    "products of conception",
+    "fetal demise",
+    "incompetent cervix",
+    "hostile mucus"
+  ],
+  "headline_templates": [
+    {
+      "template": "Finally, Women's Health Care That Puts You First",
+      "expected_ctr": 5.2,
+      "use_case": "Brand positioning"
+    },
+    {
+      "template": "[City]'s Only All-Female OB/GYN Practice",
+      "expected_ctr": 6.8,
+      "use_case": "Local differentiation"
+    },
+    {
+      "template": "Pregnant? Get Care Within 48 Hours",
+      "expected_ctr": 8.3,
+      "use_case": "Pregnancy urgency"
+    },
+    {
+      "template": "Stop Suffering From [Condition] - Relief in 2 Visits",
+      "expected_ctr": 4.9,
+      "use_case": "Problem-specific"
+    },
+    {
+      "template": "Fertility Success: [Number] Babies Born This Year",
+      "expected_ctr": 7.2,
+      "use_case": "Fertility focus"
+    },
+    {
+      "template": "Most Insurance Accepted - Book Online Now",
+      "expected_ctr": 5.7,
+      "use_case": "Insurance searchers"
+    },
+    {
+      "template": "Menopause Experts: Feel Like Yourself Again",
+      "expected_ctr": 6.1,
+      "use_case": "Age 45+ targeting"
+    },
+    {
+      "template": "Same-Day Appointments for Urgent Concerns",
+      "expected_ctr": 7.9,
+      "use_case": "Acute needs"
+    },
+    {
+      "template": "Birth Control Consultation: Free This Month",
+      "expected_ctr": 5.4,
+      "use_case": "Promotional"
+    },
+    {
+      "template": "Why [Number]% Choose Us for Pregnancy Care",
+      "expected_ctr": 6.5,
+      "use_case": "Social proof"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Annual Exam Online",
+      "conversion_rate": 11.2,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Check If We Accept Your Insurance",
+      "conversion_rate": 9.6,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Schedule Free Fertility Consultation",
+      "conversion_rate": 13.8,
+      "placement": "Fertility services"
+    },
+    {
+      "template": "Get Same-Day Appointment",
+      "conversion_rate": 15.3,
+      "placement": "Urgent care messaging"
+    },
+    {
+      "template": "Meet Our All-Female Team",
+      "conversion_rate": 8.7,
+      "placement": "About page"
+    },
+    {
+      "template": "Download Pregnancy Planning Guide",
+      "conversion_rate": 17.2,
+      "placement": "Lead generation"
+    },
+    {
+      "template": "Start Your Birth Control Consultation",
+      "conversion_rate": 10.4,
+      "placement": "Contraception page"
+    },
+    {
+      "template": "Calculate Your Due Date",
+      "conversion_rate": 14.6,
+      "placement": "Pregnancy tools"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Did you know? [Women's health fact]. It's why regular check-ups matter. Book your annual exam today 💗",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Your body, your choice, your health journey. We're here for all of it. 🌸 #WomensHealth #SelfCare",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Women's health impacts workplace productivity by $32B annually. Here's how employers can support female employees:",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: Your annual well-woman exam is likely FREE under your insurance. No excuse not to book! #PreventiveCare",
+      "engagement_rate": 6.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Your gyno actually listens and doesn't rush you out 🙌 #WomensHealthcare #GynecologistLife",
+      "engagement_rate": 14.7
+    },
+    {
+      "platform": "YouTube",
+      "template": "What Really Happens During Your First Prenatal Visit (Complete Guide)",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Signs You Need to See Your Gynecologist ASAP [Infographic]",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Reddit",
+      "template": "[28F] Finally found an OB/GYN who takes my pain seriously - here's what to look for",
+      "engagement_rate": 18.4
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Recommended OB/GYN accepting new patients - specializing in pregnancy and menopause care",
+      "engagement_rate": 8.9
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "All-female providers and staff for maximum comfort",
+      "rank": 1,
+      "differentiator": "Gender preference"
+    },
+    {
+      "prop": "Same-week appointments for urgent concerns",
+      "rank": 2,
+      "differentiator": "Availability"
+    },
+    {
+      "prop": "In-house ultrasound and lab for immediate results",
+      "rank": 3,
+      "differentiator": "Convenience"
+    },
+    {
+      "prop": "Minimally invasive surgery options reducing recovery 70%",
+      "rank": 4,
+      "differentiator": "Advanced care"
+    },
+    {
+      "prop": "Integrated midwifery and OB care for pregnancy choice",
+      "rank": 5,
+      "differentiator": "Comprehensive options"
+    },
+    {
+      "prop": "Evening and weekend hours for working women",
+      "rank": 6,
+      "differentiator": "Accessibility"
+    },
+    {
+      "prop": "Multilingual providers speaking 8 languages",
+      "rank": 7,
+      "differentiator": "Cultural competence"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Concierge women's health with personalized care teams, advanced fertility treatments, and luxury birthing suites. Your health journey deserves the finest medical expertise combined with spa-like comfort",
+    "budget_conscious": "Quality women's healthcare shouldn't be a luxury. Sliding scale fees, payment plans, and we maximize your insurance benefits. Most preventive care is 100% covered. Generic prescriptions and cost-effective treatment options",
+    "enterprise": "Comprehensive women's health benefits reduce absenteeism by 28% and improve retention of female talent by 45%. Our corporate packages include on-site clinics, fertility benefits, and maternity support programs"
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certifications and hospital affiliations",
+      "importance": 10,
+      "format": "Credentials display"
+    },
+    {
+      "signal": "Years delivering babies and patient count",
+      "importance": 9,
+      "format": "Experience metrics"
+    },
+    {
+      "signal": "Patient testimonials especially birth stories",
+      "importance": 9,
+      "format": "Video testimonials"
+    },
+    {
+      "signal": "Insurance acceptance and billing transparency",
+      "importance": 8,
+      "format": "Clear listings"
+    },
+    {
+      "signal": "Professional awards and recognition",
+      "importance": 7,
+      "format": "Award badges"
+    },
+    {
+      "signal": "Hospital quality scores and safety ratings",
+      "importance": 9,
+      "format": "Public ratings"
+    },
+    {
+      "signal": "Advanced technology and modern facilities",
+      "importance": 6,
+      "format": "Facility tours"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "5,000+ babies delivered with 98% satisfaction rate",
+      "credibility_score": 9.5,
+      "context": "20-year practice history"
+    },
+    {
+      "stat": "4.9/5 stars from 1,200+ verified patient reviews",
+      "credibility_score": 9.1,
+      "context": "Multiple review platforms"
+    },
+    {
+      "stat": "Top 5% nationally for patient safety scores",
+      "credibility_score": 9.3,
+      "context": "CMS quality metrics"
+    },
+    {
+      "stat": "87% pregnancy success rate with fertility treatments",
+      "credibility_score": 8.8,
+      "context": "Above national average of 65%"
+    },
+    {
+      "stat": "15-minute average wait time vs 24-minute standard",
+      "credibility_score": 7.9,
+      "context": "Practice efficiency metrics"
+    },
+    {
+      "stat": "96% of patients would recommend to friends",
+      "credibility_score": 9,
+      "context": "Annual satisfaction survey"
+    }
+  ],
+  "quality_indicators": [
+    "Solo practitioner suggests personalized care while large groups indicate comprehensive services",
+    "In-office procedures capability indicates advanced practice vs referral-only basic care",
+    "3D/4D ultrasound availability suggests premium positioning",
+    "Certified nurse midwives on staff indicates holistic approach",
+    "NICU level III affiliation shows high-risk pregnancy capability",
+    "Robotic surgery availability indicates cutting-edge minimally invasive options"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 42,
+    "trigger_event": "Six weeks postpartum visit after successful delivery or after successful resolution of complex condition like endometriosis treatment",
+    "ask_method": "In-person request during positive appointment outcome followed by email link, with baby photo sharing option for pregnancy patients"
+  },
+  "competitive_advantages": [
+    "Only practice with in-house genetic counseling and testing reducing wait times by 2 weeks",
+    "Guaranteed female provider policy attracting 67% of new patients seeking this preference",
+    "Same-day ultrasound and lab results while competitors require 3-5 day waits",
+    "Integrated mental health support for postpartum and pregnancy loss unique in market",
+    "Only certified menopause clinic in 50-mile radius with bioidentical hormone expertise",
+    "Direct insurance billing with 94% first-pass approval rate vs 71% regional average"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display IVF cycle at $15,000 first, making IUI at $1,500 seem affordable",
+    "sensitivity": "High sensitivity at $500+ for non-covered services, insurance verification critical",
+    "sweet_spots": [
+      "$200-300 for cosmetic gynecology",
+      "$150-200 for contraception consults",
+      "$3,000-4,000 for delivery packages",
+      "$500-800 for genetic testing"
+    ],
+    "decoy_pricing": "Offer single ultrasound at $200 to make $500 pregnancy package with 4 ultrasounds attractive"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 500,
+    "competitor_research": 200
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.8,
+    "weekend": 1.5,
+    "holiday": 2.2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential Care",
+      "price_range": "$100-150",
+      "target_customer": "Cash pay, basic services, students",
+      "margin": 20
+    },
+    {
+      "tier": "Comprehensive",
+      "price_range": "$200-400",
+      "target_customer": "Insurance covered, full-service needs",
+      "margin": 40
+    },
+    {
+      "tier": "Concierge",
+      "price_range": "$500-1000",
+      "target_customer": "VIP service, complex cases, fertility",
+      "margin": 60
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift routine follow-ups to telemedicine saving $45/visit in overhead costs",
+    "Bundle pregnancy care into global packages increasing revenue by $2,000 per patient",
+    "Add aesthetic services like vaginal rejuvenation at 75% margins",
+    "Implement nurse practitioner model for routine care improving margins 35%",
+    "Negotiate direct contracts with self-insured employers bypassing insurance",
+    "Develop menopause membership program at $149/month recurring revenue"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 125,
+      "reason": "New insurance and pregnancy planning",
+      "opportunity": "Fertility consultation promotions"
+    },
+    {
+      "month": "February",
+      "variation": 105,
+      "reason": "Valentine's pregnancy announcements",
+      "opportunity": "Prenatal package deals"
+    },
+    {
+      "month": "March",
+      "variation": 110,
+      "reason": "Spring fertility surge begins",
+      "opportunity": "Fertility awareness campaigns"
+    },
+    {
+      "month": "April",
+      "variation": 108,
+      "reason": "Pre-summer body concerns",
+      "opportunity": "Aesthetic gynecology services"
+    },
+    {
+      "month": "May",
+      "variation": 115,
+      "reason": "Mother's Day fertility focus",
+      "opportunity": "IVF special pricing"
+    },
+    {
+      "month": "June",
+      "variation": 102,
+      "reason": "Wedding season contraception",
+      "opportunity": "Birth control consultations"
+    },
+    {
+      "month": "July",
+      "variation": 95,
+      "reason": "Vacation season slowdown",
+      "opportunity": "Elective procedure scheduling"
+    },
+    {
+      "month": "August",
+      "variation": 98,
+      "reason": "Back-to-school physicals",
+      "opportunity": "Teen gynecology services"
+    },
+    {
+      "month": "September",
+      "variation": 120,
+      "reason": "Post-summer pregnancy boom",
+      "opportunity": "Prenatal class enrollment"
+    },
+    {
+      "month": "October",
+      "variation": 118,
+      "reason": "Benefits enrollment decisions",
+      "opportunity": "Insurance education events"
+    },
+    {
+      "month": "November",
+      "variation": 112,
+      "reason": "Year-end benefit usage",
+      "opportunity": "Preventive care reminders"
+    },
+    {
+      "month": "December",
+      "variation": 130,
+      "reason": "Maximize insurance benefits",
+      "opportunity": "Elective procedures push"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Routine exams",
+      "avoid": "Procedures",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Prenatal visits",
+      "avoid": "New patients",
+      "conversion_rate": 8.2
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Procedures",
+      "avoid": "Urgent visits",
+      "conversion_rate": 7.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Fertility consults",
+      "avoid": "Teen appointments",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "IUD insertions",
+      "avoid": "Complex procedures",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working women",
+      "avoid": "Insurance calls",
+      "conversion_rate": 9.7
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Urgent care only",
+      "avoid": "Routine care",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Insurance claims process 30-45 days creating payment timing expectations",
+    "cash_flow_peaks": "Days 1-10 for FSA/HSA funded visits at year start and September-December",
+    "slow_periods": "Mid-month days 15-25 typically show 25% lower booking rates"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday mornings",
+      "crisis_type": "Weekend pregnancy concerns and UTIs",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday afternoons",
+      "crisis_type": "Weekend birth control needs",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Evening hours 5-8pm",
+      "crisis_type": "After-work urgent visits",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Saturday mornings",
+      "crisis_type": "Working women's only availability",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Complete Pregnancy Journey",
+      "components": [
+        "All prenatal visits",
+        "Delivery and hospital care",
+        "Postpartum follow-up",
+        "24/7 on-call access"
+      ],
+      "pricing_model": "Global fee $4,500",
+      "margin": 45
+    },
+    {
+      "name": "Fertility Fast Track",
+      "components": [
+        "Comprehensive testing",
+        "3 IUI cycles",
+        "Medication management",
+        "Success coaching"
+      ],
+      "pricing_model": "Bundle $3,800",
+      "margin": 55
+    },
+    {
+      "name": "Menopause Wellness",
+      "components": [
+        "Hormone testing",
+        "Treatment planning",
+        "Quarterly follow-ups",
+        "Supplement guidance"
+      ],
+      "pricing_model": "Annual $1,200",
+      "margin": 60
+    },
+    {
+      "name": "Well Woman Premium",
+      "components": [
+        "Annual exam",
+        "All screenings",
+        "Contraception included",
+        "Same-day sick visits"
+      ],
+      "pricing_model": "Membership $89/month",
+      "margin": 50
+    }
+  ],
+  "upsell_paths": [
+    "Annual exam → Contraception counseling → Long-term IUD insertion ($1,200)",
+    "Pregnancy test → Prenatal care package → Genetic testing add-on ($800)",
+    "Irregular periods → Hormone testing → PCOS management program ($2,400/year)",
+    "Menopause consult → Bioidentical hormones → Anti-aging treatments ($300/month)",
+    "Fertility consultation → IUI → IVF progression ($15,000+ lifetime value)",
+    "Postpartum visit → Pelvic floor therapy → Aesthetic procedures ($2,000+)"
+  ],
+  "retention_hooks": [
+    "Annual reminder system with online booking links maintains 78% return rate",
+    "Baby photo wall and anniversary cards create emotional connection",
+    "Loyalty program with 10th visit free increases lifetime value 34%",
+    "Seamless transition through life stages from teen to menopause",
+    "Family care coordination treating mothers and daughters together",
+    "VIP pregnancy program with direct physician cell phone access",
+    "Postpartum support groups creating community connections"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "New mom gift basket for referring friends during pregnancy",
+      "timing": "Third trimester appointment",
+      "incentive": "$50 credit plus baby gift",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Family planning discounts for sisters/daughters",
+      "timing": "During family history discussion",
+      "incentive": "20% family discount",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Partner with doulas and lactation consultants",
+      "timing": "Pregnancy and postpartum",
+      "incentive": "Mutual referral agreement",
+      "conversion_rate": 45
+    },
+    {
+      "strategy": "Corporate wellness partnerships with HR departments",
+      "timing": "Annual benefit planning",
+      "incentive": "Employee education sessions",
+      "conversion_rate": 35
+    },
+    {
+      "strategy": "Social media pregnancy announcement features",
+      "timing": "First ultrasound visit",
+      "incentive": "Professional photos shared",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Primary care physician collaboration program",
+      "timing": "Ongoing relationship",
+      "incentive": "Expedited appointments and reports",
+      "conversion_rate": 48
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Genetic testing during pregnancy",
+      "attach_rate": 45,
+      "timing": "First trimester screening"
+    },
+    {
+      "service": "Pelvic floor therapy postpartum",
+      "attach_rate": 32,
+      "timing": "6-week checkup"
+    },
+    {
+      "service": "Aesthetic procedures post-pregnancy",
+      "attach_rate": 18,
+      "timing": "6-12 months postpartum"
+    },
+    {
+      "service": "Fertility preservation for career women",
+      "attach_rate": 12,
+      "timing": "Annual exam ages 30-35"
+    },
+    {
+      "service": "HPV vaccination for teens",
+      "attach_rate": 68,
+      "timing": "First gynecology visit"
+    },
+    {
+      "service": "Bone density screening at menopause",
+      "attach_rate": 72,
+      "timing": "Menopause consultation"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Medical spa services for aesthetic gynecology",
+      "market_size": "$1.5M annual revenue addition",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Fertility clinic with IVF laboratory",
+      "market_size": "$8M annual potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Midwifery birthing center adjacent to practice",
+      "market_size": "$2.5M annual revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Telehealth expansion for routine care nationally",
+      "market_size": "$3M incremental revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Employer direct contracting for women's benefits",
+      "market_size": "$4M corporate contracts",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Franchise model for women's health clinics",
+      "market_size": "$20M+ valuation opportunity",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "The Honey Pot Company's '#TheHoneyPotCompany' campaign featuring founder Beatrice Dixon discussing feminine care and women's health on social media, particularly Instagram and TikTok, with authentic storytelling about vaginal health",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Authentic founder-led content breaking taboos around women's intimate health, using educational content mixed with personal storytelling, addressing topics often considered 'too personal' in mainstream marketing",
+        "metrics": "Over 2M followers on Instagram, average engagement rate 3-5% (higher than industry standard), viral TikTok videos reaching 500K+ views",
+        "source": "Social media analytics and beauty/wellness industry reports from 2023-2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Planned Parenthood's 'I Decide' campaign using patient stories and educational carousel posts on Instagram about reproductive health, birth control options, and STI prevention",
+        "platform": "Instagram",
+        "why_it_worked": "User-generated content and real patient testimonials (anonymized), educational carousel format that Instagram algorithm favors, addressing real questions women search for online",
+        "metrics": "Carousel posts average 4-6% engagement rate vs 1-2% for single images, saved 3x more than standard posts indicating high value content",
+        "source": "Healthcare marketing case studies and Instagram analytics reports 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Nurx (telehealth for women's health) email campaign series 'Your Questions Answered' featuring OB-GYN responses to common reproductive health questions with subject lines like 'Is this normal?' and 'You asked, we answered'",
+        "platform": "Email",
+        "why_it_worked": "Question-based subject lines created curiosity and relatability, medical expert validation built trust, segmented by specific health concerns (birth control, UTI, emergency contraception)",
+        "metrics": "35-42% open rates (vs healthcare industry average of 21%), 8-12% click-through rates",
+        "source": "Email marketing benchmarks for healthcare 2024, telehealth case studies",
+        "confidence": "medium"
+      },
+      {
+        "example": "Maven Clinic's LinkedIn thought leadership content from their medical team about workplace benefits for women's health, fertility, and maternity care",
+        "platform": "LinkedIn",
+        "why_it_worked": "B2B focus targeting HR decision-makers, data-driven posts about ROI of women's health benefits, positioned as workplace equity issue not just healthcare",
+        "metrics": "Average 5-8% engagement rate on LinkedIn (vs platform average 2%), posts shared by HR influencers reaching 50K+ impressions",
+        "source": "B2B healthcare marketing reports 2024, LinkedIn analytics",
+        "confidence": "medium"
+      },
+      {
+        "example": "Flo Health app's TikTok educational series using trending sounds to discuss period tracking, ovulation, and fertility with Gen Z-friendly format",
+        "platform": "TikTok",
+        "why_it_worked": "Leveraged trending audio while maintaining educational value, destigmatized period talk for younger audience, used relatable humor while staying medically accurate",
+        "metrics": "Videos averaging 100K-500K views, 8-12% engagement rate, strong comment section discussions indicating high interest",
+        "source": "TikTok health content analysis 2024, femtech marketing reports",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.5% for healthcare/wellness brands, higher (3-6%) for educational carousel posts and Reels about women's health topics",
+        "best_content_format": "Carousel posts for educational content, Reels for awareness and destigmatization, Stories for appointment reminders and quick tips",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Stories per day for active engagement",
+        "best_posting_times": "Weekdays 9-11 AM and 7-9 PM EST, Wednesdays and Thursdays show highest engagement for health content",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Healthcare Success Marketing Benchmarks 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.5-1.2% for healthcare providers, community groups show higher engagement (3-8%) for peer support discussions",
+        "best_content_format": "Video content (especially patient testimonials), live Q&A sessions with providers, community group discussions",
+        "optimal_frequency": "3-5 posts per week, avoid over-posting which decreases reach",
+        "best_posting_times": "Weekdays 1-3 PM, Saturdays 9 AM-12 PM when women have time to research health topics",
+        "source": "Sprout Social Healthcare Industry Report 2024, Facebook Business Insights 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-23% open rate for healthcare industry, 2.5-3.5% click-through rate, women's health specific campaigns see 25-35% open rates",
+        "best_content_format": "Mobile-optimized (70% opened on mobile), personalized subject lines, educational newsletters, appointment reminders with value-add content",
+        "optimal_frequency": "1-2 emails per week for newsletters, triggered emails for appointments/follow-ups perform better than batch-and-blast",
+        "best_posting_times": "Tuesday-Thursday 10 AM or 8 PM, avoid Mondays and Fridays",
+        "source": "Mailchimp Healthcare Email Benchmarks 2024, Constant Contact Industry Reports 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-9% for health education content, women's health creators see higher engagement when addressing taboo topics authentically",
+        "best_content_format": "Short educational videos (15-30 seconds), myth-busting content, 'day in the life' of providers, patient perspective videos",
+        "optimal_frequency": "3-7 posts per week, consistency matters more than volume",
+        "best_posting_times": "Evenings 7-10 PM, lunch hours 12-1 PM on weekdays",
+        "source": "Influencer Marketing Hub TikTok Benchmarks 2024, Healthcare TikTok Analysis 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2-3% for healthcare B2B content, thought leadership from medical professionals sees 4-6%",
+        "best_content_format": "Long-form posts from providers, data-driven insights, workplace health benefits content, professional development",
+        "optimal_frequency": "2-4 posts per week for company pages, daily for individual provider thought leadership",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 12-1 PM EST",
+        "source": "LinkedIn Marketing Solutions Healthcare Benchmarks 2024, B2B Healthcare Marketing Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Question Hook - 'Is this normal?' pattern",
+        "example": "Is it normal to have irregular periods after 35? | Why does my period hurt more than it used to? | Should I be worried about spotting between periods?",
+        "why_it_works": "Validates women's concerns without shame, creates immediate relevance, addresses the common worry that symptoms might not be 'bad enough' to seek care, encourages engagement through relatability",
+        "source": "Women's health Reddit threads, patient review analysis, successful email subject lines from Nurx and Planned Parenthood campaigns"
+      },
+      {
+        "hook_pattern": "Permission/Validation Hook",
+        "example": "You don't have to live with painful periods | It's okay to ask for a second opinion | Your symptoms deserve attention | You're not overreacting",
+        "why_it_works": "Counters medical gaslighting experiences many women face, provides emotional permission to prioritize health, addresses imposter syndrome around health concerns",
+        "source": "Patient testimonials, women's health advocacy content analysis, successful social media campaigns 2024"
+      },
+      {
+        "hook_pattern": "Time-Sensitive Urgency Hook",
+        "example": "Don't wait on abnormal bleeding | Schedule your annual exam before your insurance resets | Fertility testing: Why timing matters | Get tested before symptoms worsen",
+        "why_it_works": "Creates appropriate urgency without fear-mongering, ties to insurance deadlines and practical concerns, addresses procrastination common in preventive care",
+        "source": "Healthcare marketing case studies, conversion-optimized ad copy from women's health providers"
+      },
+      {
+        "hook_pattern": "Myth-Busting Hook",
+        "example": "Period pain is NOT normal | You don't have to suffer through menopause | Birth control myths debunked | 5 things your OB-GYN wishes you knew",
+        "why_it_works": "Challenges normalized suffering, positions provider as educator not just treater, high shareability factor, addresses misinformation prevalent online",
+        "source": "High-performing TikTok and Instagram content from Flo Health, The Honey Pot, OB-GYN influencers"
+      },
+      {
+        "hook_pattern": "Empowerment/Control Hook",
+        "example": "Take control of your fertility journey | Your body, your choice, our support | Understand your cycle like never before | Knowledge is power: Know your options",
+        "why_it_works": "Shifts from passive patient to active participant, aligns with autonomy values, appeals to desire for education and self-advocacy",
+        "source": "Maven Clinic marketing, Clue app messaging, fertility clinic successful campaigns"
+      },
+      {
+        "hook_pattern": "Specific Symptom Recognition Hook",
+        "example": "Bleeding after sex? Here's what it could mean | Painful periods that make you miss work? | UTI symptoms that won't go away | Struggling to get pregnant after 6 months?",
+        "why_it_works": "Hyper-specific symptoms create instant recognition and relevance, addresses exact search queries women use, reduces 'is this about me?' friction",
+        "source": "Google search data analysis, patient intake form analysis, Reddit women's health community discussions"
+      },
+      {
+        "hook_pattern": "Social Proof/Community Hook",
+        "example": "Join 10,000+ women who found relief | Real patients share their stories | You're not alone in this | Women like you chose us because...",
+        "why_it_works": "Reduces isolation around health issues, provides social validation, builds trust through peer experiences, particularly effective for stigmatized conditions",
+        "source": "Successful patient testimonial campaigns, community-building strategies from women's health brands"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My periods are so painful I can't function",
+        "I've been trying to get pregnant for months and nothing is working",
+        "I'm tired of being dismissed by doctors who say it's just stress",
+        "The bleeding is so heavy I'm changing tampons every hour",
+        "I don't know if what I'm experiencing is normal or if I should be worried",
+        "Menopause is ruining my life - I can't sleep, I'm always irritable",
+        "Every time I have sex it hurts and I don't know why",
+        "I keep getting UTIs and I'm so frustrated",
+        "I'm scared something is seriously wrong but I feel like I'm overreacting",
+        "My doctor won't listen to me about my symptoms",
+        "I'm anxious about my pregnancy and need someone to talk to",
+        "The cramps are debilitating - I miss work every month"
+      ],
+      "solution_phrases": [
+        "I finally found a doctor who listens and takes me seriously",
+        "They explained all my options without judgment",
+        "I got same-day appointments when I needed urgent care",
+        "The nurse practitioner spent 45 minutes answering my questions",
+        "They helped me understand what was happening with my body",
+        "I feel empowered and in control of my health decisions",
+        "They didn't make me feel embarrassed about asking questions",
+        "I got a treatment plan that actually works for my lifestyle",
+        "They validated my concerns instead of dismissing them",
+        "I can message my provider anytime with questions",
+        "They offer telehealth so I don't have to take time off work",
+        "I finally have answers after years of suffering"
+      ],
+      "objection_phrases": [
+        "I don't have time to take off work for appointments",
+        "I'm worried about the cost and what my insurance will cover",
+        "I'm embarrassed to talk about these symptoms",
+        "What if they tell me it's all in my head like the last doctor?",
+        "I don't want to be put on hormones or medication",
+        "Is this really necessary or am I overreacting?",
+        "I've had bad experiences with OB-GYNs before",
+        "I'm scared of what they might find",
+        "I don't want to be judged for my sexual history",
+        "Will they actually listen to me or just rush through?",
+        "I can't afford to miss work for recovery time",
+        "I'm worried about finding childcare for appointments"
+      ],
+      "decision_factors": [
+        "A doctor who actually listens and doesn't rush",
+        "Female providers who understand women's health issues",
+        "Flexible appointment times including evenings and weekends",
+        "Accepting my insurance and transparent about costs",
+        "Good reviews from other women about their experiences",
+        "Comprehensive care so I don't need multiple specialists",
+        "Modern office with updated technology and equipment",
+        "Respectful staff who make me feel comfortable",
+        "Quick appointment availability when I need urgent care",
+        "Clear communication and follow-up after visits",
+        "Telehealth options for convenience",
+        "Providers who stay current on latest treatments and research"
+      ],
+      "emotional_language": [
+        "Finally felt heard",
+        "Relief after years of suffering",
+        "Empowered to make my own decisions",
+        "Validated instead of dismissed",
+        "Comfortable and not judged",
+        "Confident in my care",
+        "Peace of mind",
+        "Respected as a person not just a patient",
+        "Hopeful for the first time",
+        "Frustrated with previous experiences",
+        "Anxious and worried",
+        "Embarrassed to discuss",
+        "Scared of the unknown",
+        "Grateful for compassionate care",
+        "Relieved to have answers"
+      ],
+      "sources": [
+        "Reddit r/WomensHealth community discussions 2023-2024",
+        "Healthgrades and Vitals patient reviews for OB-GYN practices",
+        "Google My Business reviews for women's health clinics",
+        "Patient testimonials from Maven Clinic, Nurx, and Planned Parenthood websites",
+        "Facebook women's health support groups discussions",
+        "Fertility clinic patient forums and review sites",
+        "Medical gaslighting discussion threads on Reddit and Twitter/X"
+      ]
+    },
+    "competitive_gaps": [
+      "Mental health integration with reproductive health care - most providers treat them separately despite strong connection between hormones and mental health",
+      "Workplace accommodation guidance - women need help navigating FMLA, disability claims, and workplace rights during pregnancy, fertility treatments, or menopause but few providers offer this",
+      "Partner/family education content - most content targets the patient only, missing opportunity to educate partners about supporting women through health journeys",
+      "Midlife women's health beyond menopause - content heavily focuses on fertility and pregnancy or menopause transition, but gaps in addressing health concerns for women 55+",
+      "LGBTQ+ inclusive women's health content - most content assumes heterosexual cisgender women, missing transgender men who need gynecological care and diverse family-building content",
+      "Financial planning for women's health costs - little content addressing how to budget for fertility treatments, pregnancy costs, or long-term hormone therapy",
+      "Preventive care for high-risk populations - limited culturally competent content for Black women (who face higher maternal mortality), women with disabilities, or chronic conditions",
+      "Return to work after maternity leave support - gap between postpartum care and pediatric care where women's health needs are ignored",
+      "Perimenopause education for women in their 30s - most menopause content targets women 45+ but symptoms can start earlier and women are unprepared",
+      "Advocacy and self-advocacy training - teaching women how to speak up in medical settings, get second opinions, and navigate complex healthcare systems"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Women prioritize health goals, insurance resets, new deductibles, HSA/FSA funding renewed",
+        "content_angle": "Annual exam reminders, 'Start the year right with your health', preventive screening campaigns, insurance benefit optimization content"
+      },
+      {
+        "period": "February (American Heart Month)",
+        "opportunity": "Heart disease is leading cause of death in women but often overlooked in women's health discussions",
+        "content_angle": "Women's heart health content, connection between reproductive health and cardiovascular risk, hormone therapy and heart health"
+      },
+      {
+        "period": "March (Women's History Month, Endometriosis Awareness Month)",
+        "opportunity": "Cultural focus on women's issues, media coverage of women's health topics, endometriosis affects 1 in 10 women",
+        "content_angle": "Celebrate women's health advocacy, endometriosis education and diagnosis stories, women's health rights content"
+      },
+      {
+        "period": "May (Maternal Mental Health Month, Mother's Day)",
+        "opportunity": "Postpartum depression awareness, celebrating mothers while acknowledging fertility struggles for some",
+        "content_angle": "Maternal mental health resources, sensitive Mother's Day messaging that includes those struggling with infertility or loss, postpartum care content"
+      },
+      {
+        "period": "June (Men's Health Month - counter-programming opportunity)",
+        "opportunity": "While focus is on men's health, opportunity to discuss partner involvement in women's reproductive health",
+        "content_angle": "How partners can support women's health, male fertility factor in couples' fertility, STI prevention for couples"
+      },
+      {
+        "period": "September (Back to School, Ovarian Cancer Awareness Month, PCOS Awareness Month)",
+        "opportunity": "Return to routine after summer, college students need birth control and STI testing, PCOS affects 1 in 10 women",
+        "content_angle": "Back-to-school health prep for college women, PCOS education and diagnosis, ovarian cancer screening recommendations"
+      },
+      {
+        "period": "October (Breast Cancer Awareness Month, Pregnancy and Infant Loss Awareness Month)",
+        "opportunity": "Massive cultural focus on breast health, important but often overshadows other women's health issues, pregnancy loss affects 1 in 4 pregnancies",
+        "content_angle": "Breast health beyond cancer (breastfeeding support, breast pain), pregnancy loss support resources, mammogram reminders"
+      },
+      {
+        "period": "November (Lung Cancer Awareness Month, Thanksgiving)",
+        "opportunity": "Gratitude messaging, family gatherings prompt health discussions, end of year insurance benefits use-it-or-lose-it",
+        "content_angle": "Grateful patient stories, family health history discussions, year-end insurance benefit reminders, lung health for women"
+      },
+      {
+        "period": "December (Year-End)",
+        "opportunity": "Final push to use insurance benefits before reset, holiday stress affects health, year-end reflection",
+        "content_angle": "Last chance for annual exams, stress management during holidays, year-in-review health content, New Year preparation"
+      },
+      {
+        "period": "Q2 and Q3 (Summer Months)",
+        "opportunity": "Vacation planning, swimsuit season body image concerns, summer activities and health",
+        "content_angle": "Travel health tips for women, UTI prevention for summer, birth control and vacation planning, body positivity messaging"
+      },
+      {
+        "period": "Open Enrollment Periods (October-December typically)",
+        "opportunity": "People evaluating health insurance options and provider networks",
+        "content_angle": "Insurance acceptance announcements, how to choose women's health coverage, explaining benefits and what's covered"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Industry Benchmark Report 2024",
+      "Healthcare Success Marketing Benchmarks 2024",
+      "Sprout Social Healthcare Industry Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Influencer Marketing Hub TikTok Statistics 2024",
+      "Reddit communities: r/WomensHealth, r/TwoXChromosomes, r/Endo, r/PCOS, r/TryingForABaby",
+      "Healthgrades and Vitals patient review platforms",
+      "Google My Business reviews for women's health providers",
+      "Maven Clinic, Nurx, Planned Parenthood, Flo Health marketing content and case studies",
+      "The Honey Pot Company social media channels",
+      "Healthcare and femtech marketing industry reports 2023-2024",
+      "Patient testimonial analysis from multiple women's health provider websites",
+      "Google Trends data for women's health search queries",
+      "Medical marketing publications and case studies"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for women's health campaigns due to HIPAA privacy concerns",
+      "Specific A/B testing results are proprietary and not widely shared by healthcare providers",
+      "TikTok engagement metrics for healthcare are evolving rapidly and benchmarks are less established than other platforms",
+      "Regional variations in women's health marketing effectiveness not well documented in public sources",
+      "Telehealth-specific marketing performance data is emerging but not yet comprehensively benchmarked across industry"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1 theme: Breaking the silence - Introducing solutions for symptoms women have normalized for too long",
+        "Week 2 theme: Evidence-based innovation - How [new service] addresses gaps in traditional women's healthcare",
+        "Week 3 theme: Real women, real relief - Patient stories of transformation and empowerment",
+        "Week 4 theme: Your body deserves better - Final opportunity to access specialized care that listens"
+      ],
+      "weekly_hooks": [
+        [
+          "What if painful periods aren't something you just have to live with? We're about to change everything you thought you knew about [condition]",
+          "You're not overreacting. You're not being dramatic. And we have something new that proves it.",
+          "For years, women told us [specific symptom]. We listened. Now we're launching something different."
+        ],
+        [
+          "Introducing [service name]: The compassionate, evidence-based solution for [condition] that finally takes your symptoms seriously",
+          "Is it normal to [specific symptom]? Here's what our new [service] can do about it - and why timing matters",
+          "Don't wait on [symptom]. Our new [service] offers same-day appointments and answers you've been searching for"
+        ],
+        [
+          "Join 10,000+ women who found relief - Meet Sarah, who went from debilitating [symptom] to living her life fully again",
+          "Real patients share their stories: 'I finally found a doctor who listens' - See how [service] transformed their health journey",
+          "You're not alone in this. Women like you chose [service] because they were tired of being dismissed"
+        ],
+        [
+          "Last chance: Schedule your [service] consultation before [date] and take control of your [health concern]",
+          "Painful periods that make you miss work? Limited spots remaining for our specialized [service] this month",
+          "Your symptoms deserve attention - Final week to access our launch pricing for comprehensive [service]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is this really necessary or am I overreacting?' - Validate that symptoms are real and deserve treatment",
+        "Week 2: Address 'What if they tell me it's all in my head like the last doctor?' - Emphasize listening-first approach and female providers",
+        "Week 3: Address 'I've had bad experiences with OB-GYNs before' - Share patient testimonials about compassionate care and comfort",
+        "Week 4: Address 'I don't have time to take off work for appointments' - Highlight flexible scheduling, telehealth, and evening hours"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce provider credentials and specialization - Board-certified OB-GYNs with advanced training in [specialty]",
+        "Week 2: Share clinical evidence and medical research backing the new service approach",
+        "Week 3: Feature detailed patient testimonials with before/after transformation stories",
+        "Week 4: Final credibility push with patient volume stats, success rates, and limited availability urgency"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about [condition] - Download our free guide 'Is This Normal?'",
+        "Week 2: Take our 2-minute symptom assessment to see if [service] is right for you",
+        "Week 3: Read patient stories and schedule a free 15-minute consultation call",
+        "Week 4: Book your appointment now - Limited spots available for [month]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week including 3-5 Stories daily) - Primary platform for launch announcements and carousel educational content",
+        "Email (3 emails/week) - Teaser, launch announcement, patient stories, final push to existing patient base",
+        "TikTok (4-5 videos/week) - Educational myth-busting content and provider introductions for awareness",
+        "Facebook (3-4 posts/week) - Community discussion and longer-form patient testimonials"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on The Honey Pot Company's successful launch strategy using authentic founder-led storytelling (2M+ followers, 3-5% engagement), combined with Nurx's question-based approach achieving 35-42% email open rates. Launch timing leverages the 'Permission/Validation Hook' pattern that counters medical gaslighting and the proven carousel format that gets 4-6% engagement vs 1-2% for single images."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1 theme: Myth-busting common misconceptions - Period pain is NOT normal and other lies we've been told",
+        "Week 2 theme: Preventive care education - Understanding your annual exam and why it matters beyond pregnancy",
+        "Week 3 theme: Hormone health across lifespan - From puberty through menopause and beyond",
+        "Week 4 theme: Sexual health without shame - UTIs, painful intercourse, and STI prevention conversations",
+        "Week 5 theme: Fertility and family planning - Options, timing, and taking control of reproductive choices",
+        "Week 6 theme: Advocacy and self-advocacy - How to speak up in medical settings and get the care you deserve",
+        "Week 7 theme: Mental health and reproductive health connection - Hormones, mood, and whole-person wellness",
+        "Week 8 theme: Patient success stories - Real transformations from women who prioritized their health"
+      ],
+      "weekly_hooks": [
+        [
+          "Period pain is NOT normal - Here's what it could mean and when to get help",
+          "5 things your OB-GYN wishes you knew about menstrual health",
+          "Is it normal to [specific symptom]? Let's talk about what your body is telling you"
+        ],
+        [
+          "Don't wait on abnormal bleeding - Schedule your annual exam before your insurance resets",
+          "Your annual exam is more than a pap smear - Here's what comprehensive women's health looks like",
+          "Preventive care saved her life - Why skipping your annual exam isn't worth the risk"
+        ],
+        [
+          "Understand your cycle like never before - What your hormones are doing each week",
+          "Menopause is ruining my life - You don't have to suffer through this transition",
+          "Hormones affect everything from sleep to mood - Here's how to find balance"
+        ],
+        [
+          "Painful sex? Here's what it could mean and how we can help",
+          "Keep getting UTIs? Let's find the root cause instead of just treating symptoms",
+          "You don't have to be embarrassed about asking questions - We see these concerns daily"
+        ],
+        [
+          "Struggling to get pregnant after 6 months? Here's when to seek help and what to expect",
+          "Take control of your fertility journey - Understanding your options from testing to treatment",
+          "Birth control myths debunked - Finding the right option for your body and lifestyle"
+        ],
+        [
+          "How to get a second opinion without feeling guilty - Your health, your choice",
+          "What to do when your doctor won't listen - Self-advocacy scripts that work",
+          "You're not overreacting - Trust your instincts about your body"
+        ],
+        [
+          "The connection between hormones and anxiety that nobody talks about",
+          "Postpartum depression isn't a character flaw - It's a medical condition that deserves treatment",
+          "How your menstrual cycle affects your mental health - And what you can do about it"
+        ],
+        [
+          "From debilitating periods to normal functioning - Meet the women who found relief",
+          "I finally found a doctor who listens - Real patient stories of compassionate care",
+          "Join 10,000+ women who prioritized their health - Their transformations might surprise you"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if what I'm experiencing is normal' - Provide symptom recognition education",
+        "Week 2: Address 'I don't have time to take off work' - Highlight flexible scheduling options",
+        "Week 3: Address 'I'm worried about hormones or medication' - Discuss natural and evidence-based options",
+        "Week 4: Address 'I'm embarrassed to talk about these symptoms' - Normalize conversations and ensure confidentiality",
+        "Week 5: Address 'I can't afford fertility treatments' - Share payment plans and financing options",
+        "Week 6: Address 'What if they dismiss me like my last doctor' - Emphasize patient-centered listening approach",
+        "Week 7: Address 'I don't want to be judged' - Share compassionate care philosophy and non-judgmental environment",
+        "Week 8: Address 'Is this really worth it?' - Use transformation stories to demonstrate value"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce medical expertise - Board certifications and specializations",
+        "Week 2: Share patient volume statistics - '10,000+ women trust us with their care'",
+        "Week 3: Feature provider credentials and continuing education commitments",
+        "Week 4: Include patient satisfaction ratings and review highlights",
+        "Week 5: Share success rate data for specific treatments",
+        "Week 6: Highlight awards, recognitions, and community involvement",
+        "Week 7: Feature partnerships with respected health organizations",
+        "Week 8: Comprehensive patient testimonials with detailed transformation stories"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free symptom guide 'When to Seek Care'",
+        "Week 2: Take our health assessment quiz",
+        "Week 3: Read our blog post about [topic]",
+        "Week 4: Join our email community for monthly health tips",
+        "Week 5: Comment below with your questions - we're answering all week",
+        "Week 6: Schedule a free consultation to discuss your concerns",
+        "Week 7: Share this with someone who needs to hear it",
+        "Week 8: Book your appointment - we're here to help"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week) - Educational carousels on Tuesdays/Thursdays, patient stories on Mondays, Reels on Wednesdays/Fridays",
+        "Email (1-2 emails/week) - Tuesday 10am educational newsletter, Thursday 8pm appointment reminders with value-add content",
+        "Facebook (3-4 posts/week) - Community discussion posts, longer patient testimonials, live Q&A sessions monthly",
+        "TikTok (3-4 videos/week) - Myth-busting content, day-in-the-life provider content, trending sound educational videos"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Planned Parenthood's 'I Decide' campaign achieving 4-6% engagement with educational carousels (3x save rate), combined with platform benchmarks showing Instagram carousels perform best for educational content. The 8-week cycle addresses all major women's health concerns identified in customer voice data while maintaining the 70-20-10 mix proven effective for authority building without overselling."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Breaking taboos - Destigmatizing women's health topics that need to be discussed openly",
+        "Week 2 theme: Community building - You're not alone, join thousands of women taking control of their health"
+      ],
+      "weekly_hooks": [
+        [
+          "Let's talk about the things nobody wants to discuss - Bleeding after sex, painful periods, and what they really mean",
+          "Period pain is NOT normal - Share this if you've ever been told to 'just deal with it'",
+          "Is this normal? Tag a friend who needs to see this",
+          "Why does my period hurt more than it used to? You asked, we're answering",
+          "5 symptoms women ignore that deserve medical attention - Number 3 will surprise you",
+          "Birth control myths debunked - Which one shocked you the most?"
+        ],
+        [
+          "Join 10,000+ women who refuse to accept 'that's just how it is' as an answer",
+          "Real talk: What's your biggest women's health question nobody will answer? Drop it below",
+          "You're not overreacting. You're not being dramatic. Comment 'YES' if you needed to hear this today",
+          "Women supporting women - Share your story to help someone else feel less alone",
+          "What I wish I knew about [condition] before it affected my life - Your turn, what do you wish you'd known?",
+          "Tag the woman in your life who needs a doctor that actually listens"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed to talk about these symptoms' - Normalize through high-volume myth-busting and open discussion",
+        "Week 2: Address 'I'm scared of what they might find' - Build community support showing others who faced fears and found answers"
+      ],
+      "proof_timing": [
+        "Week 1: Share shocking statistics about women's health (e.g., '1 in 10 women has endometriosis but average diagnosis takes 7 years')",
+        "Week 2: Feature rapid-fire patient testimonial snippets - '10 women, 10 stories, 1 thing in common: they finally felt heard'"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post for later, Share with someone who needs it, Comment your biggest health question",
+        "Week 1: Follow for daily health tips, Tag a friend, Use our hashtag #[BrandName]Listens",
+        "Week 2: Join our free community for women's health support, Download our symptom guide",
+        "Week 2: Take our viral health quiz (shareable results), Schedule a free 15-minute consultation"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 videos/week) - Leverage trending sounds for maximum reach, myth-busting content, relatable humor while medically accurate",
+        "Instagram Reels (7-10 Reels/week) - Cross-post TikTok content, carousel posts 3x/week for saves and shares",
+        "Instagram Stories (5-7 Stories/day) - Poll stickers, question boxes, countdown timers for engagement",
+        "Facebook (5 posts/week) - Shareable infographics and discussion prompts for community groups"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Flo Health app's TikTok success averaging 100K-500K views with 8-12% engagement by leveraging trending sounds while maintaining educational value. Combined with research showing TikTok health content achieves 5-9% engagement (higher when addressing taboo topics authentically). High-frequency posting (3-7 posts/week optimal) during peak times (7-10 PM evenings, 12-1 PM lunch) maximizes viral potential and algorithm favor."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1 theme: Medical gaslighting and how to combat it - Empowering women to advocate for themselves",
+        "Week 2 theme: Evidence-based medicine in women's health - What research really says vs. what you've been told",
+        "Week 3 theme: Hormones demystified - Understanding the science behind your symptoms",
+        "Week 4 theme: Fertility facts and family planning - Separating myths from medical reality",
+        "Week 5 theme: Workplace health equity - Your rights during pregnancy, fertility treatments, and menopause",
+        "Week 6 theme: Future of women's healthcare - Innovation, advocacy, and what's changing"
+      ],
+      "weekly_hooks": [
+        [
+          "Your symptoms deserve attention - How to recognize medical gaslighting and what to do about it",
+          "What to do when your doctor won't listen - Self-advocacy scripts from an OB-GYN",
+          "Red flags your healthcare provider isn't taking you seriously - And how to get a second opinion"
+        ],
+        [
+          "Period pain is NOT normal - Here's what the research actually shows about endometriosis, PCOS, and fibroids",
+          "Debunking the biggest myths about hormone therapy - What 30 years of studies reveal",
+          "Evidence-based approaches to [condition] that your doctor might not know about yet"
+        ],
+        [
+          "Understanding your cycle like never before - A medical deep-dive into what's really happening",
+          "Why menopause symptoms vary so drastically - The hormone science explained simply",
+          "The connection between your menstrual cycle and everything else - Sleep, mood, energy, and immunity"
+        ],
+        [
+          "Fertility testing: Why timing matters and what to expect - An OB-GYN's complete guide",
+          "The truth about age and fertility - What the data really shows vs. what media tells you",
+          "Male fertility factor affects 40-50% of couples - Why both partners need testing"
+        ],
+        [
+          "Know your rights: FMLA, disability claims, and workplace accommodations during fertility treatments",
+          "How to navigate returning to work after maternity leave while managing your health",
+          "Menopause in the workplace - Legal protections and how to request accommodations"
+        ],
+        [
+          "The innovations changing women's healthcare - From telehealth to personalized hormone therapy",
+          "What we're getting wrong about women's health research - And how it's finally changing",
+          "The future of fertility treatment - New technologies and what they mean for you"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My doctor won't listen to me about my symptoms' - Provide advocacy tools and validation",
+        "Week 2: Address 'I don't want to be put on hormones or medication' - Explain evidence-based options and personalization",
+        "Week 3: Address 'What if it's all in my head?' - Use science to validate that hormonal symptoms are physiological",
+        "Week 4: Address 'I can't afford fertility treatments' - Discuss insurance coverage, what's included, payment options",
+        "Week 5: Address 'I'm worried about workplace discrimination' - Educate on legal protections and rights",
+        "Week 6: Address 'Will they stay current on latest treatments?' - Demonstrate commitment to continuing education and innovation"
+      ],
+      "proof_timing": [
+        "Week 1: Establish provider credentials - Board certifications, years of experience, patient advocacy work",
+        "Week 2: Share published research, conference presentations, and medical journal citations",
+        "Week 3: Feature advanced training and specialization certifications in hormonal health",
+        "Week 4: Highlight fertility treatment success rates and patient outcome data",
+        "Week 5: Showcase partnerships with employers and workplace health programs",
+        "Week 6: Present awards, recognitions, and thought leadership speaking engagements"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide 'How to Advocate for Yourself in Medical Settings'",
+        "Week 2: Read our comprehensive blog post with full research citations",
+        "Week 3: Watch our educational webinar on hormone health (45 minutes)",
+        "Week 4: Take our fertility health assessment - personalized results",
+        "Week 5: Join our LinkedIn community for workplace health discussions",
+        "Week 6: Schedule a consultation to discuss your personalized treatment plan"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week) - Long-form thought leadership posts from providers, data-driven insights, workplace health content",
+        "Instagram (4-5 posts/week) - In-depth carousel posts with research citations, IGTV for longer educational content",
+        "Email (2 emails/week) - Tuesday deep-dive educational newsletter, Thursday research roundup",
+        "Blog/Website (1-2 long-form articles/week) - SEO-optimized comprehensive guides with medical citations"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Maven Clinic's LinkedIn thought leadership achieving 5-8% engagement (vs 2% platform average) by targeting decision-makers with data-driven posts about ROI and workplace equity. Combined with competitive gap analysis showing need for workplace accommodation guidance, partner education, and advocacy training. Educational carousel format proven to achieve 4-6% engagement and 3x save rate indicates high-value perception."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Your questions answered - Interactive Q&A addressing real concerns from real women",
+        "Week 2 theme: Community stories and shared experiences - Building connection through vulnerability"
+      ],
+      "weekly_hooks": [
+        [
+          "What's your biggest women's health question nobody will answer? Drop it below - we're responding to EVERY comment",
+          "Is it normal to [blank]? Fill in the blank and let's discuss what your body might be telling you",
+          "Poll: Have you ever felt dismissed by a healthcare provider? Let's talk about it",
+          "This or that: Period pain or childbirth? Share your experience in the comments",
+          "Question box open for 24 hours - Ask us anything about women's health, anonymously if you prefer",
+          "What symptom did you ignore for too long? Your story might help someone else seek care sooner"
+        ],
+        [
+          "Share your story: How did you finally find a doctor who listened? Help other women find hope",
+          "Tag the woman who convinced you to prioritize your health - We want to celebrate her",
+          "Real talk Tuesday: What's the most frustrating part of navigating women's healthcare? We're listening",
+          "Before and after: Life before treatment vs. after - Comment with one word describing each",
+          "If you could tell your younger self one thing about women's health, what would it be?",
+          "Community challenge: Share one thing you learned about your body this year that surprised you"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't want to be judged for my sexual history' - Create safe, non-judgmental discussion space",
+        "Week 2: Address 'Will they actually listen or just rush through?' - Demonstrate listening through detailed comment responses"
+      ],
+      "proof_timing": [
+        "Week 1: Share real-time response from actual providers - 'Dr. Sarah is answering your questions live today'",
+        "Week 2: Feature user-generated content and patient testimonials submitted during campaign"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your question, Share your experience, Vote in our poll, Use our question sticker",
+        "Week 1: Tag a friend who needs this, Save this for later, Turn on post notifications",
+        "Week 2: Share your story using #[CampaignHashtag], Submit your testimonial, Join our private community group",
+        "Week 2: Book a consultation - mention this campaign for priority scheduling"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 Stories/day) - Poll stickers, question boxes, quizzes, countdown timers for maximum interaction",
+        "Instagram Feed (7-10 posts/week) - Conversation-starter posts, carousel discussions, Reels with comment prompts",
+        "Facebook Groups (5-7 posts/week) - Deep discussion threads, peer support, provider Q&A sessions",
+        "TikTok (5-7 videos/week) - Stitch and duet-friendly content, response videos to comments"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing Instagram Stories with interactive elements (polls, questions) drive highest engagement, and Facebook community groups achieving 3-8% engagement for peer support discussions. The Honey Pot Company's success with authentic storytelling (3-5% engagement, 2M+ followers) demonstrates power of vulnerability and community building. Question-based hooks from Nurx campaign achieved 35-42% open rates by creating curiosity and relatability."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Women miss an average of [X] workdays per year due to untreated menstrual disorders. Yet [Y]% of employers don't include comprehensive women's health in their benefits.\n\nThe cost to your organization:\n• Lost productivity: $[AMOUNT] per employee annually\n• Increased turnover among women aged 25-45\n• Reduced engagement and presenteeism\n\nWhat comprehensive women's health coverage includes:\n✓ [CONDITION] treatment beyond basic OB-GYN\n✓ Fertility support and family planning\n✓ Menopause management programs\n✓ Mental health integration for hormonal conditions\n\nCompanies offering these benefits see [X]% reduction in absenteeism and [Y]% improvement in female employee retention.\n\nHR leaders: What's one barrier preventing your organization from expanding women's health benefits?\n\n#WomensHealth #EmployeeBenefits #HRLeadership #WorkplaceWellness #HealthEquity",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 15+ years treating [SPECIALTY], I've noticed a dangerous pattern:\n\nWomen wait an average of [X] years between first symptoms and seeking treatment for conditions like [CONDITION].\n\nWhy? Because they've been told:\n\"It's normal to have painful periods\"\n\"Just deal with it\"\n\"It's all in your head\"\n\nHere's what medical research actually shows:\n\n[CONDITION] affects 1 in [X] women and is highly treatable when diagnosed early. Delayed treatment leads to [CONSEQUENCE], [CONSEQUENCE], and decreased quality of life.\n\nAs healthcare providers, we must:\n1. Believe women's symptom reports without dismissal\n2. Educate about what's common vs. what's normal\n3. Offer evidence-based treatment options, not just pain management\n4. Create spaces where women feel heard, not judged\n\nThe future of women's health depends on changing the narrative from \"just deal with it\" to \"you deserve answers and relief.\"\n\nWhat needs to change in how we approach women's health in clinical settings?\n\n#WomensHealth #Healthcare #MedicalGaslighting #PatientAdvocacy #OBGYN",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Changing tampons every hour, missing work monthly, told \"it's just bad periods.\"\n\nAfter: Diagnosed with [CONDITION], treated effectively, back to normal life within [TIMEFRAME].\n\nThis is [PATIENT NAME]'s story. And she's not alone.\n\nAt [PRACTICE NAME], we see women who've suffered for years because:\n• Previous providers dismissed their symptoms\n• They thought debilitating pain was \"normal\"\n• They didn't know treatment options existed\n\nOur approach:\n✓ Comprehensive diagnostic testing, not guesswork\n✓ [X]-minute appointments where we actually listen\n✓ Evidence-based treatment plans tailored to your lifestyle\n✓ Same-week availability for urgent concerns\n\nWe're accepting new patients in [LOCATION] with most insurance plans accepted.\n\nYour symptoms deserve attention. Your concerns deserve answers.\n\nLearn more: [LINK]\n\n#WomensHealth #[CITY]Healthcare #PatientCare",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Is it normal to have [SYMPTOM]? 🤔\n\nShort answer: Common ≠ Normal\n\nSwipe to learn what your body might be telling you 👉\n\nSlide 1: [X]% of women experience [SYMPTOM] but that doesn't mean you have to live with it\nSlide 2: What causes [SYMPTOM] - [CAUSE 1], [CAUSE 2], [CAUSE 3]\nSlide 3: When to see your provider (red flags 🚩)\nSlide 4: Treatment options you should know about\nSlide 5: Questions to ask at your next appointment\n\nSave this for your next visit 📌\n\nDrop a 💗 if this helped you understand your body better\n\n[FIRST COMMENT HASHTAGS: #WomensHealth #PeriodHealth #ReproductiveHealth #HealthEducation #KnowYourBody #OBGYNAdvice #WomensWellness #HealthyWomen #FemaleHealth #PelvicHealth #HormoneHealth #MenstrualHealth #WomenEmpowerment #HealthTips #MedicalAdvice #PatientEducation #BodyAwareness #SelfCare #WellnessJourney #HealthMatters]",
+        "visual": "Carousel format: Minimalist design with medical illustrations, calming pink/purple palette, text overlays with key facts, final slide has checklist format for appointment questions"
+      },
+      "authority": {
+        "caption": "You don't have to live with painful periods. 💗\n\nI've heard \"just take ibuprofen\" too many times from providers who should know better.\n\nPeriod pain that disrupts your life isn't normal - it's a sign something needs attention.\n\nConditions like [CONDITION] and [CONDITION] are treatable. You deserve:\n✓ A provider who listens without dismissing\n✓ Diagnostic testing to find the root cause\n✓ Treatment options beyond \"deal with it\"\n✓ Quality of life improvements, not just pain management\n\n[X] years treating women's health has taught me: When women say something is wrong, they're right.\n\nYour body. Your truth. Our support.\n\nTag someone who needs to hear this 👇\n\n#WomensHealth #PeriodPain #MedicalGaslighting #PatientAdvocacy #ReproductiveHealth #Endometriosis #PCOS #OBGYNLife #WomenDeserveBetter #HealthEquity #ListenToWomen #ChronicPain #PelvicPain #Dysmenorrhea #WomensRights #HealthcareAdvocacy #FemaleEmpowerment #KnowYourWorth #HealthJustice #BelieveWomen",
+        "visual": "Professional photo of provider in clinical setting looking directly at camera, warm and approachable expression, overlaid text with key message, authentic not stock photo feel"
+      },
+      "promotional": {
+        "caption": "Bleeding after sex? Here's what it could mean 🩺\n\nThis is one of the most common concerns I hear - and one women are most embarrassed to bring up.\n\nLet's normalize talking about it:\n\n[CAUSE 1] - usually harmless, easily treated\n[CAUSE 2] - needs evaluation but manageable\n[CAUSE 3] - rare but important to rule out\n\nThe good news? Most causes are treatable once we identify them.\n\nAt [PRACTICE NAME]:\n• No judgment, just answers\n• Same-week appointments for concerns like this\n• Comfortable, private discussions\n• Evidence-based testing and treatment\n\nYou're not overreacting. You deserve to feel comfortable and confident.\n\nBook online: [LINK IN BIO] or call [PHONE]\n\nAccepting new patients in [LOCATION] 📍\n\n#WomensHealth #SexualHealth #OBGYNCare #ReproductiveHealth #HealthConcerns #WomenWellness #IntimateHealth #HealthQuestions #PatientCare #[CITY]Healthcare #LocalHealthcare #WomensClinic #ConfidentialCare #CompassionateCare #HealthAnswers #MedicalCare #WomenSupport #HealthMatters #NoJudgment #SafeSpace",
+        "visual": "Clean, professional graphic with discrete medical illustration, calming color scheme, text overlay with main question, includes practice logo and contact info, Instagram-friendly 4:5 ratio"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 5 Things Your OB-GYN Wishes You Knew (But You're Too Embarrassed to Ask)\n\nLet's talk about the questions you Google at 2am instead of asking your doctor:\n\n1️⃣ [SYMPTOM] is NOT normal, even if it's common\n[X]% of women experience this, but it often indicates [CONDITION] which is treatable. Don't suffer in silence.\n\n2️⃣ You can (and should) get a second opinion\nIf your provider dismisses your concerns or says \"it's just stress,\" find someone who listens. Your instincts about your body are valid.\n\n3️⃣ Annual exams aren't just about pap smears\nWe check for [CONDITION], [CONDITION], discuss contraception, screen for [ISSUE], and answer ALL your questions - even the \"embarrassing\" ones.\n\n4️⃣ [SYMPTOM] isn't something you have to \"just deal with\"\nThere are [X] different treatment options depending on your goals, lifestyle, and preferences. One size doesn't fit all.\n\n5️⃣ We've heard it all before - nothing shocks us\nThat thing you're worried about mentioning? We discuss it 10 times a day. Your health > your embarrassment.\n\nWhat question have you been too embarrassed to ask? Drop it in the comments (anonymously if you prefer!) and let's normalize these conversations. 👇\n\nOr join our private Facebook group [GROUP NAME] where women support each other through health questions in a judgment-free zone.\n\n#WomensHealth #HealthEducation #OBGYNTips #KnowYourBody #HealthQuestions"
+      },
+      "authority": {
+        "template": "Can we talk about medical gaslighting in women's health? 🗣️\n\nI've been practicing for [X] years, and I'm still shocked by stories I hear from new patients:\n\n\"My last doctor said my debilitating cramps were normal.\"\n\"I was told I was too young to have [CONDITION].\"\n\"They said it was anxiety without running any tests.\"\n\"I felt rushed and dismissed every appointment.\"\n\nHere's what I want every woman to know:\n\n✅ Pain that disrupts your life is NEVER normal\n✅ Your symptoms deserve investigation, not dismissal\n✅ You have the right to ask questions and expect answers\n✅ Second opinions are not only okay - they're encouraged\n✅ Good providers LISTEN more than they talk\n\nThe data backs this up: Women wait an average of [X] years for [CONDITION] diagnosis, often seeing [Y] providers first. This isn't acceptable.\n\nWhat needs to change:\n\n🔹 Believe women's symptom reports\n🔹 Spend adequate time in appointments (we schedule [X] minutes minimum)\n🔹 Explain the \"why\" behind recommendations\n🔹 Offer multiple treatment options\n🔹 Create safe spaces for honest conversations\n\nAt [PRACTICE NAME], this is our standard - not our exception.\n\nIf you've experienced medical gaslighting, you're not alone. Share your story below (if comfortable) or send me a message. Your voice matters. Your health matters.\n\nAnd if you're in [LOCATION] looking for a provider who actually listens, we're here. Link in comments.\n\n#MedicalGaslighting #WomensHealth #PatientAdvocacy #HealthcareReform #ListenToWomen #BelieveWomen"
+      },
+      "promotional": {
+        "template": "🌸 Now Accepting New Patients in [LOCATION]\n\nFinding a women's health provider who truly listens shouldn't be this hard.\n\nBut according to our recent patient survey, that's exactly what brought [X]% of our patients to us - they were tired of:\n\n❌ Rushed 10-minute appointments\n❌ Symptoms being dismissed as \"stress\" or \"normal\"\n❌ Waiting months for appointments\n❌ Feeling judged instead of supported\n❌ Providers who talk at them, not with them\n\nWhat makes us different:\n\n✅ [X]-minute appointment minimum - we actually have time to listen\n✅ Same-week availability for urgent concerns\n✅ Evening and weekend hours for working women\n✅ Telehealth options when appropriate\n✅ Comprehensive care: [SERVICE], [SERVICE], [SERVICE], [SERVICE]\n✅ All-female provider team (if that's your preference)\n✅ Transparent pricing and insurance navigation help\n\nWe treat:\n• [CONDITION] and painful periods\n• Fertility concerns and family planning\n• Pregnancy care and high-risk obstetrics\n• Menopause management\n• [CONDITION], [CONDITION], and hormonal issues\n• Annual exams and preventive care\n\nReal patient review:\n\"[TESTIMONIAL QUOTE ABOUT FEELING HEARD AND RESPECTED]\" - [PATIENT NAME/INITIAL]\n\n📍 Conveniently located in [LOCATION] with free parking\n📱 Book online 24/7 or call [PHONE]\n💳 Accepting [INSURANCE], [INSURANCE], and most major plans\n\nYour health journey deserves a partner who respects your time, believes your symptoms, and empowers your decisions.\n\nReady to experience the difference? Link to book: [WEBSITE]\n\nQuestions? Comment below or message us directly. We respond within 24 hours!\n\n#[City]WomensHealth #OBGYNCare #NewPatients #WomensClinic #HealthcareYouDeserve #[City]Healthcare"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You finally found a doctor who doesn't say 'it's just stress' 👀",
+        "script": "[0-3sec] Text overlay: \"When your new OB-GYN actually LISTENS\" *relieved face*\n\n[3-10sec] \"So you're telling me debilitating cramps AREN'T normal?\" *shocked face* \"Let's run some tests\"\n\n[10-25sec] Quick cuts showing:\n- Text: \"Previous doctor: just take ibuprofen\"\n- Text: \"New doctor: let's check for endometriosis, PCOS, fibroids\"\n- Text: \"Previous: you're too young for that\"\n- Text: \"New: age doesn't determine symptoms\"\n\n[25-40sec] \"Things my OB-GYN does that should be STANDARD:\"\n✓ Believes me\n✓ Runs actual tests\n✓ Explains my options\n✓ Doesn't rush me out\n\n[40-55sec] \"Your symptoms deserve answers, not dismissal. Period pain that makes you miss work/school isn't 'just bad luck'\"\n\n[55-60sec] Text overlay: \"Know your worth. Find a provider who does too\" + practice handle\n\nTrending sound: [CURRENT EMPOWERMENT AUDIO]\nText overlays throughout\nStitch-friendly ending"
+      },
+      "authority": {
+        "hook": "OB-GYN here: Stop Googling, start asking ME 👇",
+        "script": "[0-3sec] \"As an OB-GYN, these are the questions you're Googling that you should just ask me:\"\n\n[3-15sec] Fast-paced text overlays with provider reacting:\n\"Is it normal to bleed after sex?\" → \"Let's find out WHY\"\n\"Should periods hurt this much?\" → \"Absolutely not\"\n\"Can I get pregnant with PCOS?\" → \"Yes, here's how\"\n\n[15-35sec] \"Here's the thing - Google can't:\"\n• Examine you\n• Run proper tests\n• Give personalized advice\n• Prescribe treatment\n• Tell you what's normal FOR YOU\n\n[35-50sec] \"But Google CAN make you spiral at 2am thinking you have [RARE CONDITION] when it's actually [COMMON TREATABLE THING]\"\n\n[50-60sec] \"So next appointment, ask the 'embarrassing' questions. We've heard it ALL. Your health > your ego.\"\n\nText overlay: \"Questions? Drop them below\" + practice handle\n\nFormat: Talking head, good lighting, professional but approachable, casual scrubs or white coat"
+      },
+      "promotional": {
+        "hook": "Red flags your OB-GYN is gaslighting you 🚩",
+        "script": "[0-3sec] Text: \"RUN if your OB-GYN says this\" *concerned face*\n\n[3-25sec] Quick cuts with text overlays:\n🚩 \"Your pain is normal for periods\"\n🚩 \"You're too young to have [condition]\"\n🚩 \"It's probably just stress\"\n🚩 \"Lose weight and it'll get better\" (without tests)\n🚩 \"I don't have time for all these questions\"\n\n[25-40sec] \"What you SHOULD hear instead:\"\n✅ \"Let's investigate what's causing this\"\n✅ \"Tell me more about your symptoms\"\n✅ \"Here are your options\"\n✅ \"That's a great question\"\n\n[40-55sec] \"At [PRACTICE], we actually listen because your symptoms are VALID and deserve answers, not dismissal\"\n\n[55-60sec] \"[LOCATION] patients: link in bio to book with providers who believe you\"\n\nText overlay: \"You deserve better\" + CTA\n\nDuet/Stitch enabled for engagement\nRelatable, validating tone\nComment section becomes community support"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Is this normal? [SYMPTOM] explained by Dr. [NAME]",
+        "preview": "Plus: when to schedule an appointment vs. when to wait",
+        "body": "Hi [FIRST_NAME],\n\nI get asked this question almost daily: \"Is it normal to have [SYMPTOM]?\"\n\nHere's the truth: Just because something is common doesn't mean it's normal or that you have to live with it.\n\n📊 The facts:\n• [X]% of women experience [SYMPTOM]\n• Only [Y]% seek treatment\n• Average wait time before diagnosis: [Z] years\n\nWhat causes [SYMPTOM]:\n1. [CAUSE] - affects [X]% of cases\n2. [CAUSE] - often related to [FACTOR]\n3. [CAUSE] - requires evaluation\n\n🚨 When to schedule an appointment:\n• [SYMPTOM] lasts longer than [TIMEFRAME]\n• Pain level above [X]/10\n• [SYMPTOM] interferes with daily activities\n• You've tried [TREATMENT] without improvement\n\n✅ What we can do:\n• Comprehensive diagnostic testing\n• [TREATMENT OPTION]\n• [TREATMENT OPTION]\n• Personalized treatment plan\n\nReal patient story:\n[BRIEF TESTIMONIAL ABOUT SYMPTOM RESOLUTION]\n\n➡️ Ready for answers? Book your appointment: [LINK]\n\nQuestions? Just reply to this email - I read every response.\n\nTo your health,\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. Forward this to a friend who needs to hear it. Knowledge is power. 💪"
+      },
+      "authority": {
+        "subject": "Why I'm done saying 'it's just stress' to my patients",
+        "preview": "A letter about medical gaslighting in women's health",
+        "body": "Hi [FIRST_NAME],\n\nAfter [X] years in women's health, I need to address something that's been bothering me about our industry.\n\nToo many women come to me after years of being told:\n• \"It's just stress\"\n• \"Lose weight and it'll improve\"\n• \"That's normal for periods\"\n• \"You're too young for that condition\"\n\nWithout any diagnostic testing. Without real investigation. Without being heard.\n\nThis is medical gaslighting, and it needs to stop.\n\n📈 The impact:\n• [X] year average delay in [CONDITION] diagnosis\n• Women see [Y] providers before getting answers\n• [Z]% report feeling dismissed by healthcare providers\n\nWhat I'm doing differently:\n\n1. LISTENING FIRST\n[X]-minute appointments minimum because your story matters\n\n2. BELIEVING SYMPTOMS\nIf you say something's wrong, we investigate - period\n\n3. EVIDENCE-BASED TESTING\nDiagnostics before dismissals\n\n4. SHARED DECISION-MAKING\nYour body, your choice, our support\n\nThis should be standard care, not exceptional care.\n\n💭 My commitment to you:\nEvery symptom taken seriously. Every question answered thoroughly. Every concern validated.\n\nBecause you deserve a healthcare partner who respects your experience and expertise about your own body.\n\nIf you've felt dismissed elsewhere, I see you. And I'm here to help.\n\n📅 Book a consultation: [LINK]\n\nYour advocate in health,\nDr. [NAME]\n\nP.S. Know someone who needs to hear this? Forward this email. Let's change the narrative together."
+      },
+      "promotional": {
+        "subject": "Your annual exam is due (+ why it matters more than you think)",
+        "preview": "Schedule before [DATE] for insurance coverage + what we actually check",
+        "body": "Hi [FIRST_NAME],\n\nOur records show it's been about a year since your last visit - time for your annual exam!\n\nI know, I know. It's easy to push this off. But here's what you might not know:\n\n🔍 Your annual exam checks for:\n✓ [CONDITION] (affects 1 in [X] women)\n✓ [CONDITION] (early detection = [Y]% better outcomes)\n✓ Hormonal imbalances causing [SYMPTOM]\n✓ [SCREENING] based on your age/history\n✓ Plus: time to discuss ANY health concerns\n\n⏰ Why schedule now:\n• Your insurance resets [DATE] - use those benefits\n• We're booking [X] weeks out for preferred times\n• Early detection makes treatment easier\n• [CURRENT MONTH] is our least busy month = more appointment flexibility\n\n📋 What to expect:\n• [X]-minute appointment (we don't rush)\n• Comfortable, private discussion\n• All your questions answered\n• Same-day results when possible\n• Clear next steps\n\n🎁 BONUS: Book this week and receive:\n[INCENTIVE - e.g., complimentary wellness consultation, extended appointment time, etc.]\n\n\"I finally have a doctor who doesn't make me feel like I'm wasting their time. [DOCTOR NAME] spent 45 minutes answering my questions!\" - [PATIENT NAME]\n\n📅 Schedule options:\n• Online: [BOOKING LINK] (available 24/7)\n• Call/Text: [PHONE NUMBER]\n• Reply to this email\n\nEvening and weekend appointments available!\n\n💳 Insurance accepted: [LIST]\nSelf-pay options available\n\nYour health is an investment, not an expense. Let's make sure you're thriving, not just surviving.\n\nSee you soon,\n[PRACTICE NAME] Team\n\nP.S. Need to reschedule an existing appointment? Use this link: [LINK]\n\n---\nQuestions? Call us at [PHONE] - we're here to help!"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] women found relief from painful periods in [timeframe] with this approach",
+      "[X]% of our patients got pregnant within [timeframe] after starting fertility treatment",
+      "[X] signs your heavy bleeding isn't normal (and what to do in [timeframe])"
+    ],
+    "question_hooks": [
+      "Are you missing work every month because of debilitating cramps?",
+      "Are you tired of being dismissed when you know something isn't right with your body?",
+      "Are you changing tampons every hour and wondering if that's normal?"
+    ],
+    "story_hooks": [
+      "How [patient name] finally got answers after [X] years of painful periods",
+      "How [patient name] conceived after [X] months of trying with our fertility support",
+      "How [patient name] found a doctor who actually listened to her concerns about [symptom]"
+    ],
+    "fear_hooks": [
+      "Is your painful intercourse a sign of [underlying condition] you're ignoring?",
+      "Is your heavy bleeding putting you at risk for [health complication]?",
+      "Are your recurring UTIs masking a more serious [condition] that needs attention?"
+    ],
+    "howto_hooks": [
+      "How to get relief from menopause symptoms without feeling dismissed by your doctor",
+      "How to advocate for your fertility concerns without waiting another [X] months",
+      "How to manage PCOS symptoms without feeling overwhelmed by conflicting advice"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your doctor actually listens",
+      "body": "Show split screen - left side: woman talking to dismissive doctor (looking at phone, interrupting). Right side: attentive provider (eye contact, taking notes, nodding). Text overlays of real patient phrases: 'It's probably just stress' vs 'Tell me more about your symptoms' / 'That's normal for women' vs 'Let's run some tests' / 'You're overreacting' vs 'Your pain is valid'. End with provider saying 'You deserve to be heard.' Show clinic branding.",
+      "cta": "This is what care should feel like. Link in bio to book."
+    },
+    "reels": {
+      "hook": "5 things your OB-GYN wants you to know",
+      "body": "Fast-paced text on screen with provider speaking to camera: 1) Painful periods aren't normal 2) You can ask for a female provider 3) Telehealth is an option 4) Your sexual history won't be judged 5) Second opinions are your right. Upbeat music, quick cuts between facts.",
+      "cta": "Save this and share with someone who needs to hear it"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Share your 'I finally felt heard' moment. Tell us about a time a healthcare provider actually listened to your concerns. What did they do differently? How did it make you feel? (30-60 seconds, can be anonymous)",
+      "hashtag": "#IFinallyFeltHeard"
+    },
+    {
+      "prompt": "Show your self-care routine during your period/menopause/pregnancy. What actually helps you get through the hard days? No filters, just real life. Bonus points for showing the mess!",
+      "hashtag": "#RealWomensHealth"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Medical gaslighting bingo card - checkboxes for 'told it's just stress,' 'dismissed pain as normal,' 'suggested it's anxiety,' etc. with 'How many have you experienced?' caption",
+      "why": "Validates shared frustration, highly relatable, drives comments sharing personal stories, positions brand as acknowledging the problem"
+    },
+    {
+      "angle": "Before/after carousel: 'What I wish I knew about [perimenopause/PCOS/endometriosis] at 25 vs what I know now at 35' with myth-busting facts women aren't told early enough",
+      "why": "Educational saves for reference, fills knowledge gap competitors ignore, shareable to younger women as preventive education, positions brand as educator"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:22:11.546Z",
+    "last_tier2_refresh": "2025-11-27T20:22:11.546Z",
+    "last_tier3_refresh": "2025-11-27T20:22:11.546Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:22:11.546Z"
+  }
+}

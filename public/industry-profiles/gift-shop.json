@@ -1,0 +1,1736 @@
+{
+  "industry": "Gift Shop",
+  "industry_name": "Gift Shop",
+  "naics_code": "453220",
+  "category": "Retail",
+  "subcategory": "Specialty Retail",
+  "customer_triggers": [
+    {
+      "trigger": "Last-minute birthday realization",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Anniversary approaching within 48 hours",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Hospital visit for friend or family",
+      "urgency": 8,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Holiday shopping procrastination",
+      "urgency": 9,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Corporate event gift requirements",
+      "urgency": 7,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Wedding guest obligation",
+      "urgency": 6,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Thank you gesture needed",
+      "urgency": 5,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Apology gift requirement",
+      "urgency": 8,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Housewarming party invitation",
+      "urgency": 6,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Tourist souvenir shopping",
+      "urgency": 4,
+      "frequency": "daily"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Realizes gift-giving occasion through calendar reminders, social media posts, or sudden recollection - typically 24-72 hours before needed",
+    "consideration": "Mentally budgets $25-150, considers recipient preferences, browses 2-3 shops or online options, seeks unique but safe choices",
+    "decision": "Makes purchase based on visual appeal (43%), uniqueness (28%), price point (19%), and convenience (10%) - average decision time is 12 minutes in-store",
+    "retention": "Returns for seasonal shopping (67% during holidays), special occasions (34% repeat within 6 months), develops loyalty through personalized service and gift-wrapping",
+    "advocacy": "Shares discoveries on social media (23% post purchases), recommends for hard-to-shop-for recipients, brings friends during subsequent visits"
+  },
+  "transformations": [
+    {
+      "from": "Panic about forgotten occasion",
+      "to": "Relief and confidence in gift choice",
+      "emotional_value": "Peace of mind worth 30% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic retail option",
+      "to": "Thoughtful, curated selection",
+      "emotional_value": "Personal touch validates relationship",
+      "worth_premium": true
+    },
+    {
+      "from": "Empty-handed anxiety",
+      "to": "Prepared and considerate friend",
+      "emotional_value": "Social validation and approval",
+      "worth_premium": true
+    },
+    {
+      "from": "Time-stressed shopper",
+      "to": "Efficient problem-solver",
+      "emotional_value": "Time savings worth $20-40",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain gift-giver",
+      "to": "Confident presenter",
+      "emotional_value": "Expertise and curation valued",
+      "worth_premium": false
+    },
+    {
+      "from": "Budget-conscious buyer",
+      "to": "Value-optimized purchaser",
+      "emotional_value": "Smart shopping satisfaction",
+      "worth_premium": false
+    },
+    {
+      "from": "Impersonal online shopping",
+      "to": "Memorable gift experience",
+      "emotional_value": "Enhanced relationship building",
+      "worth_premium": true
+    },
+    {
+      "from": "Standard presentation",
+      "to": "Beautiful gift package",
+      "emotional_value": "Premium unboxing experience",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average transaction value increase to $75+",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Gift wrap attachment rate above 40%",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Repeat customer rate reaching 35%",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Inventory turnover of 6-8 times annually",
+      "timeframe": "yearly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction scores above 4.5/5",
+      "timeframe": "ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Social media mentions increasing 15% quarterly",
+      "timeframe": "quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Corporate account acquisition of 2-3 monthly",
+      "timeframe": "monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Event is tomorrow and stores close at 8 PM - need something now",
+    "Hospital visiting hours end at 9 PM - must arrive with appropriate gift",
+    "Birthday party starts in 3 hours - no time for online ordering",
+    "Flight leaves in 2 hours - need local souvenir immediately",
+    "Anniversary dinner reservation at 7 PM - gift needed before",
+    "Office Secret Santa exchange at 2 PM today",
+    "Mother's Day flowers sold out everywhere else - last chance"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Prices seem high for what it is",
+      "response": "Our items are curated from local artisans and include complimentary gift wrapping valued at $8, plus we guarantee recipient satisfaction",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "I can find this cheaper online",
+      "response": "You're absolutely right, but you need it today, and we'll help you choose the perfect item in 10 minutes with expert guidance",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Not sure what they'd like",
+      "response": "We've helped over 10,000 customers choose perfect gifts - let me ask you three quick questions to narrow it down",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Don't have time to browse",
+      "response": "Tell me your budget and occasion - I'll show you our three most popular options that ship 95% satisfaction",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Worried it might break",
+      "response": "Everything includes our safe-arrival guarantee, plus we'll pack it museum-quality at no extra charge",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Need something more personal",
+      "response": "We offer complimentary personalization on 40% of our items - takes just 15 minutes while you wait",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Parking is difficult here",
+      "response": "We validate for 2 hours and offer curbside pickup - just call when you're outside",
+      "effectiveness": 7.2
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "30-day exchange policy on unopened items",
+      "Satisfaction guarantee with gift receipt",
+      "Free replacement if damaged within 7 days",
+      "Price match within 14 days"
+    ],
+    "proof_points": [
+      "4.7-star Google reviews from 500+ customers",
+      "Featured in Local Living Magazine 'Best Of' three years running",
+      "Trusted by 50+ local businesses for corporate gifts",
+      "12 years serving the community"
+    ],
+    "risk_mitigation": "Gift receipts standard, liberal exchange policy, gift cards as fallback option, expert staff guidance reduces poor choices by 70%"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stuck",
+      "forgot",
+      "last-minute",
+      "no idea",
+      "panic",
+      "rushed",
+      "desperate",
+      "clueless",
+      "overwhelmed",
+      "running out of time"
+    ],
+    "solution_words": [
+      "perfect",
+      "unique",
+      "thoughtful",
+      "special",
+      "memorable",
+      "one-of-a-kind",
+      "locally-made",
+      "personalized",
+      "curated",
+      "meaningful"
+    ],
+    "avoid_jargon": [
+      "SKU",
+      "inventory",
+      "markup",
+      "wholesale",
+      "vendor",
+      "POS",
+      "shrinkage",
+      "planogram",
+      "merchandising",
+      "back-stock"
+    ]
+  },
+  "power_words": [
+    "exclusive",
+    "handcrafted",
+    "limited-edition",
+    "artisan",
+    "personalized",
+    "curated",
+    "boutique",
+    "one-of-a-kind",
+    "memorable",
+    "thoughtful",
+    "unique",
+    "special",
+    "perfect",
+    "stunning",
+    "elegant",
+    "charming",
+    "delightful",
+    "exquisite",
+    "distinctive",
+    "remarkable",
+    "authentic",
+    "original",
+    "bespoke",
+    "signature",
+    "premium",
+    "treasured",
+    "cherished",
+    "meaningful",
+    "unforgettable",
+    "extraordinary"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "clearance",
+    "generic",
+    "mass-produced",
+    "common",
+    "ordinary",
+    "basic",
+    "standard",
+    "regular",
+    "knockoff",
+    "imitation",
+    "wholesale",
+    "bulk",
+    "leftover",
+    "damaged",
+    "imperfect",
+    "budget",
+    "economical",
+    "marked-down"
+  ],
+  "headline_templates": [
+    {
+      "template": "Last-Minute Gifts That Don't Look Last-Minute",
+      "expected_ctr": 8.2,
+      "use_case": "Email campaigns during gift seasons"
+    },
+    {
+      "template": "The Perfect [Occasion] Gift in Under 10 Minutes",
+      "expected_ctr": 7.5,
+      "use_case": "Google Ads for specific events"
+    },
+    {
+      "template": "Why 2,000+ Locals Trust Us for Special Occasions",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof messaging"
+    },
+    {
+      "template": "Gifts So Good, You'll Want to Keep Them",
+      "expected_ctr": 7.1,
+      "use_case": "Product showcase ads"
+    },
+    {
+      "template": "From Panic to Perfect: Gift Solutions Today",
+      "expected_ctr": 8.7,
+      "use_case": "Urgency-based campaigns"
+    },
+    {
+      "template": "Locally Crafted, Nationally Appreciated",
+      "expected_ctr": 6.3,
+      "use_case": "Artisan product promotion"
+    },
+    {
+      "template": "Gift Wrapping That Gets More Compliments Than the Gift",
+      "expected_ctr": 7.8,
+      "use_case": "Service differentiation"
+    },
+    {
+      "template": "Open Until 9 PM: Your Gift Emergency Room",
+      "expected_ctr": 9.2,
+      "use_case": "Late-hour promotion"
+    },
+    {
+      "template": "Corporate Gifts That Actually Get Kept",
+      "expected_ctr": 6.9,
+      "use_case": "B2B marketing"
+    },
+    {
+      "template": "Turn Forgotten Anniversaries into Memorable Moments",
+      "expected_ctr": 8.4,
+      "use_case": "Problem-solution messaging"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Reserve Your Gift for Pickup in 30 Minutes",
+      "conversion_rate": 12.3,
+      "placement": "Product pages"
+    },
+    {
+      "template": "Get Free Gift Wrapping Today Only",
+      "conversion_rate": 14.7,
+      "placement": "Homepage banner"
+    },
+    {
+      "template": "See What's Perfect for [Occasion] →",
+      "conversion_rate": 10.8,
+      "placement": "Category navigation"
+    },
+    {
+      "template": "Chat with a Gift Expert Now",
+      "conversion_rate": 9.4,
+      "placement": "Mobile sticky button"
+    },
+    {
+      "template": "Join 2,000+ Happy Gift Givers",
+      "conversion_rate": 8.6,
+      "placement": "Newsletter signup"
+    },
+    {
+      "template": "Claim Your First-Time Buyer Discount",
+      "conversion_rate": 15.2,
+      "placement": "Exit intent popup"
+    },
+    {
+      "template": "Browse Our Staff Picks",
+      "conversion_rate": 11.1,
+      "placement": "Email campaigns"
+    },
+    {
+      "template": "Schedule Your Corporate Consultation",
+      "conversion_rate": 7.8,
+      "placement": "B2B landing pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "POV: You remembered their birthday with 2 hours to spare 😅 We've got you covered until 9 PM tonight! #GiftGoals #LocalLove",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "🎁 Customer Spotlight: Sarah found the perfect anniversary gift in just 10 minutes! Here's what she picked... [photo] What occasion are you shopping for?",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "Panic Level: Forgot anniversary. Solution Level: Found perfect gift + free wrapping in 15 minutes. 🙌 Open late tonight!",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Under-$50 Gifts That Look Like You Spent $100+ | Curated by [Shop Name] #GiftIdeas #GiftGuide",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "Rating gift reactions until someone cries happy tears 🥺 Day 3: Handcrafted jewelry box... #GiftTok #ShopLocal",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Corporate gifting tip: Personalized items have 3x higher retention rate than generic swag. Let's discuss your Q4 gifting strategy.",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Speed-wrapping challenge: Our staff vs. department stores. Spoiler: We include it free 🎁",
+      "engagement_rate": 9.1
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐ New arrival alert! Limited edition local artist collaboration - only 20 pieces available. First come, first served!",
+      "engagement_rate": 5.5
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: You left this in your cart (and your anniversary is in 3 days) 👀 | Body: Don't worry, we can have it wrapped and ready by tomorrow...",
+      "engagement_rate": 22.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only gift shop open until 9 PM every night - never miss an occasion",
+      "rank": 1,
+      "differentiator": "Extended hours when others close at 6 PM"
+    },
+    {
+      "prop": "Free professional gift wrapping on all purchases - saves 15 minutes and looks stunning",
+      "rank": 2,
+      "differentiator": "$8 value competitors charge for"
+    },
+    {
+      "prop": "Curated local artisan products you won't find anywhere else",
+      "rank": 3,
+      "differentiator": "Exclusive partnerships with 30+ makers"
+    },
+    {
+      "prop": "Gift consultants who remember your recipients and preferences",
+      "rank": 4,
+      "differentiator": "Personal shopping experience at no extra cost"
+    },
+    {
+      "prop": "Same-day personalization on hundreds of items",
+      "rank": 5,
+      "differentiator": "In-house engraving and embroidery"
+    },
+    {
+      "prop": "Corporate accounts with NET30 terms and volume discounts",
+      "rank": 6,
+      "differentiator": "B2B flexibility most gift shops don't offer"
+    },
+    {
+      "prop": "Gift registry for all occasions - not just weddings",
+      "rank": 7,
+      "differentiator": "Unique service for birthdays, anniversaries, housewarmings"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Discover extraordinary gifts from acclaimed local artisans. Our concierge service ensures every detail reflects your impeccable taste. Complimentary luxury wrapping and personalization within hours.",
+    "budget_conscious": "Beautiful gifts starting at $15. Mix-and-match gift sets let you create impressive presents within any budget. Our free wrapping makes every gift look like you spent more.",
+    "enterprise": "Streamline your corporate gifting with dedicated account management, custom branding options, and flexible invoicing. Volume discounts starting at 25 units with guaranteed delivery dates."
+  },
+  "trust_signals": [
+    {
+      "signal": "12 Years in Business - Same Location",
+      "importance": 9,
+      "format": "Storefront signage and about page"
+    },
+    {
+      "signal": "500+ Five-Star Reviews",
+      "importance": 8,
+      "format": "Review widget on homepage"
+    },
+    {
+      "signal": "Featured in Local Media 20+ Times",
+      "importance": 7,
+      "format": "Press logo banner"
+    },
+    {
+      "signal": "Certified B Corporation",
+      "importance": 6,
+      "format": "Footer certification badge"
+    },
+    {
+      "signal": "Member of Chamber of Commerce",
+      "importance": 5,
+      "format": "Membership plaque display"
+    },
+    {
+      "signal": "Gift Wrapping Competition Winner 2022",
+      "importance": 6,
+      "format": "Award display at register"
+    },
+    {
+      "signal": "100% Satisfaction Guarantee",
+      "importance": 8,
+      "format": "Policy page and receipts"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2,847 happy customers served last month",
+      "credibility_score": 8.5,
+      "context": "Updated monthly on website dashboard"
+    },
+    {
+      "stat": "Average 4.7/5 stars across all review platforms",
+      "credibility_score": 9.2,
+      "context": "Aggregated from Google, Yelp, Facebook"
+    },
+    {
+      "stat": "92% of gift recipients express delight",
+      "credibility_score": 7.8,
+      "context": "Based on follow-up survey data"
+    },
+    {
+      "stat": "Recommended by 9 out of 10 customers",
+      "credibility_score": 8.9,
+      "context": "NPS score of 67"
+    },
+    {
+      "stat": "Corporate clients include 50+ local businesses",
+      "credibility_score": 7.4,
+      "context": "B2B testimonial collection"
+    },
+    {
+      "stat": "15-minute average shopping time vs 45 minutes elsewhere",
+      "credibility_score": 6.8,
+      "context": "Time-saving efficiency metric"
+    }
+  ],
+  "quality_indicators": [
+    "Price points above $40 suggest artisan/handcrafted quality",
+    "Detailed product stories and maker profiles indicate authenticity",
+    "Museum-quality gift wrapping with wax seals shows premium service",
+    "Limited quantities and numbered editions signal exclusivity",
+    "Natural materials and sustainable packaging appeal to conscious consumers",
+    "Personalization options distinguish from mass-market alternatives"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Three days after purchase when recipient has received and reacted to gift",
+    "ask_method": "Email with photo upload option and 30-second video testimonial link, incentivized with 15% off next purchase"
+  },
+  "competitive_advantages": [
+    "Only gift shop with in-house personalization completing same-day",
+    "Exclusive distributor for 5 nationally recognized artisan brands",
+    "Latest closing time (9 PM) among all specialty retailers in area",
+    "Only shop offering validated parking for 2 hours free",
+    "Unique gift concierge service remembering past purchases and recipients",
+    "Corporate gifting program with NET30 terms rare in retail"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $200+ statement pieces prominently to make $50-75 gifts seem reasonable",
+    "sensitivity": "Sweet spot between $35-85 for individual gifts, $100-250 for corporate",
+    "sweet_spots": [
+      "$49.99 for just-under-fifty psychology",
+      "$75 for substantial gift feeling",
+      "$125 for special occasions",
+      "$200+ for milestone moments"
+    ],
+    "decoy_pricing": "Offer good-better-best at $35/$55/$75 to drive 61% to middle option"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 50,
+    "approval_required": 150,
+    "competitor_research": 75
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.25,
+    "weekend": 1.15,
+    "holiday": 1.35
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express Gift",
+      "price_range": "$25-50",
+      "target_customer": "Last-minute shoppers",
+      "margin": 42
+    },
+    {
+      "tier": "Signature Selection",
+      "price_range": "$50-150",
+      "target_customer": "Relationship gifts",
+      "margin": 48
+    },
+    {
+      "tier": "Executive Collection",
+      "price_range": "$150+",
+      "target_customer": "Corporate and milestone",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle complementary items for 15% higher margins than individual sales",
+    "Push gift wrapping add-on with 80% margin at $8-12 price point",
+    "Focus on local artisan products with 55% margins vs 35% on national brands",
+    "Create gift sets with 60% margin vs 45% on component items",
+    "Offer personalization services at 70% margin with minimal labor cost",
+    "Develop private label greeting cards at 75% margin vs 40% on branded"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -30,
+      "reason": "Post-holiday slowdown",
+      "opportunity": "Valentine's Day prep marketing"
+    },
+    {
+      "month": "February",
+      "variation": 45,
+      "reason": "Valentine's Day surge",
+      "opportunity": "Romance-themed displays and packages"
+    },
+    {
+      "month": "March",
+      "variation": -10,
+      "reason": "Between holidays lull",
+      "opportunity": "Spring refresh and Easter buildup"
+    },
+    {
+      "month": "April",
+      "variation": 15,
+      "reason": "Easter and spring occasions",
+      "opportunity": "Garden and outdoor themed gifts"
+    },
+    {
+      "month": "May",
+      "variation": 60,
+      "reason": "Mother's Day peak",
+      "opportunity": "Spa and pamper gift sets"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Graduations and Father's Day",
+      "opportunity": "Practical and hobby gifts"
+    },
+    {
+      "month": "July",
+      "variation": -5,
+      "reason": "Summer vacation impact",
+      "opportunity": "Tourist and travel gifts"
+    },
+    {
+      "month": "August",
+      "variation": -15,
+      "reason": "Back-to-school focus",
+      "opportunity": "Teacher appreciation prep"
+    },
+    {
+      "month": "September",
+      "variation": 5,
+      "reason": "Fall occasions begin",
+      "opportunity": "Autumn decor and cozy gifts"
+    },
+    {
+      "month": "October",
+      "variation": 20,
+      "reason": "Halloween and fall festivities",
+      "opportunity": "Seasonal and themed items"
+    },
+    {
+      "month": "November",
+      "variation": 85,
+      "reason": "Holiday shopping begins",
+      "opportunity": "Early bird promotions"
+    },
+    {
+      "month": "December",
+      "variation": 150,
+      "reason": "Peak holiday season",
+      "opportunity": "Extended hours and staff"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Inventory restocking and displays",
+      "avoid": "Major promotions",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Corporate client outreach",
+      "avoid": "Event launches",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week promotional emails",
+      "avoid": "Price changes",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend event prep sales",
+      "avoid": "Inventory counts",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Last-minute weekend gifts",
+      "avoid": "System maintenance",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Peak traffic and sales",
+      "avoid": "Staff training",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Leisurely browsing converts",
+      "avoid": "Rushed service",
+      "conversion_rate": 6.7
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Credit card bills arrive 1st-5th, affecting spending 6th-10th of month",
+    "cash_flow_peaks": "Payday spending surges on 1st, 15th, and last Friday of month",
+    "slow_periods": "Days 20-25 typically slowest except during December"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "February 13th, 4-8 PM",
+      "crisis_type": "Forgotten Valentine's Day",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "December 24th, 10 AM-6 PM",
+      "crisis_type": "Last-minute Christmas",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Mother's Day morning",
+      "crisis_type": "Forgotten Mother's Day",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Saturday 2-5 PM",
+      "crisis_type": "Same-day party gifts",
+      "premium_multiplier": 1.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Quick Pick Express",
+      "components": [
+        "Pre-selected gift",
+        "Basic wrapping",
+        "Card"
+      ],
+      "pricing_model": "Fixed $35-50",
+      "margin": 45
+    },
+    {
+      "name": "Custom Curation",
+      "components": [
+        "Personal consultation",
+        "3-5 options",
+        "Premium wrapping",
+        "Personalization"
+      ],
+      "pricing_model": "Item cost + 20%",
+      "margin": 52
+    },
+    {
+      "name": "Corporate Concierge",
+      "components": [
+        "Account management",
+        "Bulk ordering",
+        "Custom branding",
+        "Delivery"
+      ],
+      "pricing_model": "Volume-based",
+      "margin": 58
+    },
+    {
+      "name": "Subscription Surprises",
+      "components": [
+        "Monthly selection",
+        "Exclusive items",
+        "Free shipping",
+        "VIP perks"
+      ],
+      "pricing_model": "$50-150/month",
+      "margin": 62
+    }
+  ],
+  "upsell_paths": [
+    "Greeting card ($5) → Gift wrap ($8) → Personalization ($15)",
+    "Single item ($40) → Gift set ($75) → Premium collection ($150)",
+    "Walk-in customer → Email list → Loyalty member → VIP subscriber",
+    "One-time buyer → Holiday shopper → Occasion regular → Corporate account",
+    "Basic gift → Add candy/treats ($10) → Include flowers ($25) → Full experience package ($50)",
+    "Standard wrapping → Premium wrapping → Custom packaging → Delivery service"
+  ],
+  "retention_hooks": [
+    "Birthday and anniversary reminders with personalized suggestions",
+    "Loyalty program: $10 reward for every $100 spent",
+    "Exclusive preview access to new artisan collections",
+    "Free gift wrapping for life after 10 purchases",
+    "Personal gift consultant assigned after $500 in purchases",
+    "Quarterly VIP shopping events with 20% off everything",
+    "Gift registry for all occasions with purchase tracking"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Give $10, Get $10 referral cards",
+      "timing": "At checkout with purchase",
+      "incentive": "$10 off $40",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social media photo contest",
+      "timing": "Monthly themed challenges",
+      "incentive": "$100 gift card prize",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Corporate referral bonus",
+      "timing": "After first B2B order",
+      "incentive": "15% commission on first order",
+      "conversion_rate": 15.2
+    },
+    {
+      "strategy": "Gift recipient conversion",
+      "timing": "Thank you card in gift",
+      "incentive": "First-time buyer discount",
+      "conversion_rate": 9.4
+    },
+    {
+      "strategy": "Email forward rewards",
+      "timing": "Holiday promotional emails",
+      "incentive": "Bonus loyalty points",
+      "conversion_rate": 6.8
+    },
+    {
+      "strategy": "Review for rewards",
+      "timing": "3 days post-purchase",
+      "incentive": "20% off next purchase",
+      "conversion_rate": 11.1
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Greeting cards with any gift",
+      "attach_rate": 73,
+      "timing": "Point of sale prompt"
+    },
+    {
+      "service": "Gift wrapping upgrade",
+      "attach_rate": 41,
+      "timing": "After item selection"
+    },
+    {
+      "service": "Candy/chocolate add-on",
+      "attach_rate": 28,
+      "timing": "Register queue display"
+    },
+    {
+      "service": "Personalization services",
+      "attach_rate": 19,
+      "timing": "During product browsing"
+    },
+    {
+      "service": "Delivery option",
+      "attach_rate": 12,
+      "timing": "For purchases over $75"
+    },
+    {
+      "service": "Gift card addition",
+      "attach_rate": 8,
+      "timing": "Uncertainty about choice"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Online marketplace for local artisans",
+      "market_size": "$2.5M additional revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Subscription box service",
+      "market_size": "$500K annual recurring revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Corporate event planning add-on",
+      "market_size": "$1M service expansion",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Second location in nearby mall",
+      "market_size": "$3M revenue location",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Private label product line",
+      "market_size": "$750K wholesale opportunity",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Gift consulting franchise model",
+      "market_size": "$5M+ scaling potential",
+      "difficulty": 10
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Uncommon Goods' user-generated content campaign featuring customer photos with purchased gifts, encouraging sharing with #UncommonGoods. The campaign showcased real customers with their unique gift purchases in authentic settings.",
+        "platform": "Instagram",
+        "why_it_worked": "Authentic user-generated content builds trust and provides social proof. The campaign leveraged customers' desire to share thoughtful gift-giving moments, creating a virtuous cycle of content creation. Visual nature of gifts makes Instagram ideal for showcasing product uniqueness.",
+        "metrics": "Average engagement rate of 3.2% on UGC posts vs 1.8% on standard product posts, with UGC posts generating 2x more saves",
+        "source": "Social Media Today case studies and Instagram analytics reports 2023-2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Paper Source's 'Gift Wrapping Tutorial' video series on YouTube and Instagram Reels, showing quick wrapping techniques for various occasions. Short-form videos (30-60 seconds) demonstrated creative wrapping using their products.",
+        "platform": "Instagram/YouTube",
+        "why_it_worked": "Addressed the complete gift-giving experience beyond just the product. Educational content provided value while subtly showcasing products. Short-form video format aligned with platform algorithms and user preferences for quick, actionable content.",
+        "metrics": "Average 45,000+ views per tutorial video, 4.5% engagement rate, 15% increase in wrapping paper sales during campaign",
+        "source": "Retail Dive marketing case studies 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Local gift shop 'The Found' in Chicago created 'Last-Minute Gift Guides' email series sent 48 hours before major holidays, featuring quick-ship items and local pickup options with specific time slots.",
+        "platform": "Email",
+        "why_it_worked": "Directly addressed the high-urgency, last-minute shopper persona. Clear urgency messaging with specific deadlines created FOMO. Removal of shipping anxiety through pickup options reduced purchase barriers.",
+        "metrics": "42% open rate (vs industry avg 20%), 8.2% click-through rate, 18% conversion rate on featured products",
+        "source": "Email marketing benchmarks from Mailchimp retail case studies 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Anthropologie's gift shop section used TikTok trend-jacking with 'Gift Haul' videos showing curated collections for specific personas (e.g., 'Gifts for your plant-obsessed friend', 'Gifts for the person who has everything').",
+        "platform": "TikTok",
+        "why_it_worked": "Leveraged existing TikTok 'haul' format that users already engage with. Persona-based curation helped indecisive shoppers quickly identify relevant products. Authentic, less-polished video style matched platform expectations.",
+        "metrics": "Videos averaged 125K+ views, 6.8% engagement rate, with top videos reaching 500K+ views",
+        "source": "TikTok for Business case studies and Retail TouchPoints 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Museum gift shops (Getty, MoMA stores) created 'Behind the Product' Instagram Stories showing artisan creators, manufacturing processes, and artist stories for handcrafted items.",
+        "platform": "Instagram Stories",
+        "why_it_worked": "Storytelling justified premium pricing by showing craftsmanship and uniqueness. Ephemeral nature of Stories created urgency. Humanizing products through artisan stories built emotional connection and differentiated from mass-market retailers.",
+        "metrics": "Story completion rates of 78% (vs platform avg 60%), 25% increase in featured product sales, 3.5x more DMs during campaigns",
+        "source": "Museum Store Association marketing reports 2023-2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for retail/gift shops (2024 data)",
+        "best_content_format": "Reels (4.2% avg engagement) and carousel posts (2.8% avg engagement) outperform single images (1.7%)",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Stories per day during peak seasons",
+        "best_posting_times": "Tuesday-Friday 10am-2pm, Saturday 9am-11am, avoid Monday mornings. Peak engagement Thursday 11am-1pm",
+        "source": "Hootsuite Social Media Benchmarks 2024, Sprout Social Retail Industry Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for specialty retail (2024)",
+        "best_content_format": "Video posts (1.2% engagement), especially gift guides and product demonstrations. Live videos for store tours or gift wrapping demos perform 3x better than standard posts",
+        "optimal_frequency": "3-5 posts per week to maintain reach without overwhelming audience",
+        "best_posting_times": "Wednesday-Friday 1pm-3pm, Sunday 12pm-1pm for gift browsing",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Meta Business insights for retail 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for retail brands (significantly higher than other platforms)",
+        "best_content_format": "Short-form video (15-30 seconds) showing gift unboxing, product hauls, gift wrapping tutorials, and 'gift ideas for [persona]' compilations",
+        "optimal_frequency": "1-3 posts per day during peak seasons, 4-5 posts per week off-season",
+        "best_posting_times": "Tuesday-Thursday 7pm-9pm, Friday 5pm-7pm, Saturday 9am-11am",
+        "source": "TikTok for Business Retail Benchmarks 2024, Influencer Marketing Hub 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 19.8%, Click rate: 2.1% for specialty retail",
+        "best_content_format": "Gift guides with clear categorization, last-minute shipping deadline reminders, exclusive early access to new collections. Mobile-optimized single-column layouts perform best",
+        "optimal_frequency": "2-3 emails per week during holidays, 1 email per week off-season. Abandoned cart emails within 1 hour show 40% higher conversion",
+        "best_posting_times": "Tuesday-Thursday 10am-11am, Sunday 6pm-8pm for weekend browsing",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Klaviyo Retail Benchmarks 2024"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "0.2% but high purchase intent (47% of users have purchased based on Pinterest)",
+        "best_content_format": "Vertical pins (2:3 ratio), gift guide boards organized by recipient type, price point, or occasion. Video pins show 2.5x more engagement",
+        "optimal_frequency": "5-10 pins per day, focusing on seasonal content 6-8 weeks before holidays",
+        "best_posting_times": "Saturday 8pm-11pm, Friday 3pm-5pm for weekend planning",
+        "source": "Pinterest Business Insights 2024, Sprout Social Platform Benchmarks 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Occasion Reminder",
+        "example": "Only 2 days until Mother's Day - Still need the perfect gift? | Last-minute birthday panic? We've got you covered (same-day pickup available)",
+        "why_it_works": "Triggers loss aversion and taps into the high-urgency customer trigger. Acknowledges the stress while immediately offering solution. Time-specific language creates immediate action need.",
+        "source": "Gift shop email subject line analysis from Really Good Emails, retail copywriting case studies"
+      },
+      {
+        "hook_pattern": "Persona-Based Curation",
+        "example": "For the friend who has everything | Gifts for the impossible-to-shop-for person | Perfect for your plant-obsessed bestie",
+        "why_it_works": "Reduces decision paralysis by pre-filtering options. Customers immediately self-identify if the content is relevant. Acknowledges the common challenge of finding unique gifts for specific people.",
+        "source": "TikTok and Instagram high-performing gift content analysis, Pinterest trending searches 2024"
+      },
+      {
+        "hook_pattern": "Price Point + Value Justification",
+        "example": "Thoughtful gifts under $30 that don't look cheap | Luxury gifts under $50 (they'll never guess the price) | Small budget, big impact",
+        "why_it_works": "Addresses budget concerns while maintaining quality perception. 'Don't look cheap' acknowledges the desire to appear thoughtful regardless of spend. Removes price-related objections upfront.",
+        "source": "Gift retailer ad copy analysis, Google Ads high-performing headlines for gift category"
+      },
+      {
+        "hook_pattern": "Problem-Solution Transformation",
+        "example": "From panic to perfect in 30 minutes | Never show up empty-handed again | Stop giving boring gifts",
+        "why_it_works": "Directly addresses the emotional transformation customers seek (panic to relief, uncertain to confident). Time-specific promise makes solution feel achievable. Negative framing ('boring', 'empty-handed') creates discomfort that drives action.",
+        "source": "Conversion copywriting examples from CopyHackers, retail marketing case studies"
+      },
+      {
+        "hook_pattern": "Exclusivity + Scarcity",
+        "example": "Handpicked by our buyers (not available on Amazon) | Limited edition - only 12 in stock | One-of-a-kind finds you won't see anywhere else",
+        "why_it_works": "Differentiates from mass-market retailers and online giants. Scarcity creates urgency and FOMO. 'Handpicked' and 'curated' justify premium pricing and position shop as expert.",
+        "source": "Uncommon Goods, Anthropologie, and independent gift shop marketing analysis"
+      },
+      {
+        "hook_pattern": "Social Proof + Validation",
+        "example": "Our most-gifted item this month | What 500+ customers bought for [occasion] | Bestseller for a reason",
+        "why_it_works": "Reduces purchase anxiety through herd behavior validation. Provides social proof that others found this gift appropriate. Particularly effective for uncertain gift-givers seeking confidence.",
+        "source": "E-commerce product page analysis, Amazon and Etsy top-performing product titles"
+      },
+      {
+        "hook_pattern": "Occasion + Emotion Tie-in",
+        "example": "Make them cry (happy tears) | Gifts that say 'I really know you' | The apology gift that actually works",
+        "why_it_works": "Connects product to desired emotional outcome. Acknowledges the relationship-building aspect of gift-giving. Specific occasions (apology, appreciation) help customers quickly identify relevance.",
+        "source": "Hallmark, Papyrus, and greeting card retailer marketing messaging analysis"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I always forget until the last minute and then I panic",
+        "Everything on Amazon looks cheap and impersonal",
+        "I have no idea what to get someone who has everything",
+        "I'm terrible at picking gifts and always second-guess myself",
+        "I need something today but don't want it to look last-minute",
+        "Generic gift cards feel lazy but I don't know what else to do",
+        "I spent an hour online and still couldn't decide",
+        "I don't want to give the same thing everyone else gives",
+        "I'm so stressed about showing up empty-handed",
+        "Everything I find is either too expensive or looks cheap"
+      ],
+      "solution_phrases": [
+        "They had exactly what I needed and I was in and out in 10 minutes",
+        "The staff helped me find something perfect without making me feel dumb",
+        "It looked way more expensive than it was",
+        "They actually loved it and said it was so thoughtful",
+        "I felt confident giving this, not embarrassed",
+        "It was unique - something they wouldn't buy for themselves",
+        "The wrapping made it look like I really put thought into it",
+        "I found something I never would have thought of on my own",
+        "It felt personal, not like something from a big box store",
+        "I actually got compliments on my gift choice"
+      ],
+      "objection_phrases": [
+        "Is this really worth the price compared to Target?",
+        "I could probably find it cheaper online",
+        "What if they don't like it - can I return it?",
+        "I don't have time to browse, I need to decide now",
+        "This seems expensive for something so small",
+        "How do I know this is actually good quality?",
+        "Will this get here in time?",
+        "I'm not sure if this is appropriate for the occasion",
+        "What if someone else gets them the same thing?",
+        "Is this too generic? I want it to feel special"
+      ],
+      "decision_factors": [
+        "Can I pick it up today or get it shipped in time",
+        "Will it look like I put thought into it",
+        "Is it something they won't buy for themselves",
+        "Does the price match the relationship/occasion",
+        "Can I return or exchange it if needed",
+        "Will the packaging/presentation look nice",
+        "Is it actually unique or can they get it anywhere",
+        "Does the staff seem knowledgeable about their products",
+        "Can I see/touch it before buying (not just online photos)",
+        "Will this make me look thoughtful vs cheap or trying too hard"
+      ],
+      "emotional_language": [
+        "relieved",
+        "confident",
+        "panicked",
+        "stressed",
+        "thoughtful",
+        "embarrassed",
+        "validated",
+        "anxious",
+        "proud",
+        "grateful",
+        "overwhelmed",
+        "rescued",
+        "impressed",
+        "appreciated",
+        "clever",
+        "clueless",
+        "desperate",
+        "delighted",
+        "safe choice",
+        "risky"
+      ],
+      "sources": [
+        "Reddit r/gifts, r/giftideas threads 2023-2024",
+        "Yelp and Google reviews for local gift shops in major metros",
+        "Amazon customer reviews for gift category products",
+        "Etsy shop reviews and customer photos",
+        "Facebook gift-giving groups and community discussions",
+        "Twitter/X searches for 'need gift help', 'gift panic', 'last minute gift'",
+        "TikTok comments on gift haul and gift guide videos"
+      ]
+    },
+    "competitive_gaps": [
+      "Real-time inventory visibility for last-minute shoppers (most shops don't show what's available for immediate pickup)",
+      "Gift appropriateness guidance (very few provide context on when/who gifts are appropriate for)",
+      "Post-purchase gift presentation tips (most stop at the sale, don't help with presentation/giving)",
+      "Gift recipient feedback loop (no shops effectively gather/share how recipients reacted to gifts)",
+      "Corporate/bulk gifting with personality (corporate services exist but lack the curation/uniqueness angle)",
+      "Gift giving anxiety content (addressing the emotional/social aspects, not just product features)",
+      "Occasion-based reminder services (proactive outreach before important dates)",
+      "Virtual shopping assistance (most are in-person only or basic e-commerce, missing the consultative middle ground)",
+      "Gift registry alternatives for non-traditional occasions (housewarming, promotion, sympathy that aren't weddings/babies)",
+      "Sustainable/ethical gifting education (mentioned but not deeply explored as decision factor)"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Valentine's Day (Jan 15 - Feb 14)",
+        "opportunity": "High urgency purchases peak Feb 12-13. Male shoppers particularly anxious and willing to pay premium for guidance. Non-romantic Valentine's (Galentine's, self-love) growing trend.",
+        "content_angle": "Last-minute Valentine's救rescue guides, 'Gifts that say I love you without saying it', Galentine's group gift ideas, self-care gift bundles, same-day pickup emphasis"
+      },
+      {
+        "period": "Mother's Day (April - Early May)",
+        "opportunity": "Second highest gift-giving occasion after Christmas. Peak shopping 7-10 days before, with major last-minute spike 2 days before. High emotional stakes drive premium purchases.",
+        "content_angle": "Gifts for every type of mom, not-your-average-mom gifts, gifts from kids of all ages, long-distance mother's day solutions, personalization emphasis"
+      },
+      {
+        "period": "Graduation Season (May - June)",
+        "opportunity": "Often overlooked by major retailers creating opportunity gap. Mix of planned and last-minute purchases. Gift-givers seeking 'next chapter' symbolism.",
+        "content_angle": "Practical + meaningful graduation gifts, college dorm essentials with style, first apartment gifts, career-starter gift sets, milestone celebration ideas"
+      },
+      {
+        "period": "Wedding Season (June - September)",
+        "opportunity": "Consistent weekly demand for wedding guest gifts. Shoppers seeking alternatives to registry items. Last-minute rehearsal dinner/bridal party gifts.",
+        "content_angle": "Off-registry gifts that won't offend, bridal party thank-you gifts, unique card boxes/guest books, last-minute wedding guest救rescue, honeymoon travel gifts"
+      },
+      {
+        "period": "Back to School (August - September)",
+        "opportunity": "Teacher gifts, dorm room personalization, new job/career change gifts often overlooked. Parents seeking non-traditional school supplies.",
+        "content_angle": "Teacher appreciation beyond apple mugs, dorm room personality boosters, desk accessories for home office, first day of school traditions"
+      },
+      {
+        "period": "Holiday Season (November - December)",
+        "opportunity": "Peak revenue period. Multiple occasions (Thanksgiving host gifts, office parties, Christmas, Hanukkah, New Year's). Highest last-minute purchase frequency.",
+        "content_angle": "Gifts by price point, hard-to-shop-for people, bulk corporate gifting, holiday host/hostess gifts, stocking stuffers with impact, shipping deadline countdowns, New Year's fresh start gifts"
+      },
+      {
+        "period": "January - February (Post-Holiday)",
+        "opportunity": "Typically slow period but opportunity for gift card redemption, exchanges, and 'treat yourself' positioning. New Year's resolution tie-ins.",
+        "content_angle": "Gift card shopping assistance, exchange-friendly items, self-care January, organization/fresh start products, Valentine's early bird specials"
+      },
+      {
+        "period": "Hospital/Sympathy Occasions (Year-round)",
+        "opportunity": "Consistent urgent need throughout year. Underserved by most retailers. High emotional sensitivity required. Quick turnaround essential.",
+        "content_angle": "Appropriate sympathy gifts, get well soon beyond flowers, hospital-friendly items (no fragrance/noise), bereavement care packages, what NOT to give guidance"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Hootsuite Social Media Benchmarks 2024",
+      "Sprout Social Retail Industry Report 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Klaviyo Retail Benchmarks 2024",
+      "TikTok for Business Retail Benchmarks 2024",
+      "Pinterest Business Insights 2024",
+      "Social Media Today case studies",
+      "Retail Dive marketing case studies",
+      "Museum Store Association marketing reports 2023-2024",
+      "Reddit r/gifts and r/giftideas communities",
+      "Yelp and Google Business reviews for gift shops",
+      "Really Good Emails subject line database",
+      "Amazon and Etsy product reviews and listings",
+      "Meta Business insights for retail",
+      "Influencer Marketing Hub benchmarks",
+      "CopyHackers conversion copywriting examples",
+      "National Retail Federation seasonal shopping data"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for gift shop specific campaigns (most metrics are engagement-focused)",
+      "Precise ROI data for different content types is proprietary to individual retailers",
+      "LinkedIn benchmarks for gift shops specifically are limited (platform less relevant for B2C gift retail)",
+      "Some seasonal opportunity data is extrapolated from general retail trends rather than gift-shop specific data",
+      "Geographic variations in gift-giving customs and preferences not deeply explored in available sources"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-artisan sneak peeks - Show the craftsmanship and creator stories before reveal",
+        "Week 2: Launch week exclusive access - Limited-edition items with same-day pickup emphasis",
+        "Week 3: Real customers, real reactions - User-generated content showing gifts being received",
+        "Week 4: Last chance for one-of-a-kind finds - Scarcity messaging on remaining inventory"
+      ],
+      "weekly_hooks": [
+        [
+          "Something handcrafted and exclusive is coming (and it's not available on Amazon)",
+          "Meet the artisan behind our most anticipated arrival - only [X] pieces made",
+          "Sneak peek: The gift for people who have everything (launching [date])"
+        ],
+        [
+          "It's here: Limited-edition [product name] - only [X] in stock",
+          "Launch day exclusive: First 20 customers get complimentary museum-quality gift wrapping",
+          "The one-of-a-kind find you won't see anywhere else (available for same-day pickup)"
+        ],
+        [
+          "They cried happy tears - Real customers share their [product] gifting moments",
+          "Our most-gifted new item this week (500+ customers can't be wrong)",
+          "'I've never seen anything like this' - What customers are saying about [product]"
+        ],
+        [
+          "Only [X] left - Don't miss the gift that says 'I really know you'",
+          "Final call: Limited-edition [product] selling out faster than expected",
+          "Last chance for same-day pickup on our bestselling new arrival"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if someone else gets them the same thing?' - Emphasize limited quantity and exclusivity",
+        "Week 2: Address 'Is this really worth the price compared to Target?' - Show artisan story and craftsmanship value",
+        "Week 3: Address 'How do I know this is actually good quality?' - Feature customer testimonials and reactions",
+        "Week 4: Address 'Can I return or exchange it if needed?' - Highlight satisfaction guarantee and exchange policy"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce artisan credentials and creation process videos",
+        "Week 2: Share early access customer unboxing reactions on Stories",
+        "Week 3: Feature detailed customer testimonials with photos of recipients",
+        "Week 4: Showcase inventory scarcity with 'X sold in 48 hours' metrics"
+      ],
+      "cta_progression": [
+        "Week 1: Sign up for launch day early access notification",
+        "Week 2: Shop the collection now (same-day pickup available)",
+        "Week 3: Share your gifting story with #[YourShopName] for a chance to be featured",
+        "Week 4: Reserve yours before they're gone - only [X] remaining"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories/day) - Primary for visual product showcase and UGC",
+        "TikTok (1-2 posts/day) - Behind-the-artisan videos and unboxing content",
+        "Email (2 emails/week) - Early access and launch announcements to existing customers",
+        "Facebook (3-4 posts/week) - Live unboxing and product demonstration videos"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Museum gift shops' 'Behind the Product' Instagram Stories showing artisan creators (78% completion rate, 25% increase in featured product sales) and Uncommon Goods' UGC campaign (3.2% engagement vs 1.8% standard posts). Combines storytelling that justifies premium pricing with social proof that reduces purchase anxiety."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Gift-giving anxiety relief - Addressing common shopping fears and decision paralysis",
+        "Week 2: Persona-based curation - Gifts organized by recipient type (plant-obsessed friend, person who has everything)",
+        "Week 3: Gift presentation mastery - Wrapping tutorials and unboxing experience tips",
+        "Week 4: Price point confidence - Thoughtful gifts at various budgets that don't look cheap",
+        "Week 5: Behind-the-product stories - Artisan features and craftsmanship education",
+        "Week 6: Customer success stories - Real gifting moments and recipient reactions",
+        "Week 7: Occasion appropriateness guides - What to give when and to whom",
+        "Week 8: Staff picks and expert curation - Leveraging in-house expertise for recommendations"
+      ],
+      "weekly_hooks": [
+        [
+          "Stop giving boring gifts - Here's how to find something they won't buy themselves",
+          "I'm terrible at picking gifts - Can you relate? Here's what actually works",
+          "Never show up empty-handed again (our 10-minute gift selection process)"
+        ],
+        [
+          "For the friend who has everything (trust us, they don't have this)",
+          "Gifts for your plant-obsessed bestie that aren't another plant",
+          "Perfect for the impossible-to-shop-for person in your life"
+        ],
+        [
+          "Make it look like you spent hours (when you spent 5 minutes) - Gift wrapping hacks",
+          "The wrapping made it look like I really put thought into it - Quick tutorial",
+          "From panic to perfect presentation in 30 seconds"
+        ],
+        [
+          "Thoughtful gifts under $30 that don't look cheap",
+          "Luxury gifts under $50 (they'll never guess the price)",
+          "Small budget, big impact - Our bestsellers under $40"
+        ],
+        [
+          "Meet the artisan who handcrafts our most-loved [product category]",
+          "Why this costs more than Target (and why it's worth it)",
+          "One-of-a-kind finds you won't see anywhere else - Here's why"
+        ],
+        [
+          "They actually loved it and said it was so thoughtful - Customer story",
+          "What 500+ customers bought for [current occasion]",
+          "Our most-gifted item this month (bestseller for a reason)"
+        ],
+        [
+          "The apology gift that actually works (according to our customers)",
+          "Gifts that say 'I really know you' without saying it",
+          "What NOT to give for [occasion] - Appropriateness guide"
+        ],
+        [
+          "Our staff's personal favorites (and why we'd give them to our own friends)",
+          "Handpicked by our buyers - What we're loving this week",
+          "Expert tip: How to choose a gift in under 10 minutes"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I always second-guess myself' - Build confidence through decision frameworks",
+        "Week 2: Address 'Everything looks the same everywhere' - Showcase unique curation",
+        "Week 3: Address 'I don't have time to make it look nice' - Show quick presentation solutions",
+        "Week 4: Address 'Is this too expensive for something so small?' - Value justification",
+        "Week 5: Address 'How do I know this is good quality?' - Artisan credentials and materials",
+        "Week 6: Address 'What if they don't like it?' - Show high satisfaction rates and stories",
+        "Week 7: Address 'Is this appropriate for the occasion?' - Provide clear guidance",
+        "Week 8: Address 'I could probably find it cheaper online' - Emphasize expertise and immediacy"
+      ],
+      "proof_timing": [
+        "Week 1: Share customer testimonials about reduced shopping stress",
+        "Week 2: Feature engagement metrics on persona-based content (comments saying 'this is perfect for X')",
+        "Week 3: Show tutorial completion rates and customer wrapping photos",
+        "Week 4: Display bestseller badges and 'X customers bought this' social proof",
+        "Week 5: Introduce artisan bios, certifications, and creation process",
+        "Week 6: Heavy UGC featuring recipient reactions and thank-you messages",
+        "Week 7: Share staff expertise credentials and years of experience",
+        "Week 8: Highlight 'helped 10,000+ customers' and satisfaction guarantees"
+      ],
+      "cta_progression": [
+        "Week 1: Download our gift selection guide (lead magnet)",
+        "Week 2: Save this for when you need gift inspiration",
+        "Week 3: Try this technique and tag us in your results",
+        "Week 4: Shop our under-$50 collection",
+        "Week 5: Learn more about our artisan partners",
+        "Week 6: Share your gifting success story with us",
+        "Week 7: Ask our experts for personalized recommendations (DM or visit)",
+        "Week 8: Visit us for 10-minute expert gift selection"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week, 3-4 Stories/day) - Primary platform for visual storytelling and tutorials",
+        "Pinterest (7-10 pins/week) - Evergreen gift guides organized by persona and occasion",
+        "Email (1 email/week) - Educational content and gift guides to nurture list",
+        "TikTok (4-5 posts/week) - Short tutorials and persona-based gift compilations",
+        "Facebook (3 posts/week) - Longer-form educational content and live Q&As"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Paper Source's gift wrapping tutorial series (45K+ views, 4.5% engagement, 15% sales increase) and Anthropologie's persona-based TikTok gift hauls (125K+ views, 6.8% engagement). Addresses customer voice phrases 'I'm terrible at picking gifts' and 'I don't want to give the same thing everyone else gives' through educational value and expert curation."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral gift haul challenges - Encourage sharing of unique finds with branded hashtag",
+        "Week 2: Interactive gift personality quizzes - What does your gift-giving style say about you?"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You found the perfect gift for the person who has everything #[ShopName]Finds",
+          "Gift haul: Everything I'm giving this [season] (none from Amazon)",
+          "Show us your most unique gift find - Best one gets featured + $50 gift card",
+          "This is what [X] looks like when you shop local vs big box stores",
+          "Unboxing gifts that actually made people cry (happy tears)",
+          "Tag someone who's impossible to shop for - We'll help you find their perfect gift",
+          "The gift that made me look like the most thoughtful person ever"
+        ],
+        [
+          "Take our quiz: What's your gift-giving personality? (Link in bio)",
+          "Are you a Last-Minute Panicker or Thoughtful Planner? Find out + get personalized picks",
+          "Your gift-giving style in 3 questions - Plus custom recommendations",
+          "Which gift persona are you? Take the quiz and share your results",
+          "We analyzed 1,000 customers - Here are the 5 gift-giver types (which are you?)",
+          "Comment your biggest gift-giving fear and we'll recommend the perfect solution",
+          "Duet this: Show us your gift-giving panic face vs relief face"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Everything on Amazon looks cheap and impersonal' - Showcase unique, curated alternatives",
+        "Week 2: Address 'I have no idea what to get someone who has everything' - Provide personality-based solutions"
+      ],
+      "proof_timing": [
+        "Week 1: Feature high engagement UGC from customers sharing their finds (repost with permission)",
+        "Week 2: Share quiz completion numbers and most common personality types for social validation"
+      ],
+      "cta_progression": [
+        "Week 1: Share your unique gift finds with #[ShopName]Finds for a chance to win",
+        "Week 1: Tag a friend who needs gift help (we'll DM you both personalized picks)",
+        "Week 1: Duet or stitch this video with your own gift haul",
+        "Week 2: Take the gift personality quiz (link in bio)",
+        "Week 2: Comment your results below - Let's see which type is most common",
+        "Week 2: Share your quiz results to Stories and tag us for personalized recommendations",
+        "Week 2: Visit us with your quiz results for expert-curated picks"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day) - Primary for viral potential and algorithm favor",
+        "Instagram Reels (2 posts/day) - Secondary for reach and shareability",
+        "Instagram Stories (5-7 Stories/day) - Interactive polls, quizzes, and UGC reposts",
+        "Facebook (1 post/day) - Share top-performing TikTok content for broader reach"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Anthropologie's TikTok trend-jacking with gift haul videos (125K+ views, 6.8% engagement, top videos 500K+ views) and TikTok's 5.96% average engagement rate for retail. Leverages existing 'haul' format users engage with while incorporating interactive elements that boost algorithm favor and community participation."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Gift-giving psychology - The science behind why certain gifts resonate",
+        "Week 2: Occasion etiquette mastery - When to give what and navigating tricky situations",
+        "Week 3: Quality identification education - How to spot handcrafted vs mass-produced",
+        "Week 4: Sustainable and ethical gifting - Understanding sourcing and artisan fair trade",
+        "Week 5: Cultural gift-giving traditions - Appropriate practices across different occasions",
+        "Week 6: Gift presentation as art form - Advanced techniques and psychology of unboxing"
+      ],
+      "weekly_hooks": [
+        [
+          "Why expensive gifts sometimes fall flat (and $20 gifts get framed) - The psychology",
+          "The gift-giving mistake 90% of people make (and how to avoid it)",
+          "What your gift actually communicates about your relationship - Expert breakdown"
+        ],
+        [
+          "The apology gift that actually works (according to relationship experts)",
+          "What NOT to give for sympathy - Etiquette guide from 20 years in the business",
+          "Navigating tricky gift situations: When to give, when to skip, what's appropriate"
+        ],
+        [
+          "How to spot handcrafted quality in 10 seconds (what we look for)",
+          "Why this costs $40 and that costs $8 - Materials and craftsmanship explained",
+          "Red flags that a 'handmade' item is actually mass-produced"
+        ],
+        [
+          "Behind our sourcing: How we ensure artisans are fairly compensated",
+          "Sustainable gifting without sacrificing style or quality - Our standards",
+          "Meet the makers: Fair trade certification and what it really means"
+        ],
+        [
+          "Gift-giving traditions across cultures - What we've learned from our diverse community",
+          "The symbolism behind popular gift items (some might surprise you)",
+          "Appropriate gift-giving for different life events - A comprehensive guide"
+        ],
+        [
+          "The psychology of unboxing: Why presentation matters as much as the gift",
+          "Advanced gift wrapping techniques from our expert staff (20+ years experience)",
+          "How to make a $30 gift feel like $100 through presentation"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Generic gift cards feel lazy' - Explain the psychology of thoughtful giving",
+        "Week 2: Address 'Is this appropriate for the occasion?' - Provide expert etiquette guidance",
+        "Week 3: Address 'How do I know this is good quality?' - Teach quality identification",
+        "Week 4: Address 'Is this really worth the price?' - Educate on ethical sourcing costs",
+        "Week 5: Address 'What if I offend them?' - Cultural sensitivity education",
+        "Week 6: Address 'I don't have time to make it look nice' - Show ROI of presentation"
+      ],
+      "proof_timing": [
+        "Week 1: Cite psychological studies on gift-giving and relationship building",
+        "Week 2: Share staff credentials (combined years of experience, customers helped)",
+        "Week 3: Feature artisan certifications and quality standards partnerships",
+        "Week 4: Introduce fair trade partnerships and ethical sourcing certifications",
+        "Week 5: Showcase community testimonials from diverse customer base",
+        "Week 6: Display before/after presentation examples with customer satisfaction data"
+      ],
+      "cta_progression": [
+        "Week 1: Download our complete gift psychology guide",
+        "Week 2: Save our etiquette cheat sheet for future reference",
+        "Week 3: Join our quality identification workshop (free in-store event)",
+        "Week 4: Learn more about our artisan partners and sourcing standards",
+        "Week 5: Share your cultural gift-giving traditions with our community",
+        "Week 6: Book a complimentary gift presentation consultation"
+      ],
+      "platform_priority": [
+        "Instagram (4-5 posts/week, daily Stories) - Carousel posts for educational deep-dives",
+        "Pinterest (8-10 pins/week) - Long-form guides and infographics for evergreen search",
+        "Email (2 emails/week) - Detailed educational content to engaged subscribers",
+        "YouTube (1 video/week) - Long-form tutorials and artisan interviews",
+        "Facebook (3 posts/week) - Live educational sessions and community discussions"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap of 'gift giving anxiety content' and 'gift appropriateness guidance' identified in research. Based on Museum gift shops' behind-the-product storytelling (78% Story completion, 3.5x more DMs) and customer voice decision factor 'Does the staff seem knowledgeable about their products.' Positions shop as expert consultant, not just retailer."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Gift fail to gift win stories - Community sharing of past mistakes and successes",
+        "Week 2: This or that gift debates - Interactive polls driving conversation and preference insights"
+      ],
+      "weekly_hooks": [
+        [
+          "Share your worst gift-giving fail below (we'll help you redeem yourself)",
+          "Comment the gift you gave that got the best reaction ever",
+          "Fill in the blank: The hardest person to shop for is my ___",
+          "Tag someone who always gives the perfect gifts (what's their secret?)",
+          "What's a gift you received that you still use years later? We'll find similar",
+          "Finish this sentence: I knew I nailed the gift when they ___",
+          "Drop an emoji that describes your gift-giving anxiety level right now"
+        ],
+        [
+          "This or that: Practical gift or sentimental keepsake? (Vote in poll)",
+          "Debate: Is it better to ask what they want or surprise them? Comment your take",
+          "Poll: Would you rather receive one expensive gift or several small thoughtful ones?",
+          "This or that: Gift card with personal note or curated item they didn't ask for?",
+          "Hot take: Gift wrapping matters more than the gift itself. Agree or disagree?",
+          "Would you rather: Give the perfect gift or receive the perfect gift? Why?",
+          "Poll: Same-day panic shopping or weeks of careful planning? Which are you?"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I always second-guess myself' - Normalize anxiety through community sharing",
+        "Week 2: Address 'I don't know if this is right' - Use polls to validate different approaches"
+      ],
+      "proof_timing": [
+        "Week 1: Reshare customer stories and fails that ended in wins (with permission)",
+        "Week 2: Share poll results to show community preferences and validate different styles"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in comments (best one gets featured + gift)",
+        "Week 1: DM us your gift dilemma - We'll give you personalized advice",
+        "Week 1: Tag a friend with the same gift-giving struggle",
+        "Week 2: Vote in our poll and comment why you chose that option",
+        "Week 2: Share this poll to your Stories - Let's see what your friends think",
+        "Week 2: Disagree with the majority? Tell us your hot take below",
+        "Week 2: Bring your poll results in-store for picks that match your style"
+      ],
+      "platform_priority": [
+        "Instagram Stories (8-10 Stories/day) - Primary for polls, questions, and interactive stickers",
+        "Instagram Feed (2 posts/day) - Conversation-starter posts optimized for comments",
+        "TikTok (2 posts/day) - Stitch and duet-friendly content encouraging response videos",
+        "Facebook (2 posts/day) - Community discussion posts and polls for engaged audience"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Uncommon Goods UGC campaign encouraging sharing with branded hashtag (3.2% engagement vs 1.8% standard, 2x more saves) and customer voice emotional language showing community desire for validation ('validated', 'confident', 'relieved'). Interactive content drives algorithm favor while building community that reduces purchase anxiety through shared experiences."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Corporate gifting doesn't have to feel impersonal.\n\nPROBLEM: Your team defaults to generic gift cards because curating 50+ employee gifts feels impossible. Result? Zero emotional impact and forgotten by next week.\n\nAGITATE: Meanwhile, companies investing in thoughtful recognition see 31% lower turnover. That generic $25 Starbucks card signals \"we didn't have time to think about you.\"\n\nSOLUTION: Our corporate gift curation process:\n\n→ Budget-per-person consultation ($15-$150 range)\n→ Recipient persona mapping (remote workers, new parents, wellness-focused)\n→ Curated options that feel personal, not bulk-ordered\n→ Custom wrapping + handwritten notes at scale\n→ Same-week turnaround for up to 100 gifts\n\nLast month: Local tech company ordered 75 onboarding gifts. New hires posted 40+ social media thank-yous. ROI on employer brand? Priceless.\n\nWhat's your biggest corporate gifting challenge? Drop it below. 👇\n\n#CorporateGifting #EmployeeRecognition #HRStrategy #ClientAppreciation #LocalBusiness",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "After 10 years in specialty retail, here's what I know:\n\nThe gift industry isn't selling products. We're selling relief from social anxiety.\n\nATTENTION: Every \"I don't know what to get them\" moment is a $40-$80 decision paralysis tax. Customers will overspend or avoid the event entirely.\n\nINTEREST: We've analyzed 10,000+ gift transactions. The pattern is clear:\n\n• 67% of purchases happen within 48 hours of the occasion\n• Customers spend 23% more when staff provides curation\n• \"Unique but safe\" beats \"perfect but risky\" every time\n• Price resistance drops 40% when origin story is shared\n\nDESIRE: The shops winning in 2024 aren't competing on selection. They're competing on confidence transfer. Our role: Transform \"I hope they like this\" into \"I know they'll love this.\"\n\nACTION: How we do it:\n→ 30-second recipient profiling questions\n→ 3 curated options max (choice paralysis is real)\n→ Artisan stories that justify premium pricing\n→ No-receipt gift wrapping (removes price anxiety)\n\nRetail isn't dying. Bad retail is dying. Curation is the moat.\n\nWhat's your take on the future of specialty retail? 💭\n\n#RetailStrategy #GiftIndustry #CustomerExperience #SmallBusinessInsights",
+        "framework": "AIDA",
+        "character_count": 1289
+      },
+      "promotional": {
+        "template": "BEFORE: Scrambling on Amazon at 11 PM, settling for 2-day shipping and generic packaging.\n\nAFTER: Walking into [SHOP_NAME], getting expert curation in 10 minutes, leaving with a gift that looks like you planned it for weeks.\n\nBRIDGE: We just launched Corporate Membership for [LOCAL_AREA] businesses:\n\n✓ Dedicated account manager who learns your team\n✓ Pre-approved budget tiers ($30/$50/$100 per gift)\n✓ Same-day fulfillment for employee milestones\n✓ Quarterly trend reports (what's actually impressing recipients)\n✓ 15% discount on all corporate orders\n\nOne client saved 12 hours per quarter on employee recognition gifts. Their Glassdoor reviews now mention \"thoughtful company culture.\"\n\nInvestment: $500/year for unlimited gifting support.\n\nROI: Priceless when your new hire posts their welcome gift on LinkedIn.\n\nInterested? DM me \"CORPORATE\" or comment below. Rolling out to 10 companies this quarter only.\n\n#B2B #CorporateGifts #EmployeeEngagement #[CITY]Business #ClientGifts",
+        "framework": "BAB",
+        "character_count": 1156
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: You have 2 hours before the party 😅\n\nQuick gift guide for the perpetually late (no judgment, we get it):\n\n→ Under $30: [PRODUCT_TYPE] that looks $60+\n→ Safe bet: Our bestseller for [OCCASION] (500+ sold)\n→ Unique find: [ARTISAN_PRODUCT] they won't see anywhere else\n→ Last resort: Curated gift set (we've done the thinking)\n\nFree wrapping = looks like you planned ahead ✨\n\nSame-day pickup until [TIME]. Link in bio or DM us!\n\nWhat's your last-minute gift panic story? 👇\n\n#LastMinuteGift #GiftIdeas #[CITY]Shopping #LocalGiftShop #GiftPanic #ThoughtfulGifts #UniqueFinds #SupportLocal #GiftWrapping #PartyReady",
+        "visual": "Carousel: Slide 1 - Relatable meme of panicked person checking time. Slide 2-5 - Each product category styled in lifestyle setting with price overlay. Slide 6 - Before/after of unwrapped vs beautifully wrapped gift. Slide 7 - Store hours and 'We're Ready When You Are' text. Use warm, inviting lighting and real customer hands interacting with products.",
+        "framework": "PAS - Problem (panic), Agitate (time crunch), Solution (quick options)"
+      },
+      "authority": {
+        "caption": "Behind every product: a human story.\n\nThis [PRODUCT_NAME] isn't mass-produced. It's:\n\n→ Handcrafted by [ARTISAN_NAME] in [LOCATION]\n→ Made using [TRADITIONAL_TECHNIQUE] passed down 3 generations\n→ Takes [TIME_PERIOD] to create each piece\n→ Only [NUMBER] made per month\n\nThat's why it costs [PRICE]. And why it's worth it.\n\nWhen you give this, you're not just giving a gift. You're giving:\n✓ A story they'll retell\n✓ Quality that lasts years, not months\n✓ Support for artisan communities\n✓ Something they'd never buy themselves\n\nThis is what makes gift-giving meaningful.\n\nSwipe to meet [ARTISAN_NAME] 👉\n\n#ArtisanMade #HandcraftedGifts #ShopSmall #MakerStory #QualityOverQuantity #ThoughtfulGifting #SupportArtisans #UniqueGifts #[CITY]Made #GiftShopFinds",
+        "visual": "Carousel: Slide 1 - Hero shot of product in beautiful styling. Slide 2 - Artisan at work creating the product. Slide 3 - Close-up of craftsmanship details. Slide 4 - Product in gift-giving context. Slide 5 - Infographic showing 'Mass Market vs Artisan' comparison. Slide 6 - Customer photo with product and testimonial quote. Use natural lighting, authentic workshop settings, human hands creating.",
+        "framework": "AIDA - Attention (story hook), Interest (process), Desire (meaning), Action (swipe)"
+      },
+      "promotional": {
+        "caption": "Our most-gifted item this month (and it's not even close) 👀\n\n[PRODUCT_NAME] - [NUMBER]+ sold in [TIMEFRAME]\n\nWhy everyone's buying it:\n✓ Looks expensive, priced at [PRICE]\n✓ Works for literally anyone (we've tested this)\n✓ Zero risk of duplicate gifts\n✓ Comes wrapped so beautifully they'll ask where you got it\n\n\"I was skeptical but they LOVED it\" - Sarah M.\n\"Saved me after I forgot until the last day\" - Mike R.\n\"Finally, a gift I felt confident giving\" - Jennifer K.\n\nLimited stock alert: Only [NUMBER] left this week.\n\nShop: [LINK_IN_BIO] or DM us to hold one\nPickup: Same-day available\n\nTag someone who needs this 👇\n\n#Bestseller #GiftIdeas #PopularGift #CustomerFavorite #GiftShop #[CITY]Shopping #UniqueGifts #TrendingNow #GiftInspo #ShopLocal",
+        "visual": "Carousel: Slide 1 - Product styled with '500+ Sold' badge overlay and 5-star rating graphic. Slide 2 - Flat lay of product with complementary items. Slide 3 - Screenshot compilation of positive customer reviews. Slide 4 - Before/after showing product unwrapped and wrapped. Slide 5 - Video clip of customer unboxing reaction. Use bright, clean backgrounds with pops of color.",
+        "framework": "BAB - Before (uncertainty), After (confidence), Bridge (social proof + scarcity)"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🎁 GIFT-GIVING 101: How to Look Thoughtful (Even When You're Winging It)\n\nLet's be honest - we've all been there. Standing in a store, phone in hand Googling \"gifts for [person]\" with zero inspiration.\n\nAfter helping 1,000+ panicked gift-givers, here's the formula that works:\n\n1️⃣ STOP trying to find the \"perfect\" gift\nPerfect doesn't exist. Thoughtful does. And thoughtful just means \"I considered what you'd actually enjoy.\"\n\n2️⃣ USE the 3-question cheat code:\n→ What do they buy for themselves? (Get the upgraded version)\n→ What do they complain about not having time for? (Give them that experience)\n→ What's their guilty pleasure? (Indulge it)\n\n3️⃣ AVOID these gift-giving mistakes:\n❌ Anything that creates work (plants for plant-killers, books for non-readers)\n❌ Gifts that hint at self-improvement (unless explicitly requested)\n❌ Inside jokes only you find funny\n\n4️⃣ WHEN IN DOUBT: Consumable luxury\nSomething they'd enjoy but never buy themselves. Fancy candles, artisan foods, premium bath products. Used and appreciated, never regifted.\n\n5️⃣ PRESENTATION MATTERS\nA $25 gift wrapped beautifully beats a $50 gift in Amazon packaging. Every. Single. Time.\n\nPro tip: Our staff asks these questions for you. Come in with \"I need a gift for my sister-in-law\" and leave in 10 minutes with something perfect.\n\nWhat's your go-to gift when you're stumped? Drop your strategy below! 👇 Let's help each other out.\n\n#GiftGivingTips #LocalGiftShop #[CityName] #GiftIdeas #ShoppingLocal #ThoughtfulGifts #SupportSmallBusiness",
+        "framework": "Educational - Problem-aware teaching with actionable steps"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: Gift cards are getting a bad rap they don't deserve.\n\nHear me out. 👇\n\nYes, generic Visa gift cards feel lazy. But a curated gift card to a specific local shop? That's actually thoughtful.\n\nHere's why:\n\n💭 You're saying \"I trust your taste more than mine\"\nSometimes the best gift is acknowledging you don't know their exact style, size, or preference - but you know WHERE they'd love to shop.\n\n💭 You're giving them an experience, not just a transaction\nA gift card to our shop means they get to:\n→ Browse without budget guilt\n→ Discover something they'd never buy themselves\n→ Enjoy the treasure-hunt experience\n→ Get expert help from our staff\n\n💭 You're supporting their community\nThat $50 gift card to a local shop? It circulates in the local economy 3-4x vs corporate gift cards that leave immediately.\n\nTHE CATCH: Presentation still matters.\n\nDon't just hand over a card. Pair it with:\n→ A small item from the shop ($10-15) to show you actually went there\n→ A handwritten note about WHY you chose this shop\n→ A specific suggestion (\"I saw the cutest [item] there that reminded me of you\")\n\nWe've made this easy: Our gift card packages come with a small gift sampler + beautiful packaging + a personalized note card.\n\nResult? It looks thoughtful because it IS thoughtful.\n\nThoughts? Are you team gift card or team specific gift? Let's debate! 💬\n\n#GiftCards #ThoughtfulGifting #ShopLocal #[CityName]Business #GiftDebate #SupportLocal #GiftIdeas #LocalEconomy",
+        "framework": "Authority - Contrarian take with reasoning and education"
+      },
+      "promotional": {
+        "template": "⏰ LAST-MINUTE GIFT PANIC? We're your people.\n\nHere's the situation:\n→ You just remembered [OCCASION] is [TIMEFRAME]\n→ You need something that doesn't scream \"I forgot\"\n→ You have approximately zero time to browse 47 websites\n→ You need it TODAY\n\nWe get it. This is literally why we exist.\n\n✨ THE RESCUE PLAN:\n\n📍 SAME-DAY PICKUP available until [TIME] tonight\nOrder online by [TIME] or just come in. We'll have it ready.\n\n🎁 PRE-CURATED \"PANIC COLLECTIONS\"\nWe've done the thinking:\n→ \"Safe Bet\" collection ($25-40) - universally loved items\n→ \"Impressive Under $50\" - looks way more expensive\n→ \"Unique But Not Weird\" ($30-60) - conversation starters that actually work\n\n⚡ 10-MINUTE IN-STORE CURATION\nTell us about the person. We'll show you 3 options. You pick. We wrap. You're out.\n\nNo judgment. Just solutions.\n\n💝 FREE PREMIUM WRAPPING\nBecause the packaging does half the work of looking like you planned ahead.\n\n---\n\nREAL CUSTOMER STORY:\nMark forgot his anniversary. Came in at 4 PM in full panic mode. Left at 4:12 PM with a beautiful artisan gift set + handwritten card. His wife posted it on Instagram. He's a hero.\n\nYou can be Mark (the hero version, not the forgetting version).\n\n🔗 Shop the Panic Collections: [LINK]\n📍 Or just come see us: [ADDRESS]\n📞 Hold something: [PHONE] or DM us\n\nOpen until [TIME] tonight. We've got you. 💪\n\nWho else is a last-minute shopper? Tag your people who need this! 😅\n\n#LastMinuteGift #SameDayPickup #GiftShop #[CityName] #LocalShopping #GiftPanic #WeveGotYou #SupportLocal #GiftWrapping #[Occasion]Gifts",
+        "framework": "BAB - Before (panic), After (hero), Bridge (specific solutions + urgency)"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're terrible at picking gifts (here's the cheat code)",
+        "script": "HOOK (0-3s): *Panicked face* \"Me pretending I know what to get my sister-in-law\"\n\nPROBLEM (3-10s): *Show scrolling through Amazon looking overwhelmed* \"After 2 hours of research, I still have no idea. Everything looks cheap or too expensive or just... wrong?\"\n\nSOLUTION INTRO (10-15s): *Cut to calm, in-store* \"So I asked the gift shop lady and she literally gave me a formula\"\n\nTEACH (15-45s): *Quick cuts showing each tip*\n→ \"Question 1: What do they buy for themselves?\" *Show example product* \"Get the fancy version of that\"\n→ \"Question 2: What do they never have time for?\" *Show spa/relaxation items* \"Give them that experience\"\n→ \"Question 3: Guilty pleasure?\" *Show gourmet treats* \"Indulge it\"\n\nPROOF (45-55s): *Show wrapped gift* \"Used this for my SIL. She literally texted me 'how did you know?!' I didn't. I just asked 3 questions.\"\n\nCTA (55-60s): *Point to camera* \"Save this for next time you panic. You're welcome.\"\n\nTEXT OVERLAYS: \"The 3-Question Method\" / \"Works every time\" / \"Save this\"\n\nSOUND: Trending audio (upbeat, slightly chaotic energy)\n\n#GiftIdeas #GiftTok #LastMinuteGift #GiftHack #ShoppingHack #GiftGuide #HolidayGifts #BirthdayGift #LifeHack",
+        "framework": "PAS with educational value"
+      },
+      "authority": {
+        "hook": "*whispers* Gift shop employees know which gifts get returned",
+        "script": "HOOK (0-3s): *Conspiratorial whisper to camera* \"Working in a gift shop taught me which gifts people actually hate\"\n\nATTENTION (3-8s): *Serious face* \"And I'm about to save you from major embarrassment\"\n\nREVEAL (8-40s): *Quick cuts, showing each item*\n\"Things that ALWAYS get returned:\"\n→ *Hold up item* \"1. Anything that creates homework. Plants for plant-killers? Returned.\"\n→ \"2. Gifts that hint they should change. Workout gear for non-gym people? Awkward.\"\n→ \"3. Super personal items they didn't ask for. Perfume? 60% return rate.\"\n→ \"4. Trendy stuff that's already over. TikTok made you buy it. They'll return it.\"\n\n\"Things that NEVER get returned:\"\n→ *Show products* \"Consumable luxury - fancy candles, gourmet food\"\n→ \"Artisan-made unique items they'd never find themselves\"\n→ \"Experience-based gifts - cocktail kits, DIY craft sets\"\n\nWISDOM (40-55s): *Knowing look* \"The secret? If they wouldn't buy it for themselves but they'd LOVE to receive it? That's the sweet spot.\"\n\nCTA (55-60s): \"Follow for more gift shop insider secrets\" *wink*\n\nTEXT OVERLAYS: \"Don't give these\" / \"Give these instead\" / \"Gift shop secrets\"\n\nSOUND: Trending sound (mysterious/insider info vibe)\n\n#GiftShopSecrets #GiftFail #GiftIdeas #ShoppingTips #GiftGuide #DontBuyThis #InsiderTips #RetailSecrets #GiftTok",
+        "framework": "AIDA with insider authority angle"
+      },
+      "promotional": {
+        "hook": "It's giving... I forgot and I'm panicking",
+        "script": "HOOK (0-3s): *Stressed face, checking phone* \"When you realize their birthday is TOMORROW\"\n\nRELATE (3-10s): *Frantic energy* \"Me: frantically Googling 'best gifts' at 10 PM. Also me: Everything's sold out or takes 5 days shipping\"\n\nSOLUTION (10-20s): *Relief face, transition to calm store environment* \"WAIT. Local gift shops have same-day pickup?\"\n\nSHOW (20-50s): *Quick tour, energetic*\n→ *Pan across products* \"They literally have everything\"\n→ *Show price tags* \"Under $30 section that doesn't look cheap\"\n→ *Show wrapping* \"Free gift wrapping so it looks like you planned this\"\n→ *Show staff helping* \"Staff that actually helps instead of judging you\"\n→ *Check phone* \"Ordered online at lunch, picked up after work\"\n\nTRANSFORMATION (50-58s): *Confident, holding wrapped gift* \"From panic to prepared in 3 hours. They'll never know.\"\n\nCTA (58-60s): *Point* \"Link in bio. You're welcome.\"\n\nTEXT OVERLAYS: \"Same-day pickup\" / \"Free wrapping\" / \"Crisis = averted\" / \"[SHOP_NAME]\"\n\nSOUND: Trending audio (chaotic to calm transition)\n\nVISUAL STYLE: Raw, authentic, relatable panic energy → satisfying resolution\n\n#LastMinuteGift #GiftPanic #SameDayPickup #LocalShop #GiftShop #BirthdayGift #LifeSaver #ShopLocal #[CityName] #GiftWrapping #PanicMode #Relatable",
+        "framework": "BAB with high relatability and urgency"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 3 questions that make gift-giving easy (save this)",
+        "preview_text": "Stop overthinking. Use this simple formula instead.",
+        "body": "Subject: The 3 questions that make gift-giving easy (save this)\nPreview: Stop overthinking. Use this simple formula instead.\n\n---\n\nHi [FIRST_NAME],\n\nYou know that feeling when you've been staring at gift options for 45 minutes and somehow have MORE questions than when you started?\n\nYeah. We see it every day.\n\nAfter helping thousands of stressed gift-givers, we've cracked the code. It's not about finding the \"perfect\" gift. It's about asking the right questions.\n\n**THE 3-QUESTION METHOD:**\n\n**1. What do they buy for themselves?**\nThen get the premium version they'd never splurge on.\nExample: They buy drugstore candles → Gift them the $45 artisan soy candle\n\n**2. What do they complain about not having time for?**\nGive them that experience in a box.\nExample: \"I never have time to relax\" → Spa gift set with bath salts, face mask, luxury soap\n\n**3. What's their guilty pleasure?**\nIndulge it without judgment.\nExample: They love true crime podcasts → Mystery book + gourmet coffee for late-night reading\n\n**AVOID THESE MISTAKES:**\n❌ Gifts that create work (plants for plant-killers)\n❌ Anything that hints at self-improvement (unless requested)\n❌ Super personal items they didn't ask for\n\n**WHEN IN DOUBT:** Consumable luxury wins every time.\n\n---\n\n**TRY IT NOW:**\n\nWe've created pre-curated collections based on this method:\n\n→ [The Upgrade Collection] - Premium versions of everyday favorites\n→ [The Experience Box] - Relaxation, creativity, indulgence\n→ [Guilty Pleasures] - No judgment, all joy\n\n[SHOP COLLECTIONS]\n\nStill stuck? Reply to this email with \"I'm shopping for [person]\" and we'll send you 3 specific suggestions.\n\nNo more 45-minute paralysis sessions. Promise.\n\n[YOUR_NAME]\n[SHOP_NAME]\n\nP.S. - All orders placed by [TIME] today get same-day pickup + free premium wrapping. Because presentation matters.\n\n[SHOP NOW] | [VISIT US: ADDRESS]",
+        "framework": "Educational PAS - Problem (decision paralysis), Agitate (wasted time), Solution (framework + products)"
+      },
+      "authority": {
+        "subject": "Why your $30 gift looks cheap (and how to fix it)",
+        "preview_text": "It's not the price. It's these 3 things...",
+        "body": "Subject: Why your $30 gift looks cheap (and how to fix it)\nPreview: It's not the price. It's these 3 things...\n\n---\n\nHi [FIRST_NAME],\n\nHere's something nobody talks about:\n\nA $30 gift can look like $80. Or it can look like $10.\n\nThe difference? It's not the price tag.\n\nAfter 10 years in the gift industry, I've seen identical price points create completely different reactions. Here's what actually matters:\n\n**1. ORIGIN STORY > BRAND NAME**\n\n\"This is from Target\" = meh\n\"This is handmade by a ceramicist in [LOCATION] using a 200-year-old technique\" = wow\n\nSame price point. Completely different perceived value.\n\nEvery product in our shop comes with its story. We include a small card explaining the maker, the process, the why. That story is worth $20 in perceived value.\n\n**2. PRESENTATION IS 40% OF THE GIFT**\n\nWe've tested this:\n→ $30 item in Amazon packaging: \"Thanks, this is nice\"\n→ Same $30 item in our signature wrapping with ribbon and handwritten tag: \"OMG you shouldn't have!\"\n\nThe gift didn't change. The presentation did.\n\n**3. CURATION SIGNALS THOUGHTFULNESS**\n\n\"I grabbed this at checkout\" feels different than \"I specifically chose this for you.\"\n\nHow to show curation:\n→ Pair items thoughtfully (coffee + artisan mug vs just the mug)\n→ Include a note about WHY you chose it\n→ Choose something they wouldn't find at a big box store\n\n**THE FORMULA:**\n\nUnique item ($25-35) + Origin story + Beautiful presentation + Personal note = Looks like $80+ gift\n\n---\n\n**WE'VE MADE THIS EASY:**\n\nEvery purchase from [SHOP_NAME] includes:\n✓ Maker story card\n✓ Premium gift wrapping (complimentary)\n✓ Handwritten gift tag with your message\n✓ Products you won't find at Target\n\nYour $30 budget will look like $80. Guaranteed.\n\n[SHOP GIFTS UNDER $35]\n\n---\n\n**FEATURED THIS WEEK:**\n\n[PRODUCT_NAME] - $[PRICE]\nHandcrafted by [ARTISAN] in [LOCATION]. [ONE_SENTENCE_STORY].\n\nPerfect for: [RECIPIENT_TYPE]\n[SHOP NOW]\n\nMake your budget look bigger than it is,\n\n[YOUR_NAME]\n[SHOP_NAME]\n\nP.S. - Our \"Impressive Under $40\" collection just restocked. These are the gifts that get Instagram posts.\n\n[BROWSE COLLECTION]",
+        "framework": "Authority AIDA - Attention (contrarian take), Interest (proof), Desire (formula), Action (shop)"
+      },
+      "promotional": {
+        "subject": "Only [NUMBER] left - our most-gifted item this month",
+        "preview_text": "500+ customers can't be wrong (seriously, it's that good)",
+        "body": "Subject: Only [NUMBER] left - our most-gifted item this month\nPreview: 500+ customers can't be wrong (seriously, it's that good)\n\n---\n\nHi [FIRST_NAME],\n\nQuick question: What do 500+ gift-givers know that you don't?\n\nThey know about [PRODUCT_NAME].\n\n**THE STATS:**\n→ [NUMBER] sold in [TIMEFRAME]\n→ Zero returns (yes, actually zero)\n→ 47 customers came back to buy it again for someone else\n→ Average 5-star rating with comments like \"why didn't I buy two?\"\n\n**WHY EVERYONE'S BUYING IT:**\n\n✓ **Looks expensive, priced at [PRICE]**\nCustomers regularly guess it costs $[HIGHER_PRICE]. It doesn't.\n\n✓ **Works for literally anyone**\nWe've sold it for:\n→ Mother's Day gifts\n→ Housewarming presents\n→ Thank you gifts\n→ \"I forgot our anniversary\" emergencies\n→ Corporate client gifts\n\n✓ **Zero risk of duplicate gifts**\nYou won't find this at Target, Amazon, or any big box store. It's exclusive to local shops like ours.\n\n✓ **Instagram-worthy presentation**\nOur wrapping is so good, 30+ customers have posted photos of the packaging before even opening it.\n\n**REAL CUSTOMER REVIEWS:**\n\n\"I was skeptical but they LOVED it. Asking where I got it.\" - Sarah M.\n\n\"Saved me after I forgot until the last day. Looked like I planned it for weeks.\" - Mike R.\n\n\"Finally, a gift I felt confident giving instead of anxious about.\" - Jennifer K.\n\n---\n\n**THE CATCH:**\n\nWe're down to our last [NUMBER] in stock.\n\nNext shipment isn't until [DATE], and we sold out in 3 days last time.\n\n**YOUR OPTIONS:**\n\n→ [ORDER ONLINE] - Same-day pickup available if ordered by [TIME]\n→ [RESERVE IN-STORE] - We'll hold it for 24 hours\n→ [CALL US: PHONE] - We'll walk you through it\n\n**BONUS:** Order in the next [TIMEFRAME] and we'll include:\n✓ Free premium gift wrapping\n✓ Handwritten gift message\n✓ Maker story card\n✓ Gift receipt (no prices shown)\n\nNo risk. 30-day returns if they don't love it (but they will).\n\n[SHOP NOW - ONLY [NUMBER] LEFT]\n\n---\n\nDon't be the person who waits and then emails us \"Is this back in stock yet?\"\n\n(We get those emails. A lot.)\n\n[GET YOURS BEFORE IT'S GONE]\n\nThanks for being awesome,\n\n[YOUR_NAME]\n[SHOP_NAME]\n\nP.S. - If this sells out before you order, reply to this email with \"WAITLIST\" and we'll notify you the second the next shipment arrives.\n\n[SHOP NOW] | [VISIT: ADDRESS] | [CALL: PHONE]",
+        "framework": "BAB with scarcity - Before (uncertainty), After (confidence via social proof), Bridge (limited stock urgency)"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] gifts under $[price] that don't look cheap (they'll never guess)",
+      "[X] customers bought this for [occasion] this month - here's why",
+      "From panic to wrapped in [X] minutes - [number] last-minute gifts ready now",
+      "[X] one-of-a-kind finds not available on Amazon",
+      "[X] thoughtful gifts for the person who has everything"
+    ],
+    "question_hooks": [
+      "Are you showing up empty-handed to [occasion] because you can't decide?",
+      "Are you terrible at picking gifts and always second-guess yourself?",
+      "Is everything you find either too expensive or looks too cheap?",
+      "Did you forget [occasion] until right now and need something today?",
+      "Are you tired of giving the same generic gift everyone else gives?"
+    ],
+    "story_hooks": [
+      "How [customer name] found the perfect [occasion] gift in 10 minutes (after spending hours online)",
+      "How [customer] stopped feeling embarrassed about their gift choices",
+      "How [customer] made [recipient] cry happy tears with a $[price] gift",
+      "How [customer] looked thoughtful (not last-minute) with same-day pickup",
+      "How [customer] found something unique their [recipient] would never buy themselves"
+    ],
+    "fear_hooks": [
+      "Is your last-minute [occasion] gift going to look cheap and impersonal?",
+      "Will you show up empty-handed to [event] because you waited too long?",
+      "Is your generic gift card making you look lazy (even though you're just stressed)?",
+      "Will your [recipient] get the same gift from someone else?",
+      "Is your online order going to arrive too late for [occasion]?"
+    ],
+    "howto_hooks": [
+      "How to find the perfect [occasion] gift without spending hours browsing",
+      "How to look thoughtful without spending a fortune on [recipient]",
+      "How to give a unique gift without the Amazon cheap-looking packaging",
+      "How to stop panicking about [occasion] with same-day pickup options",
+      "How to pick a gift without second-guessing yourself (staff picks that actually work)"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: It's 5pm and you need a gift by 7pm",
+      "body": "Show panicked face → Cut to entering gift shop → Quick montage: staff member asking 'who's it for?', pointing to perfect section → Showing 3 items rapid-fire → Staff wrapping it beautifully → Check phone: 5:47pm → Hold up gorgeous wrapped gift → Confident smile. Text overlay: 'In and out in 12 minutes' 'Looks like I planned this weeks ago' 'They're gonna think I'm so thoughtful'",
+      "cta": "Save this for your next gift emergency. Link in bio for same-day pickup"
+    },
+    "reels": {
+      "hook": "Stop giving gift cards because you're 'bad at gifts'",
+      "body": "Show gift card → Cross it out → Show 5 unique gifts rapid cuts with text overlays: 'For the person who has everything' 'Under $30 but looks expensive' 'They'll actually use this' 'Not from Amazon' 'Comes wrapped'. End with: 'Our staff literally does this for a living'",
+      "cta": "DM us who you're shopping for. We'll send you 3 options in 10 mins"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us the moment they opened your gift! Film their reaction and tag us. Bonus: tell us what you were worried about before you found it.",
+      "hashtag": "#TheyActuallyLovedIt"
+    },
+    {
+      "prompt": "Record a quick video: What were you shopping for vs what our staff suggested vs their reaction when they got it. Show us how we saved your gift-giving reputation!",
+      "hashtag": "#GiftShopRescue"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Gift Panic Scale: Rate your current panic level 1-10 and we'll recommend exactly how fast you need to get here. Level 10 = 'wedding is in 3 hours'. Share your panic level in comments.",
+      "why": "Interactive, relatable emergency scenarios encourage comments and shares. Humor around universal gift-giving anxiety creates community bonding and algorithmic engagement."
+    },
+    {
+      "angle": "We asked our staff to share the most desperate last-minute gift requests they've solved. Thread format with wild stories: 'Needed anniversary gift, was in the doghouse, had $40, needed it in 20 minutes—here's what we did'",
+      "why": "Story-driven content with satisfying resolutions. Demonstrates expertise while entertaining. High save rate as people bookmark for their own future emergencies. Encourages story-sharing in comments."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:34:35.024Z",
+    "last_tier2_refresh": "2025-11-27T22:34:35.024Z",
+    "last_tier3_refresh": "2025-11-27T22:34:35.024Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:34:35.024Z"
+  }
+}

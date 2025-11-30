@@ -1,0 +1,1753 @@
+{
+  "industry": "General Practice Law",
+  "industry_name": "General Practice Law",
+  "naics_code": "541110",
+  "category": "Professional Services",
+  "subcategory": "Legal Services and Representation",
+  "customer_triggers": [
+    {
+      "trigger": "Arrested or charged with crime",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Served divorce papers",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Auto accident with injuries",
+      "urgency": 10,
+      "frequency": "hourly"
+    },
+    {
+      "trigger": "Received lawsuit or legal notice",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Death of family member with assets",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Starting new business venture",
+      "urgency": 6,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Real estate transaction over $500K",
+      "urgency": 7,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Employment termination or discrimination",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "DUI or traffic violation arrest",
+      "urgency": 10,
+      "frequency": "hourly"
+    },
+    {
+      "trigger": "Child custody dispute escalation",
+      "urgency": 9,
+      "frequency": "daily"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Crisis moment triggers immediate Google search for 'lawyer near me' or specific practice area, 73% search on mobile while 27% get referral from friend or family within 24 hours of incident",
+    "consideration": "Reviews 3-7 law firm websites in 2-4 hours, checks online reviews and state bar standing, calls 2-3 firms for consultations with 67% deciding based on first phone interaction",
+    "decision": "Selects within 48 hours based on 45% immediate availability, 30% perceived competence, 25% fee structure, requires average 1.5 meetings before retaining",
+    "retention": "Continues with same firm for 3.2 years average for ongoing needs when response time stays under 24 hours and wins/favorable settlements exceed 70%",
+    "advocacy": "Refers 4.1 new clients over lifetime after successful case outcome, peak referrals occur 2-6 months post-resolution when emotional relief is highest"
+  },
+  "transformations": [
+    {
+      "from": "Facing potential jail time",
+      "to": "Charges dismissed or reduced to probation",
+      "emotional_value": "Freedom worth any price",
+      "worth_premium": true
+    },
+    {
+      "from": "Losing custody of children",
+      "to": "Favorable custody arrangement secured",
+      "emotional_value": "Priceless family preservation",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelming debt and creditor harassment",
+      "to": "Fresh start through bankruptcy protection",
+      "emotional_value": "Peace of mind and sleep",
+      "worth_premium": true
+    },
+    {
+      "from": "Unfair insurance settlement offer of $5,000",
+      "to": "Negotiated settlement of $75,000",
+      "emotional_value": "Justice and fair compensation",
+      "worth_premium": true
+    },
+    {
+      "from": "Business partnership dispute threatening company",
+      "to": "Buyout agreement preserving ownership",
+      "emotional_value": "Protecting life's work",
+      "worth_premium": true
+    },
+    {
+      "from": "Estate chaos after death",
+      "to": "Organized asset distribution",
+      "emotional_value": "Family harmony preserved",
+      "worth_premium": false
+    },
+    {
+      "from": "Wrongful termination devastation",
+      "to": "Severance package and vindication",
+      "emotional_value": "Dignity restored plus compensation",
+      "worth_premium": true
+    },
+    {
+      "from": "Immigration status uncertainty",
+      "to": "Permanent residency secured",
+      "emotional_value": "Life-changing security",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Case dismissed or charges dropped",
+      "timeframe": "60-90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Settlement 10x initial offer",
+      "timeframe": "6-12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Custody arrangement as requested",
+      "timeframe": "3-6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Response time under 2 hours",
+      "timeframe": "ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Client satisfaction score above 4.7/5",
+      "timeframe": "per case",
+      "measurable": true
+    },
+    {
+      "metric": "Bar complaints under 0.5% of cases",
+      "timeframe": "annual",
+      "measurable": true
+    },
+    {
+      "metric": "Referral rate exceeding 40% of new business",
+      "timeframe": "monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Criminal arraignment within 48-72 hours requires immediate representation to avoid unnecessary jail time",
+    "Statute of limitations expiring in 30 days or less on personal injury claims worth average $50,000",
+    "Response deadline to legal notices typically 20-30 days before default judgment",
+    "Restraining order hearings scheduled within 5-7 days requiring preparation",
+    "Evidence preservation critical within first 72 hours of accident before surveillance footage deleted",
+    "Immigration filing deadlines miss results in 6-12 month delays or deportation proceedings",
+    "Real estate closing dates create hard deadlines with $1,000+ per day penalties for delays"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Your retainer of $5,000 seems expensive",
+      "response": "The average cost of not having proper representation is $23,000 in our practice area, plus we offer payment plans and accept credit cards with no interest for 6 months",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "I want to wait and see what happens",
+      "response": "Every day you wait, evidence disappears and the other side strengthens their position - we've seen delays cost clients average of $15,000 in lost leverage",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "My friend said I don't need a lawyer",
+      "response": "In our 25 years, 92% of self-represented parties lose their cases while our success rate is 78% - would you perform surgery on yourself to save money?",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "I can't afford hourly rates of $350",
+      "response": "We offer flat fees for most matters, contingency options for injury cases, and sliding scale rates based on income - let's find what works",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Online legal services are cheaper",
+      "response": "LegalZoom can't appear in court for you, and fixing their mistakes costs average $7,500 more than doing it right initially - we guarantee our work",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "I'm talking to several lawyers",
+      "response": "Smart approach - while you decide, we can file emergency motions to preserve your rights at no charge, then you can choose who continues",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "You seem too busy for my small case",
+      "response": "Every client gets dedicated attorney and paralegal team, guaranteed 24-hour response, and we win 81% of cases just like yours",
+      "effectiveness": 7.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free consultation with no obligation",
+      "Payment plans available with no credit check",
+      "Contingency fees for qualifying cases - no win, no fee"
+    ],
+    "proof_points": [
+      "Licensed for 25+ years with zero malpractice claims",
+      "$47M recovered for clients in last 5 years",
+      "AV-rated by Martindale-Hubbell peer review"
+    ],
+    "risk_mitigation": "Detailed engagement letter outlining exact scope, timeline, and fee structure with escape clause if not satisfied within first 30 days for refund minus work performed"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "sued",
+      "arrested",
+      "served",
+      "scared",
+      "confused",
+      "deadline",
+      "threatened",
+      "lost",
+      "unfair",
+      "desperate"
+    ],
+    "solution_words": [
+      "protected",
+      "defended",
+      "resolved",
+      "winning",
+      "justice",
+      "rights",
+      "compensation",
+      "freedom",
+      "peace",
+      "victory"
+    ],
+    "avoid_jargon": [
+      "tort",
+      "plaintiff",
+      "defendant",
+      "litigation",
+      "discovery",
+      "interrogatories",
+      "deposition",
+      "motion",
+      "brief",
+      "precedent"
+    ]
+  },
+  "power_words": [
+    "aggressive",
+    "experienced",
+    "winning",
+    "fighter",
+    "defender",
+    "champion",
+    "proven",
+    "trusted",
+    "available",
+    "immediate",
+    "successful",
+    "dedicated",
+    "personal",
+    "confidential",
+    "powerful",
+    "strategic",
+    "relentless",
+    "skilled",
+    "respected",
+    "connected",
+    "insider",
+    "maximum",
+    "justice",
+    "protected",
+    "vindicated",
+    "compensated",
+    "resolved",
+    "dismissed",
+    "victorious",
+    "recovered"
+  ],
+  "avoid_words": [
+    "maybe",
+    "possibly",
+    "might",
+    "try",
+    "attempt",
+    "hopefully",
+    "sometimes",
+    "usually",
+    "depends",
+    "complicated",
+    "difficult",
+    "unlikely",
+    "problematic",
+    "challenging",
+    "expensive",
+    "slow",
+    "backlog",
+    "overwhelmed",
+    "junior",
+    "inexperienced"
+  ],
+  "headline_templates": [
+    {
+      "template": "Charged with [Crime]? Former Prosecutor Now Defends You",
+      "expected_ctr": 7.3,
+      "use_case": "criminal defense"
+    },
+    {
+      "template": "[City] Injury Victims: We've Won $47M in Last 5 Years",
+      "expected_ctr": 6.8,
+      "use_case": "personal injury"
+    },
+    {
+      "template": "Divorce Doesn't Have to Destroy Your Finances",
+      "expected_ctr": 5.4,
+      "use_case": "family law"
+    },
+    {
+      "template": "IRS Problem? We Stop Collections in 24 Hours",
+      "expected_ctr": 8.2,
+      "use_case": "tax law"
+    },
+    {
+      "template": "Fired Illegally? Get the Severance You Deserve",
+      "expected_ctr": 6.1,
+      "use_case": "employment law"
+    },
+    {
+      "template": "24/7 Emergency Legal Help - Call Now",
+      "expected_ctr": 9.4,
+      "use_case": "after hours"
+    },
+    {
+      "template": "Free Consultation: Know Your Rights Before It's Too Late",
+      "expected_ctr": 7.8,
+      "use_case": "general intake"
+    },
+    {
+      "template": "5-Star Reviews from 500+ Clients Like You",
+      "expected_ctr": 5.7,
+      "use_case": "credibility"
+    },
+    {
+      "template": "No Win, No Fee - We Only Get Paid When You Win",
+      "expected_ctr": 8.9,
+      "use_case": "contingency cases"
+    },
+    {
+      "template": "Avoid These [Number] Costly Legal Mistakes",
+      "expected_ctr": 6.5,
+      "use_case": "educational content"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Emergency Legal Help Now - Call 24/7",
+      "conversion_rate": 14.2,
+      "placement": "header bar"
+    },
+    {
+      "template": "Free Case Evaluation - No Obligation",
+      "conversion_rate": 11.8,
+      "placement": "above fold"
+    },
+    {
+      "template": "Chat with a Lawyer Now - Online 24/7",
+      "conversion_rate": 9.3,
+      "placement": "bottom right chat"
+    },
+    {
+      "template": "Download: What to Do After an Arrest",
+      "conversion_rate": 13.7,
+      "placement": "criminal law pages"
+    },
+    {
+      "template": "Calculate Your Case Value Free",
+      "conversion_rate": 10.6,
+      "placement": "personal injury pages"
+    },
+    {
+      "template": "Book Your Free Consultation Today",
+      "conversion_rate": 8.9,
+      "placement": "contact page"
+    },
+    {
+      "template": "Text 'HELP' to [Number] for Immediate Response",
+      "conversion_rate": 12.4,
+      "placement": "mobile pages"
+    },
+    {
+      "template": "See If You Have a Case - 60 Second Quiz",
+      "conversion_rate": 15.3,
+      "placement": "landing pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Know someone who was just [situation]? Tag them - first consultation is free and could save them thousands. We're here to help 24/7.",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Justice served! Another $[amount] win for our client who was [situation]. Your rights matter. Link in bio for free consultation.",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "New case law alert: [Court] just ruled [outcome]. This affects every [industry] business. Here's what you need to know: [summary]",
+      "engagement_rate": 4.3
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: If you're arrested, remember these 5 words: 'I want my lawyer present.' Then call us: [number]. Available 24/7.",
+      "engagement_rate": 8.1
+    },
+    {
+      "platform": "YouTube",
+      "template": "'What to Do If Pulled Over' - 3-minute video that could save your license, your job, and your freedom. Watch now.",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "Lawyer reacts to viral arrest video - here's what they did wrong and how you can protect yourself #KnowYourRights",
+      "engagement_rate": 14.7
+    },
+    {
+      "platform": "Google Ads",
+      "template": "[City] Criminal Defense - Former Prosecutor, Available Now, Payment Plans - Call [Number]",
+      "engagement_rate": 6.9
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Time-sensitive legal deadline approaching. Body: If you've been injured in the last 2 years, you have only [days] days left to file. Free consultation today.",
+      "engagement_rate": 18.3
+    },
+    {
+      "platform": "Radio",
+      "template": "Injured? Insurance company offering pennies? Call [Number] now. We've won $47 million for clients. No fee unless we win.",
+      "engagement_rate": 4.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "24/7 availability with guaranteed 1-hour callback",
+      "rank": 1,
+      "differentiator": "Only firm with round-the-clock staffing"
+    },
+    {
+      "prop": "Former prosecutors and judges on our team",
+      "rank": 2,
+      "differentiator": "Insider knowledge of system"
+    },
+    {
+      "prop": "Payment plans with no credit check required",
+      "rank": 3,
+      "differentiator": "Accessibility regardless of finances"
+    },
+    {
+      "prop": "$47M recovered in last 5 years",
+      "rank": 4,
+      "differentiator": "Proven track record"
+    },
+    {
+      "prop": "Bilingual staff and documents",
+      "rank": 5,
+      "differentiator": "Serving diverse community"
+    },
+    {
+      "prop": "No win, no fee on qualifying cases",
+      "rank": 6,
+      "differentiator": "Risk-free representation"
+    },
+    {
+      "prop": "Same-day court filings available",
+      "rank": 7,
+      "differentiator": "Emergency response capability"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "White-glove legal services for discerning clients who demand excellence, complete discretion, and immediate access to senior partners with combined 150 years experience winning high-stakes cases",
+    "budget_conscious": "Quality legal help shouldn't bankrupt you - flexible payment plans, sliding scale fees based on income, and efficient flat-rate packages that deliver results without the shocking bills",
+    "enterprise": "Comprehensive legal solutions for growing businesses including litigation defense, employment law compliance, contract negotiations, and regulatory guidance with predictable monthly retainer options"
+  },
+  "trust_signals": [
+    {
+      "signal": "AV-rated by Martindale-Hubbell",
+      "importance": 9,
+      "format": "badge on homepage"
+    },
+    {
+      "signal": "State Bar member in good standing",
+      "importance": 10,
+      "format": "footer verification"
+    },
+    {
+      "signal": "500+ five-star Google reviews",
+      "importance": 8,
+      "format": "review widget"
+    },
+    {
+      "signal": "Former prosecutors on staff",
+      "importance": 9,
+      "format": "team bios"
+    },
+    {
+      "signal": "$47M recovered for clients",
+      "importance": 8,
+      "format": "homepage banner"
+    },
+    {
+      "signal": "25+ years serving community",
+      "importance": 7,
+      "format": "about page"
+    },
+    {
+      "signal": "Free consultation guarantee",
+      "importance": 9,
+      "format": "header offer"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "78% success rate in contested cases",
+      "credibility_score": 9.1,
+      "context": "State average is 52%"
+    },
+    {
+      "stat": "$47M recovered in 5 years",
+      "credibility_score": 8.8,
+      "context": "Average settlement $94,000"
+    },
+    {
+      "stat": "4.8/5 stars from 500+ clients",
+      "credibility_score": 8.6,
+      "context": "Highest rated firm in county"
+    },
+    {
+      "stat": "1,500+ cases successfully resolved",
+      "credibility_score": 8.3,
+      "context": "Last 10 years of practice"
+    },
+    {
+      "stat": "24-hour average response time",
+      "credibility_score": 9.4,
+      "context": "Industry average is 72 hours"
+    },
+    {
+      "stat": "Zero bar complaints in 25 years",
+      "credibility_score": 9.7,
+      "context": "Industry average is 3.2%"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Senior partner attention, private investigator access, expert witnesses included, white-glove service",
+    "Standard: Experienced attorney with paralegal support, regular updates, court appearances included",
+    "Budget: Junior attorney supervised by partner, essential services only, limited court appearances",
+    "Emergency: Immediate response team, same-day filings, 24/7 availability, crisis management focus"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "Two weeks after successful case resolution when relief and gratitude peak",
+    "ask_method": "Personal thank you call from attorney followed by simple email link for review"
+  },
+  "competitive_advantages": [
+    "Only 24/7 fully staffed law firm in tri-state area with attorneys always on-call",
+    "Former district attorney and three former prosecutors provide insider advantage",
+    "In-house private investigator saves clients average $5,000 in case costs",
+    "Bilingual staff and documents serve 40% larger market than competitors",
+    "Flat-fee pricing model eliminates billing anxiety and surprise costs"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Quote hourly rate of $450 first, then show flat fee of $3,500 as bargain for entire case",
+    "sensitivity": "Payment plan triggers at $2,000, sticker shock begins at $5,000, price shopping starts at $7,500",
+    "sweet_spots": [
+      "$1,500 traffic tickets",
+      "$3,500 simple divorce",
+      "$5,000 DUI defense",
+      "$7,500 felony defense"
+    ],
+    "decoy_pricing": "Show premium package at $15,000 to make standard $5,000 package seem reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 500,
+    "approval_required": 5000,
+    "competitor_research": 2500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 2,
+    "weekend": 2.5,
+    "holiday": 3
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Response",
+      "price_range": "$500-1,500",
+      "target_customer": "Arrests and urgent filings",
+      "margin": 45
+    },
+    {
+      "tier": "Standard Representation",
+      "price_range": "$2,500-10,000",
+      "target_customer": "Most civil and criminal matters",
+      "margin": 62
+    },
+    {
+      "tier": "Complex Litigation",
+      "price_range": "$10,000-100,000+",
+      "target_customer": "Major cases and trials",
+      "margin": 71
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Paralegal handles 60% of routine work at 25% of attorney cost improving margins by 35%",
+    "Flat fee packages eliminate time tracking overhead and improve realization rate to 97%",
+    "Virtual consultations reduce no-show rate from 30% to 8% saving 12 hours weekly",
+    "Document automation reduces drafting time by 70% saving $150,000 annually",
+    "Intake specialist pre-qualifies leads improving conversion from 20% to 45%",
+    "Subscription legal plans for businesses generate $8,000 monthly recurring revenue at 80% margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 62,
+      "reason": "DUI arrests from holidays and divorce filings post-holidays",
+      "opportunity": "New Year fresh start campaigns"
+    },
+    {
+      "month": "February",
+      "variation": -8,
+      "reason": "Post-holiday financial recovery",
+      "opportunity": "Payment plan promotions"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Tax issues and spring break incidents",
+      "opportunity": "Tax problem solutions"
+    },
+    {
+      "month": "April",
+      "variation": 23,
+      "reason": "Tax deadline stress and disputes",
+      "opportunity": "IRS problem solver positioning"
+    },
+    {
+      "month": "May",
+      "variation": 31,
+      "reason": "Graduation parties and moving violations",
+      "opportunity": "Young adult defense focus"
+    },
+    {
+      "month": "June",
+      "variation": 18,
+      "reason": "Wedding season disputes and summer beginning",
+      "opportunity": "Family law emphasis"
+    },
+    {
+      "month": "July",
+      "variation": 44,
+      "reason": "July 4th DUIs and summer accidents",
+      "opportunity": "DUI defense campaigns"
+    },
+    {
+      "month": "August",
+      "variation": 28,
+      "reason": "Custody issues before school starts",
+      "opportunity": "Back-to-school custody help"
+    },
+    {
+      "month": "September",
+      "variation": 37,
+      "reason": "Labor Day DUIs and employment issues",
+      "opportunity": "Workers' rights campaigns"
+    },
+    {
+      "month": "October",
+      "variation": 19,
+      "reason": "Halloween incidents and holiday prep",
+      "opportunity": "Criminal defense readiness"
+    },
+    {
+      "month": "November",
+      "variation": 41,
+      "reason": "Black Friday incidents and family disputes",
+      "opportunity": "Holiday stress legal help"
+    },
+    {
+      "month": "December",
+      "variation": 78,
+      "reason": "Holiday DUIs, shopping injuries, family conflicts",
+      "opportunity": "24/7 holiday availability"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Court appearances and new case intake",
+      "avoid": "Complex consultations",
+      "conversion_rate": 12.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Settlement negotiations",
+      "avoid": "Emergency filings",
+      "conversion_rate": 10.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Client meetings and depositions",
+      "avoid": "Cold calling",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Closing deals and retainers",
+      "avoid": "Vacation scheduling",
+      "conversion_rate": 13.7
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency criminal defense",
+      "avoid": "New civil cases",
+      "conversion_rate": 15.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "DUI and arrest calls",
+      "avoid": "Business law matters",
+      "conversion_rate": 18.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Family crisis consultations",
+      "avoid": "Court filings",
+      "conversion_rate": 14.6
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Rent due 1st creates financial stress consultations days 25-31 of prior month",
+    "cash_flow_peaks": "Payday Fridays generate 40% more retained clients within 48 hours",
+    "slow_periods": "Mid-month days 10-20 see 30% fewer inquiries requiring stronger offers"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 10pm-2am",
+      "crisis_type": "DUI arrests",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Domestic disputes",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Monday 6am",
+      "crisis_type": "Weekend arrest bailouts",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "December 31 midnight",
+      "crisis_type": "New Year's Eve incidents",
+      "premium_multiplier": 4
+    },
+    {
+      "time": "April 14 evening",
+      "crisis_type": "Tax deadline panic",
+      "premium_multiplier": 3.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Traffic Defender",
+      "components": [
+        "Court appearance",
+        "Negotiation",
+        "Documentation"
+      ],
+      "pricing_model": "$1,500 flat fee",
+      "margin": 68
+    },
+    {
+      "name": "Divorce Complete",
+      "components": [
+        "Filing",
+        "Negotiation",
+        "Settlement",
+        "Court appearances"
+      ],
+      "pricing_model": "$3,500-7,500 flat",
+      "margin": 57
+    },
+    {
+      "name": "Criminal Defense Plus",
+      "components": [
+        "24/7 availability",
+        "Investigation",
+        "Trial prep",
+        "Appeals"
+      ],
+      "pricing_model": "$5,000 retainer + hourly",
+      "margin": 63
+    },
+    {
+      "name": "Business Legal Shield",
+      "components": [
+        "Unlimited consultations",
+        "Contract review",
+        "Dispute resolution"
+      ],
+      "pricing_model": "$500/month subscription",
+      "margin": 81
+    }
+  ],
+  "upsell_paths": [
+    "Traffic ticket defense → DUI expungement → Criminal record clearing → Ongoing representation",
+    "Simple will → Full estate plan → Trust creation → Probate administration → Elder law services",
+    "Divorce filing → Custody modification → Child support adjustment → Contempt proceedings",
+    "Personal injury claim → Disability filing → Workers comp → Wrongful death claim",
+    "Contract review → Business formation → Employment agreements → Litigation defense → General counsel",
+    "Bankruptcy filing → Credit repair → Debt negotiation → Asset protection → Financial crimes defense"
+  ],
+  "retention_hooks": [
+    "Annual legal checkup included identifies 3-5 preventable issues saving average $10,000",
+    "Priority scheduling for existing clients guarantees same-day appointments",
+    "Family member discount of 25% creates multi-generational client relationships",
+    "Free document updates for life on estate planning keeps clients engaged",
+    "24/7 emergency hotline for retained clients prevents competitor shopping",
+    "Quarterly legal alerts on law changes affecting clients maintains top-of-mind awareness",
+    "Client appreciation events twice yearly generate 40% of annual referrals"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Victory announcement cards",
+      "timing": "Within 48 hours of case win",
+      "incentive": "$500 credit per referral",
+      "conversion_rate": 43
+    },
+    {
+      "strategy": "Professional network lunches",
+      "timing": "Monthly with CPAs and doctors",
+      "incentive": "Reciprocal referral agreement",
+      "conversion_rate": 61
+    },
+    {
+      "strategy": "Client success story sharing",
+      "timing": "Permission-based immediate posting",
+      "incentive": "Featured client spotlight",
+      "conversion_rate": 37
+    },
+    {
+      "strategy": "Thank you gift baskets",
+      "timing": "Case conclusion plus anniversaries",
+      "incentive": "Memorable branded items",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Family protection seminars",
+      "timing": "Quarterly at community centers",
+      "incentive": "Free consultation certificates",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "First responder partnerships",
+      "timing": "Ongoing relationship building",
+      "incentive": "Priority service guarantee",
+      "conversion_rate": 52
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Estate planning",
+      "attach_rate": 67,
+      "timing": "After personal injury settlement"
+    },
+    {
+      "service": "Business formation",
+      "attach_rate": 43,
+      "timing": "During employment dispute resolution"
+    },
+    {
+      "service": "Real estate closings",
+      "attach_rate": 38,
+      "timing": "Post-divorce property transfers"
+    },
+    {
+      "service": "Criminal expungement",
+      "attach_rate": 71,
+      "timing": "2 years after conviction"
+    },
+    {
+      "service": "Immigration services",
+      "attach_rate": 29,
+      "timing": "During family law matters"
+    },
+    {
+      "service": "Tax resolution",
+      "attach_rate": 54,
+      "timing": "During bankruptcy or divorce"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Virtual law practice for remote clients",
+      "market_size": "30% of market preferring online",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Subscription legal services for SMBs",
+      "market_size": "5,000 local businesses",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Cannabis law specialty",
+      "market_size": "$50M in emerging market",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Elder law and Medicaid planning",
+      "market_size": "25% population over 65",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Cryptocurrency and digital asset law",
+      "market_size": "Growing 40% annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Mass tort and class action cases",
+      "market_size": "$500M potential settlements",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Morgan & Morgan's 'For The People' campaign using client testimonial videos showing real case outcomes and emotional transformations, particularly focusing on personal injury and workers' compensation cases",
+        "platform": "YouTube/Facebook",
+        "why_it_worked": "Authentic client stories with specific dollar amounts won, emotional before/after narratives, and consistent branding. Videos featured real clients describing their accidents, struggles with insurance companies, and relief after settlement",
+        "metrics": "Individual testimonial videos averaging 50K-200K views on YouTube, Facebook engagement rates 3-5x higher than industry average for law firms",
+        "source": "Morgan & Morgan YouTube channel and Legal Marketing Association case studies 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Ben Crump's social media strategy covering high-profile civil rights cases with educational content explaining legal processes, rights, and current events tied to legal issues",
+        "platform": "Instagram/Twitter/LinkedIn",
+        "why_it_worked": "Timely content tied to news cycles, educational value mixed with case updates, strong personal brand positioning as 'attorney for the people', consistent posting schedule with mix of video, carousel posts explaining legal concepts, and case announcements",
+        "metrics": "Instagram following 500K+, average post engagement 2-4%, LinkedIn posts regularly achieving 10K+ impressions",
+        "source": "Ben Crump Law social media profiles and Social Media Examiner legal marketing analysis 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local law firm viral content: 'What NOT to say to police' short-form videos (30-60 seconds) demonstrating common mistakes during traffic stops and arrests",
+        "platform": "TikTok/Instagram Reels",
+        "why_it_worked": "Addresses immediate fear/concern, provides actionable value, shareable format, uses hook 'This one mistake can ruin your case', demonstrates expertise while being accessible, taps into widespread anxiety about police interactions",
+        "metrics": "Individual videos reaching 500K-2M views, save rates 15-25%, share rates 8-12% (significantly above 2-3% platform average)",
+        "source": "TikTok legal content analysis by Clio and ABA Journal 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Email nurture campaign by mid-sized personal injury firm with subject line 'Insurance companies hope you don't know this' followed by educational series about settlement tactics and client rights",
+        "platform": "Email",
+        "why_it_worked": "Curiosity-driven subject line, positions firm as insider advocate against insurance companies, educational content builds trust, series format keeps engagement over time, includes specific examples of lowball offers vs. actual settlements",
+        "metrics": "42% open rate (vs 21% industry average), 8% click-through rate, 12% consultation booking rate from email series",
+        "source": "Legal Marketing Association Email Benchmark Report 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "FAQ-style blog posts answering specific urgent questions like 'What happens at a DUI arraignment?' and 'Can I lose my house in bankruptcy?' ranking in top 3 Google results",
+        "platform": "Blog/SEO",
+        "why_it_worked": "Targets high-intent search queries from people in crisis, answers specific questions comprehensively, includes local jurisdiction information, uses clear headings and scannable format, includes clear CTAs for consultations",
+        "metrics": "Individual posts generating 1K-3K monthly organic visits, 5-8% conversion to consultation requests, average time on page 3-4 minutes",
+        "source": "Martindale-Avvo and Clio Legal Trends Report 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.5-1.2% for law firms (lower than general 1.5% due to sensitive content restrictions)",
+        "best_content_format": "Client testimonial videos (60-90 seconds), educational carousel posts explaining legal processes, live Q&A sessions",
+        "optimal_frequency": "3-5 posts per week, with at least 1-2 video posts",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM and 1-3 PM local time, Sunday evenings 6-8 PM",
+        "source": "Sprout Social Legal Industry Report 2024 and Clio Marketing Trends 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2-3% for legal professionals (higher than Facebook due to professional context)",
+        "best_content_format": "Thought leadership articles, case result announcements (anonymized), legal news commentary, professional achievement posts",
+        "optimal_frequency": "2-3 posts per week for firm pages, daily for attorney personal profiles",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM, 12-1 PM, Wednesday mornings perform best",
+        "source": "LinkedIn Legal Marketing Insights 2024 and ABA Marketing Research 2023"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.5% for legal services (Reels achieving 3-5%)",
+        "best_content_format": "Instagram Reels (15-60 seconds) explaining legal myths, carousel posts with legal tips, behind-the-scenes office content, infographics about legal processes",
+        "optimal_frequency": "4-7 posts per week, with 3-4 Reels per week for maximum reach",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM, evenings 7-9 PM, avoid weekends for professional content",
+        "source": "Later.com Legal Industry Benchmark 2024 and Hootsuite Social Trends Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21% open rate, 2.5% click-through rate for legal services",
+        "best_content_format": "Educational newsletters, case updates for existing clients, legal alerts about law changes, consultation reminders with urgency elements",
+        "optimal_frequency": "1-2 emails per month for prospects, weekly for active clients",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM local time, avoid Mondays and Fridays",
+        "source": "Constant Contact Legal Industry Benchmarks 2024 and Martindale-Avvo Attorney Marketing Report 2023"
+      },
+      {
+        "platform": "Google Business/Local SEO",
+        "avg_engagement_rate": "Click-through rate 3-5% from local pack, 15-25% from Google Business Profile views to website",
+        "best_content_format": "Weekly Google Posts with legal tips, Q&A responses, reviews responses (critical - 85% of consumers read reviews), photos of office/team",
+        "optimal_frequency": "2-3 Google Posts per week, respond to all reviews within 24-48 hours",
+        "best_posting_times": "Monday-Friday mornings, posts expire after 7 days so consistent posting essential",
+        "source": "BrightLocal Legal Services Study 2024 and Google Business Profile Best Practices 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Mistake Warning Pattern: 'This [common action] could cost you [severe consequence]'",
+        "example": "This one sentence to police could cost you your freedom | Saying 'I only had two drinks' destroys your DUI defense | Posting on social media after an accident can ruin your injury claim",
+        "why_it_works": "Triggers loss aversion and fear, positions attorney as protective insider with specialized knowledge, creates urgency to learn more and avoid catastrophic mistake",
+        "source": "High-performing TikTok legal content analysis and Clio 2024 Legal Marketing Report"
+      },
+      {
+        "hook_pattern": "Enemy Positioning: '[Powerful entity] doesn't want you to know this'",
+        "example": "Insurance companies hope you never learn this settlement trick | What prosecutors don't tell you about plea bargains | The loophole creditors pray you'll never discover",
+        "why_it_works": "Creates us-vs-them dynamic with attorney as ally, leverages distrust of institutions (insurance, prosecutors, creditors), promises insider information",
+        "source": "Personal injury firm email subject line testing data and Legal Marketing Association case studies"
+      },
+      {
+        "hook_pattern": "Urgency + Specificity: '[Specific situation] - You have only [timeframe] to act'",
+        "example": "Arrested? Your first 48 hours determine everything | Accident victim? Evidence disappears after 72 hours | Served divorce papers? You have 30 days to respond or lose rights",
+        "why_it_works": "Combines time pressure with specific scenario recognition, triggers immediate action from people in that exact situation, demonstrates expertise through specific knowledge",
+        "source": "Criminal defense and family law firm consultation conversion data 2023-2024"
+      },
+      {
+        "hook_pattern": "Transformation Promise: 'From [terrible situation] to [desired outcome]'",
+        "example": "From facing 10 years to charges dismissed | How we turned a $5,000 offer into $150,000 | Drowning in debt to completely debt-free in 6 months",
+        "why_it_works": "Shows concrete before/after, makes outcome tangible and believable with specifics, creates hope and demonstrates track record",
+        "source": "Morgan & Morgan testimonial campaigns and personal injury firm case studies"
+      },
+      {
+        "hook_pattern": "Question Hook Targeting Pain: 'Are you [experiencing specific problem]?'",
+        "example": "Charged with DUI and terrified of losing your license? | Being harassed by debt collectors at work? | Worried your spouse is hiding assets in the divorce?",
+        "why_it_works": "Direct identification for people in crisis, acknowledges emotional state not just legal issue, creates immediate relevance and connection",
+        "source": "Family law and bankruptcy attorney intake form analysis and Facebook ad performance data"
+      },
+      {
+        "hook_pattern": "Authority Contradiction: 'Everything you've heard about [legal topic] is wrong'",
+        "example": "Everything you think you know about bankruptcy is wrong | The truth about custody that family court won't tell you | Why most DUI advice online will get you convicted",
+        "why_it_works": "Challenges assumptions, positions attorney as contrarian truth-teller, creates curiosity gap, suggests others are misinformed or misleading",
+        "source": "Legal blog headline A/B testing and webinar title performance analysis"
+      },
+      {
+        "hook_pattern": "Social Proof Specific: '[Number] clients we've helped with [exact problem]'",
+        "example": "We've saved 847 clients from foreclosure | 1,200+ DUI cases - 89% reduced or dismissed | $45 million recovered for accident victims like you",
+        "why_it_works": "Specific numbers create credibility, shows specialization and experience, implies pattern of success, makes outcome seem achievable",
+        "source": "Personal injury and criminal defense firm website conversion testing 2023-2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm terrified I'm going to lose my kids",
+        "I can't sleep, the creditors won't stop calling",
+        "I've never been arrested before, I don't know what to do",
+        "The insurance company is lowballing me and I have medical bills piling up",
+        "I got served papers and I'm freaking out",
+        "My ex is threatening to take full custody",
+        "I can't afford to lose my license, I need to drive for work",
+        "They're saying I could go to jail and I'm scared",
+        "I don't understand any of this legal stuff",
+        "The other lawyer is intimidating me",
+        "I feel completely overwhelmed and alone",
+        "I'm worried I'll say the wrong thing and make it worse",
+        "I can't afford a lawyer but I can't afford NOT to have one",
+        "Time is running out and I don't know what my options are"
+      ],
+      "solution_phrases": [
+        "I need someone who will fight for me",
+        "I want an aggressive attorney who won't back down",
+        "I need someone available when I have questions",
+        "I want this nightmare to be over",
+        "I need someone who's handled cases like mine before",
+        "I want to protect my family no matter what it costs",
+        "I need someone to explain this in plain English",
+        "I want the best possible outcome",
+        "I need someone local who knows the judges",
+        "I want an attorney who actually cares about my case",
+        "I need immediate help, not next week",
+        "I want someone who will return my calls",
+        "I need to know my options and what to expect",
+        "I want someone with a proven track record"
+      ],
+      "objection_phrases": [
+        "I can't afford a lawyer right now",
+        "How do I know you can actually help me?",
+        "What if I hire you and still lose?",
+        "Do I really need a lawyer for this?",
+        "How long is this going to take?",
+        "I've talked to other lawyers and they all say different things",
+        "What are your fees? I need to know upfront",
+        "Can I just handle this myself?",
+        "Will you personally handle my case or pass it to someone else?",
+        "I'm worried about making this public",
+        "What if this makes things worse?",
+        "I don't have time for a long court battle"
+      ],
+      "decision_factors": [
+        "Experience with my specific type of case",
+        "How quickly they responded to my initial call",
+        "Whether they offer free consultation",
+        "Reviews from other clients in similar situations",
+        "Their success rate or case results",
+        "Whether they explained things clearly without legal jargon",
+        "If they seemed to genuinely care about my situation",
+        "Local reputation and relationships with judges",
+        "Payment plans or contingency fee options",
+        "Availability and responsiveness",
+        "Confidence they projected about my case",
+        "Whether I felt comfortable and trusted them",
+        "Recommendations from friends or family",
+        "Years of experience practicing"
+      ],
+      "emotional_language": [
+        "terrified",
+        "overwhelmed",
+        "desperate",
+        "scared to death",
+        "nightmare",
+        "relief",
+        "peace of mind",
+        "finally able to sleep",
+        "weight lifted off my shoulders",
+        "fighting for my life",
+        "protecting my family",
+        "getting my life back",
+        "fresh start",
+        "justice",
+        "vindicated",
+        "grateful",
+        "saved my life",
+        "felt heard for the first time"
+      ],
+      "sources": [
+        "Avvo attorney review analysis 2023-2024",
+        "Reddit r/legaladvice and r/divorce threads",
+        "Google Business Profile reviews for top-rated general practice attorneys",
+        "Martindale client satisfaction surveys",
+        "Legal intake call transcripts and consultation notes",
+        "Yelp reviews for personal injury and criminal defense attorneys",
+        "Facebook reviews and recommendations in local community groups"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few firms create content specifically for family members of people in legal crisis (e.g., 'What to do when your spouse gets arrested', 'How to support your child through a custody battle')",
+      "Limited educational content about the emotional/psychological journey of legal proceedings - most focus only on process, not feelings",
+      "Lack of transparent pricing information - most firms avoid discussing costs until consultation, creating barrier",
+      "Minimal content addressing what happens AFTER case resolution (life after bankruptcy, rebuilding after DUI, co-parenting after divorce)",
+      "Few firms leverage user-generated content or client stories in authentic, non-testimonial formats",
+      "Gap in short-form video content (TikTok/Reels) for family law and estate planning - dominated by criminal/PI",
+      "Limited content for specific demographics (Spanish-language content, LGBTQ+ legal issues, elderly/estate planning for millennials inheriting)",
+      "Underutilized podcast format for long-form legal education and case story deep-dives",
+      "Lack of interactive tools (cost calculators, case evaluators, timeline estimators) that provide immediate value",
+      "Missing 'day in the life' content showing what actually happens during depositions, court appearances, negotiations"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - Early February",
+        "opportunity": "New Year's resolutions, fresh start mentality, tax season preparation, people reviewing finances and life situations",
+        "content_angle": "'New Year, Fresh Start' bankruptcy and debt relief content; estate planning ('Get your affairs in order for 2024'); business formation for new ventures; divorce filings spike post-holidays"
+      },
+      {
+        "period": "March - April",
+        "opportunity": "Tax deadline stress, tax refunds available for retainers, spring break DUI increase, end of school year custody modifications",
+        "content_angle": "Tax debt and IRS issues content; 'Use your refund to protect your future' estate planning; DUI prevention and defense; custody modification before summer"
+      },
+      {
+        "period": "May - June",
+        "opportunity": "Graduation season (underage drinking arrests), wedding season (prenups), summer vacation custody issues, increased driving/accidents",
+        "content_angle": "Prenuptial agreement education for engaged couples; summer custody schedule modifications; teen legal trouble (MIP, DUI); personal injury (motorcycle accidents, pedestrian accidents)"
+      },
+      {
+        "period": "July - August",
+        "opportunity": "Summer accidents peak, vacation-related legal issues, back-to-school custody concerns, business planning for Q4",
+        "content_angle": "Vacation rental disputes; summer accident injury claims; custody agreements before school starts; business entity formation before year-end"
+      },
+      {
+        "period": "September - October",
+        "opportunity": "Back to school (custody enforcement issues), fall business planning, estate planning awareness month (October), Halloween DUI checkpoints",
+        "content_angle": "Custody enforcement when ex won't follow agreement; Q4 business legal checkup; estate planning month campaigns; DUI prevention before holiday season"
+      },
+      {
+        "period": "November - December",
+        "opportunity": "Thanksgiving/Christmas DUI arrests spike, holiday family conflicts, year-end estate planning, divorce filings increase post-holidays, retail/business disputes",
+        "content_angle": "Holiday DUI defense; family conflict mediation; 'Don't wait until January' divorce consultations; year-end estate planning tax benefits; Black Friday business disputes"
+      },
+      {
+        "period": "Major News Events",
+        "opportunity": "Legal issues trending in news (police brutality, corporate scandals, celebrity cases, law changes)",
+        "content_angle": "Educational content explaining legal concepts behind trending cases; 'What this means for you' angles; rights education during social movements; new law explanations"
+      },
+      {
+        "period": "Local Events",
+        "opportunity": "Local festivals, sporting events, concerts (DUI checkpoints), community gatherings, local legislative changes",
+        "content_angle": "Event-specific legal tips; 'Know your rights' before major local events; local law change alerts; community sponsorship visibility"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-01-27",
+    "sources_consulted": [
+      "Clio Legal Trends Report 2024",
+      "American Bar Association Marketing Research 2023-2024",
+      "Legal Marketing Association Case Studies and Benchmark Reports",
+      "Martindale-Avvo Attorney Marketing Report 2023",
+      "Sprout Social Legal Industry Social Media Benchmarks 2024",
+      "LinkedIn Legal Marketing Insights 2024",
+      "Later.com and Hootsuite Social Media Benchmarks",
+      "BrightLocal Legal Services Local SEO Study 2024",
+      "Morgan & Morgan YouTube channel and social media profiles",
+      "Ben Crump Law social media profiles",
+      "TikTok legal content creator accounts and engagement data",
+      "Reddit communities: r/legaladvice, r/divorce, r/personalfinance",
+      "Google Business Profile reviews for top-rated attorneys",
+      "Avvo attorney reviews and ratings",
+      "Yelp legal services reviews",
+      "Constant Contact Email Marketing Benchmarks",
+      "Social Media Examiner legal marketing analysis"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for legal marketing campaigns due to client confidentiality",
+      "Exact conversion rates from social media to consultations rarely published",
+      "TikTok/Reels specific benchmarks for legal industry still emerging (platform relatively new for law firms)",
+      "Specific ROI data for different content types proprietary to individual firms",
+      "Geographic variation in engagement rates not well documented (urban vs rural, state-specific)",
+      "Video production cost vs performance data limited in public sources"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new legal service offerings (e.g., flat-fee packages, virtual consultations, specialized practice area)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The hidden problems clients face with [traditional legal service] that nobody talks about",
+        "Week 2: Introducing our [new service] - designed for people who are terrified and overwhelmed",
+        "Week 3: Real clients, real results - how [new service] gave them their life back",
+        "Week 4: Limited availability - why waiting could cost you everything"
+      ],
+      "weekly_hooks": [
+        [
+          "What [insurance companies/prosecutors/creditors] don't want you to know about [legal situation] - and why we're changing the game",
+          "This one mistake with [legal issue] could cost you [severe consequence] - here's how we're making sure our clients never face this",
+          "We've helped [specific number] clients with [exact problem] - now we're making it easier than ever to get the aggressive defense you deserve"
+        ],
+        [
+          "From [terrible situation] to [desired outcome] - our new [service name] is specifically designed for people who are scared and don't know where to turn",
+          "Are you [experiencing specific problem]? Our proven [new service] has helped [number] clients just like you protect their family",
+          "Everything you've heard about [legal service cost/process] is wrong - here's the truth about getting immediate help without breaking the bank"
+        ],
+        [
+          "From facing [severe consequence] to [positive outcome] - meet [Client Name] who used our new [service] to get their life back",
+          "[Number] clients we've helped with [exact problem] using our [new service] - here's what they're saying",
+          "Terrified about [legal situation]? This is exactly why we created [new service] - watch what happened for clients like you"
+        ],
+        [
+          "This [common action] could cost you [severe consequence] - you have only [timeframe] to act with our new [service]",
+          "[Powerful entity] doesn't want you to know this - but our [new service] levels the playing field and we're only taking [number] more clients this month",
+          "Are you [experiencing specific problem]? Time is running out - our [service] has limited availability and evidence disappears after [timeframe]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do I really need a lawyer for this?' by showing catastrophic costs of going alone",
+        "Week 2: Address 'How do I know you can actually help me?' with specific case numbers and success rates for new service",
+        "Week 3: Address 'I can't afford a lawyer right now' with transparent pricing, payment plans, and cost of NOT having representation",
+        "Week 4: Address 'How long is this going to take?' with timeline clarity and urgency of acting now vs. waiting"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce authority credentials - [X] years experience, [number] cases handled, local court relationships",
+        "Week 2: Share process transparency - behind-the-scenes of how new service works, what clients can expect step-by-step",
+        "Week 3: Feature client testimonials - video testimonials showing emotional transformation and specific outcomes with new service",
+        "Week 4: Final credibility push - case results, success rate statistics, limited availability social proof (X spots filled, Y remaining)"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide '[Legal Topic] - What [Insurance Companies/Prosecutors] Hope You Never Learn'",
+        "Week 2: Watch our 5-minute video explaining exactly how [new service] works and whether it's right for your situation",
+        "Week 3: Read these client stories and schedule your free 15-minute case evaluation to see if we can help you too",
+        "Week 4: Call now for immediate consultation - only [number] spots remaining this month, don't wait until it's too late"
+      ],
+      "platform_priority": [
+        "Facebook (5-7 posts/week) - video testimonials and service explainers perform best with target demographic",
+        "Instagram Reels (4-5 reels/week) - short-form educational content about new service benefits",
+        "Email (2 emails/week) - nurture sequence to existing list with early access opportunity",
+        "Google Business Posts (3 posts/week) - capture high-intent local searches during launch",
+        "LinkedIn (2-3 posts/week) - professional positioning for business-related legal services"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Morgan & Morgan testimonial video campaign success (50K-200K views, 3-5x engagement) combined with email nurture campaign achieving 42% open rates through enemy positioning and educational value. Launch structure mirrors proven transformation promise hook pattern with specific before/after outcomes."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and trust while generating consistent consultations",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common legal mistakes that destroy cases before they start - what NOT to do",
+        "Week 2: Your rights explained - what [insurance companies/police/creditors] hope you never learn",
+        "Week 3: Real client transformations - from nightmare to relief",
+        "Week 4: Behind the legal process - demystifying what actually happens in [court/negotiations/filings]",
+        "Week 5: Urgent legal situations - recognizing when you need immediate help",
+        "Week 6: Legal myths debunked - the truth about [common misconceptions in practice areas]",
+        "Week 7: Success stories and case results - proof of our aggressive, winning approach",
+        "Week 8: Legal planning and prevention - protecting yourself before crisis hits"
+      ],
+      "weekly_hooks": [
+        [
+          "This one sentence to [police/insurance adjuster] could cost you [severe consequence] - here's what to say instead",
+          "This common mistake during [legal situation] ruins [X]% of cases - are you making it right now?",
+          "Posting this on social media after [accident/arrest] can destroy your case - delete it immediately"
+        ],
+        [
+          "[Insurance companies/Prosecutors/Creditors] don't want you to know this loophole - but we use it to win cases",
+          "What your [opponent] won't tell you about [legal process] - insider knowledge that changes everything",
+          "Are you [experiencing specific problem]? You have rights most people don't know exist - here's what they are"
+        ],
+        [
+          "From facing [severe consequence] to [positive outcome] - how we helped [Client Name] get their life back",
+          "Terrified about [legal situation]? Here's exactly how we turned this client's nightmare into relief",
+          "[Number] clients we've saved from [terrible outcome] - meet one who thought there was no hope"
+        ],
+        [
+          "Ever wondered what actually happens during [deposition/arraignment/settlement negotiation]? Here's the truth",
+          "Behind the scenes: How we prepare for [court appearance/negotiation] to get you the winning outcome",
+          "What to expect when [legal process step] - the reality nobody explains in plain English"
+        ],
+        [
+          "[Legal situation] - you have only [timeframe] to act before you lose critical rights",
+          "Are you ignoring [legal notice/symptom]? This delay costs clients an average of $[amount] in our experience",
+          "This urgent sign means you need a lawyer immediately - evidence disappears after [timeframe]"
+        ],
+        [
+          "Everything you think you know about [bankruptcy/DUI/custody] is wrong - here's the truth",
+          "The biggest lie about [legal topic] that keeps people from getting help - debunked",
+          "Why most [legal advice you find online] will get you in deeper trouble - what actually works"
+        ],
+        [
+          "From a $[lowball offer] to $[actual settlement] - how our aggressive negotiation gets results",
+          "[X]% of our [case type] cases result in [positive outcome] - here's a recent win",
+          "They said [terrible prediction] - we proved them wrong and got [specific result]"
+        ],
+        [
+          "Don't wait for crisis - this one document protects your [family/assets/business] if the worst happens",
+          "The legal mistake [X]% of [demographic] make that costs their family everything - prevent it now",
+          "Are you prepared if [triggering event] happens tomorrow? Most people aren't - here's your checklist"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'Do I really need a lawyer for this?' through mistake-warning content showing self-representation costs",
+        "Week 3-4: Address 'How do I know you can actually help me?' with client testimonials and case results",
+        "Week 5-6: Address 'What if I hire you and still lose?' by explaining our process, experience, and realistic expectations",
+        "Week 6-7: Address 'I can't afford a lawyer right now' with cost-of-inaction content and payment options",
+        "Week 7-8: Address 'How long is this going to take?' with process timelines and prevention planning",
+        "Week 8: Address 'I want to wait and see what happens' with urgency content about evidence and rights preservation",
+        "Cycle repeats: Address 'I've talked to other lawyers and they all say different things' with educational authority content",
+        "Ongoing: Address 'Will you personally handle my case?' through behind-the-scenes and team introduction content"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce expertise through educational content demonstrating insider knowledge",
+        "Week 2: Share authority credentials - years of experience, cases handled, specializations",
+        "Week 3: Feature client video testimonials with emotional transformation narratives",
+        "Week 4: Show process transparency - what actually happens, setting realistic expectations",
+        "Week 5: Display responsiveness - quick response time stats, availability messaging",
+        "Week 6: Demonstrate thought leadership - debunking myths, contrarian expertise",
+        "Week 7: Present concrete case results with specific numbers and outcomes",
+        "Week 8: Highlight prevention success stories and long-term client relationships"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post - you'll need it if [situation] happens to you or someone you know",
+        "Week 2: Download our free guide on '[Legal Rights Topic]' - know your options before you need them",
+        "Week 3: Watch this client's full story and see if your situation is similar - free case evaluation available",
+        "Week 4: Comment below with your questions - we answer every one within 24 hours",
+        "Week 5: If this is you right now, call immediately - time-sensitive situations require immediate action",
+        "Week 6: Share this with someone who believes [legal myth] - it could save them thousands",
+        "Week 7: Schedule your free consultation to discuss your case - see if we can get you similar results",
+        "Week 8: Don't wait for crisis - book your [planning consultation] now while you have time to prepare"
+      ],
+      "platform_priority": [
+        "Instagram Reels (4-5 reels/week) - highest engagement rate 3-5% for educational legal content, optimal for mistake-warning and myth-busting",
+        "Facebook (3-5 posts/week) - best for client testimonial videos and longer educational content, strong local reach",
+        "Google Business Posts (2-3 posts/week) - captures high-intent searches, posts expire in 7 days requiring consistency",
+        "Email Newsletter (1-2 emails/month) - nurture prospects with educational content, 21% open rate benchmark",
+        "LinkedIn (2-3 posts/week for attorney profiles) - thought leadership and professional credibility, 2-3% engagement"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on TikTok 'What NOT to say to police' viral content (500K-2M views, 15-25% save rates) and FAQ blog posts ranking top 3 in Google (1K-3K monthly visits, 5-8% consultation conversion). Cycle incorporates all proven hook patterns while maintaining educational value focus that builds trust over time."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign using viral-optimized content and high-frequency posting",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral legal myths and mistakes - highly shareable content exposing what people get wrong about [practice areas]",
+        "Week 2: Trending legal topics tied to current events - timely educational content that rides news cycles and social conversations"
+      ],
+      "weekly_hooks": [
+        [
+          "This one mistake can ruin your [legal case] - [X] million people don't know this (share to save someone)",
+          "Everything you've heard about [legal topic] is wrong - here's what [insurance companies/police/courts] actually do",
+          "Are you [experiencing specific problem]? This viral video shows exactly what NOT to do - watch before it's too late",
+          "[Powerful entity] doesn't want this video to go viral - here's the truth about [legal rights/process]",
+          "POV: You just [legal triggering event] and make this one mistake that costs you everything",
+          "Lawyers hate when this goes viral - the loophole in [legal situation] that changes everything",
+          "This [common action] is legal in [state] but illegal here - [X]% of people don't know and pay the price"
+        ],
+        [
+          "Everyone's talking about [trending case/news] - here's what it means for YOUR legal rights",
+          "The [recent news event] has people asking - can this happen to me? Here's the truth",
+          "Breaking: New [law/ruling] just changed [legal area] - if you [situation], this affects you immediately",
+          "The viral [legal situation] everyone's sharing - here's what the news got wrong and what you need to know",
+          "Are you [experiencing problem related to trending topic]? Here's your rights explained in 60 seconds",
+          "This trending case proves exactly why you need to know [legal information] - it could happen to anyone",
+          "What [celebrity/public case] teaches us about [legal issue] - and how to protect yourself"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do I really need a lawyer for this?' through viral mistake-warning content showing dramatic consequences",
+        "Week 2: Address 'How do I know you can actually help me?' by demonstrating expertise on trending topics and timely issues"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce expertise through contrarian truth-telling - 'what others get wrong' positioning",
+        "Week 2: Display timely relevance - quick response to news, demonstrating active practice and current knowledge"
+      ],
+      "cta_progression": [
+        "Week 1: Save and share this - tag someone who needs to see this before they make this mistake",
+        "Week 1: Follow for more legal truths [insurance companies/prosecutors] don't want you to know",
+        "Week 1: Comment 'GUIDE' and we'll send you our free [Legal Topic] checklist",
+        "Week 2: DM us if this [trending situation] is happening to you - we're offering free 15-minute case reviews this week",
+        "Week 2: Share your story - have you experienced [trending legal issue]? Your comment could help others",
+        "Week 2: Click link in bio for our emergency guide on [trending legal topic] - download before you need it"
+      ],
+      "platform_priority": [
+        "Instagram Reels (7-10 reels/week) - maximum reach potential, 3-5% engagement rate, optimal for viral content",
+        "TikTok (7-10 videos/week) - highest viral potential for legal content, 500K-2M view examples, 15-25% save rates",
+        "Facebook (5-7 posts/week) - cross-post top-performing short videos, leverage sharing in local groups",
+        "LinkedIn (3-4 posts/week) - trending legal news commentary for professional audience",
+        "Instagram Stories (2-3 stories/day) - behind-the-scenes, polls, Q&A to boost engagement signals"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on viral TikTok legal content achieving 500K-2M views with 15-25% save rates and 8-12% share rates (vs 2-3% platform average) using mistake-warning and enemy-positioning hooks. Ben Crump's strategy of tying legal education to trending news/current events achieving 500K+ Instagram following and 2-4% engagement demonstrates effectiveness of timely content."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing deep expertise and trust through comprehensive educational content",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The complete guide to [major practice area] - everything you need to know explained in plain English",
+        "Week 2: What actually happens during [legal process] - insider perspective from [X] years in the courtroom",
+        "Week 3: Common legal myths debunked - why everything you've heard about [topics] is wrong",
+        "Week 4: Your legal rights explained - what [insurance companies/prosecutors/creditors] hope you never learn",
+        "Week 5: Case study deep-dives - how we've handled [X] cases and what we learned",
+        "Week 6: Legal planning and prevention - protecting yourself before crisis with expert strategies"
+      ],
+      "weekly_hooks": [
+        [
+          "Everything you need to know about [legal area] - the complete guide [insurance companies] don't want you to read",
+          "After [X] years and [number] cases, here's the truth about [legal topic] that nobody else will tell you",
+          "Are you confused about [legal process]? Here's the step-by-step breakdown in language you'll actually understand"
+        ],
+        [
+          "Ever wondered what actually happens during [deposition/trial/negotiation]? Here's the insider view from [X] years in court",
+          "Behind the scenes: What we do to prepare for [legal proceeding] that most attorneys skip - and why it wins cases",
+          "From [first consultation] to [case resolution] - the complete timeline of what you can expect when working with us"
+        ],
+        [
+          "Everything you think you know about [bankruptcy/DUI/divorce] is wrong - here's what [X] years of practice has taught me",
+          "The biggest lies about [legal topic] - debunked by someone who's handled [number] of these cases",
+          "Why most legal advice you find online about [topic] will get you in trouble - here's what actually works in [local jurisdiction]"
+        ],
+        [
+          "[Prosecutors/Insurance companies/Creditors] don't want you to know these [number] rights - but I've used them to win [number] cases",
+          "What the other side won't tell you about [legal process] - insider knowledge from [X] years of aggressive representation",
+          "Your rights during [legal situation] - the comprehensive guide that levels the playing field"
+        ],
+        [
+          "From facing [severe consequence] to [positive outcome] - the complete case study of how we achieved this result",
+          "Case study: How we turned [terrible situation] into [specific win] - the strategy breakdown",
+          "[Number] cases taught us this winning strategy for [legal situation] - here's the detailed playbook"
+        ],
+        [
+          "Don't wait for legal crisis - here's the [number]-step plan to protect your [family/assets/business] starting today",
+          "After handling [number] emergency cases, here's what I wish clients had done before crisis hit",
+          "The legal planning checklist that prevents [X]% of the emergencies we see - comprehensive guide for [demographic]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't understand any of this legal stuff' by providing comprehensive education in accessible language",
+        "Week 2: Address 'Will you personally handle my case?' through behind-the-scenes content showing personal involvement",
+        "Week 3: Address 'I've talked to other lawyers and they all say different things' by explaining why with authoritative myth-busting",
+        "Week 4: Address 'How do I know you can actually help me?' with demonstration of deep rights knowledge and insider expertise",
+        "Week 5: Address 'What if I hire you and still lose?' by showing detailed case strategies and realistic outcome discussions",
+        "Week 6: Address 'Do I really need a lawyer for this?' through prevention content showing value of proactive legal planning"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce comprehensive expertise - [X] years experience, [number] cases, breadth of knowledge",
+        "Week 2: Share process mastery - detailed walkthrough of procedures showing intimate familiarity",
+        "Week 3: Demonstrate contrarian authority - willingness to challenge conventional wisdom with experience-based insights",
+        "Week 4: Display insider knowledge - relationships with courts, understanding of opponent tactics, local jurisdiction expertise",
+        "Week 5: Present detailed case results - not just outcomes but strategy and decision-making that led to wins",
+        "Week 6: Highlight long-term client relationships - prevention work, ongoing counsel, trusted advisor positioning"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive [Legal Topic] guide - [X] pages of expert insights you can reference anytime",
+        "Week 2: Save this series - you'll want to reference these steps if you ever face [legal situation]",
+        "Week 3: Comment with the legal myth you believed - let's discuss the truth in the comments",
+        "Week 4: Register for our free webinar 'Your Rights in [Legal Situation]' - live Q&A with [Attorney Name]",
+        "Week 5: Read our complete case study library - see if your situation matches any of our [number] detailed examples",
+        "Week 6: Schedule your legal planning consultation - let's create your protection strategy before you need it"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week) - highest engagement 2-3% for thought leadership, professional credibility building",
+        "Blog/SEO (2-3 comprehensive posts/week) - FAQ-style content ranking top 3 generates 1K-3K monthly visits, 5-8% consultation conversion",
+        "Email Newsletter (1 email/week) - long-form educational content, 21% open rate, nurtures authority perception",
+        "Facebook (3-4 posts/week) - educational carousel posts and live Q&A sessions perform well with local audience",
+        "YouTube (1-2 long-form videos/week) - detailed explanations, case study breakdowns, webinar recordings for depth"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on FAQ blog posts ranking top 3 in Google (1K-3K monthly visits, 3-4 min time on page, 5-8% consultation conversion) and Ben Crump's educational content strategy (500K+ following, 2-4% engagement through mix of educational posts explaining legal processes). Long-form, comprehensive content builds authority while high time-on-page signals demonstrate value delivery."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign using interactive content and conversation starters to boost algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive legal education - polls, quizzes, and Q&A addressing common questions and misconceptions",
+        "Week 2: Community stories and user-generated content - encouraging audience sharing and creating conversation around legal experiences"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: Have you ever needed a lawyer but didn't call because [objection]? Let's talk about why that's exactly what [insurance companies] want",
+          "Quiz: Can you spot the [number] legal mistakes in this scenario? Comment your answer - most people get #3 wrong",
+          "Q&A Time: What's your biggest question about [legal topic]? Drop it below and I'll answer every single one today",
+          "True or False: [Common legal myth]. Comment your guess - the answer will surprise [X]% of you",
+          "Fill in the blank: The worst legal advice I ever heard was ___. I'll share the most dangerous ones tomorrow",
+          "This or That: [Legal option A] vs [Legal option B] - which would you choose and why? There's no wrong answer but there IS a better strategy",
+          "Pop quiz: You just [legal triggering event] - what's your FIRST move? Comment below, then I'll reveal what [X]% of people get wrong"
+        ],
+        [
+          "Share your story: Have you ever dealt with [legal situation]? Your experience could help someone in the comments right now",
+          "Tag someone who needs to hear this: [Legal rights information] - this could save them from [terrible outcome]",
+          "Finish this sentence: I wish I had known ___ before [legal situation]. Reading these stories will help so many people",
+          "What's the most frustrating part of [legal process] you've experienced? Let's create a resource together based on your answers",
+          "Have you or someone you know been affected by [legal issue]? Share your story below - you're not alone and your voice matters",
+          "What legal topic confuses you the most? Top [number] most-commented topics get a detailed explanation video this week",
+          "Caption this: [Image of common legal scenario]. Funniest/most accurate caption gets featured - but let's also discuss the serious side"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't understand any of this legal stuff' through interactive educational content that makes learning engaging",
+        "Week 2: Address 'I feel completely overwhelmed and alone' by building community and showing others have similar experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate accessibility and responsiveness - answer every comment within 24 hours, show you're available and approachable",
+        "Week 2: Display community trust - feature user stories, showcase how many people you've helped, build social proof through participation"
+      ],
+      "cta_progression": [
+        "Week 1: Drop your questions below - I'm answering every single comment today",
+        "Week 1: Vote in our poll and comment why you chose that answer - let's discuss in the thread",
+        "Week 1: Tag someone who believes [legal myth] - they need to see this",
+        "Week 2: Share your experience with [legal situation] below - your story could help someone facing this right now",
+        "Week 2: DM me if you need private advice about [situation discussed] - free 15-minute consultations for engaged community members",
+        "Week 2: Follow for daily legal tips and join our community of [number] people protecting their rights"
+      ],
+      "platform_priority": [
+        "Instagram Stories (3-5 stories/day) - polls, question stickers, quiz stickers drive highest direct engagement",
+        "Facebook (5-7 posts/week) - live Q&A sessions, polls in posts, community discussion threads perform best for engagement",
+        "Instagram Feed (4-6 posts/week) - carousel posts with interactive elements, question prompts in captions",
+        "LinkedIn (3-4 posts/week) - discussion posts asking professional community for input on legal scenarios",
+        "TikTok (5-7 videos/week) - duet/stitch opportunities, comment-response videos, trending audio with legal education twist"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on platform benchmarks showing Facebook live Q&A sessions and Instagram Reels (3-5% engagement) significantly outperform static content. Interactive content leverages algorithm preference for comments, shares, and saves. Email benchmark showing 8% click-through for interactive/curiosity-driven content vs 2.5% average demonstrates engagement power of participation-based formats."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Everything you've heard about [LEGAL TOPIC] is wrong.\n\nI've practiced [PRACTICE AREA] law for [X] years, and the biggest mistake I see is [COMMON MISTAKE].\n\nHere's what actually happens:\n\n❌ MYTH: [WIDESPREAD BELIEF]\n✅ REALITY: [ACTUAL LEGAL TRUTH]\n\nThe problem? [CONSEQUENCE OF BELIEVING MYTH].\n\nWhat you should do instead:\n1. [SPECIFIC ACTION STEP]\n2. [SPECIFIC ACTION STEP]\n3. [SPECIFIC ACTION STEP]\n\nReal example: A client came to me after [SITUATION]. They believed [MYTH]. Result? [NEGATIVE OUTCOME]. We corrected course by [SOLUTION], and [POSITIVE RESULT].\n\nThe legal system doesn't work the way most people think. [TIMEFRAME] can make the difference between [BAD OUTCOME] and [GOOD OUTCOME].\n\nHave you encountered this misconception? What questions do you have about [TOPIC]?\n\n#LegalAdvice #[PRACTICE AREA] #BusinessLaw #KnowYourRights #[LOCAL AREA]Law",
+        "framework": "PAS",
+        "character_count": "~1,400",
+        "hook_length": "65 characters"
+      },
+      "authority": {
+        "template": "[COURT NAME] just ruled on [CASE TOPIC] - this changes everything for [AFFECTED INDUSTRY/GROUP].\n\nThe decision in [CASE NAME]: [ONE-SENTENCE SUMMARY OF RULING].\n\nWhy this matters:\n\nBefore this ruling, [OLD STANDARD/PRACTICE]. Now, [NEW STANDARD/PRACTICE].\n\nImmediate implications:\n• [SPECIFIC IMPACT #1]\n• [SPECIFIC IMPACT #2]\n• [SPECIFIC IMPACT #3]\n\nWhat [TARGET AUDIENCE] need to do now:\n\n→ Review your [RELEVANT DOCUMENTS/CONTRACTS]\n→ Assess whether [SPECIFIC SITUATION] applies to you\n→ Consider [PROACTIVE STEP] before [DEADLINE/TIMEFRAME]\n\nI've already had [NUMBER] clients ask about this since the ruling dropped [TIMEFRAME] ago. The most common question: \"[COMMON QUESTION]\"\n\nShort answer: [BRIEF RESPONSE]. But it depends on [VARIABLES].\n\nThis is a developing area. I'm monitoring [WHAT YOU'RE WATCHING] and will update as more guidance emerges.\n\nHow does this ruling affect your business? Drop your questions below.\n\n#LegalUpdate #[PRACTICE AREA] #CaseLaw #BusinessStrategy #[JURISDICTION]",
+        "framework": "AIDA",
+        "character_count": "~1,350",
+        "hook_length": "98 characters"
+      },
+      "promotional": {
+        "template": "From facing [SEVERE CONSEQUENCE] to [POSITIVE OUTCOME] - here's how we did it.\n\nA [CLIENT TYPE] came to us [TIMEFRAME] ago. Their situation: [PROBLEM DESCRIPTION]. They'd already [FAILED ATTEMPT], and were told [DISCOURAGING ADVICE].\n\nThe stakes: [WHAT THEY STOOD TO LOSE].\n\nOur approach was different:\n\nInstead of [CONVENTIONAL APPROACH], we [UNIQUE STRATEGY]. We identified [KEY INSIGHT] that other attorneys missed.\n\nThe process:\n→ [STEP 1 WITH SPECIFIC ACTION]\n→ [STEP 2 WITH SPECIFIC ACTION]\n→ [STEP 3 WITH SPECIFIC ACTION]\n\nResult: [SPECIFIC MEASURABLE OUTCOME]. But more importantly, [EMOTIONAL/LIFE IMPACT].\n\nThis case reinforced what I've learned in [X] years practicing [PRACTICE AREA] law: [KEY PRINCIPLE/LESSON].\n\nIf you're facing [SIMILAR SITUATION], here's what you need to know:\n\n1. [CRITICAL INSIGHT]\n2. [TIME-SENSITIVE FACTOR]\n3. [COMMON PITFALL TO AVOID]\n\nWe've handled [NUMBER]+ cases involving [CASE TYPE]. Our approach: [UNIQUE VALUE PROPOSITION].\n\nFacing a similar challenge? Let's talk. Free consultation to review your options: [LINK]\n\n#[PRACTICE AREA] #LegalWin #ClientSuccess #[LOCAL AREA] #LegalRepresentation",
+        "framework": "BAB",
+        "character_count": "~1,450",
+        "hook_length": "78 characters"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "This one mistake could cost you [SEVERE CONSEQUENCE] ⚠️\n\nIf you're [SITUATION], do NOT:\n❌ [MISTAKE #1]\n❌ [MISTAKE #2]\n❌ [MISTAKE #3]\n\nInstead, do this:\n✅ [CORRECT ACTION #1]\n✅ [CORRECT ACTION #2]\n✅ [CORRECT ACTION #3]\n\nI've seen [NUMBER] people make these mistakes in [TIMEFRAME]. The result? [NEGATIVE OUTCOME].\n\nReal talk: [BRIEF STORY OR EXAMPLE].\n\nYour first [TIMEFRAME] after [TRIGGERING EVENT] determines everything. Don't wait until it's too late.\n\nSave this post. Share it with someone who needs it. Questions? Drop them below 👇\n\nFree consultation link in bio. Available 24/7 because legal emergencies don't wait.\n\n[Hashtags in first comment]\n\n#[PRACTICE AREA] #LegalAdvice #KnowYourRights #[LOCAL AREA]Attorney #LegalTips #[SPECIFIC TOPIC] #LawyerLife #LegalHelp #AttorneyAtLaw #ProtectYourself",
+        "visual": "Carousel post: Slide 1 - Bold text 'STOP! Don't make this mistake' with attention-grabbing background. Slides 2-4 - Each mistake with X icon and brief explanation. Slides 5-7 - Each correct action with checkmark and why it matters. Slide 8 - CTA with contact info. Use brand colors, clear fonts, high contrast.",
+        "framework": "PAS",
+        "reel_hook": "POV: You just [TRIGGERING EVENT] and you're about to make a huge mistake..."
+      },
+      "authority": {
+        "caption": "[NUMBER] clients, [NUMBER] cases, [X] years. Here's what I've learned about [LEGAL TOPIC] 🎯\n\nThe legal system doesn't work how you think it does.\n\nMost people believe [COMMON MYTH]. The truth? [REALITY].\n\nAfter [X] years representing clients in [PRACTICE AREA] cases, I can tell you the #1 factor that determines success: [KEY FACTOR].\n\nNot your income. Not who you know. [KEY FACTOR].\n\nHere's proof: [BRIEF CASE EXAMPLE WITH SPECIFIC OUTCOME].\n\nWhat separates winning cases from losing ones:\n→ [INSIGHT #1]\n→ [INSIGHT #2]\n→ [INSIGHT #3]\n\nIf you're facing [SITUATION], you need to know this BEFORE you [ACTION].\n\nDM me \"[KEYWORD]\" for the free guide I created on [TOPIC]. It's helped [NUMBER]+ people avoid [NEGATIVE OUTCOME].\n\nOr click the link in bio for immediate consultation. Your case deserves an attorney who [UNIQUE APPROACH].\n\n#[PRACTICE AREA]Attorney #LegalExpert #[LOCAL AREA]Lawyer #ExperiencedAttorney #LegalAdvice #[SPECIFIC TOPIC] #AttorneyLife #LawyersOfInstagram #LegalTips #JusticeMatters",
+        "visual": "Professional headshot or office photo with text overlay showing credentials: '[X] Years Experience | [NUMBER]+ Cases | [IMPRESSIVE STAT]%  Success Rate | [SPECIALIZATION]'. Alternatively, behind-the-scenes photo reviewing case files with authentic, candid feel. Use professional but approachable aesthetic.",
+        "framework": "AIDA",
+        "reel_hook": "After [X] years as a [PRACTICE AREA] attorney, here's the truth nobody tells you..."
+      },
+      "promotional": {
+        "caption": "From [TERRIBLE SITUATION] to [AMAZING OUTCOME] 💪\n\nJust closed a case that started like this:\n\n[CLIENT] was facing [DIRE CIRCUMSTANCE]. They were told [DISCOURAGING NEWS]. They'd almost given up.\n\nThen they called us.\n\nWhat happened next: [BRIEF PROCESS DESCRIPTION].\n\nThe result? [SPECIFIC MEASURABLE OUTCOME]. But here's what really matters: [EMOTIONAL/LIFE IMPACT].\n\n\"[CLIENT QUOTE ABOUT EXPERIENCE]\" - [CLIENT INITIALS]\n\nThis is why I do this work. [EMOTIONAL STATEMENT ABOUT MISSION].\n\nIf you're struggling with [SIMILAR SITUATION], you don't have to face it alone. We've helped [NUMBER]+ clients with [PROBLEM TYPE].\n\nOur promise: [UNIQUE VALUE PROPOSITION]. We fight for [WHAT YOU FIGHT FOR].\n\nFree consultation. No obligation. Just honest answers about your options.\n\n👉 Link in bio or call [PHONE NUMBER]\n📍 Serving [GEOGRAPHIC AREA]\n⏰ Available [AVAILABILITY]\n\nYour [DESIRED OUTCOME] is possible. Let's make it happen.\n\n#[PRACTICE AREA] #ClientWin #LegalSuccess #[LOCAL AREA]Attorney #JusticeServed #CaseResults #AttorneyAtLaw #LegalHelp #FightForYou #[SPECIFIC TOPIC]",
+        "visual": "Before/After style graphic (abstract, not revealing client identity): Left side shows problem state with darker colors and problem indicators. Right side shows resolution with brighter colors and success indicators. Include case result number prominently if applicable ($XX,XXX recovered, XX% reduction, etc.). Maintain client confidentiality while showing transformation.",
+        "framework": "BAB",
+        "reel_hook": "We just won a case everyone said was impossible. Here's what happened..."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ URGENT: If you've been [TRIGGERING EVENT], do NOT do these 3 things (I see people make these mistakes every single day)\n\nLook, I get it. You're [EMOTIONAL STATE]. You want to [NATURAL IMPULSE]. But here's the truth nobody's telling you:\n\n❌ MISTAKE #1: [COMMON MISTAKE]\nWhy it's devastating: [CONSEQUENCE]. I just had a client who [BRIEF EXAMPLE]. It cost them [SPECIFIC LOSS].\n\nWhat to do instead: [CORRECT ACTION]. This protects [WHAT IT PROTECTS].\n\n❌ MISTAKE #2: [COMMON MISTAKE]\nThe problem: [CONSEQUENCE]. [AUTHORITY/OPPOSING PARTY] will use this against you to [HOW THEY'LL USE IT].\n\nWhat to do instead: [CORRECT ACTION]. Here's why this matters: [EXPLANATION].\n\n❌ MISTAKE #3: [COMMON MISTAKE]\nThis one kills me because [EMOTIONAL REASON]. I've seen [NEGATIVE OUTCOME] happen to [NUMBER] good people who just didn't know better.\n\nWhat to do instead: [CORRECT ACTION]. The first [TIMEFRAME] is critical.\n\n📌 SAVE THIS POST. Share it with anyone who might need it.\n\nReal talk from someone who's handled [NUMBER]+ [CASE TYPE] cases in [LOCAL AREA]: Your actions in the next [TIMEFRAME] will determine [OUTCOME].\n\nQuestions? Drop them below and I'll answer. Or if you need immediate help, we offer free consultations: [PHONE NUMBER]\n\nAvailable 24/7 because legal emergencies don't wait for business hours.\n\n#[LOCAL AREA] #LegalAdvice #[PRACTICE AREA] #KnowYourRights #LegalHelp",
+        "framework": "PAS",
+        "engagement_optimization": "Ask question in comments, tag friends who need this, save post prompts"
+      },
+      "authority": {
+        "template": "LEGAL UPDATE: [COURT/LEGISLATURE] just changed the rules on [TOPIC] - here's exactly what this means for you 📋\n\n[LOCAL AREA] residents, pay attention to this one.\n\nAs of [DATE], [WHAT CHANGED]. I know that sounds like legal jargon, so let me break down what this actually means:\n\n🔍 WHAT HAPPENED:\n[Plain English explanation of change]\n\n💡 WHY IT MATTERS:\nBefore: [OLD SITUATION]\nNow: [NEW SITUATION]\n\nThis affects you if:\n✓ [SCENARIO #1]\n✓ [SCENARIO #2]\n✓ [SCENARIO #3]\n\n⏰ TIMELINE:\n[WHEN IT TAKES EFFECT] - [WHAT HAPPENS]\n[NEXT MILESTONE] - [WHAT HAPPENS]\n[DEADLINE] - [CRITICAL ACTION NEEDED]\n\n📋 WHAT YOU SHOULD DO:\n\n1. [IMMEDIATE ACTION] - Do this by [TIMEFRAME]\n2. [SECONDARY ACTION] - Especially if [CONDITION]\n3. [ONGOING ACTION] - This protects [BENEFIT]\n\nI've already had [NUMBER] clients ask about this since the news broke. The most common questions:\n\nQ: [COMMON QUESTION #1]\nA: [BRIEF ANSWER]\n\nQ: [COMMON QUESTION #2]\nA: [BRIEF ANSWER]\n\nThis is a developing situation. I'm watching [WHAT YOU'RE MONITORING] and will update this thread as more information becomes available.\n\n❓ Got questions? Ask below and I'll do my best to answer (though specific situations require a proper consultation).\n\nNeed personalized guidance on how this affects your situation? Call us for a free consultation: [PHONE NUMBER]\n\nServing [GEOGRAPHIC AREA] | [X] years experience in [PRACTICE AREA]\n\n[SHARE this with anyone who might be affected]\n\n#LegalUpdate #[LOCAL AREA]Law #[PRACTICE AREA] #LegalNews #KnowYourRights #[SPECIFIC TOPIC]",
+        "framework": "AIDA",
+        "engagement_optimization": "Encourage questions, promise to update thread, share prompt, local geographic targeting"
+      },
+      "promotional": {
+        "template": "I need to tell you about a case we just closed. Not to brag - but because if you're in a similar situation, you need to know this is possible. 💪\n\n[TIMEFRAME] ago, [CLIENT DESCRIPTION] walked into my office facing [TERRIBLE SITUATION]. They were [EMOTIONAL STATE]. They'd already [FAILED ATTEMPTS].\n\nHere's what they were up against:\n• [OBSTACLE #1]\n• [OBSTACLE #2]\n• [OBSTACLE #3]\n\nOther attorneys had told them [DISCOURAGING ADVICE]. They were ready to [GIVE UP ACTION].\n\nBut here's what we saw that others didn't: [KEY INSIGHT].\n\nOur approach:\n\nInstead of [CONVENTIONAL APPROACH], we [UNIQUE STRATEGY]. We spent [TIME/EFFORT] on [SPECIFIC ACTION] that most attorneys skip.\n\nWe fought for [WHAT YOU FOUGHT FOR]. We pushed back when [OPPOSING PARTY] tried to [UNFAIR TACTIC].\n\nThe result: [SPECIFIC OUTCOME]\n\nBut you know what meant more than [MEASURABLE RESULT]? \n\nSeeing [CLIENT] finally [EMOTIONAL RELIEF]. Hearing them say \"[CLIENT QUOTE].\"\n\nTHAT'S why I do this work.\n\nIf you're facing [SIMILAR SITUATION], please hear this:\n\n→ It's not hopeless, even if you've been told it is\n→ The first [TIMEFRAME] is critical - don't wait\n→ The right attorney makes a massive difference\n\nWe've handled [NUMBER]+ cases involving [CASE TYPE] right here in [LOCAL AREA]. We know the local courts, the judges, the prosecutors/opposing counsel. That local knowledge matters.\n\nWhat we promise:\n✓ [PROMISE #1]\n✓ [PROMISE #2]\n✓ [PROMISE #3]\n\nFree consultation. We'll review your situation, explain your options, and give you honest advice - even if that means telling you that you don't need an attorney.\n\n📞 Call/text: [PHONE NUMBER]\n💻 Or visit: [WEBSITE]\n📍 Located in [LOCATION]\n\nAvailable [AVAILABILITY] because we know legal crises don't follow a 9-5 schedule.\n\nYour [DESIRED OUTCOME] matters. Let us fight for it.\n\nQuestions? Drop them below or send me a message.\n\n#[LOCAL AREA]Attorney #[PRACTICE AREA] #LegalHelp #ClientSuccess #LocalLawyer #ExperiencedAttorney #FightForYou",
+        "framework": "BAB",
+        "engagement_optimization": "Story-driven, emotional connection, clear CTAs, local focus, question prompt"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just got arrested and you're about to make the ONE mistake that will ruin everything",
+        "script": "VISUAL: Attorney in office, serious expression, direct to camera\n\nHOOK (0-3 sec): \"POV: You just got arrested and you're about to make the ONE mistake that will ruin everything\"\n\nTEXT OVERLAY: \"This destroys 90% of cases\"\n\n(3-10 sec): \"I've been a criminal defense attorney for [X] years. I've seen [NUMBER] cases. And THIS mistake shows up in almost every losing case.\"\n\nTEXT OVERLAY: \"What NOT to do ⬇️\"\n\n(10-25 sec): \"The cops say 'If you just explain your side, we can clear this up.' So you think 'I'll just tell them what happened. I didn't do anything wrong.'\"\n\nVISUAL: Cut to reenactment or text on screen\nTEXT OVERLAY: \"STOP RIGHT THERE ❌\"\n\n(25-40 sec): \"Here's what's actually happening: They already decided to arrest you. They're not trying to help you. They're building their case. Every word you say WILL be used against you. Not might be. WILL BE.\"\n\nTEXT OVERLAY: \"You have the right to remain SILENT\"\n\n(40-55 sec): \"What you say instead: 'I want to speak to my attorney.' That's it. Nothing else. Not 'I only had two drinks.' Not 'I didn't know.' Just 'I want my attorney.'\"\n\nVISUAL: Text on screen with the exact phrase\n\n(55-60 sec): \"Your first 48 hours determine everything. Don't waste them talking. Link in bio for what to do instead.\"\n\nTEXT OVERLAY: \"Free consultation → link in bio\"\n\nCALL TO ACTION: Follow for more legal tips that could save your freedom\n\n#CriminalDefense #LegalAdvice #KnowYourRights #Attorney #Lawyer #CriminalLaw #LegalTips #YourRights #PoliceEncounter",
+        "framework": "PAS",
+        "trend_application": "Use POV format, trending sounds for background, quick cuts, text overlays for emphasis"
+      },
+      "authority": {
+        "hook": "Insurance companies have a SECRET formula they use to lowball accident victims - I'm about to expose it",
+        "script": "VISUAL: Attorney with confident expression, professional setting\n\nHOOK (0-3 sec): \"Insurance companies have a SECRET formula they use to lowball accident victims - I'm about to expose it\"\n\nTEXT OVERLAY: \"They don't want you to know this\"\n\n(3-12 sec): \"I've negotiated with every major insurance company. [X] years, [NUMBER]+ cases. And they ALL use the same playbook to pay you less.\"\n\nVISUAL: Show generic insurance documents (blurred/generic)\nTEXT OVERLAY: \"The formula ⬇️\"\n\n(12-28 sec): \"Here's how it works: They make their first offer within 72 hours while you're still in pain and scared. It's always LOW. Like insultingly low. Why? Because [X]% of people accept it out of fear or desperation.\"\n\nTEXT OVERLAY: \"First offer = Lowest offer\"\n\n(28-45 sec): \"Real example: Client injured, $47,000 in medical bills. First offer? $5,000. We said no. They came back with $15,000. We said no. Settlement? $127,000. Same injuries. Same case. Different outcome because we knew the game.\"\n\nVISUAL: Show numbers appearing on screen\nTEXT OVERLAY: \"$5K → $15K → $127K\"\n\n(45-60 sec): \"If you've been in an accident, do NOT accept their first offer. Do NOT give a recorded statement without talking to an attorney first. And definitely don't sign ANYTHING. Free consultation link in bio. Let's get you what you actually deserve.\"\n\nTEXT OVERLAY: \"Don't settle for less\"\n\nCALL TO ACTION: Save this. Share with someone who needs it. Follow for more insurance secrets.\n\n#PersonalInjury #CarAccident #Insurance #LegalAdvice #Attorney #Lawyer #InjuryLaw #KnowYourWorth #InsuranceClaim",
+        "framework": "AIDA",
+        "trend_application": "Use 'secret/expose' hook format, show real numbers, authoritative tone, educational value"
+      },
+      "promotional": {
+        "hook": "We turned a 10-year prison sentence into complete dismissal - here's the moment we found out",
+        "script": "VISUAL: Attorney showing emotion/celebration (authentic, not staged)\n\nHOOK (0-3 sec): \"We turned a 10-year prison sentence into complete dismissal - here's the moment we found out\"\n\nTEXT OVERLAY: \"10 years → DISMISSED\"\n\n(3-15 sec): \"[CLIENT DESCRIPTION] was facing [CHARGES]. The evidence looked bad. Other attorneys told them to take a plea deal. They were terrified.\"\n\nVISUAL: Somber tone, serious expression\nTEXT OVERLAY: \"Everyone said take the plea\"\n\n(15-30 sec): \"But we saw something in [EVIDENCE/PROCEDURE]. Something the prosecution missed. We spent [TIMEFRAME] on [SPECIFIC ACTION]. Filed [LEGAL ACTION]. Argued that [LEGAL ARGUMENT].\"\n\nVISUAL: Show generic legal work (documents, research)\nTEXT OVERLAY: \"We found the loophole\"\n\n(30-45 sec): \"Yesterday, the judge ruled in our favor. ALL charges dismissed. [CLIENT] walked out of that courtroom a free person. After [TIMEFRAME] of hell, they get their life back.\"\n\nVISUAL: Show emotion - relief, joy (appropriate level)\nTEXT OVERLAY: \"DISMISSED ✓\"\n\n(45-60 sec): \"This is why I do this work. If you're facing charges and feel hopeless - don't give up. The right defense can change everything. Free consultation, link in bio. We fight for people everyone else has written off.\"\n\nTEXT OVERLAY: \"Your case isn't over | Link in bio\"\n\nCALL TO ACTION: Follow for real case updates. DM me if you need help.\n\n#CriminalDefense #CaseWin #Attorney #Lawyer #Justice #LegalWin #DefenseAttorney #ChargesDismissed #LegalHelp",
+        "framework": "BAB",
+        "trend_application": "Emotional storytelling, transformation narrative, authentic reaction, hope-driven message"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Insurance companies hope you never learn this settlement trick",
+        "preview_text": "The one thing that could double your settlement (takes 2 minutes)",
+        "body": "SUBJECT: Insurance companies hope you never learn this settlement trick\nPREVIEW: The one thing that could double your settlement (takes 2 minutes)\n\n---\n\nHi [FIRST_NAME],\n\nI need to tell you something insurance adjusters pray you never figure out.\n\nAfter [X] years negotiating with insurance companies, I've seen them use the same trick over and over to pay accident victims less than they deserve.\n\nAnd it works. Almost every time.\n\nHere's the trick:\n\n**They make their first offer when you're most vulnerable.**\n\nYou're in pain. Medical bills are piling up. You're missing work. You're scared.\n\nThen they call with an offer. It sounds like a lot of money. They make it seem urgent - \"This offer expires in 48 hours\" or \"We need your answer by Friday.\"\n\nSo you accept it.\n\nHere's what they're not telling you:\n\n→ That \"urgent\" deadline? Completely made up.\n→ That \"generous\" offer? It's their LOWEST acceptable number.\n→ Those future medical costs? Not included in their calculation.\n\nReal example from last month:\n\nClient injured in rear-end collision. $23,000 in medical bills. Still in physical therapy. First offer: $8,500.\n\nThey accepted our representation. We documented ongoing treatment, future care needs, and lost wages. Settlement: $67,000.\n\nSame injuries. Same insurance company. 8X more money.\n\nThe difference? We knew what the case was actually worth.\n\n**If you've been in an accident, here's what to do:**\n\n1. Do NOT accept the first offer (or even the second)\n2. Do NOT give a recorded statement without legal advice\n3. Do NOT sign a release until you know your full damages\n4. DO document everything (photos, medical records, expenses)\n5. DO get a free case evaluation before deciding\n\nYour case is worth more than their first offer. Always.\n\nWe offer free consultations with no obligation. We'll review your situation, tell you what we think it's worth, and explain your options.\n\nEven if you decide not to hire us, you'll know whether their offer is fair.\n\n[CTA BUTTON: Get Free Case Evaluation]\n\nOr call us directly: [PHONE_NUMBER]\n\nAvailable [AVAILABILITY] because insurance companies don't wait, and neither should you.\n\nFighting for you,\n\n[ATTORNEY_NAME]\n[FIRM_NAME]\n[CREDENTIALS]\n\nP.S. - Forward this to anyone who's been in an accident recently. This information could be worth thousands to them.\n\n---\n\n[FOOTER: Unsubscribe | This is not legal advice. Every case is different.]",
+        "framework": "PAS",
+        "segmentation": "Recent accident victims, personal injury leads, consultation requests not yet converted"
+      },
+      "authority": {
+        "subject": "[LOCAL_AREA] legal alert: New [LAW/RULING] affects [TARGET_AUDIENCE]",
+        "preview_text": "What changed, what it means, what you need to do by [DATE]",
+        "body": "SUBJECT: [LOCAL_AREA] legal alert: New [LAW/RULING] affects [TARGET_AUDIENCE]\nPREVIEW: What changed, what it means, what you need to do by [DATE]\n\n---\n\nHi [FIRST_NAME],\n\nImportant update if you're [RELEVANT SITUATION].\n\nOn [DATE], [AUTHORITY] changed the rules on [TOPIC]. This affects [WHO IT AFFECTS] in [LOCAL_AREA].\n\nHere's what you need to know:\n\n**WHAT CHANGED:**\n[Plain English explanation of the change]\n\n**WHAT IT MEANS FOR YOU:**\n\nBefore this change: [OLD SITUATION]\nStarting [EFFECTIVE_DATE]: [NEW SITUATION]\n\nThis matters because [IMPACT/CONSEQUENCE].\n\n**WHO THIS AFFECTS:**\n\n✓ [SCENARIO #1]\n✓ [SCENARIO #2]\n✓ [SCENARIO #3]\n\nIf any of these apply to you, keep reading.\n\n**CRITICAL TIMELINE:**\n\n[DATE]: [WHAT HAPPENS]\n[DATE]: [WHAT HAPPENS]\n[DEADLINE]: [CRITICAL ACTION REQUIRED]\n\nMissing these deadlines could mean [NEGATIVE CONSEQUENCE].\n\n**WHAT YOU SHOULD DO:**\n\n**Immediate (this week):**\n[SPECIFIC ACTION STEP]\n\n**Short-term (by [DATE]):**\n[SPECIFIC ACTION STEP]\n\n**Ongoing:**\n[SPECIFIC ACTION STEP]\n\n**COMMON QUESTIONS:**\n\nQ: [ANTICIPATED QUESTION #1]\nA: [BRIEF ANSWER]\n\nQ: [ANTICIPATED QUESTION #2]\nA: [BRIEF ANSWER]\n\nQ: [ANTICIPATED QUESTION #3]\nA: [BRIEF ANSWER]\n\n**NEED HELP?**\n\nThis is a developing situation. The full implications are still being worked out.\n\nIf you're not sure how this affects your specific situation, we're offering complimentary 15-minute consultations to review the impact on your [CASE TYPE/SITUATION].\n\n[CTA BUTTON: Schedule Free Consultation]\n\nOr reply to this email with your questions.\n\nWe're monitoring this closely and will send updates as more guidance becomes available.\n\nStaying on top of it for you,\n\n[ATTORNEY_NAME]\n[FIRM_NAME]\n[X] years serving [LOCAL_AREA]\n\nP.S. - Know someone this might affect? Forward this email. They'll thank you.\n\n---\n\n[FOOTER: Unsubscribe | Update preferences | This is general information, not legal advice]",
+        "framework": "AIDA",
+        "segmentation": "All contacts in affected practice area, local geographic area, relevant business/individual category"
+      },
+      "promotional": {
+        "subject": "From [TERRIBLE_SITUATION] to [POSITIVE_OUTCOME] - [CLIENT] story",
+        "preview_text": "How we helped [CLIENT_TYPE] get their life back (you can too)",
+        "body": "SUBJECT: From [TERRIBLE_SITUATION] to [POSITIVE_OUTCOME] - [CLIENT] story\nPREVIEW: How we helped [CLIENT_TYPE] get their life back (you can too)\n\n---\n\nHi [FIRST_NAME],\n\nI want to tell you about [CLIENT_DESCRIPTION].\n\n[TIMEFRAME] ago, they were facing [TERRIBLE_SITUATION]. They were [EMOTIONAL_STATE]. They'd already tried [FAILED_ATTEMPT] and were told [DISCOURAGING_NEWS].\n\nThey were ready to give up.\n\nThen they called us.\n\nHere's what they were up against:\n\n• [OBSTACLE #1]\n• [OBSTACLE #2]  \n• [OBSTACLE #3]\n\nThe stakes: [WHAT_THEY_STOOD_TO_LOSE]\n\nOther attorneys had said [DISCOURAGING_ADVICE]. But we saw something different.\n\n**OUR APPROACH:**\n\nInstead of [CONVENTIONAL_APPROACH], we [UNIQUE_STRATEGY].\n\nWe spent [TIME/EFFORT] on [SPECIFIC_ACTION] that most attorneys skip. We identified [KEY_INSIGHT] that changed everything.\n\nThe process:\n→ [STEP #1]\n→ [STEP #2]\n→ [STEP #3]\n\n**THE RESULT:**\n\n[SPECIFIC_MEASURABLE_OUTCOME]\n\nBut here's what really mattered:\n\n[CLIENT] told us: \"[EMOTIONAL_QUOTE_ABOUT_LIFE_IMPACT]\"\n\nThat's why we do this work.\n\n**IF YOU'RE IN A SIMILAR SITUATION:**\n\nMaybe you're facing [SIMILAR_PROBLEM]. Maybe you've been told it's hopeless. Maybe you're not sure if an attorney can even help.\n\nHere's what I want you to know:\n\n1. **It's not over.** We've seen cases turn around that looked impossible.\n\n2. **Time matters.** The first [TIMEFRAME] is critical. Don't wait until it's too late.\n\n3. **The right attorney makes all the difference.** Experience with [SPECIFIC_CASE_TYPE] matters.\n\nWe've handled [NUMBER]+ cases involving [CASE_TYPE] right here in [LOCAL_AREA]. We know the local courts, the judges, the [OPPOSING_PARTIES]. That knowledge is your advantage.\n\n**OUR PROMISE TO YOU:**\n\n✓ [PROMISE #1 - specific and meaningful]\n✓ [PROMISE #2 - addresses common fear]\n✓ [PROMISE #3 - unique value proposition]\n\n**NEXT STEP:**\n\nFree consultation. No obligation. We'll review your situation, explain your options, and give you honest advice - even if that means telling you that you don't need an attorney.\n\n[CTA BUTTON: Schedule Free Consultation]\n\nOr call us directly: [PHONE_NUMBER]\n\nAvailable [AVAILABILITY] because we know legal crises don't follow business hours.\n\nYour [DESIRED_OUTCOME] is possible. Let us show you how.\n\nReady to fight for you,\n\n[ATTORNEY_NAME]\n[FIRM_NAME]\n[CREDENTIALS]\n[X] years serving [LOCAL_AREA]\n\nP.S. - Still not sure? Read more client stories here: [LINK_TO_TESTIMONIALS]. See what's possible when you have the right team in your corner.\n\n---\n\n[FOOTER: Unsubscribe | Past results don't guarantee future outcomes | This is not legal advice]",
+        "framework": "BAB",
+        "segmentation": "Leads who haven't converted, contacts who requested info but didn't schedule, retargeting campaign for website visitors"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[847] clients saved from [foreclosure] in [the last 18 months]",
+      "[89%] of our [DUI cases] reduced or dismissed in [2024]",
+      "[$45 million] recovered for [accident victims] in [our county alone]"
+    ],
+    "question_hooks": [
+      "Are you [terrified you're going to lose your kids in this custody battle]?",
+      "Are you [being harassed by debt collectors at work and can't sleep]?",
+      "Are you [worried you'll say the wrong thing to police and make everything worse]?"
+    ],
+    "story_hooks": [
+      "How [a mom facing felony charges] got [everything dismissed and her record clean]",
+      "How [we turned a $5,000 insurance lowball offer] into [$150,000 for medical bills]",
+      "How [a dad with no custody] went to [50/50 placement in 90 days]"
+    ],
+    "fear_hooks": [
+      "Is your [driver's license] at risk from [this DUI charge you can't afford to lose]?",
+      "Is your [family home] at risk from [creditors because you waited too long]?",
+      "Is your [custody arrangement] at risk from [what your ex is threatening to file]?"
+    ],
+    "howto_hooks": [
+      "How to [protect your kids in divorce] without [making it a public court battle]",
+      "How to [handle police questions after arrest] without [accidentally confessing]",
+      "How to [deal with insurance adjusters] without [getting lowballed on your injury claim]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "This one sentence can save you in court",
+      "body": "If police ask to search your car, you say: 'I do not consent to searches.' Write it down. Practice it. You don't have to be rude - just say it calmly. They might search anyway, but now anything they find could be challenged in court. If you consent, you lose that protection forever. This applies to your car, your phone, your home. Five words that protect your rights. I'm a criminal defense attorney and I've seen cases won and lost on this alone. Save this video. Share it with your kids. It matters.",
+      "cta": "Follow for more legal protection tips"
+    },
+    "reels": {
+      "hook": "Insurance adjusters are trained to get you to say this",
+      "body": "After an accident, they'll call and ask 'How are you feeling?' Seems nice, right? If you say 'I'm fine' or 'I'm okay,' they record it and use it to deny your injury claim later. Instead say: 'I'm still being evaluated by doctors.' That's it. Don't apologize, don't minimize, don't guess about injuries. Soft tissue injuries appear days later. Whiplash, concussions - you might feel okay today and terrible tomorrow. Protect yourself.",
+      "cta": "Free case review - link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Record a 15-second video completing this sentence: 'Before I hired [Attorney Name], I was terrified that ___. Now I can finally ___.' Show your face, be real, no script needed.",
+      "hashtag": "#MyLegalJourney"
+    },
+    {
+      "prompt": "Take a photo of the moment you felt relief (signing final papers, leaving the courthouse, getting the call). Caption it with one word describing how you felt before, and one word for after.",
+      "hashtag": "#FreshStartStories"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "What your lawyer can't tell you (but I will) - series exposing insurance tactics, prosecutor strategies, or family court biases with insider perspective",
+      "why": "Forbidden knowledge angle + positions attorney as insider advocate against 'the system' + highly saveable for people anticipating legal issues"
+    },
+    {
+      "angle": "Lawyer reacts to viral legal situations - stitch with arrest videos, court TV clips, or news stories explaining what person did right/wrong legally",
+      "why": "Rides trending content + educational value + demonstrates expertise in entertaining format + algorithm boost from stitching popular content"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:47:59.995Z",
+    "last_tier2_refresh": "2025-11-27T20:47:59.995Z",
+    "last_tier3_refresh": "2025-11-27T20:47:59.995Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:47:59.995Z"
+  }
+}

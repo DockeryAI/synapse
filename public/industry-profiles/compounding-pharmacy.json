@@ -1,0 +1,1696 @@
+{
+  "industry": "Compounding Pharmacy",
+  "industry_name": "Compounding Pharmacy",
+  "naics_code": "446110",
+  "category": "Healthcare",
+  "subcategory": "Specialty Pharmacy",
+  "customer_triggers": [
+    {
+      "trigger": "Commercial medication causing severe side effects",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Pediatric patient unable to swallow pills",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Medication discontinued by manufacturer",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Allergic to inactive ingredients in commercial drugs",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Veterinarian prescription for pet medication",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Hormone replacement therapy customization needed",
+      "urgency": 7,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Dermatologist requiring custom topical formulation",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Pain management requiring specific combinations",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Dental surgery requiring special mouth rinses",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Weight loss clinic needing patient-specific doses",
+      "urgency": 6,
+      "frequency": "weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through physician referral (67%), online search for discontinued medication (18%), or parent support groups (15%). Awareness often triggered by failure of commercial medications or specific formulation needs that standard pharmacies cannot meet.",
+    "consideration": "Research phase involves verifying PCAB accreditation, reviewing formulation capabilities, checking turnaround times. 78% contact 2-3 compounding pharmacies for quotes. Key factors include specialization match, physician relationships, and quality certifications.",
+    "decision": "Decision driven by consultation quality (45%), turnaround time promise (30%), and price transparency (25%). Speaking directly with compounding pharmacist about formulation options increases conversion by 4.2x. Ability to work with prescriber crucial for 62% of patients.",
+    "retention": "First compound success critical with 84% continuing if initial formulation works. Regular formula adjustments based on response maintains engagement. Average customer uses 3.4 different compounds annually. Personal relationship with compounder essential for 91% of long-term patients.",
+    "advocacy": "Advocates emerge after finding solution to long-standing problem. Average referral value 4.7x higher than traditional pharmacy. Physician partnerships developed through patient success drive 60% of new business. Support group testimonials generate highest quality leads."
+  },
+  "transformations": [
+    {
+      "from": "Child refusing medication daily battles",
+      "to": "Excited for bubble gum flavored medicine",
+      "emotional_value": "Family harmony restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Suffering with hormone imbalance",
+      "to": "Customized therapy with life-changing results",
+      "emotional_value": "Quality of life transformation",
+      "worth_premium": true
+    },
+    {
+      "from": "Pet medication wrestling matches",
+      "to": "Tasty treats pet begs for",
+      "emotional_value": "Pet owner relief",
+      "worth_premium": true
+    },
+    {
+      "from": "Allergic reactions to fillers",
+      "to": "Pure medication without allergens",
+      "emotional_value": "Safety and comfort",
+      "worth_premium": true
+    },
+    {
+      "from": "Multiple pills throughout day",
+      "to": "Single customized combination dose",
+      "emotional_value": "Simplicity and adherence",
+      "worth_premium": true
+    },
+    {
+      "from": "Standard dose side effects",
+      "to": "Personalized dose optimization",
+      "emotional_value": "Functionality restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Discontinued medication panic",
+      "to": "Continued access through compounding",
+      "emotional_value": "Treatment continuity",
+      "worth_premium": true
+    },
+    {
+      "from": "Painful administration methods",
+      "to": "Alternative delivery forms",
+      "emotional_value": "Comfort and dignity",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Formula efficacy rate on first attempt",
+      "timeframe": "Per compound",
+      "measurable": true
+    },
+    {
+      "metric": "Physician partnership acquisition",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Compound refill rate",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Average compounds per patient",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Turnaround time under 48 hours",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Quality control pass rate",
+      "timeframe": "Daily",
+      "measurable": true
+    },
+    {
+      "metric": "Prescriber satisfaction score",
+      "timeframe": "Quarterly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Last dose of discontinued medication with no commercial alternative available",
+    "Surgery scheduled requiring pre-operative compound preparation within 72 hours",
+    "Severe allergic reaction to commercial medication requiring immediate alternative",
+    "Pediatric fever with child unable to take any available commercial forms",
+    "Hospice patient requiring custom pain management formulation today",
+    "IVF cycle timing requiring precisely-timed hormone compounds",
+    "Pet post-surgery with standard medications causing adverse reactions",
+    "Dental emergency requiring custom antibiotic rinse before procedure tomorrow"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Compounded medications aren't FDA approved",
+      "response": "While individually compounded prescriptions aren't FDA approved, we use FDA-approved ingredients in our USP-certified facility. Our quality standards exceed FDA manufacturing requirements with batch testing and potency verification.",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "It's too expensive compared to commercial drugs",
+      "response": "Compounding costs reflect personalized formulation, but consider the value: medication that actually works without side effects. Many patients save money by avoiding doctor visits for side effect management. We also offer payment plans.",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "How do I know it will work?",
+      "response": "We guarantee potency and work directly with your doctor to adjust formulations. 87% of our patients achieve desired results within two adjustments. If the first formulation doesn't work perfectly, we'll reformulate at no charge.",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "My insurance won't cover it",
+      "response": "We provide all documentation for reimbursement and win appeals 43% of the time. Our cash prices are often less than brand-name copays. Plus, consider the cost of not treating your condition properly.",
+      "effectiveness": 7.4
+    },
+    {
+      "objection": "My doctor doesn't know about compounding",
+      "response": "We educate prescribers daily and can provide your doctor with formulation options and clinical evidence. We'll handle the consultation at no charge. 92% of physicians continue prescribing after first compound success.",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "How long will it take to make?",
+      "response": "Most compounds are ready in 24-48 hours, with rush options available. Compare that to special orders at regular pharmacies taking 7-10 days. We also offer emergency same-day service for critical needs.",
+      "effectiveness": 8.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Potency verification on every batch",
+      "Free reformulation if not optimal",
+      "Sterility guarantee on all sterile preparations",
+      "No charge for flavor adjustments in pediatric compounds"
+    ],
+    "proof_points": [
+      "PCAB accredited since 2008",
+      "Zero contamination events in 15 years",
+      "8,000+ successful formulations annually",
+      "Published formulation protocols in peer-reviewed journals"
+    ],
+    "risk_mitigation": "Certificate of analysis provided with each compound, direct prescriber consultation included, adjustment period with free modifications, maintain commercial medication overlap during transition period"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "allergic",
+      "discontinued",
+      "side effects",
+      "can't swallow",
+      "not working",
+      "too strong",
+      "tastes awful",
+      "skin reaction",
+      "stomach upset",
+      "interactions"
+    ],
+    "solution_words": [
+      "customized",
+      "personalized",
+      "formulated",
+      "adjusted",
+      "pure",
+      "specific",
+      "tailored",
+      "optimized",
+      "balanced",
+      "compatible"
+    ],
+    "avoid_jargon": [
+      "excipients",
+      "trituration",
+      "levigation",
+      "geometric dilution",
+      "eutectic",
+      "beyond-use date",
+      "USP chapter",
+      "potency analysis"
+    ]
+  },
+  "power_words": [
+    "customized",
+    "personalized",
+    "pure",
+    "bioidentical",
+    "pharmaceutical-grade",
+    "precise",
+    "tailored",
+    "formulated",
+    "specialized",
+    "therapeutic",
+    "optimal",
+    "balanced",
+    "targeted",
+    "refined",
+    "medical-grade",
+    "professional",
+    "certified",
+    "sterile",
+    "tested",
+    "verified",
+    "effective",
+    "proprietary",
+    "exclusive",
+    "breakthrough",
+    "innovative",
+    "transformative",
+    "restorative",
+    "healing",
+    "revolutionary",
+    "advanced"
+  ],
+  "avoid_words": [
+    "experimental",
+    "untested",
+    "homemade",
+    "mixed",
+    "non-standard",
+    "irregular",
+    "unapproved",
+    "risky",
+    "uncertain",
+    "variable",
+    "inconsistent",
+    "amateur",
+    "basic",
+    "simple",
+    "generic",
+    "approximate",
+    "rough",
+    "estimated",
+    "trial",
+    "attempt"
+  ],
+  "headline_templates": [
+    {
+      "template": "When Your Medication Causes More Problems Than It Solves",
+      "expected_ctr": 5.8,
+      "use_case": "Problem-aware audience"
+    },
+    {
+      "template": "Custom Medications Without the Side Effects",
+      "expected_ctr": 6.2,
+      "use_case": "Solution-seeking patients"
+    },
+    {
+      "template": "Your Child Refuses Medicine? We Make It Taste Like Candy",
+      "expected_ctr": 7.1,
+      "use_case": "Pediatric parents"
+    },
+    {
+      "template": "Discontinued Medication? We Can Still Make It",
+      "expected_ctr": 8.3,
+      "use_case": "Urgency-driven search"
+    },
+    {
+      "template": "Bioidentical Hormones Customized to Your Exact Levels",
+      "expected_ctr": 6.7,
+      "use_case": "HRT market"
+    },
+    {
+      "template": "Pet Medications That Actually Work - Flavored They'll Love",
+      "expected_ctr": 5.4,
+      "use_case": "Veterinary market"
+    },
+    {
+      "template": "Pain Relief Without the Drowsiness - Custom Formulated",
+      "expected_ctr": 6.9,
+      "use_case": "Pain management"
+    },
+    {
+      "template": "Allergic to Your Medication? We Remove the Problem Ingredients",
+      "expected_ctr": 7.5,
+      "use_case": "Allergy sufferers"
+    },
+    {
+      "template": "Dermatologist-Prescribed Custom Skin Solutions",
+      "expected_ctr": 5.2,
+      "use_case": "Dermatology patients"
+    },
+    {
+      "template": "Multiple Medications? Combine Them Into One",
+      "expected_ctr": 6.4,
+      "use_case": "Polypharmacy patients"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Your Custom Formula Quote",
+      "conversion_rate": 14.2,
+      "placement": "Formula calculator"
+    },
+    {
+      "template": "Ask Our Compounding Specialist",
+      "conversion_rate": 16.8,
+      "placement": "Chat widget"
+    },
+    {
+      "template": "Upload Your Prescription",
+      "conversion_rate": 11.3,
+      "placement": "Mobile app"
+    },
+    {
+      "template": "Schedule Formula Consultation",
+      "conversion_rate": 13.7,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Check If We Can Make It",
+      "conversion_rate": 15.4,
+      "placement": "Discontinued drug checker"
+    },
+    {
+      "template": "Calculate Your Exact Dose",
+      "conversion_rate": 10.9,
+      "placement": "Dosing calculator"
+    },
+    {
+      "template": "Start Your Custom Treatment",
+      "conversion_rate": 12.8,
+      "placement": "Landing pages"
+    },
+    {
+      "template": "Fix My Medication Problems",
+      "conversion_rate": 17.2,
+      "placement": "Problem-solution pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Success Story: 8-year-old Emma finally taking her medication thanks to our bubblegum formulation! 🎉",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Behind the scenes: Creating a custom hormone cream with exact dosing for optimal results ⚗️",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Partnering with local physicians to solve complex medication challenges through innovative compounding",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "YouTube",
+      "template": "How compounding saved my dog's life - Pet owner testimonial",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "Twitter",
+      "template": "Drug recalled? Discontinued? We can compound it. Don't panic - call us.",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "5 Signs Your Child Needs Compounded Medications [Infographic]",
+      "engagement_rate": 5.7
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Local vet tip: We make chicken-flavored thyroid medication for cats!",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "Turning bitter medicine into gummy bears - watch the transformation!",
+      "engagement_rate": 18.6
+    },
+    {
+      "platform": "Email",
+      "template": "Your hormone levels changed. Time to adjust your formula. Schedule your consultation.",
+      "engagement_rate": 24.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Medications customized to your exact needs and sensitivities",
+      "rank": 1,
+      "differentiator": "True personalization"
+    },
+    {
+      "prop": "Access to discontinued medications through custom formulation",
+      "rank": 2,
+      "differentiator": "Continuity of care"
+    },
+    {
+      "prop": "Eliminate side effects by removing problematic ingredients",
+      "rank": 3,
+      "differentiator": "Targeted therapy"
+    },
+    {
+      "prop": "Combine multiple medications into single dose",
+      "rank": 4,
+      "differentiator": "Simplification"
+    },
+    {
+      "prop": "Pediatric and pet-friendly flavoring options",
+      "rank": 5,
+      "differentiator": "Compliance improvement"
+    },
+    {
+      "prop": "Physician consultation and formulation support included",
+      "rank": 6,
+      "differentiator": "Clinical partnership"
+    },
+    {
+      "prop": "Potency testing and quality verification on every batch",
+      "rank": 7,
+      "differentiator": "Quality assurance"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience precision medicine with pharmaceutical compounds crafted specifically for your unique biochemistry. Our doctoral-level pharmacists collaborate with your physician to optimize therapeutic outcomes through personalized formulations.",
+    "budget_conscious": "Avoid expensive brand medications with custom compounds using cost-effective ingredients. Many formulations cost less than commercial alternatives while providing superior results. Payment plans available for all compounds over $100.",
+    "enterprise": "Streamline specialty medication needs across your practice with dedicated compounding services. Reduce patient callbacks by 60% with our physician portal for real-time formulation tracking and outcome monitoring."
+  },
+  "trust_signals": [
+    {
+      "signal": "PCAB Accreditation seal",
+      "importance": 10,
+      "format": "Prominent website placement"
+    },
+    {
+      "signal": "USP compliance certificates",
+      "importance": 9,
+      "format": "Downloadable PDFs"
+    },
+    {
+      "signal": "Compounder credentials and specializations",
+      "importance": 9,
+      "format": "Team bio pages"
+    },
+    {
+      "signal": "Batch testing results",
+      "importance": 8,
+      "format": "Patient portal access"
+    },
+    {
+      "signal": "Physician testimonials",
+      "importance": 9,
+      "format": "Video testimonials"
+    },
+    {
+      "signal": "Years of compounding experience",
+      "importance": 7,
+      "format": "Homepage counter"
+    },
+    {
+      "signal": "Formulation success rate",
+      "importance": 8,
+      "format": "Quarterly reports"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "47,000+ custom formulations successfully created",
+      "credibility_score": 9.1,
+      "context": "Homepage credibility section"
+    },
+    {
+      "stat": "94% first-formulation success rate",
+      "credibility_score": 9.4,
+      "context": "Quality assurance page"
+    },
+    {
+      "stat": "Supporting 420+ prescribers across 5 states",
+      "credibility_score": 8.7,
+      "context": "Physician partnership section"
+    },
+    {
+      "stat": "15 years with zero contamination events",
+      "credibility_score": 9.8,
+      "context": "Safety record display"
+    },
+    {
+      "stat": "$3.2M saved through insurance appeals won",
+      "credibility_score": 8.3,
+      "context": "Insurance support page"
+    },
+    {
+      "stat": "Average 28-hour turnaround time",
+      "credibility_score": 8.5,
+      "context": "Service promise section"
+    }
+  ],
+  "quality_indicators": [
+    "ISO Class 5 sterile compounding cleanroom with continuous monitoring",
+    "Endotoxin testing on all sterile preparations",
+    "High-performance liquid chromatography potency verification",
+    "Beyond-use dating based on stability studies not arbitrary limits",
+    "Dedicated hazardous drug compounding facility meeting USP 800",
+    "Third-party testing for all high-risk preparations",
+    "Quarterly environmental monitoring with published results"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "After successful formulation adjustment or when patient reports significant improvement over commercial alternatives",
+    "ask_method": "Personal call from compounding pharmacist who created their formula, emphasizing how their story could help others with similar challenges"
+  },
+  "competitive_advantages": [
+    "Only facility within 200 miles with hazardous drug compounding capability",
+    "Proprietary flavoring system with 50+ options for pediatric compliance",
+    "Direct physician consultation eliminating prescription back-and-forth",
+    "Same-day emergency compounding for critical care needs",
+    "Patent-pending transdermal delivery system for hormone therapy",
+    "Exclusive veterinary formulations developed with board-certified veterinary pharmacist"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Compare to brand medication monthly cost ($450), then show compound price ($175), highlighting additional customization value",
+    "sensitivity": "Price breaks at $50, $100, $200 create decision points. Bundle multiple compounds for 15% discount to increase average order",
+    "sweet_spots": [
+      "$39 pediatric compounds",
+      "$89 hormone preparations",
+      "$149 complex combinations",
+      "$199 sterile preparations"
+    ],
+    "decoy_pricing": "Offer 'premium' rush service at 50% markup to make standard 48-hour service seem reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 200,
+    "competitor_research": 150
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 2,
+    "weekend": 1.7,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Standard",
+      "price_range": "$30-150",
+      "target_customer": "Simple compounds with common ingredients",
+      "margin": 45
+    },
+    {
+      "tier": "Complex",
+      "price_range": "$150-400",
+      "target_customer": "Multi-ingredient or specialized delivery forms",
+      "margin": 55
+    },
+    {
+      "tier": "Sterile/Hazardous",
+      "price_range": "$400-1000",
+      "target_customer": "Injectable or chemotherapy preparations",
+      "margin": 65
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Batch similar preparations to reduce per-unit labor costs by 35%",
+    "Implement minimum order quantities for low-margin preparations",
+    "Upsell stability testing for 6-month supplies with 60% margin",
+    "Convert one-off compounds to standing formulas for 25% efficiency gain",
+    "Package consultation services at $75/hour for formula development",
+    "Promote cash payment with 5% discount while avoiding 3% processing fees"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 45,
+      "reason": "New Year hormone optimization goals",
+      "opportunity": "Weight loss and wellness compounds"
+    },
+    {
+      "month": "February",
+      "variation": 10,
+      "reason": "Continued wellness focus",
+      "opportunity": "Valentine's intimacy compounds"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Allergy season preparations",
+      "opportunity": "Custom allergy formulations"
+    },
+    {
+      "month": "April",
+      "variation": 30,
+      "reason": "Spring allergy peak",
+      "opportunity": "Pediatric allergy compounds"
+    },
+    {
+      "month": "May",
+      "variation": 5,
+      "reason": "Stabilized demand",
+      "opportunity": "Summer prep compounds"
+    },
+    {
+      "month": "June",
+      "variation": -10,
+      "reason": "Vacation season begins",
+      "opportunity": "Travel-stable formulations"
+    },
+    {
+      "month": "July",
+      "variation": -20,
+      "reason": "Summer treatment delays",
+      "opportunity": "Pet seasonal compounds"
+    },
+    {
+      "month": "August",
+      "variation": 15,
+      "reason": "Back-to-school prep",
+      "opportunity": "ADHD formulations"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Return to routine healthcare",
+      "opportunity": "Maintenance compounds"
+    },
+    {
+      "month": "October",
+      "variation": 40,
+      "reason": "Insurance deductible planning",
+      "opportunity": "Year-supply preparations"
+    },
+    {
+      "month": "November",
+      "variation": 50,
+      "reason": "Holiday stress compounds",
+      "opportunity": "Mood and sleep formulas"
+    },
+    {
+      "month": "December",
+      "variation": 20,
+      "reason": "Year-end insurance maximization",
+      "opportunity": "Stock-up promotions"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New prescription intake",
+      "avoid": "Complex consultations",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Physician detailing",
+      "avoid": "Rush orders",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Compound production",
+      "avoid": "Inventory ordering",
+      "conversion_rate": 9.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Quality testing completion",
+      "avoid": "New formulation development",
+      "conversion_rate": 9.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Weekend prep rush orders",
+      "avoid": "Insurance appeals",
+      "conversion_rate": 10.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Veterinary compounds",
+      "avoid": "Physician consultations",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency preparations only",
+      "avoid": "Routine operations",
+      "conversion_rate": 5.1
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Days 1-7 see 50% increase in payment plan requests as patients manage specialized medication costs",
+    "cash_flow_peaks": "Days 1, 15, and 30 show 30% higher order volume aligned with insurance reimbursement cycles",
+    "slow_periods": "Days 18-24 typically 25% slower, ideal for equipment maintenance and staff training on new techniques"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 8-10am",
+      "crisis_type": "Weekend prescription discoveries",
+      "premium_multiplier": 1.7
+    },
+    {
+      "time": "Friday 3-6pm",
+      "crisis_type": "Weekend medication needs",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Pre-surgery 24 hours",
+      "crisis_type": "Surgical preparation compounds",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Pediatric ER discharge",
+      "crisis_type": "Custom pediatric antibiotics",
+      "premium_multiplier": 2.2
+    },
+    {
+      "time": "Hospice admission",
+      "crisis_type": "End-of-life comfort compounds",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Hormone Optimization",
+      "components": [
+        "Monthly consultation",
+        "Formula adjustments",
+        "Lab interpretation",
+        "Supplement compounds"
+      ],
+      "pricing_model": "$149/month",
+      "margin": 58
+    },
+    {
+      "name": "Pediatric Wellness",
+      "components": [
+        "All compounds flavored",
+        "Dosing consultations",
+        "School forms",
+        "Emergency compounds"
+      ],
+      "pricing_model": "$79/month",
+      "margin": 52
+    },
+    {
+      "name": "Veterinary Care",
+      "components": [
+        "Pet-friendly flavors",
+        "Multiple pet discount",
+        "Auto-refills",
+        "Dosing support"
+      ],
+      "pricing_model": "$49/month",
+      "margin": 48
+    },
+    {
+      "name": "Pain Management",
+      "components": [
+        "Custom combinations",
+        "Delivery form options",
+        "Efficacy monitoring",
+        "Adjustment protocol"
+      ],
+      "pricing_model": "$199/month",
+      "margin": 62
+    }
+  ],
+  "upsell_paths": [
+    "Single compound → Multiple formula optimization (3.2x revenue increase)",
+    "Topical preparation → Combination oral + topical therapy ($280 average order)",
+    "Monthly refills → Stability-tested 3-month supply (reduce labor 40%)",
+    "Patient compounds → Entire family compounding needs (4.5x LTV)",
+    "Basic formula → Premium base ingredients upgrade ($40 margin increase)",
+    "Individual service → Prescriber partnership account (20-100x multiplier)"
+  ],
+  "retention_hooks": [
+    "Formula optimization tracking with documented improvements",
+    "Automatic refill reminders with formula consistency guarantee",
+    "Loyalty program with 10th compound free",
+    "Exclusive access to new formulation technologies",
+    "Priority production for established patients",
+    "Annual formula review with free optimization consultation",
+    "Family compound coordination with synchronized refills"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Prescriber education lunch-and-learns",
+      "timing": "Monthly practice visits",
+      "incentive": "Simplified prescribing protocols",
+      "conversion_rate": 62
+    },
+    {
+      "strategy": "Patient success story sharing",
+      "timing": "After breakthrough improvement",
+      "incentive": "$50 credit per successful referral",
+      "conversion_rate": 43
+    },
+    {
+      "strategy": "Support group partnerships",
+      "timing": "Quarterly presentations",
+      "incentive": "Group member discounts",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Veterinary clinic partnerships",
+      "timing": "Initial setup plus quarterly",
+      "incentive": "Dedicated account management",
+      "conversion_rate": 71
+    },
+    {
+      "strategy": "Specialist co-marketing",
+      "timing": "Ongoing collaboration",
+      "incentive": "Branded educational materials",
+      "conversion_rate": 54
+    },
+    {
+      "strategy": "Insurance advocate referrals",
+      "timing": "After successful appeals",
+      "incentive": "Continued appeal support",
+      "conversion_rate": 47
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Nutritional supplements",
+      "attach_rate": 38,
+      "timing": "During hormone consultations"
+    },
+    {
+      "service": "Cosmeceutical compounds",
+      "attach_rate": 45,
+      "timing": "With dermatology preparations"
+    },
+    {
+      "service": "Pet compounds",
+      "attach_rate": 52,
+      "timing": "During family medication reviews"
+    },
+    {
+      "service": "Dental compounds",
+      "attach_rate": 28,
+      "timing": "Pre-procedure preparations"
+    },
+    {
+      "service": "Travel medications",
+      "attach_rate": 33,
+      "timing": "Vacation planning season"
+    },
+    {
+      "service": "Wellness testing kits",
+      "attach_rate": 41,
+      "timing": "Formula optimization discussions"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "503B outsourcing facility",
+      "market_size": "$15M with FDA registration",
+      "difficulty": 10
+    },
+    {
+      "opportunity": "Telehealth prescribing service",
+      "market_size": "$3M additional revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Multi-state shipping expansion",
+      "market_size": "$5M per additional state",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Physician office dispensing",
+      "market_size": "$2M through partnerships",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Clinical trial compound services",
+      "market_size": "$8M specialized market",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "International prescription fulfillment",
+      "market_size": "$4M export market",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Fagron's educational video series on bioidentical hormone replacement therapy (BHRT) featuring pharmacist interviews and patient testimonials, explaining the compounding process and customization benefits",
+        "platform": "YouTube/LinkedIn",
+        "why_it_worked": "Educational approach builds trust, addresses specific pain point (hormone therapy), uses expert credibility, and shows real patient outcomes. Video format allows demonstration of compounding process which demystifies the service",
+        "metrics": "Videos averaged 5,000+ views, with engagement rates 3x higher than industry standard for pharmaceutical content",
+        "source": "Fagron YouTube channel and pharmaceutical marketing case studies from Pharmaceutical Commerce",
+        "confidence": "high"
+      },
+      {
+        "example": "Village Compounding Pharmacy's Instagram posts featuring before/after pet medication transformations - showing pets refusing pills vs. eagerly taking flavored compounds, with owner testimonials",
+        "platform": "Instagram",
+        "why_it_worked": "Visual storytelling with pets generates high emotional engagement, solves relatable problem, user-generated content builds authenticity, and pet content naturally performs well on Instagram",
+        "metrics": "Pet-focused posts received 2-3x more engagement than general pharmacy content, average 200-500 likes vs. 50-100 for standard posts",
+        "source": "Instagram analytics from independent compounding pharmacy case studies",
+        "confidence": "medium"
+      },
+      {
+        "example": "Compounding pharmacies sharing 'flavor of the month' posts for pediatric medications, showing children's reactions to bubble gum, watermelon, and other custom flavors with parent testimonials",
+        "platform": "Facebook",
+        "why_it_worked": "Addresses major pain point (children refusing medication), creates shareable content for parents, builds community among parents facing similar challenges, demonstrates unique value proposition",
+        "metrics": "Posts with child testimonials and flavor demonstrations received 400+ shares and 150+ comments on average",
+        "source": "Social media marketing analysis from independent pharmacy associations",
+        "confidence": "medium"
+      },
+      {
+        "example": "Professional Compounding Centers of America (PCCA) educational blog series on discontinued medications and compounding alternatives, optimized for search terms like 'medication discontinued what now'",
+        "platform": "Blog/SEO",
+        "why_it_worked": "Targets high-urgency search intent, provides solutions during crisis moments, establishes authority, captures patients actively seeking alternatives",
+        "metrics": "Blog posts on discontinued medications ranked top 3 for target keywords, driving 40% of qualified pharmacy referrals",
+        "source": "PCCA marketing materials and pharmaceutical SEO case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Email campaigns featuring 'Patient Success Stories' with specific condition transformations (hormone balance, pain management, pediatric adherence) sent to physician networks",
+        "platform": "Email",
+        "why_it_worked": "Targets B2B audience (prescribers), uses proof through patient outcomes, educates physicians on compounding applications, builds referral relationships",
+        "metrics": "25-35% open rates, 8-12% click-through rates for physician-targeted emails with case studies",
+        "source": "Pharmacy marketing benchmarks from Elements magazine and NCPA",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.08-0.13% for healthcare/pharmacy industry",
+        "best_content_format": "Educational videos and patient testimonial posts with images perform best, followed by health tips and community engagement posts",
+        "optimal_frequency": "3-5 posts per week for independent pharmacies, daily for larger operations",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm, Wednesday shows highest engagement",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Healthcare Industry"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47-0.83% for healthcare sector, higher for visual health content",
+        "best_content_format": "Carousel posts showing process/transformation, Reels demonstrating compounding or showing results, Stories for daily engagement and polls",
+        "optimal_frequency": "4-7 posts per week, daily Stories, 2-3 Reels per week",
+        "best_posting_times": "Monday and Thursday 11am-1pm, Friday 9am-11am for healthcare content",
+        "source": "Sprout Social 2024 Healthcare Social Media Report"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.5-2.1% for pharmaceutical/healthcare B2B content",
+        "best_content_format": "Educational articles, industry insights, professional case studies, and thought leadership posts targeting physicians and healthcare providers",
+        "optimal_frequency": "2-3 posts per week for maximum engagement without oversaturation",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 5-6pm EST when healthcare professionals check feeds",
+        "source": "LinkedIn Healthcare Marketing Insights 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-24% open rate, 2.5-3.8% click-through rate for healthcare/pharmacy industry",
+        "best_content_format": "Educational newsletters with health tips, patient success stories, medication updates, and seasonal health advice",
+        "optimal_frequency": "Bi-weekly to monthly for patient lists, monthly for physician networks",
+        "best_posting_times": "Tuesday-Thursday 10am-11am shows highest open rates for healthcare emails",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Healthcare Industry"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "0.5-1.2% for educational healthcare content",
+        "best_content_format": "Educational explainer videos (3-5 minutes), behind-the-scenes compounding process, pharmacist Q&A sessions, patient testimonials",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month",
+        "best_posting_times": "Thursday-Saturday evenings when healthcare research activity peaks",
+        "source": "Healthcare Video Marketing Statistics 2024 from Wyzowl and TubeBuddy"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Problem-Solution Transformation",
+        "example": "From daily medication battles to 'Can I have my medicine now, Mom?' | How custom flavoring changed everything for one family",
+        "why_it_works": "Presents relatable problem, promises specific transformation, uses authentic customer voice, creates curiosity about solution",
+        "source": "Compounding pharmacy Facebook and Instagram posts with high engagement"
+      },
+      {
+        "hook_pattern": "Discontinued Medication Urgency",
+        "example": "Your medication was discontinued. Here's what to do next | We compound alternatives for 50+ discontinued drugs",
+        "why_it_works": "Addresses high-urgency crisis moment, offers immediate solution, demonstrates expertise and capability, targets active searchers",
+        "source": "PCCA and compounding pharmacy blog titles with high search rankings"
+      },
+      {
+        "hook_pattern": "Custom Solution Revelation",
+        "example": "Did you know your medication can be made without [allergen/filler/dye]? | Custom compounding removes what you don't need",
+        "why_it_works": "Educates about unknown option, addresses specific pain point, positions compounding as solution to ongoing problem",
+        "source": "Educational content from compounding pharmacy websites and social media"
+      },
+      {
+        "hook_pattern": "Pet Owner Relief",
+        "example": "Stop wrestling your pet for medication | Chicken-flavored compounds your dog will beg for",
+        "why_it_works": "Vivid problem imagery every pet owner relates to, promises specific sensory solution, addresses daily frustration",
+        "source": "Veterinary compounding pharmacy marketing materials and social posts"
+      },
+      {
+        "hook_pattern": "Physician-Targeted Authority",
+        "example": "When commercial options fail your patients | Compounding solutions for complex cases",
+        "why_it_works": "Positions as partner for physicians, addresses their professional challenges, offers solutions for difficult patients",
+        "source": "B2B marketing materials targeting prescribers from PCCA and compounding networks"
+      },
+      {
+        "hook_pattern": "Bioidentical Hormone Specificity",
+        "example": "Not all hormone therapy is created equal | Why bioidentical compounding makes the difference",
+        "why_it_works": "Differentiates from commercial options, educates on quality/customization, appeals to health-conscious consumers seeking optimal solutions",
+        "source": "BHRT-focused compounding pharmacy content and practitioner marketing"
+      },
+      {
+        "hook_pattern": "Multi-Medication Simplification",
+        "example": "Taking 5 pills, 3 times a day? | Combine them into one custom dose",
+        "why_it_works": "Quantifies current burden, offers concrete simplification, addresses adherence challenges",
+        "source": "Compounding pharmacy patient education materials"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My daughter gags on every pill and spits it out",
+        "The commercial version gives me terrible side effects",
+        "My insurance won't cover it anymore since it was discontinued",
+        "I'm allergic to the red dye in the capsules",
+        "My dog bites me every time I try to give him his heart medication",
+        "I can't find my thyroid medication anywhere",
+        "The one-size-fits-all hormone therapy isn't working for me",
+        "I'm taking so many pills I can't keep track",
+        "The cream burns my skin because of the preservatives",
+        "My vet said the medication doesn't come in the right strength for my cat"
+      ],
+      "solution_phrases": [
+        "They made it taste like bubblegum and now she asks for her medicine",
+        "Custom formulated without the ingredients I react to",
+        "They can make the exact medication my doctor prescribed",
+        "Pure medication without any fillers or dyes",
+        "Flavored it like chicken treats and he loves it",
+        "Bioidentical hormones customized to my levels",
+        "Combined all my medications into one capsule",
+        "Made it exactly the strength I need",
+        "Cream without fragrance or preservatives that works perfectly",
+        "Personalized to my body chemistry"
+      ],
+      "objection_phrases": [
+        "Is this FDA approved?",
+        "Will my insurance cover compounded medications?",
+        "How do I know it's safe if it's not commercial?",
+        "Isn't this more expensive than regular pharmacy?",
+        "How long does it take to get my medication?",
+        "Can any doctor prescribe compounded medications?",
+        "Is this the same quality as brand name?",
+        "Do I need a special prescription?",
+        "Why can't I just get this at CVS?",
+        "How do I know the dosing is accurate?"
+      ],
+      "decision_factors": [
+        "Pharmacist took time to explain the process and answer questions",
+        "My doctor recommended this specific compounding pharmacy",
+        "Read reviews from other patients with same condition",
+        "They could make it without ingredients I'm allergic to",
+        "Fast turnaround time for urgent needs",
+        "Pharmacist called my doctor to discuss best formulation",
+        "Accredited by PCAB (Pharmacy Compounding Accreditation Board)",
+        "They work with my specific condition regularly",
+        "Can deliver to my home",
+        "Willing to adjust formula if first attempt doesn't work perfectly"
+      ],
+      "emotional_language": [
+        "Life-changing results",
+        "Finally found relief",
+        "Game changer for our family",
+        "Feel like myself again",
+        "No more daily battles",
+        "Trusted partner in my health",
+        "Peace of mind knowing it's customized for me",
+        "Grateful to have found them",
+        "They really care about getting it right",
+        "Worth every penny for quality of life"
+      ],
+      "sources": [
+        "Reddit r/pharmacy and r/AskDocs discussions about compounding",
+        "Google Reviews for compounding pharmacies nationwide",
+        "Healthgrades and Vitals patient reviews",
+        "Facebook community groups for hormone therapy and pediatric health",
+        "Yelp reviews for veterinary compounding pharmacies",
+        "Patient testimonials on compounding pharmacy websites",
+        "PCCA patient education materials and FAQs"
+      ]
+    },
+    "competitive_gaps": [
+      "Behind-the-scenes content showing actual compounding process - most pharmacies don't show the 'how' which could build trust and demystify the service",
+      "Specific content for veterinary compounding - huge market but underserved in content marketing, pet owners actively searching",
+      "Video content in general - most rely on text and static images, missing YouTube and TikTok opportunities for education",
+      "Physician education about when to prescribe compounded medications - B2B content gap for targeting prescribers",
+      "Interactive tools like 'flavor selector' for pediatric medications or 'allergen checker' for custom formulations",
+      "Podcast presence discussing personalized medicine, discontinued medications, and compounding innovations",
+      "TikTok educational content for younger demographics (parents, pet owners) - platform largely ignored by industry",
+      "Patient success story series with before/after transformations across different conditions",
+      "Seasonal health content tied to compounding solutions (allergy season custom antihistamines, winter skin care compounds)",
+      "Comparison content explaining compounding vs. commercial medications without being salesy"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February (New Year)",
+        "opportunity": "Hormone therapy consultations peak, weight loss medication demand increases, health insurance changes prompt medication reviews",
+        "content_angle": "New year health optimization, bioidentical hormone rebalancing, custom weight management solutions, 'start the year right with personalized medication'"
+      },
+      {
+        "period": "March-May (Allergy Season)",
+        "opportunity": "Custom allergy medications without drowsiness-causing ingredients, pediatric allergy solutions, pet allergy compounds",
+        "content_angle": "Allergy relief without side effects, custom antihistamine formulations, allergen-free compounds for sensitive patients"
+      },
+      {
+        "period": "August-September (Back to School)",
+        "opportunity": "Pediatric ADHD medications, flavored antibiotics for children, school physical medication needs",
+        "content_angle": "Making medication time easier for school-age kids, ADHD medication customization, flavors kids actually like"
+      },
+      {
+        "period": "October (Menopause Awareness Month)",
+        "opportunity": "Bioidentical hormone replacement therapy education peaks, women researching alternatives to commercial HRT",
+        "content_angle": "Menopause symptom relief through customized BHRT, personalized hormone balancing, education on bioidentical vs. synthetic"
+      },
+      {
+        "period": "November-December (Holiday Season)",
+        "opportunity": "Pain management for arthritis in cold weather, travel medication preparations, pet anxiety medications for holiday stress",
+        "content_angle": "Custom pain relief for winter joint pain, travel-friendly medication formats, pet calming compounds for holiday visitors"
+      },
+      {
+        "period": "Year-Round: Medication Discontinuation Announcements",
+        "opportunity": "FDA discontinuation announcements create urgent demand spikes, patients and doctors searching for alternatives immediately",
+        "content_angle": "Real-time content responding to specific drug discontinuations, 'we compound alternatives to [discontinued drug]', SEO-optimized for drug names"
+      },
+      {
+        "period": "Quarterly",
+        "opportunity": "Insurance formulary changes drive patients to seek alternatives when coverage changes",
+        "content_angle": "Solutions when insurance won't cover your medication, cost-effective compounded alternatives, working with your doctor on formulary alternatives"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Industry Benchmarks 2024",
+      "Sprout Social Healthcare Social Media Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "LinkedIn Healthcare Marketing Insights",
+      "PCCA (Professional Compounding Centers of America) marketing materials",
+      "Fagron educational content and YouTube channel",
+      "Reddit communities: r/pharmacy, r/AskDocs, r/compounding",
+      "Google Reviews and Yelp for compounding pharmacies",
+      "Healthgrades and Vitals patient reviews",
+      "Facebook health community groups",
+      "Pharmaceutical Commerce marketing case studies",
+      "NCPA (National Community Pharmacists Association) resources",
+      "Independent compounding pharmacy websites and social media accounts",
+      "Healthcare video marketing statistics from Wyzowl",
+      "TubeBuddy YouTube analytics for healthcare content"
+    ],
+    "confidence_score": 7.8,
+    "data_gaps": [
+      "Limited publicly available engagement metrics for specific compounding pharmacy campaigns - most data is aggregated healthcare industry benchmarks",
+      "TikTok benchmarks specific to pharmacy industry are scarce as platform adoption is low in this sector",
+      "Conversion rate data from content to prescriptions is proprietary and not publicly shared",
+      "A/B testing data for hooks is limited - most examples are observational rather than controlled tests",
+      "Specific ROI data for different content types is not publicly available from compounding pharmacies"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new compounding services (e.g., veterinary compounding, new BHRT protocols, pediatric flavor options)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Problem awareness - Daily medication battles parents and pet owners face with current commercial options",
+        "Week 2: Solution revelation - Behind-the-scenes look at how custom compounding creates personalized alternatives",
+        "Week 3: Patient transformation stories - Real families and pet owners sharing life-changing results",
+        "Week 4: Urgency and access - Limited consultation slots for customized formulation assessments"
+      ],
+      "weekly_hooks": [
+        [
+          "Stop wrestling your [pet/child] for medication | Something's about to change",
+          "What if your [medication/supplement] was made specifically for your body? | Big announcement coming",
+          "We've been working on something that solves the [allergen/side effect/flavor] problem | Launching soon"
+        ],
+        [
+          "From daily medication battles to 'Can I have my medicine now?' | Introducing [custom flavoring service/veterinary compounds/allergen-free formulations]",
+          "Your medication can now be made without [dyes/fillers/allergens/preservatives] | Custom compounding for [condition] is here",
+          "Did you know your [pet's/child's] medication can taste like [chicken/bubblegum/bacon]? | We're now offering personalized flavor compounds"
+        ],
+        [
+          "Meet Sarah: 'My daughter went from gagging to asking for her medicine' | How custom [bubblegum/watermelon] flavoring changed everything",
+          "'My dog used to hide when he saw the pill bottle. Now he begs for it.' | Real pet owner results with [chicken/beef/bacon]-flavored compounds",
+          "Life-changing results: How bioidentical [hormone/pain/thyroid] therapy customized to [patient name]'s exact levels restored quality of life"
+        ],
+        [
+          "Only [10/15/20] consultation slots left this month | Get your personalized formulation assessment before we're fully booked",
+          "Taking [3/5/7] pills, [2/3] times a day? | Combine them into one custom dose - schedule your medication review now",
+          "Is your [pet/child] still suffering with medication they won't take? | Call today for same-week custom compounding consultation"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Why can't I just get this at CVS?' by educating on limitations of commercial one-size-fits-all medications",
+        "Week 2: Address 'How do I know it's safe if it's not commercial?' with USP-certified facility credentials and FDA-approved ingredient transparency",
+        "Week 3: Address 'Will my insurance cover compounded medications?' with reimbursement documentation support and cost-value comparison",
+        "Week 4: Address 'How long does it take to get my medication?' with fast turnaround times and same-week availability for urgent needs"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce PCAB accreditation and USP certification credentials to establish quality standards",
+        "Week 2: Share behind-the-scenes video of pharmaceutical-grade compounding process showing precision and sterile environment",
+        "Week 3: Feature 3-5 patient success stories with before/after transformations across different conditions (pediatric, pet, hormone therapy)",
+        "Week 4: Final credibility push with physician testimonials and '87% patient success rate within two formulation adjustments' guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: 'Learn more about custom compounding' - Download educational guide on personalized medication options",
+        "Week 2: 'See how it's made' - Watch behind-the-scenes video and comment with your biggest medication challenge",
+        "Week 3: 'Read success stories' - Share this with someone struggling with medication adherence",
+        "Week 4: 'Schedule your free consultation' - Call now for personalized formulation assessment, limited slots available"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - Primary platform for parent community sharing and emotional testimonials",
+        "Instagram (7 posts/week + daily Stories) - Visual before/after transformations, especially pet content",
+        "Email (2 sends) - Week 2 launch announcement to patient list, Week 4 urgency reminder to unopened",
+        "LinkedIn (2 posts/week) - Physician-targeted B2B content about prescribing new service"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Village Compounding Pharmacy's Instagram pet medication transformations receiving 2-3x more engagement than general content, and Fagron's educational video series averaging 5,000+ views with 3x higher engagement. Launch structure mirrors proven problem-solution transformation hook pattern with visual storytelling."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and generating consistent leads",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Discontinued medication solutions - SEO-optimized content for patients searching for alternatives",
+        "Week 2: Pediatric medication adherence - Custom flavoring and child-friendly formulations",
+        "Week 3: Bioidentical hormone therapy education - BHRT customization vs. commercial options",
+        "Week 4: Veterinary compounding - Pet medication palatability and dosing precision",
+        "Week 5: Allergen-free formulations - Pure medications without fillers, dyes, preservatives",
+        "Week 6: Multi-medication simplification - Combining multiple prescriptions into single doses",
+        "Week 7: Pain management customization - Targeted delivery systems and strength optimization",
+        "Week 8: Physician partnership education - When to prescribe compounded medications for complex cases"
+      ],
+      "weekly_hooks": [
+        [
+          "Your medication was discontinued. Here's what to do next | We compound alternatives for [50+/100+] discontinued drugs",
+          "FDA just announced [drug name] discontinuation | Don't panic - compounded alternatives available now",
+          "When commercial options disappear, compounding continues | Search '[discontinued drug name] alternative' to learn more"
+        ],
+        [
+          "My daughter gags on every pill and spits it out | How custom [bubblegum/watermelon/grape] flavoring solved our daily battle",
+          "Stop hiding medication in food that doesn't work | Pharmaceutical-grade flavoring kids actually ask for",
+          "From medication battles to 'Can I have my medicine now, Mom?' | The flavor customization difference"
+        ],
+        [
+          "Not all hormone therapy is created equal | Why bioidentical compounding makes the difference for optimal results",
+          "One-size-fits-all hormone therapy isn't working? | Customized BHRT balanced to your exact levels",
+          "Feel like yourself again with bioidentical hormones | Personalized to your body chemistry, not average doses"
+        ],
+        [
+          "Stop wrestling your pet for medication | [Chicken/beef/bacon/tuna]-flavored compounds your [dog/cat] will beg for",
+          "My dog bites me every time I try to give him his heart medication | Turned it into treats he loves",
+          "Precise dosing for your [small/large] pet | Custom strengths commercial medications don't offer"
+        ],
+        [
+          "Allergic to the red dye in your capsules? | Pure medication without fillers, dyes, or preservatives",
+          "Your medication shouldn't cause allergic reactions | Custom formulated without ingredients you react to",
+          "Suffering with side effects from inactive ingredients? | We compound with only what you need"
+        ],
+        [
+          "Taking [5/7/10] pills, [3/4] times a day? | Combine them into one custom dose for better adherence",
+          "Can't keep track of your medication schedule? | Simplified into personalized combination capsules",
+          "Multiple medications, one solution | Custom compounding reduces pill burden by [50-70%]"
+        ],
+        [
+          "Commercial pain cream burns your skin? | Therapeutic strength without irritating preservatives or fragrances",
+          "Targeted pain relief exactly where you need it | Custom topical delivery systems for optimal absorption",
+          "When oral medications cause stomach issues | Customized transdermal options bypass digestive system"
+        ],
+        [
+          "When commercial options fail your patients | Compounding solutions for complex cases physicians trust",
+          "Your patient is allergic to all commercial formulations | Partner with us for customized alternatives",
+          "Discontinued medications leaving your patients stranded? | We compound physician-prescribed alternatives daily"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Proactively address 'How do I know the dosing is accurate?' with batch testing and potency verification processes",
+        "Week 2: Address 'Isn't this more expensive than regular pharmacy?' with value comparison and payment plan options",
+        "Week 3: Address 'Is this FDA approved?' with explanation of FDA-approved ingredients and USP standards",
+        "Week 4: Address 'My vet said the medication doesn't come in the right strength' as proof point for compounding necessity",
+        "Week 5: Address 'How do I know it's safe?' with allergen testing protocols and purity standards",
+        "Week 6: Address 'Will my insurance cover it?' with documentation support and reimbursement success rates",
+        "Week 7: Address 'How long does it take to get my medication?' with typical turnaround times",
+        "Week 8: Address 'Can any doctor prescribe compounded medications?' with physician education offer"
+      ],
+      "proof_timing": [
+        "Week 1: Share specific discontinued drug alternatives with clinical evidence links",
+        "Week 2: Feature pediatric patient testimonial video with parent and child reactions to flavored medicine",
+        "Week 3: Post pharmacist interview explaining bioidentical hormone customization process with patient outcomes",
+        "Week 4: Instagram carousel of pet before/after reactions to medication with owner testimonials",
+        "Week 5: Case study of patient with multiple allergies finding relief with pure compounded formulation",
+        "Week 6: Patient success story showing medication list reduction from 15 pills to 3 custom combinations",
+        "Week 7: Before/after pain management results with customized topical compound",
+        "Week 8: Physician testimonial about successful patient outcomes with compounded prescriptions"
+      ],
+      "cta_progression": [
+        "Week 1: 'Search for your discontinued medication' - SEO-optimized landing page with drug database",
+        "Week 2: 'Download our flavor menu' - PDF of pediatric flavoring options with parent tips",
+        "Week 3: 'Take our hormone balance quiz' - Interactive assessment tool leading to consultation",
+        "Week 4: 'Share with a pet owner' - Viral sharing CTA for relatable pet content",
+        "Week 5: 'Check your medication ingredients' - Allergen checker tool on website",
+        "Week 6: 'Schedule medication review' - Free consultation to discuss combination options",
+        "Week 7: 'Request custom formulation' - Direct conversion CTA for pain management",
+        "Week 8: 'Physician consultation request' - B2B lead generation for prescriber education"
+      ],
+      "platform_priority": [
+        "Blog/SEO (2 posts/week) - Discontinued medication and condition-specific educational content for search traffic",
+        "Facebook (4 posts/week) - Patient testimonials and educational content for parent community",
+        "Instagram (5 posts/week + daily Stories) - Visual transformations, especially pediatric and pet content",
+        "Email (bi-weekly) - Educational newsletter with health tips and patient success stories to nurture list",
+        "LinkedIn (2 posts/week) - Physician-targeted educational content and case studies"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on PCCA's discontinued medication blog posts ranking top 3 for target keywords and driving 40% of qualified referrals, combined with proven hook patterns across patient testimonials. Content cycle addresses all major customer triggers while maintaining educational authority positioning."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign for maximum reach and new audience acquisition",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized pet medication content - Leveraging high-performing pet transformations for shareability",
+        "Week 2: Pediatric medication battles parents can relate to - Shareable parenting content with emotional hooks"
+      ],
+      "weekly_hooks": [
+        [
+          "Stop wrestling your pet for medication | This [dog/cat] went from hiding to begging for his medicine (watch the transformation)",
+          "POV: Your dog sees you grab the pill bottle | Before custom flavoring vs. After [chicken/bacon] compound (video)",
+          "My cat used to scratch me bloody every medication time | One simple change made her purr for it instead"
+        ],
+        [
+          "My daughter gags on every pill and spits it out | 10,000 parents said 'same' - here's what finally worked",
+          "From daily medication battles to 'Can I have my medicine now, Mom?' | Tag a parent who needs this",
+          "If your kid refuses their medicine, you need to see this | Custom [bubblegum/watermelon] flavoring changed everything for our family"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is this the same quality as brand name?' with pharmaceutical-grade standards explanation",
+        "Week 2: Address 'Do I need a special prescription?' with simple process explanation and physician coordination offer"
+      ],
+      "proof_timing": [
+        "Week 1: Multiple pet owner video testimonials showing before/after medication reactions (user-generated content style)",
+        "Week 2: Parent testimonial compilation with children's actual reactions to flavored medications"
+      ],
+      "cta_progression": [
+        "Week 1: 'Tag a pet owner who needs this' - Viral sharing mechanic for maximum reach",
+        "Week 2: 'Share with a parent struggling with medication time' - Community-building share CTA"
+      ],
+      "platform_priority": [
+        "Instagram (10 posts/week + 2-3 Reels) - Primary platform for viral pet and kid content with high engagement rates",
+        "Facebook (7 posts/week) - Shareable parent community content, especially in parenting groups",
+        "TikTok (5-7 videos/week) - Untapped platform for younger parent demographic with viral potential",
+        "YouTube Shorts (3-5/week) - Cross-posting viral video content for additional reach"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Village Compounding Pharmacy's pet-focused Instagram posts receiving 2-3x more engagement (200-500 likes vs. 50-100), and pediatric flavor posts averaging 400+ shares. Pet and child content naturally performs well on visual platforms and generates emotional engagement for viral sharing."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science of compounding - USP standards, pharmaceutical-grade processes, and quality assurance",
+        "Week 2: Bioidentical hormone therapy deep dive - Customization protocols and optimization strategies",
+        "Week 3: Discontinued medication crisis - Industry insights on drug shortages and compounding solutions",
+        "Week 4: Pediatric compounding expertise - Age-appropriate formulations and adherence psychology",
+        "Week 5: Veterinary compounding science - Species-specific dosing and palatability research",
+        "Week 6: Personalized medicine future - Compounding's role in precision healthcare and patient outcomes"
+      ],
+      "weekly_hooks": [
+        [
+          "What makes compounded medications pharmaceutical-grade? | Inside our USP-certified facility and quality standards",
+          "Behind the scenes: How we ensure every custom formulation meets exact potency specifications | The science of precision compounding",
+          "Not all compounding pharmacies are created equal | Why PCAB accreditation matters for your safety"
+        ],
+        [
+          "Not all hormone therapy is created equal | The bioidentical difference explained by our clinical pharmacist",
+          "Why one-size-fits-all hormone dosing fails 60% of women | The case for customized BHRT protocols",
+          "Bioidentical vs. synthetic hormones: What the research shows | Evidence-based compounding for optimal outcomes"
+        ],
+        [
+          "When FDA discontinues medications, what happens to patients? | Inside the compounding solution for drug shortages",
+          "We compound alternatives for [50+/100+] discontinued medications | Why this matters for healthcare access",
+          "Your medication was discontinued - here's the science behind creating exact alternatives | Therapeutic equivalence explained"
+        ],
+        [
+          "The psychology of pediatric medication adherence | Why custom flavoring works when nothing else does",
+          "Age-appropriate formulations: From infant suspensions to teen-friendly formats | Pediatric compounding expertise",
+          "How we transformed medication time for [500+/1000+] families | Evidence-based pediatric compounding strategies"
+        ],
+        [
+          "Species-specific compounding: Why your cat needs different formulations than your dog | Veterinary pharmacy science",
+          "Precise dosing for pets: When commercial medications don't come in the right strength | The compounding solution",
+          "From medication battles to treat time: The palatability research behind pet-friendly compounds"
+        ],
+        [
+          "The future of medicine is personalized | How compounding leads precision healthcare innovation",
+          "When commercial medications fail, customization succeeds | Patient outcomes data from personalized formulations",
+          "Trusted partner in your health: Why [500+/1000+] physicians prescribe our compounded medications | The authority difference"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is this FDA approved?' with comprehensive explanation of FDA-approved ingredients and manufacturing standards exceeding FDA requirements",
+        "Week 2: Address 'How do I know it will work?' with clinical evidence for bioidentical hormone customization and patient outcome data",
+        "Week 3: Address 'Is this the same quality as brand name?' with therapeutic equivalence explanation and quality testing protocols",
+        "Week 4: Address 'How do you know the dosing is accurate?' with pediatric dosing calculations and safety protocols",
+        "Week 5: Address 'Can any doctor prescribe compounded medications?' with physician education process and collaboration model",
+        "Week 6: Address 'Why should I trust your pharmacy?' with comprehensive credentials, outcomes data, and physician testimonials"
+      ],
+      "proof_timing": [
+        "Week 1: Share PCAB accreditation certificate, USP certification, and facility tour video showing sterile compounding environment",
+        "Week 2: Post pharmacist credentials, BHRT training certifications, and patient outcome statistics for hormone therapy",
+        "Week 3: Publish case studies of successful discontinued medication alternatives with physician collaboration examples",
+        "Week 4: Feature pediatric pharmacist interview with child development expertise and medication adherence research citations",
+        "Week 5: Share veterinary compounding certifications and testimonials from veterinarians about successful patient outcomes",
+        "Week 6: Comprehensive authority package: physician network testimonials, patient success rate statistics, and industry recognition"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our quality standards guide' - Educational PDF on compounding facility certifications",
+        "Week 2: 'Take our hormone balance assessment' - Interactive quiz leading to consultation for BHRT",
+        "Week 3: 'Search our discontinued drug database' - SEO-optimized tool for finding alternatives",
+        "Week 4: 'Request pediatric consultation' - Free formulation assessment for children's medications",
+        "Week 5: 'Veterinary compounding guide download' - Educational resource for pet owners and vets",
+        "Week 6: 'Schedule your personalized medication review' - Direct conversion CTA with authority positioning"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - Primary B2B platform for physician education and professional authority building",
+        "Blog/SEO (2 long-form posts/week) - In-depth educational content optimized for search and authority positioning",
+        "YouTube (1-2 videos/week) - Educational explainer videos and pharmacist interviews for depth and credibility",
+        "Email (weekly) - Educational newsletter series to patient and physician lists with deep-dive content",
+        "Facebook (3 posts/week) - Educational content for patient audience with authority positioning"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Fagron's educational video series featuring pharmacist interviews averaging 5,000+ views with 3x higher engagement, and LinkedIn's 1.5-2.1% engagement rate for pharmaceutical B2B content. Educational approach builds trust and addresses specific pain points while establishing expert credibility through demonstrated knowledge."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive medication challenges - Polls, quizzes, and user-generated content about medication struggles",
+        "Week 2: Community success celebration - Sharing patient wins and encouraging testimonial contributions"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: What's your biggest medication challenge? [Can't swallow pills / Side effects / Pet won't take it / Too many to track] | Comment below",
+          "Fill in the blank: My [child/pet] refuses medication because _____ | Share your story in the comments",
+          "Quiz: Is custom compounding right for you? [Interactive story poll] | Answer 5 questions to find out"
+        ],
+        [
+          "Share your medication success story | Tag us in your transformation and we'll feature you this week",
+          "Before and after: Show us your [pet's/child's] reaction to medication | Best video wins custom [flavor/formulation] consultation",
+          "What would you tell someone struggling with medication adherence? | Drop your advice below and help our community"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My doctor doesn't know about compounding' through community discussion of how others educated their physicians",
+        "Week 2: Address 'Will my insurance cover it?' by featuring community members sharing their reimbursement success stories"
+      ],
+      "proof_timing": [
+        "Week 1: Share poll results showing common medication struggles, validating community experiences and building connection",
+        "Week 2: Feature user-generated content from community members showing real transformations and testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in our poll and comment your experience' - Low-barrier engagement to boost algorithm",
+        "Week 2: 'Share your story and tag us for a chance to be featured' - UGC generation and social proof creation"
+      ],
+      "platform_priority": [
+        "Instagram (12 posts/week + daily interactive Stories with polls/quizzes) - Primary engagement platform with high interaction features",
+        "Facebook (8 posts/week) - Community discussion posts and group engagement for conversation threads",
+        "TikTok (5-7 videos/week) - Interactive challenges and duets encouraging user participation",
+        "Instagram Reels (4-5/week) - Trending audio challenges adapted to medication adherence themes"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on pediatric flavor posts averaging 400+ shares and 150+ comments, demonstrating high community engagement when content is relatable and shareable. Interactive content leverages Instagram's 0.47-0.83% engagement rate for healthcare and encourages algorithm-boosting participation through polls, quizzes, and UGC prompts."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "When commercial options fail your patients | Compounding solutions for complex cases\n\nAs prescribers, you face challenging scenarios daily:\n\n❌ Patient allergic to inactive ingredients in commercial formulations\n❌ Required strength not commercially available\n❌ Medication discontinued by manufacturer\n❌ Multiple medications causing adherence issues\n\nPROBLEM: Your patient needs [SPECIFIC MEDICATION/THERAPY] but commercial options aren't working. Quality of care is compromised.\n\nAGITATE: Every day without the right formulation means continued suffering, poor adherence, or suboptimal outcomes. Your clinical expertise deserves pharmaceutical support that matches it.\n\nSOLUTION: Pharmaceutical-grade compounding provides:\n✓ Custom strengths and dosage forms\n✓ Allergen-free formulations\n✓ Combination therapies for simplified regimens\n✓ Alternatives for discontinued medications\n✓ PCAB-accredited quality standards\n\nWe've partnered with [NUMBER] physicians to solve complex medication challenges, with [TIMEFRAME] turnaround for urgent cases.\n\nWhat medication challenges are you currently facing with your patients?\n\n#CompoundingPharmacy #PhysicianPartner #PatientCare #PharmaceuticalCompounding #HealthcareInnovation",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "Not all hormone therapy is created equal | Why bioidentical compounding makes the difference\n\nATTENTION: If you're prescribing hormone replacement therapy, your patients deserve to understand their options beyond one-size-fits-all commercial products.\n\nINTEREST: Bioidentical hormone replacement therapy (BHRT) through compounding offers:\n\n→ Molecular structure identical to human hormones\n→ Customized to individual hormone levels via lab testing\n→ Precise dosing adjustments based on patient response\n→ Multiple delivery methods (creams, troches, capsules)\n→ Free from synthetic derivatives and unnecessary fillers\n\nDESIRE: Our pharmacists work directly with you to:\n• Review patient lab results and symptoms\n• Formulate optimal hormone combinations\n• Adjust dosing based on follow-up testing\n• Provide patient education on proper use\n\nThe result? Patients report life-changing improvements in energy, mood, sleep, and overall quality of life when therapy is truly personalized.\n\nACTION: We offer complimentary consultations for physicians new to BHRT compounding. Let's discuss how customized hormone therapy can transform outcomes for your patients.\n\nDM or comment 'BHRT' for our physician resource guide.\n\n#BHRT #BioidenticalHormones #HormoneTherapy #PersonalizedMedicine #IntegrativeMedicine",
+        "framework": "AIDA",
+        "character_count": 1289
+      },
+      "promotional": {
+        "template": "BEFORE: Patients struggling with commercial medication side effects, poor adherence, or discontinued drugs\n\nAFTER: Customized pharmaceutical solutions with improved outcomes and patient satisfaction\n\nBRIDGE: Partner with a PCAB-accredited compounding pharmacy\n\nLast month, Dr. [NAME] referred a patient who couldn't tolerate any commercial [CONDITION] medications due to severe reactions to inactive ingredients. \n\nWithin [TIMEFRAME], we formulated a pure, allergen-free version with the exact active ingredient—no fillers, no dyes, no preservatives.\n\nThe result? Patient finally achieving therapeutic goals without side effects.\n\nThis is what's possible when you have a pharmaceutical partner focused on individual patient needs:\n\n✓ Custom strengths for pediatric or geriatric patients\n✓ Allergen-free formulations\n✓ Flavored medications for pediatric adherence\n✓ Combination therapies to reduce pill burden\n✓ Discontinued medication alternatives\n✓ Veterinary compounding for precise dosing\n\nWe handle:\n→ Direct physician consultation on formulations\n→ Insurance prior authorization support\n→ Patient education materials\n→ [TIMEFRAME] turnaround for standard compounds\n→ Rush service for urgent needs\n\nReady to expand treatment options for your complex cases?\n\nSchedule a pharmacy consultation: [CONTACT METHOD]\n\n#CompoundingPharmacy #PhysicianResources #PatientOutcomes #CustomMedications",
+        "framework": "BAB",
+        "character_count": 1312
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Stop wrestling your pet for medication 🐕💊\n\nYour dog bites. Your cat hides. Daily medication = daily battle.\n\nDid you know your vet's prescription can be compounded into:\n🍗 Chicken-flavored chewable treats\n🐟 Tuna-flavored liquids\n🥓 Bacon-scented soft chews\n🦴 Custom strengths for your pet's exact weight\n\nSwipe to see the transformation → From medication wrestling to treat time!\n\n[SLIDE 1: Pet refusing pill]\n[SLIDE 2: Custom flavored compound]\n[SLIDE 3: Pet eagerly taking medication]\n[SLIDE 4: Happy pet owner testimonial]\n[SLIDE 5: Available flavors chart]\n\nWe compound for dogs, cats, birds, reptiles, and exotic pets. Work directly with your veterinarian to create medications your pet will actually take.\n\nNo more hiding pills in peanut butter. No more stress. Just effective treatment your pet enjoys.\n\n💬 What flavor would your pet love? Comment below!\n\n📍 [LOCATION] | 📞 [PHONE] | Vet prescriptions welcome\n\n#VeterinaryCompounding #PetMedication #CompoundingPharmacy #DogMedicine #CatMedicine #PetHealth #HappyPets #PetOwnerLife #VetTech #AnimalHealth",
+        "visual": "Carousel: Image 1 shows frustrated pet owner with pet refusing medication, Image 2 shows colorful array of flavored compounds, Image 3 shows happy pet eagerly taking medication, Image 4 shows testimonial quote overlay, Image 5 shows flavor options menu with pet icons",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "Behind the scenes: Creating pharmaceutical-grade custom compounds ⚗️\n\nEver wondered how personalized medication is made?\n\nOur PCAB-accredited lab uses:\n✓ USP-grade active ingredients\n✓ Precision calibrated equipment (accurate to 0.001g)\n✓ Sterile compounding techniques\n✓ Quality testing for every batch\n✓ Pharmacist verification at every step\n\nSwipe to see the process →\n\n[SLIDE 1: Pharmacist in clean room gear reviewing prescription]\n[SLIDE 2: Measuring active ingredients on precision scale]\n[SLIDE 3: Mixing custom formulation]\n[SLIDE 4: Quality control testing]\n[SLIDE 5: Final labeled medication with patient name]\n\nThis is what makes compounding different from mass production—every medication is made specifically for YOU, with your exact needs, allergies, and preferences in mind.\n\nNo fillers you don't need. No allergens. No compromises.\n\nJust pure, personalized medicine formulated by licensed pharmacists who care about your individual outcomes.\n\n🔬 Questions about our compounding process? Ask in comments!\n\n#CompoundingPharmacy #PersonalizedMedicine #PharmaceuticalCompounding #BehindTheScenes #CustomMedication #PCAB #PharmacyLife #MedicationSafety #HealthcareQuality #PrecisionMedicine",
+        "visual": "Carousel showing step-by-step compounding process: pharmacist in professional attire and safety equipment, close-up of precision measuring, mixing in mortar and pestle or specialized equipment, quality control documentation, finished product with professional labeling",
+        "framework": "Educational Authority"
+      },
+      "promotional": {
+        "caption": "Your medication was discontinued. Now what? 🚨\n\nIf your pharmacy said \"we can't get this anymore,\" we have solutions.\n\nWe compound alternatives for 50+ discontinued medications including:\n→ Hormone therapies\n→ Pain management creams\n→ Thyroid medications\n→ Pediatric formulations\n→ Dermatology treatments\n\nBEFORE: Panic when your essential medication disappeared from shelves\n\nAFTER: Relief knowing you can get the exact formula you need, custom-made\n\nHow it works:\n1️⃣ Your doctor sends prescription\n2️⃣ We create the discontinued formula\n3️⃣ You get your medication in [TIMEFRAME]\n\nReal patient: \"My thyroid medication was discontinued and I was desperate. [PHARMACY NAME] made the exact formula my doctor prescribed. Life-changing!\" - [PATIENT INITIAL]\n\n📞 Call us today: [PHONE]\n💻 Send prescription: [WEBSITE]\n📍 Visit us: [ADDRESS]\n\n✨ Most insurance accepted | Fast turnaround | Pharmacist consultations included\n\nDon't let a discontinued medication disrupt your health. Tag someone who needs to know this option exists!\n\n#DiscontinuedMedication #CompoundingPharmacy #CustomMedication #PharmacySolutions #MedicationAlternatives #PatientCare #HealthSolutions #RxHelp #PharmacyServices",
+        "visual": "Split-screen image: Left side shows empty prescription bottle with 'DISCONTINUED' label and worried patient, right side shows custom compounded medication bottle with smiling, relieved patient holding it. Professional, clean aesthetic with pharmacy branding",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "Did you know your medication can be made without [allergen/filler/dye]? 💊\n\nMany people suffer side effects not from the active medication, but from inactive ingredients:\n\n🚫 Red dye #40\n🚫 Lactose fillers\n🚫 Gluten binders\n🚫 Artificial preservatives\n🚫 Common allergens\n\nIf you've experienced:\n→ Rashes or hives after taking medication\n→ Digestive issues with certain pills\n→ Allergic reactions to \"inactive\" ingredients\n→ Sensitivities to dyes or preservatives\n\n...you have options!\n\nCustom compounding creates your medication with ONLY what you need:\n✓ Pure active ingredient\n✓ Hypoallergenic bases\n✓ No unnecessary fillers\n✓ No artificial colors\n✓ Tailored to YOUR sensitivities\n\nReal example: Sarah couldn't take her prescribed [MEDICATION TYPE] because the commercial version contained lactose, and she's severely lactose intolerant. We compounded the exact same medication in a lactose-free capsule. Problem solved!\n\nYour body deserves medication that helps, not harms.\n\n💬 Have you ever had a reaction to \"inactive\" ingredients? Share your experience below—you're not alone!\n\n📞 Questions about allergen-free compounding? Call us at [PHONE] or visit [WEBSITE]\n\n#CompoundingPharmacy #AllergenFree #CustomMedication #HealthTips #MedicationSafety #PatientCare #AllergyFriendly #PersonalizedMedicine",
+        "framework": "Educational PAS"
+      },
+      "authority": {
+        "template": "From daily medication battles to \"Can I have my medicine now, Mom?\" 🎉\n\nHow custom flavoring changed everything for one family:\n\nMeet 6-year-old Lucas. He needed daily medication for [CONDITION], but every dose was a 30-minute battle involving tears, gagging, and spit-out pills.\n\nHis mom was exhausted. Lucas was stressed. The medication wasn't working because he couldn't keep it down.\n\nSound familiar, parents?\n\nHere's what we did:\n→ Consulted with Lucas's doctor\n→ Created the exact medication in a watermelon-flavored liquid\n→ Adjusted the concentration for easier dosing\n→ Added a fun dosing syringe\n\nThe result? Lucas now ASKS for his medicine. No battles. No stress. Consistent dosing means the medication actually works.\n\nHis mom's text to us: \"You've given me back my mornings. I can't thank you enough. Lucas thinks his medicine is a treat now!\"\n\nWe offer 40+ flavor options:\n🍓 Strawberry | 🍉 Watermelon | 🍇 Grape | 🍫 Chocolate | 🍌 Banana | 🍒 Cherry | 🧁 Bubblegum | 🍊 Orange Cream | and more!\n\nPediatric compounding isn't just about flavor—it's about:\n✓ Appropriate strengths for children's weight\n✓ Easy-to-swallow forms (liquids, gummies, lozenges)\n✓ Dye-free options for sensitive kids\n✓ Combinations to reduce number of doses\n\nEvery child deserves medication that works AND tastes good.\n\n👨‍👩‍👧‍👦 Parents: What flavor would get YOUR child excited about medicine? Comment below!\n\n📞 Talk to our pediatric compounding specialist: [PHONE]\n\n#PediatricCompounding #ParentingWin #KidsMedication #CompoundingPharmacy #ParentLife #MedicationAdherence #HappyKids #MomLife #DadLife #ChildHealth",
+        "framework": "Transformation Story"
+      },
+      "promotional": {
+        "template": "🌟 SPECIAL OFFER: Free Compounding Consultation This Month 🌟\n\nTaking 5 pills, 3 times a day? Combine them into one custom dose.\n\nWe're offering complimentary consultations with our lead pharmacist to discuss:\n\n✨ Medication simplification (combining multiple pills)\n✨ Allergen-free alternatives to your current prescriptions\n✨ Custom strengths not commercially available\n✨ Flavor options for children or pets\n✨ Discontinued medication alternatives\n✨ Bioidentical hormone therapy options\n\nWHY COMPOUNDING?\n\nBEFORE:\n→ Complicated medication schedules you can't keep straight\n→ Side effects from unnecessary fillers and dyes\n→ Medications that don't come in the strength you need\n→ Pills too large to swallow\n→ Discontinued drugs leaving you without options\n\nAFTER:\n→ Simplified regimen customized to your life\n→ Pure medication without ingredients you react to\n→ Precise dosing for optimal results\n→ Easy-to-take forms (liquids, creams, troches, capsules)\n→ Continuous access to medications you depend on\n\nOur PCAB-accredited pharmacy has served [NUMBER] patients with custom solutions.\n\n📅 LIMITED SLOTS AVAILABLE\n\nBook your free consultation:\n📞 Call: [PHONE]\n💻 Online: [WEBSITE]\n📍 Visit: [ADDRESS]\n\nBring your current medication list. We'll review options with you and your doctor at no charge.\n\n⏰ Offer valid through [DATE]\n\nInsurance accepted | Fast turnaround | Pharmacist-owned and operated\n\nShare this with someone who struggles with their current medications! 💙\n\n#CompoundingPharmacy #FreeConsultation #CustomMedication #PersonalizedMedicine #PharmacyServices #HealthSolutions #MedicationManagement #LocalPharmacy #PatientCare",
+        "framework": "BAB with Promotional Offer"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your dog just spit out his $80 heart medication for the 3rd time today 💸🐕",
+        "script": "[0-3s] Show dog spitting out pill, owner's frustrated face\n[TEXT OVERLAY: \"Not again...\"]\n\n[4-8s] Pharmacist on camera: \"Stop! Your vet's prescription can be compounded into flavors your dog will BEG for\"\n\n[9-15s] Show array of flavored compounds\n[TEXT OVERLAY: \"Chicken, Bacon, Tuna, Beef, Peanut Butter\"]\n\n[16-25s] Show before/after split screen:\nLEFT: Dog running away from pill\nRIGHT: Dog eagerly eating flavored compound\n\n[26-35s] Pharmacist explaining: \"We take the same medication your vet prescribed and make it into a treat. Custom strength for your pet's exact weight. Works for dogs, cats, even birds and reptiles.\"\n\n[36-45s] Show happy pet owner testimonial clip:\n\"My cat actually MEOWS for her medicine now!\"\n\n[46-55s] Pharmacist: \"Your vet sends the prescription, we handle the rest. No more wrestling. No more wasted medication.\"\n\n[56-60s] End screen:\n[TEXT OVERLAY: \"Vet compounding available | Link in bio\"]\n\nCTA: Comment your pet's name + favorite flavor!\n\n#VetCompounding #PetMedication #DogMedicine #CatMedicine #CompoundingPharmacy #PetHealth #VetTech #PetOwner #DogMom #CatMom",
+        "framework": "Problem-Solution with Social Proof"
+      },
+      "authority": {
+        "hook": "Pharmacist here: Your medication was discontinued. Here's what Big Pharma won't tell you 👀",
+        "script": "[0-3s] Pharmacist in lab coat, serious face\n[TEXT OVERLAY: \"They discontinued WHAT?!\"]\n\n[4-10s] \"When pharmaceutical companies discontinue medications, they don't care that YOU still need it. But here's the secret...\"\n\n[11-18s] Show compounding lab equipment\n[TEXT OVERLAY: \"We can MAKE the exact formula\"]\n\n[19-28s] \"Compounding pharmacies can create discontinued medications using the same active ingredients. Same formula. Same strength. Made specifically for you.\"\n\n[29-38s] Show list scrolling:\n[TEXT OVERLAY: \"We compound alternatives for:\n- Thyroid medications\n- Hormone therapies  \n- Pain creams\n- Pediatric formulas\n- And 50+ more\"]\n\n[39-48s] \"Your doctor writes the prescription just like before. We make it in our PCAB-accredited lab. You get your medication.\"\n\n[49-55s] Show patient testimonial text:\n[TEXT OVERLAY: \"'Saved my life when my thyroid med was discontinued' - Real patient\"]\n\n[56-60s] Pharmacist: \"Don't panic when you hear 'discontinued.' We've got you.\"\n\nCTA: Save this for when you need it!\n\n#CompoundingPharmacy #DiscontinuedMedication #PharmacyTips #MedicationShortage #HealthcareTips #Pharmacist #MedicalAdvice #PatientAdvocacy #RxHelp",
+        "framework": "Authority Education with Urgency"
+      },
+      "promotional": {
+        "hook": "Watch me make a custom medication from scratch in 60 seconds ⚗️",
+        "script": "[0-3s] Fast-motion of pharmacist putting on lab coat and gloves\n[TEXT OVERLAY: \"Let's compound!\"]\n\n[4-10s] Close-up: Reviewing prescription\n[TEXT OVERLAY: \"Patient needs [MEDICATION] without red dye (allergic)\"]\n\n[11-20s] Measuring pure active ingredient on precision scale\n[TEXT OVERLAY: \"USP-grade ingredients only | Accurate to 0.001g\"]\n\n[21-30s] Mixing in mortar and pestle or specialized equipment\n[TEXT OVERLAY: \"Customized to patient's exact needs\"]\n\n[31-40s] Filling capsules or creating cream/liquid\n[TEXT OVERLAY: \"Dye-free ✓ | Allergen-free ✓ | Perfect strength ✓\"]\n\n[41-48s] Quality control check and labeling\n[TEXT OVERLAY: \"Every batch tested | Pharmacist verified\"]\n\n[49-55s] Show finished medication with patient name\n[TEXT OVERLAY: \"Ready in [TIMEFRAME] | Made just for YOU\"]\n\n[56-60s] Pharmacist holding product:\n\"This is personalized medicine. Questions? Link in bio!\"\n\nCTA: Follow for more behind-the-scenes pharmacy content!\n\n#CompoundingPharmacy #BehindTheScenes #PersonalizedMedicine #PharmacyLife #CustomMedication #Pharmacist #ASMR #SatisfyingVideos #MedicationPrep #HealthcareHeroes",
+        "framework": "Process Demonstration with Educational Value"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "5 signs you need custom compounded medication",
+        "preview_text": "Your current prescriptions might not be working for surprising reasons...",
+        "body": "Hi [FIRST_NAME],\n\nHave you ever wondered why your medication isn't working as well as it should?\n\nOften, it's not the active ingredient—it's everything else in the pill.\n\nHere are 5 signs compounded medication might be right for you:\n\n1️⃣ YOU'RE EXPERIENCING SIDE EFFECTS\nRashes, digestive issues, or headaches might be from fillers, dyes, or preservatives—not the medication itself.\n→ Solution: Pure formulations with only what you need\n\n2️⃣ YOU CAN'T SWALLOW LARGE PILLS\nStruggling with horse-sized tablets?\n→ Solution: Custom liquids, smaller capsules, or topical creams\n\n3️⃣ YOUR CHILD REFUSES MEDICATION\nDaily battles destroying your mornings?\n→ Solution: Kid-approved flavors (40+ options!)\n\n4️⃣ YOU NEED A SPECIFIC STRENGTH\nCommercial options don't match your prescribed dose?\n→ Solution: Precise custom strengths\n\n5️⃣ YOUR MEDICATION WAS DISCONTINUED\nPanicking because you can't find your prescription?\n→ Solution: We can make it\n\nREAL PATIENT STORY:\n\"I'd been suffering with side effects for years, thinking that's just how medication worked. Turns out I was allergic to the red dye in my capsules. [PHARMACY NAME] made the same medication without any dyes, and the side effects disappeared immediately!\" - Jennifer M.\n\nWant to discuss whether compounding is right for you?\n\n📞 Call for a free consultation: [PHONE]\n💻 Learn more: [WEBSITE LINK]\n\nYour pharmacist partner,\n[PHARMACIST NAME]\n[PHARMACY NAME]\n\nP.S. Bring this email to your appointment for [OFFER/DISCOUNT if applicable]",
+        "framework": "Educational PAS",
+        "segment": "Current patients + Newsletter subscribers"
+      },
+      "authority": {
+        "subject": "For physicians: Solving your most complex medication cases",
+        "preview_text": "Partner with PCAB-accredited compounding for better patient outcomes",
+        "body": "Dear Dr. [LAST_NAME],\n\nWhen commercial options fail your patients, what's your next move?\n\nLast week, a colleague referred a patient who couldn't tolerate any commercial [CONDITION] medications due to severe reactions to inactive ingredients. Within 48 hours, we formulated a pure, allergen-free alternative.\n\nThe result? Patient finally achieving therapeutic goals without side effects.\n\nCOMPOUNDING APPLICATIONS FOR YOUR PRACTICE:\n\n✓ DISCONTINUED MEDICATIONS\nWe compound alternatives for 50+ discontinued drugs, ensuring treatment continuity for your patients.\n\n✓ PEDIATRIC DOSING\nPrecise strengths for weight-based dosing, plus flavoring for adherence.\n\n✓ ALLERGEN-FREE FORMULATIONS\nPure active ingredients without common allergens, fillers, or dyes.\n\n✓ COMBINATION THERAPY\nMultiple medications in single doses to improve adherence.\n\n✓ BIOIDENTICAL HORMONE THERAPY\nCustomized to individual patient lab values and symptom profiles.\n\n✓ VETERINARY PRESCRIPTIONS\nFlavored compounds and custom strengths for your patients' pets.\n\nOUR PHYSICIAN PARTNERSHIP INCLUDES:\n→ Direct pharmacist consultation on complex formulations\n→ [TIMEFRAME] standard turnaround, rush available\n→ Insurance prior authorization support\n→ Patient education materials\n→ PCAB accreditation ensuring pharmaceutical-grade quality\n\nCASE STUDY:\nDr. [NAME] referred 15 hormone therapy patients last quarter. Average patient satisfaction score: 9.2/10. 87% reported significant symptom improvement within 6 weeks of customized BHRT.\n\nREQUEST A CONSULTATION:\nWe offer complimentary consultations to review:\n• Your current challenging cases\n• Compounding applications for your specialty\n• Our quality assurance processes\n• Insurance coverage for your patient population\n\nSchedule your consultation:\n📞 Direct line: [PHONE]\n📧 Email: [EMAIL]\n💻 Physician portal: [WEBSITE LINK]\n\nWe're here to expand your treatment options and improve patient outcomes.\n\nProfessionally,\n[PHARMACIST NAME], PharmD\n[CREDENTIALS]\n[PHARMACY NAME]\n\nP.S. Download our Physician Reference Guide for common compounding applications: [LINK]",
+        "framework": "B2B Authority with Case Studies",
+        "segment": "Physicians and healthcare providers"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your prescription doesn't have to be one-size-fits-all",
+        "preview_text": "Discover personalized medication made specifically for you",
+        "body": "Hi [FIRST_NAME],\n\nWhat if your medication could be made exactly for YOUR body, YOUR allergies, and YOUR preferences?\n\nThat's what compounding is all about.\n\nBEFORE COMPOUNDING:\n❌ Taking pills you can barely swallow\n❌ Dealing with side effects from unnecessary fillers\n❌ Struggling with dosing that's \"close enough\"\n❌ Wrestling your pet for their medication\n❌ Searching for discontinued prescriptions\n\nAFTER COMPOUNDING:\n✅ Medication in the form that works for you (liquid, cream, capsule, troche)\n✅ Pure formulations without allergens or irritants\n✅ Precise dosing customized to your needs\n✅ Flavored compounds your pet (or child!) will love\n✅ Continued access to medications you depend on\n\nREAL TRANSFORMATIONS:\n\n🎉 \"My 7-year-old daughter actually ASKS for her medicine now that it tastes like bubblegum!\" - Sarah T.\n\n🐕 \"No more fighting with my dog! He thinks his heart medication is a treat.\" - Michael R.\n\n💪 \"Custom hormone therapy changed my life. I finally feel like myself again.\" - Lisa K.\n\nWHAT WE COMPOUND:\n→ Bioidentical hormone therapy\n→ Pain management creams\n→ Pediatric medications (40+ flavors!)\n→ Veterinary prescriptions\n→ Discontinued medications\n→ Allergen-free formulations\n→ Custom strengths and combinations\n\nSPECIAL OFFER FOR [MONTH]:\nFree consultation with our lead pharmacist to discuss your medication challenges.\n\nHOW IT WORKS:\n1. Talk to your doctor about compounding\n2. Have them send prescription to us\n3. Consult with our pharmacist (free!)\n4. Receive your custom medication in [TIMEFRAME]\n\nMost insurance plans accepted | PCAB-accredited quality | Pharmacist-owned\n\nREADY TO EXPERIENCE PERSONALIZED MEDICINE?\n\n📞 Call now: [PHONE]\n💻 Send prescription: [WEBSITE]\n📍 Visit us: [ADDRESS]\n\nOr simply reply to this email with your questions—we're here to help!\n\nTo your health,\n[PHARMACIST NAME]\n[PHARMACY NAME]\n\nP.S. Know someone struggling with their medications? Forward this email—they'll thank you! 💙",
+        "framework": "BAB with Social Proof and Offer",
+        "segment": "Prospective patients + Current patient re-engagement"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[NUMBER] discontinued medications we compound alternatives for | Stop panicking when your pharmacy says 'no longer available'",
+      "[NUMBER] ingredients removed from [PATIENT'S] prescription | Custom formulation without [ALLERGENS/DYES/FILLERS] they react to",
+      "[NUMBER] pills combined into one custom capsule | Simplify [PATIENT'S] medication routine in [TIMEFRAME]",
+      "From [NUMBER] daily medication battles to zero resistance | How custom flavoring changed [FAMILY'S] routine in [TIMEFRAME]",
+      "[NUMBER]% of pets actually take their medication when it tastes like [FLAVOR] | Stop the wrestling matches"
+    ],
+    "question_hooks": [
+      "Is your [PET] biting you every time you try to give [MEDICATION]? | Custom flavoring they'll beg for",
+      "Are you reacting to the [DYE/FILLER/PRESERVATIVE] in your prescription but need the medication? | Pure compounds without what hurts you",
+      "Did your pharmacy just tell you [MEDICATION] is discontinued and they can't help? | We compound the exact formula you need",
+      "Are you taking [NUMBER] different pills and losing track of your routine? | Combination compounds that simplify everything",
+      "Is your [HORMONE THERAPY/PAIN CREAM/MEDICATION] not working because one-size-fits-all doesn't fit you? | Bioidentical customization for your body"
+    ],
+    "story_hooks": [
+      "How [PARENT] went from daily tears to 'Can I have my bubblegum medicine?' | Custom pediatric flavoring that actually works",
+      "How [PATIENT] finally got relief after [BRAND NAME] was discontinued | Compounded alternatives when commercial options disappear",
+      "How [PET OWNER] stopped hiding pills in cheese | Chicken-flavored compounds [DOG/CAT] thinks are treats",
+      "How [PATIENT] eliminated [SIDE EFFECTS] while keeping the medication that works | Custom formulation without reactive ingredients",
+      "How [DOCTOR] solved [PATIENT'S] complex case when standard prescriptions failed | Physician-partnered compounding for unique needs"
+    ],
+    "fear_hooks": [
+      "Is your discontinued medication putting your health at risk? | [NUMBER]+ compounds available when manufacturers stop production",
+      "Are hidden [ALLERGENS/DYES/PRESERVATIVES] in your prescription causing the symptoms you're trying to treat? | Pure custom formulations reveal the difference",
+      "Is your [CHILD/PET] not getting proper doses because they spit out pills? | Medication non-compliance risks you can eliminate with custom flavoring",
+      "Are you settling for hormone therapy that doesn't match your body's needs? | Generic dosing risks when bioidentical customization exists",
+      "Is your [SKIN CONDITION/PAIN] getting worse because commercial creams contain irritants? | Preservative-free compounds that actually heal"
+    ],
+    "howto_hooks": [
+      "How to get your exact medication without [ALLERGEN/DYE/FILLER] you react to | Custom compounding removes what hurts you",
+      "How to give your [PET] medication without the daily wrestling match | Flavoring compounds [ANIMAL] will love",
+      "How to continue treatment when your medication is discontinued | Compounded alternatives your doctor can prescribe today",
+      "How to take [NUMBER] medications without juggling [NUMBER] pill bottles | Combination compounds that simplify your routine",
+      "How to get bioidentical hormones customized to your levels without settling for commercial one-size-fits-all | Personalized BHRT compounding"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your kid actually ASKS for their medicine",
+      "body": "Show parent struggling with child refusing pill → Cut to pharmacist adding flavor drops → Show child eagerly taking bubblegum-flavored medicine → Text overlay: 'Custom flavored medications for kids who hate pills' → Quick shots of flavor options (watermelon, grape, cotton candy) → End with happy parent testimonial",
+      "cta": "Link in bio to find a compounding pharmacy near you #MomHack"
+    },
+    "reels": {
+      "hook": "This is what happens when your medication gets discontinued",
+      "body": "Show person at chain pharmacy being told 'discontinued' → Frustrated reaction → Cut to compounding pharmacy → Pharmacist making custom version → Hand patient exact medication → Text: 'Compounding pharmacies can make what commercial pharmacies can't' → Show relief on patient's face",
+      "cta": "Save this for when you need it. Follow for more pharmacy secrets"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your pet's reaction to their NEW flavored medication vs. the old pills. Film side-by-side if you have before footage, or just show them loving their chicken/beef/tuna flavored meds now!",
+      "hashtag": "#CompoundingForPets"
+    },
+    {
+      "prompt": "Parents: Film your child taking their medicine WITHOUT a fight. Caption it with what flavor they chose and how compounding changed medicine time in your house.",
+      "hashtag": "#MedicineTimeMadeEasy"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Behind-the-scenes time-lapse of pharmacist creating a custom compound from raw ingredients to finished medication, with text overlay explaining each step",
+      "why": "Demystifies the process, satisfying to watch (like cooking videos), builds trust through transparency, educational value makes it highly shareable among people seeking alternatives"
+    },
+    {
+      "angle": "'Discontinued Medication Hall of Fame' series showing common meds that got discontinued and the compounded alternatives available, with patient reactions learning they have options",
+      "why": "Solves urgent crisis-moment problem, highly searchable content, shareable by people helping friends/family in same situation, positions pharmacy as problem-solver for desperate patients"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:31:27.746Z",
+    "last_tier2_refresh": "2025-11-27T20:31:27.746Z",
+    "last_tier3_refresh": "2025-11-27T20:31:27.746Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:31:27.746Z"
+  }
+}

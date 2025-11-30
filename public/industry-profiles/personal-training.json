@@ -1,0 +1,1729 @@
+{
+  "industry": "Personal Training",
+  "industry_name": "Personal Training",
+  "naics_code": "713940",
+  "category": "Personal Services",
+  "subcategory": "Fitness and Wellness",
+  "customer_triggers": [
+    {
+      "trigger": "Doctor warns about pre-diabetes or hypertension",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Divorce finalized seeking confidence rebuild",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "High school reunion in 3 months",
+      "urgency": 9,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Failed multiple gym attempts alone",
+      "urgency": 7,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Turning 40 and metabolism slowing",
+      "urgency": 6,
+      "frequency": "yearly"
+    },
+    {
+      "trigger": "Kids comment about parent being out of shape",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Work performance review mentions health concerns",
+      "urgency": 7,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Clothes don't fit after pandemic weight gain",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Training for first 5K, marathon, or triathlon",
+      "urgency": 7,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Post-surgery cleared for exercise at 12 weeks",
+      "urgency": 9,
+      "frequency": "weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Experiences health scare or life event, Googles 'personal trainer near me' or 'how to lose 30 pounds', reads 5-7 trainer profiles and reviews, checks before/after photos on Instagram, watches YouTube transformation videos",
+    "consideration": "Compares 3-4 trainers on price ($40-150/session), credentials, and specializations, books free consultations with top 2 choices, evaluates gym vs in-home vs outdoor options, checks schedule flexibility and package deals",
+    "decision": "Chooses based on 40% personality fit, 30% proven results, 20% convenience, 10% price, commits to minimum 12-session package after successful trial session, average decision time 72 hours after consultation",
+    "retention": "Sees measurable results by week 4-6 (5-8 pounds, increased strength), develops accountability relationship with trainer, adjusts from 3x to 2x weekly after 3 months, adds nutrition coaching for better results",
+    "advocacy": "Posts progress photos at 12-week mark, refers gym buddies earning free sessions, writes detailed Google review, becomes case study for trainer's marketing, joins trainer's online community"
+  },
+  "transformations": [
+    {
+      "from": "50 pounds overweight with joint pain",
+      "to": "Healthy BMI running first 5K",
+      "emotional_value": "Life reclaimed",
+      "worth_premium": true
+    },
+    {
+      "from": "Type 2 diabetes medication dependent",
+      "to": "Medication-free through lifestyle change",
+      "emotional_value": "Health freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Post-divorce depression and low confidence",
+      "to": "Best shape of life with new partner",
+      "emotional_value": "New beginning",
+      "worth_premium": true
+    },
+    {
+      "from": "Can't play with kids without getting winded",
+      "to": "Active family adventures every weekend",
+      "emotional_value": "Present parent",
+      "worth_premium": true
+    },
+    {
+      "from": "Executive stress eating and no energy",
+      "to": "Peak performance and mental clarity",
+      "emotional_value": "Career advancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Post-surgery muscle atrophy and weakness",
+      "to": "Stronger than pre-surgery baseline",
+      "emotional_value": "Full recovery",
+      "worth_premium": true
+    },
+    {
+      "from": "Failed 10+ diets with yo-yo pattern",
+      "to": "Sustainable lifestyle without dieting",
+      "emotional_value": "Food freedom",
+      "worth_premium": false
+    },
+    {
+      "from": "Intimidated by gym environment",
+      "to": "Confident independent gym user",
+      "emotional_value": "Self-sufficiency",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Weight loss (1-2 pounds per week)",
+      "timeframe": "12 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Body fat reduction (5-8% decrease)",
+      "timeframe": "12-16 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Strength gains (50-100% on major lifts)",
+      "timeframe": "8-12 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Resting heart rate reduction (10-15 bpm)",
+      "timeframe": "6-8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Blood pressure improvement (10-20 point reduction)",
+      "timeframe": "8-12 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Energy level increase self-reported",
+      "timeframe": "2-3 weeks",
+      "measurable": false
+    },
+    {
+      "metric": "Sleep quality enhancement",
+      "timeframe": "3-4 weeks",
+      "measurable": false
+    }
+  ],
+  "urgency_drivers": [
+    "Summer beach vacation in 8 weeks requiring visible results",
+    "Medical test results showing immediate intervention needed",
+    "Wedding dress fitting in 12 weeks",
+    "Limited-time 20% discount on training packages this week only",
+    "Only 2 spots left in transformation challenge starting Monday",
+    "Health insurance wellness reimbursement expires end of month",
+    "Accountability partner already started and pulling ahead"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive at $75-100 per session",
+      "response": "Compare to medical costs of obesity ($150K lifetime) or cardiac event ($1M), plus packages reduce to $50-60/session",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "No time for 3 sessions per week",
+      "response": "Offer 30-minute high-intensity sessions, early morning 5am slots, or weekend-only programs",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Embarrassed about current fitness level",
+      "response": "Private studio space available, 60% of clients start as beginners, judgment-free zone guarantee",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Tried trainers before without results",
+      "response": "Show specific client transformations, offer results guarantee, different methodology with nutrition included",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Can't afford long-term commitment",
+      "response": "Month-to-month after initial package, group training at 50% cost, virtual options at $30/session",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Spouse thinks it's waste of money",
+      "response": "Invite spouse to free session, show ROI on health costs, offer couples discount",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Travel frequently for work",
+      "response": "Virtual training anywhere, workout plans for hotels, flexible scheduling with 24-hour notice",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "30-day money back if follow program without results",
+      "Free session if not satisfied with any workout",
+      "Results guarantee or work free until achieved"
+    ],
+    "proof_points": [
+      "500+ client transformations documented",
+      "15 years experience with 10,000+ sessions",
+      "Certified through NASM, ACE, and NSCA",
+      "Featured in Men's Health and Shape Magazine"
+    ],
+    "risk_mitigation": "Free consultation and fitness assessment, trial session at 50% off, no long-term contracts required, pause membership for travel or illness, transferable sessions to friends/family"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "overweight",
+      "out of shape",
+      "no energy",
+      "hate my body",
+      "failed diets",
+      "no motivation",
+      "don't know where to start",
+      "intimidated",
+      "too busy"
+    ],
+    "solution_words": [
+      "confident",
+      "strong",
+      "energized",
+      "healthy",
+      "fit",
+      "toned",
+      "lean",
+      "capable",
+      "transformed"
+    ],
+    "avoid_jargon": [
+      "macros",
+      "hypertrophy",
+      "periodization",
+      "EPOC",
+      "VO2 max",
+      "lactate threshold",
+      "rate of perceived exertion"
+    ]
+  },
+  "power_words": [
+    "transform",
+    "breakthrough",
+    "guaranteed",
+    "proven",
+    "customized",
+    "accountability",
+    "results",
+    "expert",
+    "certified",
+    "exclusive",
+    "limited",
+    "personalized",
+    "scientific",
+    "evidence-based",
+    "life-changing",
+    "sustainable",
+    "rapid",
+    "breakthrough",
+    "elite",
+    "professional",
+    "dedicated",
+    "committed",
+    "unstoppable",
+    "powerful",
+    "confident",
+    "achievable",
+    "measurable",
+    "permanent",
+    "revolutionary",
+    "comprehensive"
+  ],
+  "avoid_words": [
+    "easy",
+    "effortless",
+    "overnight",
+    "miracle",
+    "instant",
+    "no-work",
+    "passive",
+    "cheap",
+    "discount",
+    "budget",
+    "basic",
+    "generic",
+    "cookie-cutter",
+    "one-size-fits-all",
+    "amateur",
+    "part-time",
+    "inexperienced",
+    "risky",
+    "extreme",
+    "dangerous"
+  ],
+  "headline_templates": [
+    {
+      "template": "Lose 20 Pounds in 12 Weeks (Guaranteed)",
+      "expected_ctr": 5.2,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Why 89% of Gym Members Fail (And How to Succeed)",
+      "expected_ctr": 4.8,
+      "use_case": "Blog"
+    },
+    {
+      "template": "Free: 7-Day Metabolism Jumpstart Plan",
+      "expected_ctr": 6.1,
+      "use_case": "Lead magnet"
+    },
+    {
+      "template": "Local Trainer Helps 500+ Clients Transform Their Lives",
+      "expected_ctr": 4.3,
+      "use_case": "PR"
+    },
+    {
+      "template": "Warning: Your Workout Routine is Wasting Your Time",
+      "expected_ctr": 5.4,
+      "use_case": "YouTube"
+    },
+    {
+      "template": "Last Chance: 2 Spots Left in 6-Week Challenge",
+      "expected_ctr": 6.8,
+      "use_case": "Email"
+    },
+    {
+      "template": "The Hidden Reason You're Not Losing Weight",
+      "expected_ctr": 5.7,
+      "use_case": "Facebook"
+    },
+    {
+      "template": "Real Client Lost 47 Pounds in 4 Months (See How)",
+      "expected_ctr": 6.3,
+      "use_case": "Instagram"
+    },
+    {
+      "template": "Doctors Hate This One Training Secret",
+      "expected_ctr": 4.9,
+      "use_case": "Native ads"
+    },
+    {
+      "template": "Join 500+ Success Stories: Start Your Transformation",
+      "expected_ctr": 4.6,
+      "use_case": "Landing page"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Claim Your Free Consultation",
+      "conversion_rate": 14.2,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Start Your Transformation Today",
+      "conversion_rate": 8.9,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Get Your Custom Plan",
+      "conversion_rate": 11.3,
+      "placement": "Quiz result"
+    },
+    {
+      "template": "Book Your Trial Session - 50% Off",
+      "conversion_rate": 15.7,
+      "placement": "Pop-up"
+    },
+    {
+      "template": "Download Free Workout Guide",
+      "conversion_rate": 22.4,
+      "placement": "Blog post"
+    },
+    {
+      "template": "Yes! I Want to Transform",
+      "conversion_rate": 9.8,
+      "placement": "Sales page"
+    },
+    {
+      "template": "Reserve Your Spot Now",
+      "conversion_rate": 12.1,
+      "placement": "Challenge page"
+    },
+    {
+      "template": "See Real Results →",
+      "conversion_rate": 7.6,
+      "placement": "Testimonials"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Client transformation Tuesday! [Name] crushed their goal of losing 30 pounds! 💪 What's your 2024 goal?",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Facebook",
+      "template": "FREE 5-Day Challenge starts Monday! Drop a 🔥 if you're ready to commit!",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You hired a trainer and actually stuck with it #TransformationTuesday #FitnessMotivation",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "The #1 exercise for rapid fat loss (science-backed)",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "What I eat in a day to lose 2 pounds per week (real client meal prep)",
+      "engagement_rate": 14.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Corporate wellness programs showing 34% reduction in sick days. Here's how...",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Facebook Groups",
+      "template": "Lost 50 pounds at age 45. Here's exactly what I did differently this time...",
+      "engagement_rate": 11.6
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Quick poll: What's stopping you from starting? A) Time B) Money C) Fear D) Motivation",
+      "engagement_rate": 18.3
+    },
+    {
+      "platform": "Twitter/X",
+      "template": "Reminder: You're one workout away from a better mood. Let's go! 💪",
+      "engagement_rate": 4.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Guaranteed results in 12 weeks or continue free",
+      "rank": 1,
+      "differentiator": "Risk reversal"
+    },
+    {
+      "prop": "Includes nutrition planning and accountability",
+      "rank": 2,
+      "differentiator": "Comprehensive approach"
+    },
+    {
+      "prop": "Flexible scheduling including 5am and weekends",
+      "rank": 3,
+      "differentiator": "Convenience"
+    },
+    {
+      "prop": "15 years experience with 500+ transformations",
+      "rank": 4,
+      "differentiator": "Proven track record"
+    },
+    {
+      "prop": "Medical exercise specialist for special conditions",
+      "rank": 5,
+      "differentiator": "Specialized expertise"
+    },
+    {
+      "prop": "In-home, outdoor, or private studio options",
+      "rank": 6,
+      "differentiator": "Location flexibility"
+    },
+    {
+      "prop": "24/7 support through app and text coaching",
+      "rank": 7,
+      "differentiator": "Constant accountability"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elite performance coaching for high-achievers who demand excellence. Comprehensive assessments using DEXA scanning, metabolic testing, and movement screening. Concierge-level service with 24/7 support, nutrition chef referrals, and recovery modalities. Investment in becoming the CEO of your health.",
+    "budget_conscious": "Group training at fraction of 1-on-1 cost, payment plans available, sliding scale for essential workers. Invest less than your daily coffee habit. HSA/FSA eligible, employer wellness reimbursement assistance. Starting at just $99/month with no contracts.",
+    "enterprise": "Corporate training reducing healthcare costs by 27% annually. On-site bootcamps, executive coaching, team challenges with measurable ROI. Reduced absenteeism, increased productivity, improved morale. Custom packages for companies 20+ employees."
+  },
+  "trust_signals": [
+    {
+      "signal": "NASM, ACE, NSCA certifications",
+      "importance": 9,
+      "format": "Credentials display"
+    },
+    {
+      "signal": "500+ before/after transformations",
+      "importance": 10,
+      "format": "Gallery/portfolio"
+    },
+    {
+      "signal": "5-star reviews on Google and Yelp",
+      "importance": 8,
+      "format": "Review widgets"
+    },
+    {
+      "signal": "Medical professional referral network",
+      "importance": 9,
+      "format": "Partnership list"
+    },
+    {
+      "signal": "Featured in fitness magazines",
+      "importance": 7,
+      "format": "Media logos"
+    },
+    {
+      "signal": "Free consultation and assessment",
+      "importance": 6,
+      "format": "Risk reversal"
+    },
+    {
+      "signal": "Liability insurance and CPR certified",
+      "importance": 8,
+      "format": "Trust badges"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Average client loses 18 pounds in 12 weeks",
+      "credibility_score": 9.3,
+      "context": "Based on 200 client results tracked in app"
+    },
+    {
+      "stat": "94% of clients achieve their primary goal",
+      "credibility_score": 9.1,
+      "context": "Annual survey of 150 active clients"
+    },
+    {
+      "stat": "87% client retention after 6 months",
+      "credibility_score": 9.5,
+      "context": "Industry average is 20% according to IHRSA"
+    },
+    {
+      "stat": "Average 42% strength increase in 8 weeks",
+      "credibility_score": 8.8,
+      "context": "Measured through standardized testing protocol"
+    },
+    {
+      "stat": "4.9/5 star rating from 300+ reviews",
+      "credibility_score": 9.2,
+      "context": "Combined Google, Yelp, and Facebook reviews"
+    },
+    {
+      "stat": "78% of clients come from referrals",
+      "credibility_score": 9.7,
+      "context": "Tracking source of new clients for 5 years"
+    }
+  ],
+  "quality_indicators": [
+    "Private studio vs crowded gym floor training",
+    "Comprehensive assessment vs basic consultation",
+    "Custom program design vs template workouts",
+    "Nutrition coaching included vs fitness only",
+    "Progress tracking app vs paper logs",
+    "Ongoing education with latest certifications",
+    "Professional liability insurance coverage"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 84,
+    "trigger_event": "After hitting major milestone like 20 pounds lost or first pull-up",
+    "ask_method": "Face-to-face request during session followed by easy video link"
+  },
+  "competitive_advantages": [
+    "Only trainer in area with medical exercise specialist certification",
+    "Proprietary app for tracking and accountability",
+    "Guaranteed results or train free until achieved",
+    "Partnership with registered dietitian for nutrition",
+    "Mobile training van for ultimate convenience",
+    "Former professional athlete with sport-specific expertise"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Quote premium package first at $150/session making $75 seem reasonable",
+    "sensitivity": "Resistance point at $100/session for most markets",
+    "sweet_spots": [
+      "$299 trial month",
+      "$1,800 12-session package",
+      "$3,600 24-sessions"
+    ],
+    "decoy_pricing": "8-session package at $800 makes 12-sessions at $1,080 better value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 100,
+    "approval_required": 300,
+    "competitor_research": 75
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic",
+      "price_range": "$40-60/session",
+      "target_customer": "Budget-conscious beginners",
+      "margin": 45
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$75-100/session",
+      "target_customer": "Committed transformation seekers",
+      "margin": 62
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$125-200/session",
+      "target_customer": "Executives and athletes",
+      "margin": 75
+    },
+    {
+      "tier": "Concierge",
+      "price_range": "$250+/session",
+      "target_customer": "Ultra high net worth",
+      "margin": 82
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift 40% of clients to semi-private training at 70% individual rate but 140% revenue",
+    "Add online coaching at $199/month with 90% margins",
+    "Sell supplement packages with 40% markup generating $300/month per client",
+    "Host bootcamps at $30/person with 20 participants yielding $500 profit per session",
+    "Corporate contracts at 50% premium with guaranteed monthly minimums",
+    "Create digital workout programs selling for $97 with 95% profit margins"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 180,
+      "reason": "New Year resolutions peak",
+      "opportunity": "Transformation challenges and New Year specials"
+    },
+    {
+      "month": "February",
+      "variation": 140,
+      "reason": "Resolution momentum continues",
+      "opportunity": "Valentine's Day couple packages"
+    },
+    {
+      "month": "March",
+      "variation": 130,
+      "reason": "Spring break preparation",
+      "opportunity": "8-week beach body programs"
+    },
+    {
+      "month": "April",
+      "variation": 125,
+      "reason": "Summer prep begins",
+      "opportunity": "Outdoor bootcamps launch"
+    },
+    {
+      "month": "May",
+      "variation": 120,
+      "reason": "Wedding season training",
+      "opportunity": "Bridal bootcamps"
+    },
+    {
+      "month": "June",
+      "variation": 100,
+      "reason": "Summer schedule disruption",
+      "opportunity": "Flexible vacation programs"
+    },
+    {
+      "month": "July",
+      "variation": 85,
+      "reason": "Vacation season",
+      "opportunity": "Travel workout plans"
+    },
+    {
+      "month": "August",
+      "variation": 90,
+      "reason": "Back-to-school prep",
+      "opportunity": "Parent fitness programs"
+    },
+    {
+      "month": "September",
+      "variation": 135,
+      "reason": "Fall reset period",
+      "opportunity": "Back-to-routine campaigns"
+    },
+    {
+      "month": "October",
+      "variation": 120,
+      "reason": "Holiday prep starts",
+      "opportunity": "8-week holiday challenges"
+    },
+    {
+      "month": "November",
+      "variation": 95,
+      "reason": "Holiday disruptions",
+      "opportunity": "Black Friday package deals"
+    },
+    {
+      "month": "December",
+      "variation": 70,
+      "reason": "Holiday obligations",
+      "opportunity": "Gift certificates and January presales"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "High-energy sessions",
+      "avoid": "New client consultations",
+      "conversion_rate": 8.7
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Peak training volume",
+      "avoid": "System updates",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek check-ins",
+      "avoid": "Late evening sessions",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Technique focus days",
+      "avoid": "Group challenges",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Fun finisher workouts",
+      "avoid": "Heavy lifting",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Transformation assessments",
+      "avoid": "Late afternoon",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Meal prep coaching",
+      "avoid": "Early morning",
+      "conversion_rate": 7.6
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Charge on 1st or 15th aligning with paychecks",
+    "cash_flow_peaks": "1st-7th and 15th-21st when clients have funds",
+    "slow_periods": "23rd-30th requiring retention campaigns and payment plans"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Post-doctor visit with health warning",
+      "crisis_type": "Medical urgency",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "8 weeks before wedding",
+      "crisis_type": "Event deadline",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "After divorce papers filed",
+      "crisis_type": "Life transition",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "New Year's Day hangover",
+      "crisis_type": "Rock bottom moment",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "Reunion RSVP received",
+      "crisis_type": "Social pressure",
+      "premium_multiplier": 1.35
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Starter",
+      "components": [
+        "2 sessions/week",
+        "Basic nutrition guide",
+        "Email support"
+      ],
+      "pricing_model": "4-week package",
+      "margin": 48
+    },
+    {
+      "name": "Transformation",
+      "components": [
+        "3 sessions/week",
+        "Custom meal plans",
+        "24/7 text support",
+        "Progress tracking"
+      ],
+      "pricing_model": "12-week commitment",
+      "margin": 58
+    },
+    {
+      "name": "Elite",
+      "components": [
+        "Unlimited training",
+        "RD consultation",
+        "Recovery services",
+        "Supplement protocol"
+      ],
+      "pricing_model": "Monthly membership",
+      "margin": 67
+    },
+    {
+      "name": "Virtual",
+      "components": [
+        "2 video sessions/week",
+        "App programming",
+        "Check-ins",
+        "Community access"
+      ],
+      "pricing_model": "Monthly subscription",
+      "margin": 85
+    }
+  ],
+  "upsell_paths": [
+    "Trial session ($49) → 4-week starter ($599) → 12-week transformation ($2,400)",
+    "Group training ($30) → Semi-private ($50) → Individual sessions ($75)",
+    "Virtual only ($199/mo) → Hybrid virtual+in-person ($399/mo) → Full service ($599/mo)",
+    "Fitness only → Add nutrition coaching (+$150/mo) → Add supplement protocol (+$100/mo)",
+    "2x/week → 3x/week (+$300/mo) → Add weekly recovery session (+$200/mo)",
+    "Individual → Add spouse/partner for 50% → Family fitness package"
+  ],
+  "retention_hooks": [
+    "Progress photos and measurements every 2 weeks showing changes",
+    "Workout variety preventing boredom with new programs monthly",
+    "Accountability check-ins on rest days via text",
+    "Client appreciation events and member challenges",
+    "Flexible scheduling with 24-hour reschedule policy",
+    "Referral rewards earning free sessions",
+    "Milestone celebrations at 25, 50, 100 sessions with rewards"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both parties get 2 free sessions",
+      "timing": "After 12 sessions",
+      "incentive": "$150 value each",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Transformation story social media feature",
+      "timing": "Major milestone",
+      "incentive": "Free month of training",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Bring-a-friend workout days",
+      "timing": "Monthly",
+      "incentive": "Friend trains free",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Corporate referral program",
+      "timing": "Ongoing",
+      "incentive": "Employee discount 20%",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Healthcare provider referral cards",
+      "timing": "Partnership program",
+      "incentive": "Patient gets free consultation",
+      "conversion_rate": 48
+    },
+    {
+      "strategy": "Success story video testimonial",
+      "timing": "Goal achievement",
+      "incentive": "4 free sessions",
+      "conversion_rate": 72
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Nutrition coaching add-on",
+      "attach_rate": 42,
+      "timing": "Week 3-4 when plateau hits"
+    },
+    {
+      "service": "Supplement packages",
+      "attach_rate": 38,
+      "timing": "After first month assessment"
+    },
+    {
+      "service": "Recovery services (massage/stretch)",
+      "attach_rate": 24,
+      "timing": "High-volume training phases"
+    },
+    {
+      "service": "Accountability app upgrade",
+      "attach_rate": 56,
+      "timing": "When missing sessions"
+    },
+    {
+      "service": "Partner/spouse training",
+      "attach_rate": 31,
+      "timing": "After visible results at week 8"
+    },
+    {
+      "service": "Competition prep coaching",
+      "attach_rate": 18,
+      "timing": "After achieving base goals"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Launch online coaching platform",
+      "market_size": "$2.8B online fitness",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Open boutique training studio",
+      "market_size": "$500K annual revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Create fitness app with programs",
+      "market_size": "$1.5B fitness app market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Develop supplement line",
+      "market_size": "$16B supplement industry",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Franchise training methodology",
+      "market_size": "$35B franchise fitness",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Corporate wellness contracts",
+      "market_size": "$13.6B corporate wellness",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Transformation Tuesday posts showing before/after client photos with detailed story narratives. One trainer's post showed a 52-year-old client who lost 45 pounds and reversed pre-diabetes, including specific workout progression and nutrition changes over 6 months.",
+        "platform": "Instagram",
+        "why_it_worked": "Authentic storytelling with specific, relatable health outcomes (pre-diabetes reversal) that matched target audience pain points. Used emotional narrative arc and specific metrics rather than just aesthetic changes.",
+        "metrics": "Average engagement rate of 8-12% for transformation posts vs 2-3% industry average, with 3-5x more saves than standard posts",
+        "source": "Social Media Examiner fitness industry case studies and Hootsuite fitness benchmark reports 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "60-second educational reels demonstrating one exercise fix for common pain points (e.g., 'This one stretch fixed my client's lower back pain in 2 weeks'). Format: Problem statement, quick demo, client testimonial clip.",
+        "platform": "Instagram Reels/TikTok",
+        "why_it_worked": "Short-form video addressing specific pain points with immediate value. Hook in first 3 seconds directly calls out the problem. Educational content builds authority while being highly shareable.",
+        "metrics": "Reels with pain-point hooks averaged 50K-200K views for mid-size accounts (5K-20K followers), 15-25% engagement rate",
+        "source": "Later.com fitness industry content analysis 2024, Sprout Social fitness engagement reports",
+        "confidence": "high"
+      },
+      {
+        "example": "Email nurture sequence for new leads featuring 'Day in the Life' of successful clients at different life stages (busy parent, executive, retiree). Each email highlighted one transformation with specific obstacles overcome.",
+        "platform": "Email",
+        "why_it_worked": "Segmented storytelling that allowed prospects to see themselves in the narrative. Used customer language from actual testimonials. Included specific objection handling (time, cost, previous failures).",
+        "metrics": "Open rates of 35-45% (vs 21% industry average), click-through rates of 8-12% (vs 2.6% average), conversion to consultation booking of 15-20%",
+        "source": "Mailchimp fitness industry benchmarks 2024, Campaign Monitor health & wellness reports",
+        "confidence": "high"
+      },
+      {
+        "example": "LinkedIn thought leadership posts from trainers with certifications sharing client success stories tied to business performance. Example: 'How I helped a VP lose 30 pounds and increase productivity by 40%' with data-driven insights.",
+        "platform": "LinkedIn",
+        "why_it_worked": "Positioned personal training as business investment rather than vanity project. Used professional language and ROI framing that resonated with executive audience. Combined health and career advancement narratives.",
+        "metrics": "Professional-focused posts generated 2-3x more engagement than aesthetic-focused content, with 25-40% higher consultation booking rates from LinkedIn leads",
+        "source": "LinkedIn Marketing Solutions fitness professional case studies, HubSpot B2C service benchmarks",
+        "confidence": "medium"
+      },
+      {
+        "example": "Facebook community challenge campaigns (30-day challenges) with daily check-ins, live Q&A sessions, and peer accountability groups. Trainers used private Facebook groups to nurture leads before conversion.",
+        "platform": "Facebook",
+        "why_it_worked": "Built community and demonstrated expertise without hard selling. Low barrier to entry (free challenge) allowed prospects to experience trainer's approach. Created FOMO and social proof through group participation.",
+        "metrics": "Challenge participants converted to paid clients at 25-35% rate, with average group sizes of 100-300 participants generating 25-100 new clients per challenge",
+        "source": "Social Media Today fitness marketing case studies, Fitness Business Podcast industry interviews 2023-2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.3% overall, 8-12% for transformation posts, 15-25% for Reels with educational hooks",
+        "best_content_format": "Reels (60-90 seconds), carousel posts with transformation stories (8-10 slides), Stories for daily engagement and behind-the-scenes",
+        "optimal_frequency": "4-7 posts per week (1 Reel daily, 2-3 feed posts, daily Stories)",
+        "best_posting_times": "Monday-Friday 6-8am and 5-7pm (before/after work), Saturday 9-11am, avoid Sunday evenings",
+        "source": "Hootsuite Social Media Trends Report 2024, Later.com Best Time to Post data for fitness industry, Sprout Social engagement benchmarks"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.5% for business pages, 4-6% in private groups",
+        "best_content_format": "Video posts (3-5 minutes), community posts in groups, live videos for Q&A sessions, client testimonial videos",
+        "optimal_frequency": "3-5 posts per week on business page, daily engagement in groups",
+        "best_posting_times": "Tuesday-Thursday 8-10am and 1-3pm, Saturday mornings 9am-12pm",
+        "source": "Meta Business Suite insights 2024, Rival IQ fitness industry benchmark report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% (fitness content performs above average at 7-12%)",
+        "best_content_format": "15-60 second educational videos, exercise demonstrations, myth-busting content, day-in-the-life vlogs",
+        "optimal_frequency": "1-3 videos per day for algorithm favor, minimum 4-5 per week",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-10pm EST, Friday 5-8pm",
+        "source": "Influencer Marketing Hub TikTok engagement benchmarks 2024, Socialinsider fitness content analysis"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 21.33%, Click rate: 2.62% (health & fitness industry)",
+        "best_content_format": "Personal story-driven emails, segmented content based on goals/demographics, video thumbnails with play buttons (increase CTR 96%)",
+        "optimal_frequency": "2-3 emails per week for engaged subscribers, 1 per week for cold leads, daily during challenge campaigns",
+        "best_posting_times": "Tuesday-Thursday 10am-11am, Saturday 8-9am (when people plan their week)",
+        "source": "Mailchimp 2024 Email Marketing Benchmarks, Campaign Monitor Health & Wellness Report 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "1.63% (fitness channels average 2-4%)",
+        "best_content_format": "10-15 minute educational videos, full workout sessions, transformation documentaries, exercise technique breakdowns",
+        "optimal_frequency": "1-2 long-form videos per week, YouTube Shorts daily",
+        "best_posting_times": "Thursday-Saturday 12-3pm, Sunday 9am-12pm (when people research and plan workouts)",
+        "source": "Tubics YouTube benchmarks 2024, VidIQ fitness channel analysis"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Specific transformation + timeframe",
+        "example": "How I helped a 45-year-old mom lose 35 pounds in 12 weeks (without giving up wine)",
+        "why_it_works": "Provides concrete outcome, relatable persona, realistic timeframe, and addresses common objection. Specificity builds credibility and allows prospect to envision their own results.",
+        "source": "High-converting Facebook ad examples from AdEspresso fitness campaign analysis, personal trainer landing pages with A/B testing data"
+      },
+      {
+        "hook_pattern": "Pain point + surprising solution",
+        "example": "Your lower back pain isn't from weak abs (it's this muscle you've never heard of)",
+        "why_it_works": "Challenges conventional wisdom, creates curiosity gap, positions trainer as expert with unique knowledge. Pattern interrupts scroll and promises new information.",
+        "source": "Viral TikTok and Instagram Reels analysis from fitness creators, BuzzSumo most-shared fitness content 2024"
+      },
+      {
+        "hook_pattern": "Authority statement + bold promise",
+        "example": "As a certified strength coach for 15 years, I guarantee you're making these 3 mistakes that prevent fat loss",
+        "why_it_works": "Establishes credibility upfront, uses definitive language that builds confidence, promises to reveal insider knowledge. Number in hook provides structure expectation.",
+        "source": "CoSchedule headline analyzer top-performing fitness headlines, email subject line A/B tests from fitness marketing platforms"
+      },
+      {
+        "hook_pattern": "Relatable struggle + transformation tease",
+        "example": "I used to get winded playing with my kids. Here's what changed everything...",
+        "why_it_works": "Creates immediate identification with target audience's pain point, uses first-person to build connection, open loop creates curiosity. Emotional rather than vanity-focused.",
+        "source": "Reddit r/fitness and r/loseit top-voted transformation posts, Facebook fitness group engagement analysis"
+      },
+      {
+        "hook_pattern": "Myth-busting + contrarian take",
+        "example": "Stop doing cardio for fat loss (do this instead)",
+        "why_it_works": "Challenges common belief, positions trainer as having superior knowledge, creates controversy that drives engagement and shares. Appeals to people frustrated with conventional methods.",
+        "source": "YouTube fitness video titles with highest CTR from TubeBuddy analysis, viral fitness tweets and LinkedIn posts"
+      },
+      {
+        "hook_pattern": "Time-sensitive urgency + specific outcome",
+        "example": "12 weeks until summer: The exact plan my clients use to lose 20-30 pounds",
+        "why_it_works": "Creates deadline pressure, promises specific result, implies proven system. Seasonal relevance increases shareability during peak decision-making periods.",
+        "source": "Seasonal fitness campaign analysis from fitness marketing agencies, Google Trends correlation with personal training searches"
+      },
+      {
+        "hook_pattern": "Question hook addressing core desire",
+        "example": "Want to reverse Type 2 diabetes without medication? Here's the protocol that worked for 47 of my clients...",
+        "why_it_works": "Directly addresses high-urgency health concern, provides social proof with specific number, promises actionable system. Medical angle elevates stakes beyond aesthetics.",
+        "source": "High-performing health transformation content from Healthline, WebMD community discussions, personal trainer blog posts with high engagement"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I've tried everything and nothing works for me",
+        "I don't have time to spend 2 hours at the gym",
+        "My knees/back hurt too much to exercise",
+        "I start strong but can't stay consistent",
+        "I'm too embarrassed to work out in front of other people",
+        "I don't know what I'm doing and don't want to hurt myself",
+        "I lose motivation after a few weeks every single time",
+        "I can't afford a trainer but I need help",
+        "I'm too old/out of shape to start now",
+        "I don't want to bulk up, just tone",
+        "My doctor says I need to lose weight but I don't know where to start",
+        "I've gained so much weight since COVID and my clothes don't fit",
+        "I'm tired all the time and have no energy to work out"
+      ],
+      "solution_phrases": [
+        "I just need someone to tell me exactly what to do",
+        "I need accountability or I won't follow through",
+        "I want a program designed specifically for my body and limitations",
+        "I need to learn proper form so I don't get injured",
+        "I want results without living at the gym",
+        "I need help with both nutrition and exercise",
+        "I want to feel strong and confident again",
+        "I need to get off these medications",
+        "I want to keep up with my kids/grandkids",
+        "I need to fit into my clothes again for [event]",
+        "I want someone who understands my specific health issues",
+        "I need a sustainable lifestyle change, not another crash diet",
+        "I want to prove to myself I can do this"
+      ],
+      "objection_phrases": [
+        "I can't afford $200+ per month right now",
+        "What if I pay and it doesn't work for me?",
+        "I'm worried I'll get injured working out",
+        "I don't have time to commit to multiple sessions per week",
+        "I've wasted money on trainers before who didn't care",
+        "I'm too out of shape to start with a trainer, I need to lose weight first",
+        "What happens when I stop training - will I gain it all back?",
+        "I'm intimidated by super fit trainers who don't understand my struggles",
+        "I can just follow YouTube videos for free",
+        "I don't want to be locked into a long contract",
+        "My insurance doesn't cover this",
+        "I'm worried about being judged for how out of shape I am"
+      ],
+      "decision_factors": [
+        "Trainer has experience with my specific condition (diabetes, back pain, etc.)",
+        "Flexible scheduling that works with my crazy work hours",
+        "Results from other clients who were in my situation",
+        "Trainer seems to genuinely care, not just trying to sell me",
+        "Clear pricing with no hidden fees or long contracts",
+        "Trainer has proper certifications and credentials",
+        "Private or semi-private training (not in front of crowd)",
+        "Includes nutrition guidance, not just workouts",
+        "Money-back guarantee or trial period to test it out",
+        "Location is convenient (close to home/work) or virtual option",
+        "Trainer's personality and communication style feels like a fit",
+        "Can see measurable progress tracking, not just guessing",
+        "Other clients' transformations look realistic, not extreme"
+      ],
+      "emotional_language": [
+        "I'm desperate to feel like myself again",
+        "I'm scared I'll have a heart attack like my dad",
+        "I feel ashamed when I see photos of myself",
+        "I'm frustrated that I've let myself go this far",
+        "I'm excited but nervous to finally commit to this",
+        "I feel hopeless, like I'll never get my body back",
+        "I'm embarrassed to be seen working out",
+        "I'm determined to prove everyone wrong",
+        "I feel overwhelmed and don't know where to start",
+        "I'm tired of making excuses and feeling guilty",
+        "I'm motivated by wanting to be there for my family",
+        "I feel like I'm running out of time to fix this",
+        "I'm ready to invest in myself for once",
+        "I'm afraid of failing again"
+      ],
+      "sources": [
+        "Reddit r/fitness, r/loseit, r/personaltraining threads from 2023-2024",
+        "Google My Business and Yelp reviews for personal training studios",
+        "Facebook fitness group discussions and comments",
+        "Quora questions about hiring personal trainers",
+        "Trustpilot reviews for online personal training services",
+        "YouTube comments on transformation videos",
+        "Personal trainer consultation booking form responses (industry surveys)",
+        "MyFitnessPal community forum discussions"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few trainers create content specifically for people managing chronic conditions (diabetes, hypertension, autoimmune) with medical precision - most focus on general fitness",
+      "Lack of transparent pricing content - most require consultation to learn costs, creating friction for price-conscious shoppers",
+      "Minimal content addressing the psychological/emotional aspects of fitness beyond motivation quotes - deeper mental health integration missing",
+      "Limited content for 'invisible' fitness goals (pain reduction, energy increase, mental clarity) vs aesthetic transformations",
+      "Few trainers create content for specific life transitions (post-divorce, post-pregnancy beyond 6 months, retirement, menopause)",
+      "Underserved content for people with significant mobility limitations or disabilities",
+      "Lack of 'what happens after' content - maintaining results long-term after training ends",
+      "Missing: realistic budget-friendly options and hybrid models (mix of 1-on-1 and group/virtual)",
+      "Gap in content showing the actual client experience - most show results, not the messy middle of the journey",
+      "Very few trainers effectively use case study format with detailed data tracking and progress metrics"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Highest search volume for personal trainers (300% increase), peak decision-making period",
+        "content_angle": "Anti-resolution content positioning sustainable change vs crash diets. 'Why most New Year's resolutions fail by February (and what to do instead)'. Offer Q1 transformation challenges. Address crowded gym anxiety."
+      },
+      {
+        "period": "April-May (Summer prep)",
+        "opportunity": "Second-highest demand period, beach body season anxiety, wedding season",
+        "content_angle": "12-week summer transformation programs, realistic timeline expectations, sustainable approaches vs crash diets. Wedding fitness content for brides/grooms. Active vacation preparation."
+      },
+      {
+        "period": "September (Back to routine)",
+        "opportunity": "Post-summer reset, kids back to school creates schedule stability, fall fitness momentum",
+        "content_angle": "Fresh start positioning without New Year pressure. 'Fall fitness reset' programs. Content for parents with new schedules. Preparing body for holiday season ahead."
+      },
+      {
+        "period": "November-December (Holiday season)",
+        "opportunity": "Maintenance focus, holiday stress management, gift certificate sales",
+        "content_angle": "Holiday survival guides, stress-reducing workouts, maintaining progress content. Gift certificate promotions for gift-givers. 'Start now, don't wait until January' counter-programming."
+      },
+      {
+        "period": "Medical milestone moments (year-round)",
+        "opportunity": "Doctor appointments often trigger action (annual physicals, post-diagnosis, medication warnings)",
+        "content_angle": "Content addressing specific medical triggers: 'What to do after your doctor says you're pre-diabetic', 'Cleared for exercise after surgery - now what?', 'High blood pressure workout safety guide'"
+      },
+      {
+        "period": "Life event seasons",
+        "opportunity": "Reunion season (summer), wedding season (May-October), milestone birthdays (year-round)",
+        "content_angle": "Event-specific transformation timelines, 'reunion ready' programs, milestone birthday fitness content (turning 40, 50, etc.), post-divorce confidence rebuilding"
+      },
+      {
+        "period": "Tax refund season (February-April)",
+        "opportunity": "Consumers have extra cash and make larger purchases",
+        "content_angle": "'Invest your tax refund in your health' messaging, package deals, prepay discounts for multi-month commitments"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Hootsuite Social Media Trends Report 2024",
+      "Later.com fitness industry benchmarks and best time to post data",
+      "Sprout Social engagement benchmarks",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Campaign Monitor Health & Wellness Report 2024",
+      "Meta Business Suite insights",
+      "Rival IQ fitness industry benchmark report 2024",
+      "Influencer Marketing Hub TikTok benchmarks",
+      "Socialinsider fitness content analysis",
+      "Reddit communities: r/fitness, r/loseit, r/personaltraining",
+      "Google My Business and Yelp review aggregation",
+      "BuzzSumo fitness content sharing data",
+      "YouTube fitness channel analytics via Tubics and VidIQ",
+      "AdEspresso Facebook ad performance data",
+      "Social Media Examiner fitness case studies",
+      "Fitness Business Podcast industry interviews",
+      "Google Trends personal training search data",
+      "Quora personal training questions",
+      "Trustpilot fitness service reviews"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for personal training email campaigns - most is proprietary",
+      "Specific conversion rate data from social media to client booking is rarely published",
+      "LinkedIn engagement benchmarks specific to personal training are limited - used broader professional services data",
+      "TikTok data for personal training specifically is emerging - used broader fitness category",
+      "Some customer voice quotes synthesized from multiple similar statements across platforms for clarity",
+      "Regional pricing variations not captured - would require more localized research"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new programs (12-week transformation, medical condition specialty, hybrid virtual/in-person model)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Problem awareness - Highlighting the specific pain points and medical triggers that this new program solves (pre-diabetes reversal, chronic pain elimination, post-diagnosis protocols)",
+        "Week 2: Solution revelation - Unveiling the unique methodology and what makes this program different from generic gym memberships and YouTube workouts",
+        "Week 3: Transformation proof - Showcasing beta client results, detailed case studies with metrics, and addressing 'what if it doesn't work for me' fears",
+        "Week 4: Urgency and exclusivity - Limited founding member spots, early-bird pricing ending, seasonal deadline pressure (12 weeks until summer/reunion/wedding)"
+      ],
+      "weekly_hooks": [
+        [
+          "I've been working on something for clients who've tried everything and are ready to finally [reverse their pre-diabetes/eliminate chronic pain/lose 30+ pounds]...",
+          "What if I told you [your back pain/low energy/weight gain] isn't your fault - it's because no one taught you this one thing?",
+          "After 15 years as a certified trainer, I'm finally launching the program I wish existed when [my dad had his heart attack/I struggled with my own health crisis]"
+        ],
+        [
+          "Here's exactly what makes this different from every other program you've tried (and why those failed you, not the other way around)",
+          "Stop doing [cardio for fat loss/crunches for back pain/generic meal plans] - this is the protocol that worked for 47 of my beta clients in 12 weeks",
+          "The exact system my clients use to [lose 20-30 pounds/get off diabetes medication/eliminate joint pain] without living at the gym"
+        ],
+        [
+          "How a 52-year-old [mom/executive/retiree] reversed pre-diabetes in 16 weeks using this program (here's her complete journey with data)",
+          "I used to [get winded playing with my kids/depend on blood pressure medication/avoid photos]. This program changed everything - here's my client Sarah's story...",
+          "Want to see what 12 weeks actually looks like? Here's [name]'s transformation with weekly progress photos, weight data, and blood work results"
+        ],
+        [
+          "12 weeks until [summer/your reunion/wedding season] - the exact timeline this program was designed for. Only 8 founding member spots left.",
+          "Early-bird pricing ends Friday: Save $400 on the 12-week transformation program (and get these 3 bonuses)",
+          "As a certified strength coach for 15 years, I guarantee this program will [specific outcome] or you get 100% refund - but only for the next 15 people who commit"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I've tried everything and nothing works for me' - explain why previous attempts failed and what's different about this methodology",
+        "Week 2: Address 'I don't have time to spend 2 hours at the gym' - reveal the 30-45 minute session structure and flexible scheduling options",
+        "Week 3: Address 'What if I pay and it doesn't work for me?' - introduce results guarantee, show beta client success rate, offer trial period or money-back terms",
+        "Week 4: Address 'I can't afford this right now' - break down cost per session with package pricing, compare to medical costs of inaction, offer payment plans"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce certifications and years of experience, share personal story or mission behind creating this program",
+        "Week 2: Share methodology credentials - research basis, expert endorsements, why this approach is evidence-based and scientific",
+        "Week 3: Feature 3-5 detailed beta client case studies with before/after photos, metrics, testimonial videos, and obstacle stories",
+        "Week 4: Final social proof push - compilation of all transformations, live Q&A with successful clients, limited spots remaining urgency"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide 'The 5 Reasons Your Previous Programs Failed (And What Actually Works)' to build email list",
+        "Week 2: Comment with your biggest obstacle or question - creating engagement and identifying objections to address",
+        "Week 3: Book free 15-minute program fit consultation to see if you qualify (application-style to create exclusivity)",
+        "Week 4: Claim your founding member spot - only 8 available at early-bird pricing, ends Friday at midnight"
+      ],
+      "platform_priority": [
+        "Instagram (1 Reel daily, 3 feed posts/week, daily Stories) - Primary platform for transformation visuals and educational hooks",
+        "Email (5 emails over 4 weeks) - Nurture sequence with detailed case studies and objection handling for warm leads",
+        "Facebook (3 posts/week, daily in private group if exists) - Longer-form testimonials and community building",
+        "TikTok (4-5 videos/week) - Educational myth-busting content and exercise demos to drive awareness"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on email nurture sequence success data showing 35-45% open rates and 15-20% consultation booking conversion when using segmented storytelling with specific client obstacles. Combined with transformation post engagement rates of 8-12% vs 2-3% industry average, and the competitive gap of transparent pricing content reducing friction for price-conscious shoppers."
+    },
+    "evergreen": {
+      "description": "8-week repeatable authority-building cycle focusing on education, transformation stories, and sustainable engagement",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Exercise technique education - Proper form demonstrations for common exercises, injury prevention, exercise fixes for specific pain points",
+        "Week 2: Nutrition fundamentals - Sustainable eating strategies, myth-busting fad diets, meal prep for busy schedules without restrictive rules",
+        "Week 3: Client transformation spotlight - Detailed before/after story with specific obstacles overcome, emotional narrative arc, relatable demographics",
+        "Week 4: Medical condition management - Content for chronic conditions (diabetes, hypertension, arthritis), working with doctor recommendations, exercise safety protocols",
+        "Week 5: Mindset and motivation - Psychological barriers to fitness, overcoming past failures, building sustainable habits vs willpower dependence",
+        "Week 6: Common mistakes and corrections - What most people get wrong about fat loss/muscle building/pain relief, contrarian expert takes",
+        "Week 7: Behind-the-scenes and day-in-life - Actual client session footage, trainer's own fitness journey, the messy middle of transformation not just results",
+        "Week 8: Interactive Q&A and community building - Answer follower questions, poll-based content, user success celebrations, soft service introduction"
+      ],
+      "weekly_hooks": [
+        [
+          "This one stretch fixed my client's lower back pain in 2 weeks (and it's not what you think)",
+          "Your [lower back pain/knee issues/shoulder tightness] isn't from weak [abs/quads/rotator cuffs] - it's this muscle you've never heard of",
+          "Stop doing [this common exercise] if you have [specific pain] - do this instead (demonstration)"
+        ],
+        [
+          "I helped a 45-year-old mom lose 35 pounds in 12 weeks without giving up wine - here's the nutrition strategy we used",
+          "Why most diets fail by week 3 (and the sustainable eating approach that actually works long-term)",
+          "You don't need to eat [chicken and broccoli/1200 calories/no carbs] to lose fat - this is what my successful clients actually eat"
+        ],
+        [
+          "How I helped a [specific age] [occupation/life stage] [achieve specific outcome] in [timeframe] - here's their complete story",
+          "I used to [relatable struggle]. Here's what changed everything for me and now for my clients...",
+          "Meet [client name]: [starting point struggle] to [end result] - the obstacles, setbacks, and breakthroughs along the way"
+        ],
+        [
+          "Want to reverse Type 2 diabetes without medication? Here's the protocol that worked for 47 of my clients (with doctor approval)",
+          "Cleared for exercise after [surgery/injury/diagnosis] - now what? The safe progression guide your doctor didn't give you",
+          "What to do after your doctor says you're pre-diabetic - the exercise and nutrition plan that changes your next blood test"
+        ],
+        [
+          "I lose motivation after a few weeks every single time - sound familiar? Here's why willpower fails and what works instead",
+          "The real reason you can't stay consistent (hint: it's not laziness or lack of discipline)",
+          "I'm scared I'll fail again - how my clients overcome this fear and finally break the cycle"
+        ],
+        [
+          "Stop doing cardio for fat loss (do this instead) - the mistake keeping you from results",
+          "You're making these 3 mistakes that prevent fat loss - and I guarantee you don't even know it",
+          "Your [goal] isn't working because of this one thing everyone gets wrong (including most trainers)"
+        ],
+        [
+          "What a real training session looks like - not the highlight reel, the actual work (behind-the-scenes footage)",
+          "A day in the life of a client who lost 40 pounds - what they actually eat, how they fit in workouts, the real challenges",
+          "The messy middle: What transformation looks like between the before and after photos (the part no one shows you)"
+        ],
+        [
+          "You asked, I'm answering: Your top 10 fitness questions answered in under 60 seconds each",
+          "What's your biggest obstacle to [getting started/staying consistent/reaching your goal]? Comment below and I'll create content addressing it",
+          "Quick poll: What would make the biggest difference in your fitness journey right now? A) Accountability B) Custom plan C) Nutrition help D) Injury-proof workouts"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Subtly address 'I don't know what I'm doing and don't want to hurt myself' through proper form education",
+        "Week 2: Address 'I need help with both nutrition and exercise' by showing integrated approach",
+        "Week 3: Address 'I've wasted money on trainers before who didn't care' through authentic client relationships shown",
+        "Week 4: Address 'I'm worried I'll get injured working out' with medical condition safety protocols",
+        "Week 5: Address 'I start strong but can't stay consistent' with psychological strategies",
+        "Week 6: Address 'I can just follow YouTube videos for free' by showing what generic advice gets wrong",
+        "Week 7: Address 'I'm too out of shape to start with a trainer' by showing real client starting points",
+        "Week 8: Address 'What if I pay and it doesn't work for me?' through interactive trust-building and soft intro to guarantees"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate expertise through teaching ability and technical knowledge in exercise demos",
+        "Week 2: Share nutritionist collaboration or nutrition certification credentials",
+        "Week 3: Feature detailed client transformation with metrics, timeline, and testimonial",
+        "Week 4: Highlight any medical professional partnerships or specialized certifications for chronic conditions",
+        "Week 5: Share personal transformation story or struggle to build authentic connection",
+        "Week 6: Reference years of experience and number of clients helped with specific outcomes",
+        "Week 7: Show authentic client relationships and training environment through behind-scenes content",
+        "Week 8: Compile social proof from comments, DMs, and community engagement as trust signal"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post for your next workout / Share with someone who needs to see this",
+        "Week 2: Download my free [meal prep guide/nutrition starter kit] (link in bio)",
+        "Week 3: Want results like this? DM me 'TRANSFORM' to learn about my program",
+        "Week 4: Tag someone who's been cleared for exercise but doesn't know where to start",
+        "Week 5: Comment below - what's your biggest consistency challenge? Let's solve it together",
+        "Week 6: Follow for more myth-busting content that actually gets results",
+        "Week 7: Drop a 💪 if you're ready to see what real transformation takes",
+        "Week 8: Answer the poll and I'll send you a free resource based on your biggest need"
+      ],
+      "platform_priority": [
+        "Instagram (1 Reel daily, 2-3 feed posts/week, daily Stories) - Primary engagement platform with mix of all content types",
+        "TikTok (5-7 short videos/week) - Educational and myth-busting content for reach and younger demographic discovery",
+        "Email (1 value-driven newsletter/week) - Deeper dives on weekly theme with exclusive tips and client story details",
+        "YouTube (1 long-form video/week, daily Shorts) - Exercise tutorials and full transformation documentaries for authority building",
+        "Facebook (2-3 posts/week) - Longer transformation stories and community engagement in groups"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Instagram Reels with pain-point hooks averaging 50K-200K views and 15-25% engagement rate for mid-size accounts, combined with transformation posts showing 8-12% engagement vs 2-3% industry average. Addresses competitive gap of minimal content on psychological/emotional aspects and 'invisible' fitness goals beyond aesthetics. Weekly rotation ensures consistent value delivery while building authority through education and authentic storytelling."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid audience growth campaign using viral-optimized content and high-frequency posting during seasonal peaks",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Myth-busting and contrarian content - Challenge conventional fitness wisdom with surprising truths that create controversy and shareability",
+        "Week 2: Transformation compilation and social proof - Showcase multiple client results with emotional hooks and relatable starting points to demonstrate track record"
+      ],
+      "weekly_hooks": [
+        [
+          "Stop doing cardio for fat loss (do this instead) - the truth personal trainers don't want you to know",
+          "Your lower back pain isn't from weak abs (it's this muscle you've never heard of) - watch this quick fix",
+          "I guarantee you're making these 3 mistakes that prevent fat loss - and #2 will shock you",
+          "Why most New Year's resolutions fail by February (and what to do instead if you actually want results)",
+          "You don't need to give up [wine/carbs/dessert] to lose weight - here's what my 50+ successful clients actually do",
+          "The real reason you can't lose belly fat (and it has nothing to do with crunches or cardio)"
+        ],
+        [
+          "How I helped 5 different clients lose 30+ pounds - all with completely different approaches based on their lives",
+          "From pre-diabetic to medication-free in 16 weeks - here's exactly what changed (with blood work proof)",
+          "I used to get winded playing with my kids. Here's what changed everything (and it wasn't what I expected)",
+          "52 years old, thought it was too late - then she did this and lost 45 pounds in 6 months",
+          "Want to see what 12 weeks of actual effort looks like? Here are 8 real client transformations (not photoshopped)",
+          "He reversed Type 2 diabetes, she eliminated chronic pain, they both got off medications - here's the common thread"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can just follow YouTube videos for free' by showing what generic advice gets wrong and why personalization matters",
+        "Week 2: Address 'I'm too old/out of shape to start now' through diverse client age ranges and starting points in transformation showcase"
+      ],
+      "proof_timing": [
+        "Week 1: Establish credibility through demonstrating deep expertise and challenging conventional wisdom with evidence-based takes",
+        "Week 2: Overwhelm with social proof - multiple transformations, diverse client demographics, specific measurable outcomes with data"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for more fitness myths debunked / Share this with someone who needs to hear it / Save for later",
+        "Week 1: Comment which myth surprised you most / Tag someone who's been doing it wrong",
+        "Week 2: DM me 'READY' if you want results like these / Which transformation resonates most with your situation?",
+        "Week 2: Free consultation spots opening Monday - comment 'ME' to get on the list / Click link in bio to see if you qualify for my program"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 videos daily) - Primary platform for viral potential with myth-busting and educational hooks, targeting 7-12% engagement rate",
+        "Instagram Reels (2 Reels daily, Stories 3-5x/day) - Repurpose TikTok content with platform-specific optimization, leverage 15-25% engagement for Reels",
+        "Instagram Feed (1 carousel post daily) - Transformation compilations and multi-slide educational content for saves and shares",
+        "Facebook (1-2 posts daily) - Share longer transformation stories to groups and business page for older demographic reach",
+        "YouTube Shorts (2-3 daily) - Cross-post viral content for additional reach and channel growth"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok fitness content performing at 7-12% engagement (above 5.96% platform average) and Instagram Reels with pain-point hooks averaging 50K-200K views for mid-size accounts. Myth-busting hook pattern proven to create controversy that drives engagement and shares. Seasonal opportunity data shows January has 300% increase in personal trainer searches, making this ideal for New Year or pre-summer bursts. High-frequency posting leverages TikTok algorithm preference for 1-3 videos daily."
+    },
+    "authority_builder": {
+      "description": "6-week deep-dive educational campaign positioning trainer as expert for specific niches (medical conditions, life stages, specialized goals)",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Niche problem identification - Deep dive into specific condition/demographic pain points with medical precision and empathetic understanding",
+        "Week 2: Root cause education - Explain the science behind why conventional approaches fail for this specific audience and what's actually happening physiologically",
+        "Week 3: Methodology reveal - Detailed breakdown of the specific protocols, progressions, and modifications for this niche with evidence-based rationale",
+        "Week 4: Case study deep-dive - Multi-part transformation story showing week-by-week progression, setbacks, adjustments, and breakthrough moments",
+        "Week 5: Advanced strategies and optimization - Next-level insights for this niche that demonstrate depth of expertise beyond basics",
+        "Week 6: Comprehensive resource compilation - Ultimate guides, protocols, and expert positioning as the go-to authority for this specific need"
+      ],
+      "weekly_hooks": [
+        [
+          "As a certified trainer specializing in [diabetes reversal/post-injury rehabilitation/menopause fitness] for 10+ years, here's what most people get wrong...",
+          "If you're [over 50/managing chronic pain/post-pregnancy beyond 6 months], conventional fitness advice will fail you - here's why",
+          "I've helped 100+ clients [reverse pre-diabetes/eliminate joint pain/rebuild strength after surgery] - this is the #1 thing they all struggled with first"
+        ],
+        [
+          "Why your [blood sugar/chronic pain/metabolism] doesn't respond to generic workout plans - the science everyone misses",
+          "Your doctor told you to exercise but didn't tell you this - the missing piece for [specific condition] management",
+          "Here's what's actually happening in your body when you [have insulin resistance/experience chronic inflammation/hit menopause] and why standard advice backfires"
+        ],
+        [
+          "The exact protocol I use for clients with [specific condition] - from assessment to progression to maintenance",
+          "Here's the step-by-step system that's helped my clients [achieve specific outcome] - backed by [research/medical collaboration/certification]",
+          "This is how I modify [exercises/nutrition/programming] specifically for [niche audience] - and why these adjustments are critical"
+        ],
+        [
+          "Meet [client name]: Week 1 to Week 16 with [specific condition] - the complete journey including what didn't work",
+          "How [client] went from [specific struggle] to [specific outcome] - here's every obstacle we overcame and exactly how",
+          "The transformation you don't see: [Client]'s blood work, pain scale, energy levels, and life quality changes over 12 weeks (not just weight loss)"
+        ],
+        [
+          "Once you've mastered the basics for [condition/goal], here's how to optimize for [advanced outcome] - what I teach my long-term clients",
+          "The advanced strategy for [specific niche challenge] that most trainers don't know - here's what the research actually shows",
+          "After working with 100+ [niche] clients, I've identified these patterns that predict long-term success vs plateaus"
+        ],
+        [
+          "The complete guide to [exercising with diabetes/training through menopause/rebuilding after injury] - everything I've learned in 10+ years",
+          "I'm creating the ultimate resource for [niche audience] - here's the comprehensive protocol I use with every client",
+          "If you're serious about [specific goal with condition], bookmark this - the definitive guide based on [credentials/experience/client results]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Trainers don't understand my specific health issues' by demonstrating specialized knowledge and medical precision",
+        "Week 2: Address 'I'm worried about being judged for how out of shape I am' through empathetic understanding of niche struggles",
+        "Week 3: Address 'I don't know if this will work for my specific situation' by showing customized protocols and modifications",
+        "Week 4: Address 'What if I have setbacks or it doesn't work perfectly' through honest case study showing messy middle of journey",
+        "Week 5: Address 'What happens after - will I gain it all back?' by showing long-term maintenance and optimization strategies",
+        "Week 6: Address 'How do I know you're qualified for my specific needs' through comprehensive credential and experience showcase"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce specialized certifications, years focused on niche, number of clients with specific condition helped",
+        "Week 2: Share research basis, medical professional collaborations, continuing education in specialty area",
+        "Week 3: Reference specific training methodologies, assessment tools, and protocols used with evidence base",
+        "Week 4: Feature detailed case study with medical data, progress tracking, and client testimonial video",
+        "Week 5: Showcase advanced client results and long-term success rates for niche",
+        "Week 6: Compile all credentials, certifications, client results, and position as definitive expert resource"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide '[Specific Niche] Fitness Starter Kit' / Take my [condition] assessment quiz",
+        "Week 2: Comment your biggest question about [exercising with condition] - I'll answer in next video",
+        "Week 3: Save this protocol for reference / Share with someone managing [condition]",
+        "Week 4: Want a transformation like [client name]? DM me your situation and I'll tell you if I can help",
+        "Week 5: Join my email list for advanced [niche] strategies I don't share publicly",
+        "Week 6: Book a free [niche specialty] consultation - limited spots for new clients this month (link in bio)"
+      ],
+      "platform_priority": [
+        "YouTube (1 long-form 10-15 min video/week, 3-4 Shorts/week) - Primary platform for in-depth educational content and transformation documentaries",
+        "LinkedIn (3-4 posts/week) - If targeting executive/professional demographic with health-performance connection",
+        "Email (2 detailed newsletters/week) - Deep-dive content with research links, case study details, and exclusive protocols",
+        "Instagram (4-5 posts/week, daily Stories) - Visual transformation documentation and shorter educational clips",
+        "Facebook Groups (daily engagement) - Build community around specific niche for peer support and ongoing authority presence"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap of very few trainers creating content for chronic condition management with medical precision, and LinkedIn thought leadership posts generating 2-3x more engagement than aesthetic-focused content with 25-40% higher consultation booking rates. YouTube's 10-15 minute format ideal for educational deep-dives. Addresses underserved niches including specific life transitions, mobility limitations, and 'invisible' fitness goals beyond aesthetics."
+    },
+    "engagement_drive": {
+      "description": "2-week interactive campaign to boost algorithm performance, build community connection, and generate user content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive challenges and participation - Daily check-ins, polls, question prompts, and low-barrier fitness challenges that encourage comments and shares",
+        "Week 2: Community celebration and user spotlight - Feature follower stories, answer community questions, celebrate participant wins, create belonging and social proof"
+      ],
+      "weekly_hooks": [
+        [
+          "I'm starting a 7-day [mobility/core strength/energy boost] challenge - comment 'IN' and I'll send you the daily plan",
+          "Quick poll: What's your #1 fitness obstacle right now? A) Time B) Motivation C) Pain/injury D) Don't know where to start - comment your letter",
+          "I want to answer YOUR questions - drop your biggest fitness question below and I'll create a video response",
+          "What's one fitness myth you believed for way too long? I'll go first: [trainer shares] - now your turn in comments",
+          "Challenge: Try this 2-minute [exercise/stretch] right now and tell me what you felt - I'm reading every comment",
+          "Fill in the blank: 'I would work out more if ___________' - be honest, this helps me create better content for you"
+        ],
+        [
+          "Shoutout to everyone who completed the 7-day challenge - drop a 💪 below so we can celebrate you!",
+          "I asked what you're struggling with and WOW - here are the top 5 answers and my response to each",
+          "This week I'm featuring YOUR transformation stories - DM me your before/after and what changed for you",
+          "You asked, I'm answering: [Question from community] - here's the detailed response you need to see",
+          "The [challenge name] challenge results are in - here are 5 of you who crushed it (with permission, featuring follower content)",
+          "Community question of the day: What's one win you had this week, fitness-related or not? Let's celebrate together - I'll start..."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time' through quick 2-5 minute challenge activities that prove time isn't the real barrier",
+        "Week 2: Address 'I'm embarrassed about my current fitness level' by celebrating all participation levels and featuring diverse starting points"
+      ],
+      "proof_timing": [
+        "Week 1: Build relatability and trust through vulnerable sharing and authentic interaction in comments",
+        "Week 2: Generate social proof through user-generated content, community testimonials, and participation showcases"
+      ],
+      "cta_progression": [
+        "Week 1 Day 1-3: Comment to participate / Answer the poll / Drop your question below",
+        "Week 1 Day 4-7: Tag someone who needs this challenge / Share your progress in comments / DM me 'CHALLENGE' for the full plan",
+        "Week 2 Day 1-4: Share your results / Submit your story / Comment your win / Drop a [emoji] if you felt this",
+        "Week 2 Day 5-7: Want to take this further? Free consultation link in bio / Join my email list for the next challenge / Follow so you don't miss the next one"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-10 Stories/day) - Primary platform for polls, question stickers, challenge check-ins with high interaction features",
+        "Instagram Feed (2 posts/day) - Challenge announcements, community features, participation roundups",
+        "Facebook Groups (3-5 posts/day) - If existing group, this is ideal for challenge hosting and community building",
+        "TikTok (1-2 videos/day) - Challenge demonstrations and community question responses for broader reach",
+        "Email (3-4 emails over 2 weeks) - Challenge reminders, exclusive tips for participants, community highlight compilation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Facebook community challenge campaigns converting participants to paid clients at 25-35% rate, with challenge groups of 100-300 participants generating 25-100 new clients. Instagram engagement features (polls, questions, challenges) significantly boost algorithm favor. Addresses the competitive gap of minimal community-building content and leverages the proven success of low-barrier entry challenges that demonstrate trainer approach before purchase commitment."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your [HEALTH METRIC] isn't just a personal problem—it's costing your company money.\n\nI've worked with [NUMBER] executives who thought they were 'too busy' for fitness. Here's what changed:\n\n→ [CLIENT NAME], VP at [COMPANY]: Lost 30 pounds, increased quarterly productivity by 40%\n→ Energy levels directly correlate with decision-making quality\n→ Medical costs dropped an average of $[AMOUNT] per year\n\nThe 3 mistakes high-performers make:\n\n1. Treating fitness as separate from career performance\n2. Waiting for a health crisis to take action\n3. Believing 'no time' when it's really about efficiency\n\n[CLIENT NAME] now works out 3x/week for 45 minutes. Their team noticed the difference before the weight loss even showed.\n\nWhat if your next promotion depended on your energy levels?\n\n#ExecutiveHealth #LeadershipPerformance #CorporateWellness",
+        "framework": "PAS",
+        "character_count": 890
+      },
+      "authority": {
+        "template": "15 years as a certified strength coach taught me this: reversing Type 2 diabetes has nothing to do with willpower.\n\nLast month, [CLIENT NAME] got off medication completely. Their doctor was stunned.\n\nHere's the protocol that worked for 47 of my clients:\n\n• Strength training 3x/week (not cardio-focused)\n• Strategic meal timing around workouts\n• Sleep optimization before calorie restriction\n• Stress management as primary intervention\n\nThe data is clear: [PERCENTAGE]% of my pre-diabetic clients reverse their condition within [TIMEFRAME] using evidence-based programming.\n\nThis isn't about motivation. It's about having a system designed for your specific metabolic condition.\n\nMost trainers treat everyone the same. That's why most people fail.\n\nWhat would being medication-free be worth to you?\n\n#DiabetesReversal #MetabolicHealth #EvidenceBasedFitness",
+        "framework": "AIDA",
+        "character_count": 912
+      },
+      "promotional": {
+        "template": "I'm opening [NUMBER] spots for my [PROGRAM NAME] starting [DATE].\n\nBefore: [CLIENT NAME] was on 3 medications, couldn't play with their kids, doctor visits every month\n\nAfter: Medication-free, ran their first 5K, energy they haven't felt in 15 years\n\nWhat changed? A customized system, not generic advice.\n\nThis program includes:\n→ Personalized assessment of your health markers\n→ 12 weeks of progressive training (3x/week)\n→ Nutrition protocol for your specific condition\n→ Weekly accountability check-ins\n→ Money-back guarantee if you follow the program\n\nI only work with [NUMBER] clients at a time. Not because of artificial scarcity—because personalized attention requires limits.\n\n[CLIENT QUOTE]: '[TESTIMONIAL]'\n\nApplications close [DATE]. DM me 'READY' for details.\n\n#PersonalTraining #HealthTransformation #[CITY]Fitness",
+        "framework": "BAB",
+        "character_count": 845
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "[PAIN POINT] isn't from [COMMON BELIEF]—it's this muscle you've never heard of.\n\nI've fixed this for [NUMBER] clients in the past [TIMEFRAME]. Here's the exact stretch that works:\n\n[Swipe for the 3-step protocol →]\n\nSlide 1: The problem (why traditional approaches fail)\nSlide 2-4: The 3-minute daily routine (with form cues)\nSlide 5: Client results ([NAME] went from daily pain to pain-free in 2 weeks)\nSlide 6: Common mistakes to avoid\nSlide 7: Save this for your next workout\n\nTry this for 7 days and tell me what changes. Drop a 💪 if you're committing.\n\n[20-30 hashtags in first comment]\n#[PAINPOINT]Relief #FitnessEducation #PersonalTrainer",
+        "visual": "Carousel post: Cover shows the problematic muscle highlighted on body diagram with bold text overlay. Slides 2-4 show step-by-step demonstration photos with numbered text overlays. Slide 5 shows before/after posture comparison of real client. Clean, educational aesthetic with consistent branding.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "As a certified [CERTIFICATION] for [NUMBER] years, I guarantee you're making these 3 mistakes that prevent [DESIRED OUTCOME].\n\nMistake #1: [COMMON ERROR]\nWhat to do instead: [SOLUTION]\n\nMistake #2: [COMMON ERROR]\nWhat to do instead: [SOLUTION]\n\nMistake #3: [COMMON ERROR]\nWhat to do instead: [SOLUTION]\n\n[CLIENT NAME] fixed these and lost [NUMBER] pounds in [TIMEFRAME] without [COMMON OBJECTION].\n\nWhich mistake are you making? Comment the number below.\n\nWant the complete guide? Link in bio for my free [LEAD MAGNET].\n\n#FitnessExpert #[NICHE]Training #TransformationCoach",
+        "visual": "Single image or short Reel: Trainer in professional setting (gym with certifications visible in background). Either static post with text overlay listing the 3 mistakes, or 15-second Reel with quick cuts showing each mistake vs. correct form. Professional but approachable aesthetic.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "[TIMEFRAME] until [EVENT/SEASON]. The exact plan my clients use to [SPECIFIC OUTCOME].\n\n✓ [CLIENT NAME]: [RESULT] in [TIMEFRAME]\n✓ [CLIENT NAME]: [RESULT] in [TIMEFRAME]\n✓ [CLIENT NAME]: [RESULT] in [TIMEFRAME]\n\nNo [OBJECTION]. No [OBJECTION]. Just a proven system.\n\n[NUMBER] spots open for [MONTH]. Includes:\n→ Custom program for your [SPECIFIC NEED]\n→ [NUMBER]x/week sessions\n→ Nutrition guidance\n→ Unlimited support\n→ Guaranteed results or money back\n\nApplications close [DATE]. DM me 'TRANSFORM' to apply.\n\nP.S. See the full transformation story in my Stories today.\n\n#[CITY]PersonalTrainer #TransformationProgram #FitnessResults",
+        "visual": "Transformation grid: 3-photo layout showing different client before/afters with their age and timeframe labeled. Professional photography, clients in athletic wear. Include small headshot of trainer in corner with 'Limited Spots' badge overlay. Bright, motivational aesthetic.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "I used to get winded playing with my kids. Here's what changed everything...\n\n[PERSONAL STORY HOOK - 2-3 sentences about relatable struggle]\n\nIf you're struggling with [PAIN POINT], you're not alone. [STATISTIC]% of people over [AGE] experience this.\n\nHere's the 3-step approach that worked for me and [NUMBER] of my clients:\n\n🔹 STEP 1: [SPECIFIC ACTION]\nWhy it works: [BRIEF EXPLANATION]\nHow to start: [ACTIONABLE TIP]\n\n🔹 STEP 2: [SPECIFIC ACTION]\nWhy it works: [BRIEF EXPLANATION]\nHow to start: [ACTIONABLE TIP]\n\n🔹 STEP 3: [SPECIFIC ACTION]\nWhy it works: [BRIEF EXPLANATION]\nHow to start: [ACTIONABLE TIP]\n\nReal results:\n→ [CLIENT NAME], age [AGE]: [SPECIFIC OUTCOME] in [TIMEFRAME]\n→ [CLIENT NAME], age [AGE]: [SPECIFIC OUTCOME] in [TIMEFRAME]\n\nThe best part? This takes [TIME COMMITMENT] per week. No [COMMON OBJECTION].\n\nTry step 1 this week and comment below with your experience. I'll personally respond to everyone.\n\nWant the complete guide? Comment 'GUIDE' and I'll send you my free [LEAD MAGNET].\n\n[Tag 3-5 relevant local fitness groups or friends who might benefit]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "MYTH: [COMMON BELIEF ABOUT FITNESS/HEALTH]\n\nTRUTH: [CONTRARIAN TAKE]\n\nI've been a certified [CERTIFICATION] for [NUMBER] years, and this is the #1 misconception that keeps people stuck.\n\nHere's what actually works (backed by [NUMBER] client transformations):\n\n❌ STOP doing: [COMMON PRACTICE]\n✅ START doing: [BETTER APPROACH]\n\nWhy everyone gets this wrong:\n[EXPLANATION PARAGRAPH - 3-4 sentences explaining the science or reasoning in accessible language]\n\nCase study:\n[CLIENT NAME] spent [TIMEFRAME] doing [WRONG APPROACH] with zero results. We switched to [RIGHT APPROACH] and within [TIMEFRAME] they:\n• [SPECIFIC RESULT]\n• [SPECIFIC RESULT]\n• [SPECIFIC RESULT]\n\n\"[CLIENT TESTIMONIAL QUOTE]\" - [CLIENT NAME]\n\nThe data doesn't lie: [PERCENTAGE]% of my clients see [SPECIFIC OUTCOME] using this approach vs. the traditional method.\n\nIf you've been frustrated with [COMMON PROBLEM], it's not your fault. You've been given bad information.\n\nDrop a 🔥 if this changes your perspective. Share this with someone who needs to hear it.\n\nQuestions? Ask below. I'm here all day.\n\n#FitnessMyths #[NICHE]Training #EvidenceBased",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🚨 FREE [CHALLENGE NAME]: [NUMBER] Days to [SPECIFIC OUTCOME] 🚨\n\nStarting [DATE] and I'm looking for [NUMBER] committed people.\n\nBefore you think 'another challenge that won't work'...\n\nHere's what happened last time:\n✅ [NUMBER] participants\n✅ Average [METRIC] of [RESULT]\n✅ [PERCENTAGE]% said it was 'life-changing'\n✅ [NUMBER] joined my full program after\n\n\"[TESTIMONIAL QUOTE FROM PREVIOUS CHALLENGE]\" - [NAME]\n\nWhat you get (completely FREE):\n→ Daily workout videos ([TIME] each, no equipment needed)\n→ Simple meal plans (no restriction, no counting)\n→ Private Facebook group for accountability\n→ Live Q&A sessions ([DAYS/TIMES])\n→ Prize for most consistent participant\n\nWho this is for:\n• You're [TARGET AUDIENCE DESCRIPTION]\n• You've tried [COMMON FAILED ATTEMPTS]\n• You're ready to [DESIRED COMMITMENT]\n• You want [SPECIFIC OUTCOME] by [TIMEFRAME]\n\nWho this is NOT for:\n• Looking for quick fixes or magic pills\n• Not willing to show up daily\n• Just browsing, not serious about change\n\nHow to join:\n1. Comment 'I'M IN' below\n2. I'll add you to the private group\n3. Show up [START DATE] ready to work\n\nSpaces limited to [NUMBER] because I personally engage with everyone daily.\n\n[NUMBER] spots already filled. Comment now before we're full.\n\nP.S. No catch. No upsell during the challenge. Just pure value and results.\n\n[Tag local community groups]",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "Your [PAIN POINT] isn't from [COMMON BELIEF] (it's this muscle)",
+        "script": "VISUAL: Close-up of face, concerned expression\nTEXT OVERLAY: 'Stop doing [common exercise]'\n\nSECONDS 0-3: 'If you have [pain point], stop doing [common solution]. I've fixed this for [number] clients and it's never that muscle.'\n\nSECONDS 4-15: Cut to demonstration\n'It's actually THIS muscle [point to specific area]. Here's the test: [show simple test]. If that hurts, here's your fix.'\nTEXT OVERLAY: 'The [muscle name] test'\n\nSECONDS 16-35: Demonstrate the solution\n'Do this stretch for 90 seconds, 2x per day. [Show stretch with form cues]. You should feel it right here [point].'\nTEXT OVERLAY: 'Hold 90 sec, 2x daily'\n\nSECONDS 36-50: Show client testimonial clip or before/after\n'[Client name] went from daily pain to pain-free in 2 weeks doing just this.'\nTEXT OVERLAY: 'Pain-free in 14 days'\n\nSECONDS 51-60: Call to action\n'Try this for 7 days. Comment DAY 1 if you're starting today. Follow for more fixes like this.'\nTEXT OVERLAY: 'Comment DAY 1 👇'\n\nHASHTAGS: #[painpoint]relief #physicaltherapy #fitnesstips #exercisetips #painfree",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "I've been a trainer for [number] years. You're doing [exercise] completely wrong.",
+        "script": "VISUAL: Gym setting, professional but authentic\nTEXT OVERLAY: 'Certified trainer reveals'\n\nSECONDS 0-3: 'As a certified [certification] for [number] years, I see this mistake every single day and it's why you're not getting results.'\n\nSECONDS 4-20: Show the wrong way\n'This is how everyone does [exercise]. [Demonstrate common mistake]. Looks fine, right? Wrong. You're missing [specific muscle] completely.'\nTEXT OVERLAY: 'The wrong way ❌'\n\nSECONDS 21-45: Show the right way\n'Here's the fix: [Demonstrate correct form with specific cues]. Feel the difference? That's [muscle] actually working. This one change will [specific benefit].'\nTEXT OVERLAY: 'The right way ✅'\n\nSECONDS 46-55: Authority reinforcement\n'[Number] of my clients made this switch and saw [specific result] in [timeframe]. The science is clear on this.'\nTEXT OVERLAY: '[Number] clients transformed'\n\nSECONDS 56-60: Engagement\n'Save this. Try it next workout. Tag someone who needs to see this.'\nTEXT OVERLAY: 'Save for later 🔖'\n\nHASHTAGS: #formcheck #fitnesseducation #personaltrainer #workouttips #gymtips",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "POV: You finally hired a trainer and actually stuck with it",
+        "script": "VISUAL: Transformation montage style\nTEXT OVERLAY: 'Month 1 vs Month 3'\n\nSECONDS 0-3: 'POV: You stopped making excuses and hired a real trainer.'\n\nSECONDS 4-15: Show 'before' scenario\n'Before: [Show clips of common struggles - getting winded, avoiding mirrors, clothes not fitting]. Every diet failed. Every gym membership wasted.'\nTEXT OVERLAY: 'Tried everything. Nothing worked.'\n\nSECONDS 16-35: Show transformation process\n'Then: Customized plan. Real accountability. Someone who actually cares. [Show training clips, progress photos, lifestyle changes].'\nTEXT OVERLAY: '[Timeframe] of consistency'\n\nSECONDS 36-50: Show results\n'Now: [Show after clips - energetic, confident, active]. Down [number] pounds. Off [medication/condition]. Actually sustainable.'\nTEXT OVERLAY: '[Specific results]'\n\nSECONDS 51-60: Soft CTA\n'[Number] spots open for [month]. Link in bio if you're ready to stop starting over. Applications close [date].'\nTEXT OVERLAY: 'Limited spots available'\n\nHASHTAGS: #transformationjourney #personaltraining #fitnessmotivation #weightlosstransformation #[city]trainer",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], the real reason you can't lose weight (not what you think)",
+        "preview_text": "It's not willpower. It's not your age. Here's what actually matters...",
+        "body": "Hi [FIRSTNAME],\n\nI need to tell you something your doctor won't:\n\n[COMMON BELIEF] isn't why you can't lose weight.\n\nI've worked with [NUMBER] clients over [AGE] who thought they were 'too old' or 'too far gone.' Every single one believed the same myths.\n\nHere's what actually prevents fat loss:\n\n❌ MYTH: You need to eat less and move more\n✅ TRUTH: [EXPLANATION - 2-3 sentences]\n\n❌ MYTH: Cardio is the best for weight loss\n✅ TRUTH: [EXPLANATION - 2-3 sentences]\n\n❌ MYTH: You need to be perfect with your diet\n✅ TRUTH: [EXPLANATION - 2-3 sentences]\n\nReal example:\n[CLIENT NAME], age [AGE], struggled for [TIMEFRAME] doing [WRONG APPROACH]. We fixed these 3 things and within [TIMEFRAME] they lost [NUMBER] pounds and [ADDITIONAL BENEFIT].\n\n\"[TESTIMONIAL QUOTE]\" - [CLIENT NAME]\n\nI put together a free guide that breaks down exactly what to do instead: [LINK TO LEAD MAGNET]\n\nInside you'll get:\n• The [NUMBER]-step framework my clients use\n• Meal planning template (no counting required)\n• Exercise progressions for any fitness level\n• Common mistakes checklist\n\nDownload it here: [LINK]\n\nQuestions? Just reply to this email. I read every response.\n\nTo your success,\n[YOUR NAME]\n[CREDENTIALS]\n\nP.S. Next week I'm sharing the #1 exercise that [SPECIFIC BENEFIT]. Stay tuned.",
+        "framework": "PAS",
+        "segment": "Cold leads or general newsletter"
+      },
+      "authority": {
+        "subject": "How I helped [CLIENT] reverse Type 2 diabetes (the protocol)",
+        "preview_text": "No medication. No extreme diet. Here's the exact system...",
+        "body": "Hi [FIRSTNAME],\n\nLast month, [CLIENT NAME]'s doctor was stunned.\n\nBlood sugar: Normal\nA1C: 5.4 (down from 7.8)\nMedication: Zero\n\nThis happened in [TIMEFRAME] using a specific protocol I've refined over [NUMBER] years working with pre-diabetic and diabetic clients.\n\nHere's what makes this different:\n\nMost programs focus on cardio and calorie restriction. That's backwards for metabolic conditions.\n\nThe research is clear: strength training + strategic nutrition timing reverses insulin resistance faster than any other approach.\n\nThe [PROGRAM NAME] Protocol:\n\n1. STRENGTH FOUNDATION ([TIMEFRAME])\n[Brief description of phase 1]\n\n2. METABOLIC OPTIMIZATION ([TIMEFRAME])\n[Brief description of phase 2]\n\n3. LIFESTYLE INTEGRATION ([TIMEFRAME])\n[Brief description of phase 3]\n\nResults from my last [NUMBER] clients:\n• [PERCENTAGE]% reduced or eliminated medication\n• Average A1C reduction: [NUMBER] points\n• Average weight loss: [NUMBER] pounds\n• [PERCENTAGE]% maintained results 1 year later\n\n\"[DETAILED TESTIMONIAL QUOTE]\" - [CLIENT NAME], age [AGE]\n\nI'm opening [NUMBER] spots for this program starting [DATE].\n\nThis includes:\n→ Complete metabolic assessment\n→ [NUMBER] weeks of personalized training\n→ Nutrition protocol for insulin sensitivity\n→ Weekly progress tracking\n→ Direct access to me via [PLATFORM]\n→ Money-back guarantee\n\nInvestment: [PRICE] (payment plans available)\n\nIf you're serious about getting off medication and taking control of your health, reply to this email with 'INTERESTED' and I'll send you the application.\n\nSpaces are limited because I work with maximum [NUMBER] clients at a time to ensure results.\n\nApplications close [DATE].\n\nYour health is worth the investment,\n[YOUR NAME]\n[CREDENTIALS]\n\nP.S. Not ready yet? I get it. Download my free guide '[LEAD MAGNET NAME]' here: [LINK]",
+        "framework": "AIDA",
+        "segment": "Warm leads with specific health conditions"
+      },
+      "promotional": {
+        "subject": "[FIRSTNAME], [NUMBER] spots left for [MONTH] (closing [DATE])",
+        "preview_text": "Before: [Pain point]. After: [Transformation]. Your turn?",
+        "body": "Hi [FIRSTNAME],\n\nQuick question: What would change if you finally solved [PAIN POINT]?\n\nBefore working with me:\n[CLIENT NAME] couldn't [specific struggle]\n[CLIENT NAME] was [specific situation]\n[CLIENT NAME] had tried [failed attempts]\n\nAfter [TIMEFRAME]:\n[CLIENT NAME] can now [specific achievement]\n[CLIENT NAME] is [specific result]\n[CLIENT NAME] has [specific outcome]\n\nThe difference? A customized system, not generic advice.\n\nI'm opening [NUMBER] spots for [MONTH] in my [PROGRAM NAME].\n\nHere's what's included:\n\n✓ Personalized assessment of your [specific needs]\n✓ [NUMBER] weeks of progressive training ([FREQUENCY])\n✓ Custom nutrition guidance (no restriction)\n✓ Weekly accountability check-ins\n✓ [BONUS FEATURE]\n✓ Guaranteed results or full refund\n\nInvestment: [PRICE]\nPayment plans: [OPTIONS]\n\nWho this is for:\n• You're [TARGET AUDIENCE]\n• You've tried [common failed attempts]\n• You're ready to invest in yourself\n• You want [specific outcome] by [timeframe]\n\nWho this is NOT for:\n• Looking for quick fixes\n• Not willing to commit [time/effort]\n• Want to do it alone\n\n\"[TESTIMONIAL QUOTE]\" - [CLIENT NAME]\n\nTo apply:\n1. Reply to this email with 'APPLICATION'\n2. I'll send you a quick questionnaire\n3. We'll schedule a 15-min call to ensure it's a fit\n\n[NUMBER] spots available. Applications close [DATE] at [TIME].\n\nYour transformation starts with one decision.\n\nReady?\n\n[YOUR NAME]\n[CREDENTIALS]\n[PHONE]\n\nP.S. Still on the fence? Here's what [CLIENT NAME] said: \"[TESTIMONIAL ABOUT HESITATION THEN SUCCESS]\" Don't let fear of commitment keep you stuck.",
+        "framework": "BAB",
+        "segment": "Engaged leads who've consumed content"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[Number] of my clients reversed their pre-diabetes in [timeframe] without giving up [specific food]",
+      "[Number] minutes, [number] times per week: The exact workout schedule that helped [age]-year-olds lose [number] pounds",
+      "[Number] exercises that fixed my client's chronic back pain in [timeframe] (her doctor was shocked)"
+    ],
+    "question_hooks": [
+      "Are you tired all the time because you're not exercising, or not exercising because you're tired all the time?",
+      "Are you waiting to 'get in shape' before hiring a trainer? (That's like waiting to be clean before taking a shower)",
+      "Are your knees stopping you from losing weight, or is the weight making your knees worse?"
+    ],
+    "story_hooks": [
+      "How a [age]-year-old [profession] went from getting winded playing with her kids to running her first 5K in [timeframe]",
+      "How [name] finally fit into his suit for his daughter's wedding after [number] failed gym attempts",
+      "How a divorced [age]-year-old mom rebuilt her confidence and lost [number] pounds while working [number] hour weeks"
+    ],
+    "fear_hooks": [
+      "Is your doctor's pre-diabetes warning the wake-up call you're going to ignore until it's Type 2?",
+      "Is your 'I'll start Monday' mentality stealing years you could be spending keeping up with your grandkids?",
+      "Is your fear of getting injured actually causing more damage than proper training ever would?"
+    ],
+    "howto_hooks": [
+      "How to lose [number] pounds before your high school reunion without living at the gym or giving up [specific food]",
+      "How to fix your metabolism after [age] without spending 2 hours doing cardio every day",
+      "How to work out with bad knees without making the pain worse (and actually strengthen them)"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "My client's doctor told her she'd be on diabetes meds forever. Watch this.",
+      "body": "[0-3s] Show before photo with text overlay 'Pre-diabetic, A1C 6.3' [4-15s] Quick cuts of client doing modified exercises with trainer guidance - seated strength work, gentle mobility [16-35s] Trainer voiceover: 'Sarah couldn't do a single pushup. We started with wall pushups, focused on consistency over intensity, added 10min walks after meals' [36-50s] Show after photo, recent lab results 'A1C 5.4 - NO MEDS' [51-55s] Client testimonial clip: 'I'm off the medication and I have energy to play with my grandkids' [56-60s] Text: 'You don't need to be perfect. You need a plan for YOUR body.'",
+      "cta": "Link in bio for free assessment - let's build your plan"
+    },
+    "reels": {
+      "hook": "This 2-minute routine fixed my client's chronic back pain",
+      "body": "[0-2s] Hook with client grimacing holding lower back [3-8s] Text: 'She couldn't sit at her desk for more than 20 minutes' [9-20s] Demonstrate 3 exercises: cat-cow stretch, dead bug, glute bridge - 15 seconds each with form cues [21-25s] Show client doing exercises pain-free, smiling [26-28s] Text overlay: 'Pain-free in 3 weeks'",
+      "cta": "Save this routine. DM 'BACK PAIN' for your custom plan"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second video showing one thing that's easier now than before training (playing with kids, climbing stairs, putting on shoes). Start with 'I used to struggle with...' and end with you doing it effortlessly now.",
+      "hashtag": "#RealResults"
+    },
+    {
+      "prompt": "Take a photo of your workout space at home or your favorite piece of equipment. Caption it with one specific thing your trainer taught you that changed everything (a form cue, mindset shift, or modification).",
+      "hashtag": "#TrainerWisdom"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The messy middle series - weekly video diary following one client's actual journey including the bad weeks, plateaus, setbacks, and small wins. Raw, unfiltered progress over 12 weeks.",
+      "why": "Fills the authenticity gap - people share content that validates their own struggles. Shows realistic expectations vs highlight reel transformations. Creates episodic engagement and emotional investment in outcome."
+    },
+    {
+      "angle": "Medical receipts content - side-by-side of client's lab work (A1C, cholesterol, blood pressure) before/after with doctor's notes. Include medication reductions. Tag it 'Show this to your doctor'.",
+      "why": "Highly shareable to friends/family with same health conditions. Provides credible third-party validation beyond aesthetic changes. Triggers aspirational sharing ('I want these results') and advocacy sharing ('You need to see this')."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:06:51.935Z",
+    "last_tier2_refresh": "2025-11-27T22:06:51.935Z",
+    "last_tier3_refresh": "2025-11-27T22:06:51.935Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:06:51.935Z"
+  }
+}

@@ -1,0 +1,1738 @@
+{
+  "industry": "Urgent Care",
+  "industry_name": "Urgent Care",
+  "naics_code": "621111",
+  "category": "Healthcare",
+  "subcategory": "Immediate Medical Care",
+  "customer_triggers": [
+    {
+      "trigger": "Sudden illness onset outside primary care hours",
+      "urgency": 10,
+      "frequency": "Every 30 minutes"
+    },
+    {
+      "trigger": "Minor injury requiring immediate attention",
+      "urgency": 9,
+      "frequency": "Hourly"
+    },
+    {
+      "trigger": "Can't get PCP appointment for 2+ weeks",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Child sick on weekend",
+      "urgency": 10,
+      "frequency": "Every 15 minutes on weekends"
+    },
+    {
+      "trigger": "Work injury requiring documentation",
+      "urgency": 9,
+      "frequency": "Multiple times daily"
+    },
+    {
+      "trigger": "Travel health needs before trip",
+      "urgency": 6,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "COVID/flu symptoms need testing today",
+      "urgency": 8,
+      "frequency": "Every 10 minutes"
+    },
+    {
+      "trigger": "Prescription refill with PCP unavailable",
+      "urgency": 7,
+      "frequency": "Hourly"
+    },
+    {
+      "trigger": "School/sports physical deadline",
+      "urgency": 8,
+      "frequency": "Seasonal peaks"
+    },
+    {
+      "trigger": "ER too expensive for non-emergency",
+      "urgency": 8,
+      "frequency": "Every 20 minutes"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Symptoms develop suddenly, patient googles 'urgent care near me' or 'walk-in clinic open now', checks insurance app for in-network locations, reads Google reviews focusing on wait times. 67% search on mobile while experiencing symptoms, 45% check current wait times online, 78% choose based on proximity under 10 minutes drive",
+    "consideration": "Compares 2-3 nearby urgent care centers based on current wait time displayed online, insurance acceptance, hours of operation, and Google rating above 4.0 stars. Calls ahead 35% of time to verify services offered, checks if online check-in available to reserve spot, reviews pricing for self-pay if uninsured typically $125-200 for visit",
+    "decision": "Selects urgent care with shortest wait (under 60 minutes ideal), closest location, or best reviews. 72% decide within 10 minutes of searching, 45% use online check-in, 28% just walk in. Decision heavily influenced by real-time wait display, clear insurance information, and weekend/evening hours",
+    "retention": "Returns for non-emergency needs based on previous experience - wait time under 45 minutes, correct diagnosis first visit, friendly staff, and clean facility. 42% become repeat visitors, choosing urgent care over PCP for convenience. Key retention factors: text notifications, online records access, and follow-up care coordination",
+    "advocacy": "Recommends to others after positive experience - seen quickly (under 30 minutes), avoided ER costs saving $1,500+, convenient hours, and professional care. 38% leave reviews, 56% tell friends/family, becoming go-to resource for 'where to go when sick'. Strong advocates after work injury handled efficiently or child treated compassionately"
+  },
+  "transformations": [
+    {
+      "from": "Panicking about sick child at 7 PM",
+      "to": "Relief with diagnosis and treatment within hour",
+      "emotional_value": "Parental peace of mind priceless",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing work for minor illness",
+      "to": "Treated and back to work same day",
+      "emotional_value": "Saved vacation day worth $300+",
+      "worth_premium": false
+    },
+    {
+      "from": "Facing $3,000 ER bill",
+      "to": "Same treatment for $150 at urgent care",
+      "emotional_value": "Financial relief massive",
+      "worth_premium": false
+    },
+    {
+      "from": "Suffering all weekend",
+      "to": "Immediate relief on Saturday",
+      "emotional_value": "48 hours of suffering avoided",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about infection spreading",
+      "to": "Antibiotics started within 2 hours",
+      "emotional_value": "Prevention of complications",
+      "worth_premium": true
+    },
+    {
+      "from": "Unable to sleep from pain",
+      "to": "Pain managed and resting",
+      "emotional_value": "Immediate quality of life improvement",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about symptoms",
+      "to": "Reassured with professional evaluation",
+      "emotional_value": "Mental relief from health anxiety",
+      "worth_premium": true
+    },
+    {
+      "from": "School deadline stress",
+      "to": "Physical completed, forms signed",
+      "emotional_value": "Crisis averted for parent",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Door-to-door time under 60 minutes",
+      "timeframe": "Per visit",
+      "measurable": true
+    },
+    {
+      "metric": "Accurate diagnosis without referral in 85% of cases",
+      "timeframe": "Immediate",
+      "measurable": true
+    },
+    {
+      "metric": "Symptom relief within 24-48 hours",
+      "timeframe": "Follow-up call",
+      "measurable": true
+    },
+    {
+      "metric": "Cost savings of $1,500+ versus ER visit",
+      "timeframe": "Immediate",
+      "measurable": true
+    },
+    {
+      "metric": "Net Promoter Score above 72",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Online check-in reducing wait by 40%",
+      "timeframe": "Per visit",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Pain level reaching 7/10 or higher requiring immediate relief",
+    "Fever over 103°F in child causing parental panic",
+    "Visible injury needing immediate cleaning and closure",
+    "Breathing difficulties requiring nebulizer treatment now",
+    "School form due tomorrow morning for sports participation",
+    "Flight departing in 48 hours needing travel vaccinations",
+    "Workers' comp injury requiring same-day documentation"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Wait times look long online",
+      "response": "Online check-in reserves your spot, wait from home, text when ready. Average time saved: 35 minutes",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Not sure if you treat my condition",
+      "response": "We handle 90% of non-emergency conditions. Call our nurse line for immediate confirmation. If we can't treat, no charge for evaluation",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Worried about cost without insurance",
+      "response": "Transparent pricing: $125-175 for most visits, 75% less than ER. Payment plans available, discount for same-day payment",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "My doctor said to go to ER",
+      "response": "We can evaluate and stabilize, then transfer if needed. 85% of ER referrals successfully treated here, saving you $2,000+",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Previous urgent care misdiagnosed",
+      "response": "Our providers average 12 years experience, on-site diagnostics including X-ray and lab, ER physician backup available",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Too sick to drive there",
+      "response": "Partner with medical transport for $35, telemedicine evaluation first to determine if visit needed, mobile unit available for groups",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Don't want to expose others if contagious",
+      "response": "Separate entrance for infectious symptoms, mask and sanitizer provided, car-side service available for high-risk patients",
+      "effectiveness": 9.2
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Seen by provider within 60 minutes or visit free",
+      "If we can't treat, no charge for evaluation",
+      "Price match any local urgent care advertised rate"
+    ],
+    "proof_points": [
+      "12,000+ patients treated annually with 4.6-star average",
+      "Board-certified emergency medicine physicians on staff",
+      "CLIA-certified lab with 15-minute rapid results",
+      "Joint Commission accredited facility"
+    ],
+    "risk_mitigation": "Clear upfront pricing before treatment, insurance verification while you wait, immediate transfer protocols with local ER if needed, follow-up call within 48 hours to ensure improvement"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "sick",
+      "pain",
+      "hurt",
+      "fever",
+      "can't wait",
+      "emergency",
+      "worried",
+      "infected",
+      "broken",
+      "bleeding"
+    ],
+    "solution_words": [
+      "quick",
+      "fast",
+      "now",
+      "today",
+      "walk-in",
+      "no appointment",
+      "immediate",
+      "relief",
+      "convenient",
+      "affordable"
+    ],
+    "avoid_jargon": [
+      "triage",
+      "acute",
+      "presenting complaint",
+      "differential",
+      "stat",
+      "prn",
+      "bilateral",
+      "systemic",
+      "benign",
+      "chronic"
+    ]
+  },
+  "power_words": [
+    "immediate",
+    "walk-in",
+    "no-wait",
+    "open-now",
+    "today",
+    "fast",
+    "quick",
+    "convenient",
+    "affordable",
+    "nearby",
+    "weekend",
+    "evening",
+    "urgent",
+    "same-day",
+    "relief",
+    "on-site",
+    "rapid",
+    "express",
+    "instant",
+    "accessible",
+    "available",
+    "professional",
+    "experienced",
+    "certified",
+    "equipped",
+    "comprehensive",
+    "efficient",
+    "caring",
+    "trusted",
+    "proven"
+  ],
+  "avoid_words": [
+    "emergency",
+    "appointment",
+    "scheduled",
+    "referral",
+    "wait-list",
+    "tomorrow",
+    "next-week",
+    "complicated",
+    "severe",
+    "critical",
+    "intensive",
+    "surgical",
+    "admission",
+    "overnight",
+    "specialist",
+    "chronic",
+    "long-term",
+    "extensive",
+    "complex",
+    "uncertain"
+  ],
+  "headline_templates": [
+    {
+      "template": "Walk In Now - Wait Times Under 30 Minutes",
+      "expected_ctr": 6.2,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Skip the ER - Save $2,000+ for Same Treatment",
+      "expected_ctr": 5.8,
+      "use_case": "Facebook ads"
+    },
+    {
+      "template": "Open Until 10 PM - No Appointment Needed",
+      "expected_ctr": 5.5,
+      "use_case": "Evening searches"
+    },
+    {
+      "template": "Online Check-In Available - Reserve Your Spot",
+      "expected_ctr": 6.7,
+      "use_case": "Mobile searches"
+    },
+    {
+      "template": "[City] Parents: Kids Sick? We're Open Weekends",
+      "expected_ctr": 7.1,
+      "use_case": "Parent targeting"
+    },
+    {
+      "template": "Flu Symptoms? Test & Treatment in Under 1 Hour",
+      "expected_ctr": 6.9,
+      "use_case": "Seasonal campaigns"
+    },
+    {
+      "template": "Work Injury? We Handle Workers' Comp - Walk In Now",
+      "expected_ctr": 5.3,
+      "use_case": "Employer focused"
+    },
+    {
+      "template": "Most Insurance Accepted - $0 Copay for Many Plans",
+      "expected_ctr": 6.4,
+      "use_case": "Insurance searches"
+    },
+    {
+      "template": "X-Ray & Lab On-Site - Results in 15 Minutes",
+      "expected_ctr": 5.7,
+      "use_case": "Capability highlight"
+    },
+    {
+      "template": "Feeling Sick? Our Current Wait is Only [X] Minutes",
+      "expected_ctr": 7.8,
+      "use_case": "Dynamic wait times"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Check Current Wait Time",
+      "conversion_rate": 9.2,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Save My Spot Online",
+      "conversion_rate": 8.7,
+      "placement": "Wait time widget"
+    },
+    {
+      "template": "Get Directions Now",
+      "conversion_rate": 7.3,
+      "placement": "Mobile sticky"
+    },
+    {
+      "template": "Text 'SICK' to Check In",
+      "conversion_rate": 6.8,
+      "placement": "SMS campaigns"
+    },
+    {
+      "template": "Call Nurse Hotline Free",
+      "conversion_rate": 5.9,
+      "placement": "Condition pages"
+    },
+    {
+      "template": "View Transparent Pricing",
+      "conversion_rate": 6.5,
+      "placement": "Uninsured section"
+    },
+    {
+      "template": "Download Our App",
+      "conversion_rate": 5.2,
+      "placement": "Footer"
+    },
+    {
+      "template": "Start Virtual Visit - $49",
+      "conversion_rate": 7.6,
+      "placement": "Telehealth banner"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⏰ Current wait time: Only [X] minutes! Skip the ER and save thousands. We're open until 10 PM tonight.",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Weekend warriors! 🏃‍♂️ We're here for your minor injuries. No appointment needed. #UrgentCare #WeekendHours",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Twitter",
+      "template": "Flu season is here! Get tested and treated in under an hour. Walk-ins welcome, online check-in available.",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "Google My Business",
+      "template": "NOW OPEN: Treating flu, strep, injuries, and more. Current wait: [X] minutes. Most insurance accepted.",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors: We're your local urgent care. Kids sick? Can't wait for your doctor? We're here 7 days a week!",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Employers: Reduce workers' comp costs by 40%. Our occupational health program includes same-day injury treatment.",
+      "engagement_rate": 3.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You need a doctor TODAY. No appointment? No problem! Here's what to expect at urgent care...",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "YouTube",
+      "template": "ER vs Urgent Care: When to Choose Which (Save $2,000+) [5-minute guide]",
+      "engagement_rate": 4.6
+    },
+    {
+      "platform": "Pinterest",
+      "template": "First Aid Kit Essentials + When to Visit Urgent Care - Complete Family Guide",
+      "engagement_rate": 3.5
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Average wait time 50% shorter than competitors at 23 minutes",
+      "rank": 1,
+      "differentiator": "Speed"
+    },
+    {
+      "prop": "Open 8am-10pm, 365 days including all holidays",
+      "rank": 2,
+      "differentiator": "Availability"
+    },
+    {
+      "prop": "On-site X-ray, lab, and pharmacy saving extra stops",
+      "rank": 3,
+      "differentiator": "Convenience"
+    },
+    {
+      "prop": "Transparent pricing posted online, 70% less than ER",
+      "rank": 4,
+      "differentiator": "Affordability"
+    },
+    {
+      "prop": "Board-certified ER physicians, not just PAs/NPs",
+      "rank": 5,
+      "differentiator": "Expertise"
+    },
+    {
+      "prop": "Text updates on wait times and test results",
+      "rank": 6,
+      "differentiator": "Communication"
+    },
+    {
+      "prop": "Employer partnerships for priority workers' comp treatment",
+      "rank": 7,
+      "differentiator": "B2B services"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience concierge-level urgent care with zero wait times, private rooms, and board-certified emergency physicians. Our executive health program ensures you're seen immediately, with comprehensive diagnostics and personalized follow-up care. Premium members enjoy house calls and 24/7 telemedicine access.",
+    "budget_conscious": "Quality healthcare shouldn't break the bank. With visits starting at $99 for self-pay patients, transparent pricing posted online, and payment plans available, we make urgent care accessible. Save 70% compared to ER visits, with discounts for same-day payment and free follow-up telehealth visits.",
+    "enterprise": "Streamline your occupational health with our corporate program. Priority treatment for workplace injuries, same-day drug screening, DOT physicals, and direct billing. Reduce workers' comp claims by 35% with our injury prevention programs and on-site services for 20+ employees."
+  },
+  "trust_signals": [
+    {
+      "signal": "Live wait time display updated every 5 minutes",
+      "importance": 10,
+      "format": "Dynamic counter"
+    },
+    {
+      "signal": "4.6+ star Google reviews from 1,000+ patients",
+      "importance": 9,
+      "format": "Review widget"
+    },
+    {
+      "signal": "Insurance logos showing accepted plans",
+      "importance": 9,
+      "format": "Logo grid"
+    },
+    {
+      "signal": "Board certifications of all providers",
+      "importance": 8,
+      "format": "Provider profiles"
+    },
+    {
+      "signal": "Facility accreditation badges",
+      "importance": 7,
+      "format": "Footer badges"
+    },
+    {
+      "signal": "Years in community and patient volume",
+      "importance": 6,
+      "format": "About us stats"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 50,000 patients treated since 2018 opening",
+      "credibility_score": 8.7,
+      "context": "Established presence"
+    },
+    {
+      "stat": "Average 4.6-star rating from 1,247 verified reviews",
+      "credibility_score": 9.1,
+      "context": "Consistent satisfaction"
+    },
+    {
+      "stat": "23-minute average wait time, 60% faster than ER",
+      "credibility_score": 9.5,
+      "context": "Speed advantage"
+    },
+    {
+      "stat": "97% of patients would recommend to friends",
+      "credibility_score": 8.9,
+      "context": "High advocacy rate"
+    },
+    {
+      "stat": "Saved patients collective $3.2 million vs ER costs",
+      "credibility_score": 8.3,
+      "context": "Value demonstration"
+    }
+  ],
+  "quality_indicators": [
+    "Electronic check-in kiosks indicate modern, efficient operations",
+    "Separate pediatric waiting area shows family-focused care",
+    "On-site pharmacy demonstrates comprehensive service",
+    "Real-time wait updates via text indicate patient-centered technology",
+    "Board-certified physicians versus mid-levels only signals higher quality"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 2,
+    "trigger_event": "48 hours post-visit when symptom relief achieved and experience fresh",
+    "ask_method": "Text message with direct link to Google review, incentivized with $5 off next visit coupon for completed reviews"
+  },
+  "competitive_advantages": [
+    "Only urgent care with on-site pharmacy open until 10 PM daily",
+    "Guaranteed 30-minute wait or visit is free policy",
+    "Direct admission agreements with three area hospitals if escalation needed",
+    "Mobile urgent care unit for corporate and event coverage",
+    "Integrated telehealth for follow-ups saving return visits"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Compare to ER average of $2,200 making $150 seem minimal",
+    "sensitivity": "Price breaks at $99, $149, and $199 for self-pay tiers",
+    "sweet_spots": [
+      "$125-175 basic visit",
+      "$199-299 with procedures",
+      "$399-599 comprehensive with imaging"
+    ],
+    "decoy_pricing": "Premium immediate care at $299 makes standard $149 visit attractive"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 100,
+    "approval_required": 300,
+    "competitor_research": 200
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1,
+    "weekend": 1,
+    "holiday": 1.25
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express Care",
+      "price_range": "$49-99",
+      "target_customer": "Simple conditions like strep, flu, UTI",
+      "margin": 40
+    },
+    {
+      "tier": "Standard Urgent",
+      "price_range": "$125-199",
+      "target_customer": "Injuries, infections, complex illness",
+      "margin": 45
+    },
+    {
+      "tier": "Comprehensive Plus",
+      "price_range": "$299-499",
+      "target_customer": "Multiple issues, extensive testing needed",
+      "margin": 50
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift 40% of visits to PA/NP providers reducing cost by $50 per visit",
+    "Implement standing orders reducing physician time by 15 minutes per patient",
+    "Bulk purchasing agreements for supplies saving 30% on materials",
+    "Automated insurance verification reducing staff time by 75%",
+    "Cross-train staff for 3+ roles improving efficiency by 25%",
+    "Strategic scheduling ensuring 85% provider utilization during all hours"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 45,
+      "reason": "Flu season peak, resolution injuries",
+      "opportunity": "Flu shot and treatment bundles"
+    },
+    {
+      "month": "February",
+      "variation": 40,
+      "reason": "Continued flu, winter sports injuries",
+      "opportunity": "Corporate flu clinics"
+    },
+    {
+      "month": "March",
+      "variation": 20,
+      "reason": "Spring allergies beginning",
+      "opportunity": "Allergy treatment packages"
+    },
+    {
+      "month": "April",
+      "variation": 10,
+      "reason": "Spring sports physicals",
+      "opportunity": "Team physical discounts"
+    },
+    {
+      "month": "May",
+      "variation": 15,
+      "reason": "End of school physicals",
+      "opportunity": "Summer camp physical drives"
+    },
+    {
+      "month": "June",
+      "variation": 5,
+      "reason": "Summer travel vaccines",
+      "opportunity": "Travel health packages"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Vacation season low",
+      "opportunity": "Summer injury prevention"
+    },
+    {
+      "month": "August",
+      "variation": 25,
+      "reason": "Back-to-school physicals rush",
+      "opportunity": "School physical events"
+    },
+    {
+      "month": "September",
+      "variation": 30,
+      "reason": "School illness spread begins",
+      "opportunity": "Educator discounts"
+    },
+    {
+      "month": "October",
+      "variation": 35,
+      "reason": "Flu shot demand, fall sports",
+      "opportunity": "Flu shot clinics"
+    },
+    {
+      "month": "November",
+      "variation": 50,
+      "reason": "Holiday illness, shopping injuries",
+      "opportunity": "Extended holiday hours"
+    },
+    {
+      "month": "December",
+      "variation": 55,
+      "reason": "Peak flu, holiday accidents",
+      "opportunity": "Gift card promotions"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Weekend injury follow-up",
+      "avoid": "Routine physicals",
+      "conversion_rate": 8.5
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Occupational health",
+      "avoid": "Pediatric visits",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week illness",
+      "avoid": "Sports physicals",
+      "conversion_rate": 7.6
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend treatment",
+      "avoid": "Complex cases",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Work injuries",
+      "avoid": "Time-consuming procedures",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family visits",
+      "avoid": "B2B services",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Weekend emergencies",
+      "avoid": "Occupational health",
+      "conversion_rate": 9.5
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Most patients prefer immediate payment with 40% using HSA/FSA cards, 35% credit cards",
+    "cash_flow_peaks": "Days 1-3 and 15-17 when paychecks hit, 25% higher collection rates",
+    "slow_periods": "Mid-month weekdays 2-4 PM ideal for staff meetings and training"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Saturday 10 AM - 2 PM",
+      "crisis_type": "Weekend sports injuries",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Sunday 5-8 PM",
+      "crisis_type": "Weekend illness escalation",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Weekday 5-8 PM",
+      "crisis_type": "After-work injuries",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Holiday mornings",
+      "crisis_type": "Holiday emergencies",
+      "premium_multiplier": 1.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "QuickCare Basic",
+      "components": [
+        "Evaluation",
+        "Basic testing",
+        "Treatment",
+        "Work/school note"
+      ],
+      "pricing_model": "Flat $99 self-pay",
+      "margin": 42
+    },
+    {
+      "name": "Complete Care Plus",
+      "components": [
+        "Full evaluation",
+        "X-ray/lab",
+        "Procedures",
+        "Medications",
+        "Follow-up"
+      ],
+      "pricing_model": "$299 bundled",
+      "margin": 48
+    },
+    {
+      "name": "Corporate Direct",
+      "components": [
+        "Priority access",
+        "Direct billing",
+        "Drug screening",
+        "DOT physicals"
+      ],
+      "pricing_model": "Annual contract",
+      "margin": 55
+    },
+    {
+      "name": "Family Membership",
+      "components": [
+        "Unlimited visits",
+        "No copays",
+        "Virtual care",
+        "Wellness services"
+      ],
+      "pricing_model": "$199/month",
+      "margin": 60
+    }
+  ],
+  "upsell_paths": [
+    "Virtual triage ($29) → In-person visit ($149) → Follow-up care ($49)",
+    "Basic visit ($99) → Add X-ray ($75) → Add medications ($30-50)",
+    "Flu test ($125) → Flu treatment ($50) → Prevention pack ($75)",
+    "Sports physical ($75) → Sports injury prevention ($125) → Injury treatment ($199)",
+    "Workers' comp visit ($199) → Drug screen ($75) → Return to work eval ($125)",
+    "Single visit ($149) → 3-visit package ($399) → Annual membership ($1,999)"
+  ],
+  "retention_hooks": [
+    "Mobile app with wait times and records keeping engagement high",
+    "Follow-up text 48 hours post-visit ensuring satisfaction and recovery",
+    "Loyalty program offering 5th visit free increasing repeat visits 40%",
+    "Family accounts linking records and payment methods",
+    "Automated appointment reminders for follow-up care",
+    "Seasonal health tips and reminders via email maintaining connection",
+    "Priority access card for established patients reducing their wait 50%"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Family member discount cards",
+      "timing": "At checkout",
+      "incentive": "20% off for referred patient",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Employer lunch-and-learns",
+      "timing": "Quarterly",
+      "incentive": "Free flu shots for employees",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "School nurse partnerships",
+      "timing": "Back-to-school season",
+      "incentive": "Free supplies donation",
+      "conversion_rate": 15.2
+    },
+    {
+      "strategy": "Social media check-in rewards",
+      "timing": "During visit",
+      "incentive": "$10 off next visit",
+      "conversion_rate": 8.9
+    },
+    {
+      "strategy": "Google review incentives",
+      "timing": "48 hours post-visit",
+      "incentive": "$5 Starbucks card",
+      "conversion_rate": 22.4
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Flu shots",
+      "attach_rate": 45,
+      "timing": "October-February visits"
+    },
+    {
+      "service": "Sports physicals",
+      "attach_rate": 30,
+      "timing": "Injury visits for athletes"
+    },
+    {
+      "service": "Travel vaccines",
+      "attach_rate": 20,
+      "timing": "International traveler visits"
+    },
+    {
+      "service": "Wellness screenings",
+      "attach_rate": 25,
+      "timing": "Annual physical substitute"
+    },
+    {
+      "service": "Vitamin B12 shots",
+      "attach_rate": 15,
+      "timing": "Fatigue-related visits"
+    },
+    {
+      "service": "IV hydration therapy",
+      "attach_rate": 10,
+      "timing": "Dehydration or flu visits"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile urgent care units for events",
+      "market_size": "$800K annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Occupational health contracts",
+      "market_size": "$1.5M annually",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "School district partnerships",
+      "market_size": "$600K annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Retail clinic locations",
+      "market_size": "$2.2M annually",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "24/7 telehealth platform",
+      "market_size": "$1.1M annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "International traveler health services",
+      "market_size": "$400K annually",
+      "difficulty": 3
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "CityMD's 'Save Your Spot' online check-in campaign featuring real-time wait times displayed on Google Maps and social media, combined with educational content about when to visit urgent care vs. ER",
+        "platform": "Multi-channel (Google Maps, Facebook, Instagram)",
+        "why_it_worked": "Addressed the primary pain point of waiting by providing transparency and control. Combined convenience messaging with educational content that helped customers self-qualify. Used geo-targeting to reach people searching for immediate care",
+        "metrics": "CityMD grew to 150+ locations with 40% of patients using online check-in feature. Social media posts about wait times averaged 3-5x higher engagement than standard posts",
+        "source": "Healthcare Success case studies and CityMD's digital marketing strategy coverage in Medical Economics",
+        "confidence": "high"
+      },
+      {
+        "example": "NextCare Urgent Care's TikTok and Instagram Reels series 'Common Questions We Get' featuring actual providers answering real patient questions in 30-second videos (e.g., 'When should I go to urgent care vs. ER?', 'Can urgent care treat broken bones?')",
+        "platform": "TikTok/Instagram Reels",
+        "why_it_worked": "Short-form video format matched platform algorithms. Used real providers to build trust. Answered actual search queries customers have. Educational content performed better than promotional content",
+        "metrics": "Videos averaged 15K-50K views, 5-8% engagement rate (significantly above healthcare industry average of 1-3%)",
+        "source": "Social media marketing analysis from Healthcare Success and Scorpion Healthcare Marketing",
+        "confidence": "high"
+      },
+      {
+        "example": "AFC Urgent Care's seasonal flu shot reminder campaign using email segmentation based on previous visit history, combined with SMS reminders and 'Flu Shot Fridays' social media campaign with same-day appointment incentives",
+        "platform": "Email/SMS/Social Media",
+        "why_it_worked": "Leveraged existing patient database with personalized timing. Created urgency with limited-time offers. Multi-touch approach across channels increased conversion. Addressed convenience factor with extended hours promotion",
+        "metrics": "Email open rates of 28-32% (vs. healthcare industry average of 21%), click-through rates of 4.5%, 35% increase in flu shot appointments during campaign period",
+        "source": "Email marketing benchmarks from Constant Contact Healthcare and AFC Urgent Care franchise marketing materials",
+        "confidence": "high"
+      },
+      {
+        "example": "GoHealth Urgent Care's Google Local Service Ads combined with Google Business Profile posts showing real-time 'current wait time' updates every 30 minutes during peak hours",
+        "platform": "Google Local Service Ads/Google Business Profile",
+        "why_it_worked": "Captured high-intent searchers at moment of need. Real-time wait time transparency reduced decision friction. Local service ads appear above regular search results. Reviews and ratings prominently displayed",
+        "metrics": "40-60% of new patient acquisitions attributed to Google local presence. Cost per acquisition 30% lower than general paid search campaigns",
+        "source": "Cardinal Digital Marketing urgent care case studies and Google Healthcare vertical benchmarks",
+        "confidence": "high"
+      },
+      {
+        "example": "Concentra Urgent Care's employer-focused LinkedIn content series highlighting workplace injury treatment, drug testing services, and DOT physicals with case studies showing reduced worker downtime",
+        "platform": "LinkedIn",
+        "why_it_worked": "Targeted B2B decision-makers (HR managers, safety directors) rather than just individual consumers. Focused on ROI and business outcomes. Filled gap in employer-focused urgent care marketing",
+        "metrics": "LinkedIn posts averaged 2.5-4% engagement rate (above LinkedIn healthcare average of 2%). Generated 150+ employer partnership inquiries over 6-month campaign",
+        "source": "LinkedIn Healthcare Marketing benchmarks and Concentra corporate marketing reports",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.5% for healthcare/urgent care posts",
+        "best_content_format": "Short videos (30-60 seconds) showing facility tours, provider introductions, and patient testimonials. Photo posts with clear CTAs for services. Live Q&A sessions with providers",
+        "optimal_frequency": "4-7 posts per week, with daily stories during peak seasons (flu season, back-to-school)",
+        "best_posting_times": "Weekdays 6-8 AM (before work commute), 12-1 PM (lunch break), 5-7 PM (after work). Weekends 9-11 AM when parents are planning their day",
+        "source": "Sprout Social Healthcare Industry Report 2024, Hootsuite Healthcare Benchmarks 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.2-2.8% for urgent care facilities (higher for Reels at 3-5%)",
+        "best_content_format": "Instagram Reels (15-30 seconds) performing best, followed by carousel posts with educational content. Stories with polls and question stickers for engagement. Before/after treatment scenarios (non-graphic)",
+        "optimal_frequency": "5-7 posts per week with daily Stories. 3-4 Reels per week during high-performance periods",
+        "best_posting_times": "Weekdays 11 AM-1 PM and 7-9 PM. Weekends 10 AM-12 PM",
+        "source": "Later.com Healthcare Social Media Benchmarks 2024, Rival IQ Social Media Industry Benchmark Report 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Click-through rate of 3-7% on posts, with 'Current wait time' updates seeing 8-12% CTR",
+        "best_content_format": "Real-time updates (wait times, same-day availability), service announcements, COVID/flu updates, photos of clean facilities and friendly staff",
+        "optimal_frequency": "Daily updates during business hours, especially wait time updates every 2-4 hours during peak times",
+        "best_posting_times": "Morning (7-9 AM) for day planners, mid-day (11 AM-1 PM) for immediate needs, evening (5-7 PM) for next-day planning",
+        "source": "BrightLocal Local Search Industry Survey 2024, Sterling Sky Google Business Profile Benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 25-32% for existing patients, 18-22% for prospects. Click-through rate: 3-5%",
+        "best_content_format": "Personalized appointment reminders, seasonal health tips, service announcements, 'save your spot' online check-in links. Mobile-optimized with clear single CTA",
+        "optimal_frequency": "Existing patients: 2-4 emails per month. Prospects: 1-2 per month. Increase during flu season and back-to-school",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM or 1-3 PM. Avoid Mondays (inbox overload) and Fridays (weekend mode)",
+        "source": "Mailchimp Healthcare Email Benchmarks 2024, Constant Contact Industry Benchmarks 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-12% for healthcare educational content (significantly higher than other platforms)",
+        "best_content_format": "15-60 second educational videos with providers answering common questions, myth-busting, 'day in the life' content, trending audio with healthcare twist",
+        "optimal_frequency": "3-5 posts per week to maintain algorithm favor without overwhelming resources",
+        "best_posting_times": "Weekdays 6-9 AM, 12-1 PM, 7-10 PM. Weekends 9 AM-12 PM",
+        "source": "Socialinsider TikTok Benchmarks 2024, Healthcare Marketing Network Social Media Report"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2-3% for B2B healthcare content targeting employers",
+        "best_content_format": "Case studies, workplace health tips, occupational medicine content, employer partnership benefits, thought leadership from medical directors",
+        "optimal_frequency": "2-3 posts per week for company page, daily engagement in relevant groups",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM, 12-1 PM, 5-6 PM (business hours)",
+        "source": "LinkedIn Healthcare Marketing Guide 2024, Sprout Social B2B Benchmarks"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-based urgency + Location convenience",
+        "example": "Open until 8 PM tonight. Walk-ins welcome. [Location] - No appointment needed.",
+        "why_it_works": "Addresses immediate need with specific time constraint. Removes appointment barrier. Local targeting increases relevance. Creates FOMO with 'tonight' urgency",
+        "source": "Analysis of high-performing urgent care Google Ads and Facebook campaigns from WordStream Healthcare Case Studies"
+      },
+      {
+        "hook_pattern": "Cost comparison + Fear reduction",
+        "example": "ER visit for strep throat: $3,000. Same treatment at urgent care: $150. We accept most insurance.",
+        "why_it_works": "Dramatic cost difference creates immediate value perception. Specific example makes it relatable. Insurance acceptance removes objection. Addresses financial anxiety",
+        "source": "Healthcare pricing transparency campaigns analyzed in Medical Economics and urgent care ad copy research"
+      },
+      {
+        "hook_pattern": "Parent-focused weekend relief",
+        "example": "Saturday morning ear infection? We're open weekends 8 AM-8 PM. Get your little one feeling better today.",
+        "why_it_works": "Hyper-specific scenario parents immediately relate to. Weekend availability solves primary pain point. Empathetic language ('little one'). Same-day resolution promise",
+        "source": "Pediatric urgent care marketing analysis from Healthcare Success and patient acquisition studies"
+      },
+      {
+        "hook_pattern": "Question-based self-qualification",
+        "example": "Not sure if you need urgent care or the ER? Here's how to decide in 60 seconds.",
+        "why_it_works": "Acknowledges common confusion. Educational approach builds trust. Low commitment (60 seconds). Helps customer self-qualify reducing wrong-fit visits",
+        "source": "Content marketing analysis from Healthgrades and patient education best practices"
+      },
+      {
+        "hook_pattern": "Wait time transparency",
+        "example": "Current wait time: 15 minutes. Save your spot online now.",
+        "why_it_works": "Eliminates uncertainty, the #1 barrier to urgent care visits. Real-time information builds trust. Online check-in provides control and convenience. Specific number (15 min) vs vague 'short wait'",
+        "source": "CityMD and Solv Health marketing strategies, patient experience research"
+      },
+      {
+        "hook_pattern": "Problem-agitation-solution with deadline",
+        "example": "School physical due Monday? Walk in today, walk out with forms completed. No appointment necessary.",
+        "why_it_works": "Identifies specific deadline-driven need. Agitates with time pressure. Provides complete solution. Removes appointment barrier. Common pain point for parents",
+        "source": "Seasonal urgent care campaigns from AFC Urgent Care and FastMed marketing materials"
+      },
+      {
+        "hook_pattern": "Service-specific immediate availability",
+        "example": "COVID test results in 15 minutes. Walk-ins welcome. Open now.",
+        "why_it_works": "Specific service for high-demand need. Fast turnaround time (15 min) vs 24-48 hours elsewhere. Immediate availability. No barriers to entry",
+        "source": "COVID-era urgent care marketing campaigns and rapid testing service promotions"
+      },
+      {
+        "hook_pattern": "Employer/B2B value proposition",
+        "example": "Workplace injury? We'll have your employee back on the job today with all required documentation.",
+        "why_it_works": "Targets employer decision-makers. Focuses on business outcome (back to work). Addresses compliance need (documentation). Same-day resolution reduces lost productivity costs",
+        "source": "Concentra and WorkMed occupational health marketing, B2B healthcare campaigns"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My pediatrician can't see us until next week but my kid is miserable right now",
+        "I can't afford an ER bill for something that's probably minor",
+        "Sat in the ER waiting room for 4 hours for a simple UTI",
+        "Got sick on Saturday and had to suffer all weekend waiting for Monday",
+        "Need a work note but my doctor's office is closed",
+        "The urgent care had a 2-hour wait so I just left",
+        "I didn't know if my injury was serious enough for the ER",
+        "My insurance wouldn't tell me if urgent care was covered",
+        "Needed a sports physical by Friday and couldn't get an appointment",
+        "Woke up with pink eye and can't go to work without treatment",
+        "The ER sent me a $2,500 bill for stitches",
+        "I had to take a whole day off work just to see a doctor for 10 minutes"
+      ],
+      "solution_phrases": [
+        "In and out in 45 minutes with a diagnosis and prescription",
+        "They took my insurance and the copay was only $50",
+        "Open on Sunday morning when my son spiked a fever",
+        "Didn't need an appointment, just walked right in",
+        "Got my work physical done on my lunch break",
+        "They texted me when it was my turn so I could wait in my car",
+        "The doctor actually took time to explain everything",
+        "Way cheaper than the ER and got the same treatment",
+        "Saved my spot online so there was no wait when I arrived",
+        "They sent my prescription right to the pharmacy down the street",
+        "Got my COVID test results while I was still there",
+        "The staff was so nice and didn't make me feel stupid for coming in",
+        "They had evening hours so I didn't have to miss work",
+        "Everything was clean and professional, not like a sketchy walk-in clinic"
+      ],
+      "objection_phrases": [
+        "I wasn't sure if my insurance would cover it",
+        "Didn't know if they could handle my problem or if I needed a specialist",
+        "Worried about the quality of care compared to my regular doctor",
+        "Thought it would be expensive without knowing the cost upfront",
+        "Didn't know if they'd have the right equipment or tests",
+        "Concerned they'd just tell me to go to the ER anyway",
+        "Wasn't sure if I could trust a doctor I'd never met before",
+        "Thought I'd have to wait hours like at the ER",
+        "Didn't know if they could prescribe the medications I needed",
+        "Worried they wouldn't have my medical history",
+        "Thought urgent care was only for minor cuts and colds",
+        "Didn't know if they were open when I needed them"
+      ],
+      "decision_factors": [
+        "Wait time - current or estimated",
+        "Hours of operation, especially evenings and weekends",
+        "Whether they accept my specific insurance",
+        "Cost transparency - knowing what I'll pay upfront",
+        "Distance from my home or work",
+        "Online check-in or appointment scheduling",
+        "Quality of Google reviews and star rating",
+        "Whether they have X-ray or lab services on-site",
+        "Cleanliness and professionalism of facility",
+        "Board-certified doctors vs. nurse practitioners",
+        "Whether they can send prescriptions electronically",
+        "If they provide documentation for work/school",
+        "Ability to access my medical records afterward",
+        "Whether they treat children/pediatric care"
+      ],
+      "emotional_language": [
+        "panicking",
+        "desperate",
+        "miserable",
+        "suffering",
+        "worried sick",
+        "relieved",
+        "peace of mind",
+        "finally",
+        "thank god",
+        "lifesaver",
+        "frustrated",
+        "anxious",
+        "scared",
+        "helpless",
+        "overwhelmed",
+        "grateful",
+        "reassured",
+        "comfortable",
+        "confident",
+        "impressed",
+        "stressful",
+        "nightmare",
+        "terrible",
+        "awful",
+        "horrible experience",
+        "amazing",
+        "wonderful",
+        "fantastic",
+        "professional",
+        "caring",
+        "convenient",
+        "easy",
+        "simple",
+        "quick",
+        "efficient",
+        "expensive",
+        "rip-off",
+        "waste of time",
+        "disappointing"
+      ],
+      "sources": [
+        "Reddit r/AskDocs, r/HealthInsurance, r/Parenting discussions about urgent care",
+        "Google Reviews for CityMD, AFC Urgent Care, NextCare, GoHealth locations",
+        "Yelp reviews for urgent care facilities in major metro areas",
+        "HealthGrades and Vitals patient reviews and ratings",
+        "Facebook comments on urgent care posts and ads",
+        "Patient satisfaction surveys from Press Ganey Healthcare",
+        "Consumer healthcare forums and discussion boards"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing information before visit - most urgent cares don't display costs prominently",
+      "Post-visit care instructions and follow-up via text/app - patients often leave confused about next steps",
+      "Virtual urgent care triage to help people decide if they need in-person visit - reduces unnecessary visits",
+      "Employer-focused content marketing - most urgent cares focus only on individual consumers, missing B2B opportunity",
+      "Pediatric-specific urgent care content - general urgent care messaging doesn't address parent-specific concerns",
+      "Insurance verification before arrival - major pain point rarely addressed proactively",
+      "Wait time guarantees or compensation - no urgent care offers 'see you in 30 minutes or visit is free' type promises",
+      "Longitudinal health tracking for repeat visitors - missed opportunity to build ongoing relationships",
+      "Mental health urgent care services - growing need with minimal urgent care provider coverage",
+      "Senior-focused urgent care marketing - aging population underserved by generic messaging",
+      "Multi-language content and services prominently featured - diverse communities underserved",
+      "Telehealth follow-ups included with visit - would differentiate from competitors and improve outcomes"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Flu Season (October-March)",
+        "opportunity": "Peak demand for flu testing, treatment, and vaccinations. Highest patient volume period. Parents keeping sick kids home from school and daycare",
+        "content_angle": "Flu shot campaigns starting September, 'Is it flu or COVID?' educational content, family flu shot packages, extended hours messaging, wait time transparency during peak periods"
+      },
+      {
+        "period": "Back-to-School (July-September)",
+        "opportunity": "Sports physicals, immunization requirements, last-minute physical deadlines before school starts. Parents scrambling to meet documentation requirements",
+        "content_angle": "Sports physical promotions, 'Beat the rush' early August campaigns, checklist content for school requirements, evening/weekend availability emphasis, family multi-child discounts"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Outdoor injuries, sports injuries, bug bites, poison ivy, dehydration, camp physicals, travel medicine needs before vacation",
+        "content_angle": "Summer injury prevention tips, travel health consultations, camp physical promotions, 'vacation-ruining illnesses' we treat, sunburn and heat exhaustion care"
+      },
+      {
+        "period": "Winter Holidays (November-January)",
+        "opportunity": "Holiday hours when PCPs closed, cooking injuries, travel-related illnesses, cold/flu spike, visitors from out of town needing care",
+        "content_angle": "Holiday hours prominently displayed, 'We're open when your doctor isn't' messaging, traveler-focused care, gift card promotions for flu shots"
+      },
+      {
+        "period": "Spring Allergies (March-May)",
+        "opportunity": "Allergy symptoms, sinus infections, outdoor activity injuries resume, spring sports physical needs",
+        "content_angle": "Allergy vs. cold education, allergy testing and treatment options, spring sports physical campaigns, outdoor safety tips"
+      },
+      {
+        "period": "Tax Season/FSA Deadline (March-April)",
+        "opportunity": "Patients with FSA/HSA funds to use before expiration, annual checkups before benefits reset",
+        "content_angle": "FSA/HSA acceptance messaging, 'Use it or lose it' campaigns, preventive care services covered by insurance, annual physical promotions"
+      },
+      {
+        "period": "New Year (January)",
+        "opportunity": "New insurance plans activate, new deductibles reset, health-focused resolutions, people finally addressing issues they delayed",
+        "content_angle": "New insurance verification help, 'Start the year healthy' campaigns, wellness checkups, resolution-focused health content"
+      },
+      {
+        "period": "Respiratory Illness Season (September-April)",
+        "opportunity": "COVID, RSV, flu convergence creating 'tripledemic' concerns, testing demand, parent anxiety about sick children",
+        "content_angle": "Multi-virus testing available, 'What's going around' weekly updates, symptom checker content, rapid test availability, when to seek care guidance"
+      },
+      {
+        "period": "Open Enrollment (October-December)",
+        "opportunity": "People selecting new insurance plans, researching which urgent cares are in-network, understanding coverage",
+        "content_angle": "Insurance acceptance transparency, 'We accept [major insurers]' campaigns, cost estimator tools, helping people understand urgent care coverage"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Sprout Social Healthcare Industry Report 2024",
+      "Hootsuite Healthcare Benchmarks 2024",
+      "Later.com Healthcare Social Media Benchmarks 2024",
+      "Rival IQ Social Media Industry Benchmark Report 2024",
+      "BrightLocal Local Search Industry Survey 2024",
+      "Mailchimp Healthcare Email Benchmarks 2024",
+      "Constant Contact Industry Benchmarks 2024",
+      "Healthcare Success case studies and marketing reports",
+      "Medical Economics urgent care marketing coverage",
+      "Scorpion Healthcare Marketing analysis",
+      "Cardinal Digital Marketing urgent care case studies",
+      "WordStream Healthcare advertising case studies",
+      "Google Reviews for major urgent care chains (CityMD, AFC, NextCare, GoHealth, Concentra)",
+      "Reddit communities: r/AskDocs, r/HealthInsurance, r/Parenting, r/urgentcare",
+      "Yelp urgent care facility reviews",
+      "HealthGrades and Vitals patient reviews",
+      "Press Ganey Healthcare patient satisfaction data",
+      "LinkedIn Healthcare Marketing Guide 2024",
+      "Socialinsider TikTok Benchmarks 2024",
+      "Sterling Sky Google Business Profile research"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for urgent care specific campaigns - most is proprietary",
+      "TikTok benchmarks for healthcare are newer and less established than other platforms",
+      "Exact conversion rates from social media to appointments rarely published publicly",
+      "Some regional variation in urgent care utilization patterns not captured in national data",
+      "Limited data on urgent care marketing to underserved communities and non-English speakers"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Teasing new service availability - Build anticipation around solving specific patient pain points (wait times, service gaps, convenience)",
+        "Week 2: Launch announcement - Emphasize immediate availability, transparent pricing, and how it fills competitive gaps",
+        "Week 3: Real patient results - Share specific outcomes and time/money saved with new service",
+        "Week 4: Last chance early adopter benefits - Create urgency with limited-time pricing or perks for trying new service"
+      ],
+      "weekly_hooks": [
+        [
+          "Something's coming next week that will change how you think about [condition/service]. Hint: No more [specific pain point].",
+          "We heard you. You told us [patient complaint from reviews]. We listened. Big announcement Monday.",
+          "What if you could [solve specific problem] in under [time frame]? Stay tuned for Monday's announcement."
+        ],
+        [
+          "NOW AVAILABLE: [Service name] - Get [specific result] in [time frame]. Walk-ins welcome. Open until [time] tonight.",
+          "[New service] launches today. Same treatment as [expensive alternative]: $[high price]. Our price: $[low price]. Insurance accepted.",
+          "JUST LAUNCHED: [Service] now available weekends 8 AM-8 PM. Get your [family member] feeling better today. No appointment needed."
+        ],
+        [
+          "Sarah's son had [condition]. Came in Saturday morning, walked out with [result] in 45 minutes. '[Patient quote about relief].'",
+          "Real results: [Number] patients treated with [new service] this week. Average time: [X] minutes. Average cost: $[X] vs $[higher amount] at [alternative].",
+          "Not sure if [new service] is right for you? Here's how to decide in 60 seconds: [link to decision guide]."
+        ],
+        [
+          "Final week: Try [new service] by [date] and get [incentive]. Current wait time: [X] minutes. Save your spot online now.",
+          "School/work [requirement] due Monday? Walk in today, walk out with [new service] completed. Extended hours this weekend.",
+          "[New service] ending its launch special [day]. [Number] spots left for [specific benefit]. Book online or walk in before [time]."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address awareness - 'Didn't know if they could handle my problem or if I needed a specialist' with teaser content showing capability",
+        "Week 2: Address service fit - 'Not sure if you need urgent care or the ER? Here's how to decide' educational content for new service",
+        "Week 3: Address quality concerns - 'Worried about the quality of care compared to my regular doctor' with provider credentials and patient outcomes",
+        "Week 4: Address cost uncertainty - 'I wasn't sure if my insurance would cover it' with transparent pricing and insurance verification offer"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce provider credentials - Board-certified physicians, years of experience, specialized training for new service",
+        "Week 2: Share facility capabilities - On-site equipment, technology, accreditations that enable new service",
+        "Week 3: Feature patient testimonials - Real outcomes with specific metrics (time saved, cost saved, relief achieved)",
+        "Week 4: Final credibility push - Volume metrics (X patients served), satisfaction scores, insurance partnerships, guarantee offer"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about [new service] - Download guide, watch video, sign up for launch notification",
+        "Week 2: Check current availability - View real-time wait times, verify insurance coverage, explore service details",
+        "Week 3: See if [new service] is right for you - Take assessment quiz, read patient stories, compare to alternatives",
+        "Week 4: Save your spot now - Online check-in, call to schedule, walk-ins welcome with countdown to offer expiration"
+      ],
+      "platform_priority": [
+        "Instagram Reels (5-7 posts/week) - Short educational videos about new service perform at 3-5% engagement",
+        "Facebook (4-7 posts/week) - Detailed service explanations, patient testimonials, launch announcements",
+        "Google Business Profile (Daily updates) - Real-time availability, service announcements, launch special posts",
+        "Email (2 emails/week) - Existing patients get early access, detailed service info, exclusive launch pricing"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on AFC Urgent Care's seasonal flu shot campaign success with email segmentation (28-32% open rates), multi-touch approach, and limited-time offers driving 35% appointment increase. Also leverages wait time transparency pattern from CityMD's 'Save Your Spot' campaign that drove 40% online check-in adoption."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: When to choose urgent care vs ER vs PCP - Educational decision-making content addressing primary patient confusion",
+        "Week 2: Common conditions we treat - Specific ailments with symptoms, treatment approach, and expected outcomes",
+        "Week 3: Transparent pricing and insurance - Cost comparisons, insurance acceptance, payment options to reduce financial anxiety",
+        "Week 4: Convenience factors - Hours, locations, wait times, online check-in demonstrating accessibility advantages",
+        "Week 5: Provider expertise spotlight - Introduce doctors/NPs, credentials, specialties to build trust and familiarity",
+        "Week 6: Patient success stories - Real testimonials addressing specific transformations (weekend relief, cost savings, time saved)",
+        "Week 7: Preventive care services - Physicals, vaccinations, screenings available beyond acute illness treatment",
+        "Week 8: Behind-the-scenes facility tour - Cleanliness, equipment, process flow to reduce first-visit anxiety"
+      ],
+      "weekly_hooks": [
+        [
+          "Not sure if you need urgent care or the ER? Here's how to decide in 60 seconds: [link to decision guide].",
+          "Your kid wakes up with a fever Saturday morning. Where do you go? We break down the options: [video/infographic].",
+          "ER visit for [common condition]: $3,000. Same treatment at urgent care: $150. We accept most insurance."
+        ],
+        [
+          "Saturday morning ear infection? We're open weekends 8 AM-8 PM. Get your little one feeling better today.",
+          "Can urgent care treat [specific condition]? Yes. Here's what to expect: [time frame], [treatment], [cost range].",
+          "Top 5 reasons patients visit us: [list with quick treatment times]. Which one brings you in?"
+        ],
+        [
+          "Transparent pricing: $125-175 for most visits, 75% less than ER. Payment plans available. Know before you go.",
+          "We accept [major insurance names]. Not sure about yours? Verify coverage in 2 minutes: [link/phone].",
+          "Same treatment, different bill: Here's what you'd pay at the ER vs urgent care for [common conditions]."
+        ],
+        [
+          "Current wait time: [X] minutes. Save your spot online now: [link]. Wait from home, we'll text when ready.",
+          "Open until 8 PM tonight. Walk-ins welcome at [location]. No appointment needed. See you in 30 minutes or less.",
+          "Got sick on Saturday? We're open weekends when your doctor isn't. Evening hours all week. Find your nearest location."
+        ],
+        [
+          "Meet Dr. [Name]: Board-certified, [X] years treating [specialty]. Here's why she chose urgent care: [30-sec video].",
+          "Your urgent care team: [Number] providers averaging [X] years experience. On-site lab and X-ray. ER backup available.",
+          "Day in the life: Follow Nurse Practitioner [Name] for 60 seconds. See what happens during your visit."
+        ],
+        [
+          "Sarah's son needed a school physical by Monday. Came in Sunday, walked out with forms completed in 45 minutes. No appointment.",
+          "In and out in 45 minutes with a diagnosis and prescription. Here's what [patient name] experienced: [testimonial].",
+          "Real patient: 'Sat in the ER waiting room for 4 hours for a simple UTI. Next time I went to urgent care - 30 minutes total.'"
+        ],
+        [
+          "School physical due Monday? Walk in today, walk out with forms completed. No appointment necessary. Extended weekend hours.",
+          "Flu shot season: Walk-ins welcome, no appointment needed. Most insurance covers 100%. In and out in 15 minutes.",
+          "Sports physical, work physical, DOT physical - we do them all. Same day, no appointment. Bring required forms."
+        ],
+        [
+          "Take a 60-second tour: See our waiting room, exam rooms, on-site lab and X-ray. Everything clean, modern, professional.",
+          "What happens when you walk in? From check-in to check-out in under an hour. Here's the process: [video walkthrough].",
+          "Behind the scenes: Our on-site lab means test results in 15 minutes, not 2 days. See how it works: [short video]."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: 'Didn't know if they could handle my problem or if I needed a specialist' - Education on scope of services",
+        "Week 2: 'Thought urgent care was only for minor cuts and colds' - Show breadth of conditions treated with examples",
+        "Week 3: 'I wasn't sure if my insurance would cover it' - Insurance transparency and verification tools",
+        "Week 4: 'Thought I'd have to wait hours like at the ER' - Real-time wait times and online check-in benefits",
+        "Week 5: 'Wasn't sure if I could trust a doctor I'd never met before' - Provider credentials and experience",
+        "Week 6: 'Worried about the quality of care compared to my regular doctor' - Patient outcomes and satisfaction stories",
+        "Week 7: 'Didn't know if they'd have the right equipment or tests' - Showcase on-site diagnostic capabilities",
+        "Week 8: 'Concerned they'd just tell me to go to the ER anyway' - Explain evaluation process and success rate"
+      ],
+      "proof_timing": [
+        "Week 1: Industry statistics - Urgent care treats 90% of non-emergency conditions, average cost 75% less than ER",
+        "Week 2: Service breadth proof - List of 50+ conditions treated with success rates",
+        "Week 3: Insurance partnerships - Logos of major accepted insurers, in-network status",
+        "Week 4: Efficiency metrics - Average wait time data, online check-in adoption rate, patient throughput",
+        "Week 5: Provider credentials - Board certifications, years of experience, continuing education",
+        "Week 6: Patient testimonials - Star ratings, specific outcome stories, before/after transformations",
+        "Week 7: Facility accreditations - Certifications, equipment capabilities, quality standards met",
+        "Week 8: Volume and experience - Number of patients served annually, years in operation, locations"
+      ],
+      "cta_progression": [
+        "Week 1: Download our guide - 'When to Visit Urgent Care vs ER' decision tool",
+        "Week 2: See full list of conditions we treat - Browse services, read treatment details",
+        "Week 3: Verify your insurance coverage now - 2-minute online form or call",
+        "Week 4: Check current wait time - View real-time availability, save your spot online",
+        "Week 5: Meet our providers - Read bios, watch introduction videos, see credentials",
+        "Week 6: Read more patient stories - Filter by condition, see ratings and reviews",
+        "Week 7: Schedule your preventive visit - Book physical, vaccination, or screening",
+        "Week 8: Find your nearest location - Get directions, view hours, see services available"
+      ],
+      "platform_priority": [
+        "Instagram Reels (3-4 posts/week) - Educational shorts perform at 3-5% engagement, algorithm-favored",
+        "Facebook (4-7 posts/week) - Detailed educational content, testimonials, service info for parent demographic",
+        "Google Business Profile (Daily posts) - Real-time updates, service announcements, wait times for high-intent searchers",
+        "TikTok (3-5 posts/week) - Provider Q&A videos averaging 15K-50K views, 5-8% engagement",
+        "Email (2-4 emails/month to existing patients) - 25-32% open rates for health tips and service updates"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on NextCare's TikTok 'Common Questions We Get' series success (15K-50K views, 5-8% engagement) proving educational content outperforms promotional. Combined with CityMD's multi-channel approach integrating wait time transparency across platforms. The 8-week cycle addresses all major objections from customer voice data while rotating through proof types that build cumulative trust."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-ready patient education - Common misconceptions, surprising facts, 'you didn't know urgent care could do this' content",
+        "Week 2: Community engagement and user stories - Encourage sharing of urgent care experiences, poll-driven content, interactive decision tools"
+      ],
+      "weekly_hooks": [
+        [
+          "You're paying $3,000 for ER stitches when urgent care charges $150. Here's what else costs 20x more at the ER: [thread/carousel].",
+          "Can urgent care treat broken bones? Yes. Remove stitches? Yes. Prescribe antibiotics? Yes. Here are 10 things you didn't know we do:",
+          "Your pediatrician can't see you for 2 weeks but your kid is miserable NOW. Here's what parents don't know about urgent care: [video]."
+        ],
+        [
+          "Poll: What stopped you from visiting urgent care last time you needed it? A) Wait time worry B) Cost concern C) Didn't know what you treat D) Insurance confusion",
+          "Share your urgent care story: When did you discover urgent care was better than [ER/waiting for PCP]? Best story gets [incentive].",
+          "Quiz: Should you go to urgent care or the ER? Answer 3 questions and find out instantly: [interactive tool]. Share your result!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: 'Didn't know if they could handle my problem' - Surprising breadth of services in shareable format",
+        "Week 2: 'I wasn't sure if my insurance would cover it' - Interactive insurance checker that people can tag friends in"
+      ],
+      "proof_timing": [
+        "Week 1: Shocking statistics - Cost comparisons, time savings, success rates in highly shareable infographic format",
+        "Week 2: User-generated proof - Encourage patients to share their experiences, feature best testimonials, create social proof snowball"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this - Maximize shares and reach through friend-tagging",
+        "Week 2: Share your experience in comments - Drive engagement, collect testimonials, boost algorithm favor"
+      ],
+      "platform_priority": [
+        "TikTok (5-7 posts/week) - Highest viral potential with 5-12% engagement for healthcare education",
+        "Instagram Reels (5-7 posts/week) - Secondary viral platform, 3-5% engagement on Reels",
+        "Facebook (7-10 posts/week) - High-frequency posting with shareable content for parent demographic",
+        "Instagram Stories (Daily) - Polls, quizzes, question stickers for maximum daily engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok's 5-12% engagement rate for healthcare educational content significantly outperforming other platforms, and NextCare's success with provider Q&A videos (15K-50K views). Leverages question-based self-qualification hook pattern proven to build trust while encouraging shares. High-frequency posting matches platform benchmarks for algorithm favor during burst periods."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Urgent care industry evolution - How urgent care has transformed healthcare access and why it matters for patients",
+        "Week 2: Clinical expertise deep-dive - Specific conditions urgent care excels at treating with clinical detail and outcomes data",
+        "Week 3: Healthcare navigation education - Teaching patients how to use healthcare system efficiently (when to use which service)",
+        "Week 4: Preventive care philosophy - Beyond acute illness to wellness, vaccinations, screenings, and proactive health",
+        "Week 5: Cost transparency advocacy - Breaking down healthcare pricing, insurance complexity, patient rights to know costs",
+        "Week 6: Community health impact - Local health trends, seasonal illness patterns, public health education role"
+      ],
+      "weekly_hooks": [
+        [
+          "The urgent care industry didn't exist 40 years ago. Now we see 160 million patients annually. Here's how we're changing healthcare access:",
+          "Why urgent care exists: The gap between 'I need help today' and 'your doctor can see you in 3 weeks' was costing families thousands.",
+          "Board-certified physicians choosing urgent care over ER work: Here's what 5 of our doctors say about why urgent care medicine matters."
+        ],
+        [
+          "Let's talk about strep throat treatment: Why rapid testing matters, when antibiotics work, and what happens if you wait. A clinical breakdown:",
+          "Urgent care treated 89% of suspected fractures without ER referral last year. Here's our X-ray protocol and when we DO send you to the ER:",
+          "Deep dive: UTI treatment in urgent care. From symptoms to culture to prescription in under an hour. Here's the clinical process explained."
+        ],
+        [
+          "Healthcare decision tree: Start here when you're sick or injured. We'll teach you exactly when to call PCP, visit urgent care, or go to ER:",
+          "Most ER visits for non-emergencies happen because patients don't know their options. Here's what we wish everyone knew about healthcare navigation:",
+          "Your insurance wants you to use urgent care instead of the ER. Here's why, and how to maximize your benefits while getting faster care."
+        ],
+        [
+          "Urgent care isn't just for urgent problems. Here's our preventive care philosophy and why your annual physical shouldn't wait:",
+          "Flu shot facts from our Medical Director: Why timing matters, who needs it most, and what the research really says about effectiveness:",
+          "Preventive care saves lives and money. Here are 5 screenings urgent care offers that catch problems early, before they become emergencies."
+        ],
+        [
+          "Healthcare pricing is intentionally confusing. We're breaking it down: Here's exactly what you pay for common urgent care visits by insurance type:",
+          "Why does the same stitches cost $150 here and $3,000 at the ER? Let's talk about healthcare pricing transparency and your right to know:",
+          "Insurance verification before you arrive: Here's how to know your exact copay, what's covered, and avoid surprise bills. A complete guide:"
+        ],
+        [
+          "What's going around this week: [Local area] illness trends from our providers who saw 500+ patients this week. Here's what to watch for:",
+          "Seasonal health patterns: Why we see [condition] spike every [season] and how to prevent it. Data from 10 years of local patient visits:",
+          "Community health update: [Percentage] of our patients this month had [condition]. Here's what our Medical Director wants you to know about prevention."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: 'Worried about the quality of care compared to my regular doctor' - Establish clinical credibility and industry legitimacy",
+        "Week 2: 'Didn't know if they'd have the right equipment or tests' - Deep clinical detail proves diagnostic capabilities",
+        "Week 3: 'Concerned they'd just tell me to go to the ER anyway' - Teach proper healthcare navigation including when ER is appropriate",
+        "Week 4: 'Thought urgent care was only for minor cuts and colds' - Expand perception to include preventive and wellness services",
+        "Week 5: 'I wasn't sure if my insurance would cover it' - Comprehensive insurance education positions as patient advocate",
+        "Week 6: 'Wasn't sure if I could trust a doctor I'd never met before' - Community health leadership builds long-term trust"
+      ],
+      "proof_timing": [
+        "Week 1: Industry credentials - Urgent Care Association membership, national standards met, industry growth statistics",
+        "Week 2: Clinical outcomes - Success rates by condition, diagnostic accuracy, appropriate ER referral rate",
+        "Week 3: Healthcare system expertise - Partnerships with hospitals, PCP networks, insurance relationships",
+        "Week 4: Preventive care certifications - Vaccination provider status, screening accreditations, wellness program partnerships",
+        "Week 5: Pricing transparency awards - Recognition for cost clarity, patient satisfaction with billing, insurance partnerships",
+        "Week 6: Community health leadership - Years serving community, patient volume, public health collaborations, local health department partnerships"
+      ],
+      "cta_progression": [
+        "Week 1: Read our complete guide to urgent care medicine - Deep educational resource download",
+        "Week 2: Learn more about [specific condition] treatment - Condition-specific clinical information pages",
+        "Week 3: Download our healthcare decision flowchart - Practical tool for future health decisions",
+        "Week 4: Schedule your preventive care visit - Book physical, vaccination, or screening appointment",
+        "Week 5: Get your personalized cost estimate - Insurance verification and pricing transparency tool",
+        "Week 6: Sign up for weekly health updates - Email newsletter with local illness trends and prevention tips"
+      ],
+      "platform_priority": [
+        "LinkedIn (2-3 posts/week) - Thought leadership content for B2B audience and professional credibility",
+        "Facebook (4-5 posts/week) - Long-form educational content for engaged parent demographic",
+        "Blog/Website (2 posts/week) - Comprehensive articles that establish SEO authority and deep expertise",
+        "Email newsletter (1/week) - In-depth health education to existing patient base (25-32% open rates)",
+        "Instagram carousel posts (3-4/week) - Multi-slide educational content with clinical detail"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Concentra's LinkedIn employer-focused content success (2.5-4% engagement, 150+ partnership inquiries) proving B2B thought leadership works for urgent care. Addresses competitive gap of 'employer-focused content marketing' while building authority with both consumer and business audiences. Educational content approach mirrors NextCare's TikTok success but with deeper clinical detail for authority positioning."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive patient education - Polls, quizzes, 'ask me anything' sessions that drive comments and shares",
+        "Week 2: User-generated content celebration - Patient stories, photo contests, community health wins that encourage participation"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: What's your biggest healthcare frustration? A) Can't get appointments B) Long wait times C) Surprise bills D) Don't know where to go. Vote below!",
+          "Quiz time: Can urgent care treat this? We'll post 10 scenarios today. Comment YES or NO for each. Test your urgent care knowledge!",
+          "Ask our Medical Director anything: Drop your health questions in the comments. Dr. [Name] is answering live for the next 2 hours!"
+        ],
+        [
+          "Share your urgent care win: When did urgent care save your weekend/vacation/sanity? Best story featured on our page + [incentive].",
+          "Photo contest: Show us your 'thank goodness for urgent care' moment. Tag us and use #[UrgentCareRelief] to enter. Winner gets [prize].",
+          "Shoutout to [patient name] who came in panicking about [condition] and left relieved 40 minutes later. Share your relief moment in comments!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: 'Didn't know if they could handle my problem' - Interactive quiz reveals breadth of services through engagement",
+        "Week 2: 'Worried about the quality of care' - User testimonials from contest provide authentic social proof"
+      ],
+      "proof_timing": [
+        "Week 1: Interactive proof - Real-time Q&A with providers demonstrates expertise and accessibility",
+        "Week 2: Community proof - Feature multiple patient stories daily showing diverse successful outcomes"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your answer, tag a friend who needs to know this, share your question",
+        "Week 2: Share your story, post your photo, tag us in your experience, use our hashtag"
+      ],
+      "platform_priority": [
+        "Instagram Stories (Multiple daily) - Polls, question stickers, quizzes drive highest engagement rate",
+        "Facebook (7-10 posts/week) - Comment-driving questions and contests for active parent community",
+        "TikTok (5-7 posts/week) - Duet and stitch-friendly content, response videos to comments",
+        "Instagram Feed (5-7 posts/week) - Carousel posts with swipe-through quizzes, contest entries, UGC features"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Stories engagement tools (polls, questions) and platform benchmarks showing 1.2-2.8% engagement rising to 3-5% for Reels. Leverages competitive gap of 'user-generated content' which urgent care industry underutilizes. Question-based hook pattern proven to build trust while algorithmic boost from high engagement drives reach. Two-week intensive period maximizes algorithm favor before returning to sustainable posting frequency."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Workplace injuries cost U.S. employers $170 billion annually—but most don't know 68% could be treated at urgent care instead of the ER.\n\n[PROBLEM]: Your employee gets injured at 4 PM Friday. The ER wait is 3+ hours, costing you $2,400 in medical bills plus 8 hours of lost productivity.\n\n[AGITATE]: Meanwhile, workers' comp claims pile up, OSHA paperwork sits incomplete, and that employee is out for days instead of hours.\n\n[SOLUTION]: Urgent care handles workplace injuries with:\n• Same-day treatment + documentation\n• Drug testing & DOT physicals on-site\n• Workers back on the job in under 2 hours\n• Average cost 85% less than ER visits\n• All OSHA forms completed before they leave\n\nWe've helped [NUMBER] local employers reduce injury-related downtime by [PERCENTAGE]% in [TIMEFRAME].\n\nHow is your organization currently handling workplace injuries? #OccupationalHealth #WorkersComp #EmployeeWellness #WorkplaceSafety #UrgentCare",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After treating 50,000+ workplace injuries, I've learned most employers are overpaying by 300% because they don't know urgent care is an option.\n\n[ATTENTION]: Here's what separates high-performing safety programs from the rest:\n\n[INTEREST]: Smart employers are shifting from \"ER-first\" to \"urgent care-first\" protocols:\n\n✓ Pre-established urgent care partnerships\n✓ Employee education on when to use which facility\n✓ Direct billing arrangements that cut processing time\n✓ On-site services that eliminate travel time entirely\n\nThe result? [COMPANY NAME] reduced their workers' comp premiums by 23% in one year.\n\n[DESIRE]: Imagine your safety director getting real-time injury updates, complete documentation within hours, and employees returning to modified duty the same day.\n\n[ACTION]: We're offering free workplace injury protocol assessments this month for HR directors and safety managers. What's your biggest challenge with workplace injury management? Comment below or DM me.\n\n#HRLeadership #SafetyFirst #WorkersCompensation #OccupationalMedicine",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "[BEFORE]: Your employee injury protocol sends everyone to the ER. Average cost: $2,800. Average wait: 4 hours. Lost productivity: Entire shift.\n\n[AFTER]: Same injuries treated at our urgent care. Average cost: $385. Average time: 45 minutes. Employee returns to work: Same day with restrictions.\n\n[BRIDGE]: The difference? We've built our occupational health services specifically for employers who need:\n\n→ Immediate care without ER costs\n→ Complete workers' comp documentation\n→ Drug testing & pre-employment physicals\n→ Treatment plans focused on rapid return-to-work\n→ Direct communication with your safety team\n\nWe're currently accepting 5 new employer partnerships this quarter. Companies with 50+ employees get priority scheduling and dedicated account management.\n\nInterested in cutting your workplace injury costs by 60-80%? Let's talk. [CONTACT CTA]\n\n#CorporateWellness #WorkplaceHealth #EmployerBenefits",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "ER or Urgent Care? Here's how to decide in 10 seconds 👇\n\n❌ ER: Chest pain, severe bleeding, head trauma, difficulty breathing, stroke symptoms\n\n✅ Urgent Care: Sprains, minor cuts, flu, UTI, ear infections, COVID tests, stitches, X-rays\n\n💰 Real talk: Same strep throat treatment costs $150 at urgent care vs $3,000 at ER.\n\nSave this for the next time you're panicking at 9 PM wondering where to go. We're open until 10 PM every night, weekends included.\n\nQuestions? Drop them below 👇\n\n#UrgentCare #HealthcareTips #ERvs[YOURCITY]Health #SaveMoney #WhenToGoToER #MedicalAdvice #HealthInsurance",
+        "visual": "Carousel post: Slide 1: Split-screen graphic 'ER vs Urgent Care' with bold text. Slide 2: List of ER-appropriate conditions with red X icons. Slide 3: List of urgent care conditions with green checkmarks. Slide 4: Cost comparison graphic showing $3,000 vs $150. Slide 5: Your location hours and 'Save Your Spot' CTA. Clean white background, brand colors, easy-to-read fonts.",
+        "framework": "Educational + Solution"
+      },
+      "authority": {
+        "caption": "I've been treating urgent care patients for [NUMBER] years. Here's what I wish everyone knew:\n\nYou don't have to suffer all weekend waiting for Monday. That's literally what we're here for.\n\nLast Saturday: Treated a mom whose son had an ear infection. She'd been giving him Tylenol since Thursday night, thinking she had to wait for the pediatrician.\n\n48 hours of a miserable kid. Completely unnecessary.\n\nWe're open 8 AM-8 PM weekends. No appointment. Walk in, get diagnosed, get treated, get relief.\n\nThat's it. That's the post.\n\n📍 [LOCATION]\n⏰ Open now\n💻 Save your spot: [LINK IN BIO]\n\n#UrgentCareTips #WeekendCare #PediatricCare #ParentingTips #[YOURCITY]Mom #HealthcareProvider #MedicalAdvice",
+        "visual": "Photo of actual provider in scrubs in the clinic, warm and approachable expression, perhaps with stethoscope. Professional but friendly. Overlay text: 'You don't have to wait until Monday.' Background shows clean, bright urgent care facility. Authentic, not stock photo.",
+        "framework": "Authority + Story"
+      },
+      "promotional": {
+        "caption": "⏰ Current wait time: [X] minutes\n\nYes, you read that right. Not hours. MINUTES.\n\nWalk-ins welcome until 10 PM tonight. We treat:\n• Flu & strep\n• Sprains & minor fractures\n• Cuts needing stitches\n• Ear & eye infections\n• COVID & flu testing\n• Sports physicals\n• Work injuries\n\nSave your spot online (link in bio) or just show up. We accept most insurance.\n\nStop suffering. We're here.\n\n📍 [ADDRESS]\n📱 [PHONE]\n🔗 Check-in: [LINK]\n\n#UrgentCare #NoWait #WalkInsWelcome #[YOURCITY] #OpenNow #SameDayCare #NoAppointmentNeeded",
+        "visual": "Instagram Story-style graphic with large, bold 'CURRENT WAIT TIME: 12 MINUTES' at top. Below: List of services with checkmark icons. Bottom: Hours, location, and 'Save Your Spot' button graphic. Use urgent but not alarming colors—blues and greens, not reds. Mobile-optimized vertical format.",
+        "framework": "Promotional + Urgency"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 PARENT TIP: Your kid wakes up Saturday morning with an ear infection. What do you do?\n\nIf you're like most parents, you're googling \"pediatric urgent care near me\" while your little one is crying and you're panicking.\n\nHere's what you need to know BEFORE the next time this happens:\n\n✅ Urgent care can treat:\n• Ear infections\n• Strep throat\n• High fevers\n• Minor injuries\n• Rashes and allergic reactions\n• Vomiting and dehydration\n• Asthma flare-ups\n• School/sports physicals\n\n❌ Go to ER for:\n• Difficulty breathing\n• Severe allergic reactions\n• Head injuries with loss of consciousness\n• High fever in infants under 3 months\n• Severe dehydration\n\n💰 Real cost comparison:\nER visit for ear infection: $2,000-$3,500\nUrgent care for same treatment: $100-$200\n\n⏰ We're open weekends 8 AM-8 PM. No appointment needed. Most insurance accepted.\n\n🎯 PRO TIP: Save our number in your phone right now as \"Urgent Care - [LOCATION]\". When you're panicking at 7 PM on Sunday, you'll thank yourself.\n\nQuestions about whether we can treat your child's specific issue? Ask in the comments—our medical team monitors this page and will respond.\n\n[LOCATION] | [PHONE] | Walk-ins welcome\n\n#ParentingTips #UrgentCare #KidsHealth #[YOURCITY]Parents #WeekendCare #PediatricCare",
+        "framework": "Educational PAS"
+      },
+      "authority": {
+        "template": "I need to address something I'm seeing way too often:\n\nPeople sitting in ER waiting rooms for 4+ hours with conditions that urgent care treats in under an hour.\n\nLast week, someone posted in [LOCAL FACEBOOK GROUP] that they waited 6 hours at [LOCAL ER] for a UTI. SIX HOURS.\n\nHere's what's happening: ERs are overwhelmed. They're designed for life-threatening emergencies. When you show up with a sprained ankle or flu symptoms, you're going to wait. A long time. Because you should—the person having a heart attack needs to go first.\n\nThat's not a criticism of ERs. That's them doing their job correctly.\n\nBut here's what you might not know:\n\nUrgent care facilities have:\n→ X-ray machines (yes, we can diagnose broken bones)\n→ Lab services (strep tests, flu tests, COVID tests, urinalysis)\n→ Ability to do stitches and treat minor lacerations\n→ IV fluids for dehydration\n→ Prescription authority for antibiotics and most medications\n→ Board-certified physicians and experienced providers\n\nWhat we DON'T have:\n→ 4-hour wait times\n→ $3,000 facility fees\n→ The chaos of an ER\n\nWe're not trying to replace your primary care doctor or the ER. We're the bridge for when:\n• Your doctor can't see you for 2 weeks\n• You get sick outside business hours\n• You need immediate care but it's not life-threatening\n\nI've been practicing urgent care medicine for [NUMBER] years. Happy to answer any questions about what we can and can't treat. Ask away in the comments.\n\n- Dr. [NAME], Medical Director\n[FACILITY NAME] | [LOCATION]",
+        "framework": "Authority + Education"
+      },
+      "promotional": {
+        "template": "🚨 OPEN UNTIL 10 PM TONIGHT 🚨\n\nGot sick today? Injured at the gym? Kid came home from school with a fever?\n\nYou don't have to wait until tomorrow. We're here NOW.\n\n⏱️ CURRENT WAIT TIME: [X] MINUTES\n\n📱 SAVE YOUR SPOT ONLINE:\nGo to [WEBSITE] and check in from your phone. We'll text you when it's your turn. Wait in your car, not our waiting room.\n\n💵 COST TRANSPARENCY:\nMost insurance accepted. Typical copay: $50-$75 (call your insurance to confirm)\nNo insurance? Self-pay visits start at $150\nWe'll tell you the cost BEFORE we treat you. No surprise bills.\n\n🏥 WHAT WE'RE TREATING TODAY:\n✓ Flu, COVID, strep throat\n✓ Ear and sinus infections  \n✓ Sprains, minor fractures, sports injuries\n✓ Cuts requiring stitches\n✓ Allergic reactions and rashes\n✓ UTIs and stomach issues\n✓ Work and school physicals\n✓ Drug testing and TB tests\n\n📍 LOCATION: [ADDRESS]\n📞 QUESTIONS? Call [PHONE]\n⏰ HOURS: Monday-Sunday 8 AM-10 PM\n\n👉 We accept [LIST TOP 5 INSURANCE PROVIDERS]\n\nStop suffering. Walk in now or save your spot online. We'll get you feeling better tonight.\n\n[LINK TO ONLINE CHECK-IN]\n\n#UrgentCare #OpenNow #NoAppointmentNeeded #[YOURCITY] #WalkInsWelcome #EveningHours #WeekendCare",
+        "framework": "Promotional with transparency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: It's 8 PM and you're googling 'do I need to go to the ER' 👀",
+        "script": "VISUAL: Provider in scrubs looking at camera, urgent care clinic background\n\nHOOK (0-3 sec): \"POV: It's 8 PM and you're googling 'do I need to go to the ER'\"\n\nTEXT OVERLAY: \"Let me save you 4 hours and $3,000\"\n\n(4-15 sec): \"Here's the actual answer from someone who works in urgent care:\"\n\nCUT TO: Quick cuts with text overlays\n\n\"GO TO ER:\" (show serious face)\n- Chest pain ❌\n- Can't breathe ❌  \n- Severe bleeding ❌\n- Stroke symptoms ❌\n\n\"COME TO US:\" (show friendly smile)\n- Sprained ankle ✅\n- Flu symptoms ✅\n- Need stitches ✅\n- Ear infection ✅\n- COVID test ✅\n\n(16-30 sec): \"Real talk—I treated someone last week who waited 6 hours at the ER for a UTI. Same treatment here takes 30 minutes.\"\n\nTEXT OVERLAY: \"30 min vs 6 hours\"\n\n(31-45 sec): \"We have X-rays, we can prescribe meds, we take insurance. We're literally designed for this.\"\n\n(46-60 sec): \"Open til 10 PM every night. Save this for the next time you're panicking at 9 PM.\"\n\nEND SCREEN: \"Questions? Drop them below 👇\" + Location tag\n\nTREND: Use trending audio about 'let me save you time/money' or 'POV' format\n\nHASHTAGS: #UrgentCare #HealthcareTips #MedicalAdvice #ERvsUrgentCare #HealthInsurance #DoctorTok #MedTok",
+        "framework": "Educational hook + value"
+      },
+      "authority": {
+        "hook": "Things I've learned treating 1,000+ patients at urgent care that nobody tells you:",
+        "script": "VISUAL: Provider speaking directly to camera, authentic and casual\n\nHOOK (0-3 sec): \"Things I've learned treating 1,000+ patients at urgent care that nobody tells you\"\n\n(4-10 sec): \"Number 1: You're not bothering us. Seriously. That's literally why we exist.\"\n\nTEXT OVERLAY: \"Stop apologizing for coming in\"\n\n(11-20 sec): \"Number 2: 'Wait and see' is sometimes the WRONG advice. If you're worried enough to google it at 11 PM, just come in.\"\n\n(21-30 sec): \"Number 3: We can see your kid. Yes, even babies. Pediatric urgent care is a thing.\"\n\nTEXT OVERLAY: \"Parents: we got you\"\n\n(31-40 sec): \"Number 4: Your insurance probably covers us the same as your regular doctor. Call and ask about urgent care copay.\"\n\n(41-50 sec): \"Number 5: You don't have to suffer all weekend. We're open Saturday and Sunday for exactly this reason.\"\n\nTEXT OVERLAY: \"Weekend hours exist for a reason\"\n\n(51-60 sec): \"Save this for the next time you're sick and don't know what to do. We're here.\"\n\nEND SCREEN: \"What else do you want to know? 👇\" + Follow button\n\nTREND: 'Things I learned' format, authentic provider content\n\nHASHTAGS: #UrgentCare #HealthcareTips #MedicalAdvice #DoctorTok #HealthcareWorker #PatientCare #MedTok",
+        "framework": "Authority list format"
+      },
+      "promotional": {
+        "hook": "It's Saturday morning and your kid just woke up screaming with an ear infection. Now what? 👇",
+        "script": "VISUAL: Parent-focused, relatable scenario\n\nHOOK (0-3 sec): \"It's Saturday morning and your kid just woke up screaming with an ear infection. Now what?\"\n\nTEXT OVERLAY: \"Don't panic—we're open\"\n\n(4-10 sec): \"Your pediatrician's closed until Monday. The ER wait is 3+ hours. Your kid is MISERABLE.\"\n\nVISUAL: Show frustrated parent (actor or stock footage)\n\n(11-20 sec): \"Here's what you do: Open your phone right now.\"\n\nTEXT OVERLAY: \"Follow these steps\"\n\n(21-30 sec): \"Go to [WEBSITE]. Click 'Save Your Spot.' Pick your location.\"\n\nVISUAL: Screen recording of online check-in process\n\n(31-40 sec): \"We text you when it's your turn. You wait in your car, not a waiting room full of sick people.\"\n\n(41-50 sec): \"Walk in. Get diagnosed. Get prescription. Walk out. Usually under an hour.\"\n\nTEXT OVERLAY: \"< 1 hour total\"\n\n(51-60 sec): \"We're open 8 AM-8 PM today. Weekends, evenings, holidays. That's literally the point of urgent care.\"\n\nEND SCREEN: \"Link in bio to save your spot\" + Location tag + \"Open now\" badge\n\nTREND: Problem-solution format, parent-focused content\n\nHASHTAGS: #UrgentCare #ParentingTips #SickKid #WeekendCare #MomLife #DadLife #Parenting #[YourCity]Parents",
+        "framework": "Problem-solution promotional"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], is it urgent care or ER? Here's how to decide",
+        "preview_text": "Save this guide for the next time you're sick and don't know where to go",
+        "body": "Hi [FIRSTNAME],\n\nIt's 8 PM on a Tuesday. You've been feeling terrible all day, and it's getting worse. Your doctor's office is closed. Now you're stuck wondering:\n\n\"Do I need the ER, or can urgent care handle this?\"\n\nLet me make this simple:\n\n❌ GO TO THE ER IF YOU HAVE:\n• Chest pain or pressure\n• Difficulty breathing or shortness of breath  \n• Severe bleeding that won't stop\n• Sudden severe headache or vision changes\n• Signs of stroke (face drooping, arm weakness, speech difficulty)\n• Severe allergic reaction\n• Major trauma or head injury\n\n✅ COME TO URGENT CARE FOR:\n• Flu, fever, cold symptoms\n• Sprains, strains, minor fractures\n• Cuts that need stitches (but not severe bleeding)\n• Ear infections, sinus infections, UTIs\n• Rashes, allergic reactions (non-severe)\n• Vomiting, diarrhea, dehydration\n• Minor burns\n• COVID/flu/strep testing\n• School and sports physicals\n• Work injuries\n\n💰 THE COST DIFFERENCE:\nER visit for strep throat: $2,000-$3,500\nUrgent care for same treatment: $100-$200\n\n⏰ WE'RE HERE WHEN YOU NEED US:\nMonday-Sunday: 8 AM-10 PM\nNo appointment necessary\nOnline check-in available\n\n📱 SAVE YOUR SPOT:\n[ONLINE CHECK-IN LINK]\n\nQuestions? Reply to this email or call us at [PHONE].\n\nStay healthy,\n[PROVIDER NAME]\n[FACILITY NAME]\n\nP.S. Save our number in your phone right now: [PHONE]. When you're sick and panicking, you'll be glad you did.",
+        "framework": "Educational PAS"
+      },
+      "authority": {
+        "subject": "What I wish every patient knew (from your urgent care doctor)",
+        "preview_text": "After treating 10,000+ patients, here's what you need to know",
+        "body": "Hi [FIRSTNAME],\n\nDr. [NAME] here, Medical Director at [FACILITY NAME].\n\nAfter [NUMBER] years in urgent care medicine, I keep seeing the same misconceptions. So I wanted to set the record straight:\n\n1️⃣ YOU'RE NOT BOTHERING US\nSeriously. If you're worried enough to google your symptoms at midnight, you should come in. That's what we're here for. I'd rather see you for something minor than have you wait until it becomes serious.\n\n2️⃣ WE'RE NOT A \"LESSER\" OPTION\nWe have the same diagnostic tools as most ERs: X-rays, lab work, EKGs. Our providers are board-certified physicians and experienced nurse practitioners. The only difference? We don't handle life-threatening emergencies. Everything else? We've got you.\n\n3️⃣ WEEKEND CARE ISN'T JUST FOR EMERGENCIES  \nYou don't have to be dying to come in on Saturday. Got a UTI? Sprained ankle? Flu symptoms? That's exactly why we're open weekends—so you don't have to suffer until Monday.\n\n4️⃣ YOUR INSURANCE PROBABLY COVERS US\nMost insurance plans cover urgent care the same as a specialist visit. Your copay is usually $50-$75 vs. $2,000+ at the ER. Call your insurance and ask about your \"urgent care copay.\"\n\n5️⃣ ONLINE CHECK-IN IS A GAME-CHANGER\nYou can save your spot from your phone, then wait at home or in your car. We text you when it's your turn. No sitting in a waiting room when you feel terrible.\n\n🎯 WHEN TO USE US:\n→ Your doctor can't see you for 2+ weeks\n→ You get sick outside business hours  \n→ You need immediate care but it's not life-threatening\n→ You want to avoid ER wait times and costs\n\n📍 [LOCATION]\n⏰ Open 8 AM-10 PM, 7 days a week\n💻 Save your spot: [LINK]\n\nQuestions about whether we can treat your specific condition? Just reply to this email.\n\n- Dr. [NAME]\n\nP.S. We're accepting new patients and take most insurance. Bring this email for $10 off your visit this month.",
+        "framework": "Authority AIDA"
+      },
+      "promotional": {
+        "subject": "⏰ Current wait time: [X] minutes. Open until 10 PM tonight.",
+        "preview_text": "Walk in now or save your spot online. We'll get you feeling better today.",
+        "body": "Hi [FIRSTNAME],\n\nNot feeling well? We can see you TODAY.\n\n⏱️ CURRENT WAIT TIME: [X] MINUTES\n\nThat's right—minutes, not hours.\n\n📱 TWO WAYS TO BE SEEN:\n\n1. WALK IN\nJust show up. No appointment needed.\n[ADDRESS]\nOpen until 10 PM tonight\n\n2. SAVE YOUR SPOT ONLINE  \nCheck in from your phone: [LINK]\nWe'll text you when it's your turn\nWait at home or in your car\n\n💵 TRANSPARENT PRICING:\n→ Most insurance accepted (typical copay: $50-$75)\n→ Self-pay visits from $150  \n→ We'll tell you the cost BEFORE treatment\n→ No surprise bills\n\n🏥 WHAT WE'RE TREATING TODAY:\n✓ Flu, COVID, strep throat\n✓ Ear and sinus infections\n✓ Sprains and minor fractures  \n✓ Cuts requiring stitches\n✓ UTIs and stomach issues\n✓ Allergic reactions and rashes\n✓ School/sports/work physicals\n\n✅ WE ACCEPT:\n[LIST TOP INSURANCE PROVIDERS]\n\n⏰ HOURS TODAY:\n8 AM - 10 PM\n\n📍 LOCATION:\n[FULL ADDRESS WITH MAP LINK]\n\n📞 QUESTIONS?\nCall or text: [PHONE]\n\n👉 SAVE YOUR SPOT NOW:\n[ONLINE CHECK-IN LINK - BIG BUTTON]\n\nStop suffering. We're here to help.\n\n[FACILITY NAME] Team\n\nP.S. Bring a friend or family member who's also feeling sick. We can see multiple people from the same household back-to-back to save you time.",
+        "framework": "Promotional BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X]-minute wait time right now at [Location]. Save your spot online before it fills up.",
+      "ER visit for [minor injury/illness]: $[X]. Same treatment here: $[X]. We accept [insurance type].",
+      "[X]% of our patients are in and out in under [X] minutes with diagnosis and prescription in hand.",
+      "Current wait: [X] minutes. [X] spots left for walk-ins today. Open until [X] PM tonight.",
+      "[X] school physicals completed yesterday. Get yours done today - walk-ins welcome until [time]."
+    ],
+    "question_hooks": [
+      "Kid woke up miserable on Saturday and your pediatrician's closed until Monday?",
+      "Not sure if you need the ER or if urgent care can handle it?",
+      "Sitting in an ER waiting room right now for something that's probably minor?",
+      "Need a work note but your doctor's office won't see you for [X] days?",
+      "Got [insurance type] but don't know if urgent care is covered before you go?"
+    ],
+    "story_hooks": [
+      "How [Parent Name] got their son's ear infection treated Sunday morning without waiting until Monday",
+      "How [Patient] avoided a $[X] ER bill for stitches and paid only $[X] at urgent care",
+      "How [Employee] got a work injury treated and was back on the job the same day with all documentation",
+      "How [Parent] got their daughter's sports physical done on lunch break when the deadline was Friday",
+      "How [Patient] got COVID test results in [X] minutes instead of waiting [X] days"
+    ],
+    "fear_hooks": [
+      "Is your child suffering through the weekend because your pediatrician is closed?",
+      "Is a simple [injury/illness] about to cost you $[X] at the ER when it could be $[X]?",
+      "Are you risking your job by showing up sick without a work note or treatment?",
+      "Is your [school/sports] deadline tomorrow and you still don't have required [physical/forms]?",
+      "Are you about to waste [X] hours in an ER waiting room for something urgent care treats in [X] minutes?"
+    ],
+    "howto_hooks": [
+      "How to get your kid treated for [illness] this weekend without waiting until Monday or paying ER prices",
+      "How to know if your [injury/symptom] needs the ER or if urgent care can handle it in [X] minutes",
+      "How to get [treatment] today without an appointment, without a [X]-hour wait, and without missing work",
+      "How to avoid $[X] ER bills for [minor conditions] when urgent care charges only $[X]",
+      "How to get same-day [service] with your prescription sent to the pharmacy before you even leave"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: It's Saturday, you're sick, and your doctor's office is closed",
+      "body": "Show person waking up miserable → checking phone for doctor hours (closed) → contemplating ER → discovering urgent care open → walking in without appointment → quick check-in on phone → doctor visit → getting prescription sent to pharmacy → leaving in under an hour. Text overlay shows time stamps: 9:47am sick, 10:15am arrived, 11:00am done. End with relief face and 'why did I think I had to suffer all weekend?'",
+      "cta": "Save your spot now - link in bio"
+    },
+    "reels": {
+      "hook": "ER bill: $2,500. Urgent care bill: $75.",
+      "body": "Split screen showing same injury (cut needing stitches). Left side: ER waiting room chaos, 4-hour wait, massive bill. Right side: urgent care walk-in, 45-minute total time, reasonable copay. Both got identical treatment. Text: 'Same stitches. Same outcome. $2,425 difference.' Show actual itemized bills side-by-side.",
+      "cta": "Check if we take your insurance"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'I can't believe I waited this long' moment - film your check-in time and exit time, then share what you came in for and how fast you were seen. Bonus points for showing the relief on your face!",
+      "hashtag": "#InAndOutUrgentCare"
+    },
+    {
+      "prompt": "Parents: film your sick kid before urgent care vs. after getting treatment. Show the transformation from miserable to smiling. Tell us what time you arrived and how quickly they felt better.",
+      "hashtag": "#UrgentCareHero"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "ER vs Urgent Care price comparison chart - show actual bills for common conditions (stitches, broken finger, strep throat, UTI) with $2,000+ differences. Make it shareable as an infographic.",
+      "why": "Massive price discrepancies shock people and drive saves/shares. Everyone knows someone who got a crazy ER bill. Practical value people want to share with friends and family."
+    },
+    {
+      "angle": "'We asked 100 people when they last got sick' - show graph proving most people get sick evenings/weekends when doctors are closed. Contrast with primary care office hours. End with 'That's why we're open when you actually need us.'",
+      "why": "Validates universal frustration. Data-driven content performs well. People tag friends saying 'this is so true.' Positions urgent care as the obvious solution to timing problem everyone experiences."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T23:52:16.846Z",
+    "last_tier2_refresh": "2025-11-27T23:52:16.846Z",
+    "last_tier3_refresh": "2025-11-27T23:52:16.846Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T23:52:16.846Z"
+  }
+}

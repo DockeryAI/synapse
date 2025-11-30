@@ -1,0 +1,1713 @@
+{
+  "industry": "Brewery/Winery",
+  "industry_name": "Brewery/Winery",
+  "naics_code": "312120",
+  "category": "Food Service",
+  "subcategory": "Beverage Manufacturing",
+  "customer_triggers": [
+    {
+      "trigger": "Special occasion planning (wedding, anniversary, birthday)",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Weekend social gathering needs",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Corporate event or team building requirement",
+      "urgency": 8,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Tourist visiting area seeking local experience",
+      "urgency": 6,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Restaurant menu update requiring new wine pairings",
+      "urgency": 8,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Gift-giving seasons (holidays, Father's Day, etc.)",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Wine club membership renewal period",
+      "urgency": 7,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Limited release or seasonal brew availability",
+      "urgency": 10,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Social media influencer seeking content opportunities",
+      "urgency": 5,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Distribution partner inventory replenishment",
+      "urgency": 9,
+      "frequency": "bi-weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through social media (42%), word-of-mouth recommendations (31%), local event participation (18%), or tourism guides (9%). Initial touchpoint often involves Instagram posts of unique bottles or taproom experiences",
+    "consideration": "Research phase lasting 3-7 days involving website review for product offerings, reading 4-6 online reviews averaging 4.2+ stars, checking taproom hours and event calendar, comparing prices with 2-3 competitors",
+    "decision": "Purchase triggered by limited availability messaging (38% conversion boost), group consensus for social visits, or pairing recommendations from staff. Average decision time: 48 hours for events, immediate for on-premise consumption",
+    "retention": "Monthly engagement through wine club memberships ($89-189/month), loyalty programs offering every 10th tasting free, exclusive member events generating 67% repeat attendance, personalized recommendations based on purchase history",
+    "advocacy": "Active promotion begins after 3rd visit, with customers sharing experiences on social media (average 127 impressions per post), bringing 2-3 new customers within 60 days, participating in referral programs with 23% conversion rate"
+  },
+  "transformations": [
+    {
+      "from": "Generic beverage consumer",
+      "to": "Craft connoisseur with refined palate",
+      "emotional_value": "Sophistication and cultural elevation",
+      "worth_premium": true
+    },
+    {
+      "from": "Boring weekend routine",
+      "to": "Memorable social experiences",
+      "emotional_value": "Adventure and discovery",
+      "worth_premium": true
+    },
+    {
+      "from": "Standard corporate event",
+      "to": "Unique team-building experience",
+      "emotional_value": "Innovation and employee satisfaction",
+      "worth_premium": true
+    },
+    {
+      "from": "Tourist seeking activities",
+      "to": "Local culture ambassador",
+      "emotional_value": "Authentic connection to region",
+      "worth_premium": true
+    },
+    {
+      "from": "Gift-giving anxiety",
+      "to": "Thoughtful gift curator",
+      "emotional_value": "Recognition as considerate person",
+      "worth_premium": true
+    },
+    {
+      "from": "Social media content drought",
+      "to": "Influencer with engaging content",
+      "emotional_value": "Social validation and relevance",
+      "worth_premium": false
+    },
+    {
+      "from": "Restaurant with standard drinks",
+      "to": "Establishment with curated beverage program",
+      "emotional_value": "Competitive differentiation",
+      "worth_premium": true
+    },
+    {
+      "from": "Casual drinker",
+      "to": "Educated enthusiast supporting local business",
+      "emotional_value": "Community pride and knowledge",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Taproom visitor conversion to purchase (target: 78%)",
+      "timeframe": "per visit",
+      "measurable": true
+    },
+    {
+      "metric": "Wine club retention rate (target: 85% annual)",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Average transaction value increase (target: $47 to $68)",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Social media engagement rate (target: 4.7%)",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Event attendance capacity (target: 92% full)",
+      "timeframe": "per event",
+      "measurable": true
+    },
+    {
+      "metric": "Distribution partner reorder rate (target: 94%)",
+      "timeframe": "quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer lifetime value (target: $2,340)",
+      "timeframe": "36 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited batch releases selling out in 72 hours creates FOMO psychology",
+    "Seasonal offerings available only 6-8 weeks per year",
+    "Event tickets with early-bird pricing saving 25% if purchased 30+ days ahead",
+    "Wine club allocation windows closing in 5 days",
+    "Tour group bookings requiring 48-hour advance reservation",
+    "Happy hour pricing 3-6pm weekdays only, saving 30%",
+    "Harvest season experiences available only September-October"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Prices are too high compared to retail stores",
+      "response": "Our prices include the complete experience - expert guidance, exclusive access to limited releases, complimentary tastings saving $15-20, and supporting local agriculture with 73% of ingredients sourced within 50 miles",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "I don't know much about wine/beer",
+      "response": "Perfect! Our certified sommeliers/cicerones provide free educational tastings, and 89% of our first-time visitors leave feeling more confident. We start with your preferences and build from there",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Location is too far to visit regularly",
+      "response": "Join our ship-to-home club with free delivery on orders over $150, virtual tasting events monthly, and member-only allocation access. Plus, quarterly pickup parties make the trip worthwhile",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "I can buy similar products at the grocery store",
+      "response": "Our small-batch products are exclusively available here - grocery stores carry mass-produced alternatives with 40% less flavor complexity. Plus, you're missing the story, the experience, and the ability to customize",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Not sure if I'll like the products",
+      "response": "We offer a 100% satisfaction guarantee on first purchases, plus complimentary tastings of 5-6 varieties before you buy. Our staff has a 94% success rate in matching customers with products they love",
+      "effectiveness": 9.3
+    },
+    {
+      "objection": "Concerned about drinking and driving",
+      "response": "We partner with three local ride services offering 20% discounts, provide complimentary crackers and water, limit tasting pours to 1oz, and offer non-alcoholic options. Many customers make us their destination with a designated driver",
+      "effectiveness": 8.7
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction on first wine club shipment or full refund",
+      "Free replacement for any corked or damaged bottles",
+      "Event cancellation with full refund up to 48 hours prior",
+      "Price match guarantee on identical products within 30 miles"
+    ],
+    "proof_points": [
+      "4.6-star average from 2,847 Google reviews",
+      "Winner of 17 regional/national awards in past 3 years",
+      "Featured in Wine Spectator/Beer Advocate with 90+ ratings",
+      "Certified organic/sustainable practices since 2018"
+    ],
+    "risk_mitigation": "Flexible membership pause options, no long-term contracts required, transferable event tickets, shipping insurance included on all orders over $200, temperature-controlled storage and shipping"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "boring drinks",
+      "same old options",
+      "overpriced cocktails",
+      "don't know what to order",
+      "intimidating wine lists",
+      "mass-produced beer",
+      "special occasion pressure",
+      "gift-giving stress",
+      "tourist trap worries",
+      "pretentious atmosphere"
+    ],
+    "solution_words": [
+      "craft experience",
+      "local flavors",
+      "hidden gem",
+      "knowledgeable staff",
+      "welcoming atmosphere",
+      "unique selection",
+      "perfect pairing",
+      "memorable experience",
+      "Instagram-worthy",
+      "authentic taste"
+    ],
+    "avoid_jargon": [
+      "tannins",
+      "IBU",
+      "malolactic fermentation",
+      "brett",
+      "terroir",
+      "noble rot",
+      "trub",
+      "krausen",
+      "must",
+      "lees"
+    ]
+  },
+  "power_words": [
+    "exclusive",
+    "limited-edition",
+    "handcrafted",
+    "award-winning",
+    "locally-sourced",
+    "small-batch",
+    "reserve",
+    "artisanal",
+    "curated",
+    "boutique",
+    "seasonal",
+    "rare",
+    "authentic",
+    "estate",
+    "vintage",
+    "premium",
+    "signature",
+    "master",
+    "select",
+    "private",
+    "members-only",
+    "first-release",
+    "sold-out",
+    "waitlist",
+    "allocation",
+    "library",
+    "vertical",
+    "horizontal",
+    "grand",
+    "premier"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "mass-produced",
+    "industrial",
+    "artificial",
+    "synthetic",
+    "imitation",
+    "generic",
+    "commercial",
+    "factory",
+    "processed",
+    "standard",
+    "regular",
+    "basic",
+    "simple",
+    "amateur",
+    "beginner",
+    "inferior",
+    "second-rate"
+  ],
+  "headline_templates": [
+    {
+      "template": "Last [NUMBER] Bottles of [PRODUCT] - Members Get First Access",
+      "expected_ctr": 8.7,
+      "use_case": "email campaigns"
+    },
+    {
+      "template": "Why [LOCAL AREA] Chose Us as Best [Brewery/Winery] [YEAR]",
+      "expected_ctr": 6.2,
+      "use_case": "social proof"
+    },
+    {
+      "template": "Behind the Barrels: Meet the Master [Brewer/Vintner]",
+      "expected_ctr": 7.1,
+      "use_case": "storytelling content"
+    },
+    {
+      "template": "[NUMBER]% of Members Reorder This [PRODUCT] - Here's Why",
+      "expected_ctr": 7.8,
+      "use_case": "product promotion"
+    },
+    {
+      "template": "Free Tasting This [DAY]: Discover Your Perfect [Wine/Beer]",
+      "expected_ctr": 9.2,
+      "use_case": "event promotion"
+    },
+    {
+      "template": "From Grain/Grape to Glass: The [NUMBER]-Day Journey",
+      "expected_ctr": 5.9,
+      "use_case": "educational content"
+    },
+    {
+      "template": "[SEASON] Release Party: [DATE] - RSVP Required",
+      "expected_ctr": 8.3,
+      "use_case": "urgency creation"
+    },
+    {
+      "template": "Food Pairing Secrets: [PRODUCT] + [FOOD] = Perfection",
+      "expected_ctr": 6.8,
+      "use_case": "value-added content"
+    },
+    {
+      "template": "Join [NUMBER]+ Members Enjoying Exclusive Perks",
+      "expected_ctr": 7.4,
+      "use_case": "membership drive"
+    },
+    {
+      "template": "Warning: This [PRODUCT] Sells Out in [NUMBER] Days",
+      "expected_ctr": 9.1,
+      "use_case": "scarcity marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Reserve Your Tasting → ",
+      "conversion_rate": 12.3,
+      "placement": "hero section"
+    },
+    {
+      "template": "Join the Club & Save 20%",
+      "conversion_rate": 9.7,
+      "placement": "product pages"
+    },
+    {
+      "template": "See What's On Tap Today",
+      "conversion_rate": 8.2,
+      "placement": "homepage"
+    },
+    {
+      "template": "Book Your Private Event",
+      "conversion_rate": 6.8,
+      "placement": "events page"
+    },
+    {
+      "template": "Claim Your Member Benefits",
+      "conversion_rate": 14.1,
+      "placement": "email"
+    },
+    {
+      "template": "Get First Access",
+      "conversion_rate": 11.2,
+      "placement": "limited releases"
+    },
+    {
+      "template": "Start Your Journey",
+      "conversion_rate": 7.9,
+      "placement": "education content"
+    },
+    {
+      "template": "Ship to My Door",
+      "conversion_rate": 10.4,
+      "placement": "checkout"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Cheers to the weekend! 🍷 Our [PRODUCT] is the perfect pairing for [OCCASION]. Who's joining us? #LocalLove #CraftBeer",
+      "engagement_rate": 5.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "🎉 BIG NEWS: Our [PRODUCT] just won [AWARD]! Celebrate with us this [DAY] with 25% off glasses. Limited quantities available!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "JUST TAPPED: [BEER NAME] - [ABV]% ABV, notes of [FLAVOR]. Only [NUMBER] kegs available. First come, first served! 🍺",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a grape becoming our award-winning [WINE] 🍇 #WineMaking #BehindTheScenes #Process",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to announce our partnership with [LOCAL BUSINESS], featuring our craft beverages at their upcoming corporate events. Supporting local businesses together! 🤝",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Perfect Pairing: [WINE/BEER] + [RECIPE]. Save for your next dinner party! 📌",
+      "engagement_rate": 4.5
+    },
+    {
+      "platform": "YouTube",
+      "template": "Virtual Tour: See how we make our signature [PRODUCT] from start to finish (12-minute behind-the-scenes)",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your allocation is ready | Hi [NAME], your exclusive access to [PRODUCT] expires in 48 hours...",
+      "engagement_rate": 27.4
+    },
+    {
+      "platform": "SMS",
+      "template": "Flash sale! Show this text for 20% off flights today 3-6pm. Reply STOP to opt out.",
+      "engagement_rate": 18.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only source for 12+ exclusive small-batch products unavailable elsewhere",
+      "rank": 1,
+      "differentiator": "Product exclusivity"
+    },
+    {
+      "prop": "Expert-guided tastings included free with every visit ($20 value)",
+      "rank": 2,
+      "differentiator": "Educational experience"
+    },
+    {
+      "prop": "Farm-to-glass in 30 days with 100% local ingredients",
+      "rank": 3,
+      "differentiator": "Local sourcing"
+    },
+    {
+      "prop": "Members save 20-30% and get first access to limited releases",
+      "rank": 4,
+      "differentiator": "Member benefits"
+    },
+    {
+      "prop": "Award-winning quality with 90+ ratings from industry publications",
+      "rank": 5,
+      "differentiator": "Recognized excellence"
+    },
+    {
+      "prop": "Instagram-worthy venue with 360-degree vineyard/brewery views",
+      "rank": 6,
+      "differentiator": "Ambiance and setting"
+    },
+    {
+      "prop": "Carbon-neutral operations with certified sustainable practices",
+      "rank": 7,
+      "differentiator": "Environmental responsibility"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the pinnacle of craft excellence with our reserve collection, where each bottle represents generations of expertise, meticulously selected ingredients, and an unwavering commitment to perfection. Our master craftsmen produce fewer than 500 cases annually, ensuring every sip delivers an extraordinary journey worth savoring.",
+    "budget_conscious": "Exceptional craft doesn't require exceptional prices. Our house selections deliver authentic local flavor at prices competitive with mass-market alternatives. Join our loyalty program for additional savings, happy hour specials, and member-exclusive discounts making craft accessible for everyday enjoyment.",
+    "enterprise": "Elevate your corporate presence with our comprehensive beverage programs designed for discerning businesses. From custom labeling for client gifts to exclusive venue buyouts for team building, we provide turnkey solutions that reflect your company's commitment to quality and local partnership."
+  },
+  "trust_signals": [
+    {
+      "signal": "Industry certifications and awards displayed prominently",
+      "importance": 9,
+      "format": "physical and digital badges"
+    },
+    {
+      "signal": "Real-time customer reviews and ratings",
+      "importance": 8,
+      "format": "widget integration"
+    },
+    {
+      "signal": "Behind-the-scenes production transparency",
+      "importance": 7,
+      "format": "video content"
+    },
+    {
+      "signal": "Founder/brewmaster story and credentials",
+      "importance": 8,
+      "format": "about page feature"
+    },
+    {
+      "signal": "Media mentions and press features",
+      "importance": 7,
+      "format": "logo bar"
+    },
+    {
+      "signal": "Years in business and production milestones",
+      "importance": 6,
+      "format": "timeline infographic"
+    },
+    {
+      "signal": "Partnership with recognized local businesses",
+      "importance": 8,
+      "format": "collaboration announcements"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 50,000 bottles sold to satisfied customers since 2019",
+      "credibility_score": 8.5,
+      "context": "Homepage hero section"
+    },
+    {
+      "stat": "4.6-star average rating from 2,847 verified reviews",
+      "credibility_score": 9.2,
+      "context": "Product pages"
+    },
+    {
+      "stat": "Chosen by 200+ local restaurants for their beverage programs",
+      "credibility_score": 8.8,
+      "context": "B2B marketing materials"
+    },
+    {
+      "stat": "3,500+ active wine club members with 85% annual retention",
+      "credibility_score": 9,
+      "context": "Membership signup page"
+    },
+    {
+      "stat": "17 awards in national competitions over past 3 years",
+      "credibility_score": 8.7,
+      "context": "Tasting room displays"
+    },
+    {
+      "stat": "Featured in 12 major publications including Wine Spectator",
+      "credibility_score": 8.3,
+      "context": "Press page"
+    }
+  ],
+  "quality_indicators": [
+    "Price points above $18 per bottle indicate reserve quality, while under $12 suggests everyday drinking wines",
+    "Limited production runs under 1,000 cases signal artisanal craftsmanship versus 10,000+ case industrial production",
+    "Single-vineyard or single-hop designations versus blended sources indicate premium positioning",
+    "Hand-numbered bottles, wax seals, and cork closures signal premium while screw caps indicate approachable pricing",
+    "Barrel-aging program presence (12+ months) indicates serious investment in quality versus tank-only operations"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After second purchase or successful event completion when satisfaction peaks at 94% positive sentiment",
+    "ask_method": "Automated email with one-click star rating, followed by personalized request from staff for 4-5 star reviewers"
+  },
+  "competitive_advantages": [
+    "Only facility within 50 miles offering both production tours and hands-on blending experiences",
+    "Exclusive distribution rights to three heritage grain/grape varietals extinct elsewhere",
+    "Master brewer/vintner with 25+ years experience including time at internationally recognized facilities",
+    "Private event space accommodating 200+ guests with full catering kitchen on-site",
+    "Direct-to-consumer model eliminating distributor markup allowing 30% better pricing than competitors"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium $89 reserve tasting first, making $25 standard tasting appear reasonable, increasing standard selection by 34%",
+    "sensitivity": "Sweet spot at $15-22 per bottle for regular purchases, $35-55 for gifts, $75+ for special occasions",
+    "sweet_spots": [
+      "$49 for two-bottle gift sets",
+      "$89-109 for monthly club memberships",
+      "$15-18 per person for group tastings"
+    ],
+    "decoy_pricing": "Offer three tasting levels at $15, $25, and $45 - middle option chosen 67% of time versus 41% with only two options"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 500,
+    "competitor_research": 100
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Explorer",
+      "price_range": "$29-49/month",
+      "target_customer": "Casual enthusiasts wanting variety",
+      "margin": 42
+    },
+    {
+      "tier": "Connoisseur",
+      "price_range": "$89-129/month",
+      "target_customer": "Regular consumers seeking curation",
+      "margin": 48
+    },
+    {
+      "tier": "Collector",
+      "price_range": "$189-299/month",
+      "target_customer": "Serious enthusiasts building cellars",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift focus to direct-to-consumer sales eliminating 30% distributor margin",
+    "Implement dynamic pricing for tours based on demand, increasing revenue 18%",
+    "Bundle merchandise with beverages adding $8-12 pure margin per transaction",
+    "Create exclusive member-only products with 15% premium pricing",
+    "Optimize production scheduling reducing waste by 22% and improving margins 7%",
+    "Negotiate bulk ingredient purchases with 6-month commitments saving 14%"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday spending fatigue",
+      "opportunity": "Dry January alternative beverages"
+    },
+    {
+      "month": "February",
+      "variation": 5,
+      "reason": "Valentine's Day gift purchases",
+      "opportunity": "Romantic package deals"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring break tourism begins",
+      "opportunity": "Tourist-focused experiences"
+    },
+    {
+      "month": "April",
+      "variation": 15,
+      "reason": "Easter and spring celebrations",
+      "opportunity": "Outdoor event hosting"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Mother's Day and graduations",
+      "opportunity": "Gift packaging focus"
+    },
+    {
+      "month": "June",
+      "variation": 30,
+      "reason": "Wedding season peak",
+      "opportunity": "Bulk wedding orders"
+    },
+    {
+      "month": "July",
+      "variation": 35,
+      "reason": "Summer tourism peak",
+      "opportunity": "Extended hours operation"
+    },
+    {
+      "month": "August",
+      "variation": 30,
+      "reason": "Continued tourism and events",
+      "opportunity": "Harvest preparation tours"
+    },
+    {
+      "month": "September",
+      "variation": 40,
+      "reason": "Harvest season and fall releases",
+      "opportunity": "Limited edition launches"
+    },
+    {
+      "month": "October",
+      "variation": 45,
+      "reason": "Oktoberfest and harvest events",
+      "opportunity": "Festival participation"
+    },
+    {
+      "month": "November",
+      "variation": 20,
+      "reason": "Holiday shopping begins",
+      "opportunity": "Gift set pre-orders"
+    },
+    {
+      "month": "December",
+      "variation": 50,
+      "reason": "Holiday parties and gifts",
+      "opportunity": "Corporate gift programs"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Industry networking events",
+      "avoid": "Public tastings",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Wine club shipment announcements",
+      "avoid": "Major events",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week promotional emails",
+      "avoid": "Premium releases",
+      "conversion_rate": 5.7
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend event promotion",
+      "avoid": "Maintenance closures",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Happy hour and social gatherings",
+      "avoid": "Complex educational content",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Tours, tastings, and events",
+      "avoid": "B2B outreach",
+      "conversion_rate": 14.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch pairings and family visits",
+      "avoid": "Membership renewals",
+      "conversion_rate": 9.6
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Credit card payments typically due 1st-5th, affecting discretionary spending mid-month",
+    "cash_flow_peaks": "Strongest sales days 1st-3rd and 15th-17th aligning with typical pay periods",
+    "slow_periods": "Days 20-25 typically show 23% decrease in non-essential purchases requiring promotional support"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "December 20-24",
+      "crisis_type": "Last-minute gift needs",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Day before major holidays",
+      "crisis_type": "Event beverage emergency",
+      "premium_multiplier": 2.2
+    },
+    {
+      "time": "Friday 4-7pm",
+      "crisis_type": "Weekend party supply shortage",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Wedding weekends May-October",
+      "crisis_type": "Event supply issues",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Tasting Experience",
+      "components": [
+        "5-6 sample pours",
+        "Educational guidance",
+        "Tasting notes",
+        "Souvenir glass"
+      ],
+      "pricing_model": "Fixed fee $25-35",
+      "margin": 72
+    },
+    {
+      "name": "Private Event Package",
+      "components": [
+        "Venue rental",
+        "Dedicated staff",
+        "Custom tasting menu",
+        "Catering options"
+      ],
+      "pricing_model": "Hourly + per person",
+      "margin": 58
+    },
+    {
+      "name": "Wine/Beer Club Membership",
+      "components": [
+        "Monthly shipments",
+        "Member discounts",
+        "Exclusive access",
+        "Free tastings"
+      ],
+      "pricing_model": "Subscription $89-189",
+      "margin": 51
+    },
+    {
+      "name": "Corporate Partnership",
+      "components": [
+        "Bulk ordering",
+        "Custom labeling",
+        "Delivery service",
+        "Account management"
+      ],
+      "pricing_model": "Volume-based pricing",
+      "margin": 43
+    }
+  ],
+  "upsell_paths": [
+    "Single tasting visit → Return visit with friends (47% conversion within 30 days)",
+    "Standard tasting → Premium reserve tasting (31% same-visit upgrade)",
+    "Bottle purchase → Case purchase with 10% discount (28% conversion)",
+    "Casual visitor → Wine club member (19% convert within 3 visits)",
+    "Wine club member → Premium tier upgrade (23% upgrade year 2)",
+    "Event attendee → Private event host (14% book within 6 months)"
+  ],
+  "retention_hooks": [
+    "Personalized allocation notifications based on preference history achieving 73% open rates",
+    "Member-only release parties with 67% attendance rate strengthening community bonds",
+    "Loyalty points program with tangible rewards at achievable thresholds (every $100 spent)",
+    "Birthday month perks including complimentary tasting for party of 4 ($100 value)",
+    "Exclusive access to library wines and vertical tastings unavailable to public",
+    "Quarterly winemaker/brewmaster dinners limited to 20 members creating intimacy",
+    "Flexible membership pause options reducing cancellations by 41%"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Member brings friend who joins, both receive $50 credit",
+      "timing": "After 3rd shipment",
+      "incentive": "$50 credit each",
+      "conversion_rate": 23
+    },
+    {
+      "strategy": "Social media check-in rewards with free tasting upgrade",
+      "timing": "During visit",
+      "incentive": "$10 value upgrade",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Email forward campaign for event invitations",
+      "timing": "2 weeks before events",
+      "incentive": "Priority booking",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Corporate referral program with tiered benefits",
+      "timing": "Post successful event",
+      "incentive": "10-20% future discount",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Wedding couple referral to other engaged couples",
+      "timing": "1 month post-wedding",
+      "incentive": "Commemorative bottles",
+      "conversion_rate": 27
+    },
+    {
+      "strategy": "Tourism partner cross-referrals with local hotels",
+      "timing": "Ongoing partnership",
+      "incentive": "Commission structure",
+      "conversion_rate": 21
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Merchandise (glasses, apparel, accessories)",
+      "attach_rate": 34,
+      "timing": "During tasting or checkout"
+    },
+    {
+      "service": "Food pairings (cheese, charcuterie)",
+      "attach_rate": 28,
+      "timing": "With bottle purchases"
+    },
+    {
+      "service": "Gift packaging and personalization",
+      "attach_rate": 41,
+      "timing": "Holiday seasons"
+    },
+    {
+      "service": "Virtual tasting kits for remote events",
+      "attach_rate": 19,
+      "timing": "Corporate inquiries"
+    },
+    {
+      "service": "Educational classes and certifications",
+      "attach_rate": 12,
+      "timing": "After 6+ visits"
+    },
+    {
+      "service": "Cellar management and storage services",
+      "attach_rate": 8,
+      "timing": "Large purchase triggers"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Distribution to specialty retailers within 100-mile radius",
+      "market_size": "$2.3M annual potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Online marketplace for nationwide shipping",
+      "market_size": "$4.7M annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Contract production for private labels",
+      "market_size": "$1.8M annual potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Franchise tasting room locations in tourist areas",
+      "market_size": "$3.2M annual potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Canned/ready-to-drink product line for retail",
+      "market_size": "$2.9M annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "International export to established craft markets",
+      "market_size": "$5.1M annual potential",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Samuel Adams 'For the Love of Beer' documentary series on YouTube showcasing brewing process, ingredients, and brewer stories",
+        "platform": "YouTube",
+        "why_it_worked": "Educational storytelling that builds brand authority while entertaining; focuses on craft and authenticity rather than hard selling; taps into customer desire to understand what they're drinking",
+        "metrics": "Videos averaged 50K-200K views, with engagement rates 3x higher than product-focused content",
+        "source": "Content Marketing Institute case study on beverage industry storytelling",
+        "confidence": "high"
+      },
+      {
+        "example": "Stone Brewing's Instagram 'Throwback Thursday' series featuring vintage brewery photos and founding story moments",
+        "platform": "Instagram",
+        "why_it_worked": "Nostalgia marketing combined with behind-the-scenes authenticity; user-generated content encouraged through hashtag campaigns; builds community and brand loyalty",
+        "metrics": "Average engagement rate of 4.2% compared to industry average of 1.5% for brewery posts",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Alcohol Brands",
+        "confidence": "high"
+      },
+      {
+        "example": "Napa Valley wineries' virtual tasting events during 2020-2023, with shipped tasting kits and live sommelier-led Zoom sessions",
+        "platform": "Zoom/Email",
+        "why_it_worked": "Created experiential marketing during pandemic; converted to ongoing hybrid model; builds email list and creates premium experience; average ticket price $75-150 per person",
+        "metrics": "60-70% conversion rate from email invite to registration; 40% of attendees became wine club members within 3 months",
+        "source": "Wine Business Monthly - Digital Transformation Report 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Dogfish Head Brewery's 'Beer & Benevolence' social media campaign tying limited releases to charitable causes",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Purpose-driven marketing resonates with millennial/Gen Z consumers; creates urgency through limited releases; builds brand values beyond product",
+        "metrics": "Campaign posts generated 5-7x normal engagement rates; limited releases sold out 40% faster than standard releases",
+        "source": "Brewbound industry publication case study 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "Sonoma County wineries' collaborative 'Harvest Stories' Instagram Reels series showing grape-to-bottle journey in 30-60 second clips",
+        "platform": "Instagram Reels",
+        "why_it_worked": "Short-form video capitalizes on platform algorithm preferences; educational content in digestible format; showcases terroir and craftsmanship; regional collaboration amplifies reach",
+        "metrics": "Reels averaged 15K-40K views compared to 2K-5K for static posts; 25% increase in tasting room bookings mentioned seeing Reels",
+        "source": "Wine Industry Advisor - Social Media Trends Report 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.1% for breweries, 1.8-2.4% for wineries",
+        "best_content_format": "Reels (3.8% avg engagement) followed by carousel posts (2.2%), then single images (1.4%)",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Reels per week for maximum reach",
+        "best_posting_times": "Thursday-Saturday 5-8pm local time; Sunday 11am-2pm for brunch crowd",
+        "source": "Rival IQ 2024 Social Media Benchmark Report - Alcohol & Beverage Industry"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for craft breweries and wineries",
+        "best_content_format": "Video posts (1.5% engagement) and event announcements (1.3% engagement); live videos perform 3x better than pre-recorded",
+        "optimal_frequency": "3-5 posts per week; over-posting decreases engagement",
+        "best_posting_times": "Friday 1-3pm, Saturday 9am-12pm, Wednesday 11am-1pm",
+        "source": "Sprout Social 2024 Industry Benchmark Data - Food & Beverage"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rates: 22-28% for wine clubs, 18-24% for brewery newsletters; Click-through rates: 3.5-5.2%",
+        "best_content_format": "Personalized wine/beer recommendations based on past purchases; exclusive member-only releases; educational content about tasting notes and pairings",
+        "optimal_frequency": "2-4 emails per month for wine clubs; weekly for event-driven breweries; bi-weekly for general subscribers",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm or 6-8pm; avoid Mondays and weekends",
+        "source": "Mailchimp Industry Benchmarks 2024 - Food & Beverage; Wine Business Monthly Email Marketing Study 2023"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.2-8.7% for beverage alcohol content (significantly higher than other platforms)",
+        "best_content_format": "Behind-the-scenes brewing/winemaking (9.1% engagement), educational 'myth-busting' content (7.8%), pairing suggestions (6.4%)",
+        "optimal_frequency": "3-5 posts per week minimum; daily posting shows 40% higher follower growth",
+        "best_posting_times": "Tuesday-Thursday 7-9pm, Saturday 9-11am",
+        "source": "Later.com TikTok Engagement Study 2024; Brewers Association Digital Marketing Report 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.8-4.1% engagement (likes, comments, shares relative to views)",
+        "best_content_format": "Long-form educational content (8-15 minutes), virtual tastings, brewery/winery tours, 'how it's made' series",
+        "optimal_frequency": "1-2 high-quality videos per week or 2-4 per month for smaller operations",
+        "best_posting_times": "Thursday-Saturday 12-3pm, Sunday 9am-12pm",
+        "source": "Tubular Labs Beverage Industry Video Performance Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Scarcity + Exclusivity: 'Only [X] bottles/cases available'",
+        "example": "Only 200 cases of our 2019 Reserve Cabernet will ever be made - Wine Club members get first access Thursday",
+        "why_it_works": "Triggers FOMO and urgency; appeals to desire for exclusive products; creates immediate action; limited-edition items command 30-40% price premium in wine/beer market",
+        "source": "Wine club email examples from Napa Valley Vintners; Psychology of Scarcity in Craft Beverage Marketing study"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Revelation: 'What really happens when...'",
+        "example": "What really happens during barrel aging? Our head winemaker reveals the 3 decisions that make or break a vintage",
+        "why_it_works": "Satisfies curiosity about craft process; builds authority and trust; educational content has 2.5x higher save rate on Instagram; positions brand as expert",
+        "source": "Successful brewery and winery blog titles from CraftBeer.com and WineFolly.com"
+      },
+      {
+        "hook_pattern": "Social Proof + Achievement: 'Award-winning [specific accolade]'",
+        "example": "Our 2022 Pinot Noir just won Double Gold at San Francisco International Wine Competition - here's the story behind it",
+        "why_it_works": "Third-party validation reduces purchase risk; specific awards more credible than generic claims; 73% of wine buyers influenced by competition medals according to Wine Market Council",
+        "source": "Wine competition marketing best practices; Consumer wine purchase behavior studies"
+      },
+      {
+        "hook_pattern": "Problem-Solution with Specificity: 'Struggling to [specific problem]? Try [specific solution]'",
+        "example": "Struggling to find the perfect wine for spicy Thai food? Our off-dry Riesling is what sommeliers actually recommend",
+        "why_it_works": "Addresses specific customer pain point (pairing anxiety); offers expert solution; 'what sommeliers recommend' adds authority; pairing content gets 3x more engagement than product-only posts",
+        "source": "Wine retailer email subject line A/B testing data from Wine.com case studies"
+      },
+      {
+        "hook_pattern": "Local Pride + Authenticity: '[Location] grown/made/crafted'",
+        "example": "100% estate-grown on our Sonoma vineyard - taste the difference terroir makes",
+        "why_it_works": "Appeals to 'drink local' movement; 68% of craft beverage consumers prefer locally-produced options; authenticity and transparency drive millennial purchasing decisions",
+        "source": "Brewers Association consumer survey 2023; Local wine movement statistics from Wine Industry Advisor"
+      },
+      {
+        "hook_pattern": "Seasonal Urgency + Sensory Language: 'Before [season] ends...'",
+        "example": "Before summer ends, experience our crisp, citrus-forward Sauvignon Blanc on our sun-drenched patio",
+        "why_it_works": "Creates time-bound urgency; sensory words increase emotional response; seasonal messaging increases click-through rates by 22%; connects product to experience",
+        "source": "Seasonal marketing performance data from beverage industry email campaigns"
+      },
+      {
+        "hook_pattern": "Insider Access: 'Wine Club/Member exclusive'",
+        "example": "Wine Club Exclusive: Reserve your allocation of our Winemaker's Select before public release",
+        "why_it_works": "Rewards loyalty; creates tiered value perception; exclusivity increases perceived value by 35-50%; drives wine club sign-ups and retention",
+        "source": "Wine club retention and marketing studies from Wine Business Monthly"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I never know what wine to bring to a dinner party",
+        "Everything at the grocery store tastes the same",
+        "I want to learn about wine but feel intimidated",
+        "Looking for unique experience that's not just another restaurant",
+        "Need corporate event idea that won't bore everyone to death",
+        "Tired of the same boring beers at every bar",
+        "Want to support local but don't know which breweries are actually good",
+        "Gift shopping is so stressful - nothing feels special anymore",
+        "Hard to find wines that are actually worth the price",
+        "Want something special for our anniversary but everything feels generic"
+      ],
+      "solution_phrases": [
+        "The tasting room staff actually explained what I was tasting without being snobby",
+        "Finally found a brewery where I can bring my dog and the whole family",
+        "Their wine club sends me bottles I would never find on my own",
+        "Love that they tell the story behind each vintage",
+        "The private tour made us feel like VIPs",
+        "Their small-batch releases are actually unique and worth seeking out",
+        "Best corporate event we've done - team actually bonded over the experience",
+        "The winemaker personally walked us through the barrel room",
+        "Their food pairing suggestions actually work",
+        "Found my new favorite spot for weekend relaxation"
+      ],
+      "objection_phrases": [
+        "Is it worth the drive out there?",
+        "Seems expensive for just a tasting",
+        "Do I need to know a lot about wine to enjoy it?",
+        "Will it be too crowded on weekends?",
+        "Not sure if my group would be into it",
+        "Is the wine club commitment too much?",
+        "Can I cancel the membership if I don't like it?",
+        "Do they have options for people who don't drink alcohol?",
+        "Is it kid-friendly or adults only?",
+        "How does this compare to [competitor name]?"
+      ],
+      "decision_factors": [
+        "Can I bring my own food or do they have good food options",
+        "Whether they have outdoor seating",
+        "If reservations are required or if we can just show up",
+        "The vibe - is it pretentious or laid-back",
+        "Whether they offer flights or just full pours",
+        "Distance from where we're staying",
+        "If they have live music or events",
+        "Whether they ship or have a wine club",
+        "Reviews mentioning knowledgeable staff",
+        "Instagram photos showing the actual space and atmosphere",
+        "Whether they allow dogs",
+        "Parking availability"
+      ],
+      "emotional_language": [
+        "obsessed with",
+        "hidden gem",
+        "blown away",
+        "can't wait to go back",
+        "best experience",
+        "totally worth it",
+        "fell in love with",
+        "unexpected surprise",
+        "perfect afternoon",
+        "new favorite place",
+        "authentic",
+        "welcoming",
+        "memorable",
+        "discovered",
+        "passionate"
+      ],
+      "sources": [
+        "Reddit r/wine, r/craftbeer threads from 2023-2024",
+        "TripAdvisor reviews of top-rated wineries and breweries in Napa, Sonoma, Willamette Valley",
+        "Yelp reviews of craft breweries in Portland, San Diego, Denver",
+        "Google Reviews of wineries and tasting rooms",
+        "Facebook comments on winery and brewery event posts",
+        "Wine-Searcher.com user reviews and forum discussions"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content for complete beginners without condescension - most content assumes base knowledge",
+      "Transparent pricing and value explanation - many wineries/breweries don't clearly communicate why their products cost more",
+      "Accessibility content - very few highlight wheelchair access, sensory-friendly options, or non-alcoholic alternatives prominently",
+      "Day-of spontaneous visit content - most focus on reservations and planning, missing walk-in traffic",
+      "Male gift-giver content - most content targets women, missing the significant male gift-buying market",
+      "Sustainability stories told through specific metrics rather than vague claims",
+      "Content for the 'sophisticated beer drinker' who wants craft beer education similar to wine education",
+      "Practical pairing content for everyday meals, not just special occasions",
+      "Behind-the-scenes financial/business side - the economics of running a winery/brewery",
+      "Failure stories and learning moments - everything is polished success, missing authenticity opportunity"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "September-November (Harvest Season)",
+        "opportunity": "Crush season is peak interest time for wine tourism; harvest events, grape stomping, behind-the-scenes access",
+        "content_angle": "Live harvest updates, 'follow this vintage' series, winemaker takeovers on social, harvest party event promotion, educational content about harvest decisions"
+      },
+      {
+        "period": "November-December (Holiday Season)",
+        "opportunity": "Gift-buying peaks; corporate event bookings; holiday party hosting; wine club memberships as gifts",
+        "content_angle": "Gift guides, corporate event packages, holiday pairing suggestions, limited-edition holiday releases, gift membership promotions, New Year's Eve event promotion"
+      },
+      {
+        "period": "January-February (Dry January/Resolution Season)",
+        "opportunity": "Non-alcoholic options, moderation messaging, wine education for the new year, slower season for deals",
+        "content_angle": "Wine 101 educational series, non-alcoholic offerings, off-season tasting room deals, 'learn to taste' classes, barrel tasting events before bottling"
+      },
+      {
+        "period": "March-May (Spring/Wedding Season)",
+        "opportunity": "Wedding venue bookings, engagement parties, Mother's Day, outdoor patio season begins",
+        "content_angle": "Wedding package showcases, venue tour content, rosé season launch, Mother's Day gift sets, spring release parties, patio opening announcements"
+      },
+      {
+        "period": "June-August (Summer Tourism Peak)",
+        "opportunity": "Peak tourist season, outdoor events, rosé and light beer season, concert series, food truck partnerships",
+        "content_angle": "Summer concert series promotion, rosé and summer beer content, tourist itinerary suggestions, 'locals vs tourists' insider tips, extended hours announcements, heat wave refreshment messaging"
+      },
+      {
+        "period": "Father's Day (Mid-June)",
+        "opportunity": "Second-biggest gift-giving occasion for wine/beer after Christmas",
+        "content_angle": "Father's Day gift packages, 'beer/wine for Dad' guides, father-son/daughter tasting experiences, grilling and pairing content"
+      },
+      {
+        "period": "October (Oktoberfest)",
+        "opportunity": "Beer-specific seasonal celebration, even wineries can leverage fall harvest themes",
+        "content_angle": "Oktoberfest events, fall beer releases, harvest festivals, pumpkin beer launches, German-style beer education"
+      },
+      {
+        "period": "Valentine's Day (February)",
+        "opportunity": "Romantic experiences, couple's packages, premium gift purchases",
+        "content_angle": "Couple's tasting experiences, romantic dinner pairings, 'date night' packages, love story behind the winery/brewery, limited Valentine's releases"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Wine Business Monthly 2023-2024 issues",
+      "Brewers Association Digital Marketing Report 2024",
+      "Sprout Social 2024 Industry Benchmarks",
+      "Mailchimp Industry Benchmarks 2024",
+      "Content Marketing Institute beverage case studies",
+      "Later.com TikTok Engagement Study 2024",
+      "Tubular Labs Video Performance Report 2024",
+      "Reddit communities: r/wine, r/craftbeer, r/winemaking",
+      "TripAdvisor winery and brewery reviews",
+      "Yelp craft brewery reviews",
+      "Wine Industry Advisor publications",
+      "Brewbound industry news and case studies",
+      "Wine Market Council consumer research",
+      "CraftBeer.com content examples",
+      "WineFolly.com educational content"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Specific A/B testing data for subject lines was limited - most examples are observational",
+      "TikTok benchmarks are newer and less established than other platforms",
+      "Some engagement metrics are ranges rather than specific numbers due to variation by region and size",
+      "Limited data on LinkedIn performance for B2B winery/brewery marketing",
+      "Conversion rate data from social to purchase is proprietary and rarely published"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-barrel secrets - What really happens during [product] creation",
+        "Week 2: Limited-edition scarcity - Only [X] cases available, Wine Club/Member first access",
+        "Week 3: Real customer discovery stories - How [product] became their new obsession",
+        "Week 4: Final allocation countdown - Last chance for exclusive reserve access"
+      ],
+      "weekly_hooks": [
+        [
+          "What really happens when we decide which barrels make it into our [new release]? Our head winemaker reveals the 3 decisions that make or break a vintage",
+          "Before [season] ends, we're revealing the story behind our most exclusive [product] yet - only [X] people will ever taste it",
+          "Behind-the-scenes revelation: The unexpected surprise that made our [new product] completely different from anything we've crafted before"
+        ],
+        [
+          "Only [X] cases of our [year] Reserve [product] will ever be made - Wine Club members get first access [day]",
+          "Award-winning breakthrough: Our [new product] just earned [specific accolade] - here's the story behind what made judges call it 'unforgettable'",
+          "[Location] estate-grown and handcrafted - taste the difference terroir makes in our limited-edition [product]"
+        ],
+        [
+          "They were blown away: '[Customer quote about being obsessed with new product]' - discover why our [product] became their new favorite place",
+          "From 'I never know what [wine/beer] to bring' to confident curator - how our [product] solved [customer name]'s gift-giving anxiety",
+          "Totally worth it: See why 89% of first-time tasters of our [product] immediately joined our allocation list"
+        ],
+        [
+          "Final allocation alert: Only [X] bottles remain of our small-batch [product] before it's gone forever",
+          "Wine Club Exclusive ends [date]: Reserve your allocation of our Winemaker's Select [product] before public release",
+          "Last call for [product]: This vintage won't be replicated - secure your bottles before [specific date/time]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know much about wine/beer' - Position launch as perfect learning opportunity with expert guidance included",
+        "Week 2: Address 'Seems expensive for just a tasting' - Emphasize exclusive access, limited availability, and complete experience value",
+        "Week 3: Address 'Not sure if I'll like the products' - Feature customer testimonials and 100% satisfaction guarantee",
+        "Week 4: Address 'Is the wine club commitment too much?' - Highlight flexible membership, cancellation policy, and member-only benefits"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce winemaker/brewmaster credentials and behind-the-scenes process authenticity",
+        "Week 2: Share specific awards, competition results, and third-party validation",
+        "Week 3: Feature detailed customer testimonials with before/after transformation stories",
+        "Week 4: Final credibility push with scarcity metrics (X% sold, X bottles remaining) and urgency social proof"
+      ],
+      "cta_progression": [
+        "Week 1: 'Learn the story behind [product]' - Link to educational blog post or video tour",
+        "Week 2: 'Join the VIP preview list for first access' - Email capture for early notification",
+        "Week 3: 'Reserve your allocation now' - Direct purchase or wine club sign-up link",
+        "Week 4: 'Claim your bottles before [date]' - Urgent conversion with countdown timer"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week with 4-5 Reels showing behind-the-scenes creation)",
+        "Email (2 dedicated campaign emails/week to segmented lists)",
+        "Facebook (3-4 posts/week including 1 live video during launch week)",
+        "YouTube (1 long-form documentary-style video about product creation)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Samuel Adams documentary series success (50K-200K views, 3x engagement over product content), scarcity hook pattern showing 30-40% price premium for limited editions, and virtual tasting 60-70% email conversion rates. Dogfish Head's charitable campaign showed limited releases sold 40% faster, validating scarcity-driven launch approach."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Craft education fundamentals - What complete beginners need to know without intimidation",
+        "Week 2: Pairing made practical - Everyday meal solutions not just special occasions",
+        "Week 3: Local authenticity stories - The people and process behind what you're drinking",
+        "Week 4: Seasonal tasting notes - What's perfect for this time of year and why",
+        "Week 5: Member/customer spotlight - Real discovery stories from your community",
+        "Week 6: Sustainability metrics - Specific, transparent environmental impact data",
+        "Week 7: Behind-the-business insights - The economics and decisions of running a craft operation",
+        "Week 8: Weekend experience inspiration - Unique social gathering ideas and event previews"
+      ],
+      "weekly_hooks": [
+        [
+          "Struggling to understand tasting notes? Our sommelier breaks down what 'notes of cherry' actually means in language that makes sense",
+          "What really happens during barrel aging? A complete beginner's guide to the process that transforms your favorite [wine/beer]",
+          "New to craft [wine/beer]? Start here: The 3 things our experts wish everyone knew before their first tasting"
+        ],
+        [
+          "Struggling to find the perfect [wine/beer] for spicy Thai food? Here's what sommeliers actually recommend (and why it works)",
+          "Your Tuesday night pasta deserves better: The unexpected [wine/beer] pairing that'll make weeknight dinners feel special",
+          "Grilling this weekend? The 5 [wines/beers] that make BBQ taste even better (with specific pairing logic)"
+        ],
+        [
+          "[Location] estate-grown on our [specific vineyard/hop farm] - meet the farmers who make terroir more than just a buzzword",
+          "Throwback Thursday: The story behind our founding and why we're still obsessed with small-batch quality 20 years later",
+          "100% locally-sourced ingredients from within 50 miles - here's the exact breakdown and why it matters to your glass"
+        ],
+        [
+          "Before [season] ends, experience our [seasonal product] - here's why this time of year creates the perfect flavor profile",
+          "What's peak right now: Our winemaker's current favorite pour and the seasonal story behind it",
+          "Harvest update: Follow this vintage from grape to bottle - today's decision will impact what you taste in [X] months"
+        ],
+        [
+          "From 'I never know what wine to bring' to confident host - [Customer name]'s discovery story",
+          "Hidden gem alert: Why [customer] drives 45 minutes every month and calls it their new favorite place",
+          "They were blown away: How our tasting room staff helped [customer] find their perfect match without being snobby"
+        ],
+        [
+          "Our sustainability by the numbers: [X]% water reduction, [X] tons composted, [X] solar panels installed - the authentic breakdown",
+          "Estate-grown means zero transportation emissions for 73% of our ingredients - here's the exact local sourcing map",
+          "What 'organic' really means in winemaking: The specific practices we use and the certifications that back them up"
+        ],
+        [
+          "The real cost of making small-batch [wine/beer]: Why craft pricing reflects quality, not markup (with transparent breakdown)",
+          "Failure story: The vintage that didn't work and what we learned about taking risks in winemaking",
+          "Behind the business: How we decide which limited releases to make and why some ideas never make it to bottle"
+        ],
+        [
+          "Looking for unique experience that's not just another restaurant? This weekend's [event] is what locals actually recommend",
+          "Perfect afternoon incoming: Our sun-drenched patio + [seasonal product] + live music [date]",
+          "Weekend plans sorted: Why our [day] tasting flights are the best way to discover your new obsession"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know much about wine/beer' with beginner-friendly educational content",
+        "Week 2: Address 'Everything tastes the same' by showcasing unique pairing applications",
+        "Week 3: Address 'Want to support local but don't know which are actually good' with authenticity proof",
+        "Week 4: Address 'Is it worth the drive?' with seasonal exclusivity and timing value",
+        "Week 5: Address 'Not sure if my group would be into it' with diverse customer stories",
+        "Week 6: Address vague sustainability skepticism with specific, measurable data",
+        "Week 7: Address 'Prices too high compared to retail' with transparent value explanation",
+        "Week 8: Address 'Will it be too crowded on weekends?' with event details and reservation info"
+      ],
+      "proof_timing": [
+        "Week 1: Educational credentials of staff (certified sommeliers/cicerones)",
+        "Week 2: Third-party pairing validation (sommelier recommendations, chef partnerships)",
+        "Week 3: Local sourcing partnerships and farmer relationships",
+        "Week 4: Seasonal awards and competition recognition",
+        "Week 5: Detailed customer testimonials with transformation stories",
+        "Week 6: Sustainability certifications and third-party audits",
+        "Week 7: Industry recognition and business longevity proof",
+        "Week 8: Event attendance numbers and community engagement metrics"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our beginner's tasting guide' - Educational resource",
+        "Week 2: 'Save this pairing chart for your next meal' - Value-add engagement",
+        "Week 3: 'Take a virtual tour of our estate' - Soft exploration",
+        "Week 4: 'See what's available this month' - Product browsing",
+        "Week 5: 'Read more customer stories' - Social proof deepening",
+        "Week 6: 'Explore our sustainability practices' - Values alignment",
+        "Week 7: 'Learn about our wine club benefits' - Membership consideration",
+        "Week 8: 'Reserve your tasting this weekend' - Conversion action"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week with 3-4 Reels for educational content)",
+        "Email (2 newsletters/month with segmented educational series)",
+        "Facebook (3-4 posts/week focusing on events and community)",
+        "Blog/YouTube (1-2 long-form educational pieces/month)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing need for beginner-friendly education without condescension, practical pairing content for everyday meals, and transparent sustainability metrics. Stone Brewing's Throwback Thursday averaged 4.2% engagement vs 1.5% industry average, validating authenticity storytelling. Educational content shows 2.5x higher save rates per research findings."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-worthy behind-the-scenes moments - Harvest stories and craft process reveals",
+        "Week 2: User-generated content explosion - Customer discovery stories and social proof amplification"
+      ],
+      "weekly_hooks": [
+        [
+          "What really happens at 3am during harvest? Our crew reveals the moment that makes or breaks the vintage (behind-the-scenes video)",
+          "This is what [X] tons of grapes looks like before they become your favorite wine - watch the transformation in 60 seconds",
+          "POV: You're a barrel in our cellar for 18 months (the journey from grape to glass you've never seen)",
+          "The decision our winemaker makes in 30 seconds that determines if you'll taste cherry or chocolate notes",
+          "Myth-busting: What 'handcrafted' actually means in our brewery (spoiler: it's not what you think)",
+          "Behind-the-scenes revelation: The one ingredient we'll never compromise on, even when it costs 3x more"
+        ],
+        [
+          "Tag someone who needs to discover this hidden gem - best outdoor patio experience according to [X] locals",
+          "Share your tasting room photo with #[BrandName]Obsessed for a chance to be featured and win [prize]",
+          "They said it best: '[Customer quote about blown away experience]' - what was your first visit like? Comment below",
+          "Show us your perfect pour: Post your [brand] moment and tag us for a feature on our story",
+          "Which one are you? The 'I'll just have one glass' friend or the 'let's join the wine club' friend? Tag them",
+          "Your weekend plans look like this: [Shareable meme about tasting room experience] - who are you bringing?"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Everything at the grocery store tastes the same' by showcasing unique craft process",
+        "Week 2: Address 'Is it worth the drive?' with overwhelming social proof from real customers"
+      ],
+      "proof_timing": [
+        "Week 1: Process authenticity through raw behind-the-scenes footage and winemaker/brewmaster expertise",
+        "Week 2: Customer testimonials, user-generated content, and community size metrics (X thousand members, X reviews)"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily harvest updates' - Account follow and notification turn-on",
+        "Week 1: 'Share this with your wine-loving friend' - Viral amplification",
+        "Week 2: 'Tag us in your tasting room photos for a feature' - UGC generation",
+        "Week 2: 'Plan your visit - link in bio' - Conversion with lowered barrier"
+      ],
+      "platform_priority": [
+        "Instagram Reels (1-2 daily for algorithm boost and 5.2-8.7% engagement rate)",
+        "TikTok (1-2 daily, capitalizing on 5.2-8.7% engagement and viral potential)",
+        "Instagram Stories (3-4 daily for real-time harvest updates)",
+        "Facebook (1 post daily with shareable content and event promotion)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Sonoma Harvest Stories Reels generating 15K-40K views vs 2K-5K for static posts, and TikTok's 5.2-8.7% engagement rate being significantly higher than other platforms. Behind-the-scenes content shows 9.1% engagement on TikTok per research. Stone Brewing's nostalgic content achieved 4.2% vs 1.5% industry average, validating authenticity-driven viral approach."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Craft fundamentals masterclass - The science and art of fermentation explained",
+        "Week 2: Terroir deep-dive - How geography, climate, and soil create flavor complexity",
+        "Week 3: Tasting technique certification - Professional methods for evaluating quality",
+        "Week 4: Pairing philosophy - The chemistry behind why certain combinations work",
+        "Week 5: Industry economics transparency - What quality actually costs and why",
+        "Week 6: Advanced collector knowledge - Aging, cellaring, and vintage variation expertise"
+      ],
+      "weekly_hooks": [
+        [
+          "What really happens during fermentation? Our head winemaker breaks down the microbiology that creates the flavors you love",
+          "The 3 decisions during crush that determine if a wine will age 5 years or 20 - a winemaker's masterclass",
+          "Behind-the-scenes revelation: Why wild yeast fermentation creates 40% more flavor complexity (with science to back it)"
+        ],
+        [
+          "100% estate-grown on our [location] vineyard - here's the exact soil composition that makes our [product] taste like nowhere else",
+          "What 'terroir' actually means: The surprising way elevation, rainfall, and temperature create your tasting notes",
+          "[Location] vs [Location]: A side-by-side comparison showing how 10 miles creates completely different flavor profiles"
+        ],
+        [
+          "How sommeliers actually taste: The professional 5-step method that reveals 3x more flavor detail",
+          "Struggling to identify tasting notes? Our certified sommelier's technique for training your palate in 2 weeks",
+          "What 'legs' really tell you about wine quality (and what they don't) - myth-busting with our expert"
+        ],
+        [
+          "The chemistry behind pairing: Why fat, acid, and tannin create the perfect bite + sip combination",
+          "What sommeliers actually recommend for spicy food - the science of why off-dry wines cool the heat",
+          "Pairing philosophy masterclass: The 3 approaches (complement, contrast, cut) and when to use each"
+        ],
+        [
+          "The real cost of small-batch production: A transparent breakdown of why craft pricing reflects quality, not markup",
+          "What 'reserve' actually means: Industry terminology decoded with our specific selection criteria",
+          "Behind-the-business: The economic decision between volume and quality, and why we chose the harder path"
+        ],
+        [
+          "Cellaring 101: Which wines age gracefully and which should be enjoyed now (with specific vintage guidance)",
+          "What really happens to wine after 10 years in the bottle - the chemistry of aging explained",
+          "Vintage variation decoded: Why our 2019 tastes different from 2020, and what that tells you about quality"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I want to learn about wine but feel intimidated' with accessible expert education",
+        "Week 2: Address 'Everything tastes the same' by revealing terroir complexity",
+        "Week 3: Address 'I don't know what I'm tasting' with professional technique training",
+        "Week 4: Address 'Hard to find wines that are actually worth the price' with pairing value multiplication",
+        "Week 5: Address 'Seems expensive' with transparent cost and value justification",
+        "Week 6: Address 'How does this compare to [competitor]?' with vintage and quality differentiation"
+      ],
+      "proof_timing": [
+        "Week 1: Winemaker/brewmaster credentials, certifications, and years of experience",
+        "Week 2: Specific vineyard/hop farm data, soil tests, and geographic uniqueness proof",
+        "Week 3: Sommelier/cicerone certifications and professional training background",
+        "Week 4: Chef partnerships, restaurant placements, and pairing validation",
+        "Week 5: Industry awards, competition results, and third-party quality recognition",
+        "Week 6: Cellar-worthy ratings, critic scores, and aging potential validation"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our fermentation science guide' - Deep educational resource",
+        "Week 2: 'Explore our vineyard map and soil analysis' - Technical transparency",
+        "Week 3: 'Join our virtual tasting masterclass [date]' - Expert-led education event",
+        "Week 4: 'Get our professional pairing matrix' - Advanced tool download",
+        "Week 5: 'See our quality commitment breakdown' - Values alignment document",
+        "Week 6: 'Reserve allocation of age-worthy vintages' - Collector-level conversion"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 long-form 10-15 minute educational videos/week)",
+        "Email (Weekly educational series to segmented 'enthusiast' list)",
+        "Blog (2-3 detailed technical articles/week with SEO optimization)",
+        "Instagram (3-4 posts/week with carousel deep-dives and expert Q&A)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Samuel Adams documentary series success showing educational content generates 50K-200K views with 3x engagement over product content. Competitive gap analysis revealed need for 'sophisticated beer drinker education similar to wine' and 'educational content for beginners without condescension.' Virtual tasting events showed 60-70% email conversion rates, validating expert-led education approach."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive discovery challenges - Taste profile quizzes and preference polls",
+        "Week 2: Community celebration - User-generated content showcase and member spotlights"
+      ],
+      "weekly_hooks": [
+        [
+          "Which one are you? Take our 60-second taste profile quiz and we'll match you with your perfect pour - comment your result",
+          "Debate time: Is [specific beer/wine style] better with [food A] or [food B]? Our sommelier weighs in but we want YOUR vote",
+          "Fill in the blank: My ideal tasting room experience includes _____, _____, and _____. Best answer wins a free flight",
+          "This or that: Oaked or unoaked? Hoppy or malty? Vote in stories and see what our community prefers",
+          "Challenge: Describe our [flagship product] in 3 words. Most creative answer gets featured and wins [prize]",
+          "What's your unpopular wine/beer opinion? We'll start: [Controversial but fun take]. Drop yours in the comments"
+        ],
+        [
+          "Tag someone who's obsessed with our [product] - they deserve to be featured on our wall of fame",
+          "Show us your perfect pour: Share your [brand] moment with #[Hashtag] for a chance to win [prize] and be featured",
+          "Your discovery story: Comment how you found us and what made you fall in love - best story gets a private tour",
+          "Caption this: [Funny/relatable tasting room photo] - funniest caption wins a bottle of their choice",
+          "Weekend plans poll: Patio hangs, barrel room tour, or live music session? Vote and we'll make it happen",
+          "Shout-out Sunday: Tag your favorite tasting room buddy and tell us what makes them the perfect wine/beer companion"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Not sure if my group would be into it' by showcasing diverse preferences and inclusive community",
+        "Week 2: Address 'The vibe - is it pretentious or laid-back?' through authentic community interactions"
+      ],
+      "proof_timing": [
+        "Week 1: Community size metrics (X members, X reviews, X social followers) and engagement statistics",
+        "Week 2: User-generated content volume, customer testimonials, and real member stories"
+      ],
+      "cta_progression": [
+        "Week 1: 'Comment your answer below' - Low-barrier engagement",
+        "Week 1: 'Vote in our Stories poll' - Interactive participation",
+        "Week 2: 'Share with #[Hashtag] for feature' - UGC generation",
+        "Week 2: 'Tag your tasting buddy and plan your visit' - Conversion through social commitment"
+      ],
+      "platform_priority": [
+        "Instagram Stories (4-6 interactive polls/quizzes daily)",
+        "Instagram Feed (2-3 posts/day with strong engagement hooks)",
+        "Facebook (2 posts/day with community questions and event polls)",
+        "TikTok (1-2 videos/day with duet/stitch opportunities)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Stone Brewing's hashtag campaign achieving 4.2% engagement vs 1.5% industry average, and Dogfish Head's social campaign generating 5-7x normal engagement rates. Instagram Reels show 3.8% average engagement, with interactive content performing best. Customer voice data shows emotional language like 'obsessed with,' 'fell in love with,' and community-focused decision factors validate engagement-first approach."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Most corporate events fail because they're forgettable. Here's what we learned hosting 200+ team-building experiences:\n\nThe Problem: Generic venues create generic results. Your team sits through another dinner, makes small talk, goes home unchanged.\n\nWhat Actually Works:\n→ Experiential learning (hands-on beats lecture-style)\n→ Shared discovery moments (tasting flights create conversation)\n→ Expert facilitation (our [ROLE] guides without lecturing)\n→ Takeaway value (knowledge + product they actually want)\n\nLast month, [COMPANY TYPE] brought their team for a private [TASTING/BREWING] session. The feedback: \"First event where people stayed after it ended.\"\n\nThe difference? When people create together (blending their own [PRODUCT], learning the craft), they connect authentically.\n\nWe've seen teams solve communication issues over barrel tastings that months of meetings couldn't fix.\n\nWhat's your biggest challenge with corporate events? #CorporateEvents #TeamBuilding #ExperientialMarketing #[REGION]Business #EmployeeEngagement",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "After 15 years in [WINE/BEER] production, I've watched our industry transform. The brands winning aren't the biggest—they're the most authentic.\n\nAttention: The craft beverage landscape is oversaturated. 9,000+ breweries, 11,000+ wineries in the US alone.\n\nInterest: Yet our [TASTING ROOM/TAPROOM] visits increased 40% year-over-year. Why? We stopped selling [PRODUCT] and started selling [TRANSFORMATION].\n\nHere's what changed:\n• Transparency over mystique (show the process, share the failures)\n• Education over intimidation (no wine-snob language)\n• Community over transactions (events that build relationships)\n• Local sourcing over cost-cutting ([X]% of ingredients from [REGION])\n\nDesire: Our customers don't just buy [PRODUCT]—they become ambassadors. Average wine club retention: industry standard is 50%. Ours: 78%.\n\nAction: The lesson for any local business: Authenticity isn't a marketing tactic. It's your competitive advantage.\n\nWhat makes your business authentically different? Drop a comment—genuinely curious.\n\n#CraftBeverage #AuthenticBranding #SmallBusiness #[REGION] #Entrepreneurship",
+        "framework": "AIDA",
+        "character_count": 1289
+      },
+      "promotional": {
+        "template": "Before: Scrambling for last-minute corporate gifts that feel impersonal.\nAfter: Being known as the colleague with impeccable taste.\n\nBridge: Our Corporate Gift Program makes you look like a genius.\n\nHere's how it works:\n→ Curated [PRODUCT] selections based on recipient preferences\n→ Custom branded packaging with your company message\n→ Direct shipping to [X] employees or one location\n→ Dedicated account manager (no generic customer service)\n→ Flexible minimums starting at [NUMBER] units\n\nReal example: [COMPANY TYPE] needed 50 client gifts. We created custom [PRODUCT] boxes with tasting notes and pairing suggestions. Their feedback: \"Clients are still talking about it months later.\"\n\nThe difference between our program and typical corporate gifts?\n• Handcrafted quality (award-winning [PRODUCT])\n• Local story (estate-grown in [REGION])\n• Educational value (recipients learn, not just consume)\n• Memorable unboxing (Instagram-worthy presentation)\n\nQ4 is approaching. Decision-makers who plan now get priority access to our limited-edition [SEASONAL PRODUCT].\n\nDM me \"CORPORATE\" for our 2024 gift catalog and pricing.\n\n#CorporateGifts #ClientAppreciation #B2B #EmployeeRecognition #[REGION]Business",
+        "framework": "BAB",
+        "character_count": 1298
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "What really happens during barrel aging? 🍷\n\nOur head winemaker reveals the 3 decisions that make or break a vintage:\n\n1️⃣ TOAST LEVEL: Light toast = subtle vanilla notes. Heavy toast = bold caramel & spice. We use [TOAST LEVEL] for our [WINE TYPE] because [REASON].\n\n2️⃣ BARREL AGE: New oak = intense flavor. Neutral oak = fruit-forward. We blend [X]% new, [X]% neutral for balance.\n\n3️⃣ TIME: Under-aged = harsh tannins. Over-aged = lost fruit. Our [PRODUCT] spends exactly [X] months in barrel.\n\nSwipe to see the barrel room where the magic happens →\n\nSlide 2: Close-up of barrel with handwritten chalk labels\nSlide 3: Winemaker using wine thief to pull sample\nSlide 4: Color comparison of same wine at different aging stages\nSlide 5: Tasting notes graphic showing flavor evolution\n\nWant to taste the difference yourself? Link in bio for tasting room reservations.\n\nSave this for your next wine night conversation starter 🔖\n\n#WineEducation #BarrelAging #[REGION]Wine #WineMaking #BehindTheScenes #CraftWine #WineLovers #[WINERY_NAME]",
+        "visual": "Carousel starting with atmospheric barrel room shot (moody lighting, rows of barrels), followed by educational process shots",
+        "framework": "Educational storytelling with visual progression",
+        "hashtags": "20-30 mix of educational and location tags in first comment"
+      },
+      "authority": {
+        "caption": "Our 2022 Pinot Noir just won Double Gold at San Francisco International Wine Competition 🏆\n\nBut here's the story they don't tell you:\n\nThis vintage almost didn't happen. September 2022: unexpected heat spike. Every winemaker in [REGION] faced the same choice—harvest early (safe but boring) or wait (risky but potentially exceptional).\n\nWe waited.\n\n72 hours of checking brix levels every 6 hours. Sleeping in the vineyard. Then a perfect 3-day window appeared.\n\nThe result? Complexity you can't manufacture. Notes of [FLAVOR PROFILE] that only come from perfectly ripe fruit.\n\nJudges' notes: \"Exceptional balance, textbook example of [REGION] terroir.\"\n\nOnly [X] cases produced. Wine Club members get first access Thursday. Public release [DATE] (if any remains).\n\nThis is why we stay small-batch. Why we obsess over details. Why awards matter—but the wine in your glass matters more.\n\nTap the link in bio to reserve your allocation.\n\n#AwardWinning #PinotNoir #[REGION]Wine #SmallBatch #WineCompetition #CraftWine #SFIWC #LimitedRelease",
+        "visual": "Split image: Left side shows winemaker in vineyard during harvest decision moment (candid, serious), right side shows gold medal next to wine bottle with dramatic lighting",
+        "framework": "Story-driven social proof (BAB implied)",
+        "hashtags": "Authority and achievement focused tags"
+      },
+      "promotional": {
+        "caption": "Only 200 cases will ever be made.\n\nOur 2019 Reserve Cabernet spent 24 months in French oak. Estate-grown. Hand-sorted. The kind of wine we make once every few years when everything aligns.\n\nWine Club members: Check your email. You have 48-hour exclusive access starting NOW.\n\nNot a member yet? Swipe for what you're missing →\n\nSlide 2: Behind-the-scenes of hand-sorting grapes\nSlide 3: Barrel room aging process\nSlide 4: Close-up pour shot with rich color\nSlide 5: Wine Club benefits graphic\n\nPublic release [DATE] at [TIME]. Based on past reserves, expect this to sell out in [X] hours.\n\n💳 Link in bio\n📍 Or visit tasting room (first [X] visitors get complimentary taste)\n🎁 Gift packaging available\n\nBefore summer ends, experience something truly limited.\n\n#LimitedEdition #ReserveCabernet #WineClub #[REGION]Wine #ExclusiveRelease #SmallBatch #EstateWine #WineLovers",
+        "visual": "Carousel with hero shot of Reserve bottle in vineyard setting (golden hour lighting), followed by process and exclusivity-building images",
+        "framework": "Scarcity + Exclusivity hook with FOMO driver",
+        "hashtags": "Promotional and urgency-focused"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🍷 WINE PAIRING MYTH: \"Red wine with meat, white wine with fish\"\n\nLet me tell you what sommeliers actually recommend...\n\nAfter hosting 500+ pairing dinners, here's what we've learned about what ACTUALLY works:\n\n🌶️ SPICY FOOD (Thai, Indian, Mexican)\nForget red wine—the tannins amplify heat. Try: Off-dry Riesling or Gewürztraminer. The slight sweetness tames spice while the acidity cuts through richness.\n\nOur [PRODUCT] + Pad Thai = chef's kiss. Don't believe me? Come prove me wrong at our next pairing dinner ([DATE]).\n\n🧀 CHEESE BOARDS\nEveryone reaches for red, but our [WHITE WINE] with aged cheddar is the combo that converts people. The wine's [CHARACTERISTIC] mirrors the cheese's [CHARACTERISTIC].\n\n🥩 GRILLED STEAK\nYes, bold reds work. But have you tried [UNEXPECTED PAIRING]? The [FLAVOR NOTES] complement the char without overwhelming the meat.\n\n🍫 CHOCOLATE DESSERTS\nPort is obvious. Our secret? [PRODUCT] with dark chocolate—the [CHARACTERISTIC] creates this incredible [RESULT].\n\nTHE REAL RULE: Pair by weight and intensity, not color.\n\nLight food = light wine\nRich food = rich wine\nSweet food = sweeter wine\n\nWhat's your go-to pairing that breaks the \"rules\"? Drop it in the comments—I'm stealing ideas for our next tasting menu! 👇\n\nP.S. Save this post for your next dinner party. Your guests will think you're a sommelier.\n\n#WinePairing #FoodAndWine #WineEducation #[Region]Wine #WineLovers #PairingTips",
+        "framework": "PAS (Problem: confusion, Agitate: myths, Solution: real advice)",
+        "engagement_driver": "Comment solicitation + save-worthy content"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: The best wines aren't found in grocery stores.\n\nLet me explain why (and I promise this isn't snobby wine-gate keeping)...\n\nI've been making wine in [REGION] for [X] years. Here's what most people don't know about the wine you find in big retail:\n\n1. DESIGNED FOR CONSISTENCY, NOT COMPLEXITY\nMass-market wines blend grapes from multiple regions, multiple years. The goal? Taste identical every time. Safe, but boring.\n\nOur approach: Single-vineyard, single-vintage. Every bottle tells you exactly where and when it came from. Some years are spectacular. Some are just good. That's honest winemaking.\n\n2. PROFIT MARGINS DICTATE QUALITY\nThat $12 bottle? $2-3 is actual wine. The rest is packaging, distribution, marketing, retailer markup.\n\nSmall producers: We sell direct. More of your money goes into what's actually in the bottle.\n\n3. SHORTCUTS YOU CAN'T TASTE (Until You Can)\nCommercial additives, mega-purple for color, oak chips instead of barrel aging. All legal. All common. All compromise quality.\n\nWe use: Grapes, yeast, minimal sulfites. That's it.\n\nHERE'S THE THING:\nI'm not saying grocery wine is bad. I'm saying if you've only had grocery wine, you haven't experienced what wine can be.\n\nThe difference between commodity wine and craft wine is like the difference between Wonder Bread and a local bakery's sourdough. Both are bread. Only one is memorable.\n\nThis Saturday, we're doing a side-by-side comparison tasting: commercial vs. craft. Same varietals, similar price points. Come taste the difference yourself.\n\nReservations in comments or call [PHONE]. $25/person, credited toward any purchase.\n\nWho's joining us? Tag someone who needs to experience real wine. 🍷\n\n#CraftWine #SmallBatch #WineEducation #SupportLocal #[Region]Wine #AuthenticWine #WineTasting",
+        "framework": "AIDA (Attention: bold claim, Interest: education, Desire: comparison, Action: event invite)",
+        "engagement_driver": "Tagging prompt + event RSVP"
+      },
+      "promotional": {
+        "template": "🎉 WINE CLUB MEMBERS: Check your inbox NOW\n\nYou have 48-hour exclusive access to something we've been keeping quiet about...\n\nOur 2020 Reserve [WINE TYPE] just got released from the cellar. Here's why this one's special:\n\n✨ Only [X] cases produced (smallest batch we've ever done)\n✨ 100% estate-grown from our [VINEYARD BLOCK] vines\n✨ [X] months in French oak (twice our usual aging)\n✨ Tasting notes: [FLAVOR PROFILE]\n✨ Already scored [SCORE] from [PUBLICATION]\n\nWHY SO LIMITED?\nHonest answer: 2020 was a challenging vintage. Most winemakers played it safe with early harvests. We took a risk, waited for optimal ripeness, and lost 40% of the crop to weather.\n\nWhat remained? Concentrated, complex, absolutely worth the wait.\n\nWINE CLUB EXCLUSIVE PRICING:\n→ Members: $[X] per bottle\n→ Public (if any remains): $[X] per bottle\n→ Free shipping on 6+ bottles for members\n\nFIRST [X] ORDERS GET:\n• Complimentary gift packaging\n• Handwritten tasting notes from our winemaker\n• Invitation to exclusive barrel tasting [DATE]\n\nNOT A MEMBER YET?\nJoin today, get immediate access to this release + [X] other member benefits. Link in comments.\n\nThis is the wine we make for ourselves. The one we pull out for special occasions. Now it's yours.\n\nQuestions? Drop them below. I'm answering everything today.\n\n🍷 Order link: [URL]\n📞 Call us: [PHONE]\n📍 Visit tasting room (open until [TIME])\n\n#WineClub #LimitedRelease #ReserveWine #[Region]Wine #ExclusiveAccess #SmallBatch #WineLovers #CraftWine",
+        "framework": "BAB (Before: missing out, After: exclusive access, Bridge: join/buy now)",
+        "engagement_driver": "Urgency + scarcity + Q&A invitation"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're about to learn what sommeliers won't tell you about wine pairing",
+        "script": "HOOK (0-3sec): [Text overlay: \"Wine pairing secrets they gatekeep\"] Show sommelier-style serious face, then break into smile\n\nSETUP (3-10sec): \"Everyone says red wine with steak, white wine with fish. But here's what actually works...\" [Quick cut to setting up 3 wine glasses]\n\nEDUCATION (10-45sec):\n• Glass 1: \"Spicy Thai food? This off-dry Riesling. The sweetness tames the heat\" [Take bite of spicy food, sip wine, relieved face]\n• Glass 2: \"Grilled salmon? Try this light Pinot Noir. It's about WEIGHT not color\" [Show pairing]\n• Glass 3: \"Chocolate dessert? Our [PRODUCT] creates this [describe taste]\" [Taste reaction]\n\n[Text overlay throughout: \"Match by INTENSITY not rules\"]\n\nPAYOFF (45-55sec): \"The real secret? Pair what YOU like. Wine rules are made up anyway\" [Shrug, sip directly from bottle playfully]\n\nCTA (55-60sec): \"Come to our pairing dinner [DATE] and prove me wrong. Link in bio\" [Point up]\n\n[Trending sound: Use current food/educational audio trend]\n[Text overlays: Key points as captions]\n[Hashtags: #WineTok #WinePairing #WineEducation #FoodPairing #SommelierSecrets]",
+        "framework": "Hook + Value + Entertainment + CTA",
+        "style": "Educational but irreverent, fast-paced cuts"
+      },
+      "authority": {
+        "hook": "This $150 bottle almost didn't exist. Here's the decision that changed everything...",
+        "script": "HOOK (0-3sec): [Holding expensive bottle] \"We almost dumped this entire vintage\" [Shocked face]\n\nSTORY SETUP (3-15sec): \"September 2022. Heat spike. Every winemaker faced the same choice: harvest early and play it safe, or wait and risk losing everything\" [B-roll of vineyard]\n\nTENSION (15-35sec): [Walking through vineyard] \"We waited. Checked sugar levels every 6 hours. Slept in the vineyard. Other winemakers thought we were crazy\"\n\n[Text overlay: \"72 hours of stress\"]\n[Show checking grapes, concerned faces, time-lapse of sunset/sunrise]\n\nREVEAL (35-50sec): \"Then a perfect 3-day window appeared. We harvested. And created this\" [Hold up bottle with medal]\n\n\"Double Gold, San Francisco International Wine Competition. Only [X] cases exist\"\n\nPAYOFF (50-60sec): \"This is why we stay small. Why we obsess. Why awards matter—but the wine matters more\" [Pour glass, dramatic close-up]\n\n\"Link in bio. It won't last\" [Sip]\n\n[Trending sound: Dramatic/storytelling audio]\n[Hashtags: #WineMaking #BehindTheScenes #AwardWinning #CraftWine #Winemaker #SmallBatch]",
+        "framework": "Story arc with tension and resolution",
+        "style": "Cinematic, authentic, behind-the-scenes documentary feel"
+      },
+      "promotional": {
+        "hook": "Only 200 bottles exist and Wine Club members are buying them right now...",
+        "script": "HOOK (0-3sec): [Urgent face] \"This is selling out in real-time\" [Show phone with order notifications popping up]\n\nURGENCY BUILD (3-20sec): \"Our 2019 Reserve Cab. 24 months French oak. Estate-grown. We make this once every few years\"\n\n[Quick cuts: Barrel room, bottling, label close-up]\n[Text overlay: \"Only 200 cases EVER\"]\n\nSOCIAL PROOF (20-35sec): \"Wine Club members got first access 2 hours ago\" [Show email screenshot] \"Already 40% sold\"\n\n[Cut to: Stacking boxes, tasting room activity]\n\"Last time we did a Reserve release? Gone in 6 hours\"\n\nOFFER (35-50sec): \"Not a member? Public release is [TIME] today\"\n\n[Text overlay: \"$[X] per bottle\"]\n[Text overlay: \"Free shipping 6+\"]\n[Text overlay: \"Gift packaging available\"]\n\nCTA (50-60sec): \"Link in bio. Set your alarm. This won't make it to tomorrow\" [Point up]\n\n[Show final bottle shot with urgency text: \"Don't miss this\"]\n\n[Trending sound: Hype/urgency audio]\n[Hashtags: #LimitedEdition #WineRelease #ReserveWine #WineClub #ExclusiveAccess #SmallBatch]",
+        "framework": "Scarcity + FOMO + Clear CTA",
+        "style": "Fast-paced, urgent, real-time documentation"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The wine pairing rule you should break (+ our pairing cheat sheet)",
+        "preview_text": "Sommeliers don't actually follow the red-with-meat rule. Here's what works...",
+        "body": "Hi [FIRST_NAME],\n\nProblem: You're standing in front of your dinner guests, wine bottle in hand, second-guessing your pairing choice. \"Is this right? Should I have gotten red instead?\"\n\nAgitate: The traditional rules (red with meat, white with fish) are outdated. They ignore cuisine styles, preparation methods, and personal preference. Following them blindly leads to mismatched pairings and wasted wine.\n\nSolution: Here's what actually works—the cheat sheet our tasting room staff uses:\n\n🌶️ SPICY DISHES (Thai, Indian, Mexican)\nTry: [PRODUCT NAME] - Off-dry Riesling\nWhy: Slight sweetness tames heat; acidity cuts richness\nAvoid: High-tannin reds (they amplify spice)\n\n🧀 CHEESE BOARDS\nTry: [PRODUCT NAME] - Aged white wine\nWhy: Matches intensity; complementary flavor compounds\nSecret: Pairs better with aged cheddar than most reds\n\n🥩 GRILLED MEATS\nTry: [PRODUCT NAME] - Medium-bodied red\nWhy: Complements char without overwhelming\nUnexpected win: Light Pinot with grilled salmon\n\n🍫 CHOCOLATE DESSERTS\nTry: [PRODUCT NAME]\nWhy: [Specific flavor interaction]\nPro tip: Wine should be sweeter than the dessert\n\nTHE REAL RULE: Match by weight and intensity, not color.\n\n📥 Download our complete pairing guide: [LINK]\n\n🍷 Want to practice? Join our pairing dinner [DATE]. We'll taste through 5 courses with perfect matches (and intentional mismatches so you learn why pairings fail).\n\nSeats limited to [X]. Reserve yours: [LINK]\n\nCheers,\n[WINEMAKER/OWNER NAME]\nP.S. Reply with your biggest pairing question—I'm answering all of them this week.",
+        "framework": "PAS (Problem-Agitate-Solution)",
+        "segments": "General subscribers, educational content preference"
+      },
+      "authority": {
+        "subject": "Why our wine isn't in grocery stores (and why that matters)",
+        "preview_text": "After 15 years making wine, here's what I've learned about quality vs. convenience",
+        "body": "Hi [FIRST_NAME],\n\nAttention: Someone asked me last week why they can't find our wine at [LOCAL GROCERY CHAIN]. Fair question. Here's the honest answer.\n\nInterest: Mass-market wine is designed for consistency and profit margins, not complexity. Here's what happens behind the scenes:\n\n1. BLENDING FOR SAMENESS\nCommercial wines blend grapes from multiple regions and vintages to taste identical every time. Safe, but one-dimensional.\n\nOur approach: Single-vineyard, single-vintage. Every bottle reflects that specific year's weather, soil, decisions. Some vintages are spectacular. Some are just good. That's authentic winemaking.\n\n2. THE $12 BOTTLE BREAKDOWN\n→ $2-3: Actual wine\n→ $3-4: Packaging, shipping, distributor margin\n→ $3-4: Retailer markup\n→ $2-3: Marketing\n\nDirect-to-consumer model: More of your money goes into what's in the bottle.\n\n3. LEGAL SHORTCUTS\nMega-purple for color, oak chips instead of barrels, commercial yeasts, flavor additives—all legal, all common in commercial wine.\n\nOur ingredient list: Grapes, yeast, minimal sulfites. That's it.\n\nDesire: The difference isn't about price—it's about priorities. We choose quality over convenience, craft over consistency, authenticity over availability.\n\nLast month, we hosted a blind tasting: our [PRODUCT] vs. similar commercial wine at the same price point. 87% of participants preferred ours. The difference? You can taste the decisions we make in the vineyard and cellar.\n\nAction: Experience the difference yourself.\n\n🍷 WINE CLUB MEMBERS: Your [MONTH] allocation ships [DATE]. This month includes our [PRODUCT]—the one that converted [X] grocery-wine drinkers last quarter.\n\n🎟️ NOT A MEMBER: Join our \"Craft vs. Commercial\" tasting this Saturday. $25/person, credited toward any purchase. We'll taste side-by-side and you decide if it matters.\n\nReserve your spot: [LINK]\n\nOr visit our tasting room any [DAYS], [HOURS]. First taste is on us.\n\nCheers to choosing craft,\n[WINEMAKER NAME]\n\nP.S. Curious about our winemaking process? Reply with \"PROCESS\" and I'll send you our behind-the-scenes video series.",
+        "framework": "AIDA (Attention-Interest-Desire-Action)",
+        "segments": "Engaged subscribers, wine club prospects"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your 48-hour exclusive access starts now",
+        "preview_text": "2020 Reserve [WINE TYPE] - Only 200 cases, Wine Club exclusive until [DATE]",
+        "body": "Hi [FIRST_NAME],\n\nBefore: Searching for that special bottle for [upcoming occasion], settling for whatever's available.\n\nAfter: Opening a limited-edition Reserve that your guests will remember (and ask about) for months.\n\nBridge: Your exclusive 48-hour access to our 2020 Reserve [WINE TYPE] starts right now.\n\nWHY THIS RELEASE IS DIFFERENT:\n\n🍷 Only [X] cases produced (our smallest batch ever)\n🏆 [SCORE] from [PUBLICATION]\n⏰ 24 months in French oak (double our standard aging)\n🌱 100% estate-grown from [VINEYARD BLOCK]\n📝 Tasting notes: [FLAVOR PROFILE]\n\nTHE BACKSTORY:\n2020 was challenging. Most winemakers harvested early to play it safe. We waited for optimal ripeness and lost 40% of the crop to weather. What remained? Concentrated, complex, absolutely worth the risk.\n\nYOUR WINE CLUB EXCLUSIVE PRICING:\n→ Member price: $[X] per bottle (Public: $[X])\n→ Free shipping on 6+ bottles\n→ Complimentary gift packaging (first [X] orders)\n→ Handwritten tasting notes from our winemaker\n→ Invitation to exclusive barrel tasting [DATE]\n\n⏰ TIMELINE:\n→ NOW - [DATE TIME]: Wine Club exclusive\n→ [DATE TIME]: Public release (if inventory remains)\n→ Based on past Reserve releases: Expect sellout within [X] hours of public launch\n\n🛒 RESERVE YOUR ALLOCATION:\n[LARGE BUTTON: Shop Reserve Release]\n\nRECOMMENDED ORDERS:\n• Collector's allocation: 1 case (12 bottles) - $[X]\n• Dinner party pack: 6 bottles - $[X] + free shipping\n• Try before committing: 2 bottles - $[X]\n\nGIFT PACKAGING AVAILABLE:\nHoliday season is approaching. This makes an impressive corporate gift or special occasion present. Add gift packaging at checkout.\n\n❓ QUESTIONS?\nReply to this email—I'm personally answering all questions today.\n\nOr call us: [PHONE] ([HOURS])\n\nThis is the wine we make for ourselves, [FIRST_NAME]. The one we save for special occasions. Now it's yours.\n\nCheers,\n[WINEMAKER/OWNER NAME]\n\nP.S. Not ready to commit? Visit the tasting room [DAYS], [HOURS] for a complimentary taste of the Reserve. But inventory is moving—don't wait too long.\n\n[BUTTON: Reserve Now] [BUTTON: Visit Tasting Room]\n\n---\nWine Club Member since [JOIN_DATE] | Manage preferences: [LINK]",
+        "framework": "BAB (Before-After-Bridge)",
+        "segments": "Wine Club members, VIP customers, past Reserve buyers"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "Only [NUMBER] cases of our [VINTAGE/BREW NAME] will ever be made - [MEMBER TYPE] get first access [DAY]",
+      "[NUMBER] award-winning wines you can only taste in our [LOCATION] tasting room this [SEASON]",
+      "[NUMBER] small-batch releases dropping [DATE] - here's what makes each one totally worth the drive"
+    ],
+    "question_hooks": [
+      "Struggling to find the perfect wine for [OCCASION/FOOD TYPE] without looking clueless?",
+      "Tired of bringing the same boring [WINE/BEER] to every dinner party?",
+      "Looking for a [LOCAL AREA] experience that's actually memorable and not just another crowded tourist trap?"
+    ],
+    "story_hooks": [
+      "How our [JOB TITLE] discovered the [NUMBER]-year-old vineyard that became our most obsessed-over [VARIETAL]",
+      "This [CUSTOMER TYPE] planned their entire [EVENT TYPE] around our barrel room - here's what happened",
+      "How [NUMBER] barrels of [BREW/WINE NAME] almost didn't make it to release - the story our winemaker finally shared"
+    ],
+    "fear_hooks": [
+      "Is your [OCCASION] about to be ruined by another generic wine selection from [STORE NAME]?",
+      "Are you missing out on [LOCAL AREA]'s hidden gem wineries while everyone else hits the same crowded spots?",
+      "Is your wine club membership sending you bottles you could find anywhere - and paying premium for it?"
+    ],
+    "howto_hooks": [
+      "How to find wines that are actually worth the price without feeling intimidated by snobbish staff",
+      "How to plan the perfect [EVENT TYPE] at a brewery without boring half your group to death",
+      "How to support local [CITY] breweries and actually discover which ones are worth your weekend"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're intimidated by wine tastings",
+      "body": "Show nervous person entering tasting room → Staff member warmly greets them → Quick cuts of staff explaining wines in simple terms (no jargon) → Customer relaxing and laughing → Tasting flight reveal → Customer confidently choosing favorite → End with 'No snobbery, just great wine and real people'",
+      "cta": "Book your judgment-free tasting (link in bio)"
+    },
+    "reels": {
+      "hook": "What $75 gets you here vs. the grocery store",
+      "body": "Split screen: Left shows 3 generic bottles from store → Right shows behind-the-scenes of your barrel room, hand-bottling, winemaker tasting from barrel → Text overlay: 'Small batch, real stories, actual humans' → Quick flash of tasting room experience",
+      "cta": "Taste the difference this weekend"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'before and after' face when you taste your flight - from skeptical to obsessed. Bonus points if you can name your favorite!",
+      "hashtag": "#TastingRoomGlowUp"
+    },
+    {
+      "prompt": "Film your dog's reaction to our dog-friendly patio (or your kids at our family day). Show us why you keep coming back with the whole crew.",
+      "hashtag": "#PackThePatioWithYourPack"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The 'Broke Barrel' series - show the batches that didn't turn out perfect and what you learned. Film pouring it out or repurposing it.",
+      "why": "Authenticity and vulnerability are rare in alcohol marketing. Showing failure humanizes the brand and builds trust. Educational + surprising = highly shareable."
+    },
+    {
+      "angle": "Price breakdown video: 'Where your $32 actually goes' - pie chart showing grapes, labor, barrels, bottles, taxes vs. $12 grocery store wine breakdown",
+      "why": "Addresses the #1 objection (price) with radical transparency. People share content that makes them feel smart and justifies their purchases to friends."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:44:08.965Z",
+    "last_tier2_refresh": "2025-11-27T21:44:08.965Z",
+    "last_tier3_refresh": "2025-11-27T21:44:08.965Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:44:08.965Z"
+  }
+}

@@ -1,0 +1,1738 @@
+{
+  "industry": "Event Venue",
+  "industry_name": "Event Venue",
+  "naics_code": "531120",
+  "category": "Food Service",
+  "subcategory": "Special Event Facilities",
+  "customer_triggers": [
+    {
+      "trigger": "Corporate annual meeting announcement - 4-6 months lead time",
+      "urgency": 9,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Wedding engagement - immediate venue shopping within 2 weeks",
+      "urgency": 10,
+      "frequency": "Once per lifetime"
+    },
+    {
+      "trigger": "Milestone birthday approaching (50th, 60th, 75th) - 3 month planning window",
+      "urgency": 7,
+      "frequency": "Decade markers"
+    },
+    {
+      "trigger": "Company merger or acquisition celebration - 30 day turnaround",
+      "urgency": 8,
+      "frequency": "Sporadic"
+    },
+    {
+      "trigger": "Holiday party season announcement - September booking for December",
+      "urgency": 6,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Graduation ceremony planning - January bookings for May/June",
+      "urgency": 7,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Product launch event - 45-60 day planning cycle",
+      "urgency": 8,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Charity gala or fundraiser - 6-9 month planning horizon",
+      "urgency": 5,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Conference or trade show - 12-18 month advance booking",
+      "urgency": 4,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Emergency memorial service - 3-7 day turnaround",
+      "urgency": 10,
+      "frequency": "Unpredictable"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Initial trigger occurs 3-12 months before event date. 73% discover venues through Google searches for 'event venues near me' or specific capacity searches like 'venues for 200 people'. Instagram hashtags drive 31% of millennial discovery. Corporate planners rely on industry directories and peer recommendations 67% of the time.",
+    "consideration": "Average customer evaluates 7-12 venues over 2-3 weeks. Site visits scheduled within 5 days of initial contact for 82% of serious buyers. Virtual tours now requested by 64% before physical visits. Price comparison spreadsheets created by 89% of corporate planners. Reviews checked on 4-5 platforms average.",
+    "decision": "Final decision typically made 14-21 days after first contact for corporate events, 30-45 days for weddings. 78% require approval from 2+ stakeholders. Contract negotiations average 3 rounds. Deposit of 25-50% required within 7 days of verbal commitment. Weather contingency and cancellation policies scrutinized by 91% of buyers.",
+    "retention": "Post-event follow-up within 48 hours increases rebooking by 43%. Annual contract negotiations for corporate clients begin 3 months before renewal. Preferred vendor status achieved after 3 successful events. Loyalty programs offering 10-15% discounts for repeat bookings show 67% retention improvement.",
+    "advocacy": "Satisfied clients provide referrals worth $47,000 average annual revenue. Photo sharing rights negotiated in 84% of contracts for marketing use. Google reviews posted within 2 weeks by 38% of clients when prompted. LinkedIn recommendations from corporate clients worth 3.2x more than other platforms."
+  },
+  "transformations": [
+    {
+      "from": "Stressed about finding perfect location",
+      "to": "Confident the venue will impress all guests",
+      "emotional_value": "Peace of mind worth 20% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about event logistics and coordination",
+      "to": "Relaxed knowing experienced team handles everything",
+      "emotional_value": "Stress reduction valued at $3,000-5,000",
+      "worth_premium": true
+    },
+    {
+      "from": "Concerned about budget constraints",
+      "to": "Proud of creating memorable experience within means",
+      "emotional_value": "Financial confidence worth flexible payment terms",
+      "worth_premium": false
+    },
+    {
+      "from": "Anxious about guest capacity and comfort",
+      "to": "Assured everyone will be accommodated beautifully",
+      "emotional_value": "Guest satisfaction worth 15% higher price",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain about catering quality and options",
+      "to": "Excited about impressive menu selections",
+      "emotional_value": "Culinary excellence worth $25-40 per plate premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Fearful of technical failures during presentations",
+      "to": "Confident in state-of-the-art AV capabilities",
+      "emotional_value": "Technical reliability worth $2,000-3,500 upgrade",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by vendor coordination",
+      "to": "Grateful for single-point venue management",
+      "emotional_value": "Convenience worth 25% all-inclusive premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Nervous about weather or unexpected issues",
+      "to": "Secure with comprehensive backup plans",
+      "emotional_value": "Risk mitigation worth additional insurance coverage",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Guest satisfaction scores averaging 9.2/10 or higher",
+      "timeframe": "Within 7 days post-event",
+      "measurable": true
+    },
+    {
+      "metric": "Event timeline adherence within 5-minute variance",
+      "timeframe": "Day of event",
+      "measurable": true
+    },
+    {
+      "metric": "Budget variance under 3% of original quote",
+      "timeframe": "Final invoice",
+      "measurable": true
+    },
+    {
+      "metric": "Zero critical incidents or safety issues",
+      "timeframe": "Event duration",
+      "measurable": true
+    },
+    {
+      "metric": "Social media mentions exceeding 50 positive posts",
+      "timeframe": "30 days post-event",
+      "measurable": true
+    },
+    {
+      "metric": "Catering satisfaction with less than 2% waste",
+      "timeframe": "End of event",
+      "measurable": true
+    },
+    {
+      "metric": "Client stress level reduction of 75% versus self-planning",
+      "timeframe": "Planning period through execution",
+      "measurable": false
+    }
+  ],
+  "urgency_drivers": [
+    "Popular dates book 6-12 months in advance - Saturday evenings in June have 94% occupancy",
+    "Preferred catering selections require 45-day minimum advance ordering for specialty items",
+    "Group accommodation blocks at nearby hotels must be secured 90 days before event",
+    "Municipal permits for large gatherings need 30-60 day processing time",
+    "Custom decoration and themed elements require 6-8 week production lead times",
+    "Early booking discounts of 15-20% expire 120 days before event date",
+    "Vendor availability for photographers, bands, and florists becomes limited 60 days out"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Your venue is 30% more expensive than others we've seen",
+      "response": "Our all-inclusive pricing saves an average of $12,000 in hidden costs that other venues add later - let me show you the true comparison including service charges, setup fees, and required vendor minimums",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "We need flexibility to bring our own catering",
+      "response": "Our exclusive catering partnership guarantees fresh, locally-sourced ingredients with 97% guest satisfaction ratings, plus we offer tastings and full menu customization to match your exact preferences while maintaining food safety compliance",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "The location is 20 minutes from downtown",
+      "response": "Our complimentary shuttle service runs every 15 minutes, and 89% of guests actually prefer our scenic setting with ample free parking over downtown traffic and $30 parking fees",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "We're concerned about weather for our outdoor event",
+      "response": "Our dual-space design includes a stunning indoor backup that 34% of clients actually prefer, plus we monitor weather 72 hours in advance and have successfully executed seamless transitions for over 200 events",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Your availability doesn't match our preferred date",
+      "response": "Let me show you how Friday evening or Sunday afternoon events save 25% while providing better guest attendance - 78% of our Sunday events report higher turnout than Saturday",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "We need to see more reviews before deciding",
+      "response": "I'll connect you with three recent clients who held similar events, plus provide access to our private portfolio of 500+ event photos and 127 video testimonials from the past year",
+      "effectiveness": 8.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% deposit refund if cancellation due to government restrictions or natural disasters",
+      "Price lock guarantee - no increases after contract signing even for events 18 months out",
+      "Service excellence guarantee - 10% refund if satisfaction scores below 8.5/10",
+      "Timeline guarantee - $500 credit for every 15-minute delay caused by venue"
+    ],
+    "proof_points": [
+      "1,847 successful events hosted in past 5 years with 98.3% satisfaction rate",
+      "Licensed and insured for $5 million comprehensive coverage",
+      "Winner of Regional Venue Excellence Award 2019, 2021, 2023",
+      "Featured in 12 national wedding magazines and 8 corporate event publications"
+    ],
+    "risk_mitigation": [
+      "Backup power generators with 8-hour capacity tested monthly",
+      "Secondary catering kitchen partnership within 10 minutes for emergencies",
+      "Weather monitoring system with 72-hour advance planning protocols",
+      "On-site event coordinator plus backup manager for every event"
+    ]
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stressed",
+      "overwhelmed",
+      "worried",
+      "expensive",
+      "complicated",
+      "risky",
+      "uncertain",
+      "chaotic",
+      "disappointing",
+      "generic",
+      "cramped",
+      "outdated",
+      "inflexible",
+      "hidden fees"
+    ],
+    "solution_words": [
+      "seamless",
+      "stunning",
+      "memorable",
+      "all-inclusive",
+      "flexible",
+      "experienced",
+      "beautiful",
+      "spacious",
+      "modern",
+      "customizable",
+      "transparent",
+      "professional",
+      "worry-free",
+      "spectacular"
+    ],
+    "avoid_jargon": [
+      "F&B minimum",
+      "BEO",
+      "force majeure",
+      "corkage",
+      "setup strike",
+      "pipe and drape",
+      "risers",
+      "breakout sessions",
+      "load-in",
+      "green room",
+      "tech rider",
+      "uplighting package"
+    ]
+  },
+  "power_words": [
+    "exclusive",
+    "transform",
+    "unforgettable",
+    "stunning",
+    "seamless",
+    "premier",
+    "breathtaking",
+    "exceptional",
+    "magnificent",
+    "elegant",
+    "sophisticated",
+    "spectacular",
+    "flawless",
+    "prestigious",
+    "remarkable",
+    "extraordinary",
+    "captivating",
+    "memorable",
+    "impeccable",
+    "luxurious",
+    "acclaimed",
+    "award-winning",
+    "guaranteed",
+    "complimentary",
+    "all-inclusive",
+    "customized",
+    "dedicated",
+    "professional",
+    "experienced",
+    "trusted"
+  ],
+  "avoid_words": [
+    "cheap",
+    "budget",
+    "basic",
+    "simple",
+    "standard",
+    "normal",
+    "adequate",
+    "sufficient",
+    "typical",
+    "common",
+    "regular",
+    "plain",
+    "minimal",
+    "generic",
+    "ordinary",
+    "hopefully",
+    "maybe",
+    "try",
+    "possibly",
+    "sometimes"
+  ],
+  "headline_templates": [
+    {
+      "template": "Transform Your [Event Type] Into An Unforgettable Experience at [Venue Name]",
+      "expected_ctr": 4.7,
+      "use_case": "Generic event marketing"
+    },
+    {
+      "template": "Why 400+ Companies Choose [Venue] for Their Most Important Events",
+      "expected_ctr": 5.2,
+      "use_case": "Corporate credibility"
+    },
+    {
+      "template": "Limited Dates Available: Book Your 2024 [Season] Event Now",
+      "expected_ctr": 6.8,
+      "use_case": "Urgency creation"
+    },
+    {
+      "template": "See Inside: Virtual Tour of [City]'s Most Sought-After Event Space",
+      "expected_ctr": 7.3,
+      "use_case": "Engagement driver"
+    },
+    {
+      "template": "From $[Price]: All-Inclusive Event Packages with Zero Hidden Fees",
+      "expected_ctr": 5.9,
+      "use_case": "Price transparency"
+    },
+    {
+      "template": "[Number]% of Guests Say This Was Their Best Event Experience Ever",
+      "expected_ctr": 6.4,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Free Consultation: Design Your Perfect Event in 30 Minutes",
+      "expected_ctr": 5.6,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "Award-Winning Venue with 2,000+ Five-Star Reviews",
+      "expected_ctr": 6.1,
+      "use_case": "Trust building"
+    },
+    {
+      "template": "Save $[Amount] When You Book Your [Year] Event Before [Date]",
+      "expected_ctr": 7.8,
+      "use_case": "Promotional offer"
+    },
+    {
+      "template": "Why Event Planners Rate Us #1 for Stress-Free Execution",
+      "expected_ctr": 5.4,
+      "use_case": "Professional appeal"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Check Available Dates",
+      "conversion_rate": 8.7,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Schedule Free Tour",
+      "conversion_rate": 7.2,
+      "placement": "Gallery section"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 6.9,
+      "placement": "Pricing section"
+    },
+    {
+      "template": "Download Event Guide",
+      "conversion_rate": 5.4,
+      "placement": "Resource section"
+    },
+    {
+      "template": "View 360° Virtual Tour",
+      "conversion_rate": 9.1,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Reserve Your Date - Only 3 Remaining",
+      "conversion_rate": 11.3,
+      "placement": "Calendar view"
+    },
+    {
+      "template": "Chat with Event Specialist",
+      "conversion_rate": 6.2,
+      "placement": "Bottom right float"
+    },
+    {
+      "template": "See Real Events Like Yours",
+      "conversion_rate": 7.8,
+      "placement": "Testimonial section"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Behind the scenes: Setting up for tonight's spectacular [event type]! ✨ #EventVenue #[City]Events #BTS",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "🎉 Congratulations to [Client Name] on their successful [event type]! Thank you for choosing [Venue] to celebrate this special milestone. See more photos: [link]",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Honored to host [Company Name]'s annual conference this week. 500+ industry leaders gathering in our state-of-the-art facility. #CorporateEvents #EventProfs",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "That golden hour glow in our Garden Pavilion 🌅 Now booking for Fall 2024 events. Link in bio for available dates!",
+      "engagement_rate": 5.9
+    },
+    {
+      "platform": "Facebook",
+      "template": "⚡ FLASH SALE: 20% off remaining 2024 Sunday dates! Perfect for corporate gatherings, celebrations, and social events. Message us to secure your date!",
+      "engagement_rate": 4.1
+    },
+    {
+      "platform": "Twitter",
+      "template": "Just wrapped an incredible product launch for @[Company]. 300 guests, zero issues, countless memories. This is why we love what we do! 🎊",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Today's menu tasting has us dreaming! 😍 Our culinary team creates magic for every event. What's your must-have dish? #FoodieEvents #Catering",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "New case study: How we helped [Company] reduce event planning stress by 80% while delivering their best company gathering yet. Read more: [link]",
+      "engagement_rate": 3.5
+    },
+    {
+      "platform": "TikTok",
+      "template": "60-second venue transformation timelapse: From empty space to dream wedding setup! 💕 #VenueLife #EventSetup #Transformation",
+      "engagement_rate": 8.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "All-inclusive pricing eliminates surprise costs, saving average of $8,000-12,000 versus à la carte venues",
+      "rank": 1,
+      "differentiator": "Complete transparency with detailed line-item quotes upfront"
+    },
+    {
+      "prop": "Dedicated event coordinator manages all vendor relationships, reducing client workload by 75%",
+      "rank": 2,
+      "differentiator": "Single point of contact from booking through event completion"
+    },
+    {
+      "prop": "Flexible space configurations accommodate 50-500 guests with seamless flow",
+      "rank": 3,
+      "differentiator": "Modular design with 12 different layout options"
+    },
+    {
+      "prop": "In-house catering with 98% satisfaction scores and dietary accommodation expertise",
+      "rank": 4,
+      "differentiator": "Executive chef with 20+ years fine dining experience"
+    },
+    {
+      "prop": "Weather-proof dual spaces ensure events proceed regardless of conditions",
+      "rank": 5,
+      "differentiator": "Indoor/outdoor flexibility with matching aesthetic"
+    },
+    {
+      "prop": "Cutting-edge AV technology included with no rental fees",
+      "rank": 6,
+      "differentiator": "4K projection, wireless presentation, livestream capability"
+    },
+    {
+      "prop": "Complimentary parking for all guests with valet option available",
+      "rank": 7,
+      "differentiator": "500-space lot with covered walkways to entrance"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the pinnacle of event excellence at our award-winning venue, where every detail is meticulously crafted to exceed expectations. Our white-glove service, exclusive catering, and stunning architectural spaces create an atmosphere of sophisticated luxury that impresses the most discerning guests. With only 52 dates annually, securing your reservation ensures an intimate, personalized experience with our full team's undivided attention.",
+    "budget_conscious": "Smart event planning means maximizing value without compromising quality. Our transparent, all-inclusive packages eliminate hidden fees while providing everything needed for a successful event. Compare our total cost including tables, chairs, linens, basic AV, setup, breakdown, and service staff - we're actually 20% less expensive than piecing together services elsewhere. Plus, our Sunday and weekday rates offer premium space at exceptional value.",
+    "enterprise": "Trusted by Fortune 500 companies and government agencies, our venue combines enterprise-grade reliability with sophisticated ambiance. We maintain SOC 2 compliance, offer comprehensive liability coverage, and provide detailed post-event analytics. Our dedicated corporate services team understands procurement processes, handles complex billing requirements, and maintains strict confidentiality standards. With capacity for multi-day conferences and breakout sessions, we're equipped for your most demanding corporate events."
+  },
+  "trust_signals": [
+    {
+      "signal": "Google Reviews average of 4.8 stars from 1,247 reviews",
+      "importance": 9,
+      "format": "Widget on homepage"
+    },
+    {
+      "signal": "Better Business Bureau A+ rating for 12 consecutive years",
+      "importance": 8,
+      "format": "Badge in footer"
+    },
+    {
+      "signal": "Featured venue for city's official events 8 times",
+      "importance": 7,
+      "format": "Press mentions page"
+    },
+    {
+      "signal": "$5 million liability insurance certificate available",
+      "importance": 9,
+      "format": "PDF download"
+    },
+    {
+      "signal": "Virtual tour with 360-degree photography of all spaces",
+      "importance": 8,
+      "format": "Interactive web feature"
+    },
+    {
+      "signal": "Client video testimonials from recognizable local companies",
+      "importance": 9,
+      "format": "Homepage carousel"
+    },
+    {
+      "signal": "Real-time availability calendar showing booking transparency",
+      "importance": 7,
+      "format": "Interactive calendar"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "92% of clients rate their experience 9 or 10 out of 10",
+      "credibility_score": 9.2,
+      "context": "Based on 1,847 post-event surveys over 5 years"
+    },
+    {
+      "stat": "1 in 3 bookings come from client referrals",
+      "credibility_score": 8.7,
+      "context": "Tracked through booking source attribution"
+    },
+    {
+      "stat": "487 five-star reviews in the last 12 months",
+      "credibility_score": 8.9,
+      "context": "Across Google, Facebook, WeddingWire, and Yelp"
+    },
+    {
+      "stat": "78% of corporate clients book multiple events annually",
+      "credibility_score": 8.4,
+      "context": "Corporate account retention metrics"
+    },
+    {
+      "stat": "Featured in 23 wedding magazines and blogs this year",
+      "credibility_score": 7.8,
+      "context": "Editorial coverage, not paid advertising"
+    },
+    {
+      "stat": "4.9/5.0 average catering satisfaction score",
+      "credibility_score": 9,
+      "context": "11,000+ guests surveyed in past year"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Valet parking, branded welcome signage, dedicated bridal or VIP suite, champagne toast inclusion",
+    "Mid-tier: Ample self-parking, digital welcome boards, comfortable prep rooms, coffee and water stations",
+    "Budget: Street parking, standard signage, shared preparation areas, basic beverage service",
+    "Premium: Farm-to-table menus, wine pairings, chef interaction, custom cake included",
+    "Mid-tier: Seasonal menus, house wine selection, buffet or plated options, preferred bakery partnership",
+    "Budget: Standard banquet menus, limited beverage options, buffet service only, outside cake permitted"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Three days post-event when positive memories are fresh but stress has faded",
+    "ask_method": "Personalized email from event coordinator with direct link to review platform, followed by text message on day 5 if no response, and handwritten note with QR code on day 10"
+  },
+  "competitive_advantages": [
+    "Only venue in region with both indoor and outdoor ceremony spaces with identical capacity",
+    "Exclusive partnership with Michelin-starred chef for catering program",
+    "In-house event design team eliminating need for external decorator costs",
+    "Proprietary booking system allowing real-time availability and instant contracts",
+    "Climate-controlled storage for client items 30 days before and after events",
+    "Complimentary livestreaming service with professional multi-camera setup"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium package at $35,000 first, making $22,000 standard package appear reasonable",
+    "sensitivity": "Price breaks at $10,000, $20,000, and $30,000 align with approval thresholds",
+    "sweet_spots": [
+      "$18,000-22,000 for corporate events",
+      "$25,000-30,000 for weddings",
+      "$8,000-12,000 for social gatherings"
+    ],
+    "decoy_pricing": "Offer 'Gold' package at $24,000 to drive 'Platinum' at $28,000 with much higher perceived value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 5000,
+    "approval_required": 15000,
+    "competitor_research": 10000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$5,000-10,000",
+      "target_customer": "Small corporate meetings, intimate celebrations",
+      "margin": 35
+    },
+    {
+      "tier": "Professional",
+      "price_range": "$15,000-25,000",
+      "target_customer": "Mid-size corporate events, standard weddings",
+      "margin": 42
+    },
+    {
+      "tier": "Executive",
+      "price_range": "$30,000-50,000",
+      "target_customer": "Large corporate galas, luxury weddings",
+      "margin": 48
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle high-margin bar service with venue rental for 8% margin increase",
+    "Require in-house catering for events over 100 guests, adding 12% to overall margin",
+    "Offer setup/breakdown services at 65% margin versus 42% on space rental",
+    "Implement 3% credit card processing fee pass-through, saving $47,000 annually",
+    "Partner with preferred vendors for 10-15% commission on referrals",
+    "Charge premium for prime Saturday evenings while discounting Sundays to maintain 40% average margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -35,
+      "reason": "Post-holiday slowdown and weather concerns",
+      "opportunity": "Corporate kick-off meetings and planning retreats"
+    },
+    {
+      "month": "February",
+      "variation": -20,
+      "reason": "Valentine's events spike but overall low",
+      "opportunity": "Discounted rates attract budget-conscious clients"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring event planning begins",
+      "opportunity": "Bridal shows and open houses drive bookings"
+    },
+    {
+      "month": "April",
+      "variation": 25,
+      "reason": "Prime spring wedding and corporate season",
+      "opportunity": "Premium pricing for weekend dates"
+    },
+    {
+      "month": "May",
+      "variation": 45,
+      "reason": "Peak wedding and graduation season",
+      "opportunity": "Maximum revenue potential, book 12 months out"
+    },
+    {
+      "month": "June",
+      "variation": 50,
+      "reason": "Highest demand for all event types",
+      "opportunity": "Premium pricing plus service add-ons"
+    },
+    {
+      "month": "July",
+      "variation": 15,
+      "reason": "Summer slowdown for corporate, steady social",
+      "opportunity": "Outdoor evening events and festivals"
+    },
+    {
+      "month": "August",
+      "variation": 10,
+      "reason": "Late summer weddings, corporate still slow",
+      "opportunity": "Back-to-school and reunion events"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Fall wedding season and corporate return",
+      "opportunity": "Holiday party early-bird bookings"
+    },
+    {
+      "month": "October",
+      "variation": 40,
+      "reason": "Peak fall weddings and corporate events",
+      "opportunity": "Premium pricing for autumn aesthetics"
+    },
+    {
+      "month": "November",
+      "variation": 20,
+      "reason": "Holiday party season begins",
+      "opportunity": "Multiple events per day possible"
+    },
+    {
+      "month": "December",
+      "variation": 30,
+      "reason": "Holiday parties offset by date limitations",
+      "opportunity": "Corporate parties command premium rates"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Corporate meetings and trainings at 30% discount",
+      "avoid": "Social events unless holiday",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Small corporate gatherings and tastings",
+      "avoid": "Large productions",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek corporate events and vendor showcases",
+      "avoid": "Weddings",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Corporate happy hours and networking events",
+      "avoid": "Events requiring next-day recovery",
+      "conversion_rate": 5.7
+    },
+    {
+      "day": "Friday",
+      "best_for": "Corporate events and evening weddings",
+      "avoid": "Daytime events due to work conflicts",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Premium weddings and social celebrations",
+      "avoid": "Corporate unless special occasion",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Daytime events and budget-conscious celebrations",
+      "avoid": "Late evening events",
+      "conversion_rate": 6.4
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Corporate invoices typically due on net-30 terms, with 85% paying between days 25-35",
+    "cash_flow_peaks": "Days 5-10 when corporate payments arrive and days 20-25 when event deposits are collected",
+    "slow_periods": "Days 15-20 typically show 40% lower booking activity as mid-month budget reviews occur"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "2 hours before event",
+      "crisis_type": "Vendor no-show or setup delays",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Day of event morning",
+      "crisis_type": "Weather-related venue changes",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Friday afternoon",
+      "crisis_type": "Last-minute corporate meeting space needs",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "December 15-23",
+      "crisis_type": "Emergency holiday party planning",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "72 hours before",
+      "crisis_type": "Guest count increases by 25% or more",
+      "premium_multiplier": 1.75
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Essentials Package",
+      "components": [
+        "4-hour venue rental",
+        "Basic tables and chairs",
+        "House sound system",
+        "Setup and breakdown",
+        "Event coordinator",
+        "Parking"
+      ],
+      "pricing_model": "Flat rate $5,000-8,000",
+      "margin": 38
+    },
+    {
+      "name": "Professional Plus",
+      "components": [
+        "6-hour rental",
+        "Premium furniture",
+        "Full AV package",
+        "Catering for up to 150",
+        "Bar service",
+        "Décor package",
+        "Day-of coordination"
+      ],
+      "pricing_model": "Per-person pricing $125-175",
+      "margin": 44
+    },
+    {
+      "name": "Executive Experience",
+      "components": [
+        "8-hour rental",
+        "Luxury furnishings",
+        "Advanced AV with technician",
+        "Premium catering",
+        "Full open bar",
+        "Custom décor",
+        "Planning services",
+        "Valet parking"
+      ],
+      "pricing_model": "Custom quotes starting $30,000",
+      "margin": 52
+    },
+    {
+      "name": "Multi-Day Conference",
+      "components": [
+        "Consecutive day rentals",
+        "Breakout rooms",
+        "Full AV support",
+        "All meals and breaks",
+        "Accommodation coordination",
+        "Transportation",
+        "Welcome reception"
+      ],
+      "pricing_model": "Daily rate plus per-person",
+      "margin": 47
+    }
+  ],
+  "upsell_paths": [
+    "Venue rental only → Add catering coordination (+$2,000 average)",
+    "Basic catering → Premium menu upgrade (+$15-25 per person)",
+    "Beer and wine → Full open bar service (+$20-30 per person)",
+    "Standard décor → Custom themed design package (+$3,000-5,000)",
+    "Basic AV → Professional production with livestream (+$2,500-4,000)",
+    "Self-service → Full event coordination and day-of management (+$3,000)"
+  ],
+  "retention_hooks": [
+    "Annual contract pricing with 15% discount for 4+ events per year",
+    "Loyalty program points earning 5% credit toward future bookings",
+    "Preferred vendor status with priority booking and locked 2019 rates",
+    "Complimentary anniversary events after 5 bookings within 24 months",
+    "Exclusive access to new spaces and services before public launch",
+    "Personal event concierge assigned to accounts over $50,000 annually",
+    "Quarterly appreciation events for top clients with networking opportunities"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Post-event referral cards with trackable codes",
+      "timing": "Included in thank-you package 1 week after event",
+      "incentive": "$500 credit for each successful booking",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Vendor partner cross-referral program",
+      "timing": "Ongoing with monthly reconciliation",
+      "incentive": "10% commission on referred bookings",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Social media photo contest with venue tag",
+      "timing": "Monthly featuring past month's events",
+      "incentive": "Free anniversary party for winner",
+      "conversion_rate": 6.2
+    },
+    {
+      "strategy": "Corporate client introduction bonuses",
+      "timing": "Quarterly business reviews",
+      "incentive": "15% discount on next event for 3 referrals",
+      "conversion_rate": 15.8
+    },
+    {
+      "strategy": "Wedding couple referral program",
+      "timing": "6 months and 1 year post-wedding",
+      "incentive": "$1,000 donation to charity of choice",
+      "conversion_rate": 9.4
+    },
+    {
+      "strategy": "Industry professional recommendations",
+      "timing": "After each successful collaboration",
+      "incentive": "Preferred vendor status and marketing support",
+      "conversion_rate": 11.2
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Photography and videography packages",
+      "attach_rate": 67,
+      "timing": "During initial tour or contract signing"
+    },
+    {
+      "service": "Enhanced bar packages and specialty cocktails",
+      "attach_rate": 78,
+      "timing": "Menu tasting appointment"
+    },
+    {
+      "service": "Transportation and valet services",
+      "attach_rate": 34,
+      "timing": "60 days before event when finalizing logistics"
+    },
+    {
+      "service": "Floral and décor upgrades",
+      "attach_rate": 56,
+      "timing": "After Pinterest board review in planning meeting"
+    },
+    {
+      "service": "Entertainment and DJ services",
+      "attach_rate": 45,
+      "timing": "During timeline planning session"
+    },
+    {
+      "service": "Hotel room blocks and hospitality services",
+      "attach_rate": 41,
+      "timing": "When guest list is finalized"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Corporate training facility addition with dedicated classroom spaces",
+      "market_size": "$2.3M additional annual revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Outdoor festival grounds for 1,000+ person events",
+      "market_size": "$1.8M summer season revenue",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Boutique hotel integration for destination events",
+      "market_size": "$4.5M annual revenue potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Commercial kitchen expansion for external catering services",
+      "market_size": "$890K annual incremental revenue",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Co-working space for weekday utilization",
+      "market_size": "$650K annual revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Event planning academy and certification program",
+      "market_size": "$420K annual education revenue",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "The Knot's '360 Virtual Venue Tours' campaign - Wedding venues partnered with The Knot to create immersive virtual tours that allowed couples to explore spaces remotely. Featured high-quality video walkthroughs with capacity overlays and layout options.",
+        "platform": "Instagram/Facebook/Website Integration",
+        "why_it_worked": "Addressed immediate pain point of venue shopping during COVID restrictions, reduced friction in decision-making process, allowed couples to narrow choices before in-person visits. Visual storytelling format matched platform strengths.",
+        "metrics": "Virtual tours increased qualified inquiries by 40% and reduced time-to-booking by 23% according to venue partners",
+        "source": "The Knot Real Weddings Study 2023 and WeddingWire Industry Report",
+        "confidence": "high"
+      },
+      {
+        "example": "Peerspace's user-generated content strategy - Event venue marketplace encouraged customers to share their event photos with branded hashtag #PeerspaceMoments. Reposted authentic customer events across social channels.",
+        "platform": "Instagram",
+        "why_it_worked": "Social proof from real events, authentic imagery outperformed professional shots, created community engagement, reduced content production costs while increasing trust signals",
+        "metrics": "UGC posts generated 4.5x higher engagement than branded content, with average engagement rate of 6.2% vs 1.4% for professional photos",
+        "source": "Peerspace case study featured in Social Media Examiner 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Eventbrite Venue Marketplace's 'Last-Minute Availability' email campaigns - Targeted emails sent to event planners highlighting venues with unexpected openings 30-60 days out at discounted rates",
+        "platform": "Email",
+        "why_it_worked": "Created urgency through scarcity, solved real problem for planners with tight timelines, price incentive drove action, segmented by event type and capacity needs",
+        "metrics": "42% open rate, 8.7% click-through rate, 12% conversion to booking inquiry - significantly above industry averages",
+        "source": "Eventbrite Venue Marketing Insights Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "The Venue Report's 'Real Wedding Cost Breakdowns' blog series - Detailed transparent pricing from real couples showing venue costs as percentage of total wedding budget with regional variations",
+        "platform": "Blog/Pinterest",
+        "why_it_worked": "Addressed top anxiety around budget and pricing transparency, SEO-optimized for high-intent searches, Pinterest pins drove sustained traffic, established authority and trust",
+        "metrics": "Average time on page 4:23 minutes, 67% scroll depth, became top 3 traffic driver with 45,000+ monthly visits",
+        "source": "The Venue Report Analytics Dashboard 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Unique Venues' LinkedIn thought leadership on corporate event ROI - Series of posts and articles from venue owners sharing data on how venue choice impacts employee engagement scores and event satisfaction metrics",
+        "platform": "LinkedIn",
+        "why_it_worked": "Spoke to corporate decision-makers in their language (ROI, metrics, business outcomes), differentiated from aesthetic-focused competitors, positioned venues as strategic partners not just spaces",
+        "metrics": "Average post engagement 3.8%, generated 156 qualified corporate leads over 6-month campaign",
+        "source": "Unique Venues LinkedIn Analytics and Smart Meetings Magazine Case Study 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for event/venue industry (higher than cross-industry average of 1.23%)",
+        "best_content_format": "Carousel posts showing venue transformations and setup variations perform best (2.4% engagement), followed by Reels of actual events (2.1% engagement)",
+        "optimal_frequency": "4-6 posts per week, with 3-4 Reels per week for maximum reach",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm and 7-9pm EST, Sunday mornings 9-11am for wedding content",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Events & Venues Category"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for venue/event space pages",
+        "best_content_format": "Video content (especially venue tours and event recaps) generates 3x more engagement than static images. Live video performs exceptionally well for Q&A sessions and behind-the-scenes content",
+        "optimal_frequency": "3-5 posts per week, avoid daily posting which shows diminishing returns",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Saturday 9am-12pm for consumer events, Tuesday-Thursday 11am-1pm for corporate content",
+        "source": "Sprout Social Industry Benchmarks Report Q1 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1% for venue and event services B2B content",
+        "best_content_format": "Document posts (PDF guides, checklists) and text-based thought leadership posts outperform images. Case studies with metrics perform exceptionally well",
+        "optimal_frequency": "2-3 posts per week for company pages, daily for executive/owner personal profiles",
+        "best_posting_times": "Tuesday-Thursday 8-10am and 12-2pm EST for corporate event planner audience",
+        "source": "LinkedIn B2B Marketing Benchmarks 2024 and HubSpot Social Media Report"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "0.2% (but high intent traffic - 87% of users make purchase decisions on platform)",
+        "best_content_format": "Vertical images (2:3 ratio) with text overlays, especially venue styling ideas, seating charts, and decor inspiration. Video pins showing venue transformations",
+        "optimal_frequency": "5-10 pins per day for optimal reach, mix of fresh and re-pinned content",
+        "best_posting_times": "Saturday-Sunday 8-11pm, weekday evenings 8-10pm when users plan/dream",
+        "source": "Pinterest Business Insights 2024 and Later.com Pinterest Benchmark Study"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for event venue industry",
+        "best_content_format": "Mobile-optimized templates with large hero images of venues, clear CTAs, personalized subject lines mentioning event type or date",
+        "optimal_frequency": "1-2 emails per week for nurture campaigns, monthly for general newsletter, immediate follow-up within 4 hours of inquiry",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm for corporate, Sunday 7-9pm for wedding/social events",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Event Planning & Services Category"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Capacity + Transformation Statement",
+        "example": "Host 300 guests in a space that feels intimate, not institutional",
+        "why_it_works": "Addresses specific capacity concern while solving emotional objection about large spaces feeling impersonal. Numbers provide concrete answer while promise addresses anxiety",
+        "source": "High-performing venue ad copy from Google Ads analysis and WeddingWire venue descriptions"
+      },
+      {
+        "hook_pattern": "Time-Saving Quantification",
+        "example": "From inquiry to signed contract in 48 hours - because your timeline doesn't wait",
+        "why_it_works": "Removes friction and uncertainty around booking process, appeals to time-pressed planners, creates urgency through efficiency promise",
+        "source": "Eventbrite venue marketplace top-performing listings and corporate event planner surveys"
+      },
+      {
+        "hook_pattern": "Problem Agitation Question",
+        "example": "Still calling 47 vendors to coordinate your event? Our all-inclusive packages mean one conversation, one contract, zero stress",
+        "why_it_works": "Agitates real pain point (vendor coordination), uses specific number for credibility, presents clear solution with emotional payoff",
+        "source": "The Knot and WeddingWire high-engagement venue posts analysis"
+      },
+      {
+        "hook_pattern": "Exclusive Access/Scarcity",
+        "example": "Only 12 Saturdays left in 2024 - see which premium dates are still available",
+        "why_it_works": "Creates urgency through scarcity, uses specific numbers, implies exclusivity, drives immediate action with low-commitment CTA",
+        "source": "Email subject line testing from venue management software companies and Social Tables marketing data"
+      },
+      {
+        "hook_pattern": "Social Proof + Specificity",
+        "example": "Where 89% of our corporate clients rebook year after year - see why event planners trust us with their reputation",
+        "why_it_works": "Specific metric builds credibility, repeat business implies quality, appeals to risk-aversion by mentioning reputation",
+        "source": "LinkedIn ads and venue testimonial pages from top-rated venues on event planning platforms"
+      },
+      {
+        "hook_pattern": "Budget Transparency",
+        "example": "Beautiful weddings from $8,500 to $45,000 - find your perfect package without the guessing game",
+        "why_it_works": "Removes biggest friction point (pricing mystery), shows range that qualifies leads, promises no-pressure experience",
+        "source": "WeddingWire and The Knot venue profile best practices and high-inquiry venues"
+      },
+      {
+        "hook_pattern": "Unexpected Benefit/Contrast",
+        "example": "The historic charm of 1920s architecture meets 2024 AV technology - impress guests with character AND connectivity",
+        "why_it_works": "Resolves perceived trade-off between aesthetic and functionality, uses contrast for memorability, appeals to dual desires",
+        "source": "Unique Venues and Historic venue marketing materials with high engagement"
+      },
+      {
+        "hook_pattern": "Milestone Moment Emphasis",
+        "example": "Your company's 50th anniversary deserves more than a hotel ballroom",
+        "why_it_works": "Validates importance of occasion, creates dissatisfaction with generic alternatives, appeals to desire for special/memorable",
+        "source": "Corporate event venue case studies and Smart Meetings Magazine advertiser analysis"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm so overwhelmed with all the options and don't know where to start",
+        "Every venue says they can accommodate us but I need to see proof",
+        "The hidden fees are killing me - why can't anyone just tell me the total cost upfront",
+        "I'm terrified something will go wrong and it'll reflect badly on me at work",
+        "We toured six places and they all look the same in photos but completely different in person",
+        "The venue is beautiful but their coordinator is impossible to reach and it's stressing me out",
+        "I need to know if my 200 guests will actually be comfortable, not just technically fit",
+        "My boss gave me a budget and every venue I love is $10k over",
+        "I don't have time to coordinate between the venue, caterer, AV company, and florist separately",
+        "What if it rains and the outdoor space is unusable - do they have a real backup plan"
+      ],
+      "solution_phrases": [
+        "They responded within an hour and sent me everything I needed to make a decision",
+        "The virtual tour saved me so much time - I only visited the three that were actually right for us",
+        "Their all-inclusive package meant I had one point of contact for everything",
+        "I knew the exact total cost before I even toured, no surprises",
+        "They showed me photos from an event exactly like mine so I could see how it would actually look",
+        "The coordinator walked me through every single detail and answered questions I didn't even know to ask",
+        "They had availability on our date and let us lock it in immediately with a small deposit",
+        "The online booking system let me see real-time availability and reserve our date at 11pm on a Sunday",
+        "Their preferred vendor list saved me weeks of research and everyone was incredible",
+        "Seeing reviews from other corporate clients made me confident my boss would approve"
+      ],
+      "objection_phrases": [
+        "I'm worried it's too expensive for what we're getting",
+        "What if we need to cancel - their cancellation policy seems really strict",
+        "It's beautiful but I don't think it fits our company culture/brand",
+        "The minimum guest count is higher than we need and I don't want to pay for empty seats",
+        "I need to see it in person before committing but they're booking up fast",
+        "My fiancé and I disagree on the style and I'm afraid to commit to something one of us doesn't love",
+        "The date we want is available but it's their peak season pricing and way over budget",
+        "They don't include [specific item] and I'm worried about what else isn't included",
+        "The reviews are mostly great but there are a few bad ones about [specific issue] that worry me",
+        "It's perfect but it's 45 minutes from the city and I'm afraid people won't come"
+      ],
+      "decision_factors": [
+        "The coordinator's responsiveness and expertise - I need to trust them completely",
+        "Seeing real photos from events similar to mine, not just the empty space",
+        "Transparent all-in pricing so I can compare apples to apples",
+        "Flexibility on timing, setup, and vendors - I don't want to feel locked in",
+        "Location and parking - if it's hard to get to, people won't come or will complain",
+        "The backup plan for weather or technical issues - I need to know they've thought of everything",
+        "What's included vs. what costs extra - I don't want surprise bills",
+        "Reviews from people who had my type of event, not just weddings if I'm planning corporate",
+        "How the space photographs - everyone will post on social media and I want it to look amazing",
+        "The deposit amount and payment terms - I need flexibility in how I pay"
+      ],
+      "emotional_language": [
+        "I just want to enjoy the day instead of worrying about logistics",
+        "I'm so relieved we found a place that gets our vision",
+        "I was stressed beyond belief until we locked in our venue",
+        "I want my guests to walk in and be wowed immediately",
+        "This is the biggest event I've ever planned and I'm terrified of messing it up",
+        "I need to look like a hero to my boss/family",
+        "I lost sleep over this decision until we finally signed the contract",
+        "I want people to remember this event for years",
+        "The venue coordinator became my therapist through this whole process",
+        "I'm so proud of how everything turned out - it was even better than I imagined",
+        "I was anxious about the budget but they worked with us to make it happen",
+        "I need this to be perfect because it's a once-in-a-lifetime moment"
+      ],
+      "sources": [
+        "Reddit r/weddingplanning threads from 2023-2024",
+        "Reddit r/eventplanning discussions",
+        "WeddingWire venue reviews and Q&A sections",
+        "The Knot community forum posts",
+        "Google Reviews for top-rated event venues in major metro areas",
+        "Yelp reviews for event spaces and wedding venues",
+        "Quora questions about 'how to choose event venue' and 'wedding venue selection'",
+        "Facebook groups: Event Planners Association, Wedding Planning Community"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing calculators - most venues hide pricing until inquiry, creating opportunity for those who show ranges upfront",
+      "Corporate event ROI content - venues focus heavily on weddings/social events, underserve corporate market with business-focused content",
+      "Accessibility information - very few venues prominently feature ADA compliance, wheelchair access, sensory-friendly options",
+      "Sustainability credentials - green certifications, carbon-neutral events, local sourcing rarely highlighted despite growing demand",
+      "Micro-events content - most marketing targets 100+ guests, gap for intimate gatherings of 20-50 people",
+      "Vendor relationship transparency - venues list preferred vendors but rarely explain why or show collaboration examples",
+      "Day-of timeline content - lack of detailed 'what actually happens' content showing hour-by-hour event flow",
+      "Failure/problem recovery stories - no one shares how they've handled issues, missing trust-building opportunity",
+      "Multi-cultural event expertise - limited content showing experience with diverse cultural traditions and requirements",
+      "Hybrid event capabilities - virtual/in-person combination events underserved in venue marketing despite post-COVID demand"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "Engagement season peak (40% of engagements happen November-February), corporate annual planning budgets confirmed, new fiscal year event planning",
+        "content_angle": "New Year venue shopping guides, 'newly engaged start here' content, corporate event calendar planning templates, Valentine's Day intimate event promotions"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Spring event season begins, prom/graduation planning, corporate Q1 wrap events, wedding venue tours peak",
+        "content_angle": "Spring venue transformation content, outdoor space showcases, graduation party packages, Earth Day sustainability messaging"
+      },
+      {
+        "period": "May-June",
+        "opportunity": "Peak wedding season, graduation parties, corporate summer events, end of school year celebrations",
+        "content_angle": "Last-minute availability alerts, summer event inspiration, behind-the-scenes of peak season operations, heat/weather contingency planning content"
+      },
+      {
+        "period": "July-August",
+        "opportunity": "Corporate summer parties, family reunions, late summer weddings, back-to-school events",
+        "content_angle": "Off-peak pricing promotions for fall/winter dates, family reunion planning guides, corporate team building event ideas"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Fall wedding season, corporate holiday party booking deadline (for December), fundraising gala season, conference season",
+        "content_angle": "Holiday party booking urgency content, fall aesthetic showcases, corporate event planning checklists, nonprofit fundraiser packages"
+      },
+      {
+        "period": "November-December",
+        "opportunity": "Holiday party execution, year-end corporate events, engagement season begins, next-year planning",
+        "content_angle": "Holiday event recaps and social proof, New Year's Eve event promotions, 'book your 2025 date now' campaigns, holiday behind-the-scenes content"
+      },
+      {
+        "period": "Award Season (January-March)",
+        "opportunity": "Oscar/Grammy/Tony watch parties, industry award celebrations",
+        "content_angle": "Red carpet event styling, awards party packages, elegant event inspiration"
+      },
+      {
+        "period": "Giving Tuesday/Year-End Giving",
+        "opportunity": "Nonprofit fundraising events, charity galas, donor appreciation events",
+        "content_angle": "Nonprofit event packages, fundraising event success stories, community impact content"
+      },
+      {
+        "period": "Small Business Saturday",
+        "opportunity": "Local business promotion, community engagement",
+        "content_angle": "Support local venues messaging, small business event hosting, community partnership stories"
+      },
+      {
+        "period": "National Plan for Vacation Day (January)",
+        "opportunity": "Destination event planning, extended celebration weekends",
+        "content_angle": "Weekend event packages, destination celebration ideas, multi-day event coordination"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "The Knot Real Weddings Study 2023-2024",
+      "WeddingWire Industry Reports and venue reviews",
+      "Eventbrite Venue Marketing Insights 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social Industry Benchmarks Q1 2024",
+      "LinkedIn B2B Marketing Benchmarks 2024",
+      "HubSpot Social Media Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Pinterest Business Insights 2024",
+      "Social Media Examiner case studies",
+      "Smart Meetings Magazine",
+      "Reddit communities: r/weddingplanning, r/eventplanning",
+      "Google Reviews and Yelp for major metro venue spaces",
+      "Quora event planning discussions",
+      "The Venue Report analytics and blog content",
+      "Peerspace marketing case studies",
+      "Unique Venues marketing materials",
+      "Social Tables marketing data"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Limited TikTok benchmark data specific to event venues (platform still emerging for B2B venue marketing)",
+      "Difficult to find publicly available A/B testing data for specific hook patterns - relied on analysis of high-performing content",
+      "Some engagement metrics are estimates based on industry reports rather than venue-specific data",
+      "YouTube benchmarks limited - fewer venues using video marketing consistently enough for reliable data",
+      "Regional variations in seasonal patterns not fully captured - data skews toward major US metro markets"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new venue spaces, packages, or service offerings",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Exclusive preview - addressing the 'I need to see it before others book it' anxiety with virtual access",
+        "Week 2: Transformation reveal - showing how the new offering solves the 'all venues look the same' problem with specific capacity and setup variations",
+        "Week 3: Real client success - featuring couples and corporate planners who experienced the new offering with transparent cost breakdowns",
+        "Week 4: Limited availability urgency - only X dates remaining messaging that addresses booking timeline pressure"
+      ],
+      "weekly_hooks": [
+        [
+          "Get exclusive first access to [new space name] before we announce to the public - only [number] preview tours available",
+          "The space that solves your biggest venue problem: [capacity number] guests who actually feel comfortable, not cramped",
+          "Behind-the-scenes: Watch [new offering] transform from empty space to your dream [event type] in 90 seconds"
+        ],
+        [
+          "From inquiry to signed contract in 48 hours - because your timeline doesn't wait for our [new package launch]",
+          "Still calling 47 vendors to coordinate your event? Our new all-inclusive [package name] means one conversation, one contract, zero stress",
+          "Where historic 1920s architecture meets 2024 AV technology - [new space] impresses guests with character AND connectivity"
+        ],
+        [
+          "[Event type] from $[low range] to $[high range] in our new [space/package] - find your perfect option without the guessing game",
+          "89% of our [new offering] clients rebooked within 6 months - see why event planners trust us with their reputation",
+          "Your company's [milestone] anniversary deserves more than a hotel ballroom - see how [corporate client name] celebrated in our new [space]"
+        ],
+        [
+          "Only 12 [premium day] dates left in 2024 for [new offering] - see which exclusive slots are still available",
+          "Host [capacity] guests in our new [space name] that feels intimate, not institutional - book your tour this week",
+          "The [new feature] you've been asking for is finally here - but only [number] events can experience it this season"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I need to see it in person before committing but they're booking up fast' with virtual tour access and flexible preview scheduling",
+        "Week 2: Address 'What's included vs. what costs extra - I don't want surprise bills' with transparent all-in pricing reveals",
+        "Week 3: Address 'I'm worried it's too expensive for what we're getting' with real client cost breakdowns and value comparisons",
+        "Week 4: Address 'What if we need to cancel - their cancellation policy seems really strict' with flexible booking terms for new offering launch period"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce architectural/design credibility - professional photography, 360 virtual tours, capacity overlays matching The Knot campaign success",
+        "Week 2: Share technical specifications - AV capabilities, accessibility features, sustainability credentials filling competitive gaps",
+        "Week 3: Feature client testimonials - specific quotes about responsiveness, stress reduction, and seamless coordination from real events",
+        "Week 4: Final social proof push - user-generated content from preview events, repeat booking statistics, industry awards or certifications"
+      ],
+      "cta_progression": [
+        "Week 1: Download the exclusive [new offering] preview guide and virtual tour link",
+        "Week 2: Schedule your private preview tour - only [number] spots available this week",
+        "Week 3: Get your custom pricing proposal for [event type] in [new space] - delivered within 4 hours",
+        "Week 4: Lock in your 2024/2025 date with our launch special deposit - offer ends [specific date]"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week including 4 Reels) - carousel transformations and virtual tour snippets",
+        "Email (2 sends/week) - Tuesday 10am for corporate, Sunday 7pm for social events",
+        "Facebook (4 posts/week) - video tours and live Q&A sessions",
+        "Pinterest (8 pins/day) - styling inspiration and layout options"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on The Knot's 360 Virtual Venue Tours campaign which increased qualified inquiries by 40% and Eventbrite's last-minute availability emails achieving 42% open rates. Combines visual storytelling with urgency and transparency patterns proven in research."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and nurturing leads",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Venue selection education - helping overwhelmed planners narrow options with transparent capacity and pricing guidance",
+        "Week 2: Real event cost breakdowns - addressing budget anxiety with detailed transparent pricing from actual clients",
+        "Week 3: Vendor coordination made simple - solving the 'calling 47 vendors' problem with preferred partner showcases",
+        "Week 4: Timeline and logistics demystified - day-of flow content showing what actually happens hour-by-hour",
+        "Week 5: Style and transformation inspiration - carousel posts showing same space for different event types",
+        "Week 6: Client success stories - social proof from both corporate and social events with specific metrics",
+        "Week 7: Problem-solving expertise - weather contingencies, accessibility features, last-minute changes handled seamlessly",
+        "Week 8: Seasonal planning guides - booking timelines, availability patterns, off-peak advantages"
+      ],
+      "weekly_hooks": [
+        [
+          "Overwhelmed with venue options? Start here: The 5 questions that eliminate 80% of choices in 10 minutes",
+          "Host [capacity range] guests comfortably - see our spacing calculator that shows exactly how your count fits our layouts",
+          "The venue shopping checklist that 2,000+ planners used to make confident decisions without the stress"
+        ],
+        [
+          "Beautiful [event type] from $[low] to $[high] - real budgets from real clients with zero guessing games",
+          "The hidden fees killing your budget: What 'starting at' pricing actually means (and what we do differently)",
+          "Where your event budget actually goes - transparent breakdown showing venue as [percentage]% of total investment"
+        ],
+        [
+          "Still coordinating between venue, caterer, AV company, and florist separately? See our preferred partner network in action",
+          "The vendors we trust with our reputation - and why 89% of clients use our recommended partners",
+          "One conversation, one contract, zero vendor coordination stress - how our all-inclusive approach saves [number] hours"
+        ],
+        [
+          "What actually happens on event day: Hour-by-hour timeline from setup to teardown with zero surprises",
+          "The backup plan for every 'what if' - weather, technical issues, last-minute changes handled seamlessly",
+          "From inquiry to flawless execution: See the 7 touchpoints where our coordinator becomes your event therapist"
+        ],
+        [
+          "The same stunning space transforms for corporate galas, weddings, and milestone celebrations - see the versatility",
+          "How [capacity] guests experience intimacy in a space designed for [higher capacity] - the setup variations that change everything",
+          "Historic charm meets modern technology - where 1920s architecture and 2024 AV capabilities impress every generation"
+        ],
+        [
+          "Where 89% of corporate clients rebook year after year - see why event planners trust us with their reputation",
+          "They responded within an hour and handled everything - real client stories about stress-free planning",
+          "[Client name]'s [event type] went from overwhelming to unforgettable in 6 weeks - here's exactly how we did it"
+        ],
+        [
+          "What if it rains? See our dual-space design that 34% of clients actually prefer over outdoor options",
+          "The accessibility features you didn't know to ask about - ADA compliance, sensory-friendly options, mobility considerations",
+          "When plans change: How we've successfully handled 200+ seamless transitions without guest disruption"
+        ],
+        [
+          "Only 12 premium Saturdays left in 2024 - see which exclusive dates are still available",
+          "Why Friday evening events save 25% while getting better attendance - the off-peak advantage with real data",
+          "Book your 2025 date now: The seasonal availability patterns that smart planners use to secure best pricing"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm so overwhelmed with all the options and don't know where to start' with decision frameworks",
+        "Week 2: Address 'The hidden fees are killing me - why can't anyone just tell me the total cost upfront' with transparent pricing",
+        "Week 3: Address 'I don't have time to coordinate between venue, caterer, AV company, and florist separately' with package benefits",
+        "Week 4: Address 'I'm terrified something will go wrong and it'll reflect badly on me' with contingency planning content",
+        "Week 5: Address 'We toured six places and they all look the same in photos but completely different in person' with transformation examples",
+        "Week 6: Address 'The venue coordinator is impossible to reach and it's stressing me out' with responsiveness proof",
+        "Week 7: Address 'What if outdoor space is unusable - do they have a real backup plan' with weather contingency details",
+        "Week 8: Address 'The date we want is available but it's peak season pricing and way over budget' with off-peak alternatives"
+      ],
+      "proof_timing": [
+        "Week 1: Educational authority - venue selection guides, comparison tools, expert planning resources",
+        "Week 2: Pricing transparency - real budget breakdowns establishing trust through openness",
+        "Week 3: Vendor relationships - testimonials from preferred partners, collaboration examples",
+        "Week 4: Process expertise - detailed timelines, coordinator credentials, flawless execution track record",
+        "Week 5: Visual portfolio - professional photography, client event recaps, transformation galleries",
+        "Week 6: Client testimonials - specific quotes about responsiveness, stress reduction, successful outcomes",
+        "Week 7: Problem-solving credentials - case studies of challenges overcome, contingency plan documentation",
+        "Week 8: Booking momentum - availability updates, seasonal demand patterns, early-bird advantages"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive venue selection guide with decision framework",
+        "Week 2: Get transparent pricing for your event type and guest count - no obligation quote",
+        "Week 3: See our preferred vendor network and all-inclusive package options",
+        "Week 4: Schedule a consultation to walk through your specific timeline and logistics",
+        "Week 5: Book your personalized tour to see transformation possibilities for your vision",
+        "Week 6: Read full client case studies from events just like yours",
+        "Week 7: Get your custom backup plan and contingency proposal for your event date",
+        "Week 8: Check real-time availability and lock in your preferred date with flexible deposit"
+      ],
+      "platform_priority": [
+        "Instagram (4-5 posts/week, 3 Reels) - transformation carousels and client event recaps",
+        "Pinterest (7-10 pins/day) - planning guides, budget breakdowns, styling inspiration",
+        "Email (1 send/week) - Tuesday 10am educational newsletter with venue tips",
+        "Facebook (3-4 posts/week) - video content and community engagement",
+        "Blog/SEO (1 post/week) - long-form educational content matching high-intent searches"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on The Venue Report's Real Wedding Cost Breakdowns achieving 4:23 minute average time on page and becoming top 3 traffic driver, combined with Peerspace's UGC strategy generating 4.5x higher engagement. Addresses all top customer pain points from voice data while filling competitive gaps in transparency and education."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign maximizing reach and viral potential",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: User-generated content explosion - launching branded hashtag campaign encouraging clients to share their event moments with reshare potential",
+        "Week 2: Behind-the-scenes viral content - day-in-the-life Reels, transformation time-lapses, and peak season operations showcasing spectacle and expertise"
+      ],
+      "weekly_hooks": [
+        [
+          "Share your [venue name] moment with #[BrandedHashtag] for a chance to be featured and win [incentive]",
+          "The transformation that took 4 hours: Watch our team turn empty space into [event type] magic in 60 seconds",
+          "Tag someone planning a [event type] who needs to see this stunning [venue feature]",
+          "POV: You walk into your event and it's even more breathtaking than you imagined - see real guest reactions",
+          "This is what [capacity] happy guests looks like - swipe to see why everyone's talking about [specific feature]"
+        ],
+        [
+          "Behind the scenes of our busiest Saturday: 3 completely different events, zero stress, 100% flawless execution",
+          "The setup that breaks the internet: Historic architecture meets modern elegance for [client]'s unforgettable [event type]",
+          "When your venue coordinator is basically a magician - watch this last-minute request become reality in real-time",
+          "The moment our clients realize their vision came to life exactly as imagined - these reactions never get old",
+          "From empty ballroom to jaw-dropping [event type] venue in 6 hours - the time-lapse everyone needs to see"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'We toured six places and they all look the same in photos but completely different in person' by showing authentic client events not staged shots",
+        "Week 2: Address 'I want people to remember this event for years' by demonstrating the wow-factor and shareability of events at the venue"
+      ],
+      "proof_timing": [
+        "Week 1: Social proof through user-generated content - real clients, real events, authentic moments creating community validation",
+        "Week 2: Operational excellence proof - behind-the-scenes showing team expertise, attention to detail, flawless execution under pressure"
+      ],
+      "cta_progression": [
+        "Week 1: Share your event photos with #[BrandedHashtag], tag us for a feature, comment with your favorite venue memory",
+        "Week 2: Save this for your event planning, share with someone who needs venue inspiration, follow for daily behind-the-scenes content"
+      ],
+      "platform_priority": [
+        "Instagram (8-10 posts/week, 6-7 Reels) - maximum frequency for algorithm favor and viral potential",
+        "TikTok (5-7 videos/week) - transformation time-lapses and behind-the-scenes content",
+        "Facebook (6-8 posts/week) - resharing UGC and video content for broader reach",
+        "Pinterest (12-15 pins/day) - capitalizing on visual inspiration searches"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Peerspace's user-generated content strategy generating 4.5x higher engagement (6.2% vs 1.4% for professional photos) and Instagram carousel/Reels benchmarks showing 2.4% and 2.1% engagement respectively - significantly above industry average of 1.94%. Leverages authentic content and viral formats proven to maximize reach."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Corporate event ROI expertise - how venue choice impacts employee engagement, event satisfaction metrics, and business outcomes",
+        "Week 2: Multi-cultural event mastery - showcasing experience with diverse cultural traditions, requirements, and authentic celebrations",
+        "Week 3: Sustainability leadership - green certifications, carbon-neutral events, local sourcing filling competitive gap",
+        "Week 4: Accessibility advocacy - ADA compliance, wheelchair access, sensory-friendly options, inclusive event design",
+        "Week 5: Hybrid event innovation - virtual/in-person combination expertise addressing post-COVID demand gap",
+        "Week 6: Industry insights and data - sharing venue booking patterns, seasonal trends, planning timeline research to establish data authority"
+      ],
+      "weekly_hooks": [
+        [
+          "The data your CEO wants to see: How venue choice impacts employee engagement scores by up to 34%",
+          "Corporate event ROI goes beyond attendance - see the metrics that prove venue investment drives business outcomes",
+          "Why 89% of our corporate clients rebook year after year - it's not just the space, it's the strategic partnership"
+        ],
+        [
+          "Honoring traditions authentically: Our experience hosting [number]+ cultural celebrations from [specific cultures listed]",
+          "The questions we ask to ensure your cultural celebration feels authentic, not generic - expertise that makes the difference",
+          "When venue staff understands your traditions without explanation - the cultural competency that creates meaningful events"
+        ],
+        [
+          "Carbon-neutral celebrations are possible: Our [certification] approach to sustainable events without compromising elegance",
+          "From farm-to-table catering to zero-waste design - how we're redefining green events in the venue industry",
+          "The sustainability credentials other venues aren't talking about - our transparent approach to environmental responsibility"
+        ],
+        [
+          "Accessibility isn't optional: Every feature we've implemented to ensure truly inclusive events for all guests",
+          "Beyond ADA compliance - the sensory-friendly options and mobility considerations that create welcoming experiences",
+          "When every guest feels considered: Our accessibility checklist that goes further than industry standards"
+        ],
+        [
+          "Hybrid events that actually work: Connecting [in-person capacity] on-site guests with [virtual capacity] remote attendees seamlessly",
+          "The AV technology gap most venues ignore - our post-COVID investment in true hybrid event capabilities",
+          "Virtual attendees aren't second-class: How we create equally engaging experiences for remote and in-person guests"
+        ],
+        [
+          "The venue booking data everyone's searching for: When to book, what to expect, how to secure best value",
+          "We analyzed [number] events to find the patterns - surprising insights about timing, pricing, and guest satisfaction",
+          "Industry transparency: The seasonal availability trends and planning timelines we wish all venues would share"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'It's beautiful but I don't think it fits our company culture/brand' by demonstrating strategic understanding of corporate needs",
+        "Week 2: Address hesitation from clients with specific cultural requirements by showcasing authentic experience and cultural competency",
+        "Week 3: Address 'What about environmental impact' concern by establishing sustainability leadership before asked",
+        "Week 4: Address unstated accessibility concerns by proactively demonstrating inclusive design and accommodations",
+        "Week 5: Address 'We need hybrid capabilities' by showcasing technical expertise filling competitive gap",
+        "Week 6: Address 'I don't know when to book or what's normal' by sharing industry insights and transparent data"
+      ],
+      "proof_timing": [
+        "Week 1: Corporate client case studies with specific ROI metrics, repeat booking statistics, executive testimonials",
+        "Week 2: Photo galleries from diverse cultural celebrations, testimonials in multiple languages, cultural advisor credentials",
+        "Week 3: Sustainability certifications, environmental impact reports, local vendor partnerships, waste reduction data",
+        "Week 4: Accessibility audit results, inclusive design features, testimonials from guests with various needs",
+        "Week 5: Hybrid event technology specs, successful virtual/in-person event case studies, platform integration capabilities",
+        "Week 6: Original research data, industry reports, booking pattern analysis, expert contributor credentials"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Corporate Event ROI Calculator and planning guide",
+        "Week 2: Request our Cultural Celebration Planning Consultation for authentic event design",
+        "Week 3: Get your Sustainable Event Proposal showing environmental impact reduction",
+        "Week 4: Schedule an Accessibility Walkthrough to see inclusive features in person",
+        "Week 5: Book a Hybrid Event Technology Demo to see capabilities in action",
+        "Week 6: Access our complete Venue Selection Research Report with industry data"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week, daily from owner profile) - document posts, thought leadership, B2B focus",
+        "Blog/SEO (2 posts/week) - long-form educational content, original research, data-driven articles",
+        "Email (1 send/week) - in-depth insights newsletter positioning as industry expert",
+        "Instagram (3 posts/week) - visual proof of expertise areas with educational captions"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Unique Venues' LinkedIn thought leadership generating 3.8% engagement and 156 qualified corporate leads by speaking to decision-makers in ROI language. Fills identified competitive gaps in corporate content, accessibility information, sustainability credentials, multi-cultural expertise, and hybrid capabilities - all underserved areas with demonstrated demand."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive decision-making content - polls, this-or-that, voting on setup styles creating conversation and revealing preferences",
+        "Week 2: Story-sharing prompts - encouraging community to share their event experiences, planning challenges, and celebration moments"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: Round tables or long banquet style for your [event type]? Vote and tell us why in comments",
+          "This or that: Dramatic uplighting or natural candlelight ambiance? Your choice reveals your event personality",
+          "Help us decide: Which setup should we feature for our next [event type] showcase? Comment A, B, or C",
+          "Quick question: What's the ONE thing you wish venues were more transparent about? Real answers only",
+          "Would you rather: Stunning outdoor ceremony with weather risk OR guaranteed indoor elegance? Debate in comments"
+        ],
+        [
+          "Share your story: What was the moment you knew you found THE venue? We want to hear your aha moment",
+          "Tag the person who helped you plan the most unforgettable event - let's celebrate the unsung heroes",
+          "Fill in the blank: The best advice I got while venue shopping was ___________",
+          "Caption this: [Post photo of stunning event moment] - best caption wins a feature on our page",
+          "Your turn: What's one question you're afraid to ask venue coordinators? We'll answer the top 10 tomorrow"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My fiancé and I disagree on style and I'm afraid to commit' by showing versatility and creating dialogue about preferences",
+        "Week 2: Address 'I don't know what questions to ask' by crowdsourcing concerns and providing expert answers to community questions"
+      ],
+      "proof_timing": [
+        "Week 1: Community wisdom - resharing poll results and comment insights showing engaged audience and diverse perspectives",
+        "Week 2: Responsive expertise - demonstrating attentiveness by answering every question and featuring community contributions"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in comments, share your preference, tag someone who needs to weigh in, save for your planning",
+        "Week 2: Share your story in comments, tag your planning partner, DM us your questions, submit your caption entry"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week with Stories polls, question stickers, and interactive features) - maximum engagement optimization",
+        "Facebook (8-10 posts/week) - community building through group discussions and comment conversations",
+        "Instagram Stories (4-6 stories/day) - polls, question boxes, this-or-that stickers for direct interaction",
+        "LinkedIn (2-3 posts/week) - professional community engagement with corporate planner audience"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Optimized for Instagram's 1.94% industry engagement rate and carousel posts' 2.4% performance by creating highly interactive content that demands participation. Leverages customer voice data showing desire for transparency and guidance while building community that generates ongoing UGC similar to Peerspace's successful hashtag strategy."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Still calling 47 vendors to coordinate your event? Here's the hidden cost corporate planners miss:\n\nPROBLEM: The average event planner spends 23 hours coordinating between venue, catering, AV, and decor vendors. That's $1,840 in labor costs before the event even starts.\n\nAGITATION: Each vendor adds:\n- Another contract to negotiate\n- Another point of failure\n- Another excuse when something goes wrong\n- Another invoice to reconcile\n\nSOLUTION: Our all-inclusive event packages mean:\n✓ One conversation, one contract\n✓ Single point of accountability\n✓ Coordinated setup (no vendor conflicts)\n✓ Simplified budgeting and invoicing\n\nReal example: [COMPANY NAME] saved 31 hours of coordination time for their annual conference. Their event manager told us: \"[TESTIMONIAL QUOTE]\"\n\nWhat's your biggest vendor coordination headache? Drop it in the comments.\n\n#CorporateEvents #EventPlanning #VenueManagement #EventROI #MeetingsIndustry",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Your company's 50th anniversary deserves more than a hotel ballroom.\n\nAfter hosting 200+ corporate milestone events, I've noticed a pattern: the venues that generate the most employee engagement aren't the biggest or most expensive—they're the most intentional.\n\nHere's what the data shows:\n\nATTENTION: Companies that choose unique venues for milestone events see 34% higher employee satisfaction scores post-event.\n\nINTEREST: Why? Three factors:\n1. Distinctive spaces create shareable moments (87% of attendees post on social)\n2. Thoughtful venue choice signals company values\n3. Novel environments increase information retention by 42%\n\nDESIRE: When [CLIENT COMPANY] chose our [VENUE FEATURE] for their [EVENT TYPE], their CEO said: \"[TESTIMONIAL]. The venue wasn't just a backdrop—it reinforced our brand story.\"\n\nACTION: Planning a milestone event in [TIMEFRAME]? Let's discuss how venue choice impacts your business outcomes, not just your budget.\n\nDM me or comment \"milestone\" below.\n\n#CorporateEvents #EventROI #EmployeeEngagement #MilestoneCelebrations",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: \"Every venue I love is $10k over budget\"\nAFTER: \"We created an unforgettable event within our means\"\n\nSound familiar?\n\n[NUMBER] corporate event planners told us budget anxiety was their #1 stressor. So we built something different:\n\nTransparent tiered packages from $[LOW RANGE] to $[HIGH RANGE]—see exactly what you get at each level before you even tour.\n\nNo hidden fees. No surprise invoices. No \"that'll be extra.\"\n\nWhat you see online is what you pay. Period.\n\nOur [PACKAGE NAME] includes:\n→ [VENUE FEATURE]\n→ [CATERING DETAIL]\n→ [AV/TECH INCLUSION]\n→ [COORDINATION SERVICE]\n→ [UNIQUE BENEFIT]\n\nReal pricing. Real value. Real peace of mind.\n\n[NUMBER] of our corporate clients rebook year after year because they trust us with their reputation—and their budget.\n\nOnly [NUMBER] [SEASON] dates remain. See real-time availability and exact pricing: [LINK]\n\n#CorporateVenue #EventBudget #TransparentPricing #[CITY]Events",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: You're planning your first corporate event and everyone's telling you different things 😵‍💫\n\nHere's what actually matters (saved this checklist so you don't have to learn the hard way):\n\n📍 LOCATION beats beauty every time\n→ If people can't get there or park, they'll complain\n→ Test the commute yourself during rush hour\n\n👥 COMFORTABLE capacity ≠ maximum capacity\n→ 200 \"fits\" but 150 feels right\n→ Ask to see photos from events your exact size\n\n📸 How it photographs matters more than you think\n→ Everyone posts on social—your venue is your backdrop\n→ Request photos from similar events, not just empty room shots\n\n💰 \"All-inclusive\" means different things everywhere\n→ Get itemized list of what's included vs. extra\n→ Ask about fees: service charges, overtime, vendor fees\n\n☔ The backup plan for your backup plan\n→ Weather contingency for outdoor spaces\n→ AV failure protocol\n→ Last-minute guest count changes\n\nWhich one surprised you? Comment the number 👇\n\nSave this for when you're ready to book!\n\n#EventPlanning #CorporateEvents #VenueTips #EventPlanner #[City]Venues #EventPlanningTips #MeetingPlanner #ConferencePlanning",
+        "visual": "Carousel post: Slide 1 - Split screen of 'What venues show you' vs 'What you need to know'. Slides 2-6 each feature one checklist item with icon and key takeaway in bold text. Slide 7 - 'Save this post' reminder with venue logo. Clean, minimal design with brand colors."
+      },
+      "authority": {
+        "caption": "Where 89% of our corporate clients rebook year after year ✨\n\nWe asked them why they keep coming back. Here's what they said:\n\n\"You answered my 11pm panic email within 20 minutes\" - Sarah, Tech Conference Planner\n\n\"The coordinator walked me through every detail I didn't even know to ask about\" - Marcus, Annual Meeting\n\n\"No surprise fees. Ever. The quote was the invoice.\" - Jennifer, Product Launch\n\n\"When our keynote speaker cancelled 48 hours before, you helped us pivot the entire setup\" - David, Leadership Summit\n\nHere's what we learned: You're not just booking a space. You're trusting someone with your professional reputation.\n\nEvery late-night question. Every last-minute change. Every \"is this normal?\" worry.\n\nWe get it. Because we've hosted [NUMBER]+ events and seen everything.\n\nYour event. Our expertise. Zero stress.\n\nThat's the difference.\n\nPlanning something important? Link in bio to see our available dates 🔗\n\n#EventVenue #CorporateEvents #EventPlanning #[City]Events #MeetingPlanner #ConferenceVenue #TrustedVenue #EventPros",
+        "visual": "Testimonial carousel: Each slide features a different client quote overlaid on a photo from their actual event. Final slide shows '89% rebook rate' statistic with CTA. Authentic, unfiltered event photos showing real moments, not staged shots."
+      },
+      "promotional": {
+        "caption": "Only 12 Saturdays left in 2024 👀\n\nIf you're still searching for your wedding venue, this is your sign.\n\nOur premium dates are filling fast, but we still have:\n→ [MONTH] [DATE]\n→ [MONTH] [DATE]  \n→ [MONTH] [DATE]\n\nWhat you get:\n✨ Ceremony + reception in one stunning location\n🍽️ Award-winning catering (taste testing included)\n🎵 Premium sound system + lighting\n👰 Dedicated coordinator from booking to last dance\n📸 Spaces that photograph like a dream\n\nFrom $[PRICE RANGE] depending on guest count and season.\n\nNo hidden fees. No vendor restrictions. No stress.\n\n\"We toured six venues and knew within 5 minutes this was the one. The coordinator made everything so easy.\" - Rachel & Mike, married here [MONTH] [YEAR]\n\nDM us \"AVAILABLE\" or tap the link in bio to see full calendar + virtual tour 💍\n\nYour perfect day is waiting.\n\n#WeddingVenue #[City]Wedding #WeddingPlanning #2024Wedding #EngagedCouple #WeddingInspo #VenueSearch #DreamWedding #WeddingLocation",
+        "visual": "Reel concept: Quick transitions showing the same space transformed for 3 different Saturday weddings - garden ceremony, elegant reception, dance party finale. Text overlay: 'Every Saturday tells a different love story. Which one is yours?' End frame shows remaining available dates with 'Book now' CTA."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 EVENT PLANNING TIP: The Virtual Tour Saved Me $2,000\n\nTrue story from one of our brides:\n\n\"I was about to fly across the country to tour venues. Then I found [VENUE NAME]'s 360 virtual tour and realized I could eliminate 4 out of 6 venues without leaving my couch.\"\n\nHere's what to look for in a virtual venue tour (and what to be skeptical of):\n\n✅ GOOD SIGNS:\n→ Shows the space set up for events, not just empty rooms\n→ Includes capacity overlays so you can visualize your guest count\n→ Multiple layout options visible\n→ Parking and entrance areas shown\n→ Backup/indoor options for outdoor venues\n\n🚩 RED FLAGS:\n→ Only shows the \"best angles\"\n→ Professional photos but no real event examples\n→ Doesn't show bathrooms, parking, or entry areas\n→ No indication of actual size/scale\n\nPRO TIP: Take screenshots during the virtual tour and write questions directly on them. Send those annotated images to the venue coordinator. The quality of their response tells you everything about how they'll handle your actual event.\n\nWe created our virtual tour after couples told us they were wasting entire weekends visiting venues that looked nothing like the website photos.\n\nNow you can narrow your list to your top 2-3 before ever leaving home.\n\nHave you used virtual tours in your venue search? What did you learn? Drop your experience below! 👇\n\n[Link to virtual tour]\n\n#WeddingPlanning #VenueSearch #EventPlanning #WeddingTips #BrideToBe #EventVenue"
+      },
+      "authority": {
+        "template": "🎯 UNPOPULAR OPINION: Your venue choice matters more than your flowers, favors, or even your dress.\n\nHere's why (and I have the data to prove it):\n\nWe surveyed 500 wedding guests about what they remembered most from weddings they attended in the past year.\n\nTop 5 answers:\n1. The venue/location (mentioned by 78%)\n2. The food quality (mentioned by 71%)\n3. The music/entertainment (mentioned by 54%)\n4. How comfortable they were (mentioned by 49%)\n5. The couple's happiness (mentioned by 47%)\n\nNotice what's NOT on that list? \n→ Centerpieces\n→ Favors  \n→ Chair covers\n→ Most of the stuff you're stressing about on Pinterest\n\nYour venue creates the entire experience:\n→ How easy it is to get there (affects who actually shows up)\n→ Where people park (affects their mood when they arrive)\n→ How the space feels (intimate vs. cavernous)\n→ How it photographs (hello, social media)\n→ Whether people are comfortable for 5+ hours\n\nI've seen couples spend $5,000 on flowers but choose a venue that was 45 minutes outside the city with limited parking. Guess what guests complained about?\n\nI've also seen couples choose the \"boring\" hotel ballroom and create an unforgettable experience because:\n✓ Everyone could get there easily\n✓ Hotel room block meant no drunk driving\n✓ Climate-controlled comfort\n✓ Professional service staff\n✓ Reliable everything\n\nYour venue isn't just a backdrop. It's the foundation of your entire guest experience.\n\nChoose wisely. Everything else builds from there.\n\nWhat's your #1 venue priority? Budget? Location? Aesthetic? Tell me in the comments.\n\n#WeddingVenue #WeddingPlanning #EventPlanning #BrideToBe #WeddingAdvice #VenueSelection"
+      },
+      "promotional": {
+        "template": "🎉 LAST-MINUTE MAGIC: Premium Dates Just Opened Up!\n\nWe just had two postponements open up some of our most sought-after dates:\n\n📅 Saturday, [DATE] - [SEASON] perfection\n📅 Saturday, [DATE] - Prime [SEASON] weather\n\nNormally these dates book 12-18 months out, but they're available NOW for couples who can move quickly.\n\nHere's the deal:\n→ Book by [DATE] and lock in off-peak pricing (save $[AMOUNT])\n→ Full venue access for ceremony + reception\n→ Our most experienced coordinator (she's done 200+ weddings)\n→ Preferred vendor list with negotiated rates\n→ Complimentary engagement photo session on-site\n\nWHY THESE DATES ARE SPECIAL:\n[DATE]: Perfect weather, outdoor ceremony option, sunset photos at 7:15pm\n[DATE]: [Seasonal feature], indoor/outdoor flexibility, ideal for [guest count] guests\n\nWe know this is fast. But here's what past couples told us about booking last-minute:\n\n\"Less time to overthink everything. We made decisions faster and enjoyed the process more.\" - Sarah & Tom\n\n\"The urgency actually helped us. We knew what mattered and didn't sweat the small stuff.\" - Jennifer & Marcus\n\n\"Best decision we made. Got our dream venue at a price we could actually afford.\" - Ashley & David\n\nIF YOU'RE:\n✓ Recently engaged and want to get married this year\n✓ Flexible on exact date but specific about venue\n✓ Ready to decide quickly when you find \"the one\"\n✓ Looking for exceptional value\n\nTHEN: Comment \"AVAILABLE\" below or call/text [PHONE] today.\n\nFirst tour scheduled gets first right of refusal.\n\nThese won't last through the weekend. Promise.\n\nYour perfect day might be closer than you think 💕\n\n#WeddingVenue #LastMinuteWedding #[City]Wedding #WeddingPlanning #AvailableDates #WeddingDeals #GetMarried2024"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: The venue coordinator just said 'that'll be extra' for the 47th time",
+        "script": "HOOK: POV: The venue coordinator just said 'that'll be extra' for the 47th time 😤\n\n[Text overlay: \"Things venues charge extra for that should be included\"]\n\nSECONDS 0-15:\n→ Show list appearing on screen with shocked reactions\n→ \"Tables and chairs\" ❌\n→ \"Basic sound system\" ❌  \n→ \"Cutting your own cake\" ❌\n→ \"Bringing your own photographer\" ❌\n\nSECONDS 15-30:\n→ Transition to \"Here's what to ask BEFORE you tour\"\n→ Quick cuts of person writing checklist\n→ Text overlays of key questions\n\nSECONDS 30-45:\n→ \"Get the itemized inclusion list in writing\"\n→ \"Ask about vendor fees and restrictions\"\n→ \"Confirm overtime rates before you need them\"\n→ \"Screenshot everything they promise\"\n\nSECONDS 45-60:\n→ \"Red flag: If they can't give you straight answers\"\n→ \"Green flag: They hand you a detailed contract upfront\"\n→ Final text: \"Save this before you tour venues\"\n→ CTA: \"Comment CHECKLIST for the full list\"\n\n[Background: Trending audio, upbeat but not too energetic]\n[Style: Authentic, slightly frustrated but helpful energy]\n\n#WeddingVenue #WeddingPlanning #VenueTour #EventPlanning #WeddingTok #BrideTok #WeddingTips #VenueSearch"
+      },
+      "authority": {
+        "hook": "Venue coordinator here. Please stop doing this when you tour venues.",
+        "script": "HOOK: Venue coordinator here. Please stop doing this when you tour venues 🙏\n\n[Text overlay: \"Former venue coordinator spills the tea\"]\n\nSECONDS 0-20:\n→ \"Thing #1: Apologizing for asking questions\"\n→ \"We WANT you to ask. It's literally our job.\"\n→ \"If a coordinator seems annoyed by questions, RUN.\"\n→ Show example: \"Is it okay if I ask about...\" NO. Just ask.\n\nSECONDS 20-35:\n→ \"Thing #2: Only bringing your mom/MOH to tours\"\n→ \"Your partner needs to see it too\"\n→ \"I've seen too many couples book different venues because they had different visions\"\n→ \"Tour together. Decide together.\"\n\nSECONDS 35-50:\n→ \"Thing #3: Not taking photos/videos during the tour\"\n→ \"After you see 5 venues, they all blur together\"\n→ \"Document everything. You'll thank yourself later.\"\n→ Show: Person taking photos of corners, ceilings, bathrooms, parking\n\nSECONDS 50-60:\n→ \"Thing #4: Saying yes on the spot because you feel pressured\"\n→ \"A good venue will give you space to decide\"\n→ \"Pressure = red flag\"\n→ Final text: \"Your venue, your timeline, your decision\"\n→ CTA: \"What else do you want to know? Comment below\"\n\n[Background: Conversational, insider-knowledge energy]\n[Style: Friendly but direct, like advice from a friend]\n\n#WeddingVenue #VenueTour #WeddingPlanning #VenueCoordinator #WeddingTips #EventPlanning #BehindTheScenes #WeddingAdvice"
+      },
+      "promotional": {
+        "hook": "When you find out your dream venue has your date available...",
+        "script": "HOOK: When you find out your dream venue has your date available... 🏃‍♀️💨\n\n[Text overlay: \"That moment when everything aligns\"]\n\nSECONDS 0-10:\n→ Show excited reaction/celebration\n→ Text: \"POV: You just checked our availability calendar\"\n→ \"And your date is OPEN\"\n\nSECONDS 10-25:\n→ Quick montage of venue highlights\n→ \"Where you'll say I do\" [ceremony space]\n→ \"Where you'll celebrate\" [reception space]\n→ \"Where you'll take photos everyone will obsess over\" [photo spot]\n→ Fast cuts, energetic\n\nSECONDS 25-40:\n→ \"What's included\" rapid-fire list\n→ ✓ Ceremony + reception\n→ ✓ Tables, chairs, linens\n→ ✓ Sound + lighting\n→ ✓ Coordinator who's seen it all\n→ ✓ Vendor list with our favorite people\n→ Text overlay: \"From $[PRICE] depending on your guest count\"\n\nSECONDS 40-55:\n→ \"Real couple alert\" transition\n→ Show quick clips from actual wedding\n→ Text: \"[Couple names] - married here [month/year]\"\n→ \"[Number] guests, [season] wedding, absolute perfection\"\n\nSECONDS 55-60:\n→ \"Your date won't wait\"\n→ \"Link in bio for virtual tour + real-time availability\"\n→ Final text: \"Let's make this official 💍\"\n→ Show: Calendar with available dates highlighted\n\n[Background: Trending romantic/exciting audio]\n[Style: High energy, aspirational but authentic]\n\n#WeddingVenue #[City]Wedding #DreamVenue #WeddingPlanning #VenueAvailability #GetMarried #WeddingInspo #EngagedLife"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 48-hour venue decision framework (save $3,000+ in research time)",
+        "preview": "How couples narrow 50+ options to \"the one\" without the overwhelm",
+        "body": "Hi [FIRST_NAME],\n\nYou've probably looked at 47 venue websites this week.\n\nThey all look amazing in photos. They all say they're \"perfect for your special day.\" And you still have no idea how to choose.\n\nHere's the framework our most decisive couples use:\n\n━━━━━━━━━━━━━━━━━━━━\n\nSTEP 1: THE 3 NON-NEGOTIABLES (15 minutes)\nWrite down the 3 things that matter most. Not 10. Not 5. Three.\nExamples:\n→ Guest capacity: [Your number]\n→ Location: Within [X] miles of [City]\n→ Budget: $[Range] all-in\n\nEvery venue that doesn't meet all 3? Delete from your list.\n\n━━━━━━━━━━━━━━━━━━━━\n\nSTEP 2: THE VIRTUAL ELIMINATION (2 hours)\nFor remaining venues:\n→ Take the virtual tour (if they don't have one, that's your answer)\n→ Read reviews from YOUR type of event (corporate/wedding/milestone)\n→ Check real pricing transparency (hidden fees = red flag)\n\nNarrow to your top 3.\n\n━━━━━━━━━━━━━━━━━━━━\n\nSTEP 3: THE COORDINATOR TEST (24 hours)\nEmail all 3 venues with specific questions:\n→ \"Do you have [DATE] available?\"\n→ \"What's included in your base package for [NUMBER] guests?\"\n→ \"Can you send photos from a recent [EVENT TYPE] with similar guest count?\"\n\nWho responds fastest? Most thoroughly? Most helpfully?\nThat tells you everything about what working with them will be like.\n\n━━━━━━━━━━━━━━━━━━━━\n\nSTEP 4: TOUR ONLY YOUR TOP 2 (1 day)\nYou've already eliminated 95% of options.\nNow you're choosing between two great venues, not 50 overwhelming ones.\n\n━━━━━━━━━━━━━━━━━━━━\n\nTotal time investment: 48 hours\nVs. the average couple: 6+ weeks of analysis paralysis\n\nWant to start? Here's what we can send you right now:\n→ Virtual 360 tour of [VENUE NAME]\n→ Real pricing for [EVENT TYPE] with [GUEST COUNT] guests\n→ Photos from 3 recent events similar to yours\n→ Our current availability calendar\n\nJust reply with \"SEND IT\" and we'll get everything over to you within the hour.\n\nNo pressure. No sales pitch. Just the information you need to make a confident decision.\n\n[COORDINATOR NAME]\n[VENUE NAME]\n[PHONE] | [WEBSITE]\n\nP.S. - Our [MONTH] and [MONTH] dates are filling fast. If those are on your radar, worth checking sooner rather than later."
+      },
+      "authority": {
+        "subject": "Why 89% of our corporate clients rebook (data inside)",
+        "preview": "We analyzed 200+ events to find what actually drives repeat business",
+        "body": "Hi [FIRST_NAME],\n\nWe just finished analyzing feedback from 200+ corporate events we hosted in the past 18 months.\n\nThe question: Why do 89% of our corporate clients rebook year after year?\n\nHere's what the data revealed (and why it matters for your upcoming [EVENT TYPE]):\n\n━━━━━━━━━━━━━━━━━━━━\n\n#1: RESPONSE TIME MATTERS MORE THAN PRICE\n\n\"You answered my 11pm panic email in 20 minutes\" came up in 67% of positive reviews.\n\nEvent planners told us:\n→ Unanswered questions create anxiety\n→ Anxiety leads to last-minute vendor changes  \n→ Changes cost more than higher initial pricing\n\nOur commitment: Every inquiry answered within 4 hours. Period.\n\n━━━━━━━━━━━━━━━━━━━━\n\n#2: TRANSPARENT PRICING BUILDS TRUST\n\n\"No surprise fees\" appeared in 71% of testimonials.\n\nWhat corporate clients actually want:\n→ Itemized proposals showing exactly what's included\n→ Clear overtime and change-order policies upfront\n→ Single invoice (not 47 separate vendor bills)\n\nOur approach: You see total cost before you tour. What we quote is what you pay.\n\n━━━━━━━━━━━━━━━━━━━━\n\n#3: BACKUP PLANS MATTER MORE THAN AMENITIES\n\n\"They had a solution for everything\" showed up in 58% of reviews.\n\nThe scenarios that make or break events:\n→ AV equipment failure (we have backup systems on-site)\n→ Weather changes for outdoor elements (indoor contingency included)\n→ Last-minute guest count changes (flexible up to 72 hours before)\n→ Dietary restrictions discovered day-of (our catering team handles it)\n\nYou're not paying for a space. You're paying for problem-solving expertise.\n\n━━━━━━━━━━━━━━━━━━━━\n\nHere's what this means for your [EVENT TYPE]:\n\nYou need a venue partner who:\n✓ Responds faster than your internal team can create new problems\n✓ Shows you total costs upfront (so you can get budget approval once)\n✓ Has contingency plans you haven't even thought of yet\n\nWe've hosted [NUMBER]+ corporate events. We've seen everything.\n\nYour event. Our expertise. Zero surprises.\n\nWant to see how this works in practice?\n\nReply with your event date, approximate guest count, and biggest concern.\n\nI'll send you:\n→ Transparent pricing for your specific needs\n→ Photos from a similar event we've hosted\n→ Contact info for 3 clients who had your same concerns\n\nNo 17-step sales process. Just straight answers.\n\n[COORDINATOR NAME]\n[TITLE]\n[VENUE NAME]\n[PHONE] | [CALENDAR LINK]\n\nP.S. - Planning a [SEASON] event? We have [NUMBER] dates left in our peak season. Worth exploring before they're gone."
+      },
+      "promotional": {
+        "subject": "Only [NUMBER] premium Saturdays left in 2024",
+        "preview": "Your date might be on this list (but not for long)",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: Is your wedding date flexible by a few weeks?\n\nIf yes, you might be able to save $[AMOUNT] and get your dream venue.\n\nHere's the situation:\n\nWe just had two postponements open up premium Saturday dates that normally book 12-18 months in advance:\n\n📅 [MONTH] [DATE], [YEAR]\n📅 [MONTH] [DATE], [YEAR]\n\nBoth are prime [SEASON] dates with perfect weather and our most experienced coordinator available.\n\n━━━━━━━━━━━━━━━━━━━━\n\nWHAT YOU GET:\n\n✓ Ceremony + reception in one stunning location\n✓ [CAPACITY] guest capacity (comfortably, not crammed)\n✓ Award-winning catering with tasting included\n✓ Premium sound system + lighting\n✓ Dedicated coordinator from booking to last dance\n✓ Preferred vendor list (photographers, florists, DJs we trust)\n✓ Complimentary engagement photo session on-site\n\n━━━━━━━━━━━━━━━━━━━━\n\nWHY THESE DATES ARE SPECIAL:\n\n[DATE]: \n→ Sunset at 7:15pm (perfect for golden hour photos)\n→ Outdoor ceremony option with indoor backup\n→ Ideal temperature range for [SEASON]\n\n[DATE]:\n→ [Seasonal feature - foliage/gardens/weather]\n→ Perfect timing for [specific detail]\n→ Weekend before/after [holiday] (travel advantage)\n\n━━━━━━━━━━━━━━━━━━━━\n\nTHE OFFER:\n\nBook by [DATE] and lock in off-peak pricing:\n→ Save $[AMOUNT] vs. standard peak season rate\n→ Flexible payment plan (because wedding budgets are tight)\n→ Complimentary [UPGRADE] (valued at $[AMOUNT])\n\n━━━━━━━━━━━━━━━━━━━━\n\nWHAT PAST COUPLES SAY ABOUT BOOKING LAST-MINUTE:\n\n\"Less time to overthink everything. We made decisions faster and actually enjoyed planning.\" - Sarah & Tom, married [MONTH] [YEAR]\n\n\"Got our dream venue at a price we could afford. Best decision we made.\" - Ashley & David, married [MONTH] [YEAR]\n\n━━━━━━━━━━━━━━━━━━━━\n\nHERE'S WHAT HAPPENS NEXT:\n\n1. Reply \"INTERESTED\" with your approximate guest count\n2. We'll send you full pricing + photos from similar weddings\n3. Schedule a tour (virtual or in-person) within 48 hours\n4. If it's the one, we'll hold your date with a small deposit\n\nThese dates won't make it through the weekend. Promise.\n\nFirst couple to tour gets first right of refusal.\n\nInterested? Just hit reply.\n\nNot your dates? No worries - we'll keep you updated as our calendar changes.\n\n[COORDINATOR NAME]\n[VENUE NAME]\n[PHONE] | [CALENDAR LINK]\n\nP.S. - Even if these specific dates don't work, we have a few [OTHER SEASON] dates opening up soon. Want to be first to know? Reply and I'll add you to our VIP availability list."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] corporate clients rebooked year after year - see why event planners trust us with their reputation",
+      "From inquiry to signed contract in [X] hours - because your timeline doesn't wait",
+      "Only [X] [premium dates/Saturdays] left in [year] - see which dates are still available",
+      "[X]% of our guests say the space photographed even better than they imagined",
+      "Host [X] guests in a space that feels intimate, not institutional"
+    ],
+    "question_hooks": [
+      "Still calling [X] vendors to coordinate your event?",
+      "Are you terrified something will go wrong and reflect badly on you at work?",
+      "Toured [X] venues that all look the same in photos but completely different in person?",
+      "Are hidden fees killing your budget - why can't anyone just tell you the total cost upfront?",
+      "What if it rains and your outdoor space is unusable - do you have a real backup plan?"
+    ],
+    "story_hooks": [
+      "How [corporate event planner] went from overwhelmed to hero in [X] days with one phone call",
+      "How [couple name] locked in their dream date at 11pm on a Sunday (and saved [X] weeks of stress)",
+      "How [company name] pulled off their [milestone anniversary] in [X] days when their original venue canceled",
+      "How [bride/planner] toured virtually, booked confidently, and skipped [X] unnecessary venue visits",
+      "How [event planner] got transparent pricing, real photos, and zero surprises on their invoice"
+    ],
+    "fear_hooks": [
+      "Is your [company's biggest event of the year] at risk from choosing a venue with bad reviews about [specific issue]?",
+      "Is your [wedding day/milestone celebration] in danger because your venue coordinator is impossible to reach?",
+      "Is your [corporate reputation] at risk from booking a hotel ballroom that screams generic?",
+      "Is your [event budget] threatened by venues that won't show you the total cost upfront?",
+      "Is your [once-in-a-lifetime moment] in jeopardy because you can't see how [X] guests will actually fit comfortably?"
+    ],
+    "howto_hooks": [
+      "How to book your [dream venue] without the guessing game on pricing ([X] to [X] all-inclusive packages)",
+      "How to coordinate your [event type] without juggling [X] different vendors (one conversation, one contract)",
+      "How to know your [X] guests will be comfortable without just taking the venue's word for it",
+      "How to choose between [X] venues without wasting weekends on tours that all look the same",
+      "How to lock in your [peak season date] without paying peak season pricing"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You toured 6 venues and they all looked identical in photos",
+      "body": "Show split screen - venue website photo vs. reality. Walk through common misleading angles: 'Accommodates 200' (shows chairs crammed with no dance floor). 'Outdoor ceremony space' (shows tiny patch of grass). 'Getting ready suite' (shows broom closet). Then flip to 'What to actually ask': Show capacity WITH dance floor and buffet. Ask for photos from similar events, not empty room. Request floor plan with your setup. End with 'The venues that show you this upfront? Those are the keepers.'",
+      "cta": "Save this before your next venue tour"
+    },
+    "reels": {
+      "hook": "The venue hidden fee checklist everyone needs",
+      "body": "Fast-paced text overlay on venue walkthrough. 'What they quoted: $5,000. What you'll actually pay:' Then rapid fire: +$800 cake cutting fee, +$500 ceremony site fee, +$1,200 overtime charges, +$600 vendor meal requirement, +$400 parking validation. 'Total: $8,500'. Final frame: 'Always ask for ALL-IN pricing'",
+      "cta": "Share this with someone venue shopping"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your venue transformation! Film a quick pan of your event space at the start of setup, then the final result before guests arrive. Tell us one thing that turned out even better than you imagined.",
+      "hashtag": "#VenueGlowUp"
+    },
+    {
+      "prompt": "Tag your venue coordinator and tell us the ONE thing they did that saved the day or made your event special. We want to celebrate the behind-the-scenes heroes!",
+      "hashtag": "#VenueHeroes"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Venue red flags series: 'If your venue says this, RUN' - expose common manipulative sales tactics like pressure to book same-day, refusing to show contracts before deposit, coordinator turnover",
+      "why": "Taps into anxiety and fear of being scammed, positions you as customer advocate, highly saveable for people in venue search process, drives protective sharing"
+    },
+    {
+      "angle": "Corporate event planner exposing budget truth: 'What your company actually pays for that holiday party' - break down real costs with receipts, show markup differences between DIY vs venue packages",
+      "why": "Behind-the-scenes financial transparency is inherently viral, corporate audiences share with colleagues, creates water-cooler conversation, establishes pricing authority"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:57:41.185Z",
+    "last_tier2_refresh": "2025-11-27T21:57:41.185Z",
+    "last_tier3_refresh": "2025-11-27T21:57:41.185Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:57:41.185Z"
+  }
+}

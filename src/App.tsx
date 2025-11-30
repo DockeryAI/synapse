@@ -19,6 +19,8 @@ const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ de
 const TriggersDevPage = lazy(() => import('./pages/TriggersDevPage').then(m => ({ default: m.TriggersDevPage })))
 const ProofDevPage = lazy(() => import('./pages/ProofDevPage').then(m => ({ default: m.ProofDevPage })))
 const TrendsDevPage = lazy(() => import('./pages/TrendsDevPage').then(m => ({ default: m.TrendsDevPage })))
+const WeatherDevPage = lazy(() => import('./pages/WeatherDevPage').then(m => ({ default: m.WeatherDevPage })))
+const LocalDevPage = lazy(() => import('./pages/LocalDevPage').then(m => ({ default: m.LocalDevPage })))
 
 // TODO: Lazy load auth routes when ready to enable authentication (Phase 0)
 // const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -80,6 +82,12 @@ function App() {
 
                 {/* Trends Tab Development - Isolated testing */}
                 <Route path="/trends-dev" element={<TrendsDevPage />} />
+
+                {/* Weather Tab Development - Isolated testing */}
+                <Route path="/weather-dev" element={<WeatherDevPage />} />
+
+                {/* Local Tab Development - Isolated testing */}
+                <Route path="/local-dev" element={<LocalDevPage />} />
 
                 {/* Admin Routes - Commented out until authentication is enabled */}
                 {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}

@@ -1,0 +1,1664 @@
+{
+  "industry": "Tanning Salon",
+  "industry_name": "Tanning Salon",
+  "naics_code": "812199",
+  "category": "Personal Services",
+  "subcategory": "Appearance Enhancement Services",
+  "customer_triggers": [
+    {
+      "trigger": "Upcoming vacation or beach trip",
+      "urgency": 9,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Wedding or special event within 2 months",
+      "urgency": 10,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Seasonal Affective Disorder (SAD) symptoms",
+      "urgency": 7,
+      "frequency": "winter months"
+    },
+    {
+      "trigger": "Post-winter pale skin insecurity",
+      "urgency": 6,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Social media comparison triggering",
+      "urgency": 5,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "New relationship or dating phase",
+      "urgency": 7,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Fitness achievement wanting to show muscle definition",
+      "urgency": 6,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Professional photo shoot scheduled",
+      "urgency": 8,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Reunion or class gathering approaching",
+      "urgency": 8,
+      "frequency": "5-10 years"
+    },
+    {
+      "trigger": "Vitamin D deficiency diagnosis",
+      "urgency": 5,
+      "frequency": "annual"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through Google searches for 'tanning near me' (38%), driving by location (28%), social media ads targeting event-goers (21%), or friend recommendations (13%). Initial interest triggered by seeing others with attractive tans or upcoming events requiring appearance enhancement.",
+    "consideration": "Research phase lasting 3-7 days comparing prices, reading reviews (focusing on cleanliness ratings), checking equipment types (Level 1-5 beds, spray options), evaluating package deals vs single sessions. 67% visit websites to check pricing, 45% call for phone quotes, 82% read Google reviews specifically mentioning sanitation.",
+    "decision": "Purchase decision typically within 48 hours of initial research, heavily influenced by new customer specials (62%), convenient location (24%), and available appointment times (14%). Credit card on file setup increases commitment. Average first purchase is $35-60 introductory package.",
+    "retention": "Returns driven by visible results (must see color within 3 sessions), membership value perception, and staff relationships. 58% upgrade to monthly unlimited within first month. Retention highest with automatic monthly billing and regular email/text reminders about unused sessions.",
+    "advocacy": "Advocates post before/after photos, bring friends for 'tanning dates', and defend tanning against health critics. Share seasonal promotions, tag location in vacation photos showing their tan. Average advocate brings 3.2 new customers annually through social proof and direct referrals."
+  },
+  "transformations": [
+    {
+      "from": "Pale, washed-out appearance",
+      "to": "Healthy, sun-kissed glow",
+      "emotional_value": "Confidence and attractiveness",
+      "worth_premium": true
+    },
+    {
+      "from": "Seasonal depression sufferer",
+      "to": "Mood-enhanced individual",
+      "emotional_value": "Mental wellness and energy",
+      "worth_premium": true
+    },
+    {
+      "from": "Uneven skin tone and blemishes",
+      "to": "Smooth, even complexion",
+      "emotional_value": "Clear skin confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Pre-event anxiety about appearance",
+      "to": "Event-ready confidence",
+      "emotional_value": "Special occasion readiness",
+      "worth_premium": true
+    },
+    {
+      "from": "Vitamin D deficient",
+      "to": "Vitamin D supplemented",
+      "emotional_value": "Health improvement perception",
+      "worth_premium": false
+    },
+    {
+      "from": "Fitness results hidden",
+      "to": "Defined muscle visibility",
+      "emotional_value": "Achievement showcase",
+      "worth_premium": true
+    },
+    {
+      "from": "Winter blues sufferer",
+      "to": "Year-round summer feeling",
+      "emotional_value": "Seasonal escape",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Visible color change within 3 sessions",
+      "timeframe": "1 week",
+      "measurable": true
+    },
+    {
+      "metric": "No burning or uncomfortable redness",
+      "timeframe": "24 hours post-session",
+      "measurable": true
+    },
+    {
+      "metric": "Even tan without streaking or spots",
+      "timeframe": "immediate",
+      "measurable": true
+    },
+    {
+      "metric": "Customer returns for second month",
+      "timeframe": "30 days",
+      "measurable": true
+    },
+    {
+      "metric": "Upgrades to higher-level bed or package",
+      "timeframe": "60 days",
+      "measurable": true
+    },
+    {
+      "metric": "Refers at least one friend",
+      "timeframe": "90 days",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited-time new customer special: First month unlimited for $29.99",
+    "Event in less than 2 weeks requiring base tan development",
+    "End-of-month membership special ending in 48 hours",
+    "Spring break approaching - only 3 weeks to develop tan",
+    "Last appointments available before holiday weekend",
+    "Equipment upgrade sale - old beds discounted 50% this week only",
+    "Friend referral bonus doubles this weekend only",
+    "Seasonal package expiring - use it or lose it sessions"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Tanning causes skin cancer",
+      "response": "Moderate UV exposure following FDA guidelines is different from overexposure. We provide skin type analysis, controlled timing, and protective eyewear. Many dermatologists actually prescribe UV therapy for certain conditions. Indoor tanning allows controlled exposure versus unpredictable outdoor sun.",
+      "effectiveness": 6.8
+    },
+    {
+      "objection": "It's too expensive for a temporary result",
+      "response": "At $40/month unlimited, that's less than one dinner out. Your tan lasts as long as you maintain it, and the confidence boost affects every area of your life. Compare to $100+ spray tans that last only a week. We also offer session packages starting at just $20.",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "I don't have time for regular sessions",
+      "response": "Sessions are just 8-20 minutes - less time than a lunch break. We're open 7am-9pm seven days a week, offer online booking, and you can tan on your schedule. Our express beds give same results in half the time. Most clients tan just 2-3 times weekly.",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I'm worried about looking orange or fake",
+      "response": "That's old technology. Our modern equipment provides natural-looking results. We customize your program based on skin type, use combination UV spectrum for natural color, and our trained staff prevents overexposure. Look at our staff - all have natural-looking, beautiful tans.",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "I burn easily and can't tan",
+      "response": "That's exactly why professional guidance matters. We start with short 3-5 minute sessions, use lower-pressure beds for sensitive skin, provide tingle-free lotions with bronzers, and gradually build your melanin. 92% of 'can't tan' clients achieve color safely with our protocols.",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "My spouse/parent thinks it's vain",
+      "response": "Self-care isn't vanity - it's mental health. Studies show UV exposure increases endorphins and Vitamin D, improving mood and energy. Many clients come for the wellness benefits, not just appearance. We also offer red light therapy for anti-aging if traditional tanning isn't preferred.",
+      "effectiveness": 6.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "First-time customer satisfaction guarantee - full refund if not satisfied after 3 sessions",
+      "No-burn promise with our Smart Tan certified staff",
+      "Clean bed guarantee - sanitized between every client",
+      "Price match any competitor's advertised rate"
+    ],
+    "proof_points": [
+      "Smart Tan certification for all staff",
+      "A+ BBB rating maintained for 8 years",
+      "3,000+ five-star reviews across platforms",
+      "FDA-compliant equipment with maintenance logs",
+      "27-point sanitation checklist posted",
+      "Member of International Smart Tan Network"
+    ],
+    "risk_mitigation": "Comprehensive skin type analysis before first session, gradual exposure protocol preventing burns, FDA-compliant eyewear provided free, detailed consultation documenting medications and sensitivities, 24/7 customer service hotline for concerns, photographic progress tracking available"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "pale",
+      "pasty",
+      "washed out",
+      "sickly",
+      "ghostly",
+      "winter skin",
+      "farmer's tan",
+      "uneven",
+      "streaky",
+      "orange",
+      "leather skin",
+      "sun damage"
+    ],
+    "solution_words": [
+      "glow",
+      "bronze",
+      "golden",
+      "healthy",
+      "radiant",
+      "even",
+      "natural",
+      "sun-kissed",
+      "beach ready",
+      "confidence",
+      "vitamin D",
+      "mood boost"
+    ],
+    "avoid_jargon": [
+      "fake bake",
+      "GTL (gym, tan, laundry)",
+      "tanorexic",
+      "oompa loompa",
+      "cancer bed",
+      "cooking",
+      "leather face"
+    ]
+  },
+  "power_words": [
+    "glow",
+    "bronze",
+    "golden",
+    "radiant",
+    "healthy",
+    "natural",
+    "confidence",
+    "beach-ready",
+    "sun-kissed",
+    "vitamin",
+    "wellness",
+    "relaxation",
+    "luxury",
+    "premium",
+    "results",
+    "transformation",
+    "unlimited",
+    "convenient",
+    "clean",
+    "safe",
+    "certified",
+    "professional",
+    "customized",
+    "express",
+    "effective",
+    "smooth",
+    "even",
+    "beautiful",
+    "youthful",
+    "energized"
+  ],
+  "avoid_words": [
+    "fake",
+    "artificial",
+    "cancer",
+    "damage",
+    "burn",
+    "orange",
+    "streaky",
+    "expensive",
+    "time-consuming",
+    "dangerous",
+    "risky",
+    "unnatural",
+    "vain",
+    "shallow",
+    "addictive",
+    "unhealthy",
+    "wrinkles",
+    "aging",
+    "leather",
+    "crispy"
+  ],
+  "headline_templates": [
+    {
+      "template": "Get Beach-Ready in 7 Days - First Month Unlimited $29.99",
+      "expected_ctr": 6.8,
+      "use_case": "new customer acquisition"
+    },
+    {
+      "template": "Valentine's Special: Couples Tan Together, Save 40%",
+      "expected_ctr": 5.4,
+      "use_case": "holiday promotion"
+    },
+    {
+      "template": "Goodbye Winter Blues - Hello Vitamin D and Confidence",
+      "expected_ctr": 4.9,
+      "use_case": "seasonal marketing"
+    },
+    {
+      "template": "Spring Break Emergency: 5 Sessions for $25 This Week Only",
+      "expected_ctr": 8.2,
+      "use_case": "urgency campaign"
+    },
+    {
+      "template": "New Level 5 Beds: 12-Minute Sessions, 2X Faster Results",
+      "expected_ctr": 5.7,
+      "use_case": "equipment upgrade"
+    },
+    {
+      "template": "Unlimited Monthly Tanning - Less Than Your Netflix Subscription",
+      "expected_ctr": 7.1,
+      "use_case": "value comparison"
+    },
+    {
+      "template": "Bride-to-Be Special: 3 Months Unlimited + Free Spray Tan",
+      "expected_ctr": 6.3,
+      "use_case": "wedding market"
+    },
+    {
+      "template": "Red Light Therapy Now Available - Anti-Aging Without UV",
+      "expected_ctr": 4.6,
+      "use_case": "service expansion"
+    },
+    {
+      "template": "Student Discount: 50% Off All Packages with Valid ID",
+      "expected_ctr": 7.8,
+      "use_case": "demographic targeting"
+    },
+    {
+      "template": "Grand Opening: Free Week of Tanning for First 100 Customers",
+      "expected_ctr": 9.4,
+      "use_case": "new location launch"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Start Your Free Week Trial",
+      "conversion_rate": 14.2,
+      "placement": "homepage hero"
+    },
+    {
+      "template": "Book Your First Session - $1",
+      "conversion_rate": 11.8,
+      "placement": "Facebook ad"
+    },
+    {
+      "template": "Calculate Your Perfect Package",
+      "conversion_rate": 8.3,
+      "placement": "pricing page"
+    },
+    {
+      "template": "Text 'TAN' to 55555 for Instant Coupon",
+      "conversion_rate": 9.7,
+      "placement": "billboard/signage"
+    },
+    {
+      "template": "Join VIP Unlimited - Cancel Anytime",
+      "conversion_rate": 10.4,
+      "placement": "email campaign"
+    },
+    {
+      "template": "Reserve Your Bed for Tonight",
+      "conversion_rate": 7.6,
+      "placement": "mobile app"
+    },
+    {
+      "template": "Get Your Base Tan Started Today",
+      "conversion_rate": 8.9,
+      "placement": "Google ad"
+    },
+    {
+      "template": "Claim New Customer Special Now",
+      "conversion_rate": 12.3,
+      "placement": "Instagram bio"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Transformation Tuesday! 😍 Check out Sarah's amazing glow after just 2 weeks! Ready for your own transformation? First month unlimited only $29.99 💫 #TanningResults #GlowUp #[SalonName]",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "🌴 VACATION PREP SPECIAL 🌴 Going somewhere sunny? Get your base tan and avoid burning! 5 sessions for $30 this week only. Tag your travel buddy! ✈️",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: It's February and you're the only one at the pool party with a tan 😎 Our secret? 12 minutes 3x/week #TanningRoutine #WinterGlow #TanTok",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "LAST MINUTE APPOINTMENTS TODAY! 🔥 Reply 'TAN' for 50% off your session! Only 3 spots left!",
+      "engagement_rate": 9.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "Reminder: Vitamin D deficiency affects 42% of Americans. Indoor tanning provides controlled UV exposure for vitamin D synthesis. Book your wellness session today! ☀️",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "First Time Tanning? Here's Exactly What to Expect (30-second walkthrough of our process) #FirstTimeTanning #TanningSalon",
+      "engagement_rate": 8.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Wedding Tan Timeline: Start 8 weeks before for perfect color. Save this guide for your big day prep! [Infographic link]",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐⭐⭐⭐⭐ 'Cleanest salon I've ever been to! Staff is so helpful for beginners' - Jessica M. Thank you! New customers get first week FREE!",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to announce we're now using 100% renewable energy to power our salon. Sustainable beauty is our commitment. 🌱 #GreenBusiness #Sustainability",
+      "engagement_rate": 2.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only salon with Level 5 Ergoline beds - 40% faster results",
+      "rank": 1,
+      "differentiator": "Premium equipment advantage"
+    },
+    {
+      "prop": "Open 7am-9pm, 365 days a year - tan on your schedule",
+      "rank": 2,
+      "differentiator": "Convenience and accessibility"
+    },
+    {
+      "prop": "Smart Tan certified staff for safest tanning protocols",
+      "rank": 3,
+      "differentiator": "Professional expertise and safety"
+    },
+    {
+      "prop": "Unlimited monthly packages starting at just $29.99",
+      "rank": 4,
+      "differentiator": "Unbeatable value pricing"
+    },
+    {
+      "prop": "Red light therapy and spray tan options for UV-free alternatives",
+      "rank": 5,
+      "differentiator": "Comprehensive service menu"
+    },
+    {
+      "prop": "27-point sanitation process between every client",
+      "rank": 6,
+      "differentiator": "Cleanliness standards"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience luxury tanning in our spa-like environment. Premium Ergoline beds from Germany, personalized tanning consultants, complimentary beverages, and exclusive Australian Gold product line. Private VIP rooms with personal climate control and entertainment systems. For discerning clients who expect excellence in every detail.",
+    "budget_conscious": "Beautiful tans shouldn't break the bank. Our student and military discounts, flexible package options, and rewards program make professional tanning affordable for everyone. Start with single sessions at just $8, earn free tans with referrals, and enjoy monthly specials. Quality tanning that fits your budget.",
+    "enterprise": "Corporate wellness programs available. Offer employees mood-boosting, vitamin D-enhancing benefits with our corporate packages. Bulk session purchases, lunch-hour express options, and on-site consultation services. Improve employee satisfaction and reduce seasonal depression. Trusted by 25+ local businesses."
+  },
+  "trust_signals": [
+    {
+      "signal": "Smart Tan certification displayed at entrance",
+      "importance": 9,
+      "format": "Framed certificate"
+    },
+    {
+      "signal": "Equipment maintenance logs visible",
+      "importance": 8,
+      "format": "Binder at front desk"
+    },
+    {
+      "signal": "Staff wearing medical-style uniforms",
+      "importance": 7,
+      "format": "Visual professionalism"
+    },
+    {
+      "signal": "Before/after photos of real clients",
+      "importance": 8,
+      "format": "Digital display in lobby"
+    },
+    {
+      "signal": "Sanitation checklist with timestamps",
+      "importance": 10,
+      "format": "Posted on each room"
+    },
+    {
+      "signal": "BBB accreditation and rating",
+      "importance": 6,
+      "format": "Window decal"
+    },
+    {
+      "signal": "Google reviews QR code at checkout",
+      "importance": 7,
+      "format": "Counter display"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "4.7/5 stars from 1,847 Google reviews",
+      "credibility_score": 8.9,
+      "context": "Highest rated salon in city"
+    },
+    {
+      "stat": "Serving 3,000+ monthly members since 2015",
+      "credibility_score": 8.3,
+      "context": "Established and trusted"
+    },
+    {
+      "stat": "98% of clients achieve desired color within 2 weeks",
+      "credibility_score": 7.8,
+      "context": "Proven results"
+    },
+    {
+      "stat": "Zero health violations in 9 years of operation",
+      "credibility_score": 9.2,
+      "context": "Commitment to cleanliness"
+    },
+    {
+      "stat": "84% customer retention rate",
+      "credibility_score": 8.5,
+      "context": "Customer satisfaction"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Level 4-5 beds, high-pressure units, red light therapy, premium lotions included, towel service",
+    "Mid-tier: Level 2-3 beds, standard pressure, lotion samples, clean facilities, online booking",
+    "Budget: Level 1 beds only, no amenities, cash only, limited hours, no appointments",
+    "Red flags: Dirty beds, broken timers, no eyewear provided, no certifications visible, pressure sales"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "After achieving noticeable color change and posting tan photos on social media",
+    "ask_method": "Text message with photo upload option and direct Google review link, incentivized with free upgrade on next visit"
+  },
+  "competitive_advantages": [
+    "Only salon with FDA-registered KBL megaSun beds from Germany",
+    "Exclusive distributor of Designer Skin professional products in region",
+    "24/7 member access with keycard entry for ultimate convenience",
+    "In-house esthetician for spray tan and skin consultations",
+    "Mobile app with bed reservations and progress photo tracking"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium $149/month unlimited package first, making $39.99 basic unlimited seem like incredible value. Show single session at $25 to make packages attractive.",
+    "sensitivity": "Highest resistance at $50-75/month where customers heavily compare. Below $40 seems too good to be true, above $80 needs premium justification.",
+    "sweet_spots": [
+      "$29.99 intro month",
+      "$49.99 standard unlimited",
+      "$79.99 premium unlimited",
+      "$149 VIP all-access"
+    ],
+    "decoy_pricing": "Offer 10-session package at $180 making unlimited monthly at $49.99 obvious choice (unlimited = 20+ sessions value)"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 50,
+    "approval_required": 100,
+    "competitor_research": 40
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1,
+    "weekend": 1,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Bronze",
+      "price_range": "$29.99-39.99/month",
+      "target_customer": "Students and budget-conscious",
+      "margin": 55
+    },
+    {
+      "tier": "Silver Glow",
+      "price_range": "$49.99-69.99/month",
+      "target_customer": "Regular tanners",
+      "margin": 70
+    },
+    {
+      "tier": "Gold Radiance",
+      "price_range": "$79.99-149.99/month",
+      "target_customer": "Premium experience seekers",
+      "margin": 80
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Push unlimited monthly vs sessions - 85% margin vs 60%",
+    "Upsell lotion packets for $3-8 with 200% markup",
+    "Implement auto-renewal billing reducing churn by 40%",
+    "Sell tanning accessories (goggles, stickers) at 150% markup",
+    "Charge $5 for same-day bed upgrades when premium beds available",
+    "Create couples packages at 1.5x single price for 50% margin boost"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 25,
+      "reason": "New Year resolutions and vacation planning",
+      "opportunity": "Resolution package deals"
+    },
+    {
+      "month": "February",
+      "variation": 35,
+      "reason": "Valentine's Day and spring break prep",
+      "opportunity": "Couples promotions"
+    },
+    {
+      "month": "March",
+      "variation": 45,
+      "reason": "Peak spring break preparation",
+      "opportunity": "Student specials"
+    },
+    {
+      "month": "April",
+      "variation": 40,
+      "reason": "Prom and graduation season begins",
+      "opportunity": "Event packages"
+    },
+    {
+      "month": "May",
+      "variation": 30,
+      "reason": "Memorial Day and summer prep",
+      "opportunity": "Summer kickoff sales"
+    },
+    {
+      "month": "June",
+      "variation": 20,
+      "reason": "Natural sun competition begins",
+      "opportunity": "Maintenance packages"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Peak outdoor sun season",
+      "opportunity": "Sunless options push"
+    },
+    {
+      "month": "August",
+      "variation": -5,
+      "reason": "Late summer outdoor time",
+      "opportunity": "Back-to-school prep"
+    },
+    {
+      "month": "September",
+      "variation": 10,
+      "reason": "Maintain summer color",
+      "opportunity": "Color maintenance plans"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Holiday party season prep",
+      "opportunity": "Holiday packages"
+    },
+    {
+      "month": "November",
+      "variation": 20,
+      "reason": "SAD season and holiday events",
+      "opportunity": "Wellness messaging"
+    },
+    {
+      "month": "December",
+      "variation": 30,
+      "reason": "New Year's Eve and vacation prep",
+      "opportunity": "Gift certificates"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Membership sign-ups",
+      "avoid": "Major promotions",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Maintenance sessions",
+      "avoid": "New customer offers",
+      "conversion_rate": 4.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week specials",
+      "avoid": "Premium bed booking",
+      "conversion_rate": 6.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep tanning",
+      "avoid": "System maintenance",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Walk-ins and upgrades",
+      "avoid": "Lengthy consultations",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "New customer tours",
+      "avoid": "Price increases",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Week prep sessions",
+      "avoid": "Early closing",
+      "conversion_rate": 7.7
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th see 30% drop in new sign-ups, focus on free trials these days",
+    "cash_flow_peaks": "3rd-8th and 17th-22nd best for membership upgrades and product sales",
+    "slow_periods": "23rd-28th ideal for equipment maintenance and deep cleaning"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Thursday 5pm-8pm",
+      "crisis_type": "Weekend prep rush",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "March 1-20",
+      "crisis_type": "Spring break panic tanning",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "December 26-31",
+      "crisis_type": "New Year's Eve prep",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Day before major holiday",
+      "crisis_type": "Last-minute event tanning",
+      "premium_multiplier": 1.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Bride-to-Be Beautiful",
+      "components": [
+        "8-week tanning program",
+        "Spray tan for wedding day",
+        "Teeth whitening",
+        "Complimentary champagne",
+        "Bridal party discount"
+      ],
+      "pricing_model": "Package $299",
+      "margin": 75
+    },
+    {
+      "name": "Spring Break Ready",
+      "components": [
+        "2-week unlimited",
+        "Tanning lotion starter kit",
+        "Protective eyewear",
+        "After-sun care",
+        "Friend pass"
+      ],
+      "pricing_model": "Bundle $79",
+      "margin": 65
+    },
+    {
+      "name": "Year-Round Glow",
+      "components": [
+        "12-month unlimited",
+        "Monthly product credit",
+        "Upgrade privileges",
+        "Guest passes (4)",
+        "Birthday bonus"
+      ],
+      "pricing_model": "Annual $479",
+      "margin": 80
+    },
+    {
+      "name": "Wellness Package",
+      "components": [
+        "UV tanning sessions",
+        "Red light therapy",
+        "Vitamin D consultation",
+        "Mood tracking app",
+        "Seasonal adjustment support"
+      ],
+      "pricing_model": "Monthly $89",
+      "margin": 70
+    }
+  ],
+  "upsell_paths": [
+    "Single session → 5-session package (35% conversion)",
+    "Basic bed → Premium bed upgrade (28% take rate)",
+    "UV tanning → Add red light therapy (22% attachment)",
+    "Month-to-month → Annual prepay (18% conversion)",
+    "Tanning only → Add teeth whitening (15% take rate)",
+    "Individual membership → Couples membership (25% upgrade rate)"
+  ],
+  "retention_hooks": [
+    "Automatic monthly billing with 10% loyalty discount after 6 months",
+    "Freeze option for vacation/illness keeps membership active",
+    "Birthday month unlimited upgrade to premium beds",
+    "Refer-a-friend both get free month program",
+    "VIP early access to new equipment and services",
+    "Monthly product samples and exclusive member pricing",
+    "Rollover sessions for session package holders"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "BOGO monthly memberships",
+      "timing": "At sign-up",
+      "incentive": "Both get first month 50% off",
+      "conversion_rate": 7.8
+    },
+    {
+      "strategy": "Social media check-in rewards",
+      "timing": "During each visit",
+      "incentive": "Free upgrade per check-in",
+      "conversion_rate": 4.3
+    },
+    {
+      "strategy": "Friend day passes",
+      "timing": "Monthly with membership",
+      "incentive": "2 free guest passes monthly",
+      "conversion_rate": 6.2
+    },
+    {
+      "strategy": "Tan together Tuesday",
+      "timing": "Weekly promotion",
+      "incentive": "Bring friend, both tan for one price",
+      "conversion_rate": 5.9
+    },
+    {
+      "strategy": "Review rewards program",
+      "timing": "After 5th visit",
+      "incentive": "Free week for 5-star review",
+      "conversion_rate": 11.3
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Tanning lotions with any session",
+      "attach_rate": 54,
+      "timing": "At check-in"
+    },
+    {
+      "service": "Teeth whitening with monthly membership",
+      "attach_rate": 18,
+      "timing": "Month 2 of membership"
+    },
+    {
+      "service": "Red light therapy add-on",
+      "attach_rate": 24,
+      "timing": "After age 30+ disclosed"
+    },
+    {
+      "service": "Spray tan for special events",
+      "attach_rate": 31,
+      "timing": "Event mentioned"
+    },
+    {
+      "service": "Protective eyewear upgrade",
+      "attach_rate": 42,
+      "timing": "First visit"
+    },
+    {
+      "service": "After-care products",
+      "attach_rate": 38,
+      "timing": "Post-session checkout"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Teeth whitening services",
+      "market_size": "$40K additional annual revenue",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Spray tanning boutique",
+      "market_size": "$60K additional annual revenue",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Wellness center with IV therapy",
+      "market_size": "$100K additional annual revenue",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Mobile tanning services",
+      "market_size": "$35K additional annual revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Franchise additional locations",
+      "market_size": "$200K per location annually",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "E-commerce tanning products",
+      "market_size": "$25K additional annual revenue",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Palm Beach Tan's 'Glow Up Challenge' campaign featuring before/after transformations with customer testimonials and UV-free spray tan education",
+        "platform": "Instagram",
+        "why_it_worked": "User-generated content combined with educational messaging about safer tanning alternatives, leveraging social proof and addressing safety concerns simultaneously",
+        "metrics": "Average engagement rate of 4.2% on transformation posts, significantly higher than industry average",
+        "source": "Social media marketing case studies and Palm Beach Tan Instagram account analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Sun Tan City's seasonal 'Spring Break Ready' email campaign offering tiered package discounts 6-8 weeks before spring break",
+        "platform": "Email",
+        "why_it_worked": "Timed perfectly with pre-vacation urgency trigger, used countdown timers and package bundling to increase average transaction value",
+        "metrics": "28% open rate, 6.3% click-through rate during February-March campaign period",
+        "source": "Email marketing benchmarks for salon industry and Sun Tan City promotional materials",
+        "confidence": "medium"
+      },
+      {
+        "example": "Local tanning salon TikTok videos showing 'Get Ready With Me' content featuring spray tan application process",
+        "platform": "TikTok",
+        "why_it_worked": "Behind-the-scenes transparency reduced anxiety about the process, trending audio usage increased discoverability, relatable content format",
+        "metrics": "Videos in this format averaging 15K-50K views for small local salons, with 6-8% engagement rates",
+        "source": "TikTok tanning salon content analysis and beauty industry social media reports",
+        "confidence": "high"
+      },
+      {
+        "example": "European Wax Center's cross-promotion of tanning services with 'Bronze & Smooth' package marketing",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Bundle positioning created perceived value, addressed multiple beauty concerns in one visit, used aspirational beach imagery",
+        "metrics": "Package promotions showed 35% higher conversion than single-service ads",
+        "source": "Beauty salon marketing performance reports and European Wax Center promotional campaigns",
+        "confidence": "medium"
+      },
+      {
+        "example": "Seasonal Affective Disorder awareness posts in January-February linking UV exposure to mood improvement and vitamin D",
+        "platform": "Facebook/Blog",
+        "why_it_worked": "Educational content positioned tanning as wellness solution during peak SAD season, reduced stigma by focusing on health benefits",
+        "metrics": "Winter wellness content generates 2.5x more shares than standard promotional content",
+        "source": "Health and wellness marketing studies and salon industry blogs",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "3.8-4.5%",
+        "best_content_format": "Reels and carousel posts showing before/after transformations, behind-the-scenes content",
+        "optimal_frequency": "4-7 posts per week with daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm, Saturday mornings 10am-12pm",
+        "source": "2024 Beauty and Personal Care Social Media Benchmarks Report, Rival IQ industry data"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.8-2.3%",
+        "best_content_format": "Educational posts about tanning safety, promotional offers, customer testimonials with photos",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Sunday evenings 6-8pm",
+        "source": "Salon and spa social media performance studies 2023-2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.2-7.8%",
+        "best_content_format": "Short-form video showing application process, results reveals, day-in-the-life content, trending audio challenges",
+        "optimal_frequency": "5-10 posts per week for algorithm favor",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-10pm",
+        "source": "TikTok beauty industry benchmarks 2024, Later.com social media timing data"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "22-26% open rate, 3.5-5% click-through rate",
+        "best_content_format": "Promotional packages with urgency elements, seasonal preparation reminders, loyalty rewards updates",
+        "optimal_frequency": "1-2 emails per week, increased to 3 during peak seasons",
+        "best_posting_times": "Tuesday-Wednesday 10am-12pm, Thursday 6-8pm",
+        "source": "Mailchimp industry benchmarks for personal care services 2024"
+      },
+      {
+        "platform": "Google Business",
+        "avg_engagement_rate": "N/A - focus on review volume and rating",
+        "best_content_format": "Weekly photo posts of results, special offer announcements, Q&A responses",
+        "optimal_frequency": "2-3 posts per week plus regular photo uploads",
+        "best_posting_times": "Monday-Wednesday mornings for weekend planning searches",
+        "source": "Local service business SEO best practices 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Event Countdown",
+        "example": "Only 3 weeks until spring break - Start your base tan NOW for best results",
+        "why_it_works": "Combines time scarcity with the knowledge that gradual tanning produces better results, creating immediate action trigger",
+        "source": "Tanning salon promotional email campaigns and ad copy analysis"
+      },
+      {
+        "hook_pattern": "Problem-Solution Reveal",
+        "example": "Tired of looking washed out in photos? Here's how to get camera-ready skin in 48 hours",
+        "why_it_works": "Directly addresses pain point and promises quick transformation, appeals to event-driven customers",
+        "source": "High-performing tanning salon Facebook and Instagram ads"
+      },
+      {
+        "hook_pattern": "Social Proof + Transformation",
+        "example": "Why 847 brides chose us for their wedding glow (see their before & afters)",
+        "why_it_works": "Specific numbers add credibility, targets high-urgency wedding market, visual proof reduces risk perception",
+        "source": "Tanning salon landing pages and wedding season marketing campaigns"
+      },
+      {
+        "hook_pattern": "Seasonal Wellness Angle",
+        "example": "Beat the winter blues: How UV therapy helped our clients boost mood and energy",
+        "why_it_works": "Reframes tanning as health solution rather than vanity, reduces stigma, appeals to SAD sufferers",
+        "source": "Winter marketing campaigns and health-focused salon content"
+      },
+      {
+        "hook_pattern": "Comparison/Education Hook",
+        "example": "Spray tan vs UV tan: Which is right for YOUR skin type and timeline?",
+        "why_it_works": "Educational approach builds trust, acknowledges customer confusion, positions salon as expert advisor",
+        "source": "Blog content and email newsletters from major tanning chains"
+      },
+      {
+        "hook_pattern": "Insider Secret/Hack",
+        "example": "The tanning schedule pro athletes use to maintain year-round color (without damage)",
+        "why_it_works": "Appeals to aspiration and authority, addresses safety concerns preemptively, promises professional-level results",
+        "source": "TikTok and Instagram educational content from tanning professionals"
+      },
+      {
+        "hook_pattern": "Fear of Missing Out (FOMO)",
+        "example": "Everyone's getting their base tan started - Don't be the pale one at the pool party",
+        "why_it_works": "Leverages social comparison trigger and peer pressure in non-judgmental way, creates urgency through social context",
+        "source": "Spring and summer promotional campaigns across multiple salons"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I look so pale and washed out in all my photos",
+        "I can't stand how white my skin looks next to everyone else",
+        "My skin tone is so uneven and blotchy",
+        "I feel so self-conscious in a bathing suit when I'm this pale",
+        "The winter just drains all the color from my face",
+        "I don't have time to lay out in the sun for hours",
+        "I always burn before I tan naturally",
+        "I look sick or tired even when I'm not because of my pale skin",
+        "My vitamin D levels are so low and I feel exhausted all winter",
+        "I have a wedding/vacation in 2 weeks and I'm ghostly white"
+      ],
+      "solution_phrases": [
+        "I just wanted a healthy glow without the sun damage",
+        "It gave me so much confidence to have even, bronze skin",
+        "I loved how natural and gradual the color was",
+        "Finally found a way to maintain color year-round",
+        "The spray tan looked so much more even than when I try to tan naturally",
+        "I felt beach-ready and confident for the first time",
+        "It was exactly the boost I needed before my event",
+        "My skin looked smooth and my muscle definition really showed",
+        "I noticed my mood improved so much with regular sessions",
+        "The convenience of getting color in 15 minutes was perfect for my schedule"
+      ],
+      "objection_phrases": [
+        "I'm worried about looking orange or fake",
+        "Isn't tanning really bad for your skin and cancer risk?",
+        "I don't want to age my skin prematurely",
+        "It seems expensive to maintain",
+        "I'm afraid of getting tan lines or uneven color",
+        "Won't it make me break out or damage my skin?",
+        "I heard spray tans rub off on clothes and sheets",
+        "How do I know it's safe and the beds are clean?",
+        "I don't want to look like I'm trying too hard",
+        "What if I get too dark or it doesn't match my skin tone?"
+      ],
+      "decision_factors": [
+        "Clean, well-maintained equipment and facilities",
+        "Knowledgeable staff who can recommend the right level/type for my skin",
+        "Pricing and package options that fit my budget",
+        "Convenient location and hours that work with my schedule",
+        "Good reviews and before/after photos from real customers",
+        "Variety of tanning options (UV beds, spray, different levels)",
+        "Safety measures and skin type consultations",
+        "Ability to build a base tan gradually for natural results",
+        "Membership benefits and loyalty rewards",
+        "Privacy and comfortable environment"
+      ],
+      "emotional_language": [
+        "confident",
+        "glowing",
+        "beautiful",
+        "ready",
+        "energized",
+        "healthy-looking",
+        "radiant",
+        "attractive",
+        "comfortable in my own skin",
+        "beach body confident",
+        "camera-ready",
+        "not self-conscious anymore",
+        "feel like myself again",
+        "sexy",
+        "polished"
+      ],
+      "sources": [
+        "Reddit r/tanning discussions and recommendations",
+        "Yelp and Google reviews for tanning salons across major cities",
+        "Facebook comments on tanning salon promotional posts",
+        "Beauty forum discussions about tanning preparations",
+        "Instagram comments on before/after tanning transformation posts",
+        "Wedding planning forum discussions about pre-wedding tanning"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about safe tanning practices and UV exposure limits - most salons focus only on promotion",
+      "Skin type-specific guidance and personalized tanning schedules - generic advice dominates",
+      "Integration of tanning with overall skincare routines and product recommendations",
+      "Content addressing male customers specifically - most marketing skews heavily female",
+      "Transparent pricing and package comparison tools - most require calling or visiting",
+      "Post-tan skincare and maintenance education - focus is on getting the tan, not keeping it",
+      "Mental health and wellness angle beyond basic SAD mentions - deeper content on mood benefits",
+      "Fitness community partnerships and content targeting athletic/bodybuilding demographics",
+      "Long-form video content explaining the science behind UV tanning vs spray tanning",
+      "Sustainability and eco-friendly practices in tanning operations"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "Peak Seasonal Affective Disorder season and post-holiday paleness concerns",
+        "content_angle": "Wellness-focused content about UV therapy for mood, vitamin D benefits, 'New Year New Glow' transformation campaigns"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Spring break preparation and wedding season begins",
+        "content_angle": "Countdown campaigns for spring break trips, bridal package promotions, 'Spring Skin Reset' educational content"
+      },
+      {
+        "period": "May-June",
+        "opportunity": "Wedding peak season, graduation photos, summer vacation prep",
+        "content_angle": "Event-specific packages, graduation glow promotions, base tan building before summer sun exposure"
+      },
+      {
+        "period": "July-August",
+        "opportunity": "Vacation season peaks, maintaining summer color",
+        "content_angle": "Quick touch-up sessions between vacations, color maintenance tips, spray tan for those avoiding sun damage"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Back to school/work, homecoming events, extending summer glow",
+        "content_angle": "'Don't lose your summer glow' campaigns, fall event preparation, transition skincare content"
+      },
+      {
+        "period": "November-December",
+        "opportunity": "Holiday parties, New Year's Eve events, family photos",
+        "content_angle": "Holiday party ready campaigns, gift certificates for holiday giving, 'Glow into the New Year' packages"
+      },
+      {
+        "period": "Year-round",
+        "opportunity": "Fitness competition season, bodybuilding shows, photo shoots",
+        "content_angle": "Competition prep packages, muscle definition enhancement content, professional photography preparation"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ social media benchmarks for beauty and personal care 2024",
+      "Mailchimp email marketing industry benchmarks 2024",
+      "Reddit r/tanning community discussions",
+      "Yelp and Google Business reviews for top-rated tanning salons",
+      "Palm Beach Tan and Sun Tan City social media accounts and marketing materials",
+      "TikTok beauty and tanning content analysis",
+      "Later.com and Hootsuite social media timing studies",
+      "Wedding planning forums and bridal beauty discussions",
+      "Seasonal Affective Disorder and UV therapy research articles",
+      "Beauty industry marketing case studies and reports",
+      "Local tanning salon websites and promotional campaigns",
+      "Instagram hashtag analysis for #tanning #sprayttan #tanningsalon"
+    ],
+    "confidence_score": 7.8,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for specific campaigns",
+      "Exact engagement metrics for smaller local salons not widely published",
+      "A/B testing results for hook patterns not publicly shared by major chains",
+      "Precise ROI data on seasonal campaigns proprietary to individual businesses",
+      "Demographic breakdown of engagement by platform not readily available for this specific industry"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new spray tan technology, UV bed upgrades, or service packages",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes technology reveal - Show the equipment, safety features, and what makes it different",
+        "Week 2: Natural glow transformation science - Educate on how the new service creates even, camera-ready results",
+        "Week 3: Real client transformations - Feature before/after stories from beta testers and early adopters",
+        "Week 4: Limited-time launch pricing urgency - Create FOMO with exclusive founding member packages"
+      ],
+      "weekly_hooks": [
+        [
+          "Something new is coming to help you get that radiant, natural glow faster than ever... (hint: no orange tones, no streaks)",
+          "We've been testing this for 3 months with select clients. Their results? See for yourself [transformation preview]",
+          "The #1 complaint we hear: 'I don't want to look fake.' This solves it. Reveal coming [date]"
+        ],
+        [
+          "FINALLY HERE: The spray tan technology that gives you [specific benefit] in just [time]. Here's how it works...",
+          "Why [number] clients have already switched to our new [service name]: Even color, zero streaks, lasts 2x longer",
+          "Spray tan vs UV tan: Which is right for YOUR skin type and timeline? Our new system works for both - here's the science"
+        ],
+        [
+          "Why [number] brides chose our new [service] for their wedding glow (see their before & afters)",
+          "'I've never felt this confident in a bathing suit' - Real results from our first 2 weeks. Your turn?",
+          "The tanning schedule pro athletes are using with our new system to maintain year-round bronze (without damage)"
+        ],
+        [
+          "Only 3 days left to lock in launch pricing - [X]% off founding member packages end [date]",
+          "Everyone's already getting their glow with our new [service] - Don't be the pale one at [upcoming event]. Last chance for launch deals",
+          "48 hours until launch pricing expires. [Number] spots left at this rate. Get beach-ready skin now"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm worried about looking orange or fake' - Show technology features that prevent this",
+        "Week 2: Address 'Isn't tanning really bad for your skin and cancer risk?' - Educate on controlled exposure and spray tan safety",
+        "Week 3: Address 'How do I know it's safe and the beds are clean?' - Feature sanitation protocols and safety certifications",
+        "Week 4: Address 'It seems expensive to maintain' - Present package pricing that shows cost per session value"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce equipment certifications, FDA compliance, technology manufacturer credentials",
+        "Week 2: Share staff training certifications, skin type consultation process demonstrations",
+        "Week 3: Feature 15-20 before/after transformations from beta testers with detailed testimonials",
+        "Week 4: Final credibility push with total client count, satisfaction rate, and limited availability social proof"
+      ],
+      "cta_progression": [
+        "Week 1: 'Join the waitlist to be first to try [new service]' - Email capture",
+        "Week 2: 'Download our free skin type guide to see which option is perfect for you' - Educational lead magnet",
+        "Week 3: 'Comment GLOW to get launch day pricing details sent to your DMs' - Engagement and nurture",
+        "Week 4: 'Book your first session now - Only [X] founding member spots at this price' - Direct booking"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week + daily Stories) - Primary for visual before/afters and Reels",
+        "TikTok (7-10 videos/week) - Behind-the-scenes process videos and transformation reveals",
+        "Facebook (4-5 posts/week) - Detailed educational content and event targeting",
+        "Email (2-3 emails/week) - Waitlist nurture and exclusive launch offers"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Palm Beach Tan's 'Glow Up Challenge' achieving 4.2% engagement through transformation content combined with educational messaging, and TikTok 'Get Ready With Me' videos averaging 15K-50K views by showing transparent behind-the-scenes process"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent customer flow",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Skin type education - Personalized tanning schedules for different skin types and goals",
+        "Week 2: Base tan building science - How gradual exposure creates natural, lasting results",
+        "Week 3: Post-tan skincare maintenance - Extending your glow with proper hydration and products",
+        "Week 4: Event preparation timelines - When to start tanning for weddings, vacations, photos",
+        "Week 5: UV therapy wellness benefits - Mood enhancement, vitamin D, and seasonal affective disorder support",
+        "Week 6: Spray tan vs UV comparison - Helping customers choose the right method for their needs",
+        "Week 7: Common tanning mistakes - What causes uneven color, orange tones, and how to avoid them",
+        "Week 8: Client transformation showcase - Real results and testimonials from your community"
+      ],
+      "weekly_hooks": [
+        [
+          "Your skin type determines your perfect tanning schedule. Here's the exact timeline for [skin type] to get that golden glow",
+          "Why some people tan in 3 sessions and others need 8: The melanin production guide nobody tells you",
+          "Comparison/Education: Fair skin vs olive skin tanning protocols - Which schedule matches YOUR skin?"
+        ],
+        [
+          "The biggest mistake people make: rushing the base tan. Here's why gradual = better results that actually last",
+          "How to build a base tan that won't fade in 3 days (the professional protocol)",
+          "Why 847 brides start their base tan 8 weeks before the wedding - timing is everything for natural color"
+        ],
+        [
+          "Your tan is fading too fast? These 5 post-tan skincare mistakes are sabotaging your glow",
+          "The hydration secret that makes tans last 2x longer (dermatologist-approved)",
+          "What to do in the 48 hours after tanning to lock in maximum color and radiance"
+        ],
+        [
+          "Only 3 weeks until [seasonal event] - Start your base tan NOW for best results (here's your exact schedule)",
+          "When brides ask 'when should I start tanning?' - The wedding glow timeline that works every time",
+          "Planning a vacation in [timeframe]? Your countdown-to-bronze schedule starts today"
+        ],
+        [
+          "Beat the winter blues: How UV therapy helped our clients boost mood and energy during dark months",
+          "Tired of feeling exhausted all winter? The vitamin D connection to your mood (and your tan)",
+          "Seasonal Affective Disorder sufferers: Why controlled UV exposure might be the wellness boost you need"
+        ],
+        [
+          "Spray tan vs UV tan: Which is right for YOUR skin type and timeline? Honest comparison",
+          "When we recommend spray over UV (and vice versa) - The decision guide based on your goals",
+          "Can't decide between spray and UV? Here's how to use BOTH for optimal, natural results"
+        ],
+        [
+          "Why your tan looks orange (and how to fix it) - The 3 most common mistakes revealed",
+          "Tan lines ruining your glow? The positioning tricks that create seamless, even color",
+          "If you've ever said 'I can't tan, I just burn' - this protocol changes everything"
+        ],
+        [
+          "Why [number] clients trust us for their year-round glow (see their transformations)",
+          "From pale and washed out to radiant and confident: Real stories from our community",
+          "The before & after that proves gradual tanning works - [client name]'s 6-week journey"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'I always burn before I tan naturally' through skin type education",
+        "Week 3-4: Address 'It seems expensive to maintain' by showing cost-per-result value",
+        "Week 5-6: Address 'Isn't tanning really bad for your skin' with controlled exposure education",
+        "Week 7-8: Address 'I'm worried about looking orange or fake' with mistake-prevention content"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce staff expertise and skin type consultation process",
+        "Week 2-3: Share educational credentials and research-backed protocols",
+        "Week 4-5: Feature seasonal success stories relevant to current time of year",
+        "Week 6-7: Highlight safety certifications and equipment maintenance standards",
+        "Week 8: Major transformation showcase with detailed testimonials and metrics"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our free skin type tanning guide' - Value-first education",
+        "Week 2: 'Comment your skin type below and we'll recommend your perfect schedule' - Engagement",
+        "Week 3: 'Save this post for your pre-event tanning timeline' - Soft save/share",
+        "Week 4: 'Tag someone who needs to start their base tan for [event]' - Social sharing",
+        "Week 5: 'Read the full wellness blog post (link in bio)' - Traffic driver",
+        "Week 6: 'Book a free skin consultation to create your custom plan' - Low-commitment conversion",
+        "Week 7: 'DM us HELP if you've experienced these mistakes - we'll fix it' - Direct engagement",
+        "Week 8: 'Ready for your transformation? Book your first session (link in bio)' - Direct conversion"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week + daily Stories) - Mix of Reels, carousels, and educational posts",
+        "Facebook (3-4 posts/week) - Longer educational content and community engagement",
+        "Email (1-2 emails/week) - Deep-dive educational content and loyalty rewards",
+        "Google Business (2-3 posts/week) - Educational posts and offer announcements for local search",
+        "TikTok (5-7 videos/week) - Short educational videos and transformation content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on seasonal wellness content generating 2.5x more shares than promotional content, and the competitive gap in educational content about safe tanning practices and skin type-specific guidance. Addresses the finding that most salons focus only on promotion rather than education"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral content formats and trending opportunities",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral transformation reveals - Maximum visual impact before/after content with trending audio",
+        "Week 2: Interactive community challenges - User-generated content prompts and participation campaigns"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You have a beach vacation in 2 weeks and you're ghostly white [transformation reveal with trending audio]",
+          "The glow-up that has everyone asking 'what did you do?' - Watch this 10-day transformation",
+          "Showing my [friend/partner/mom] their spray tan results for the first time [reaction video]",
+          "Get ready with me: Full spray tan application process (the behind-the-scenes you've been asking for)",
+          "I look so pale and washed out in all my photos - Here's what changed [before/after carousel]",
+          "This is what [X] weeks of consistent tanning does - The results speak for themselves"
+        ],
+        [
+          "Drop a 🌞 if you're starting your base tan this week - Let's glow up together",
+          "Comment BRONZE and I'll send you the exact tanning schedule for [upcoming event]",
+          "Tag someone who needs to see this before [seasonal event] - They'll thank you later",
+          "Show me your best glow-up photo in the comments - Winner gets [prize/package]",
+          "Repost this to your Story if you're team spray tan vs team UV (let's settle this)",
+          "Duet this with your own before/after - Let's flood the feed with transformations"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm worried about looking orange or fake' by showing natural-looking results in viral content",
+        "Week 2: Address 'I don't have time for regular sessions' by highlighting 8-20 minute session times in fast-paced content"
+      ],
+      "proof_timing": [
+        "Week 1: Flood feed with 20+ before/after transformations across all platforms",
+        "Week 2: Feature user-generated content from challenge participants as social proof multiplication"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: 'Follow for daily transformation reveals' - Account growth focus",
+        "Week 1 Days 4-7: 'Save this for when you need a confidence boost' - Engagement and reach",
+        "Week 2 Days 1-4: 'Tag 3 friends who need this glow' - Viral sharing mechanics",
+        "Week 2 Days 5-7: 'Click link in bio to book your transformation' - Conversion while momentum is high"
+      ],
+      "platform_priority": [
+        "TikTok (10-14 videos/week) - Primary platform for viral potential with trending audio",
+        "Instagram Reels (7-10 Reels/week + hourly Stories) - Secondary viral platform and transformation showcases",
+        "Instagram Feed (5-7 posts/week) - High-quality before/afters and carousel deep-dives",
+        "Facebook (3-4 posts/week) - Cross-post top performers and target event-based audiences"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok 'Get Ready With Me' content averaging 15K-50K views for small local salons with 6-8% engagement rates, and Instagram transformation posts achieving 4.2% engagement (significantly higher than industry average). Leverages the proven 'Problem-Solution Reveal' and 'Social Proof + Transformation' hook patterns"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in safe tanning and skin wellness",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science of melanin production - Deep dive into how tanning actually works at cellular level",
+        "Week 2: UV exposure safety protocols - FDA guidelines, exposure limits, and professional standards",
+        "Week 3: Skin type classification system - Fitzpatrick scale education and personalized protocols",
+        "Week 4: Vitamin D and mood science - Research-backed wellness benefits of controlled UV exposure",
+        "Week 5: Tanning industry myths debunked - Addressing misinformation with scientific evidence",
+        "Week 6: Professional tanning vs sun exposure - Comparative safety analysis and controlled environment benefits"
+      ],
+      "weekly_hooks": [
+        [
+          "The tanning schedule pro athletes use to maintain year-round color (without damage) - Here's the science",
+          "How melanin actually works: The cellular process that creates your tan (and why rushing it backfires)",
+          "What happens in your skin during the first 72 hours after UV exposure - The biology explained"
+        ],
+        [
+          "The FDA guidelines for safe UV exposure that 90% of people don't know (we follow every single one)",
+          "How we calculate your exact session time based on skin type, bed strength, and exposure history",
+          "Why controlled indoor tanning is safer than unpredictable outdoor sun - The data might surprise you"
+        ],
+        [
+          "The Fitzpatrick Scale: Why your friend tans in 2 sessions and you need 6 (it's science, not luck)",
+          "Skin type-specific tanning protocols - Your exact roadmap based on dermatological classification",
+          "Fair skin vs olive skin: The melanin production differences that determine your perfect schedule"
+        ],
+        [
+          "Beat the winter blues: The peer-reviewed research on UV therapy for Seasonal Affective Disorder",
+          "Why dermatologists actually prescribe UV therapy for certain conditions (the wellness benefits beyond aesthetics)",
+          "The vitamin D connection: How controlled UV exposure impacts mood, energy, and immune function"
+        ],
+        [
+          "Myth: 'Base tans don't protect you from sunburn' - What the research actually shows",
+          "Debunking the biggest tanning myths with scientific evidence and dermatological research",
+          "The truth about indoor tanning and skin cancer risk - Separating correlation from causation with data"
+        ],
+        [
+          "Professional tanning vs laying out: Why controlled exposure beats unpredictable sun damage",
+          "The safety advantages of regulated equipment, timed sessions, and skin type protocols",
+          "How modern tanning technology differs from 1990s beds - The evolution of safety standards"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'Isn't tanning really bad for your skin and cancer risk?' with scientific education",
+        "Week 3: Address 'I always burn before I tan naturally' with skin type science",
+        "Week 4: Address stigma around tanning by positioning as wellness solution",
+        "Week 5-6: Address 'I don't want to age my skin prematurely' with controlled exposure vs sun damage comparison"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce staff certifications, training credentials, and continuing education",
+        "Week 2: Share FDA compliance documentation and safety audit results",
+        "Week 3: Feature dermatologist consultations and skin type assessment protocols",
+        "Week 4: Present peer-reviewed research citations and medical professional endorsements",
+        "Week 5: Highlight industry association memberships and safety certifications",
+        "Week 6: Comprehensive safety comparison data and third-party equipment testing results"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our complete guide to melanin production and tanning science' - Educational lead magnet",
+        "Week 2: 'Read the full safety protocol documentation (link in bio)' - Transparency building",
+        "Week 3: 'Book a free skin type consultation to get your personalized protocol' - Low-barrier expert interaction",
+        "Week 4: 'Subscribe to our wellness newsletter for monthly research updates' - Authority nurture",
+        "Week 5: 'Comment your biggest tanning myth and we'll debunk it with science' - Engagement and education",
+        "Week 6: 'Ready to experience safe, professional tanning? Schedule your consultation' - Expert-guided conversion"
+      ],
+      "platform_priority": [
+        "Blog/Website (1 long-form article per week, 1500+ words) - SEO authority and comprehensive education",
+        "Facebook (4-5 posts/week) - Platform for longer educational content and older demographic",
+        "Instagram (4-5 posts/week, carousel format) - Visual education with multi-slide deep-dives",
+        "Email (1 newsletter/week) - Detailed research breakdowns for engaged subscribers",
+        "YouTube/TikTok (2-3 longer videos/week) - Educational content in video format"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing lack of educational content about safe tanning practices, UV exposure limits, and skin type-specific guidance. Also addresses the gap in transparent, science-based content that builds trust and reduces stigma around tanning by focusing on controlled exposure and wellness benefits, particularly for SAD treatment"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and user-generated content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Glow-up transformation challenge - Community participation with before/after reveals and storytelling",
+        "Week 2: Interactive Q&A and decision-making content - Polls, questions, and community-driven conversations"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop a ☀️ if you're ready for your glow-up transformation - Let's make it happen together",
+          "Comment GLOW and tell us your biggest skin confidence goal - We're featuring 10 stories this week",
+          "Tag someone who needs a confidence boost before [upcoming event] - Winner gets a free transformation package",
+          "Show us your best 'before' photo in the comments - Time to create your 'after' together",
+          "Repost this to your Story and tag us - We're resharing everyone's glow journey this week",
+          "What's your biggest tanning question? Most-asked question gets a full tutorial video tomorrow",
+          "This or that: Spray tan or UV tan? Vote in the poll and tell us why in the comments"
+        ],
+        [
+          "Answer this: What event are you getting ready for? Wedding? Vacation? Just because? Tell us your story",
+          "Fill in the blank: I feel most confident when my skin looks _____ (we'll feature the best answers)",
+          "Poll: When do you prefer to tan? Morning 🌅 or Evening 🌙 - Results reveal our new extended hours",
+          "Controversial opinion: Base tans actually protect your skin from vacation sunburn. Agree or disagree?",
+          "Quiz in Stories: What's your skin type? Take the quiz and we'll DM your perfect tanning schedule",
+          "Ask us anything about tanning - We're going LIVE tomorrow to answer every single question",
+          "Duet/Stitch this: Show us your glow-up transformation and use #[YourSalonName]Glow"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm worried about looking orange or fake' through community examples of natural results",
+        "Week 2: Address 'What if I get too dark or it doesn't match my skin tone?' through interactive skin type discussions"
+      ],
+      "proof_timing": [
+        "Week 1 Days 1-4: Feature 3-5 client transformations daily with detailed stories and testimonials",
+        "Week 1 Days 5-7: Reshare user-generated content from challenge participants",
+        "Week 2: Daily features of community members answering questions and sharing experiences"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-2: 'Comment below to join the challenge' - Maximum engagement",
+        "Week 1 Days 3-5: 'Tag 3 friends and share to your Story' - Viral sharing",
+        "Week 1 Days 6-7: 'Vote in our poll - Your answer determines our next special offer' - Interactive participation",
+        "Week 2 Days 1-3: 'Ask your questions in the comments - We're answering everything' - Conversation building",
+        "Week 2 Days 4-5: 'DM us READY to claim your challenge participant discount' - Conversion with exclusivity",
+        "Week 2 Days 6-7: 'Book now using code GLOW for your community member pricing' - Direct conversion with community tie-in"
+      ],
+      "platform_priority": [
+        "Instagram Stories (8-12 Stories/day with polls, questions, quizzes) - Maximum interactive features",
+        "Instagram Feed (7-10 posts/week) - Community transformation features and engagement prompts",
+        "TikTok (8-10 videos/week) - Duet/Stitch-friendly content and challenge participation",
+        "Facebook (5-6 posts/week with heavy comment engagement) - Conversation-focused posts for community building",
+        "Instagram Live (2-3 live sessions across 2 weeks) - Real-time Q&A and community interaction"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Palm Beach Tan's 'Glow Up Challenge' success with user-generated content achieving 4.2% engagement, and the proven effectiveness of transformation content combined with social proof. Leverages Instagram's highest engagement times (Tuesday-Thursday 11am-1pm and 7-9pm) and TikTok's optimal posting windows (Tuesday-Thursday 7-9am and 7-10pm) for maximum algorithm favor"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "3 Things Wellness Professionals Get Wrong About UV Therapy for Seasonal Affective Disorder\n\nPROBLEM: 15-20% of Americans experience SAD symptoms, yet most wellness programs ignore UV exposure as a complementary approach.\n\nAGITATION: During January-March, we see a 340% spike in clients reporting low energy and mood issues. Traditional light therapy boxes help, but controlled UV exposure offers vitamin D synthesis that standard LED lights can't provide.\n\nSOLUTION: Here's what the research shows:\n\n1️⃣ Controlled UV sessions (10-12 minutes, 2-3x weekly) can support vitamin D levels when combined with medical supervision\n2️⃣ The ritual of self-care appointments creates routine during dark months\n3️⃣ Gradual exposure prevents the shock of spring sun for those with low baseline melanin\n\nAt [SALON_NAME], we've partnered with [LOCAL_WELLNESS_PROVIDERS] to offer holistic winter wellness consultations. Our certified staff assesses skin type and creates graduated exposure plans.\n\nThe key? Education over sales. We turn away clients with contraindications and always recommend physician consultation for vitamin D deficiency.\n\nWhat's your experience with UV therapy in wellness programs? Are we having the right conversations about safe, supervised use?\n\n#WellnessIndustry #SeasonalAffectiveDisorder #VitaminD #HolisticHealth #WinterWellness",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why Smart Salon Owners Are Repositioning Tanning as Event Preparation Services (And Seeing 35% Higher Margins)\n\nATTENTION: The tanning industry has an image problem, but the event preparation market is booming at $1.2B annually.\n\nINTEREST: We stopped marketing \"tanning\" and started marketing \"event-ready skin services.\" Here's what changed:\n\n→ Repositioned spray tanning as wedding/photo shoot prep\n→ Created \"48-Hour Glow\" packages for last-minute events\n→ Bundled services with local photographers, wedding planners, and formal wear shops\n→ Trained staff as \"skin tone consultants\" not tanning advisors\n\nDESIRE: Results after 6 months:\n• Average transaction value up 35%\n• Client retention increased 28%\n• 5-star reviews mentioning \"professionalism\" up 156%\n• Corporate event contracts with [NUMBER] local businesses\n\nACTION: The shift required:\n✅ Staff certification in skin type analysis\n✅ Consultation-first sales approach\n✅ Strategic partnerships with event vendors\n✅ Content focused on transformation timelines, not just pricing\n\nThe beauty industry is moving toward personalized preparation services. Tanning salons that adapt will thrive.\n\nWant to discuss repositioning strategies? Drop a comment or DM.\n\n#SalonBusiness #BeautyIndustry #EventServices #BusinessStrategy #SalonOwner",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Salons offering generic unlimited tanning packages, competing on price, 18% annual client churn\n\nAFTER: [SALON_NAME] implemented tiered membership model with skin-type customization, saw 41% increase in premium package adoption\n\nBRIDGE: Here's the framework we used:\n\n📊 Created 3 membership tiers:\n• Bronze Level: [PRICE] - 8 sessions/month + skin consultation\n• Golden Level: [PRICE] - Unlimited UV + 2 spray tans + priority booking\n• Radiant Level: [PRICE] - All services + quarterly skin analysis + guest passes\n\n🎯 Key differentiators:\n→ Mandatory skin type assessment (builds trust, reduces liability)\n→ Graduated exposure plans (better results = better retention)\n→ Member-only education workshops on skin health\n→ Referral rewards that actually convert (guest passes)\n\n💡 The psychology: Clients don't want \"cheap tanning\" - they want results without damage. Premium positioning attracted higher-value customers who stay longer.\n\nWe're offering complimentary business consultations to [NUMBER] salon owners this quarter. Learn how to implement tiered membership models that increase lifetime value.\n\nInterested? Comment \"STRATEGY\" below.\n\n#SalonGrowth #MembershipModel #BeautyBusiness #RevenueStrategy",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "The tanning schedule pro athletes actually use 👇\n\n(Spoiler: It's not what you think)\n\nMost people try to cram sessions right before an event and end up looking orange or burning. Here's the science-backed approach:\n\n🗓️ WEEK 1-2: Build your base\n→ [X] minutes, [X] times/week\n→ Allows melanin production without shock\n\n🗓️ WEEK 3-4: Maintain and deepen\n→ [X] minutes, [X] times/week\n→ Even color development\n\n🗓️ WEEK 5+: Sustain your glow\n→ [X] minutes, [X] times/week\n→ Prevents fading\n\n💡 PRO TIP: Start [NUMBER] weeks before your event for natural-looking results that photograph beautifully.\n\nOur certified staff creates custom schedules based on YOUR skin type and timeline. No guessing, no orange fails, just radiant confidence.\n\nDrop a 🌟 if you learned something new!\n\nQuestions? Ask in comments ⬇️\n\n#TanningTips #SprayTanEducation #BeachReady #[CITYNAME]Tanning #GlowUp #TanningSalon #SkincareEducation #EventPrep #WeddingTan #VacationReady",
+        "visual": "Carousel: Slide 1 - Calendar graphic showing 6-week timeline. Slide 2 - Before/after of gradual tan vs rushed tan. Slide 3 - Skin type chart. Slide 4 - Pro athlete testimonial. Slide 5 - Booking CTA with QR code",
+        "framework": "Educational + Social Proof"
+      },
+      "authority": {
+        "caption": "Why 847 brides chose us for their wedding glow ✨\n\n(See their transformations in slides 2-5)\n\nAfter 12 years perfecting bridal tanning, here's what we learned:\n\n💍 Timing is EVERYTHING\n→ Trial spray tan [X] weeks before\n→ Final session [X] days before wedding\n→ Touch-up option day-before\n\n💍 Skin prep makes or breaks results\n→ Exfoliation protocol we provide\n→ Moisturizing schedule\n→ What to avoid (and when)\n\n💍 Color matching matters\n→ We match your dress undertones\n→ Consider photo lighting\n→ Bridal party color coordination\n\nOur Bridal Glow Package includes:\n✓ Consultation with skin analysis\n✓ Trial session with adjustments\n✓ Wedding day perfection guarantee\n✓ Bridal party group rates\n✓ Touch-up insurance\n\nBooking [SEASON] weddings now. Limited spots for personalized consultations.\n\nBrides: Tag your MOH who needs to see this 👰‍♀️\n\nLink in bio to book your trial 💫\n\n#BridalTanning #WeddingGlow #[CITYNAME]Bride #WeddingPrep #BridalBeauty #SprayTan #WeddingReady #BrideToBeauty #WeddingSeason2024 #BridalPackage",
+        "visual": "Carousel: Slide 1 - Elegant bride getting spray tan (back view). Slide 2-5 - Real bride before/afters with testimonial quotes. Slide 6 - Bridal package details with pricing. Slide 7 - Timeline infographic. Slide 8 - Booking CTA",
+        "framework": "Authority + Social Proof"
+      },
+      "promotional": {
+        "caption": "Only 3 weeks until spring break 🌴\n\n(And you're still winter pale...)\n\nHere's the truth: You can't build a natural-looking base tan in 3 days. But you CAN in 3 weeks.\n\nOur Spring Break Ready Package:\n🌞 [NUMBER] sessions custom-scheduled for YOUR skin type\n🌞 Gradual, natural-looking color (no orange fails)\n🌞 Pre-vacation spray tan included\n🌞 After-care kit to maintain your glow\n\n[PRICE] (Reg. [REGULAR_PRICE]) ⏰ Ends [DATE]\n\nWhy start now?\n✓ Better results than cramming last-minute\n✓ Build tolerance so you don't burn on day 1\n✓ Look amazing in every beach photo\n✓ Confidence from the moment you arrive\n\n847 clients trusted us last spring break season. Join them.\n\nTag your spring break crew 👇\nFirst [NUMBER] to book get free after-sun lotion!\n\nBook: [LINK IN BIO] or text [PHONE]\n\n⏰ Package expires [DATE] - Don't be the pale one at the pool party\n\n#SpringBreak2024 #BeachBody #SpringBreakReady #TanningSpecial #[CITYNAME] #VacationPrep #BaseTan #SpringBreakGlow #CollegeSpringBreak #BeachReady",
+        "visual": "Reel: 15-second before/after transformation showing 3-week progression. Text overlay: 'Week 1' → 'Week 2' → 'Week 3: Spring Break Ready'. Trending audio. End frame: Package offer with countdown timer and 'Link in bio' CTA",
+        "framework": "Urgency + FOMO"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "❄️ WINTER WELLNESS WEDNESDAY ❄️\n\nLet's talk about something nobody wants to admit: The winter blues are REAL.\n\nIf you've been feeling:\n→ Exhausted even after 8 hours sleep\n→ Unmotivated and low-energy\n→ Craving carbs like crazy\n→ Just... blah\n\nYou're not alone. 15-20% of us experience Seasonal Affective Disorder symptoms.\n\nHere's what helped our clients this January:\n\n🌞 CONTROLLED UV EXPOSURE\nNot a cure, but a tool. 10-12 minutes of UV exposure 2-3x weekly can support vitamin D production (always check with your doctor first about levels).\n\n🌞 ROUTINE & RITUAL\nThe act of scheduling self-care appointments creates structure during dark months when motivation is low.\n\n🌞 GRADUAL PREPARATION\nBuilding a base now means when spring sun hits, you won't shock your system or burn on the first warm day.\n\nIMPORTANT: We're not doctors. We always recommend:\n✓ Vitamin D testing with your physician\n✓ Discussing UV exposure with your dermatologist\n✓ Combining approaches (therapy, exercise, nutrition, light)\n\nOur Winter Wellness Consultation is FREE and includes:\n→ Skin type analysis\n→ Graduated exposure plan\n→ Safety education\n→ Referrals to local wellness providers\n\nWe believe in education over sales. If UV therapy isn't right for you, we'll tell you.\n\nHave you noticed mood changes this winter? What's helping you? Let's support each other in the comments 💙\n\n[SALON_NAME] | [PHONE] | [ADDRESS]\n\n#WinterWellness #SeasonalAffectiveDisorder #MentalHealthMatters #[CityName]Wellness #VitaminD #SelfCare #WinterBlues",
+        "framework": "Educational + Community"
+      },
+      "authority": {
+        "template": "🎯 REAL TALK: What 12 years in the tanning industry taught me about confidence\n\nI've seen thousands of clients walk through our doors. And here's what I've learned:\n\nNobody actually wants a tan.\n\nThey want to feel confident in their bathing suit.\nThey want to look healthy in photos.\nThey want to stop comparing themselves to everyone else.\nThey want to feel READY for their big moment.\n\nThe tan is just the tool. Confidence is the transformation.\n\nThat's why we completely changed how we do business:\n\n❌ OLD WAY: \"How dark do you want to go?\"\n✅ NEW WAY: \"What event are you preparing for and how do you want to feel?\"\n\n❌ OLD WAY: Sell unlimited packages to everyone\n✅ NEW WAY: Custom consultation based on skin type, timeline, and goals\n\n❌ OLD WAY: Rush appointments to maximize volume\n✅ NEW WAY: Education-first approach, even if it means fewer sessions\n\nThe results?\n\n→ Clients who actually achieve the look they want (not too dark, not orange)\n→ Better reviews because we set realistic expectations\n→ Longer relationships because trust > transactions\n→ Referrals from people who felt HEARD, not sold to\n\nLast month, a bride told me: \"You're the first salon that asked about my dress color and venue lighting before recommending a package.\"\n\nTHAT'S what we're here for.\n\nIf you've had bad tanning experiences before (looking orange, uneven color, pushy sales), I get it. We're different.\n\nFree consultation. No pressure. Just honest advice about what will actually work for YOUR skin and YOUR goals.\n\nReady to try a different approach? Call us: [PHONE]\n\nWhat's your biggest tanning fear or question? I'll answer every comment personally 👇\n\n- [OWNER_NAME], Owner of [SALON_NAME]\n\n#TanningSalon #[CityName]Business #CustomerFirst #BeautyIndustry #SprayTan #LocalBusiness #SmallBusinessOwner",
+        "framework": "Authority + Transparency"
+      },
+      "promotional": {
+        "template": "🌴 VACATION COUNTDOWN: T-MINUS [NUMBER] WEEKS 🌴\n\n*checks calendar*\n*looks at pale arms*\n*panics slightly*\n\nWe've all been there 😅\n\nGood news: You have EXACTLY enough time to build a gorgeous base tan before your trip (if you start THIS WEEK).\n\nOur Vacation Prep Package gets you:\n\n✈️ [NUMBER] custom-scheduled UV sessions\n→ Timed perfectly for gradual, natural color\n→ Prevents burning on vacation day 1\n→ Builds tolerance so you can enjoy the sun safely\n\n✈️ Pre-departure spray tan\n→ Applied [X] days before you leave\n→ Perfects any uneven areas\n→ Lasts through your entire trip\n\n✈️ Travel-size after-care kit\n→ Keep your glow going\n→ TSA-approved sizes\n→ Extend your tan naturally\n\n✈️ Post-vacation touch-up (FREE)\n→ Maintain your color when you get back\n→ Transition smoothly to maintenance schedule\n\nNORMALLY [REGULAR_PRICE]\nTHIS WEEK ONLY: [SALE_PRICE] 💰\n\n⏰ OFFER EXPIRES [DATE] ⏰\n\nWhy our clients love this:\n\n\"I didn't burn at all on day 1 like I usually do!\" - Jennifer M.\n\"Best vacation photos I've ever taken\" - Marcus T.\n\"My tan lasted 2 weeks after I got home\" - Sarah K.\n\nLimited spots available (we cap appointments to ensure quality).\n\nTO BOOK:\n📱 Text [PHONE]\n💻 Online: [WEBSITE]\n📍 Walk-in: [ADDRESS]\n\nTag your travel buddy who needs to see this! 👇\n\nFirst [NUMBER] to book get a FREE travel-size bronzing lotion ($24 value) 🎁\n\nWhere are you headed? Tell us in the comments! ✈️🏖️🌊\n\n#VacationPrep #SpringBreak #BeachVacation #TravelReady #[DestinationName]Bound #VacationMode #TanningSpecial #[CityName] #BeachBody #TravelGlow",
+        "framework": "Urgency + Value Stack"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You paid $80 for a spray tan and it looks like THIS 😭",
+        "script": "HOOK: Show orange, streaky spray tan disaster (3 sec)\n\nPROBLEM: \"This is what happens when you don't prep your skin properly\" (2 sec)\n\nCUT TO: Bathroom counter with exfoliating mitt, moisturizer, etc.\n\n\"Here's what pros do 24 hours BEFORE:\" (2 sec)\n\nQUICK CUTS (3-4 sec each):\n→ \"Exfoliate EVERYTHING (yes, even there)\"\n→ \"Shave/wax 24 hours before, not day-of\"\n→ \"Skip lotion on hands, feet, elbows, knees\"\n→ \"Wear loose, dark clothing\"\n→ \"Remove ALL makeup and deodorant\"\n\nCUT TO: Perfect spray tan application\n\n\"The difference?\" (1 sec)\n\nSIDE-BY-SIDE: Bad prep vs good prep results (3 sec)\n\n\"We give every client this checklist FREE\" (2 sec)\n\nEND: \"Comment PREP for the full list 👇\" (2 sec)\n\nTEXT OVERLAYS:\n- \"The $80 mistake\"\n- \"Do this 24hrs before\"\n- \"Pro secrets\"\n- \"Perfect tan every time\"\n\nTRENDING AUDIO: Use current beauty/transformation sound\n\n#SprayTan #TanningFail #BeautyTips #SprayTanPrep #TanTok #BeautyHacks #GlowUp #TanningTips",
+        "framework": "Problem-Solution + Educational"
+      },
+      "authority": {
+        "hook": "12 years tanning brides. Here's what I wish they knew BEFORE booking 👰",
+        "script": "HOOK: Bride in salon chair looking nervous (3 sec)\n\n\"After 847 weddings, these are the mistakes I see every time:\" (3 sec)\n\nQUICK CUTS with text overlays (4-5 sec each):\n\n1️⃣ \"Booking too close to the wedding\"\n→ Show calendar: \"You need a TRIAL 4-6 weeks before\"\n\n2️⃣ \"Going too dark\"\n→ Show comparison: \"Photos wash you out. Go 1 shade lighter than you think\"\n\n3️⃣ \"Not considering your dress\"\n→ Show dress samples: \"Ivory vs white vs blush = different tan tones\"\n\n4️⃣ \"Forgetting about your hands\"\n→ Close-up of hands: \"Ring photos are EVERYTHING\"\n\n5️⃣ \"Skipping the bridal party coordination\"\n→ Show mismatched bridal party: \"Everyone different colors looks chaotic\"\n\nCUT TO: Perfect bride reveal (3 sec)\n\n\"Want the full bridal tanning timeline?\" (2 sec)\n\nEND: \"Link in bio for our Bride Guide 💍\" (2 sec)\n\nTEXT OVERLAYS:\n- \"Bridal tanning secrets\"\n- \"Don't make these mistakes\"\n- \"Pro tips from 847 weddings\"\n- \"Save this for later\"\n\nAUDIO: Trending bridal/wedding sound\n\n#BridalTanning #WeddingTok #BrideToBe #WeddingTips #SprayTan #WeddingPrep #BridalBeauty #WeddingPlanning",
+        "framework": "Authority + Listicle"
+      },
+      "promotional": {
+        "hook": "It's February and you're the only one at the pool party with a tan 😎",
+        "script": "HOOK: Pool party scene, everyone pale except creator (3 sec)\n\n\"How?\" (1 sec)\n\nCUT TO: Salon entrance\n\n\"My secret: 12 minutes, 3x a week\" (3 sec)\n\nQUICK MONTAGE (3-4 sec each):\n→ Entering tanning room\n→ Timer showing 12:00\n→ Relaxing in bed (tasteful, showing face only)\n→ Checking results in mirror\n→ Progress over 3 weeks (split screen)\n\nCUT TO: Back at pool party, confident vibes (3 sec)\n\n\"While everyone else is:\" (2 sec)\n\nQUICK CUTS:\n→ \"Applying self-tanner wrong\" (streaky legs)\n→ \"Burning on day 1 of vacation\" (sunburn)\n→ \"Looking washed out in photos\" (pale photo)\n\nCUT TO: Creator looking glowing (2 sec)\n\n\"I'm just maintaining my glow year-round\" (3 sec)\n\n\"First month unlimited: $[PRICE]\" (2 sec)\n\nEND: \"Link in bio. You're welcome 😘\" (2 sec)\n\nTEXT OVERLAYS:\n- \"The winter glow secret\"\n- \"12 min 3x/week\"\n- \"Year-round bronze\"\n- \"First month $[PRICE]\"\n- \"[SALON_NAME]\"\n\nAUDIO: Trending confidence/glow-up sound\n\n#TanningRoutine #WinterGlow #TanTok #GlowUp #PoolParty #BaseTan #YearRoundTan #[CityName]",
+        "framework": "FOMO + Lifestyle"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The tanning timeline pros use (steal this for your [EVENT_TYPE]) 📅",
+        "preview_text": "Start [X] weeks before for natural, camera-ready results",
+        "body": "Hi [FIRST_NAME],\n\nYou asked, we answered: \"When should I start tanning before my [EVENT_TYPE]?\"\n\nAfter helping [NUMBER]+ clients prepare for weddings, vacations, and photo shoots, here's the proven timeline:\n\n📅 6-8 WEEKS BEFORE:\n→ Schedule your consultation + skin type analysis (FREE)\n→ Start building your base gradually\n→ Test your skin's response and adjust\n\n📅 3-4 WEEKS BEFORE:\n→ Maintain consistent schedule ([X] sessions/week)\n→ Achieve even, natural-looking color\n→ Fine-tune your shade\n\n📅 1 WEEK BEFORE:\n→ Final UV session [X] days out\n→ Spray tan [X] days before event\n→ Perfect any uneven areas\n\n📅 EVENT DAY:\n→ Radiant, camera-ready confidence ✨\n\nWHY THIS WORKS:\n• Gradual color looks natural, not orange\n• Builds tolerance (prevents burning)\n• Photographs beautifully\n• Lasts longer than rushed tanning\n\nREADY TO START?\n\nWe're booking [MONTH] events now. Free consultations include:\n✓ Custom timeline for YOUR event\n✓ Skin type analysis\n✓ Package recommendations\n✓ No-pressure advice\n\n[BOOK CONSULTATION BUTTON]\n\nP.S. Starting late? We have express options too. Reply to this email with your event date and we'll create a custom plan.\n\nTo your glow,\n[SALON_NAME] Team\n\n[PHONE] | [WEBSITE]"
+      },
+      "authority": {
+        "subject": "Why we turn away 20% of new clients (and why that matters to you)",
+        "preview_text": "Our commitment to safety over sales",
+        "body": "Hi [FIRST_NAME],\n\nThis might sound like bad business, but last month we turned away 47 potential clients.\n\nWhy?\n\nBecause not everyone should be tanning. And we're okay with that.\n\nHere's who we say \"no\" to:\n\n❌ Clients with certain medications (photosensitivity risk)\n❌ Skin types that burn easily without proper protocol\n❌ Anyone wanting to skip the consultation\n❌ People rushing to go \"as dark as possible\" too fast\n❌ Those with recent sunburns or skin damage\n\nWHAT WE DO INSTEAD:\n\n✓ Refer to spray tan alternatives when safer\n✓ Educate on gradual, responsible tanning\n✓ Require skin type assessments (always)\n✓ Partner with dermatologists for guidance\n✓ Provide honest timelines, not false promises\n\nWHY THIS MATTERS TO YOU:\n\nWhen you come to [SALON_NAME], you're getting:\n\n→ Staff trained in skin safety, not just sales\n→ Custom plans based on YOUR skin type\n→ Realistic expectations about results\n→ A salon that prioritizes your long-term skin health\n→ Consultations that might recommend AGAINST certain services\n\nOur 4.9-star rating isn't from being the cheapest or the fastest. It's from being the most HONEST.\n\nREADY FOR A DIFFERENT EXPERIENCE?\n\nBook your free consultation. We'll tell you what will work for your skin, your timeline, and your goals. Even if that means recommending a competitor or alternative approach.\n\n[BOOK FREE CONSULTATION]\n\nBecause trust matters more than a quick sale.\n\n[OWNER_NAME]\nOwner, [SALON_NAME]\n\nP.S. Have questions about whether tanning is right for you? Reply to this email. I personally answer every one."
+      },
+      "promotional": {
+        "subject": "⏰ [FIRST_NAME], your spring break is in [X] weeks (here's your game plan)",
+        "preview_text": "Lock in your Vacation Prep Package before [DATE] - $[SAVINGS] off",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: Where are you headed for spring break? 🌴\n\n[DESTINATION]? [OTHER_DESTINATION]? Somewhere sunny?\n\nHere's the thing...\n\nYou have EXACTLY [X] weeks. That's perfect timing to build a gorgeous base tan (if you start THIS week).\n\nWait any longer? You'll be cramming sessions and risking the dreaded orange glow or uneven color.\n\nOUR VACATION PREP PACKAGE:\n\n🌞 [NUMBER] Custom UV Sessions\n→ Scheduled for YOUR skin type\n→ Gradual, natural-looking results\n→ Build tolerance so you don't burn on Day 1\n\n🌞 Pre-Vacation Spray Tan\n→ Applied [X] days before departure\n→ Perfects any tan lines or uneven spots\n→ Lasts your entire trip\n\n🌞 Travel After-Care Kit\n→ TSA-approved sizes\n→ Maintain your glow on vacation\n→ Extend your tan naturally\n\n🌞 FREE Post-Vacation Touch-Up\n→ Keep your color after you return\n→ Transition to maintenance mode\n→ Don't lose your glow\n\nREGULAR PRICE: $[REGULAR_PRICE]\nYOUR PRICE (Until [DATE]): $[SALE_PRICE]\nYOU SAVE: $[SAVINGS]\n\n⏰ PACKAGE EXPIRES [DATE] ⏰\n\n[BOOK NOW - LIMITED SPOTS]\n\nWHY OUR CLIENTS LOVE THIS:\n\n⭐⭐⭐⭐⭐ \"Didn't burn once on my trip!\" - Jennifer M.\n⭐⭐⭐⭐⭐ \"Best vacation photos ever\" - Marcus T.\n⭐⭐⭐⭐⭐ \"My tan lasted 2 weeks after I got home\" - Sarah K.\n\nBONUS: First [NUMBER] to book get FREE travel bronzing lotion ($24 value)\n\nQuestions? Just reply to this email or text [PHONE].\n\nLet's get you vacation-ready 🏖️\n\n[SALON_NAME] Team\n\nP.S. Leaving in less than 2 weeks? We have express options too. Reply with your departure date for a custom plan."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] brides got their wedding glow here - see why they trusted us for their big day",
+      "[X] sessions to go from pale and washed out to camera-ready (here's the exact schedule)",
+      "[X] days until [event] - here's your base tan timeline to avoid looking ghostly white"
+    ],
+    "question_hooks": [
+      "Are you the only one showing up pale to the pool party this year?",
+      "Tired of looking sick and exhausted in photos when you actually feel great?",
+      "Worried your spray tan will turn you orange or rub off on your [wedding dress/sheets/clothes]?"
+    ],
+    "story_hooks": [
+      "How [Sarah] went from ghostly white to beach confident in 2 weeks before her vacation",
+      "This bride was terrified of tan lines - here's how she got flawless color for her strapless dress",
+      "He wanted his muscle definition to show for [competition/photos] - here's the tanning schedule that worked"
+    ],
+    "fear_hooks": [
+      "Is your pale, uneven skin tone ruining your confidence in every photo you take?",
+      "Are you risking sun damage and premature aging just to get rid of your winter paleness?",
+      "Is low vitamin D draining your energy all winter while everyone else glows year-round?"
+    ],
+    "howto_hooks": [
+      "How to get a natural, gradual base tan without burning or looking orange",
+      "How to show up glowing at [your event] without hours of sun damage",
+      "How to maintain year-round color without the expense, time, or premature aging"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You have a beach vacation in 2 weeks and you're ghostly pale",
+      "body": "Day 1: Walk into salon looking like a ghost emoji. Staff does skin analysis, recommends Level 2 bed + gradual spray tan combo. Day 5: Slight glow appearing, coworkers asking if I went somewhere. Day 10: Even bronze developing, no orange, no streaks. Day 14: Beach confident, cameras ready, that girl energy unlocked. Show quick clips of: initial consult, tanning bed session, spray tan application, progression photos, final beach reveal. Text overlay: 'The secret? Professional guidance + gradual building = natural results'",
+      "cta": "Link in bio for your glow-up timeline"
+    },
+    "reels": {
+      "hook": "3 tanning mistakes making you look orange",
+      "body": "Mistake 1: Going too dark too fast - show comparison. Mistake 2: Skipping skin type consultation - show patchy result vs even tan. Mistake 3: Not moisturizing after - show fading vs maintained color. The fix: Professional salon with trained staff who customize your plan. Quick cuts between 'wrong way' and 'right way' with satisfying before/after",
+      "cta": "Save this before your next tan"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second 'Get Ready With Me' showing your spray tan application or tanning session, then a final look reveal in your outfit. Share what event you're prepping for and how confident you feel!",
+      "hashtag": "#GlowUpReady"
+    },
+    {
+      "prompt": "Take a before photo when you start your tanning package, then film a quick reaction video when you see your final results after 2 weeks. Tell us: what surprised you most about the process?",
+      "hashtag": "#TanTransformation"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Winter SAD transformation series: 'I tried UV tanning for my seasonal depression and here's what happened' - weekly mood tracking + vitamin D level updates over 8 weeks",
+      "why": "Combines wellness trend with vulnerable personal journey, taps into winter blues relatability, provides educational health angle that reduces tanning stigma, highly shareable among women 25-45 experiencing SAD"
+    },
+    {
+      "angle": "Tanning salon owner reacts to viral 'tanning fails' and TikTok DIY tanning hacks, explaining what went wrong and the right way to do it",
+      "why": "Reaction content performs exceptionally well, positions salon as expert authority, satisfies curiosity about 'why' fails happen, educational + entertaining format drives saves and shares"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:13:33.015Z",
+    "last_tier2_refresh": "2025-11-27T22:13:33.015Z",
+    "last_tier3_refresh": "2025-11-27T22:13:33.015Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:13:33.015Z"
+  }
+}

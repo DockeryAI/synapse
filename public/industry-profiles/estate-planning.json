@@ -1,0 +1,1756 @@
+{
+  "industry": "Estate Planning",
+  "industry_name": "Estate Planning",
+  "naics_code": "541110",
+  "category": "Professional Services",
+  "subcategory": "Legal and Financial Planning",
+  "customer_triggers": [
+    {
+      "trigger": "Death of parent or spouse",
+      "urgency": 10,
+      "frequency": "Life event"
+    },
+    {
+      "trigger": "Diagnosis of terminal illness",
+      "urgency": 10,
+      "frequency": "Medical crisis"
+    },
+    {
+      "trigger": "Birth of first child",
+      "urgency": 7,
+      "frequency": "Life milestone"
+    },
+    {
+      "trigger": "Reaching age 50",
+      "urgency": 6,
+      "frequency": "Age milestone"
+    },
+    {
+      "trigger": "Business sale or major liquidity event",
+      "urgency": 9,
+      "frequency": "Financial event"
+    },
+    {
+      "trigger": "Second marriage or blended family formation",
+      "urgency": 8,
+      "frequency": "Family change"
+    },
+    {
+      "trigger": "Real estate acquisition over $1M",
+      "urgency": 7,
+      "frequency": "Asset acquisition"
+    },
+    {
+      "trigger": "Retirement within 5 years",
+      "urgency": 8,
+      "frequency": "Career transition"
+    },
+    {
+      "trigger": "Tax law changes affecting estates",
+      "urgency": 9,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Friend's estate horror story",
+      "urgency": 5,
+      "frequency": "Social influence"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Typically triggered by life event, media coverage of celebrity estate battles, or professional advisor recommendation. 73% become aware through negative examples rather than proactive planning. Initial research involves Google searches for 'do I need a will' or 'estate planning basics', averaging 4.2 hours of online research before contacting professional.",
+    "consideration": "Evaluation phase lasts 3-6 weeks, comparing 3-4 attorneys based on credentials, specialization, fee structure, and personal rapport. Key factors include board certifications (42% importance), years of experience (38%), and client testimonials (20%). Price shopping occurs but takes backseat to expertise perception.",
+    "decision": "Final selection heavily influenced by initial consultation quality (67%), clear fee structure (22%), and emotional comfort level (11%). Decision accelerates with impending travel, health scares, or tax deadlines. Average time from first contact to engagement: 14 days for crisis-driven, 45 days for proactive planning.",
+    "retention": "Annual review touchpoints critical for 5+ year retention. Clients stay when attorney proactively communicates law changes (89% retention), offers family member discounts (76% retention), and maintains regular contact beyond billing (82% retention). Average client lifetime value: $12,000-$45,000 over 15 years.",
+    "advocacy": "Peak referral generation occurs 6-12 months post-completion when clients experience peace of mind. Each satisfied estate planning client generates average 2.3 referrals within first year, 4.7 lifetime referrals. Professional network referrals from CPAs and financial advisors account for 43% of new business."
+  },
+  "transformations": [
+    {
+      "from": "Anxious about family's future",
+      "to": "Confident in legacy protection",
+      "emotional_value": "Peace of mind worth $15,000+ premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by complexity",
+      "to": "Clear understanding and control",
+      "emotional_value": "Clarity and empowerment",
+      "worth_premium": true
+    },
+    {
+      "from": "Family conflict potential",
+      "to": "Harmonious succession plan",
+      "emotional_value": "Family unity preservation",
+      "worth_premium": true
+    },
+    {
+      "from": "Tax liability exposure",
+      "to": "Optimized wealth transfer",
+      "emotional_value": "Maximized family inheritance",
+      "worth_premium": true
+    },
+    {
+      "from": "Business succession uncertainty",
+      "to": "Smooth transition strategy",
+      "emotional_value": "Business continuity assurance",
+      "worth_premium": true
+    },
+    {
+      "from": "Healthcare decision ambiguity",
+      "to": "Clear medical directives",
+      "emotional_value": "Dignity in medical care",
+      "worth_premium": false
+    },
+    {
+      "from": "Charitable giving inefficiency",
+      "to": "Strategic philanthropic impact",
+      "emotional_value": "Legacy of generosity",
+      "worth_premium": true
+    },
+    {
+      "from": "Special needs child vulnerability",
+      "to": "Protected lifetime support",
+      "emotional_value": "Parental duty fulfilled",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Estate documents executed within 60 days",
+      "timeframe": "2 months",
+      "measurable": true
+    },
+    {
+      "metric": "Tax savings of 15-40% on estates over $5M",
+      "timeframe": "At transfer",
+      "measurable": true
+    },
+    {
+      "metric": "Probate avoidance saving $15,000-50,000",
+      "timeframe": "At death",
+      "measurable": true
+    },
+    {
+      "metric": "Family dispute prevention rate of 94%",
+      "timeframe": "Ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Asset protection from creditors/lawsuits",
+      "timeframe": "Immediate",
+      "measurable": false
+    },
+    {
+      "metric": "Business transition completion within planned timeline",
+      "timeframe": "1-5 years",
+      "measurable": true
+    },
+    {
+      "metric": "Charitable giving impact increased by 200-300%",
+      "timeframe": "Lifetime",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Upcoming international travel creating 'what if' anxiety - drives 31% of rush orders",
+    "IRS estate tax exemption changes requiring immediate action before year-end deadlines",
+    "Serious medical diagnosis requiring immediate incapacity planning and healthcare directives",
+    "Pending real estate transactions needing trust structures established before closing",
+    "Business partnership changes or buyout agreements with 30-60 day execution windows",
+    "Second marriage creating immediate need to protect children from first marriage",
+    "Annual gift tax exclusion optimization requiring action before December 31st"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "It's too expensive",
+      "response": "The average probate costs $15,000-50,000 and takes 12-18 months. Our comprehensive plan at $3,500 saves your family 10x that amount plus invaluable time and stress during grief.",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I'm too young to need this",
+      "response": "The tragic truth is 64% of Americans die without a will. Young parents especially need guardianship provisions - would you want the court deciding who raises your children?",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "My estate isn't large enough",
+      "response": "Estate planning isn't just for the wealthy. It ensures your $400,000 home, $250,000 retirement account, and $100,000 life insurance go to the right people without court intervention.",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Online forms are good enough",
+      "response": "Generic forms miss state-specific requirements and tax opportunities. One client's DIY will cost their family $127,000 in unnecessary taxes - our fee would have been $4,500.",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "I don't want to think about death",
+      "response": "This is about living with peace of mind. 89% of our clients report sleeping better knowing their family is protected. It's a gift of love, not a morbid exercise.",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "It's too complicated",
+      "response": "We handle all complexity. You'll spend just 3 hours total: one consultation, one review, and one signing. We manage the other 40+ hours of work behind the scenes.",
+      "effectiveness": 8.1
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "60-day revision period for any life changes at no charge",
+      "Free updates for tax law changes in first year",
+      "Complimentary family consultation to explain documents",
+      "Lifetime storage and retrieval of documents"
+    ],
+    "proof_points": [
+      "Board certified in estate planning with 500+ completed plans",
+      "Zero malpractice claims in 15 years of practice",
+      "Published author on estate planning strategies",
+      "4.9 star rating from 200+ verified clients"
+    ],
+    "risk_mitigation": "Phased payment structure with 50% due at engagement, 50% at completion. Full refund if not satisfied after initial draft review. Errors and omissions insurance coverage of $5M. Second attorney review included for estates over $10M."
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "worried",
+      "confused",
+      "overwhelmed",
+      "unprepared",
+      "vulnerable",
+      "exposed",
+      "uncertain",
+      "procrastinating",
+      "complex",
+      "burden"
+    ],
+    "solution_words": [
+      "protected",
+      "secure",
+      "peace of mind",
+      "organized",
+      "clear",
+      "simple",
+      "comprehensive",
+      "strategic",
+      "optimized",
+      "legacy"
+    ],
+    "avoid_jargon": [
+      "intestate",
+      "per stirpes",
+      "testamentary",
+      "codicil",
+      "executor",
+      "grantor",
+      "cestui que trust",
+      "spendthrift provision",
+      "crummey powers",
+      "QTIP"
+    ]
+  },
+  "power_words": [
+    "protect",
+    "secure",
+    "preserve",
+    "legacy",
+    "peace",
+    "control",
+    "maximize",
+    "guarantee",
+    "safeguard",
+    "ensure",
+    "optimize",
+    "strategic",
+    "comprehensive",
+    "tailored",
+    "tax-advantaged",
+    "bulletproof",
+    "ironclad",
+    "immediate",
+    "proven",
+    "certified",
+    "exclusive",
+    "confidential",
+    "custom",
+    "sophisticated",
+    "streamlined",
+    "hassle-free",
+    "turn-key",
+    "done-for-you",
+    "white-glove",
+    "concierge"
+  ],
+  "avoid_words": [
+    "death",
+    "dying",
+    "deceased",
+    "terminal",
+    "estate tax",
+    "probate court",
+    "litigation",
+    "dispute",
+    "contest",
+    "challenge",
+    "complex",
+    "complicated",
+    "expensive",
+    "time-consuming",
+    "overwhelming",
+    "confusing",
+    "bureaucratic",
+    "government",
+    "IRS audit",
+    "family fight"
+  ],
+  "headline_templates": [
+    {
+      "template": "Protect Your Family's Future in Just 3 Simple Steps",
+      "expected_ctr": 4.2,
+      "use_case": "General awareness ads"
+    },
+    {
+      "template": "The Hidden Tax That Could Cost Your Family $500,000",
+      "expected_ctr": 6.8,
+      "use_case": "High net worth targeting"
+    },
+    {
+      "template": "Why 64% of Americans Leave Their Families in Legal Chaos",
+      "expected_ctr": 5.3,
+      "use_case": "Fear-based motivation"
+    },
+    {
+      "template": "Estate Planning Myths That Cost Families Millions",
+      "expected_ctr": 5.7,
+      "use_case": "Educational content"
+    },
+    {
+      "template": "5 Documents Every Parent Needs Before It's Too Late",
+      "expected_ctr": 7.1,
+      "use_case": "Parent demographic"
+    },
+    {
+      "template": "How to Protect $2M+ Without Losing 40% to Taxes",
+      "expected_ctr": 8.2,
+      "use_case": "Affluent audience"
+    },
+    {
+      "template": "The 15-Minute Call That Saved a Family $300,000",
+      "expected_ctr": 6.4,
+      "use_case": "Case study promotion"
+    },
+    {
+      "template": "Free Estate Planning Guide for [City] Residents",
+      "expected_ctr": 4.8,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "What Happens to Your Kids If Something Happens to You?",
+      "expected_ctr": 9.1,
+      "use_case": "Young parent trigger"
+    },
+    {
+      "template": "Business Owners: Your Biggest Asset Isn't Protected",
+      "expected_ctr": 7.3,
+      "use_case": "Business owner segment"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Free Family Protection Review",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Download Your Estate Planning Checklist",
+      "conversion_rate": 18.7,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Get Your Personalized Plan Quote in 60 Seconds",
+      "conversion_rate": 9.4,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Reserve Your Consultation Before [Date]",
+      "conversion_rate": 14.2,
+      "placement": "Time-sensitive offers"
+    },
+    {
+      "template": "Protect Your Family Today - Start Here",
+      "conversion_rate": 11.1,
+      "placement": "Homepage"
+    },
+    {
+      "template": "See If You Qualify for Our Flat-Fee Planning",
+      "conversion_rate": 10.8,
+      "placement": "Pricing page"
+    },
+    {
+      "template": "Join 500+ Protected Families",
+      "conversion_rate": 8.9,
+      "placement": "Social proof section"
+    },
+    {
+      "template": "Yes, I Want Peace of Mind",
+      "conversion_rate": 13.6,
+      "placement": "Email campaigns"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "LinkedIn",
+      "template": "Just helped a business owner save $2.3M in estate taxes with a simple trust restructure. The peace of mind on their face was priceless. #EstatePlanning #WealthProtection",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "❓ Quick Question: Do you know who would raise your kids if something happened to you? If you hesitated, you need this... [link]",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "Your legacy isn't just money. It's values, memories, and love. Here are 5 ways to pass on what really matters... [carousel]",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Twitter",
+      "template": "Shocking: The average American will lose $100,000+ to probate. A simple trust costs $3,500. The math is obvious.",
+      "engagement_rate": 3.7
+    },
+    {
+      "platform": "YouTube",
+      "template": "The #1 Estate Planning Mistake That Costs Families Everything (Fixed in 10 Minutes)",
+      "engagement_rate": 8.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You just saved your family from a 2-year probate nightmare with one document #EstatePlanningTips",
+      "engagement_rate": 11.3
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your family's protection expires in 30 days | Body: Tax law changes mean your current plan may leave your family exposed...",
+      "engagement_rate": 24.6
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Ultimate Estate Planning Checklist for 2024 - Save This Before You Forget! [Infographic]",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Local estate attorney here. Seeing too many families struggle with probate. Free guide for [Neighborhood] residents...",
+      "engagement_rate": 7.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Save your family $50,000+ and 18 months of probate court proceedings",
+      "rank": 1,
+      "differentiator": "Quantifiable financial and time savings"
+    },
+    {
+      "prop": "Sleep peacefully knowing your children's guardians and inheritance are legally secured",
+      "rank": 2,
+      "differentiator": "Emotional security for parents"
+    },
+    {
+      "prop": "Reduce estate taxes by up to 40% with strategic trust structures",
+      "rank": 3,
+      "differentiator": "Tax optimization expertise"
+    },
+    {
+      "prop": "Complete estate plan in 30 days with white-glove concierge service",
+      "rank": 4,
+      "differentiator": "Speed and service level"
+    },
+    {
+      "prop": "Protect assets from lawsuits, creditors, and divorcing spouses",
+      "rank": 5,
+      "differentiator": "Asset protection focus"
+    },
+    {
+      "prop": "Ensure business continuity with succession planning that preserves value",
+      "rank": 6,
+      "differentiator": "Business owner specialization"
+    },
+    {
+      "prop": "Create lasting legacy with charitable giving strategies that maximize impact",
+      "rank": 7,
+      "differentiator": "Philanthropic planning expertise"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your success deserves sophisticated protection. Our board-certified team crafts bespoke estate strategies for discerning families with $5M+ in assets, incorporating advanced tax minimization, multi-generational wealth preservation, and seamless business succession. White-glove service includes annual reviews, family education sessions, and coordination with your advisory team.",
+    "budget_conscious": "Smart estate planning doesn't require a fortune. Our streamlined process delivers essential protection at a fraction of traditional costs. Fixed fees starting at $1,500 cover all basics: will, power of attorney, healthcare directives, and simple trust options. Payment plans available. Protecting your family shouldn't break the bank.",
+    "enterprise": "Complex estates demand exceptional expertise. We navigate multi-state assets, international holdings, closely-held businesses, and blended family dynamics with precision. Our team includes tax attorneys, CPAs, and valuation experts. Recent client wins: $4.2M tax savings, 3 smooth business transitions, 100% family harmony rate."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board Certification in Estate Planning",
+      "importance": 10,
+      "format": "Badge/credential display"
+    },
+    {
+      "signal": "15+ years specializing exclusively in estate law",
+      "importance": 9,
+      "format": "Years of experience counter"
+    },
+    {
+      "signal": "500+ completed estate plans with zero disputes",
+      "importance": 9,
+      "format": "Success metrics"
+    },
+    {
+      "signal": "Published author and continuing education instructor",
+      "importance": 7,
+      "format": "Authority positioning"
+    },
+    {
+      "signal": "5-star reviews from verified clients",
+      "importance": 8,
+      "format": "Review aggregation"
+    },
+    {
+      "signal": "Martindale-Hubbell AV Preeminent Rating",
+      "importance": 8,
+      "format": "Third-party validation"
+    },
+    {
+      "signal": "Member of National Academy of Elder Law Attorneys",
+      "importance": 6,
+      "format": "Professional association"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "97% of clients complete their estate plan within 30 days",
+      "credibility_score": 8.5,
+      "context": "Efficiency and follow-through metric"
+    },
+    {
+      "stat": "Average client saves $127,000 in taxes and probate costs",
+      "credibility_score": 9.2,
+      "context": "ROI demonstration"
+    },
+    {
+      "stat": "4.9 star average from 200+ verified Google reviews",
+      "credibility_score": 8.8,
+      "context": "Third-party validation"
+    },
+    {
+      "stat": "Zero family disputes in 500+ administered estates",
+      "credibility_score": 9.5,
+      "context": "Quality and thoroughness indicator"
+    },
+    {
+      "stat": "83% of new clients from referrals",
+      "credibility_score": 8.3,
+      "context": "Client satisfaction proxy"
+    },
+    {
+      "stat": "$2.3 billion in protected assets under advisement",
+      "credibility_score": 7.9,
+      "context": "Scale and trust indicator"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Board certification, 20+ years experience, published expertise, team approach, custom strategies",
+    "Mid-tier: State bar membership, 5-10 years experience, standardized processes, attorney-led service",
+    "Budget: Online forms, paralegal assistance, template documents, self-service options, limited customization",
+    "Red flags: No specialization claims, unclear pricing, pressure tactics, no revision policy, out-of-state provider"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 45,
+    "trigger_event": "Two weeks after funding trust and receiving final binder - emotional high point of relief and accomplishment",
+    "ask_method": "Personal email from attorney expressing gratitude, followed by automated review request if positive response. Include specific mention of how their plan protects their unique situation."
+  },
+  "competitive_advantages": [
+    "Only local firm with both estate planning and tax law board certifications",
+    "Proprietary family wealth dashboard providing 24/7 document access and asset tracking",
+    "Guaranteed 30-day completion or fees waived - fastest turnaround in market",
+    "In-house team includes CPA and financial advisor for comprehensive planning",
+    "Exclusive partnership with top eldercare facilities for seamless care transitions"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Start with comprehensive $12,000 enterprise package to make $3,500 standard package appear reasonable. Always present three options with middle as target.",
+    "sensitivity": "Price breaks at $2,500, $5,000, and $10,000 psychological barriers. Payment plans essential above $3,000. 67% choose middle option when three presented.",
+    "sweet_spots": [
+      "$3,500 for standard revocable trust package",
+      "$7,500 for business owner succession plan",
+      "$15,000 for complex multi-state estate",
+      "$1,500 for simple will package"
+    ],
+    "decoy_pricing": "Basic will at $995 makes $3,500 trust package seem like better value with only $2,500 more for significantly more protection"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 2500,
+    "approval_required": 5000,
+    "competitor_research": 3000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.75,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$1,500-$2,500",
+      "target_customer": "Young families, simple assets",
+      "margin": 42
+    },
+    {
+      "tier": "Comprehensive",
+      "price_range": "$3,500-$7,500",
+      "target_customer": "Established families, homeowners, retirement accounts",
+      "margin": 58
+    },
+    {
+      "tier": "Enterprise",
+      "price_range": "$10,000-$50,000",
+      "target_customer": "High net worth, business owners, complex estates",
+      "margin": 71
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Standardize document production with smart templates - reduces attorney time by 60%, maintains 85% margin",
+    "Offer annual maintenance plans at $500/year - 92% margin with minimal service delivery",
+    "Bundle with financial advisory services for additional 1% AUM fee on invested assets",
+    "Leverage paralegals for document preparation - reduces cost by 70% while maintaining quality",
+    "Group education seminars converting at 23% with 50 attendees generate $40,000 per event",
+    "Strategic referral partnerships with CPAs providing 30% revenue share on mutual clients"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 28,
+      "reason": "New Year resolutions and tax planning",
+      "opportunity": "Resolution-focused marketing campaign"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Post-holiday financial recovery",
+      "opportunity": "Payment plan promotions"
+    },
+    {
+      "month": "March",
+      "variation": 12,
+      "reason": "Tax season awareness",
+      "opportunity": "Tax-saving strategies content"
+    },
+    {
+      "month": "April",
+      "variation": 18,
+      "reason": "Post-tax realization of planning needs",
+      "opportunity": "Tax problem solution messaging"
+    },
+    {
+      "month": "May",
+      "variation": 8,
+      "reason": "Summer travel planning begins",
+      "opportunity": "Travel peace of mind campaigns"
+    },
+    {
+      "month": "June",
+      "variation": -10,
+      "reason": "Vacation season begins",
+      "opportunity": "Quick completion guarantees"
+    },
+    {
+      "month": "July",
+      "variation": -15,
+      "reason": "Peak vacation period",
+      "opportunity": "Virtual consultation options"
+    },
+    {
+      "month": "August",
+      "variation": -8,
+      "reason": "Back-to-school focus",
+      "opportunity": "Parent-focused guardian messaging"
+    },
+    {
+      "month": "September",
+      "variation": 22,
+      "reason": "Fall planning season begins",
+      "opportunity": "Year-end tax strategies"
+    },
+    {
+      "month": "October",
+      "variation": 35,
+      "reason": "Year-end tax planning urgency",
+      "opportunity": "Deadline-driven campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 42,
+      "reason": "Tax strategy implementation deadline",
+      "opportunity": "Last-chance positioning"
+    },
+    {
+      "month": "December",
+      "variation": 15,
+      "reason": "Holiday family discussions",
+      "opportunity": "Gift of planning campaigns"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Initial consultations",
+      "avoid": "Document signings",
+      "conversion_rate": 14.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Follow-up calls",
+      "avoid": "Cold outreach",
+      "conversion_rate": 16.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Document review meetings",
+      "avoid": "Pricing discussions",
+      "conversion_rate": 15.3
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Closing appointments",
+      "avoid": "Initial contact",
+      "conversion_rate": 18.7
+    },
+    {
+      "day": "Friday",
+      "best_for": "Signing ceremonies",
+      "avoid": "Complex planning",
+      "conversion_rate": 12.1
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family consultations",
+      "avoid": "Business planning",
+      "conversion_rate": 22.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Educational webinars",
+      "avoid": "Direct sales",
+      "conversion_rate": 8.9
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage and major bills due 1st-5th create cash flow awareness, optimal for payment plan offers",
+    "cash_flow_peaks": "15th and 30th paycheck deposits ideal for engagement and deposit requests",
+    "slow_periods": "7th-14th lowest engagement, focus on education and nurture content rather than sales"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Weekend medical emergency",
+      "crisis_type": "Healthcare directive needed",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Death in family",
+      "crisis_type": "Immediate succession issues",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Business partner dispute",
+      "crisis_type": "Buy-sell agreement activation",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "IRS audit notice",
+      "crisis_type": "Asset protection urgency",
+      "premium_multiplier": 2.2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Family Foundation",
+      "components": [
+        "Revocable trust",
+        "Pour-over will",
+        "Healthcare directives",
+        "Power of attorney",
+        "Child guardianship"
+      ],
+      "pricing_model": "Flat fee $3,500",
+      "margin": 58
+    },
+    {
+      "name": "Wealth Fortress",
+      "components": [
+        "Irrevocable trusts",
+        "Asset protection strategies",
+        "Tax optimization",
+        "Annual reviews",
+        "Family education"
+      ],
+      "pricing_model": "Flat fee $12,000 + annual $1,500",
+      "margin": 72
+    },
+    {
+      "name": "Business Legacy",
+      "components": [
+        "Buy-sell agreements",
+        "Succession planning",
+        "Key person provisions",
+        "Tax strategies",
+        "Transition management"
+      ],
+      "pricing_model": "Flat fee $15,000",
+      "margin": 65
+    },
+    {
+      "name": "Charitable Impact",
+      "components": [
+        "Charitable remainder trusts",
+        "Foundation setup",
+        "Tax optimization",
+        "Legacy planning",
+        "Impact measurement"
+      ],
+      "pricing_model": "1% of charitable assets",
+      "margin": 81
+    }
+  ],
+  "upsell_paths": [
+    "Simple will ($995) → Revocable trust ($3,500) - 43% upgrade rate within 2 years",
+    "Basic trust ($3,500) → Asset protection trust ($7,500) - 28% upgrade as wealth grows",
+    "Individual plan → Couple's plan ($5,000) - 67% add spouse within 6 months",
+    "Estate plan → Annual maintenance ($500/year) - 71% retention rate",
+    "Trust setup → Investment management (1% AUM) - 34% cross-sell success",
+    "Estate planning → Business succession ($15,000) - 23% of business owners expand"
+  ],
+  "retention_hooks": [
+    "Annual review meetings updating for law changes and life events - 85% retention",
+    "Complimentary family education sessions on wealth preservation - 78% retention",
+    "Priority access to attorney for quick questions via client portal - 82% retention",
+    "Automatic document updates for tax law changes at no charge - 91% retention",
+    "Family member discounts of 25% driving household penetration - 73% retention",
+    "Quarterly newsletters with relevant planning strategies and reminders - 68% retention",
+    "VIP client events with financial and tax planning partners - 88% retention"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Client appreciation events with bring-a-friend incentive",
+      "timing": "Quarterly",
+      "incentive": "$500 credit per referred client",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Professional partner reciprocal referrals with CPAs",
+      "timing": "Ongoing",
+      "incentive": "30% revenue share",
+      "conversion_rate": 47
+    },
+    {
+      "strategy": "Family member special pricing packages",
+      "timing": "Post-completion",
+      "incentive": "25% discount",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Social media sharing rewards program",
+      "timing": "Monthly",
+      "incentive": "Amazon gift cards",
+      "conversion_rate": 12
+    },
+    {
+      "strategy": "Educational seminar attendee referral tracking",
+      "timing": "Post-event",
+      "incentive": "Free consultation",
+      "conversion_rate": 26
+    },
+    {
+      "strategy": "Strategic alliance with financial advisors",
+      "timing": "Ongoing",
+      "incentive": "Mutual client benefits",
+      "conversion_rate": 42
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Investment management",
+      "attach_rate": 34,
+      "timing": "6 months post-trust funding"
+    },
+    {
+      "service": "Tax preparation",
+      "attach_rate": 28,
+      "timing": "Following tax season"
+    },
+    {
+      "service": "Insurance review and placement",
+      "attach_rate": 41,
+      "timing": "During estate planning"
+    },
+    {
+      "service": "Business valuation services",
+      "attach_rate": 19,
+      "timing": "Annual review meetings"
+    },
+    {
+      "service": "Real estate planning consultation",
+      "attach_rate": 23,
+      "timing": "Property acquisition"
+    },
+    {
+      "service": "Elder law and Medicaid planning",
+      "attach_rate": 31,
+      "timing": "Age 65 trigger"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Digital estate planning for crypto assets",
+      "market_size": "$2.3B growing 40% annually",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Cross-border planning for international families",
+      "market_size": "$800M with 25% growth",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Pet trust services for animal lovers",
+      "market_size": "$400M niche market",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Cannabis business succession planning",
+      "market_size": "$150M emerging market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "LGBTQ+ specialized planning services",
+      "market_size": "$600M underserved market",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Virtual planning for remote clients",
+      "market_size": "$1.2B accelerating post-COVID",
+      "difficulty": 3
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "WealthCounsel's 'Estate Planning Myths' LinkedIn carousel series debunking common misconceptions like 'I'm too young for estate planning' and 'Estate planning is only for the wealthy'",
+        "platform": "LinkedIn",
+        "why_it_worked": "Educational content that addresses specific objections using carousel format for easy consumption. Each slide tackled one myth with clear, simple language. Posted during National Estate Planning Awareness Week for maximum visibility.",
+        "metrics": "Average 3.2% engagement rate, 450+ shares per post, 2x higher than account average",
+        "source": "WealthCounsel LinkedIn profile and legal marketing case studies from Attorney at Work (2023)",
+        "confidence": "high"
+      },
+      {
+        "example": "Trust & Will's TikTok series 'Estate Planning for Millennials' featuring short-form videos explaining complex topics in under 60 seconds with relatable scenarios",
+        "platform": "TikTok",
+        "why_it_worked": "Demystified estate planning for younger audience using platform-native vertical video format, trending audio, and accessible language. Focused on life events like having a baby or buying first home.",
+        "metrics": "Videos averaged 50K-200K views, 4.8% engagement rate, drove 23% increase in consultation bookings from under-40 demographic",
+        "source": "Trust & Will TikTok account and Forbes article on legal tech marketing (2024)",
+        "confidence": "high"
+      },
+      {
+        "example": "Nolo's 'Estate Planning Horror Stories' email campaign featuring real anonymized cases of what happens without proper planning",
+        "platform": "Email",
+        "why_it_worked": "Story-based approach using fear appeal balanced with solutions. Each email told one cautionary tale then offered clear next steps. Sent in October (Halloween theme) and January (New Year planning).",
+        "metrics": "42% open rate (vs 21% industry average), 8.7% click-through rate, 12% conversion to consultation requests",
+        "source": "Email marketing benchmarks from Constant Contact Legal Industry Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "LegalZoom's Facebook video series 'Ask an Estate Planning Attorney' with live Q&A sessions addressing common questions",
+        "platform": "Facebook",
+        "why_it_worked": "Live video format created urgency and authenticity. Attorney answered real questions in plain English, building trust. Replays were edited into shorter clips for ongoing content.",
+        "metrics": "Live sessions averaged 2,500 concurrent viewers, 15K total views, 850+ comments, generated 340 qualified leads per session",
+        "source": "LegalZoom Facebook page and Social Media Examiner legal marketing study (2023)",
+        "confidence": "high"
+      },
+      {
+        "example": "Estate planning law firm's LinkedIn article series on tax law changes and their estate planning implications, published quarterly",
+        "platform": "LinkedIn",
+        "why_it_worked": "Timely, authoritative content targeting high-net-worth individuals and business owners. Positioned firm as thought leader. Used specific dollar amounts and scenarios relevant to target audience.",
+        "metrics": "Articles averaged 5,000+ views, 200+ reactions, 50+ shares, generated 15-20 consultation requests per article",
+        "source": "LinkedIn Publishing benchmarks from Hootsuite Legal Industry Report 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1% for legal services (estate planning performs 0.3-0.5% higher at 2.4-2.6%)",
+        "best_content_format": "Carousel posts and long-form articles perform best. Video content sees 2.8x higher engagement than text-only posts",
+        "optimal_frequency": "3-5 posts per week for consistent visibility without overwhelming audience",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 12-1 PM EST when professionals check LinkedIn",
+        "source": "Hootsuite Social Media Benchmarks 2024 and Sprout Social Legal Industry Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for legal services content, higher for video (1.5-2.0%)",
+        "best_content_format": "Video content (especially live video and short educational clips). Personal stories and case studies in carousel format also perform well",
+        "optimal_frequency": "4-7 posts per week, with at least 1-2 video posts",
+        "best_posting_times": "Wednesday-Friday 1-3 PM and Saturday-Sunday 12-1 PM when target demographic (45-65) is most active",
+        "source": "Meta Business Insights 2024 and Constant Contact Legal Marketing Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for legal services industry",
+        "best_content_format": "Educational newsletters with clear CTAs, case studies, and checklists. Plain text emails from attorneys perform 15% better than heavily designed templates",
+        "optimal_frequency": "Bi-weekly to monthly for newsletters, triggered emails for life events and seasonal campaigns",
+        "best_posting_times": "Tuesday-Thursday 10 AM or 2 PM EST, avoid Mondays and Fridays",
+        "source": "Mailchimp Industry Benchmarks 2024 and Constant Contact Legal Services Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.2% for professional services, estate planning skews toward lower end (1.5-1.8%)",
+        "best_content_format": "Educational carousel posts, Reels explaining concepts in 30-60 seconds, infographics on estate planning steps",
+        "optimal_frequency": "4-6 posts per week including 2-3 Reels",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM and 7-9 PM EST",
+        "source": "Later Instagram Benchmarks 2024 and Sprout Social Industry Report 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "3.5-4.2% for educational legal content (views to subscribers ratio)",
+        "best_content_format": "8-12 minute educational videos explaining estate planning concepts, client testimonials, attorney Q&A sessions",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Thursday-Saturday evenings 6-9 PM EST when people research major decisions",
+        "source": "TubeBuddy Legal Channel Analysis 2024 and VidIQ Professional Services Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Shocking statistic + consequence",
+        "example": "60% of Americans don't have a will. Here's what happens to your assets if you're one of them.",
+        "why_it_works": "Creates immediate concern by combining social proof (most people haven't done this) with fear of negative outcome. Prompts reader to avoid being in the majority.",
+        "source": "Caring.com estate planning survey cited in multiple law firm blogs and ads 2023-2024"
+      },
+      {
+        "hook_pattern": "Life event trigger + urgency",
+        "example": "Just had a baby? You have 6 months to make these 3 critical estate planning decisions.",
+        "why_it_works": "Targets specific life milestone when people are most motivated. Creates artificial deadline to overcome procrastination. Promises specific, manageable action items.",
+        "source": "Trust & Will and LegalZoom ad campaigns, analyzed in WordStream legal advertising case studies 2024"
+      },
+      {
+        "hook_pattern": "Horror story preview",
+        "example": "Without a trust, this family spent $85,000 and 18 months in probate court. Here's what they wish they'd known.",
+        "why_it_works": "Uses specific numbers and timeframes to make consequences tangible. Story format is memorable and shareable. Promises insider knowledge to avoid same fate.",
+        "source": "Nolo and Rocket Lawyer content marketing examples from Content Marketing Institute legal services study 2023"
+      },
+      {
+        "hook_pattern": "Myth-busting opener",
+        "example": "Think estate planning is only for the wealthy? This $200K estate still cost the family $45K in taxes and fees.",
+        "why_it_works": "Directly addresses common objection that prevents action. Uses real numbers to show relevance to middle-class audience. Creates cognitive dissonance that demands resolution.",
+        "source": "WealthCounsel and estate planning attorney LinkedIn posts with highest engagement 2023-2024"
+      },
+      {
+        "hook_pattern": "Question that reveals gap in knowledge",
+        "example": "Who gets your digital assets when you die? (Hint: Your will probably doesn't cover this)",
+        "why_it_works": "Asks question most people can't answer, creating information gap. Introduces modern concern (digital assets) that traditional estate planning doesn't address. Positions content as revealing hidden problem.",
+        "source": "Trust & Will and modern estate planning firms' social media content analyzed in Social Media Examiner 2024"
+      },
+      {
+        "hook_pattern": "Tax law change urgency",
+        "example": "2026 estate tax exemption drops from $13.6M to $7M. What high-net-worth families must do now.",
+        "why_it_works": "Creates time-sensitive urgency with specific deadline. Uses concrete numbers that matter to target audience. Promises actionable guidance for specific segment.",
+        "source": "High-net-worth focused estate planning firms' LinkedIn articles and email campaigns 2024"
+      },
+      {
+        "hook_pattern": "Contrarian position",
+        "example": "Why your attorney-drafted will might not be worth the paper it's written on in 2024",
+        "why_it_works": "Challenges assumption that having any will is sufficient. Creates curiosity about what's changed. Positions firm as having updated knowledge others lack.",
+        "source": "Estate planning thought leaders' LinkedIn posts with high engagement analyzed in legal marketing forums 2023-2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I have no idea where to even start with this",
+        "The legal jargon is completely overwhelming",
+        "I'm terrified my kids will fight over everything when I'm gone",
+        "I keep putting it off because it feels morbid to think about",
+        "I'm worried about the government taking half of what I've worked for",
+        "My family has no clue what I want or where anything is",
+        "I saw what my friend's family went through in probate and it was a nightmare",
+        "Every attorney I've talked to makes it sound so complicated and expensive",
+        "I don't know if I even have enough assets to need estate planning",
+        "I'm concerned about protecting my kids from my ex-spouse getting everything",
+        "What happens to my business if something happens to me tomorrow?",
+        "I have assets in multiple states and don't know how that works"
+      ],
+      "solution_phrases": [
+        "I finally have peace of mind knowing my family is protected",
+        "Everything is organized and my kids know exactly what to do",
+        "I can sleep at night knowing my wishes are legally documented",
+        "The attorney explained everything in plain English I could understand",
+        "My blended family situation is handled fairly for everyone",
+        "I'm confident my business will continue smoothly without me",
+        "The tax savings alone paid for the estate plan several times over",
+        "I love that I can update it as my life changes",
+        "My assets will go exactly where I want them to go",
+        "I'm protecting my children's inheritance from creditors and divorce",
+        "I have control over my healthcare decisions if I can't communicate",
+        "My special needs child will be taken care of for life"
+      ],
+      "objection_phrases": [
+        "I'm too young to worry about this right now",
+        "I don't have enough money to make this worthwhile",
+        "Isn't this going to cost thousands of dollars?",
+        "Can't I just do this online for $99?",
+        "I'll get to it eventually, it's not urgent",
+        "My spouse will automatically get everything anyway, right?",
+        "This seems like something I can handle myself",
+        "I don't want to think about dying",
+        "Won't this take months of back and forth with lawyers?",
+        "I'm worried about losing control of my assets if I put them in a trust",
+        "What if the laws change and my plan becomes outdated?",
+        "I don't want my family to know my financial details"
+      ],
+      "decision_factors": [
+        "I wanted an attorney who specializes specifically in estate planning, not a generalist",
+        "The reviews from other families in similar situations convinced me",
+        "They offered a free consultation so I could ask questions without commitment",
+        "I needed someone who understood blended family dynamics",
+        "The flat fee pricing gave me certainty about costs upfront",
+        "They explained everything in terms I could understand, not legal jargon",
+        "I wanted someone local who knows our state laws",
+        "The attorney took time to understand my family situation, not just push documents",
+        "They had experience with business succession planning",
+        "I needed someone who could coordinate with my financial advisor and CPA",
+        "The firm had a process for keeping documents updated as laws change",
+        "They offered to meet at my home since I have mobility issues"
+      ],
+      "emotional_language": [
+        "terrified",
+        "overwhelmed",
+        "peace of mind",
+        "relief",
+        "anxious",
+        "confident",
+        "worried sick",
+        "finally protected",
+        "nightmare scenario",
+        "devastating",
+        "secure",
+        "empowered",
+        "burden lifted",
+        "sleepless nights",
+        "family harmony",
+        "legacy",
+        "catastrophic",
+        "grateful",
+        "reassured",
+        "paralyzed by indecision"
+      ],
+      "sources": [
+        "Reddit r/estateplanning threads 2023-2024",
+        "Avvo estate planning attorney reviews",
+        "Google Reviews for top estate planning firms",
+        "Caring.com estate planning survey 2024",
+        "WealthCounsel client testimonials",
+        "Trust & Will customer feedback",
+        "Estate planning attorney consultation intake forms shared in legal forums",
+        "Yelp reviews for estate planning attorneys",
+        "Facebook groups: Estate Planning for Families, Blended Family Estate Planning"
+      ]
+    },
+    "competitive_gaps": [
+      "Modern digital asset planning (crypto, NFTs, social media accounts) - most firms still focus only on traditional assets",
+      "Estate planning for unmarried couples and non-traditional families - content overwhelmingly assumes traditional marriage",
+      "Visual, interactive tools showing estate planning scenarios - most content is text-heavy legal explanations",
+      "Estate planning for millennials and Gen Z (under 40) - most marketing targets 50+ demographic",
+      "Integration with financial planning and retirement content - estate planning marketed in isolation",
+      "Transparent, upfront pricing - most firms don't publish prices, creating barrier to entry",
+      "Multi-generational wealth transfer education - content for both parents and adult children together",
+      "Special needs trust planning content for parents of disabled children",
+      "Pet trust planning - growing concern but minimal dedicated content",
+      "Estate planning implications of divorce and remarriage - underserved niche"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "People making resolutions and fresh starts, tax planning season begins",
+        "content_angle": "New Year estate planning checklist, 'Get your affairs in order in 2024' campaigns, tax law changes taking effect"
+      },
+      {
+        "period": "April (Tax Season)",
+        "opportunity": "People thinking about taxes and financial planning, meeting with CPAs",
+        "content_angle": "Estate tax planning content, how estate planning reduces tax burden, coordinate with tax professional messaging"
+      },
+      {
+        "period": "May (Mother's Day/Memorial Day)",
+        "opportunity": "Family gatherings and remembrance of deceased loved ones",
+        "content_angle": "Protecting your family legacy, lessons from families who waited too long, honoring loved ones by planning ahead"
+      },
+      {
+        "period": "June (Father's Day/Graduation Season)",
+        "opportunity": "Family milestones, children reaching adulthood, generational transitions",
+        "content_angle": "Planning for adult children, business succession for family businesses, protecting family wealth for next generation"
+      },
+      {
+        "period": "September-October (Back to School/National Estate Planning Awareness Week)",
+        "opportunity": "Official awareness week in October, fall planning season, people returning to routines",
+        "content_angle": "Estate planning education campaigns, myth-busting content, 'Don't be a statistic' messaging tied to awareness week"
+      },
+      {
+        "period": "November-December (Holidays/Year-End)",
+        "opportunity": "Family gatherings, year-end tax planning, reflection on mortality, charitable giving season",
+        "content_angle": "Year-end estate planning moves, charitable remainder trusts, family meeting guides, gift tax exemption strategies before December 31"
+      },
+      {
+        "period": "Life Event Triggered (Year-round)",
+        "opportunity": "Birth announcements, wedding announcements, obituaries trigger estate planning needs in networks",
+        "content_angle": "Congratulatory content for new parents/newlyweds with estate planning tips, sympathy content with gentle planning reminders"
+      },
+      {
+        "period": "Q4 (October-December)",
+        "opportunity": "Business owners planning for next year, high-net-worth individuals doing year-end tax planning",
+        "content_angle": "Business succession planning before year-end, using annual gift tax exclusions, charitable planning for tax deductions"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit r/estateplanning",
+      "Caring.com Estate Planning Survey 2024",
+      "Hootsuite Social Media Benchmarks 2024",
+      "Sprout Social Legal Industry Report 2024",
+      "Mailchimp Industry Benchmarks 2024",
+      "Constant Contact Legal Services Report 2024",
+      "Meta Business Insights 2024",
+      "Content Marketing Institute Legal Services Study 2023",
+      "Social Media Examiner Legal Marketing Study 2023-2024",
+      "Trust & Will social media accounts and marketing materials",
+      "LegalZoom social media accounts and marketing materials",
+      "WealthCounsel LinkedIn and marketing content",
+      "Nolo email marketing campaigns",
+      "Avvo attorney reviews",
+      "Google Reviews for estate planning firms",
+      "Later Instagram Benchmarks 2024",
+      "TubeBuddy Legal Channel Analysis 2024",
+      "VidIQ Professional Services Report 2024",
+      "WordStream legal advertising case studies",
+      "Attorney at Work marketing articles",
+      "Forbes legal tech marketing coverage",
+      "Estate planning attorney websites and blogs",
+      "Legal marketing forums and communities"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data from estate planning firms (most keep this proprietary)",
+      "TikTok benchmarks specific to estate planning are limited as platform adoption is still emerging for this industry",
+      "Exact A/B testing results for hooks are rarely published by firms, inferred from engagement patterns",
+      "Some platform benchmarks are for broader 'legal services' category rather than estate planning specifically"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new digital asset estate planning service",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The Digital Asset Crisis - What happens to your crypto, NFTs, and online accounts when you die",
+        "Week 2: Modern Families Need Modern Estate Plans - Beyond traditional wills for blended families and unmarried couples",
+        "Week 3: Real Stories - What families lost because digital assets weren't in the estate plan",
+        "Week 4: Secure Your Complete Legacy - Traditional + digital assets protected in one comprehensive plan"
+      ],
+      "weekly_hooks": [
+        [
+          "Your $250K crypto portfolio isn't covered by your will. Here's what happens to it when you die (hint: it could vanish forever).",
+          "Who gets your digital assets when you die? (Hint: Your attorney-drafted will probably doesn't cover this)",
+          "60% of Americans have cryptocurrency or digital assets. Only 3% have them in their estate plan. Here's what your family will face."
+        ],
+        [
+          "Think estate planning is only for traditional families? This unmarried couple lost $85,000 because they assumed their partner would automatically inherit.",
+          "Just moved in together? You have 6 critical estate planning decisions to make that your married friends don't even think about.",
+          "Without proper planning, this blended family spent 18 months in court fighting over Dad's Bitcoin. Here's what they wish they'd known."
+        ],
+        [
+          "This family lost access to $180K in digital assets because the passwords died with Dad. The attorney's response? 'We didn't know to ask about that.'",
+          "Her Instagram business was worth $500K. Without digital asset planning, her kids couldn't access it for 14 months. Here's the devastating timeline.",
+          "He had everything planned perfectly - except his NFT collection. His estate paid $47,000 in legal fees trying to recover what should have been simple."
+        ],
+        [
+          "2024 estate planning covers what 2014 planning missed: crypto wallets, social media accounts, digital businesses, and online assets worth real money.",
+          "Why your 5-year-old estate plan might not protect your family anymore (digital assets, new tax laws, and modern family structures changed everything)",
+          "Last chance: Secure your complete legacy before [DATE]. Traditional assets + digital wealth + modern family protection in one comprehensive plan."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have enough digital assets to worry about' - Show how even basic online accounts and photos have value and access issues",
+        "Week 2: Address 'Can't I just share my passwords with my spouse?' - Explain legal access issues and platform terms of service violations",
+        "Week 3: Address 'This sounds expensive and complicated' - Share flat-fee pricing and simple process compared to family's recovery costs",
+        "Week 4: Address 'I'll get to it eventually' - Create urgency with year-end tax benefits and limited launch pricing deadline"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce industry certifications and specialization in digital asset planning (authority establishment)",
+        "Week 2: Share client testimonial from blended family who avoided conflict with modern planning approach",
+        "Week 3: Feature detailed case study with specific dollar amounts saved and timeline comparison (DIY disaster vs. proper planning)",
+        "Week 4: Showcase volume of early adopters ('Join 127 families who've already secured their digital legacy this month') and satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: Download free 'Digital Asset Inventory Checklist' - educational, low-commitment",
+        "Week 2: Take our '5-Minute Modern Estate Planning Assessment' - interactive engagement",
+        "Week 3: Schedule free 30-minute consultation to review your digital asset exposure - medium commitment",
+        "Week 4: Claim launch pricing: Complete digital + traditional estate plan before [DATE] and save $500 - urgent conversion"
+      ],
+      "platform_priority": [
+        "LinkedIn (4-5 posts/week) - Primary platform for professional content and thought leadership articles",
+        "Facebook (5-6 posts/week with 2 video posts) - Target 45-65 demographic with educational video content",
+        "Email (2 sends/week during launch) - Tuesday 10 AM educational content, Thursday 2 PM case studies and offers",
+        "Instagram (4-5 posts/week with 2-3 Reels) - Younger demographic education on digital assets and modern planning"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on competitive gap finding that 'Modern digital asset planning (crypto, NFTs, social media accounts) - most firms still focus only on traditional assets' and Trust & Will's TikTok success with millennial-focused estate planning content that drove 23% increase in under-40 consultations"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent lead generation",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Estate Planning Myth-Busting - Debunking 'too young' and 'not wealthy enough' misconceptions",
+        "Week 2: Life Event Triggers - New parents, newlyweds, and business owners who need planning now",
+        "Week 3: Tax Strategy Education - How proper planning saves families tens of thousands in taxes and fees",
+        "Week 4: Horror Story Lessons - Real anonymized cases of families who waited too long",
+        "Week 5: Family Harmony Protection - Preventing sibling conflicts and blended family disputes",
+        "Week 6: Business Succession Basics - What happens to your business if something happens to you tomorrow",
+        "Week 7: Special Situations - Special needs trusts, pet trusts, and unique family circumstances",
+        "Week 8: Estate Plan Maintenance - Why 5-year-old plans may be outdated and how to keep current"
+      ],
+      "weekly_hooks": [
+        [
+          "Think estate planning is only for the wealthy? This $200K estate still cost the family $45K in taxes and fees.",
+          "I'm too young for estate planning' - said every 32-year-old parent before the unthinkable happened. Here's what their kids faced.",
+          "60% of Americans don't have a will. Here's exactly what happens to your assets if you're one of them."
+        ],
+        [
+          "Just had a baby? You have 6 months to make these 3 critical estate planning decisions (especially #2 about guardianship).",
+          "Bought your first home? Congratulations - you now have enough assets that your family could spend $30K+ in probate without a plan.",
+          "Just got married? Here are the 4 estate planning mistakes newlyweds make in the first year that cost families dearly later."
+        ],
+        [
+          "Without a trust, this family spent $85,000 and 18 months in probate court. Here's what they wish they'd known about tax planning.",
+          "The 2026 estate tax exemption drops from $13.6M to $7M. What high-net-worth families must do before this deadline.",
+          "One simple trust structure saved this family $127,000 in estate taxes. The attorney fee? $4,500. Here's how it works."
+        ],
+        [
+          "She assumed her husband would automatically get everything. Instead, her kids from her first marriage got 50%. Here's the probate nightmare that followed.",
+          "Without a trust, this family spent $85,000 and 18 months in probate court. Here's the exact timeline and costs they faced.",
+          "His DIY will from LegalZoom cost his family $73,000 in unnecessary taxes. Here's the one clause he missed that changed everything."
+        ],
+        [
+          "I'm terrified my kids will fight over everything when I'm gone' - How this parent created a plan that kept siblings united and grateful.",
+          "Blended family estate planning: How to be fair to your spouse AND protect your kids' inheritance (it's possible, here's how).",
+          "Without clear planning, this family spent 2 years in court and hasn't spoken since. The estate? Only $400,000. The legal fees? $120,000."
+        ],
+        [
+          "What happens to your business if something happens to you tomorrow? 68% of business owners have no succession plan. Here's what that costs families.",
+          "This business owner died suddenly at 52. His $2M company sold for $400K in a fire sale because there was no succession plan.",
+          "Your business is your largest asset. Here's why your will isn't enough to protect it and what your family faces without proper planning."
+        ],
+        [
+          "Parents of special needs children: How to ensure your child is cared for after you're gone without disqualifying them from benefits.",
+          "Who gets your digital assets when you die? Your pets? Your social media accounts? Modern estate planning covers what traditional wills miss.",
+          "This couple set up a $200,000 pet trust for their rescue dogs. Here's why it made perfect sense for their situation."
+        ],
+        [
+          "Why your attorney-drafted will from 2019 might not protect your family in 2024 (tax laws changed, and so did your life).",
+          "Estate planning isn't 'set it and forget it.' Here are 7 life changes that require updating your plan immediately.",
+          "This family's 10-year-old estate plan cost them $89,000 in unnecessary taxes because they never updated it. Here's what changed."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm too young' and 'not wealthy enough' - Show relevance to middle-class families and young parents",
+        "Week 2: Address 'I'll do it later' - Create urgency around life events happening now",
+        "Week 3: Address 'It's too expensive' - Demonstrate ROI through tax savings and probate cost avoidance",
+        "Week 4: Address 'Online forms are good enough' - Show real costs of DIY mistakes",
+        "Week 5: Address 'My family will figure it out' - Reveal conflict and stress that lack of planning creates",
+        "Week 6: Address 'I don't want to lose control' - Explain how trusts actually give more control",
+        "Week 7: Address 'My situation is too complicated' - Show expertise with complex situations",
+        "Week 8: Address 'I already have a plan' - Explain why outdated plans can be worse than no plan"
+      ],
+      "proof_timing": [
+        "Week 1: Share statistics from Caring.com survey (60% without wills) - social proof through data",
+        "Week 2: Feature new parent testimonial about peace of mind - emotional social proof",
+        "Week 3: Detailed case study with specific tax savings numbers - ROI proof",
+        "Week 4: Share probate horror story with timeline and costs - consequence proof",
+        "Week 5: Testimonial from blended family about harmony preserved - relationship proof",
+        "Week 6: Business owner success story with smooth transition - business continuity proof",
+        "Week 7: Special needs family testimonial about child's future secured - specialized expertise proof",
+        "Week 8: Long-term client relationship story (10+ years of updates) - reliability proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download 'Estate Planning Myths vs. Facts' guide",
+        "Week 2: Take life event assessment quiz - 'Do you need estate planning now?'",
+        "Week 3: Download tax savings calculator",
+        "Week 4: Read full case study library",
+        "Week 5: Join free webinar on family harmony planning",
+        "Week 6: Schedule business succession consultation",
+        "Week 7: Request specialized planning consultation",
+        "Week 8: Book estate plan review appointment"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week) - Professional content, tax strategy, business succession focus",
+        "Facebook (4-6 posts/week with 1-2 videos) - Family-focused content, testimonials, life event triggers",
+        "Email (bi-weekly newsletter) - Tuesday 10 AM educational deep-dives on each week's theme",
+        "YouTube (1 video/week) - 8-12 minute educational videos explaining concepts, published Thursday evening"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on WealthCounsel's LinkedIn carousel series debunking myths (3.2% engagement, 2x account average) and Nolo's email campaign horror stories (42% open rate vs 21% industry average). Repeatable cycle addresses all major objection categories while building authority through education."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign during National Estate Planning Awareness Week (October)",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: National Estate Planning Awareness Week - Don't be a statistic, 7 days of myth-busting",
+        "Week 2: What We Learned - Community stories, Q&A highlights, and final call to action"
+      ],
+      "weekly_hooks": [
+        [
+          "It's National Estate Planning Awareness Week. 60% of Americans don't have a will. Here are 7 myths keeping you in that majority.",
+          "Day 1 of Estate Planning Awareness Week: The #1 myth that keeps families from protecting their legacy (and the truth that changes everything).",
+          "This week only: Ask me anything about estate planning. No question too basic, too personal, or too complicated. Let's end the confusion.",
+          "What's your biggest estate planning fear? Reply with one word. (The most common answer will surprise you - and we'll address it live tomorrow.)",
+          "Think you're too young for estate planning? 64% of people who die without a will thought the same thing. Here's what their families faced.",
+          "National Estate Planning Awareness Week exists because 6 out of 10 families will face a preventable crisis. Is yours protected?",
+          "Share this if you know someone who keeps saying 'I'll do my estate planning later.' This week is their wake-up call."
+        ],
+        [
+          "We asked 500 people their estate planning questions this week. Here are the top 10 answers (and the truth about each one).",
+          "This week's live Q&A revealed the 3 questions EVERYONE asks about estate planning. Here are the answers you need to hear.",
+          "127 families started their estate planning this week during our awareness campaign. Here's what finally convinced them to act.",
+          "The most heartbreaking story shared during Estate Planning Awareness Week - and the simple step that would have prevented it.",
+          "Final 48 hours: Estate Planning Awareness Week pricing ends Friday. Here's what you get and why waiting costs more than money.",
+          "What changed your mind about estate planning?' - Real responses from families who finally took action this week.",
+          "One week ago, these families had no estate plan. Today, they have peace of mind. Here are their stories and what they wish they'd known sooner."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address ALL major objections rapid-fire (too young, too expensive, not wealthy, can DIY, it's morbid, will do later) - one per day",
+        "Week 2: Address 'I need to think about it' with urgency and social proof of others taking action this week"
+      ],
+      "proof_timing": [
+        "Week 1 Day 1-2: Industry statistics and awareness week credibility - establish authority",
+        "Week 1 Day 3-5: Client testimonial snippets (one per day) showing different demographics - broad relatability",
+        "Week 1 Day 6-7: Live Q&A sessions with real-time engagement - authentic expertise",
+        "Week 2 Day 1-3: Compilation of success stories from awareness week participants - social proof momentum",
+        "Week 2 Day 4-7: Volume metrics ('Join 127 families') and urgency countdown - FOMO and scarcity"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Engage - 'Comment your biggest estate planning question,' 'Share if you know someone who needs this,' 'Vote in our poll'",
+        "Week 1 Days 4-5: Learn - 'Join tonight's live Q&A,' 'Download our awareness week resource guide'",
+        "Week 1 Days 6-7: Consider - 'Take our 3-minute estate planning needs assessment,' 'See if you qualify for awareness week pricing'",
+        "Week 2 Days 1-4: Schedule - 'Book your free consultation during awareness week,' 'Reserve your spot before Friday deadline'",
+        "Week 2 Days 5-7: Convert - 'Final 48 hours for awareness week pricing,' 'Last chance: Start your plan before prices return to normal Monday'"
+      ],
+      "platform_priority": [
+        "Facebook (2-3 posts/day with daily live video) - High engagement, live Q&A capability, older demographic",
+        "LinkedIn (2 posts/day) - Professional credibility, business owners, thought leadership articles",
+        "Instagram (2-3 posts/day with Stories every 4 hours) - Reels for younger audience, Story polls and Q&A stickers",
+        "Email (daily during week 1, 3 times in week 2) - Daily myth-busting, mid-week Q&A recap, weekend urgency messages"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on WealthCounsel's National Estate Planning Awareness Week LinkedIn carousel campaign (3.2% engagement, 450+ shares, 2x account average) and LegalZoom's Facebook live Q&A sessions (2,500 concurrent viewers, 340 qualified leads per session). Timing leverages official awareness week for maximum cultural relevance and urgency."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in complex estate planning",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Tax Law Changes 2024-2026 - What high-net-worth families must know about the coming exemption cliff",
+        "Week 2: Multi-State Asset Planning - Complexities of owning property, businesses, or accounts across state lines",
+        "Week 3: Business Succession Deep Dive - Protecting family businesses through generational transitions",
+        "Week 4: Advanced Trust Strategies - When simple wills aren't enough (dynasty trusts, charitable trusts, special needs trusts)",
+        "Week 5: Blended Family Wealth Transfer - Balancing current spouse protection with children's inheritance rights",
+        "Week 6: Digital Estate Planning & Modern Assets - Cryptocurrency, NFTs, online businesses, and intellectual property"
+      ],
+      "weekly_hooks": [
+        [
+          "The 2026 estate tax exemption drops from $13.6M to $7M. What high-net-worth families must do in the next 18 months.",
+          "If you have over $5M in assets, the tax law sunset in 2026 could cost your family millions. Here's the strategic planning window closing.",
+          "Most estate attorneys are waiting to see what happens in 2026. That's a $3-6M mistake for families with substantial wealth. Here's why."
+        ],
+        [
+          "Own property in multiple states? Your family could face probate in every single state. Here's what most attorneys don't tell you about ancillary probate.",
+          "This family had assets in 4 states. Probate cost $127,000 and took 26 months. One trust structure would have avoided all of it.",
+          "Vacation home in Florida, business in Texas, residence in California? Here's the multi-state estate planning strategy you need."
+        ],
+        [
+          "What happens to your business if something happens to you tomorrow? 68% of family businesses fail during transition. Here's the succession plan that beats those odds.",
+          "This $5M family business sold for $1.2M in a fire sale after the founder's sudden death. Here's the succession planning that prevents this tragedy.",
+          "Your business is likely your largest asset. Here's why your will isn't enough and what proper succession planning actually looks like."
+        ],
+        [
+          "When a simple will costs your family millions: The advanced trust strategies that high-net-worth families use to preserve wealth across generations.",
+          "Dynasty trusts, charitable remainder trusts, special needs trusts - here's when each strategy makes sense and the tax benefits of each.",
+          "This family used a charitable remainder trust to eliminate $890,000 in capital gains taxes while creating lifetime income. Here's how it works."
+        ],
+        [
+          "Blended family estate planning: How to protect your spouse AND ensure your kids inherit what you intend (the strategy most attorneys get wrong).",
+          "Second marriage, kids from first marriage? Here's the trust structure that prevents the nightmare scenario where your kids get nothing.",
+          "Without proper planning, this widow's new husband inherited everything - her children from her first marriage got zero. Here's what she should have done."
+        ],
+        [
+          "Your cryptocurrency, NFTs, and digital business aren't covered by traditional estate planning. Here's what happens if you die without a digital asset strategy.",
+          "This estate had $2.3M in crypto. The family couldn't access it for 18 months and paid $340,000 in legal fees. Here's the planning that prevents this.",
+          "Digital assets, intellectual property, online businesses - the estate planning strategies for wealth that didn't exist 10 years ago."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'll wait to see what Congress does' - Explain risk of waiting vs. planning now with flexibility",
+        "Week 2: Address 'Each state has its own attorney' - Show inefficiency and gaps vs. coordinated strategy",
+        "Week 3: Address 'My business partner and I have an agreement' - Reveal gaps in handshake deals and outdated buy-sell agreements",
+        "Week 4: Address 'Advanced trusts are too complicated' - Demystify with clear examples and show when complexity pays off",
+        "Week 5: Address 'A prenup covers this' - Explain why prenups and estate planning serve different purposes",
+        "Week 6: Address 'I'll just give my spouse the passwords' - Explain legal access issues and platform restrictions"
+      ],
+      "proof_timing": [
+        "Week 1: Cite specific tax code sections and IRS publications - regulatory authority",
+        "Week 2: Share multi-state case study with before/after probate cost comparison - expertise proof",
+        "Week 3: Feature business succession success story with smooth transition - specialized competency",
+        "Week 4: Detail complex trust case study with specific tax savings calculations - technical mastery",
+        "Week 5: Testimonial from blended family with all parties satisfied - difficult situation expertise",
+        "Week 6: Modern estate planning client results with digital asset recovery success - cutting-edge knowledge"
+      ],
+      "cta_progression": [
+        "Week 1: Download '2026 Tax Law Changes: High-Net-Worth Planning Guide' white paper",
+        "Week 2: Request multi-state asset analysis and exposure assessment",
+        "Week 3: Download 'Business Succession Planning Checklist for Family Businesses'",
+        "Week 4: Schedule advanced trust strategy consultation for estates over $5M",
+        "Week 5: Request blended family planning consultation and custom strategy session",
+        "Week 6: Book comprehensive modern estate planning review (traditional + digital assets)"
+      ],
+      "platform_priority": [
+        "LinkedIn (4-5 posts/week including long-form articles) - Primary platform for professional thought leadership and high-net-worth audience",
+        "Email (weekly in-depth newsletter) - Tuesday 10 AM detailed analysis for subscriber list, position as expert resource",
+        "YouTube (1 detailed video/week) - 10-15 minute deep-dive explanations, published Thursday evening for weekend research",
+        "Facebook (2-3 posts/week) - Repurposed highlights for broader audience, Wednesday-Friday 1-3 PM"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on estate planning law firm's LinkedIn quarterly articles on tax law changes (5,000+ views, 200+ reactions, 15-20 consultation requests per article) and proven pattern that authoritative, specific content with dollar amounts attracts high-net-worth clients. Addresses competitive gap in multi-generational wealth transfer education and modern asset planning."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign to boost interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive Estate Planning Education - Polls, quizzes, and community questions that drive conversation",
+        "Week 2: User Story Sharing - Encourage audience to share experiences and learn from each other"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: What's your #1 reason for not having an estate plan yet? A) Too young B) Too expensive C) Too complicated D) Keep forgetting. (Your honest answer helps us create better content)",
+          "Fill in the blank: 'I finally got my estate plan done after _______.' Share your story - what was the moment you stopped putting it off?",
+          "Quick quiz: Which of these assets ISN'T covered by a standard will? A) Your house B) Your 401k C) Your car D) Your bank account. Comment your answer!",
+          "What's one estate planning question you're too embarrassed to ask? Comment anonymously or DM us - we'll answer the top 5 questions this week.",
+          "True or False: If you're married, your spouse automatically inherits everything. Comment your answer and we'll reveal the surprising truth.",
+          "This or That: Would you rather A) Have the difficult estate planning conversation now, or B) Leave your family to figure it out later? Why?",
+          "Pop quiz: How much does the average probate cost in [STATE]? Closest guess wins our free estate planning guide. Comment your number!"
+        ],
+        [
+          "Parents: What age were your kids when you finally did your estate planning? What took you so long? Share your story to help other parents stop procrastinating.",
+          "Tag someone who keeps saying 'I need to get my estate planning done' but hasn't yet. (We promise to send them helpful info, not sales pitches!)",
+          "Share your estate planning horror story (or one you witnessed). What happened and what would you do differently? Your story could save a family.",
+          "Finish this sentence: 'The biggest surprise about my estate planning process was _______.' Help others know what to expect!",
+          "What convinced you to finally do your estate plan? Was it a life event, a story you heard, or something else? Share to inspire others.",
+          "Controversial opinion: Estate planning is more important than [X]. What would you put in that blank? Retirement savings? Life insurance? Emergency fund?",
+          "Screenshot your calendar reminder for 'estate planning' that you keep moving to next month. Let's break the procrastination cycle together - who's scheduling this week?"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Surface objections through interactive content - let audience voice their own barriers",
+        "Week 2: Address objections through community stories - peer-to-peer persuasion more powerful than expert telling"
+      ],
+      "proof_timing": [
+        "Week 1: Share engagement statistics in real-time ('427 of you said cost is your #1 concern - here's the truth about pricing')",
+        "Week 1: Feature quiz results with educational follow-up ('68% got this wrong - here's why this matters')",
+        "Week 2: Highlight best community stories as social proof ('Sarah's story about finally getting it done after her friend's death')",
+        "Week 2: Create compilation post of community wisdom ('Here are 15 moments that convinced real people to stop waiting')"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Engage only - 'Comment,' 'Vote,' 'Share your answer,' 'Tag a friend' (no promotional ask)",
+        "Week 1 Days 4-7: Soft educational - 'Want to learn more? Download our guide,' 'Join our Q&A session'",
+        "Week 2 Days 1-4: Community building - 'Share your story,' 'Help others by commenting,' 'What would you tell your past self?'",
+        "Week 2 Days 5-7: Conversion from engagement - 'Ready to stop procrastinating? Schedule your consultation,' '47 people from this community started their plans this week - join them'"
+      ],
+      "platform_priority": [
+        "Facebook (3-4 posts/day with heavy Story usage) - Best for polls, community discussion, older demographic engagement",
+        "Instagram (3-4 posts/day with Stories every 3-4 hours) - Poll stickers, question stickers, quiz features in Stories",
+        "LinkedIn (2-3 posts/day with poll feature) - Professional audience, thought-provoking questions, industry discussions",
+        "Email (2 sends during campaign) - Mid-week 1: 'We asked 500 people...' results summary, End of week 2: Community story compilation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on LegalZoom's Facebook live Q&A success (850+ comments, 340 qualified leads per session) and research showing interactive content drives 2.8x higher engagement on LinkedIn. Leverages customer voice data showing emotional language ('terrified,' 'overwhelmed,' 'paralyzed by indecision') to create relatable conversation starters that algorithm favors."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "[SHOCKING STAT]% of [TARGET AUDIENCE] don't have [ESTATE PLANNING ELEMENT]. Here's what happens to your [ASSETS] if you're one of them.\n\nPROBLEM: Without proper planning, your family faces:\n→ [TIMEFRAME] months in probate court\n→ $[AMOUNT] in unnecessary fees\n→ Family conflicts over [SPECIFIC ASSET]\n\nAGITATE: I just watched a [PROFESSION] family spend $[AMOUNT] and [TIMEFRAME] sorting out an estate that could've been handled in weeks with proper planning.\n\nSOLUTION: [NUMBER] steps to protect your legacy:\n1. [ACTION ITEM] - ensures [BENEFIT]\n2. [ACTION ITEM] - protects [BENEFICIARY]\n3. [ACTION ITEM] - saves $[AMOUNT] in taxes\n\nThe families sleeping soundly tonight all did one thing: they stopped procrastinating.\n\nWhat's stopping you from getting this handled? Drop a comment or DM me.\n\n#EstatePlanning #WealthProtection #LegacyPlanning",
+        "framework": "PAS",
+        "character_count": "950-1200",
+        "posting_time": "Tuesday-Thursday 8-10 AM EST"
+      },
+      "authority": {
+        "template": "The [YEAR] estate tax exemption drops from $[CURRENT AMOUNT]M to $[FUTURE AMOUNT]M. Here's what high-net-worth families must do before [DEADLINE].\n\nATTENTION: If your estate exceeds $[THRESHOLD]M, you're about to face a [PERCENTAGE]% tax increase unless you act now.\n\nINTEREST: I've spent the last [TIMEFRAME] analyzing the implications for [NUMBER] clients. Three strategies are emerging:\n\n→ Spousal Lifetime Access Trusts (SLATs)\n→ Grantor Retained Annuity Trusts (GRATs)  \n→ Irrevocable Life Insurance Trusts (ILITs)\n\nDESIRE: One client just moved $[AMOUNT]M out of their taxable estate, saving their children an estimated $[SAVINGS]M in future taxes. The strategy? [BRIEF EXPLANATION].\n\nACTION: The window closes [DEADLINE]. If you're in the $[AMOUNT]M+ net worth category, let's talk strategy. Comment 'STRATEGY' or send me a DM.\n\nThought leadership isn't about having all the answers—it's about asking the right questions before it's too late.\n\n#EstateTax #WealthManagement #TaxPlanning #HighNetWorth",
+        "framework": "AIDA",
+        "character_count": "1100-1400",
+        "posting_time": "Tuesday-Thursday 12-1 PM EST"
+      },
+      "promotional": {
+        "template": "BEFORE: \"I'm terrified my kids will fight over everything when I'm gone.\"\n\nAFTER: \"Everything is organized and my kids know exactly what to do. I finally have peace of mind.\"\n\nThe difference? [TIMEFRAME] and a comprehensive estate plan.\n\nHere's what changed for [CLIENT TYPE]:\n\n❌ BEFORE:\n• No clear succession plan for $[AMOUNT] business\n• Blended family with potential conflicts\n• Assets spread across [NUMBER] states\n• Sleepless nights worrying about family harmony\n\n✅ AFTER:\n• Tax-optimized trust structure saving $[AMOUNT]\n• Clear, fair distribution everyone agreed to\n• Business continuity plan in place\n• Family meetings held, everyone aligned\n\nBETTER: The transformation took [TIMEFRAME], not months of back-and-forth.\n\nIf you're a [TARGET PROFESSION] with [SPECIFIC SITUATION], I'm offering [NUMBER] complimentary [CONSULTATION TYPE] sessions this month.\n\nWe'll review your situation and create a roadmap—no obligation, just clarity.\n\nDM me 'CLARITY' or comment below to claim your spot.\n\n#EstatePlanning #FamilyLegacy #WealthProtection",
+        "framework": "BAB",
+        "character_count": "1000-1300",
+        "posting_time": "Wednesday 8-10 AM EST"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Who gets your digital assets when you die? (Hint: Your will probably doesn't cover this) 💻📱\n\nSwipe for [NUMBER] digital assets you're forgetting to plan for →\n\n[SLIDE 1]: Cryptocurrency wallets ($[AVERAGE AMOUNT] goes missing annually)\n[SLIDE 2]: Social media accounts (memories + business value)\n[SLIDE 3]: Digital photos & cloud storage\n[SLIDE 4]: Online businesses & domains\n[SLIDE 5]: Subscription services & loyalty points\n\nWithout a digital estate plan, your family can't access:\n→ Your crypto (lost forever)\n→ Your photos (locked accounts)\n→ Your online business (revenue stops)\n\nThe fix? Add a digital asset inventory to your estate plan. Takes [TIMEFRAME], saves [BENEFIT].\n\nSave this post for when you're ready to protect your digital legacy.\n\nQuestions? Drop them below 👇\n\n[See first comment for full checklist]\n\n#EstatePlanning #DigitalAssets #LegacyPlanning #Cryptocurrency #WealthProtection",
+        "visual": "Carousel design: Modern, clean graphics with icons for each digital asset type. Slide 1: Attention-grabbing question with phone/laptop illustration. Slides 2-6: Individual asset types with simple icons and dollar amounts. Color scheme: Navy blue, gold accents, white background. Professional but approachable aesthetic.",
+        "framework": "PAS",
+        "hashtags": "#EstatePlanning #DigitalAssets #LegacyPlanning #Cryptocurrency #WealthProtection #FinancialPlanning #FamilyLegacy #TrustPlanning #WillsAndTrusts #ModernEstatePlanning #DigitalLegacy #CryptoPlanning #OnlineBusiness #ProtectYourAssets #SmartPlanning #FutureProof #FamilyFirst #PeaceOfMind #LegalPlanning #WealthManagement"
+      },
+      "authority": {
+        "caption": "Why your attorney-drafted will might not be worth the paper it's written on in 2024 📄❌\n\n[NUMBER] things that changed:\n\n1️⃣ Digital assets weren't a thing when most wills were written\n2️⃣ [STATE] law changed on [SPECIFIC LAW]\n3️⃣ Your family situation evolved (divorce, remarriage, new kids)\n4️⃣ Asset values increased [X]x (hello tax implications)\n5️⃣ Beneficiary designations override your will (and they're probably outdated)\n\nReal talk: I reviewed [NUMBER] \"complete\" estate plans last month. [PERCENTAGE]% had critical gaps.\n\nThe most expensive mistake? Assuming done = protected.\n\nYour estate plan needs a checkup every [TIMEFRAME] or after major life events.\n\nWhen's the last time you reviewed yours? 🤔\n\nDM me 'REVIEW' for my free estate plan audit checklist.\n\n#EstatePlanning #LegalAdvice #WealthProtection #TrustPlanning",
+        "visual": "Single image: Split-screen design. Left side shows old, yellowed document with red X overlay and '2010' date. Right side shows modern, updated document with green checkmark and '2024' date. Bold text overlay: 'When was YOUR will last updated?' Professional, eye-catching design with urgency.",
+        "framework": "Problem-Agitate-Solution",
+        "hashtags": "#EstatePlanning #LegalAdvice #WealthProtection #TrustPlanning #WillsAndTrusts #LegacyPlanning #FinancialPlanning #SmartMoney #ProtectYourFamily #LegalUpdate #EstateLaw #FamilyLegacy #WealthManagement #PeaceOfMind #UpdateYourWill #LegalTips #PlanningAhead #FamilyFirst #SecureYourLegacy #TrustAttorney"
+      },
+      "promotional": {
+        "caption": "Just had a baby? You have 6 months to make these 3 critical decisions 👶⏰\n\nNew parents: Congrats! Now let's protect that little one.\n\nDecision 1: GUARDIANSHIP\nWho raises your child if something happens to you? No decision = court decides.\n\nDecision 2: FINANCIAL PROTECTION  \nLife insurance + trust = your child is provided for, protected from irresponsible guardians.\n\nDecision 3: HEALTHCARE DIRECTIVES\nWho makes medical decisions for your baby if you can't?\n\nThe families who sleep soundly? They handled this in [TIMEFRAME] with our New Parent Estate Planning Package.\n\n✅ Guardian designation\n✅ Trust for minor children\n✅ Life insurance coordination\n✅ Healthcare directives\n✅ Will creation\n\nInvestment: $[PRICE] (peace of mind: priceless)\n\nLimited spots for [MONTH] consultations. Link in bio or DM 'BABY' to get started.\n\nYour most important job is protecting them. Let's do this together.\n\n#NewParents #EstatePlanning #BabyPlanning",
+        "visual": "Heartwarming image: Parent holding newborn's hand, soft lighting, intimate moment. Text overlay in elegant font: 'Protect what matters most' with subtle call-to-action button graphic. Warm, emotional color palette (soft blues, creams). Professional yet deeply personal feel.",
+        "framework": "BAB",
+        "hashtags": "#NewParents #EstatePlanning #BabyPlanning #ParentingTips #NewMom #NewDad #BabyPrep #FamilyPlanning #ProtectYourFamily #LegacyPlanning #ParentLife #NewBaby #Parenthood #SmartParenting #FamilyFirst #WillsAndTrusts #GuardianshipPlanning #PeaceOfMind #ResponsibleParenting #FamilyLegacy"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "❓ QUICK QUESTION: Do you know who would raise your kids if something happened to you?\n\nIf you hesitated... you're not alone. [PERCENTAGE]% of parents don't have this legally documented.\n\nHere's what happens WITHOUT a guardian designation:\n\n😰 The court decides (not you)\n😰 Family members fight it out in court\n😰 Your kids might end up with someone you'd never choose\n😰 The process takes months while your kids are in limbo\n😰 It costs your estate $[AMOUNT]+ in legal fees\n\nHere's what happens WITH proper planning:\n\n✅ Your chosen guardian steps in immediately\n✅ No court battles, no family drama\n✅ Your kids stay with people who share your values\n✅ Financial support is ready and protected\n✅ Everyone knows the plan—no surprises\n\nThe difference? [TIMEFRAME] to complete guardian designation paperwork.\n\nI put together a free guide: \"[NUMBER] Steps to Choosing the Right Guardian for Your Children\"\n\nIt covers:\n→ Questions to ask potential guardians\n→ How to have the conversation\n→ Legal requirements in [STATE]\n→ Financial planning for guardianship\n→ What to do if your first choice can't serve\n\nComment 'GUIDE' below and I'll send it to you. Or share this post with a parent who needs to see it.\n\nYour kids are counting on you to make this decision. Don't let the court make it for you.\n\n#EstatePlanning #ParentingTips #GuardianshipPlanning #ProtectYourKids",
+        "framework": "PAS",
+        "optimal_posting_time": "Wednesday-Friday 1-3 PM EST",
+        "engagement_tactic": "Comment-to-receive lead magnet"
+      },
+      "authority": {
+        "template": "🚨 ESTATE PLANNING MYTH BUSTED 🚨\n\nMyth: \"My spouse will automatically get everything anyway, so I don't need estate planning.\"\n\nReality: Without proper planning, here's what ACTUALLY happens...\n\nI just helped a widow who learned this the hard way. Her husband died without a will, assuming she'd automatically inherit their $[AMOUNT] home.\n\nWhat happened instead:\n→ [STATE] law gave her only [PERCENTAGE]% (the kids got the rest)\n→ She had to get her adult children's permission to refinance\n→ One child wanted to force a sale to get \"their share\"\n→ Family relationships destroyed\n→ $[AMOUNT] in legal fees to sort it out\n→ [TIMEFRAME] of stress during grief\n\nThis isn't rare. This is STANDARD in [STATE] without estate planning.\n\nEven if you're married, you need:\n✅ A will (controls asset distribution)\n✅ Beneficiary designations (override your will!)\n✅ Joint ownership documents (right of survivorship)\n✅ Trust (avoids probate, protects assets)\n✅ Powers of attorney (for incapacity, not just death)\n\nSecond marriages? Blended families? Business ownership? The stakes are even higher.\n\nI've seen too many families torn apart by this myth. Don't let yours be next.\n\nIf you're married and think you're \"automatically covered,\" we need to talk. Free [TIMEFRAME] consultation to review your situation.\n\nDM me or comment 'MYTH' below and I'll reach out.\n\nYour spouse deserves better than \"I thought it would be automatic.\"\n\nShare this with a married friend who needs to see it. You might save their family from disaster.\n\n#EstatePlanning #MarriagePlanning #LegalMyths #ProtectYourSpouse #FamilyLegacy",
+        "framework": "Story-based authority building with myth-busting",
+        "optimal_posting_time": "Thursday 1-3 PM EST",
+        "engagement_tactic": "Shareable educational content with fear appeal"
+      },
+      "promotional": {
+        "template": "WITHOUT PROPER PLANNING:\n\"I'm terrified my kids will fight over everything when I'm gone.\"\n\"I saw what my friend's family went through in probate and it was a nightmare.\"\n\"I keep putting it off because it feels overwhelming.\"\n\nSOUNDS FAMILIAR?\n\nLast week, [CLIENT NAME/TYPE] sat in my office with the same worries. [HIS/HER] $[AMOUNT] estate, [NUMBER] kids, and zero plan.\n\n[TIMEFRAME] later?\n\n✅ Complete estate plan in place\n✅ Family meeting held—everyone aligned\n✅ Tax-optimized trust saving $[AMOUNT]\n✅ Business succession plan protecting [NUMBER] employees\n✅ Healthcare directives ensuring wishes are honored\n\nThe relief on [his/her] face: \"I finally have peace of mind. I can sleep at night knowing my family is protected.\"\n\nHere's what made it different:\n\n→ Flat-fee pricing ($[AMOUNT])—no surprises\n→ Plain English explanations—no legal jargon\n→ [TIMEFRAME] process—not months of back-and-forth\n→ Family meeting facilitation—everyone understands the plan\n→ Lifetime updates included—plans stay current\n\nI'm opening [NUMBER] spots this month for our [PACKAGE NAME].\n\nPerfect for:\n→ [TARGET AUDIENCE 1]\n→ [TARGET AUDIENCE 2]  \n→ [TARGET AUDIENCE 3]\n\nWhat you get:\n✓ [DELIVERABLE 1]\n✓ [DELIVERABLE 2]\n✓ [DELIVERABLE 3]\n✓ [DELIVERABLE 4]\n✓ [DELIVERABLE 5]\n\nInvestment: $[PRICE] (payment plans available)\n\nFree consultation to see if it's right for you. No pressure, just clarity.\n\nClick the link below or comment 'PEACE' and I'll send you the details.\n\n[LINK]\n\nStop putting it off. Your family is counting on you.\n\nP.S. - Every consultation includes my free \"[LEAD MAGNET NAME]\" checklist ($[VALUE] value) just for showing up.\n\n#EstatePlanning #LegacyProtection #FamilyFirst #PeaceOfMind",
+        "framework": "BAB with social proof and clear offer",
+        "optimal_posting_time": "Wednesday 1-3 PM EST",
+        "engagement_tactic": "Limited availability + free consultation offer"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just Googled 'do I need a will' at 2am 👀",
+        "script": "HOOK (0-3 sec): [Face camera, relatable expression] \"POV: You just Googled 'do I need a will' at 2am\"\n\nPATTERN INTERRUPT (3-8 sec): [Quick cut] \"Let me save you the 47 Reddit threads you're about to read...\"\n\nPROBLEM (8-20 sec): [Show phone screen scrolling] \"Everyone says different things. Some say you're too young. Others say you need $500K. Your cousin did one online for $99. You're more confused than before.\"\n\nSOLUTION INTRO (20-35 sec): [Face camera, authoritative but friendly] \"Here's the truth: You need a will if you have ANY of these: [hold up fingers] 1) Kids under 18, 2) A house, 3) A car, 4) A bank account, 5) Literally anything you care about who gets.\"\n\nAGITATE (35-48 sec): [Serious tone] \"Without one? The state decides. Your ex might raise your kids. Your family fights in court. Your assets? Frozen for months. That $99 online thing? Might not even be valid in your state.\"\n\nCALL TO ACTION (48-60 sec): [Back to friendly] \"Stop Googling at 2am. Link in bio for my free 'Do I Need Estate Planning?' quiz. Takes 2 minutes, gives you real answers. Now go to sleep.\"\n\nTEXT OVERLAYS: \"2am Google searches be like...\" / \"The truth about wills\" / \"You need one if you have...\" / \"Link in bio: Free quiz\"\n\nTRENDING AUDIO: Use trending sound with estate planning voiceover\n\n#EstatePlanning #LegalTok #AdultingTips #FinanceTok #WillsAndTrusts",
+        "framework": "PAS with native TikTok storytelling",
+        "video_style": "Relatable POV, quick cuts, text overlays, trending audio"
+      },
+      "authority": {
+        "hook": "Just reviewed an estate plan from 2015. It's gonna cost this family $85K 💀",
+        "script": "HOOK (0-3 sec): [Shocked expression, holding document] \"Just reviewed an estate plan from 2015. It's gonna cost this family $85K.\"\n\nCURIOSITY BUILD (3-12 sec): [Flip through pages] \"The attorney who did this? Totally competent. The plan? Was perfect... in 2015. But here's what changed...\"\n\nEDUCATION (12-40 sec): [Count on fingers, quick cuts between each point]\n\"1) They got divorced - will still names ex-spouse\n2) Had another kid - not mentioned anywhere  \n3) Bought a house in another state - creates probate nightmare\n4) Started a business - no succession plan\n5) Beneficiaries on 401k? Still the ex from 2014\n6) Estate tax exemption doubled - plan doesn't use it\"\n\nREAL TALK (40-52 sec): [Serious, direct to camera] \"Estate plans aren't 'set it and forget it.' Life happens. Laws change. Your plan needs updates every 3-5 years or after major life events. Period.\"\n\nCTA (52-60 sec): [Friendly close] \"When's the last time YOU reviewed yours? Link in bio for my free estate plan audit checklist. Don't be the $85K family.\"\n\nTEXT OVERLAYS: \"2015 estate plan\" / \"What changed\" / \"$85K mistake\" / \"Review every 3-5 years\" / \"Free checklist in bio\"\n\n#EstatePlanning #LegalAdvice #MoneyTok #FinancialPlanning #LegalTok #WealthTok",
+        "framework": "AIDA with authority positioning",
+        "video_style": "Expert breakdown, document props, educational but engaging"
+      },
+      "promotional": {
+        "hook": "If you have a baby in 2024 and don't do this, I'm judging you 👶⚖️",
+        "script": "HOOK (0-3 sec): [Playful judgment face] \"If you have a baby in 2024 and don't do this, I'm judging you.\"\n\nPROBLEM SETUP (3-15 sec): [Show baby items, nursery] \"You bought the $400 stroller. The organic crib sheets. The baby monitor that tracks their breathing. But you didn't name a guardian?\"\n\nEMOTIONAL PUNCH (15-30 sec): [Serious shift] \"Real talk: If something happens to you, who raises your baby? You didn't choose? The COURT chooses. Your in-laws you can't stand? Might get custody. Your irresponsible brother? Could be the one. All while your family fights it out in court for months.\"\n\nSOLUTION (30-48 sec): [Hopeful tone] \"It takes ONE afternoon to fix this. Guardian designation, will, trust for your baby, life insurance coordination. Done. My New Parent Package: $[PRICE], [TIMEFRAME] process. Your baby is protected. You sleep at night.\"\n\nCTA (48-60 sec): [Direct, friendly] \"[NUMBER] spots left this month. Link in bio or DM me 'BABY'. Stop buying stuff, start protecting them. Let's go.\"\n\nTEXT OVERLAYS: \"New parents be like...\" / \"But did you name a guardian?\" / \"Don't let the court decide\" / \"$[PRICE] | [TIMEFRAME]\" / \"Link in bio\"\n\nVISUAL STYLE: Mix of cute baby content with serious estate planning reality check\n\n#NewParents #BabyTok #ParentingTok #EstatePlanning #MomTok #DadTok #BabyPlanning",
+        "framework": "BAB with emotional trigger and urgency",
+        "video_style": "Relatable parent content with call-out culture hook"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST NAME], your estate plan is probably missing this (check now)",
+        "preview_text": "Digital assets worth $[AMOUNT]+ are going unplanned. Here's what to add...",
+        "body": "SUBJECT: [FIRST NAME], your estate plan is probably missing this (check now)\n\nPREVIEW: Digital assets worth $[AMOUNT]+ are going unplanned. Here's what to add...\n\nHi [FIRST NAME],\n\nQuick question: What happens to your cryptocurrency when you die?\n\nYour online business? Your 10,000+ family photos in the cloud? Your social media accounts?\n\nIf you're like [PERCENTAGE]% of people with estate plans, the answer is: \"I have no idea.\"\n\nHere's the problem:\n\nTraditional estate plans don't cover digital assets. And without proper planning, your family can't access:\n\n→ Cryptocurrency wallets (lost forever - $[AMOUNT] goes missing annually)\n→ Cloud storage (locked accounts, lost memories)\n→ Online businesses (revenue stops immediately)  \n→ Digital photos (goodbye, 20 years of family memories)\n→ Social media (valuable business assets, gone)\n\nI just helped [CLIENT TYPE] recover access to $[AMOUNT] in digital assets that would've been lost.\n\nHere's what you need to add to your estate plan:\n\n✅ Digital Asset Inventory (list everything)\n✅ Access Instructions (passwords, 2FA, recovery keys)\n✅ Digital Executor Designation (who manages it all)\n✅ Platform-Specific Authorizations (legal access to accounts)\n✅ Cryptocurrency Recovery Plan (secure key storage + transfer instructions)\n\nI created a free Digital Asset Planning Checklist that walks you through exactly what to document and how to store it securely.\n\nDownload it here: [LINK]\n\nThis takes [TIMEFRAME] to complete and could save your family thousands (or millions, if you're into crypto).\n\nQuestions? Just reply to this email.\n\n[YOUR NAME]\n[TITLE]\nP.S. - Already have a digital asset plan? Forward this to someone who doesn't. They'll thank you.\n\nCTA BUTTON: Download Free Checklist\n\nFOOTER: [Standard email footer with contact info and unsubscribe]",
+        "framework": "PAS with lead magnet",
+        "segment": "Existing clients + tech-savvy prospects",
+        "optimal_send_time": "Tuesday 10 AM EST"
+      },
+      "authority": {
+        "subject": "Estate tax exemption drops 50% in 2026. Here's your strategy.",
+        "preview_text": "High-net-worth families: The window to act is closing. Read this now...",
+        "body": "SUBJECT: Estate tax exemption drops 50% in 2026. Here's your strategy.\n\nPREVIEW: High-net-worth families: The window to act is closing. Read this now...\n\n[FIRST NAME],\n\nThe estate tax exemption drops from $13.6M to $7M per person in 2026.\n\nIf your net worth exceeds $7M (or $14M married), you're about to face a 40% tax on everything above that.\n\nThat's $[AMOUNT]M+ your family won't inherit unless you act before [DEADLINE].\n\nI've spent the last [TIMEFRAME] analyzing this for [NUMBER] high-net-worth clients. Three strategies are working:\n\n**STRATEGY 1: Spousal Lifetime Access Trusts (SLATs)**\nMove assets out of your estate while maintaining indirect access through your spouse. One client just protected $[AMOUNT]M using this approach.\n\n**STRATEGY 2: Grantor Retained Annuity Trusts (GRATs)**  \nTransfer appreciating assets to heirs while minimizing gift tax. Perfect for business owners expecting growth.\n\n**STRATEGY 3: Irrevocable Life Insurance Trusts (ILITs)**\nRemove life insurance from your taxable estate. A $[AMOUNT]M policy outside your estate saves $[AMOUNT]M in taxes.\n\nThe families taking action now are saving 7 figures in future taxes.\n\nThe families waiting? They're gambling that Congress extends the exemption (unlikely).\n\n**Here's what I recommend:**\n\nIf your net worth is $7M-15M: Focus on SLATs and strategic gifting\nIf your net worth is $15M-50M: Combine SLATs with GRATs  \nIf your net worth is $50M+: Comprehensive strategy using all three + dynasty trusts\n\nThe window closes [DEADLINE]. After that, your options are limited.\n\nI'm offering [NUMBER] complimentary strategy sessions this month for families with $[AMOUNT]M+ net worth.\n\nWe'll review your situation and create a tax-optimization roadmap. No obligation, just clarity on your best path forward.\n\nClick here to schedule: [CALENDAR LINK]\n\nOr reply to this email with your preferred date/time.\n\nThe tax law isn't changing. But your strategy can.\n\n[YOUR NAME]\n[TITLE]\n\nP.S. - Even if you're not ready to act, schedule the session. You'll walk away with a clear picture of what's at stake and your options. That alone is worth [TIMEFRAME].\n\nCTA BUTTON: Schedule Strategy Session\n\nFOOTER: [Standard footer]",
+        "framework": "AIDA with urgency and tiered recommendations",
+        "segment": "High-net-worth prospects ($7M+ net worth)",
+        "optimal_send_time": "Thursday 10 AM EST"
+      },
+      "promotional": {
+        "subject": "😰 → 😌 How [CLIENT NAME] went from anxious to protected in [TIMEFRAME]",
+        "preview_text": "Real story: $[AMOUNT] estate, zero plan, total peace of mind in [TIMEFRAME]...",
+        "body": "SUBJECT: 😰 → 😌 How [CLIENT NAME] went from anxious to protected in [TIMEFRAME]\n\nPREVIEW: Real story: $[AMOUNT] estate, zero plan, total peace of mind in [TIMEFRAME]...\n\nHi [FIRST NAME],\n\n[CLIENT NAME] came to me [TIMEFRAME] ago with a familiar story:\n\n\"I'm terrified my kids will fight over everything when I'm gone. I keep putting it off because it feels overwhelming. I have no idea where to even start.\"\n\nSound familiar?\n\n**Here was [his/her] situation:**\n→ $[AMOUNT] estate (house, retirement accounts, small business)\n→ [NUMBER] kids from [FAMILY SITUATION]\n→ Assets in [NUMBER] states\n→ Zero estate planning documents\n→ Sleepless nights worrying about family conflict\n\n**[TIMEFRAME] later, here's what changed:**\n\n✅ Complete estate plan: will, trust, powers of attorney, healthcare directives\n✅ Tax-optimized structure saving the family $[AMOUNT] in future taxes\n✅ Business succession plan protecting [NUMBER] employees\n✅ Family meeting held—everyone understands and agrees with the plan  \n✅ All assets properly titled and beneficiaries updated\n✅ Digital asset plan included\n\n**The result?**\n\n\"I finally have peace of mind. Everything is organized and my kids know exactly what to do. I can sleep at night knowing my family is protected.\"\n\n**What made it different from [his/her] expectations:**\n\n→ Flat-fee pricing ($[AMOUNT])—no surprise bills\n→ Plain English explanations—no legal jargon confusion\n→ [TIMEFRAME] process—not the months [he/she] feared\n→ We facilitated the family meeting—no awkward conversations alone\n→ Lifetime updates included—plan stays current as life changes\n\nIf you're in a similar situation, I'm opening [NUMBER] spots this month for our [PACKAGE NAME].\n\n**Perfect for:**\n→ [TARGET AUDIENCE 1]\n→ [TARGET AUDIENCE 2]\n→ [TARGET AUDIENCE 3]\n\n**What's included:**\n✓ [DELIVERABLE 1]\n✓ [DELIVERABLE 2]\n✓ [DELIVERABLE 3]\n✓ [DELIVERABLE 4]  \n✓ [DELIVERABLE 5]\n✓ Lifetime document updates\n✓ Family meeting facilitation\n\n**Investment:** $[PRICE] (payment plans available)\n\n**First step:** Free [TIMEFRAME] consultation to see if it's right for you. No pressure, just clarity.\n\nClick here to schedule: [CALENDAR LINK]\n\nOr reply to this email with your preferred time.\n\nStop putting it off. Your family is counting on you.\n\n[YOUR NAME]\n[TITLE]\n\nP.S. - Every consultation includes my \"[LEAD MAGNET NAME]\" checklist ($[VALUE] value) just for showing up. You'll walk away with clarity even if we're not a fit.\n\nCTA BUTTON: Schedule Free Consultation\n\nFOOTER: [Standard footer]",
+        "framework": "BAB with detailed transformation story",
+        "segment": "Engaged prospects (opened 2+ emails, visited website)",
+        "optimal_send_time": "Wednesday 2 PM EST"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X]% of families with blended marriages lose [Y]% of their estate to the wrong beneficiaries without proper planning",
+      "[X] months and $[Y] in probate costs - what this [state] family paid because their will wasn't updated after their [life event]",
+      "[X] critical documents your family can't access if you're incapacitated (and [Y] days to get court permission)"
+    ],
+    "question_hooks": [
+      "Are you terrified your kids will fight over everything when you're gone because nothing is clearly documented?",
+      "Are you paralyzed by indecision because the legal jargon around trusts and wills is completely overwhelming?",
+      "Are you worried sick that your special needs child won't be taken care of after you're gone?"
+    ],
+    "story_hooks": [
+      "How this [city] family avoided the nightmare scenario their friends went through in probate court",
+      "How [client name] finally got peace of mind after [X] sleepless nights worrying about their blended family situation",
+      "How this business owner ensured their company would continue smoothly without them after [triggering event]"
+    ],
+    "fear_hooks": [
+      "Is your ex-spouse positioned to control your children's inheritance because your beneficiaries aren't properly structured?",
+      "Is your [state] real estate headed for a devastating probate process that will cost your family [X]% of its value?",
+      "Is the government taking half of what you've worked for because you haven't updated your plan since the [year] tax law changes?"
+    ],
+    "howto_hooks": [
+      "How to protect your family's inheritance from creditors and divorce without losing control of your assets",
+      "How to organize your estate so your kids know exactly what to do without months of back and forth with lawyers",
+      "How to handle your multi-state assets without the catastrophic probate complications most families face"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "Your Netflix password will outlive you. But your bank account? Here's what happens...",
+      "body": "Sec 0-3: Show phone with streaming services logged in. Sec 4-15: 'Digital assets are real assets - crypto wallets, photo libraries, social media accounts worth thousands.' Sec 16-30: 'Without a digital estate plan, your family can't access them. Ever.' Sec 31-45: Show list appearing: Login credentials vault, digital asset inventory, social media legacy contacts. Sec 46-55: 'I'm under 35 and already have this handled. Takes 20 minutes.' Text overlay: 'Your Instagram has a plan. Do your assets?'",
+      "cta": "Link in bio for digital asset planning checklist"
+    },
+    "reels": {
+      "hook": "POV: You're explaining to your kids where everything is...",
+      "body": "Sec 0-10: Frantic person pointing around house - 'The will is in the safe, combo is our anniversary, passwords are in my email, the deed is at the attorney, life insurance info is... somewhere?' Sec 11-20: Cut to calm person holding single binder: 'Or everything your family needs is right here.' Show organized estate plan binder with tabs. Sec 21-28: 'One conversation. One document. Zero confusion.'",
+      "cta": "Get your family organized - free consultation"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film yourself explaining one thing about your estate plan that surprised you or gave you peace of mind. Start with 'I didn't know that...' Share what you learned and how it protects your family.",
+      "hashtag": "#EstatePlanningPeaceOfMind"
+    },
+    {
+      "prompt": "Show your estate planning binder or documents (blur sensitive info). Tell us: What finally made you stop procrastinating? What was easier than you expected? 30-60 seconds.",
+      "hashtag": "#EstateplanningDone"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Estate planning horror stories series - 'What happens when you don't have a will' real anonymized cases with specific dollar amounts lost to probate, family feuds, or tax penalties",
+      "why": "Fear appeal + storytelling + specific numbers = highly shareable. People tag family members who are procrastinating. Educational value justifies the share."
+    },
+    {
+      "angle": "Interactive estate planning calculator showing 'How much will your family lose to probate?' with state-specific data, asset inputs, visual breakdown of fees vs. estate plan cost",
+      "why": "Personalized results drive shares ('I can't believe I'd lose $47K'), screenshot-worthy graphics, creates urgency to act, positions estate planning as money-saving not expense"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:48:01.468Z",
+    "last_tier2_refresh": "2025-11-27T20:48:01.468Z",
+    "last_tier3_refresh": "2025-11-27T20:48:01.468Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:48:01.468Z"
+  }
+}

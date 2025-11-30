@@ -173,8 +173,19 @@ Return ONLY valid JSON (no markdown, no explanations):
 
     console.log('[ProductScanner] Raw AI response:', extractionText.substring(0, 200) + '...');
 
-    // Parse JSON response
-    const extraction: RawProductExtraction = JSON.parse(extractionText);
+    // Parse JSON response - strip markdown code blocks if present
+    let jsonText = extractionText.trim();
+    if (jsonText.startsWith('```json')) {
+      jsonText = jsonText.slice(7);
+    } else if (jsonText.startsWith('```')) {
+      jsonText = jsonText.slice(3);
+    }
+    if (jsonText.endsWith('```')) {
+      jsonText = jsonText.slice(0, -3);
+    }
+    jsonText = jsonText.trim();
+
+    const extraction: RawProductExtraction = JSON.parse(jsonText);
 
     console.log('[ProductScanner] Extracted', extraction.products?.length || 0, 'products/services');
 

@@ -23,7 +23,8 @@ import type {
   ContentMixCategory,
   FunnelStage,
   PowerModeConfig,
-  CampaignTemplateType
+  CampaignTemplateType,
+  SelectedInsight
 } from './types';
 
 import { pillarGenerator } from './pillar-generator';
@@ -96,9 +97,37 @@ class PowerModeService {
       mixCategory?: ContentMixCategory;
       platform?: 'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'tiktok';
       tone?: 'professional' | 'casual' | 'authoritative' | 'friendly';
+      /** Selected insights from user to incorporate into content */
+      selectedInsights?: SelectedInsight[];
+      /** Industry Profile 2.0 - Enhanced industry data for content generation */
+      enhancedIndustryProfile?: {
+        industry_name: string;
+        hook_library: {
+          number_hooks?: string[];
+          question_hooks?: string[];
+          story_hooks?: string[];
+          fear_hooks?: string[];
+          howto_hooks?: string[];
+        };
+        power_words: string[];
+        avoid_words: string[];
+        headline_templates: { template: string; context: string }[];
+        customer_triggers: { trigger: string; urgency: number }[];
+        transformations: { from: string; to: string; emotional_value: string }[];
+        content_templates?: {
+          linkedin?: {
+            educational?: { hook: string; body: string; cta: string };
+            authority?: { hook: string; body: string; cta: string };
+            case_study?: { hook: string; body: string; cta: string };
+          };
+        };
+      };
     }
   ): Promise<GeneratedContent> {
     console.log('[Power Mode] Generating content with custom settings...');
+    if (options.enhancedIndustryProfile) {
+      console.log(`[Power Mode] Using Enhanced Industry Profile 2.0: ${options.enhancedIndustryProfile.industry_name}`);
+    }
 
     const content = await contentOrchestrator.generate({
       uvp,
@@ -107,7 +136,9 @@ class PowerModeService {
       platform: options.platform || 'linkedin',
       funnelStage: options.funnelStage || 'TOFU',
       contentMixCategory: options.mixCategory || 'value',
-      tone: options.tone
+      tone: options.tone,
+      selectedInsights: options.selectedInsights,
+      enhancedIndustryProfile: options.enhancedIndustryProfile
     });
 
     return content;

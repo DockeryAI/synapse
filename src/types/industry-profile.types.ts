@@ -282,3 +282,262 @@ export interface IndustryMatch {
   reasons: string[];
   suggestedProfile: IndustryProfile;
 }
+
+// ============================================================================
+// ENHANCED PROFILE TYPES (377 Enhanced Profiles from brandock)
+// Source: /Users/byronhudson/brandock/industry-enhancement/output/enhanced-profiles/
+// ============================================================================
+
+export interface EnhancedIndustryProfile {
+  industry: string;
+  industry_name: string;
+  naics_code: string;
+  category: string;
+  subcategory: string;
+  customer_triggers: EnhancedCustomerTrigger[];
+  customer_journey: EnhancedCustomerJourney;
+  transformations: EnhancedTransformation[];
+  success_metrics: EnhancedSuccessMetric[];
+  urgency_drivers: string[];
+  objection_handlers: EnhancedObjectionHandler[];
+  risk_reversal: EnhancedRiskReversal;
+  customer_language_dictionary: EnhancedLanguageDictionary;
+  power_words: string[];
+  avoid_words: string[];
+  headline_templates: EnhancedHeadlineTemplate[];
+  content_templates: EnhancedContentTemplates;
+  hook_library: EnhancedHookLibrary;
+  video_scripts: EnhancedVideoScripts;
+  ugc_prompts: EnhancedUGCPrompt[];
+  viral_triggers: EnhancedViralTrigger[];
+  freshness_metadata: EnhancedFreshnessMetadata;
+}
+
+export interface EnhancedCustomerTrigger {
+  trigger: string;
+  urgency: number; // 1-10
+  frequency: 'weekly' | 'monthly' | 'quarterly' | 'bi-annually' | 'annually' | 'seasonally' | 'sporadic' | 'ongoing';
+}
+
+export interface EnhancedCustomerJourney {
+  awareness: string;
+  consideration: string;
+  decision: string;
+  retention: string;
+  advocacy: string;
+}
+
+export interface EnhancedTransformation {
+  from: string;
+  to: string;
+  emotional_value: string;
+  worth_premium: boolean;
+}
+
+export interface EnhancedSuccessMetric {
+  metric: string;
+  timeframe: string;
+  measurable: boolean;
+}
+
+export interface EnhancedObjectionHandler {
+  objection: string;
+  response: string;
+  effectiveness: number; // 1-10
+}
+
+export interface EnhancedRiskReversal {
+  guarantees: string[];
+  proof_points: string[];
+  risk_mitigation: string;
+}
+
+export interface EnhancedLanguageDictionary {
+  problem_words: string[];
+  solution_words: string[];
+  avoid_jargon: string[];
+}
+
+export interface EnhancedHeadlineTemplate {
+  template: string;
+  expected_ctr: number;
+  use_case: string;
+}
+
+export interface EnhancedContentTemplates {
+  linkedin?: EnhancedPlatformTemplates;
+  instagram?: EnhancedPlatformTemplates;
+  facebook?: EnhancedPlatformTemplates;
+  twitter?: EnhancedPlatformTemplates;
+  tiktok?: EnhancedVideoTemplates;
+  email?: EnhancedEmailTemplates;
+}
+
+export interface EnhancedPlatformTemplates {
+  educational?: EnhancedContentTemplate;
+  authority?: EnhancedContentTemplate;
+  case_study?: EnhancedContentTemplate;
+  engagement?: EnhancedContentTemplate;
+  promotional?: EnhancedContentTemplate;
+}
+
+export interface EnhancedContentTemplate {
+  hook: string;
+  body?: string;
+  script?: string;
+  cta: string;
+  framework: 'PAS' | 'AIDA' | 'BAB' | 'FAB' | 'STAR' | string;
+}
+
+export interface EnhancedVideoTemplates {
+  educational?: EnhancedVideoTemplate;
+  authority?: EnhancedVideoTemplate;
+  promotional?: EnhancedVideoTemplate;
+}
+
+export interface EnhancedVideoTemplate {
+  hook: string;
+  script: string;
+  framework: string;
+}
+
+export interface EnhancedEmailTemplates {
+  educational?: EnhancedEmailTemplate;
+  authority?: EnhancedEmailTemplate;
+  promotional?: EnhancedEmailTemplate;
+}
+
+export interface EnhancedEmailTemplate {
+  subject: string;
+  preview_text: string;
+  body: string;
+  framework: string;
+}
+
+export interface EnhancedHookLibrary {
+  number_hooks: string[];
+  question_hooks: string[];
+  story_hooks: string[];
+  fear_hooks: string[];
+  howto_hooks: string[];
+  curiosity_hooks?: string[];
+  authority_hooks?: string[];
+  contrarian_hooks?: string[];
+  data_hooks?: string[];
+  pain_point_hooks?: string[];
+}
+
+export interface EnhancedVideoScripts {
+  tiktok?: EnhancedVideoScript;
+  reels?: EnhancedVideoScript;
+  youtube_shorts?: EnhancedVideoScript;
+}
+
+export interface EnhancedVideoScript {
+  hook: string;
+  body: string;
+  cta: string;
+}
+
+export interface EnhancedUGCPrompt {
+  prompt: string;
+  hashtag: string;
+}
+
+export interface EnhancedViralTrigger {
+  angle: string;
+  why: string;
+}
+
+export interface EnhancedFreshnessMetadata {
+  profile_version: string;
+  last_full_refresh: string;
+  last_tier2_refresh: string;
+  last_tier3_refresh: string;
+  staleness_score: number;
+  next_scheduled_refresh: string;
+}
+
+// ============================================================================
+// CAMPAIGN MODE TYPES
+// ============================================================================
+
+export type CampaignType = 'awareness' | 'engagement' | 'conversion';
+
+export interface CampaignTemplate {
+  type: CampaignType;
+  name: string;
+  description: string;
+  duration_weeks: number;
+  posts_per_week: number;
+  content_mix: CampaignContentMix;
+  weeks: CampaignWeek[];
+}
+
+export interface CampaignContentMix {
+  educational: number; // percentage
+  engagement: number;
+  promotional: number;
+}
+
+export interface CampaignWeek {
+  week_number: number;
+  theme: string;
+  posts: CampaignPost[];
+}
+
+export interface CampaignPost {
+  day: number;
+  content_type: 'educational' | 'engagement' | 'promotional' | 'authority' | 'case_study';
+  hook: string;
+  body?: string;
+  cta?: string;
+  platform: string;
+  generated?: boolean;
+}
+
+// ============================================================================
+// DROPDOWN ENHANCEMENT TYPES (for V4PowerModePanel integration)
+// ============================================================================
+
+export interface EnhancedContentGoalOption {
+  id: string;
+  label: string;
+  subtext?: string;
+  industryTheme?: string;
+}
+
+export interface EnhancedAudienceSegmentOption {
+  id: string;
+  label: string;
+  subtext?: string;
+  trigger?: string;
+}
+
+export interface EnhancedPlatformOption {
+  id: string;
+  label: string;
+  engagementRate?: string;
+  bestFormat?: string;
+  hasTemplates: boolean;
+  recommended?: boolean;
+}
+
+// ============================================================================
+// PROFILE LOADER TYPES
+// ============================================================================
+
+export interface EnhancedProfileLoadResult {
+  profile: EnhancedIndustryProfile | null;
+  matched: boolean;
+  matchedBy: 'naics' | 'industry_name' | 'keyword' | 'category' | 'fallback' | null;
+  confidence: number;
+  slug?: string;
+}
+
+export interface EnhancedProfileMatchOptions {
+  naicsCode?: string;
+  industryName?: string;
+  keywords?: string[];
+  category?: string;
+}

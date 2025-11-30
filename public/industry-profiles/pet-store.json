@@ -1,0 +1,1683 @@
+{
+  "industry": "Pet Store",
+  "industry_name": "Pet Store",
+  "naics_code": "453910",
+  "category": "Retail",
+  "subcategory": "Specialty Retail - Pet and Pet Supplies",
+  "customer_triggers": [
+    {
+      "trigger": "New pet adoption requiring immediate supplies",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Pet running out of prescription food",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Seasonal flea/tick prevention needs",
+      "urgency": 8,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Pet birthday or adoption anniversary",
+      "urgency": 4,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Veterinary recommendation for specific product",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Pet behavioral issues requiring training aids",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Holiday gift shopping for pets",
+      "urgency": 6,
+      "frequency": "seasonally"
+    },
+    {
+      "trigger": "Moving to new home with pet",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Pet health emergency requiring specialized diet",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Social media trend for pet accessories",
+      "urgency": 3,
+      "frequency": "weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Pet owners discover store through veterinary referrals (32%), Google searches for 'pet store near me' (28%), social media pet parent groups (21%), or drive-by visibility (19%). Initial awareness often triggered by immediate need for supplies within 24-48 hours of pet adoption or health diagnosis",
+    "consideration": "Customers compare 3-4 stores based on product selection depth (especially prescription diets), price competitiveness on staple items, knowledgeable staff reviews, grooming service availability, and distance from home. Average consideration period is 2-3 days for routine purchases but immediate for emergencies",
+    "decision": "Purchase decision driven by product availability (42%), staff expertise demonstration (24%), price match guarantees (18%), and loyalty program benefits (16%). First-time customers typically spend $75-150 on initial visit, with 67% returning within 30 days if staff interaction was positive",
+    "retention": "Successful retention through auto-delivery subscriptions (38% adoption rate), monthly grooming appointments creating routine touchpoints, personalized nutrition consultations, birthday club perks generating $45 average transaction, and staff remembering pet names increasing visit frequency by 2.3x",
+    "advocacy": "Pet parents become advocates after staff helps solve behavioral or health issues, sharing success stories in local Facebook groups reaching 500-2000 members. Photo contests generate 150+ submissions monthly, with winners becoming brand ambassadors. Referral programs yield 3.2 new customers per advocate"
+  },
+  "transformations": [
+    {
+      "from": "Anxious new pet parent",
+      "to": "Confident caregiver",
+      "emotional_value": "Peace of mind worth $200+ monthly premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with pet behavior",
+      "to": "Harmonious household",
+      "emotional_value": "Family stability valued at $500+ in training products",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic pet feeding",
+      "to": "Optimized nutrition plan",
+      "emotional_value": "Extended pet lifespan worth 40% food premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Basic pet ownership",
+      "to": "Enhanced pet lifestyle",
+      "emotional_value": "Social status through premium accessories",
+      "worth_premium": true
+    },
+    {
+      "from": "Reactive health management",
+      "to": "Preventive wellness approach",
+      "emotional_value": "Avoiding $2000+ vet bills",
+      "worth_premium": true
+    },
+    {
+      "from": "Isolated pet parent",
+      "to": "Community member",
+      "emotional_value": "Belonging through store events and classes",
+      "worth_premium": false
+    },
+    {
+      "from": "Time-stressed owner",
+      "to": "Efficient pet care routine",
+      "emotional_value": "Saving 5 hours weekly through services",
+      "worth_premium": true
+    },
+    {
+      "from": "Budget-conscious buyer",
+      "to": "Value-optimized purchaser",
+      "emotional_value": "Smart spending through bulk buying and memberships",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Monthly food subscription retention rate above 85%",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Average transaction value increase to $65+",
+      "timeframe": "quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer lifetime value reaching $3,200",
+      "timeframe": "24 months",
+      "measurable": true
+    },
+    {
+      "metric": "Grooming appointment rebook rate at 75%",
+      "timeframe": "8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Loyalty program engagement with 60% active users",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Net Promoter Score maintaining 70+",
+      "timeframe": "quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Inventory turnover achieving 8x annually",
+      "timeframe": "annual",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Pet out of food with delivery 2+ days away creates immediate 30-minute purchase window",
+    "Veterinary prescription requiring specific therapeutic diet available only at specialty retailers",
+    "Flea infestation discovery driving same-day treatment purchase averaging $85",
+    "New puppy accidents necessitating immediate training pads and enzymatic cleaners",
+    "Pet escape requiring immediate ID tag engraving and GPS tracker purchase",
+    "Scheduled grooming appointment creating add-on product opportunity window",
+    "Limited edition seasonal items with 72-hour availability windows"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Products are 20% cheaper online",
+      "response": "Our price match guarantee plus immediate availability saves shipping time and prevents emergencies. Plus, our nutrition experts provide free consultations worth $75 that online retailers can't match",
+      "effectiveness": 78
+    },
+    {
+      "objection": "Big box stores have everything I need",
+      "response": "We stock 40% more premium and prescription brands, plus our staff's 300+ hours of annual training means accurate recommendations preventing costly mistakes and vet visits",
+      "effectiveness": 82
+    },
+    {
+      "objection": "My pet is picky and might not like it",
+      "response": "Our 100% satisfaction guarantee lets you return opened food within 30 days. We'll also provide free samples and transition guides that achieve 91% acceptance rates",
+      "effectiveness": 89
+    },
+    {
+      "objection": "I don't have time for another store stop",
+      "response": "Our curbside pickup takes under 3 minutes, auto-delivery saves you 12 trips annually, and our grooming service handles everything while you work",
+      "effectiveness": 75
+    },
+    {
+      "objection": "Natural/organic pet products are just marketing",
+      "response": "Here's documentation showing 34% reduction in allergic reactions and $1,200 average annual vet bill savings for pets on our recommended natural diets",
+      "effectiveness": 71
+    },
+    {
+      "objection": "I can't afford premium pet care",
+      "response": "Our wellness plans spread costs over 12 months with 0% interest, and preventive nutrition saves an average of $800 yearly in medical expenses",
+      "effectiveness": 84
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "30-day food satisfaction guarantee even if opened",
+      "Price match plus 10% difference",
+      "Free nutrition consultation valued at $75",
+      "Grooming satisfaction or free redo",
+      "Flea/tick treatment effectiveness or money back"
+    ],
+    "proof_points": [
+      "4.8 star Google rating from 1,200+ reviews",
+      "Veterinarian recommended by 15 local clinics",
+      "Certified pet nutritionists on staff",
+      "Award-winning grooming team with 50+ years combined experience",
+      "Same-day prescription diet availability"
+    ],
+    "risk_mitigation": "Free product samples reduce trial risk, payment plans eliminate budget barriers, expert staff guidance prevents costly mistakes, satisfaction guarantees remove purchase anxiety, loyalty points provide cashback safety net"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "itchy",
+      "won't eat",
+      "overweight",
+      "anxious",
+      "destructive",
+      "accidents",
+      "shedding",
+      "aggressive",
+      "lethargic",
+      "vomiting",
+      "expensive vet bills",
+      "picky eater",
+      "allergies",
+      "fleas",
+      "bad breath"
+    ],
+    "solution_words": [
+      "healthy",
+      "happy",
+      "thriving",
+      "relief",
+      "solution",
+      "natural",
+      "veterinarian-recommended",
+      "guaranteed",
+      "premium nutrition",
+      "grain-free",
+      "limited ingredient",
+      "organic",
+      "locally-sourced",
+      "scientifically formulated",
+      "breakthrough"
+    ],
+    "avoid_jargon": [
+      "palatability",
+      "digestibility coefficient",
+      "chelated minerals",
+      "proteinated",
+      "ash content",
+      "guaranteed analysis",
+      "AAFCO",
+      "by-product meal",
+      "ethoxyquin",
+      "meat meal",
+      "crude protein",
+      "metabolizable energy"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "veterinarian-recommended",
+    "natural",
+    "organic",
+    "grain-free",
+    "premium",
+    "holistic",
+    "breakthrough",
+    "scientifically-proven",
+    "immediate-relief",
+    "life-changing",
+    "transformative",
+    "essential",
+    "trusted",
+    "expert-selected",
+    "award-winning",
+    "exclusive",
+    "limited-time",
+    "clinically-tested",
+    "hypoallergenic",
+    "sustainable",
+    "eco-friendly",
+    "made-in-USA",
+    "small-batch",
+    "human-grade",
+    "raw",
+    "freeze-dried",
+    "probiotic",
+    "immune-boosting",
+    "joint-support"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "generic",
+    "artificial",
+    "by-products",
+    "fillers",
+    "chemicals",
+    "processed",
+    "mass-produced",
+    "overseas",
+    "recalled",
+    "controversial",
+    "untested",
+    "experimental",
+    "risky",
+    "complicated",
+    "confusing",
+    "aggressive",
+    "punishment-based"
+  ],
+  "headline_templates": [
+    {
+      "template": "Stop Your Dog's [Problem] in 7 Days with [Solution]",
+      "expected_ctr": 8.2,
+      "use_case": "Problem-solution email campaigns"
+    },
+    {
+      "template": "Why [Number] Local Vets Recommend Our [Product Category]",
+      "expected_ctr": 7.5,
+      "use_case": "Authority-building social ads"
+    },
+    {
+      "template": "New Puppy? Don't Make These 5 Costly Mistakes",
+      "expected_ctr": 9.1,
+      "use_case": "Educational blog content"
+    },
+    {
+      "template": "[Pet Name] Lost 15 Pounds in 8 Weeks - Here's How",
+      "expected_ctr": 8.7,
+      "use_case": "Success story testimonials"
+    },
+    {
+      "template": "Emergency: Is Your Pet's Food Being Recalled?",
+      "expected_ctr": 12.3,
+      "use_case": "Urgent news alerts"
+    },
+    {
+      "template": "Free Nutrition Consultation This Weekend Only ($75 Value)",
+      "expected_ctr": 7.9,
+      "use_case": "Limited-time promotions"
+    },
+    {
+      "template": "The Hidden Danger in Your Pet's Bowl",
+      "expected_ctr": 10.2,
+      "use_case": "Educational fear-based marketing"
+    },
+    {
+      "template": "Join 2,000+ Pet Parents Who Switched to [Brand]",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof campaigns"
+    },
+    {
+      "template": "Your Pet Deserves Better Than Grocery Store Food",
+      "expected_ctr": 7.3,
+      "use_case": "Premium positioning"
+    },
+    {
+      "template": "Save $200 on Annual Pet Care with Our Wellness Plan",
+      "expected_ctr": 8.9,
+      "use_case": "Value proposition marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Reserve Your Free Nutrition Consultation",
+      "conversion_rate": 12.4,
+      "placement": "Above fold on homepage"
+    },
+    {
+      "template": "Get 20% Off Your First Auto-Delivery",
+      "conversion_rate": 18.7,
+      "placement": "Product pages"
+    },
+    {
+      "template": "Join Our VIP Pet Parent Club",
+      "conversion_rate": 9.2,
+      "placement": "Checkout page"
+    },
+    {
+      "template": "Schedule Grooming Now - Book 3, Get 4th Free",
+      "conversion_rate": 15.3,
+      "placement": "Email signature"
+    },
+    {
+      "template": "Download Your Free Puppy Training Guide",
+      "conversion_rate": 22.1,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Chat with a Pet Expert Now",
+      "conversion_rate": 8.6,
+      "placement": "Mobile sticky footer"
+    },
+    {
+      "template": "See Why 1,200+ Pets Love Our Store",
+      "conversion_rate": 10.8,
+      "placement": "Social proof section"
+    },
+    {
+      "template": "Start Your Pet's Transformation Today",
+      "conversion_rate": 11.5,
+      "placement": "Success story pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🐕 Did you know [Surprising Pet Fact]? Learn more about keeping your pet healthy at our free nutrition workshop this Saturday!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Pet of the Week: Meet [Pet Name]! 📸 Share your pet's photo with #[StoreName]Pets for a chance to win a $50 gift card!",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "⚠️ RECALL ALERT: [Brand] dog food recalled. Bring your receipt for full refund + free replacement. Your pet's safety is our priority.",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "Watch [Pet Name] try 5 different treats in 60 seconds! Which one wins? 🏆 #PetTaste #Test #LocalPetStore",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Transition Your Pet to a New Food (Vet-Approved Method) - 5 minute guide that prevents digestive issues",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "Pinterest",
+      "template": "DIY Pet Birthday Cake Recipe 🎂 - Grain-free, vet-approved ingredients available in-store. Save for your pet's special day!",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Supporting local pet adoption: We've helped 500+ rescue pets find homes this year. Partner with us for your company's CSR initiatives.",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors: Lost pet alert! [Description]. We're offering free ID tags this week to keep all pets safe. No purchase necessary.",
+      "engagement_rate": 15.7
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your pet's food might be harming them | Body: 3 ingredients to avoid + your personalized nutrition report inside",
+      "engagement_rate": 24.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Expert staff with 300+ hours annual training provides guidance worth $500+ in prevented health issues",
+      "rank": 1,
+      "differentiator": "Certified pet nutritionists on-site daily"
+    },
+    {
+      "prop": "Largest selection of prescription diets in 50-mile radius with same-day availability",
+      "rank": 2,
+      "differentiator": "Direct veterinary clinic partnerships"
+    },
+    {
+      "prop": "Price match guarantee plus 10% saves average customer $380 annually",
+      "rank": 3,
+      "differentiator": "Automated price monitoring system"
+    },
+    {
+      "prop": "Free lifetime nutrition consultations and weight management programs",
+      "rank": 4,
+      "differentiator": "Dedicated wellness coordinator"
+    },
+    {
+      "prop": "24/7 pet parent hotline for emergency product and care advice",
+      "rank": 5,
+      "differentiator": "After-hours expert availability"
+    },
+    {
+      "prop": "Community hub with weekly training classes and monthly adoption events",
+      "rank": 6,
+      "differentiator": "In-store education center"
+    },
+    {
+      "prop": "Eco-friendly focus with 50+ sustainable brands and recycling programs",
+      "rank": 7,
+      "differentiator": "Carbon-neutral delivery options"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your pet deserves the pinnacle of nutrition and care. Our curated selection of human-grade, sustainably-sourced products, combined with concierge-level service and expert guidance, ensures your companion thrives. Investment in premium care today prevents thousands in medical costs tomorrow while extending quality years together.",
+    "budget_conscious": "Smart pet care doesn't mean compromising quality. Our price match guarantee, bulk buying programs, and generic prescription alternatives save you 30-40% versus competitors. Plus, our free services like nutrition consultations and training classes provide premium value without premium prices. Join our savings club for exclusive member pricing.",
+    "enterprise": "Streamline your organization's pet care benefits with our corporate programs. Volume pricing, automated billing, and dedicated account management serve companies with 50+ pet parents. Our workplace wellness presentations and employee discount programs enhance retention while demonstrating your commitment to work-life balance."
+  },
+  "trust_signals": [
+    {
+      "signal": "Veterinarian partnership certificates displayed prominently",
+      "importance": 9,
+      "format": "Physical plaques and digital badges"
+    },
+    {
+      "signal": "Staff certification badges and name tags with credentials",
+      "importance": 8,
+      "format": "Visible employee identification"
+    },
+    {
+      "signal": "Live customer review feed showing recent 5-star ratings",
+      "importance": 7,
+      "format": "Digital display at entrance"
+    },
+    {
+      "signal": "Better Business Bureau A+ rating seal",
+      "importance": 7,
+      "format": "Window decal and website footer"
+    },
+    {
+      "signal": "Years in business counter showing 15+ years",
+      "importance": 6,
+      "format": "Established date signage"
+    },
+    {
+      "signal": "Local awards and recognition from chambers of commerce",
+      "importance": 6,
+      "format": "Trophy display case"
+    },
+    {
+      "signal": "Transparency reports on product sourcing and testing",
+      "importance": 8,
+      "format": "QR codes linking to detailed information"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Served 12,000+ local pets since 2008",
+      "credibility_score": 9,
+      "context": "Demonstrates established community presence and trust"
+    },
+    {
+      "stat": "4.8/5 average rating from 1,247 verified reviews",
+      "credibility_score": 8,
+      "context": "Third-party validation of consistent service quality"
+    },
+    {
+      "stat": "Recommended by 18 area veterinary clinics",
+      "credibility_score": 10,
+      "context": "Professional endorsement carries highest weight"
+    },
+    {
+      "stat": "97% customer retention rate for auto-delivery subscribers",
+      "credibility_score": 7,
+      "context": "Proves ongoing satisfaction with products and service"
+    },
+    {
+      "stat": "Helped 500+ rescue pets find homes through adoption events",
+      "credibility_score": 8,
+      "context": "Demonstrates community commitment beyond profit"
+    },
+    {
+      "stat": "$50,000 donated to local animal welfare organizations",
+      "credibility_score": 7,
+      "context": "Tangible proof of giving back to pet community"
+    }
+  ],
+  "quality_indicators": [
+    "Premium brands exclusively found in veterinary clinics and specialty retailers",
+    "Products requiring refrigeration or freezing indicating fresh, minimally processed ingredients",
+    "Country of origin labeling with preference for USA, Canada, and New Zealand sources",
+    "Detailed ingredient panels with named protein sources versus generic 'meat meal'",
+    "Price points 30-50% above grocery store brands reflecting ingredient quality",
+    "Lot tracking and batch testing documentation available for all products"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "After successful resolution of pet health or behavior issue using recommended products, or following positive grooming experience",
+    "ask_method": "Personalized email with direct link to review platform, followed by in-store reminder at next visit with QR code card offering 10% discount for completed review"
+  },
+  "competitive_advantages": [
+    "Only store within 50 miles carrying complete lines of 5 veterinary prescription brands",
+    "In-house pet nutritionist providing free consultations valued at $75 per session",
+    "Same-day local delivery for orders over $35 with 2-hour windows",
+    "Proprietary pet wellness tracking app with 3,000+ active users",
+    "Exclusive distribution rights for 3 premium regional treat brands",
+    "24/7 pet parent hotline staffed by certified pet care professionals"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium $89.99 dog food first to make $54.99 options seem reasonable. Use manufacturer's suggested retail price strikethrough showing 20-30% savings",
+    "sensitivity": "Pet parents show low price sensitivity for health-related items but high sensitivity for accessories and toys. Prescription diets have virtually no price elasticity",
+    "sweet_spots": [
+      "$39.99 for monthly food supply",
+      "$14.99 for treats",
+      "$24.99 for toys",
+      "$49.99 for grooming",
+      "$79.99 for initial supply bundles"
+    ],
+    "decoy_pricing": "Offer 15-pound bag at $39.99 and 30-pound at $69.99 to drive 30-pound sales with better perceived value despite higher margin on 15-pound option"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 150,
+    "competitor_research": 50
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.2,
+    "holiday": 1.75
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic",
+      "price_range": "$0-30/month",
+      "target_customer": "Single pet, standard needs",
+      "margin": 35
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$50-100/month",
+      "target_customer": "Multiple pets or special dietary needs",
+      "margin": 42
+    },
+    {
+      "tier": "Concierge",
+      "price_range": "$150+/month",
+      "target_customer": "High-end clients wanting white-glove service",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Private label premium treats with 65% margins versus 35% for national brands",
+    "Bundle slow-moving accessories with high-demand food for 8% margin improvement",
+    "Subscription pricing with 5% discount drives 3x lifetime value despite lower per-transaction margin",
+    "Service add-ons like nail trimming to grooming appointments add $15 at 80% margin",
+    "Exclusive distribution deals securing 10-15% better wholesale pricing than competitors",
+    "Strategic placement of high-margin impulse items at checkout generating $3.50 per transaction"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday spending slowdown",
+      "opportunity": "New Year health resolutions for pets"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Continued budget consciousness",
+      "opportunity": "Valentine's Day pet gifts"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring parasite prevention begins",
+      "opportunity": "Flea/tick prevention campaigns"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Easter and spring cleaning",
+      "opportunity": "Grooming services and spring toys"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Peak flea/tick season begins",
+      "opportunity": "Preventive care bundles"
+    },
+    {
+      "month": "June",
+      "variation": 15,
+      "reason": "Summer travel prep",
+      "opportunity": "Travel accessories and boarding prep"
+    },
+    {
+      "month": "July",
+      "variation": 5,
+      "reason": "Mid-summer steady state",
+      "opportunity": "Summer safety products"
+    },
+    {
+      "month": "August",
+      "variation": 10,
+      "reason": "Back-to-school pet adjustments",
+      "opportunity": "Anxiety and training products"
+    },
+    {
+      "month": "September",
+      "variation": 0,
+      "reason": "Routine establishment",
+      "opportunity": "Subscription sign-ups"
+    },
+    {
+      "month": "October",
+      "variation": 30,
+      "reason": "Halloween costumes and treats",
+      "opportunity": "Seasonal merchandise"
+    },
+    {
+      "month": "November",
+      "variation": 20,
+      "reason": "Holiday prep and Black Friday",
+      "opportunity": "Gift bundles and early sales"
+    },
+    {
+      "month": "December",
+      "variation": 45,
+      "reason": "Holiday gifting peak",
+      "opportunity": "Premium gifts and stockings"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Prescription refill calls",
+      "avoid": "Major promotions",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Email campaigns",
+      "avoid": "Event announcements",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Social media engagement",
+      "avoid": "Price increases",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep promotions",
+      "avoid": "Complex offerings",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Weekend event reminders",
+      "avoid": "Subscription renewals",
+      "conversion_rate": 4.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "In-store events and demos",
+      "avoid": "Online-only deals",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Family shopping experiences",
+      "avoid": "B2B outreach",
+      "conversion_rate": 6.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage and rent due 1st-5th creates spending lull, credit cards due 15th-20th impacts discretionary spending, best sales periods are 6th-14th and 21st-28th",
+    "cash_flow_peaks": "Paycheck influx on 1st, 15th, and last Friday of month drives 40% higher weekend traffic. Social security deposits on 3rd create senior shopping surge",
+    "slow_periods": "Days 25-31 consistently show 20% lower traffic except for prescription emergencies. Mid-month weekday mornings between 10am-noon are slowest"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 6pm-9pm",
+      "crisis_type": "Weekend emergency supply needs",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Sunday 5pm-8pm",
+      "crisis_type": "Realized out of food for Monday",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Holiday eves",
+      "crisis_type": "Last-minute gift or travel needs",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "First hot day of spring",
+      "crisis_type": "Flea/tick invasion",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Puppy Starter",
+      "components": [
+        "Food samples",
+        "Training pads",
+        "Toys",
+        "First grooming"
+      ],
+      "pricing_model": "Bundle discount 25% off",
+      "margin": 40
+    },
+    {
+      "name": "Senior Care Plus",
+      "components": [
+        "Joint supplements",
+        "Orthopedic bedding",
+        "Gentle grooming",
+        "Monthly check-ins"
+      ],
+      "pricing_model": "Subscription $79/month",
+      "margin": 45
+    },
+    {
+      "name": "Complete Wellness",
+      "components": [
+        "Premium food",
+        "Supplements",
+        "Quarterly grooming",
+        "Annual consultation"
+      ],
+      "pricing_model": "Annual contract $1,200",
+      "margin": 48
+    },
+    {
+      "name": "Allergy Solution",
+      "components": [
+        "Hypoallergenic food",
+        "Medicated shampoo",
+        "Air purifier rental",
+        "Weekly updates"
+      ],
+      "pricing_model": "3-month program $450",
+      "margin": 52
+    }
+  ],
+  "upsell_paths": [
+    "First purchase basic food → Premium food upgrade within 3 months → Add supplements by month 6",
+    "Single toy purchase → Monthly toy subscription → Quarterly themed toy boxes",
+    "One-time grooming → Monthly grooming package → Full spa membership with add-ons",
+    "Flea treatment purchase → Preventive care subscription → Complete parasite protection plan",
+    "Training treats → Training class enrollment → Private behavior consultation",
+    "Basic collar → GPS tracker → Complete safety package with insurance"
+  ],
+  "retention_hooks": [
+    "Birthday club with free gift and 20% discount driving annual visit",
+    "Loyalty points expiring in 90 days creating urgency for return visits",
+    "Pet health reminders for vaccines and preventive care maintaining engagement",
+    "Exclusive member-only events fostering community connection",
+    "Personalized product recommendations based on purchase history",
+    "Free services like nail trims with $50 purchase encouraging regular visits",
+    "Pet photo wall of fame creating emotional connection to store"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Give $20, Get $20 referral cards",
+      "timing": "After positive service experience",
+      "incentive": "$20 off for both parties",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Social media share rewards",
+      "timing": "During adoption events",
+      "incentive": "10% discount per share",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Vet clinic partnership referrals",
+      "timing": "New pet appointments",
+      "incentive": "Free first grooming",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Pet parent ambassador program",
+      "timing": "After 6 months loyalty",
+      "incentive": "Monthly product credits",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "New neighbor welcome packages",
+      "timing": "Local move-in data triggers",
+      "incentive": "Starter kit worth $50",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Corporate wellness partnerships",
+      "timing": "Quarterly workplace events",
+      "incentive": "Employee discounts",
+      "conversion_rate": 22
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Food purchase → Treats and supplements",
+      "attach_rate": 67,
+      "timing": "Point of sale"
+    },
+    {
+      "service": "Grooming → Shampoo and brushes for home",
+      "attach_rate": 43,
+      "timing": "Post-service"
+    },
+    {
+      "service": "Flea treatment → Preventive care products",
+      "attach_rate": 78,
+      "timing": "Problem resolution"
+    },
+    {
+      "service": "New collar → ID tags and leashes",
+      "attach_rate": 81,
+      "timing": "Same transaction"
+    },
+    {
+      "service": "Pet bed → Blankets and toys",
+      "attach_rate": 54,
+      "timing": "Comfort shopping"
+    },
+    {
+      "service": "Training class → Treats and equipment",
+      "attach_rate": 92,
+      "timing": "Class registration"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile grooming van service",
+      "market_size": "$250K annual revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Pet daycare adjacent facility",
+      "market_size": "$500K annual revenue potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Online prescription fulfillment",
+      "market_size": "$150K annual revenue potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Private label product line",
+      "market_size": "$300K annual revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Franchise additional locations",
+      "market_size": "$1M+ annual revenue potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Pet photography studio",
+      "market_size": "$75K annual revenue potential",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Petco's 'Think Adoption First' campaign featuring real adoption stories with before/after photos of rescued pets in their new homes, combined with educational content about pet adoption",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Emotional storytelling with user-generated content, aligned with brand values, encouraged community participation through hashtag #PetcoLove, featured real customers and their pets",
+        "metrics": "Generated over 2.5 million social media impressions, 15% increase in adoption center foot traffic during campaign period",
+        "source": "Petco corporate social responsibility reports and social media case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Chewy's personalized condolence cards and flowers sent to customers after pet loss, documented through customer social media posts and reviews",
+        "platform": "Offline-to-Social (customer-shared)",
+        "why_it_worked": "Unexpected emotional connection, authentic brand care, created organic viral sharing as customers posted about receiving cards, built extreme brand loyalty through empathy",
+        "metrics": "Thousands of organic customer posts with #Chewy, 4.7/5 customer satisfaction rating, estimated 70%+ customer retention rate",
+        "source": "Multiple customer testimonials on Reddit r/aww, Twitter, and Trustpilot reviews 2023-2024",
+        "confidence": "high"
+      },
+      {
+        "example": "PetSmart's educational video series 'Pet Parent Tips' featuring veterinarians and trainers addressing common pet care questions (potty training, nutrition, grooming)",
+        "platform": "YouTube/TikTok",
+        "why_it_worked": "Positioned brand as educational authority, provided value before selling, short-form digestible content (60-90 seconds), featured credentialed experts, addressed search-intent queries",
+        "metrics": "YouTube videos averaging 50K-200K views, TikTok pet care content averaging 3-5% engagement rate",
+        "source": "PetSmart YouTube channel analytics and TikTok engagement data 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local pet store 'Bentley's Pet Stuff' user-generated content campaign encouraging customers to share photos of pets with products purchased, featured on store social media and in-store displays",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Built community, provided social proof, low-cost content creation, customers became brand advocates, increased engagement through tagging and sharing",
+        "metrics": "Average post engagement rate of 8-12% (vs industry average 1-3%), 40% increase in tagged customer posts year-over-year",
+        "source": "Small business marketing case studies and pet retail industry reports 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "Chewy's subscription service promotional content highlighting convenience and auto-delivery savings with countdown timers for 'running low' reminders",
+        "platform": "Email/App notifications",
+        "why_it_worked": "Addressed pain point of running out of essential supplies, created urgency without pressure, emphasized convenience for busy pet parents, personalized based on purchase history",
+        "metrics": "Subscription services represent 70%+ of Chewy's revenue, email open rates for personalized reminders exceed 40%",
+        "source": "Chewy investor relations reports and e-commerce email marketing benchmarks 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.5% (pet industry outperforms general retail at 0.7%)",
+        "best_content_format": "Reels featuring cute pet moments, before/after transformations, educational carousel posts with product tips",
+        "optimal_frequency": "4-7 posts per week, 1-2 Reels per week, daily Stories",
+        "best_posting_times": "Tuesday-Friday 9-11am and 7-9pm EST, Saturday mornings 10am-12pm",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Pet Industry, Later.com posting time analysis"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for pet retail brands",
+        "best_content_format": "Video content (3x more engagement than photos), community-driven posts asking questions, live Q&A sessions with experts",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Sunday 12-1pm",
+        "source": "Sprout Social 2024 Industry Benchmarks, Meta Business insights for retail",
+        "confidence": "high"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-9% for pet content (significantly higher than other industries)",
+        "best_content_format": "Short-form educational content (15-60 seconds), trending audio with pet themes, behind-the-scenes store content, pet humor",
+        "optimal_frequency": "1-3 posts per day for maximum reach",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-10pm EST",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024, pet content creator benchmarks",
+        "confidence": "medium"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 18-22%, Click rate: 2.5-3.5% for pet industry",
+        "best_content_format": "Personalized product recommendations based on pet type/size, educational newsletters with tips, exclusive subscriber discounts, abandoned cart reminders",
+        "optimal_frequency": "2-3 emails per week (promotional + educational mix)",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Sunday 6-8pm",
+        "source": "Mailchimp E-commerce Benchmarks 2024, Klaviyo Pet Industry Report",
+        "confidence": "high"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2-4% engagement (likes, comments, shares relative to views)",
+        "best_content_format": "How-to videos (grooming, training), product reviews and comparisons, vet Q&A sessions, long-form educational content (8-12 minutes)",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Thursday-Saturday 12-3pm EST",
+        "source": "Hootsuite Social Media Trends Report 2024, YouTube Creator Academy benchmarks",
+        "confidence": "medium"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Veterinarian Authority Hook",
+        "example": "Veterinarians recommend this one simple trick to stop your dog from..., What vets wish every pet owner knew about..., The #1 thing veterinarians feed their own pets",
+        "why_it_works": "Leverages expert credibility and authority, addresses trust concerns, implies insider knowledge, taps into desire for professional-grade care",
+        "source": "Pet product advertising analysis and email subject line testing data from pet retailers"
+      },
+      {
+        "hook_pattern": "Transformation/Before-After Hook",
+        "example": "From anxious rescue to confident companion in 30 days, How this simple food switch ended years of digestive issues, Watch this reactive dog become calm in just 2 weeks",
+        "why_it_works": "Shows tangible results, creates hope, provides social proof, addresses specific pain points with concrete outcomes",
+        "source": "High-performing pet store social media posts and training product marketing"
+      },
+      {
+        "hook_pattern": "Mistake/Warning Hook",
+        "example": "5 foods you're feeding your pet that vets say are dangerous, Stop doing this one thing that's ruining your pet's teeth, The hidden ingredient in popular pet foods that causes...",
+        "why_it_works": "Creates urgency through fear of harm, positions reader as caring parent who wants to protect, implies exclusive knowledge",
+        "source": "Pet industry blog headlines and email subject lines with high open rates"
+      },
+      {
+        "hook_pattern": "Curiosity Gap Hook",
+        "example": "The real reason your cat is ignoring the litter box (it's not what you think), What your dog's behavior is trying to tell you, This one ingredient changed everything for picky eaters",
+        "why_it_works": "Creates information gap that demands closure, challenges existing assumptions, promises unexpected insight",
+        "source": "Pet content marketing case studies and clickthrough rate analysis"
+      },
+      {
+        "hook_pattern": "Time-Bound Promise Hook",
+        "example": "Get your puppy sleeping through the night in 3 days, 7-day meal plan for senior dogs with joint issues, 24-hour relief from itchy skin guaranteed",
+        "why_it_works": "Sets clear expectations, reduces perceived effort, creates urgency, makes transformation feel achievable",
+        "source": "Pet training and health product advertising analysis"
+      },
+      {
+        "hook_pattern": "Problem Agitation Hook",
+        "example": "Tired of your dog pulling on walks? Here's why nothing has worked..., Is your pet's food making them sick? Warning signs most owners miss, Your pet deserves better than generic store brands",
+        "why_it_works": "Validates existing frustration, agitates pain point, positions product as solution to ongoing struggle",
+        "source": "Pet store email marketing and social media ad copy analysis"
+      },
+      {
+        "hook_pattern": "Social Proof/Popularity Hook",
+        "example": "Join 50,000+ pet parents who switched to..., The treat that's breaking the internet for picky eaters, Why everyone is talking about this new grooming tool",
+        "why_it_works": "Leverages bandwagon effect, reduces purchase risk through social validation, creates FOMO",
+        "source": "Successful pet product launch campaigns and influencer marketing"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My dog has terrible anxiety when I leave for work",
+        "I can't get my cat to stop scratching the furniture no matter what I try",
+        "My puppy has constant diarrhea and I don't know what's causing it",
+        "She's so picky, she won't eat anything I give her",
+        "I'm spending a fortune at the vet and nothing is helping his skin issues",
+        "He's pulling so hard on walks I can barely control him",
+        "I feel like a bad pet parent because I can't figure out what she needs",
+        "The cheap food from the grocery store made him sick",
+        "I'm overwhelmed by all the conflicting advice about what to feed",
+        "I don't know if I'm doing this right as a first-time dog owner"
+      ],
+      "solution_phrases": [
+        "Finally found a food that doesn't upset his stomach",
+        "This completely changed our relationship - he actually listens now",
+        "Her coat is so shiny and she has so much more energy",
+        "I can finally leave the house without guilt",
+        "Best investment I ever made for my pet's health",
+        "Wish I had known about this years ago",
+        "The staff really took time to understand our specific situation",
+        "It's worth every penny to see him this happy",
+        "I feel confident I'm giving her the best care possible",
+        "This solved a problem we'd been struggling with for months"
+      ],
+      "objection_phrases": [
+        "It's just too expensive for my budget",
+        "I'm not sure if this will actually work for my pet's specific issue",
+        "My vet recommended something different",
+        "I can get something similar cheaper on Amazon",
+        "I don't want to switch foods and upset his stomach again",
+        "How do I know this is actually better than what I'm using now",
+        "I'm worried about ordering online and getting the wrong thing",
+        "I've tried so many things already, why would this be different",
+        "Is this really necessary or just marketing hype",
+        "I don't have time to drive to a specialty store"
+      ],
+      "decision_factors": [
+        "My vet specifically recommended this brand",
+        "I read hundreds of reviews before deciding",
+        "The ingredients list is so much cleaner than other brands",
+        "They have a great return policy if my pet doesn't like it",
+        "The staff actually knew what they were talking about",
+        "I can get it delivered automatically so I never run out",
+        "Made in the USA with no weird ingredients from China",
+        "Other pet parents in my breed group swear by this",
+        "The customer service was incredible when I had questions",
+        "It's the only thing that worked after trying everything else"
+      ],
+      "emotional_language": [
+        "I just want my baby to be healthy and happy",
+        "It breaks my heart to see him suffering",
+        "I feel so guilty when I can't figure out what's wrong",
+        "She's my whole world, I'd do anything for her",
+        "I'm desperate to find something that works",
+        "I'm so relieved I finally found a solution",
+        "I trust this brand with my fur baby's life",
+        "I was at my wit's end before finding this",
+        "I can't imagine my life without him",
+        "I feel like a better pet parent now"
+      ],
+      "sources": [
+        "Reddit r/dogs, r/cats, r/puppy101, r/DogTraining (2023-2024 posts)",
+        "Trustpilot and Google Reviews for Chewy, Petco, PetSmart (2023-2024)",
+        "Amazon product reviews for top pet food and supply brands",
+        "Facebook pet owner groups and community forums",
+        "Nextdoor neighborhood pet recommendations and discussions"
+      ]
+    },
+    "competitive_gaps": [
+      "Multi-pet household specific content - most content focuses on single pet ownership, missing families with multiple pets of different species",
+      "Senior pet care transition content - gap in helping owners navigate aging pet needs and end-of-life care decisions",
+      "Budget-conscious premium options - competitors focus on either budget or premium, missing the 'affordable quality' middle market messaging",
+      "Breed-specific product recommendations - generic content dominates, opportunity for hyper-targeted breed-specific guides",
+      "Pet parent mental health and guilt - emotional support content for overwhelmed owners, addressing the psychology of pet parenting",
+      "Sustainability and eco-friendly pet care - growing concern but undercovered by major retailers",
+      "Second-hand and adoption supply guides - helping rescue pet parents on a budget",
+      "Pet care for renters and apartment dwellers - space-limited living situation solutions",
+      "Working professional pet parent content - time-saving tips and products for busy owners",
+      "Cross-species content for exotic pets - heavy focus on dogs/cats, minimal content for birds, reptiles, small animals"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - New Year",
+        "opportunity": "New pet adoptions spike post-holidays, New Year resolutions for pet health",
+        "content_angle": "New pet parent starter guides, pet wellness goal-setting content, post-holiday pet health recovery"
+      },
+      {
+        "period": "March-May - Spring",
+        "opportunity": "Flea/tick season begins, spring cleaning, outdoor activity increases",
+        "content_angle": "Preventive parasite care education, outdoor adventure gear guides, spring shedding solutions"
+      },
+      {
+        "period": "June-August - Summer",
+        "opportunity": "Travel season, heat safety concerns, outdoor activities peak",
+        "content_angle": "Travel with pets guides, heat safety tips, summer enrichment activities, boarding preparation"
+      },
+      {
+        "period": "September - Back to School",
+        "opportunity": "Routine changes affect pets, separation anxiety increases",
+        "content_angle": "Helping pets adjust to new schedules, separation anxiety solutions, keeping pets entertained alone"
+      },
+      {
+        "period": "October - Halloween",
+        "opportunity": "Pet costume sales, candy toxicity concerns, anxiety from trick-or-treaters",
+        "content_angle": "Safe Halloween tips, costume contests, keeping pets calm during festivities"
+      },
+      {
+        "period": "November-December - Holidays",
+        "opportunity": "Gift shopping for pets, holiday hazards, travel and boarding, New Year adoptions",
+        "content_angle": "Holiday gift guides, toxic food warnings, travel tips, holiday stress management for pets"
+      },
+      {
+        "period": "National Pet Days (April 11 - National Pet Day, August 26 - National Dog Day, etc.)",
+        "opportunity": "Social media engagement spikes, promotional opportunities",
+        "content_angle": "User-generated content campaigns, special promotions, adoption drives, celebration ideas"
+      },
+      {
+        "period": "Winter - December-February",
+        "opportunity": "Cold weather safety, indoor enrichment needs, joint pain in senior pets",
+        "content_angle": "Winter safety guides, indoor activity ideas, cold weather gear, senior pet comfort solutions"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social Industry Benchmarks 2024",
+      "Mailchimp E-commerce Benchmarks 2024",
+      "Reddit communities: r/dogs, r/cats, r/puppy101, r/DogTraining",
+      "Trustpilot reviews for major pet retailers",
+      "Chewy investor relations reports",
+      "PetSmart and Petco social media channels and YouTube",
+      "Influencer Marketing Hub TikTok Report 2024",
+      "Later.com social media timing research",
+      "Amazon pet product reviews and ratings",
+      "Pet industry marketing case studies and trade publications",
+      "Google Reviews for local and national pet stores",
+      "Facebook pet owner community groups",
+      "Klaviyo E-commerce Email Benchmarks"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for specific campaigns",
+      "Some platform benchmarks rely on 2023 data as 2024 year-end reports not yet published",
+      "Exact ROI figures for specific content types are proprietary to brands",
+      "Limited data on emerging platforms like Threads for pet retail",
+      "Specific A/B testing results for hook patterns not publicly shared by major brands"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Veterinarian insider secrets - what professionals wish every pet parent knew about [product category]",
+        "Week 2: Real transformation stories - before/after results from early adopters solving [specific pet problem]",
+        "Week 3: Expert validation - certified nutritionists and trainers explain why [product] works differently",
+        "Week 4: Join the movement - thousands of pet parents already experiencing life-changing results"
+      ],
+      "weekly_hooks": [
+        [
+          "What veterinarians feed their own pets that you've never heard of (until now)",
+          "The #1 thing vets wish every [dog/cat] owner knew about [product benefit]",
+          "Veterinarian-recommended breakthrough for [specific pet problem] - finally available to everyone"
+        ],
+        [
+          "From anxious rescue to confident companion in just [X] days with [product]",
+          "Watch this [breed] completely transform after switching to [product] - the results shocked us",
+          "This simple switch ended years of [digestive issues/skin problems/anxiety] - here's the proof"
+        ],
+        [
+          "Stop doing this one thing that's ruining your pet's [health area] - here's what works instead",
+          "The hidden ingredient in popular [pet products] that causes [problem] - and what to use instead",
+          "5 mistakes pet parents make with [product category] that veterinarians say are dangerous"
+        ],
+        [
+          "Join 50,000+ pet parents who switched to [product] and never looked back",
+          "The [product] that's breaking the internet for [specific pet problem] - only [X] left in stock",
+          "Why everyone is talking about this scientifically-proven solution for [pet issue]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is this really necessary or just marketing hype' - establish scientific credibility and vet endorsement",
+        "Week 2: Address 'I've tried so many things already, why would this be different' - show unique mechanism and transformation proof",
+        "Week 3: Address 'My vet recommended something different' - explain complementary benefits and expert consensus",
+        "Week 4: Address 'It's just too expensive for my budget' - demonstrate cost of NOT solving problem and payment options"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce veterinarian endorsements and certifications - establish medical credibility",
+        "Week 2: Share before/after customer transformations with photos and testimonials - emotional proof",
+        "Week 3: Feature expert interviews and scientific studies - intellectual validation",
+        "Week 4: Final push with urgency signals - limited stock, early adopter success rate statistics, satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our free vet-approved guide to [product category]' - educational lead magnet",
+        "Week 2: 'See the full transformation story and what made the difference' - engagement with proof",
+        "Week 3: 'Talk to our certified pet nutrition experts - free 15-minute consultation' - conversation starter",
+        "Week 4: 'Get [product] with our 100% satisfaction guarantee - if your pet doesn't love it, full refund within 30 days' - purchase with risk reversal"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 2 Reels/week, daily Stories) - primary visual transformation showcase",
+        "Facebook (4-5 posts/week, 1 Live Q&A) - community engagement and detailed testimonials",
+        "Email (3 emails/week) - personalized launch sequence with exclusive early access",
+        "TikTok (2-3 posts/day) - viral-optimized quick tips and results reveals"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Petco's 'Think Adoption First' campaign generating 2.5M impressions through emotional storytelling with before/after transformations, combined with PetSmart's educational authority positioning averaging 50K-200K views, and Chewy's personalized approach achieving 70%+ retention through authentic care"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common mistakes - what pet parents get wrong about [nutrition/training/care] and simple fixes",
+        "Week 2: Breed-specific insights - tailored advice for different breeds and life stages",
+        "Week 3: Veterinarian Q&A - expert answers to your most-asked pet health questions",
+        "Week 4: Customer success spotlight - real pet parents sharing what finally worked",
+        "Week 5: Preventive care education - avoiding expensive vet bills through proactive wellness",
+        "Week 6: Product comparison guides - helping you choose the right [food/toy/supplement] for your pet's needs",
+        "Week 7: Seasonal pet care - timely tips for keeping pets safe and comfortable",
+        "Week 8: Behind-the-scenes - meet our staff, see our selection process, understand our quality standards"
+      ],
+      "weekly_hooks": [
+        [
+          "5 foods you're feeding your pet that vets say are dangerous - check your pantry now",
+          "Stop doing this one thing that's secretly harming your pet's teeth",
+          "The mistake 90% of pet parents make with [feeding/training/grooming] - are you guilty?"
+        ],
+        [
+          "What your [Golden Retriever/Persian Cat/specific breed] needs that other breeds don't",
+          "Senior pet care secrets - helping your aging companion stay comfortable and active",
+          "Puppy nutrition guide - what to feed in the first critical 12 months for lifelong health"
+        ],
+        [
+          "Veterinarians recommend this one simple trick to stop your dog from [pulling/barking/chewing]",
+          "What vets wish every pet owner knew about preventing [common health issue]",
+          "Ask a vet: The truth about grain-free diets and what science actually says"
+        ],
+        [
+          "How this simple food switch ended years of digestive issues - Sarah's story",
+          "From reactive rescue to therapy dog - the transformation that changed everything",
+          "'I wish I had known about this years ago' - real pet parents share their breakthroughs"
+        ],
+        [
+          "The real reason your cat is ignoring the litter box (it's not what you think)",
+          "7 warning signs your pet's food is making them sick - most owners miss these",
+          "Preventive care checklist: avoid $2,000+ vet bills with these monthly habits"
+        ],
+        [
+          "Natural vs. organic vs. holistic - what these labels actually mean for your pet",
+          "Premium food comparison: is the expensive brand worth it? Here's the ingredient breakdown",
+          "Veterinarian-approved alternatives to [popular brand] that cost 30% less"
+        ],
+        [
+          "Summer heat safety: 3 signs your pet is overheating that you're probably missing",
+          "Flea and tick season is here - scientifically-proven prevention that actually works",
+          "Holiday hazards: the foods and decorations that send pets to emergency vets"
+        ],
+        [
+          "Meet our certified pet nutritionists - 300+ hours of training to serve your pet",
+          "How we select products: the quality standards big box stores don't follow",
+          "Behind the scenes: why we stock brands you won't find at chain stores"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'I can get something similar cheaper on Amazon' - emphasize immediate availability and expert guidance value",
+        "Week 3-4: Address 'How do I know this is actually better than what I'm using now' - provide comparison data and expert validation",
+        "Week 5-6: Address 'I'm not sure if this will actually work for my pet's specific issue' - offer personalized consultations and samples",
+        "Week 7-8: Address 'I don't have time to drive to a specialty store' - highlight curbside pickup and auto-delivery convenience"
+      ],
+      "proof_timing": [
+        "Week 1-2: Introduce staff expertise credentials and training hours - establish authority",
+        "Week 3-4: Share veterinarian partnerships and endorsements - medical credibility",
+        "Week 5-6: Feature customer testimonials and success metrics - social proof",
+        "Week 7-8: Highlight satisfaction guarantee and return policy - risk reversal"
+      ],
+      "cta_progression": [
+        "Week 1-2: 'Download our free [breed/age]-specific care guide' - value-first education",
+        "Week 3-4: 'Ask our experts your pet health questions - free consultation' - engagement building",
+        "Week 5-6: 'Try our premium selection with our satisfaction guarantee' - soft conversion",
+        "Week 7-8: 'Set up auto-delivery and never run out - save 15% on subscriptions' - retention focus"
+      ],
+      "platform_priority": [
+        "Email (2-3 emails/week) - personalized educational content achieving 18-22% open rates",
+        "Instagram (4-7 posts/week, 1-2 Reels/week) - educational carousels and quick tips with 1.5-3.5% engagement",
+        "Facebook (3-5 posts/week) - community Q&A and detailed guides",
+        "YouTube (1 video/week) - long-form educational content for authority building"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on PetSmart's educational video series averaging 50K-200K views by positioning as authority through expert-led content, combined with pet industry email benchmarks of 18-22% open rates for educational newsletters, and Instagram's 1.5-3.5% engagement for educational carousel posts in pet retail"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral pet moments - shareable, emotional content featuring customer pets and adoption stories",
+        "Week 2: Community challenge - user-generated content campaign with hashtag and prizes"
+      ],
+      "weekly_hooks": [
+        [
+          "This rescue dog's transformation will make you cry (wait for the ending)",
+          "What this cat did when reunited with her favorite toy after 3 years - I'm not crying, you're crying",
+          "The moment this anxious puppy finally trusted humans again - pure magic"
+        ],
+        [
+          "Show us your pet's goofiest moment - best photo wins [prize] and gets featured on our page",
+          "Tag a fellow pet parent who needs to see this - we're giving away [product] to 10 random tags",
+          "Share your pet's adoption story with #[YourStoreName]Family - let's celebrate rescue pets together"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Big box stores have everything I need' - showcase unique products and exclusive brands",
+        "Week 2: Address 'I'm worried about ordering online and getting the wrong thing' - emphasize in-person expertise and personalized service"
+      ],
+      "proof_timing": [
+        "Week 1: Share viral customer stories and organic testimonials - emotional connection",
+        "Week 2: Feature community participation metrics and engagement stats - social validation through bandwagon effect"
+      ],
+      "cta_progression": [
+        "Week 1: 'Share this with a pet parent who needs to see it' - viral sharing CTA",
+        "Week 2: 'Post your pet's photo with #[StoreName] for a chance to win' - participation CTA"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day) - leverage 5-9% engagement rate for pet content with trending audio",
+        "Instagram (7 posts/week, 2-3 Reels/week, multiple Stories/day) - visual storytelling and Reels for maximum reach",
+        "Facebook (5-7 posts/week) - community sharing and tagging campaigns",
+        "Email (1 email/week) - amplify social campaigns to existing list"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Petco's 'Think Adoption First' campaign generating 2.5M impressions through emotional storytelling and hashtag participation, combined with Bentley's Pet Stuff user-generated content achieving 8-12% engagement (vs 1-3% industry average) through customer photo sharing, and TikTok's 5-9% engagement rate for pet content significantly outperforming other industries"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Nutrition science deep-dive - understanding ingredients, labels, and what your pet actually needs",
+        "Week 2: Behavioral science - the psychology behind common pet behaviors and science-backed training methods",
+        "Week 3: Preventive health protocols - veterinarian-approved wellness routines by life stage",
+        "Week 4: Breed-specific care mastery - comprehensive guides for different breeds' unique needs",
+        "Week 5: Debunking pet care myths - what science says vs. popular misconceptions",
+        "Week 6: Advanced pet parenting - optimizing your pet's quality of life through evidence-based practices"
+      ],
+      "weekly_hooks": [
+        [
+          "Veterinarians explain the #1 ingredient that separates premium food from grocery store brands",
+          "The scientifically-proven nutrition formula for [preventing allergies/supporting joints/boosting immunity]",
+          "What grain-free really means - a veterinary nutritionist breaks down the research"
+        ],
+        [
+          "The real reason your dog pulls on walks - and the science-backed method that stops it",
+          "What your cat's behavior is trying to tell you - decoded by certified animal behaviorists",
+          "Separation anxiety explained: the neurological basis and veterinarian-recommended solutions"
+        ],
+        [
+          "Veterinarian-approved wellness checklist for [puppies/adult dogs/senior pets] - prevent problems before they start",
+          "The preventive care routine that reduces vet bills by an average of $1,200 annually",
+          "Early warning signs of [common health issues] that 90% of pet owners miss"
+        ],
+        [
+          "What [Golden Retrievers/German Shepherds/specific breed] need that generic advice ignores",
+          "Breed-specific nutrition guide: why your [breed] needs different food than your neighbor's pet",
+          "The genetic health risks every [breed] owner should monitor - and how to prevent them"
+        ],
+        [
+          "Myth vs. fact: what veterinarians wish you knew about [common pet care belief]",
+          "The truth about [popular trend] - here's what the research actually shows",
+          "5 things everyone believes about pet care that science has disproven"
+        ],
+        [
+          "Advanced enrichment techniques that veterinary behaviorists use for optimal pet mental health",
+          "The scientifically-proven approach to extending your pet's healthy lifespan by [X] years",
+          "How top breeders and show competitors optimize [nutrition/training/care] - expert insights"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'Natural/organic pet products are just marketing' - provide scientific documentation and research citations",
+        "Week 3-4: Address 'My vet recommended something different' - explain complementary approaches and when to seek second opinions",
+        "Week 5-6: Address 'I'm overwhelmed by all the conflicting advice' - synthesize research into clear, actionable recommendations"
+      ],
+      "proof_timing": [
+        "Week 1-2: Introduce partnerships with veterinary schools and research institutions - academic credibility",
+        "Week 3-4: Share certifications, staff credentials, and continuing education stats - professional expertise",
+        "Week 5-6: Feature published studies, clinical trial results, and scientific data - evidence-based validation"
+      ],
+      "cta_progression": [
+        "Week 1-2: 'Download our comprehensive nutrition guide backed by veterinary research' - deep educational resources",
+        "Week 3-4: 'Schedule a free consultation with our certified pet nutritionists' - expert access",
+        "Week 5-6: 'Join our exclusive wellness program for ongoing expert guidance' - premium relationship building"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos/week) - long-form 8-12 minute educational content for deep-dive topics",
+        "Email (2 emails/week) - detailed educational newsletters with research links",
+        "Instagram (4-5 posts/week) - educational carousels with data visualization",
+        "Facebook (3-4 posts/week, 1 Live Q&A/week) - expert interviews and community discussions"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on PetSmart's educational video series featuring veterinarians and trainers addressing common questions averaging 50K-200K views by positioning brand as educational authority, combined with proven hook pattern of 'Veterinarian Authority Hook' that leverages expert credibility and implies insider knowledge, achieving high engagement through trust-building content"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Pet parent confession booth - share your funniest/most embarrassing pet parent moments",
+        "Week 2: Community celebration - showcase customer pets, stories, and create shareable moments"
+      ],
+      "weekly_hooks": [
+        [
+          "Confess: what's the most ridiculous thing you've bought for your pet? (We won't judge... much)",
+          "Finish this sentence: 'I knew I was officially a crazy pet parent when...'",
+          "What's the weirdest thing your pet is obsessed with? Share a photo - funniest answer wins"
+        ],
+        [
+          "Show us your pet's celebrity lookalike - the resemblance is uncanny",
+          "Caption this photo of [funny pet moment] - best caption gets featured and wins [prize]",
+          "Share your rescue pet's gotcha day photo vs. now - let's celebrate how far they've come"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I'm doing this right as a first-time dog owner' - normalize struggles through community sharing",
+        "Week 2: Address 'I feel like a bad pet parent because I can't figure out what she needs' - build supportive community that validates efforts"
+      ],
+      "proof_timing": [
+        "Week 1: Share relatable staff stories and behind-the-scenes moments - humanize brand",
+        "Week 2: Feature community participation stats and customer spotlight stories - social proof through belonging"
+      ],
+      "cta_progression": [
+        "Week 1: 'Comment below with your answer - we're reading every single one'",
+        "Week 2: 'Tag 3 pet parents who need to join our community - let's grow this family'"
+      ],
+      "platform_priority": [
+        "Instagram (7 posts/week, daily Stories with polls/questions) - maximize engagement features and community interaction",
+        "Facebook (5-7 posts/week with question prompts) - leverage community-driven posts that generate 3x more engagement",
+        "TikTok (2-3 posts/day) - trending challenges and duets for viral participation",
+        "Email (1 email/week) - invite email list to participate in social campaigns"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Bentley's Pet Stuff user-generated content campaign achieving 8-12% engagement rate (vs 1-3% industry average) by encouraging customers to share pet photos and building community advocacy, combined with Facebook's research showing community-driven question posts generate 3x more engagement than standard content, and Instagram's optimal engagement during Tuesday-Friday 9-11am and 7-9pm time slots"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What veterinarians wish every pet store owner knew about [SEASONAL HEALTH ISSUE]:\n\nProblem: 67% of pet parents don't realize [SPECIFIC RISK] until it's too late. Last month alone, we saw [NUMBER] cases that could have been prevented.\n\nAgitate: The cost? $[AMOUNT] average vet bills, stressed pets, and guilty owners asking 'why didn't I know this sooner?'\n\nSolution: We're hosting a free [EXPERT TYPE] workshop on [DATE] covering:\n→ [PREVENTION TIP 1]\n→ [PREVENTION TIP 2]\n→ [PREVENTION TIP 3]\n\nEducated pet parents = healthier pets = thriving communities.\n\nPet industry colleagues: What's the #1 preventable issue you're seeing this season?\n\n#PetHealth #VeterinaryCare #PetRetail #AnimalWellness #PetIndustry",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 15 years in pet retail, here's the truth about [INDUSTRY TREND]:\n\nAttention: The pet industry is shifting. [STATISTIC]% of pet parents now prioritize [VALUE] over price.\n\nInterest: We tested this at our stores: switched from pushing products to solving problems. Trained staff to ask '[DIAGNOSTIC QUESTION]' before recommending anything.\n\nDesire: Results in 90 days:\n• Customer retention up [X]%\n• Average transaction value increased $[AMOUNT]\n• 5-star reviews mentioning 'knowledgeable staff' up [X]%\n\nAction: The future of pet retail isn't about having the most SKUs. It's about having the most expertise.\n\nWhat's your experience? Are you seeing the same shift toward consultative selling?\n\n#PetRetail #CustomerExperience #RetailInnovation #PetIndustry #SmallBusiness",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Pet parents overwhelmed by [PROBLEM], buying wrong products, returning frustrated.\n\nAfter: Our new [PROGRAM NAME] matches pets with perfect solutions in under 5 minutes.\n\nBridge: How we built it:\n\n→ Partnered with [NUMBER] veterinarians to create decision trees\n→ Trained staff on [SPECIFIC METHODOLOGY]\n→ Implemented [TOOL/SYSTEM] for personalized recommendations\n\nThe difference? Pet parents now say '[CUSTOMER QUOTE]' instead of '[OBJECTION PHRASE].'\n\nLaunching [PROGRAM] to fellow retailers [DATE]. Early access for [NUMBER] stores.\n\nInterested in bringing consultative pet care to your community? Comment 'INFO' below.\n\n#PetRetail #Innovation #CustomerSuccess #PetCare #RetailTechnology",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Veterinarians recommend this one simple trick to [SOLVE COMMON PROBLEM] 👇\n\nSwipe to see the 5-step method that stops [PROBLEM] in 7 days:\n\n1️⃣ [STEP ONE]\n2️⃣ [STEP TWO]\n3️⃣ [STEP THREE]\n4️⃣ [STEP FOUR]\n5️⃣ [STEP FIVE]\n\n✨ Why it works: [BRIEF SCIENCE/EXPERT EXPLANATION]\n\n💰 Total cost: Under $[AMOUNT] (everything available in-store)\n\nTried this? Tag us in your results! Questions? Drop them below 👇\n\n[CALL TO ACTION - Save this post / Share with a friend / Visit link in bio]\n\n#[PROBLEM]Solutions #VetApproved #PetCareTips #[PetType]Health #[StoreName] #PetParenting #DogTips #CatCare",
+        "visual": "Carousel: Slide 1 - Attention-grabbing before/after or problem visual with bold text overlay 'STOP [DOING WRONG THING]'. Slides 2-6 - Each step shown with product image + simple graphic. Slide 7 - Results photo with testimonial quote. Brand colors, clean design, pet-focused imagery.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "What your [PET]'s [BEHAVIOR] is trying to tell you (it's not what you think) 🚨\n\nAfter consulting with [EXPERT TYPE], here's what we learned:\n\n❌ Most pet parents think it's [COMMON MISCONCEPTION]\n✅ It's actually [REAL CAUSE]\n\nThe signs to watch for:\n→ [SIGN 1]\n→ [SIGN 2]\n→ [SIGN 3]\n\n🎯 The fix: [SOLUTION OVERVIEW]\n\nWe've seen this transform [NUMBER]+ pets from [BEFORE STATE] to [AFTER STATE].\n\nIs your [PET] showing these signs? Book a free [CONSULTATION TYPE] - link in bio.\n\nSave this to reference later 📌\n\n#PetBehavior #[PetType]Training #VetAdvice #PetHealth #[StoreName]Experts #PetWellness",
+        "visual": "Reel format: 15-30 seconds. Opens with pet displaying problem behavior (hook). Quick cuts showing the 3 signs with text overlays. Expert (staff member or vet partner) explaining in 10 seconds. Ends with happy pet after solution. Trending audio, fast-paced cuts, authentic not overly produced.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "From [PROBLEM STATE] to [SOLUTION STATE] in [TIMEFRAME] 🙌\n\nMeet [PET NAME]: struggled with [SPECIFIC ISSUE] for [TIME PERIOD]. [OWNER NAME] tried everything.\n\nThen we recommended [PRODUCT/SERVICE].\n\nThe results? See for yourself 👆\n\n'[CUSTOMER TESTIMONIAL QUOTE]' - [CUSTOMER NAME]\n\n✨ Now through [DATE]: [OFFER DETAILS]\n\n💚 Why [PRODUCT] works: [BRIEF BENEFIT EXPLANATION]\n\n🎁 Bonus: [ADDITIONAL OFFER/GUARANTEE]\n\nYour [PET] deserves this transformation. Shop [PRODUCT CATEGORY] - link in bio or visit us at [LOCATION].\n\nHave questions? Our experts are here 👇\n\n#[PetName]Transformation #[ProductCategory] #HappyPets #PetTransformation #[StoreName] #[PetType]Life #PetProducts",
+        "visual": "Before/After split screen or carousel. Slide 1: Problem state with pet looking uncomfortable/unhappy. Slide 2: Product being used. Slide 3: Happy after state with pet thriving. Slide 4: Customer testimonial screenshot or quote graphic. Slide 5: Offer details with clear CTA. Use authentic customer-submitted photos when possible.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🐾 5 foods you're feeding your pet that vets say are dangerous (+ what to use instead)\n\nHey [CITY/COMMUNITY] pet parents! After talking with Dr. [VET NAME] at [LOCAL VET CLINIC], I'm sharing this because I wish I had known sooner.\n\nProblem: Even 'pet-safe' treats can cause [HEALTH ISSUE]. Here's what to avoid:\n\n❌ [FOOD 1] - Why: [REASON]\n❌ [FOOD 2] - Why: [REASON]\n❌ [FOOD 3] - Why: [REASON]\n❌ [FOOD 4] - Why: [REASON]\n❌ [FOOD 5] - Why: [REASON]\n\nAgitate: Last year, [STATISTIC] pets in our area experienced [CONSEQUENCE]. The scary part? Most owners had no idea.\n\nSolution: Safe alternatives we recommend:\n✅ [ALTERNATIVE 1] - [BENEFIT]\n✅ [ALTERNATIVE 2] - [BENEFIT]\n✅ [ALTERNATIVE 3] - [BENEFIT]\n\nFree printable 'Safe Foods' checklist available in-store or comment 'CHECKLIST' below and I'll message you the PDF.\n\nHave you experienced this with your pet? Share your story below - let's keep our fur babies safe together! 💚\n\n#[CityName]Pets #PetSafety #DogHealth #CatHealth",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "The real reason your [PET] is ignoring the litter box / pulling on walks / [COMMON PROBLEM] (it's not what you think)\n\nAttention: If you've tried everything and nothing works, read this.\n\nInterest: I've been helping [CITY] pet parents for [NUMBER] years, and I see this pattern constantly:\n\n→ Pet parents try [COMMON SOLUTION 1] ❌\n→ Then [COMMON SOLUTION 2] ❌\n→ Get frustrated, think their pet is 'stubborn' ❌\n\nBut here's what's really happening: [ACTUAL CAUSE EXPLANATION]\n\nDesire: Once we address [ROOT CAUSE], pets transform in days, not months.\n\nJust this week, [CUSTOMER NAME]'s [PET] went from [PROBLEM] to [SOLUTION] using [METHOD]. She said '[TESTIMONIAL QUOTE].'\n\nAction: We're hosting a FREE [WORKSHOP/Q&A] on [DATE] at [TIME] with [EXPERT NAME, CREDENTIALS].\n\nTopics covered:\n• [TOPIC 1]\n• [TOPIC 2]\n• [TOPIC 3]\n• Live Q&A - bring your specific questions!\n\n📍 [LOCATION] or join virtually\n💰 Completely free, just RSVP below\n🎁 First [NUMBER] attendees get [FREE GIFT]\n\nComment 'COMING' to save your spot - I'll send details!\n\nWho else is dealing with this? Tag a fellow pet parent who needs this! 👇",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: [CUSTOMER NAME] was spending $[AMOUNT]/month on [PRODUCT CATEGORY], driving to [NUMBER] different stores, constantly running out at the worst times.\n\nAfter: She switched to our [PROGRAM/SERVICE NAME] and hasn't worried about [PROBLEM] in [TIME PERIOD].\n\nBridge: Here's what changed:\n\n✨ Personalized delivery schedule (every [TIMEFRAME])\n✨ [DISCOUNT]% off every order (saves $[AMOUNT]/year)\n✨ Free shipping over $[AMOUNT]\n✨ Change or cancel anytime - no commitment\n✨ Never run out - we track your pet's consumption\n\n'[CUSTOMER TESTIMONIAL QUOTE]' - [Customer Name]\n\n🎁 THIS WEEK ONLY: Join [PROGRAM NAME] and get:\n→ [BONUS 1]\n→ [BONUS 2]\n→ [BONUS 3]\n\n💚 Our guarantee: If your pet doesn't love it, full refund + we'll help you find what works.\n\nReady to simplify your pet care routine?\n👉 [LINK] or comment 'INFO' and I'll message you details\n👉 Visit us at [LOCATION] - our team will set you up in 5 minutes\n\n[NUMBER] [CITY] pet parents have already made the switch. Join them!\n\nQuestions? Drop them below - I'm here to help! 🐾",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "STOP feeding your dog this! 🚨 [Hold up common food item]",
+        "script": "0-3sec: 'Vets are begging pet parents to stop doing this' [Shocked face, hold up item]\n\n4-10sec: 'Here's what's actually happening to your dog's stomach' [Quick cut to graphic/animation showing problem]\n\n11-25sec: 'I asked Dr. [Name] and she said [EXPERT QUOTE]' [Show expert or cut to educational visual]\n\n26-40sec: 'Instead, try these 3 vet-approved options:' [Quick show of 3 products with text overlays: 1. [OPTION 1] 2. [OPTION 2] 3. [OPTION 3]]\n\n41-50sec: 'Your dog will thank you' [Show happy dog, before/after if possible]\n\n51-60sec: 'Come see us for the full list of safe foods' [Store front or product shelf shot] 'Link in bio for free guide'\n\nText overlays: 'Wait for #3', 'Vet-approved', 'Save this!'\nTrending audio: [Current pet-trending sound]\n\n#PetTok #DogHealth #VetAdvice #PetCareTips #DogMom #PetStore",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "POV: You finally understand what your cat's been trying to tell you 😭",
+        "script": "0-3sec: [Confused face] 'Why is my cat doing this?!' [Show common behavior]\n\n4-10sec: 'After 10 years in pet care, here's what I learned' [Transition to expert mode]\n\n11-25sec: 'That behavior? It means [EXPLANATION]' [Show cat behavior with text overlay explaining]\n\n26-40sec: 'Most people think it's [MISCONCEPTION] but it's actually [TRUTH]' [Side-by-side comparison visual]\n\n41-50sec: 'Here's how to fix it in 3 days' [Quick tips with numbered text overlays]\n\n51-60sec: 'Mind blown? Follow for more pet secrets' [CTA with store branding] 'Free consultation at [Store Name]'\n\nText overlays: 'Wait for it...', 'This changed everything', 'Try this!'\nStyle: Educational but entertaining, fast cuts, trending audio\n\n#CatBehavior #PetExpert #CatTok #PetKnowledge #CatMom #LearnOnTikTok",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "This $[PRICE] thing ended my dog's [PROBLEM] in 24 hours 🤯",
+        "script": "0-3sec: 'We tried EVERYTHING' [Frustrated face, show pile of failed products]\n\n4-10sec: Before: [Show problem - anxious dog, scratching, pulling, etc.] 'It was so bad'\n\n11-25sec: 'Then someone at [Store Name] recommended this' [Hold up product, show packaging]\n\n26-40sec: After: [Show transformation - calm dog, happy behavior] 'I can't believe the difference'\n\n41-50sec: 'It works because [BRIEF BENEFIT]' [Show product in use]\n\n51-60sec: '[OFFER DETAILS] at [Store Name] - go get this!' [Show store location or product on shelf] 'Your dog needs this'\n\nText overlays: 'Before 😭', 'After 😍', 'Only $[PRICE]', 'Get it here 👇'\nAuthentic customer testimonial style, not polished ad\n\n#DogTransformation #PetProducts #DogLife #PetStore #[Problem]Solution #DogTok",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "What vets wish every [PET TYPE] owner knew about [SEASONAL ISSUE]",
+        "preview_text": "[FIRSTNAME], this could save you $[AMOUNT] in vet bills",
+        "body": "Hi [FIRSTNAME],\n\nProblem: [SEASON] is here, and with it comes [SPECIFIC HEALTH RISK]. Last year, we saw [NUMBER]% increase in [ISSUE] cases - most completely preventable.\n\nAgitate: The warning signs most pet parents miss:\n→ [SIGN 1]\n→ [SIGN 2]\n→ [SIGN 3]\n\nBy the time symptoms are obvious, you're looking at $[AMOUNT]+ vet bills and a suffering pet.\n\nSolution: Our [EXPERT TYPE] put together a free [RESOURCE NAME] covering:\n✓ [PREVENTION TIP 1]\n✓ [PREVENTION TIP 2]\n✓ [PREVENTION TIP 3]\n✓ Recommended products (with our expert picks)\n\n[CTA BUTTON: Download Free Guide]\n\nBonus: Bring this email in-store for [DISCOUNT]% off [RELEVANT PRODUCTS] through [DATE].\n\nYour [PET TYPE] is counting on you,\n[SIGNATURE]\nP.S. Questions? Reply to this email - our team responds within 24 hours.\n\n[PRODUCT RECOMMENDATIONS BASED ON PET PROFILE]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "The #1 thing I feed my own [PET TYPE] (and why)",
+        "preview_text": "After 15 years in pet nutrition, here's what I trust",
+        "body": "Hi [FIRSTNAME],\n\nAttention: People ask me constantly: 'What do YOU feed your [PET TYPE]?'\n\nInterest: Fair question. After evaluating [NUMBER]+ brands and consulting with veterinary nutritionists, here's what's in my pet's bowl:\n\n[PRODUCT NAME]\n\nWhy this one?\n\n→ [BENEFIT 1 with scientific backing]\n→ [BENEFIT 2 with expert quote]\n→ [BENEFIT 3 with results data]\n\nDesire: The difference I've seen in [TIMEFRAME]:\n• [IMPROVEMENT 1]\n• [IMPROVEMENT 2]\n• [IMPROVEMENT 3]\n\n'[EXPERT TESTIMONIAL]' - Dr. [Name], [Credentials]\n\nAction: Want to try it for [PET NAME]?\n\n[CTA BUTTON: Get [DISCOUNT]% Off Your First Bag]\n\n✓ Our guarantee: If [PET NAME] doesn't love it, full refund + we'll help you find what works\n✓ Free transition guide included\n✓ Personalized feeding plan based on [PET NAME]'s needs\n\nSwitch by [DATE] and get:\n→ [BONUS 1]\n→ [BONUS 2]\n\nTo [PET NAME]'s health,\n[SIGNATURE]\n\nP.S. Not sure if this is right for [PET NAME]? Take our 2-minute nutrition quiz: [LINK]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "Running low on [PRODUCT]? We've got you covered",
+        "preview_text": "Auto-delivery + [DISCOUNT]% off = never run out again",
+        "body": "Hi [FIRSTNAME],\n\nBefore: Remember last month when you ran out of [PRODUCT] at [TIME/SITUATION]? We've all been there - scrambling to find [PET NAME]'s food, making emergency store runs, settling for whatever's in stock.\n\nAfter: [NUMBER] pet parents in [CITY] never worry about running out anymore. Here's how:\n\nBridge: Our [PROGRAM NAME] delivers [PRODUCT] to your door every [TIMEFRAME]:\n\n💰 Save [DISCOUNT]% on every order (that's $[AMOUNT]/year)\n🚚 Free shipping over $[AMOUNT]\n📅 Perfectly timed - we track [PET NAME]'s consumption\n⚡ Change, skip, or cancel anytime\n🎁 Exclusive member perks and early access\n\n'[CUSTOMER TESTIMONIAL]' - [Customer Name]\n\n🎉 JOIN THIS WEEK & GET:\n→ [BONUS 1]\n→ [BONUS 2]\n→ [BONUS 3]\n\n[CTA BUTTON: Start Auto-Delivery for [PET NAME]]\n\nHow it works:\n1. Choose your delivery frequency\n2. We ship [NUMBER] days before you run out\n3. Adjust anytime based on [PET NAME]'s needs\n\n✓ No commitment - pause or cancel with one click\n✓ Same products you already trust\n✓ Our team monitors every order\n\nReady to simplify [PET NAME]'s care routine?\n\n[CTA BUTTON: Set Up in 2 Minutes]\n\nQuestions? Reply to this email or call [PHONE].\n\nHere for you and [PET NAME],\n[SIGNATURE]\n\nP.S. Your next order ships [DATE] - set up auto-delivery by [DEADLINE] to get [BONUS].",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] ingredients vets say are ruining your [pet]'s gut health",
+      "[X] warning signs your [pet]'s food is making them sick",
+      "[X] things every first-time [pet] parent gets wrong about feeding",
+      "[X] vet-approved tricks to stop [pet] anxiety in [timeframe]",
+      "[X] reasons your [pet] won't eat (and the simple fix)"
+    ],
+    "question_hooks": [
+      "Are you spending a fortune at the vet because of cheap [pet] food?",
+      "Is your [pet]'s constant scratching caused by this hidden ingredient?",
+      "Are you making your [pet]'s separation anxiety worse without knowing it?",
+      "Is your picky [pet] actually trying to tell you something about their food?",
+      "Are you a bad [pet] parent if you can't stop the pulling on walks?"
+    ],
+    "story_hooks": [
+      "How this rescue [pet] went from anxious mess to confident companion in [timeframe]",
+      "How one ingredient switch ended years of [pet] digestive issues",
+      "How a [location] pet parent finally stopped the furniture scratching for good",
+      "How switching from grocery store food saved this [pet]'s life",
+      "How this [pet] parent went from overwhelmed to confident in [timeframe]"
+    ],
+    "fear_hooks": [
+      "Is your [pet]'s grocery store food hiding ingredients from China?",
+      "Is cheap [pet] food causing permanent damage to your fur baby's organs?",
+      "Is your [pet]'s constant diarrhea a sign of something more serious?",
+      "Is that popular [pet] treat actually dangerous according to vets?",
+      "Is your [pet]'s skin condition getting worse because of what you're feeding?"
+    ],
+    "howto_hooks": [
+      "How to stop [pet] pulling on walks without expensive training classes",
+      "How to switch [pet] foods without upsetting their stomach again",
+      "How to leave for work without the guilt of [pet] separation anxiety",
+      "How to know if you're giving your [pet] the best care without vet bills",
+      "How to solve picky eating without trying dozens of different foods"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're a 'bad pet parent' (you're not)",
+      "body": "Show common guilt scenarios: leaving for work, choosing budget food, skipping grooming appointment. Text overlay: 'What you think you're doing wrong' vs 'What you're actually doing right'. Reveal: loving your pet, researching options, asking for help makes you a GREAT pet parent. Show simple solutions: puzzle toys for anxiety, vet-approved affordable food, at-home grooming tips. End with happy pet montage.",
+      "cta": "You're doing better than you think. Link in bio for guilt-free pet care guide"
+    },
+    "reels": {
+      "hook": "This $8 item stopped my dog's separation anxiety",
+      "body": "Quick before/after: anxious dog pacing/whining vs calm dog with enrichment toy. Show product in use (snuffle mat, lick mat, puzzle feeder). Text: 'Vet-approved, wallet-approved'. Flash 5-star reviews. Show multiple dogs enjoying it.",
+      "cta": "Tap to shop anxiety solutions under $20"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your pet's 'before coffee' vs 'after breakfast' energy. Film your morning routine with your fur baby and tag the food or treats that fuel their zoomies!",
+      "hashtag": "#MorningZoomies"
+    },
+    {
+      "prompt": "First-time pet parents: What's one thing you wish someone told you before bringing your baby home? Share your biggest lesson learned (bonus points for showing the evidence).",
+      "hashtag": "#PetParentLessons"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Multi-pet household chaos content: 'When you have a dog, cat, and rabbit and they all need different things at the same time' relatable comedy skits",
+      "why": "Underserved audience (40% of pet owners have multiple pets), highly relatable chaos creates shares, comment section becomes community support group"
+    },
+    {
+      "angle": "Senior pet glow-up stories: Before/after of older rescue pets thriving with proper nutrition and care, emotional transformation narratives",
+      "why": "Taps into adoption advocacy, emotional storytelling, counters 'only puppies/kittens' narrative, inspires action and shares for awareness"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:32:49.053Z",
+    "last_tier2_refresh": "2025-11-27T22:32:49.053Z",
+    "last_tier3_refresh": "2025-11-27T22:32:49.053Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:32:49.053Z"
+  }
+}

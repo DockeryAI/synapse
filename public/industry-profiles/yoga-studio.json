@@ -1,0 +1,1721 @@
+{
+  "industry": "Yoga Studio",
+  "industry_name": "Yoga Studio",
+  "naics_code": "713940",
+  "category": "Personal Services",
+  "subcategory": "Fitness and Wellness Studios",
+  "customer_triggers": [
+    {
+      "trigger": "Doctor recommendation for stress management",
+      "urgency": 8,
+      "frequency": "immediate enrollment"
+    },
+    {
+      "trigger": "New Year fitness resolution",
+      "urgency": 7,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Back pain from desk job lasting 2+ weeks",
+      "urgency": 9,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Post-pregnancy body recovery",
+      "urgency": 8,
+      "frequency": "one-time intensive"
+    },
+    {
+      "trigger": "Anxiety or depression diagnosis",
+      "urgency": 9,
+      "frequency": "ongoing"
+    },
+    {
+      "trigger": "Weight loss plateau with traditional exercise",
+      "urgency": 6,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Retirement lifestyle transition",
+      "urgency": 5,
+      "frequency": "one-time"
+    },
+    {
+      "trigger": "Athletic cross-training requirement",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Social isolation seeking community",
+      "urgency": 8,
+      "frequency": "immediate"
+    },
+    {
+      "trigger": "Injury rehabilitation completion",
+      "urgency": 7,
+      "frequency": "post-therapy"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovers through Google search 'yoga near me' (42%), friend recommendation (31%), or walks by studio (27%). Reviews Instagram for studio vibe, checks class schedule fits work hours",
+    "consideration": "Compares 2-3 studios based on proximity (walking distance preferred), class variety, instructor credentials, and intro offers. Reads average of 12 reviews focusing on beginner-friendliness",
+    "decision": "Purchases intro offer (typically $30 for 30 days unlimited), influenced by convenient class times, welcoming first visit experience, and clean facilities. 73% decide within first 3 classes",
+    "retention": "Converts to membership after intro month at 34% rate, attends average 8 classes monthly, develops instructor preferences, joins studio community events and workshops",
+    "advocacy": "Brings friends to class (average 1.8 referrals annually), posts social media content, participates in studio challenges, purchases retail and workshop add-ons averaging $340 annually"
+  },
+  "transformations": [
+    {
+      "from": "Chronic stress and insomnia",
+      "to": "Peaceful sleep and calm mind",
+      "emotional_value": "Life balance restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Inflexible and injury-prone",
+      "to": "Mobile and strong",
+      "emotional_value": "Physical freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Isolated and lonely",
+      "to": "Connected community member",
+      "emotional_value": "Belonging and friendship",
+      "worth_premium": true
+    },
+    {
+      "from": "Post-partum body struggles",
+      "to": "Strong, confident mother",
+      "emotional_value": "Self-love and empowerment",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxiety-driven lifestyle",
+      "to": "Mindful, present living",
+      "emotional_value": "Mental clarity",
+      "worth_premium": true
+    },
+    {
+      "from": "Sedentary and sluggish",
+      "to": "Energized and vital",
+      "emotional_value": "Renewed zest for life",
+      "worth_premium": false
+    },
+    {
+      "from": "Poor posture and back pain",
+      "to": "Aligned and pain-free",
+      "emotional_value": "Daily comfort",
+      "worth_premium": true
+    },
+    {
+      "from": "Spiritually disconnected",
+      "to": "Aligned with purpose",
+      "emotional_value": "Inner peace",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Flexibility increase of 35% in forward fold",
+      "timeframe": "After 8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Stress reduction of 43% on perceived stress scale",
+      "timeframe": "After 4 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Core strength improvement holding plank 2x longer",
+      "timeframe": "After 6 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Blood pressure reduction of 12-15 points",
+      "timeframe": "After 12 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Weight loss of 8-12 pounds",
+      "timeframe": "With 3x weekly practice for 3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Sleep quality improvement by 2.3 hours",
+      "timeframe": "After 2 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Anxiety score reduction of 40%",
+      "timeframe": "After 6 weeks regular practice",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited spots in popular morning classes filling 48 hours in advance",
+    "Introductory offer expiring in 7 days saving $120 on first month",
+    "New member workshop this Sunday only with free mat ($45 value)",
+    "Class package prices increasing 15% next month for new purchases",
+    "Beach body summer challenge starting in 2 weeks with measurement day",
+    "Favorite instructor leaving in 30 days for training abroad",
+    "Annual membership sale ending Friday saving $240 on unlimited yoga"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I'm not flexible enough for yoga",
+      "response": "Yoga creates flexibility, doesn't require it. 82% of our members couldn't touch their toes when starting. We have props and modifications for every body",
+      "effectiveness": 89
+    },
+    {
+      "objection": "Too expensive at $150/month unlimited",
+      "response": "That's less than $5 per class if you come 3x weekly, compared to $25 drop-ins. Plus unlimited includes workshops worth $45 each",
+      "effectiveness": 76
+    },
+    {
+      "objection": "Intimidated by experienced practitioners",
+      "response": "We have dedicated beginner classes and our 'Yoga 101' series. Every expert was once a beginner, and our community is known for being welcoming",
+      "effectiveness": 84
+    },
+    {
+      "objection": "Don't have time for 90-minute classes",
+      "response": "We offer express 45-minute lunch classes, 30-minute morning flows, and online options to practice at home on your schedule",
+      "effectiveness": 81
+    },
+    {
+      "objection": "Worried about the spiritual aspect",
+      "response": "Our classes focus on physical practice and stress relief. Meditation is optional, and we respect all beliefs. It's about what works for you",
+      "effectiveness": 77
+    },
+    {
+      "objection": "Previous injury makes me nervous",
+      "response": "Our instructors are trained in modifications and therapeutic yoga. We offer free consultation to discuss your specific needs and create a safe practice plan",
+      "effectiveness": 88
+    },
+    {
+      "objection": "Tried yoga before and didn't like it",
+      "response": "There are 12 styles of yoga at our studio - from gentle yin to athletic power flow. Let's find the right fit with a free class pass to explore",
+      "effectiveness": 79
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "30-day money back if unsatisfied with membership",
+      "Free class if your first experience isn't positive",
+      "Injury-free practice guarantee with proper instruction"
+    ],
+    "proof_points": [
+      "4,200+ active members",
+      "18 certified instructors with 200+ hour training",
+      "Zero injury claims in 8 years",
+      "4.9 star average across 1,100+ reviews"
+    ],
+    "risk_mitigation": "Free consultation for injuries or conditions, beginner workshop before first class, buddy system pairing new members with ambassadors, modification demonstrations in every class"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stressed",
+      "tight hamstrings",
+      "can't relax",
+      "back hurts",
+      "anxious",
+      "out of shape",
+      "inflexible",
+      "overwhelmed",
+      "disconnected",
+      "stuck"
+    ],
+    "solution_words": [
+      "centered",
+      "flexible",
+      "strong",
+      "peaceful",
+      "community",
+      "balanced",
+      "energized",
+      "mindful",
+      "transformed",
+      "flowing"
+    ],
+    "avoid_jargon": [
+      "asana",
+      "pranayama",
+      "chakras",
+      "bandhas",
+      "drishti",
+      "mudra",
+      "Sanskrit names",
+      "kundalini",
+      "doshas",
+      "nadis"
+    ]
+  },
+  "power_words": [
+    "transform",
+    "flow",
+    "balance",
+    "strength",
+    "peace",
+    "community",
+    "mindful",
+    "flexibility",
+    "wellness",
+    "energy",
+    "restore",
+    "empower",
+    "journey",
+    "practice",
+    "breathe",
+    "center",
+    "align",
+    "discover",
+    "nurture",
+    "growth",
+    "vitality",
+    "calm",
+    "focus",
+    "release",
+    "healing",
+    "connection",
+    "presence",
+    "harmony",
+    "renewal",
+    "awakening"
+  ],
+  "avoid_words": [
+    "cult",
+    "religious",
+    "weird",
+    "hippie",
+    "extreme",
+    "impossible",
+    "painful",
+    "boring",
+    "easy",
+    "quick-fix",
+    "instant",
+    "guarantee",
+    "perfect",
+    "mandatory",
+    "required",
+    "dogma",
+    "guru",
+    "mystical",
+    "woo-woo",
+    "trendy"
+  ],
+  "headline_templates": [
+    {
+      "template": "Transform Stress into Strength with [City]'s Top-Rated Yoga Studio",
+      "expected_ctr": 4.5,
+      "use_case": "Brand awareness"
+    },
+    {
+      "template": "First Month Unlimited for $30 - Start Your Yoga Journey Today",
+      "expected_ctr": 5.8,
+      "use_case": "Intro offer promotion"
+    },
+    {
+      "template": "Why 4,200+ [City] Residents Choose Us for Mind-Body Wellness",
+      "expected_ctr": 3.9,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Beginner to Advanced: Find Your Perfect Yoga Style (Quiz Inside)",
+      "expected_ctr": 4.2,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "Desk Job Destroying Your Back? Yoga Can Help in Just 2 Weeks",
+      "expected_ctr": 5.1,
+      "use_case": "Problem-focused"
+    },
+    {
+      "template": "Join Our 30-Day Transformation Challenge - Measurable Results Guaranteed",
+      "expected_ctr": 4.7,
+      "use_case": "Challenge launch"
+    },
+    {
+      "template": "Morning Yoga: Why 6am Classes Change Everything",
+      "expected_ctr": 3.6,
+      "use_case": "Lifestyle content"
+    },
+    {
+      "template": "Free Week Pass: Experience 12 Different Yoga Styles",
+      "expected_ctr": 5.3,
+      "use_case": "Trial offer"
+    },
+    {
+      "template": "From Couch to Crow Pose: Real Student Success Stories",
+      "expected_ctr": 4,
+      "use_case": "Transformation stories"
+    },
+    {
+      "template": "Prenatal Yoga: Safe Practice for Every Trimester",
+      "expected_ctr": 3.8,
+      "use_case": "Niche targeting"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Claim Your $30 Intro Month",
+      "conversion_rate": 12.4,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Book Your Free First Class",
+      "conversion_rate": 9.8,
+      "placement": "Class schedule page"
+    },
+    {
+      "template": "Start Your 7-Day Free Trial",
+      "conversion_rate": 11.2,
+      "placement": "Pop-up after 30 seconds"
+    },
+    {
+      "template": "Join 4,200+ Members Today",
+      "conversion_rate": 7.3,
+      "placement": "Membership page"
+    },
+    {
+      "template": "Reserve Your Mat Now",
+      "conversion_rate": 8.6,
+      "placement": "Class booking"
+    },
+    {
+      "template": "Download Our Beginner's Guide",
+      "conversion_rate": 6.4,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "See Class Schedule & Pricing",
+      "conversion_rate": 5.9,
+      "placement": "Navigation menu"
+    },
+    {
+      "template": "Get 20% Off Annual Membership",
+      "conversion_rate": 10.7,
+      "placement": "Limited time banner"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Student spotlight: Watch Sarah nail her first headstand after 3 months of practice! 🙌 What's your yoga goal? #YogaJourney #StudentSuccess",
+      "engagement_rate": 8.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "Free Community Class this Saturday! Bring a friend and enjoy yoga in the park. All levels welcome. Register: [link]",
+      "engagement_rate": 5.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "Day 1 vs Day 30 Flexibility Challenge ✨ The progress is REAL! Join our next challenge starting Monday",
+      "engagement_rate": 14.6
+    },
+    {
+      "platform": "YouTube",
+      "template": "10-Minute Morning Yoga Flow for Energy [Follow Along Video]",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Corporate Wellness: How companies are using yoga to reduce employee stress by 43% and boost productivity. Let's connect!",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "Twitter",
+      "template": "Reminder: Yoga isn't about touching your toes. It's about what you learn on the way down. 🧘‍♀️ #YogaWisdom",
+      "engagement_rate": 2.4
+    },
+    {
+      "platform": "Pinterest",
+      "template": "30-Day Yoga Challenge Calendar - Pin to Save! Each day targets different muscle groups for full-body transformation",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Google Business",
+      "template": "⭐⭐⭐⭐⭐ 'Life-changing! The instructors are amazing and the community is so welcoming' - Join us for a free first class!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors! New morning yoga class added at 6:30am due to demand. Perfect before work! First class free for locals",
+      "engagement_rate": 8.9
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "12 yoga styles under one roof from gentle to power flow",
+      "rank": 1,
+      "differentiator": "Variety for every mood and goal"
+    },
+    {
+      "prop": "Unlimited classes for less than a coffee per day",
+      "rank": 2,
+      "differentiator": "Exceptional value"
+    },
+    {
+      "prop": "Certified instructors with 500+ hours training each",
+      "rank": 3,
+      "differentiator": "Expert guidance"
+    },
+    {
+      "prop": "Included workshops and events worth $500+ annually",
+      "rank": 4,
+      "differentiator": "Added value beyond classes"
+    },
+    {
+      "prop": "Online library of 200+ classes for home practice",
+      "rank": 5,
+      "differentiator": "Flexibility and convenience"
+    },
+    {
+      "prop": "Welcoming community with monthly social events",
+      "rank": 6,
+      "differentiator": "Connection beyond the mat"
+    },
+    {
+      "prop": "Clean, spa-like facilities with infrared heating",
+      "rank": 7,
+      "differentiator": "Premium experience"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience transformation at [City]'s premier yoga sanctuary. Our master instructors, spa-inspired studios, and curated wellness programs create an unparalleled journey to your best self. Unlimited membership includes exclusive workshops, retreats, and personalized guidance. Investment: $189/month for unlimited access to excellence.",
+    "budget_conscious": "Yoga for everyone, regardless of budget. Our community classes are just $8, work-trade programs available, and sliding scale pricing ensures nobody is turned away. Quality instruction shouldn't be a luxury - join us for affordable wellness that fits your life.",
+    "enterprise": "Elevate your workplace wellness with our corporate yoga program. Reduce employee stress by 43%, decrease sick days by 28%, and boost team cohesion. Our certified instructors bring equipment and expertise directly to your office. Programs starting at $500/month for weekly sessions."
+  },
+  "trust_signals": [
+    {
+      "signal": "Yoga Alliance registered school certification",
+      "importance": 10,
+      "format": "Website badge and certificate display"
+    },
+    {
+      "signal": "Instructor bio pages with training credentials",
+      "importance": 9,
+      "format": "Detailed profiles with photos"
+    },
+    {
+      "signal": "4.9 star rating with 1,100+ reviews",
+      "importance": 8,
+      "format": "Review widget on homepage"
+    },
+    {
+      "signal": "8 years in business at same location",
+      "importance": 7,
+      "format": "About page timeline"
+    },
+    {
+      "signal": "Member success stories and transformations",
+      "importance": 8,
+      "format": "Video testimonials"
+    },
+    {
+      "signal": "Clean studio certification and safety protocols",
+      "importance": 9,
+      "format": "Posted health standards"
+    },
+    {
+      "signal": "Community involvement and charity partnerships",
+      "importance": 6,
+      "format": "Social responsibility page"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "4,200+ active members in our community",
+      "credibility_score": 9,
+      "context": "Largest yoga community in the area"
+    },
+    {
+      "stat": "127,000+ classes taught since 2016",
+      "credibility_score": 8,
+      "context": "Extensive experience and consistency"
+    },
+    {
+      "stat": "94% member retention rate",
+      "credibility_score": 10,
+      "context": "Industry average is 71%"
+    },
+    {
+      "stat": "1,100+ five-star reviews across platforms",
+      "credibility_score": 9,
+      "context": "Consistent excellence in service"
+    },
+    {
+      "stat": "18 certified instructors with 500+ hours training",
+      "credibility_score": 8,
+      "context": "Exceeds industry standards"
+    },
+    {
+      "stat": "Zero injuries reported in 8 years",
+      "credibility_score": 10,
+      "context": "Safe practice environment"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Heated floors, aromatherapy, small classes (max 12), personalized adjustments, luxury amenities",
+    "Standard: Clean mats provided, 20-person classes, certified instructors, basic props available",
+    "Budget: Large classes (30+), bring your own mat, limited props, basic facilities",
+    "Red flags: Overcrowded classes, uncertified instructors, dirty facilities, aggressive sales tactics"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 30,
+    "trigger_event": "After completing first month when transformation is noticeable",
+    "ask_method": "In-person request after favorite class with incentive of free workshop"
+  },
+  "competitive_advantages": [
+    "Only studio offering aerial and wall yoga with specialized equipment",
+    "Childcare available during morning classes attracting parent demographic",
+    "Partnership with local physical therapy clinic for therapeutic yoga",
+    "24/7 access for unlimited members with keycard entry",
+    "In-house teacher training program creating consistent quality",
+    "Organic juice bar and wellness retail generating additional revenue"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show annual membership at $1,800 first, making monthly $159 seem manageable",
+    "sensitivity": "Price resistance increases sharply above $160/month for unlimited",
+    "sweet_spots": [
+      "$30 intro month",
+      "$89 for 10 classes",
+      "$159 unlimited monthly",
+      "$1,500 annual"
+    ],
+    "decoy_pricing": "8-class package at $140 pushes people to unlimited at $159 for better value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 160,
+    "approval_required": 200,
+    "competitor_research": 120
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.3,
+    "weekend": 1.1,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Community",
+      "price_range": "$8-12 per class",
+      "target_customer": "Budget-conscious practitioners",
+      "margin": 30
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$89-159/month",
+      "target_customer": "Regular practitioners",
+      "margin": 50
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$189-249/month",
+      "target_customer": "Dedicated yogis wanting extras",
+      "margin": 65
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Increase class size from 15 to 20 without quality loss, boosting revenue 33% per class",
+    "Add retail products with 100% markup generating $40K annual profit",
+    "Implement auto-renewal for memberships reducing churn by 23%",
+    "Offer online classes at $49/month with 85% margins",
+    "Host monthly workshops at $45 each with 70% margins",
+    "Reduce instructor costs through profit-sharing model for popular teachers"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 65,
+      "reason": "New Year resolution surge",
+      "opportunity": "Beginner packages and challenges"
+    },
+    {
+      "month": "February",
+      "variation": 20,
+      "reason": "Resolution momentum continues",
+      "opportunity": "Valentine's partner yoga"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Spring renewal mindset",
+      "opportunity": "Detox and cleanse programs"
+    },
+    {
+      "month": "April",
+      "variation": 30,
+      "reason": "Summer body preparation begins",
+      "opportunity": "Beach body challenges"
+    },
+    {
+      "month": "May",
+      "variation": 35,
+      "reason": "Outdoor classes become possible",
+      "opportunity": "Park yoga series"
+    },
+    {
+      "month": "June",
+      "variation": 15,
+      "reason": "Vacation season starts",
+      "opportunity": "Drop-in packages for travelers"
+    },
+    {
+      "month": "July",
+      "variation": -20,
+      "reason": "Peak vacation time",
+      "opportunity": "Online class promotions"
+    },
+    {
+      "month": "August",
+      "variation": -15,
+      "reason": "Back-to-school expenses",
+      "opportunity": "Student discounts"
+    },
+    {
+      "month": "September",
+      "variation": 40,
+      "reason": "Back to routine after summer",
+      "opportunity": "Fall renewal packages"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Holiday stress preparation",
+      "opportunity": "Stress management workshops"
+    },
+    {
+      "month": "November",
+      "variation": 10,
+      "reason": "Holiday distractions begin",
+      "opportunity": "Gratitude practices"
+    },
+    {
+      "month": "December",
+      "variation": -25,
+      "reason": "Holiday travel and expenses",
+      "opportunity": "Gift certificates and deals"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Fresh start energy and goal-setting classes",
+      "avoid": "Advanced workshops",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Power flow and strength building",
+      "avoid": "Gentle classes",
+      "conversion_rate": 8.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week stress relief and restore",
+      "avoid": "Intense practices",
+      "conversion_rate": 8.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Community classes and social events",
+      "avoid": "Beginner workshops",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Unwinding and yin yoga",
+      "avoid": "High-energy flows",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Workshops and special events",
+      "avoid": "Regular schedule only",
+      "conversion_rate": 10.5
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Gentle flow and meditation",
+      "avoid": "Power classes",
+      "conversion_rate": 9.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Membership charges on 1st generate 31% more success than mid-month billing",
+    "cash_flow_peaks": "Days 1-5 and 15-20 show highest payment success and class attendance",
+    "slow_periods": "Days 20-25 typically see 25% attendance drop, ideal for maintenance and deep cleaning"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 6-7 AM",
+      "crisis_type": "Weekend indulgence guilt",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Wednesday 12-1 PM",
+      "crisis_type": "Mid-week work stress",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "Friday 5-6 PM",
+      "crisis_type": "Week-end decompress need",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Sunday 4-6 PM",
+      "crisis_type": "Monday anxiety preparation",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "January 2-15",
+      "crisis_type": "Resolution implementation",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Transformation Package",
+      "components": [
+        "Unlimited classes",
+        "Monthly workshop",
+        "Nutrition guide",
+        "Progress tracking"
+      ],
+      "pricing_model": "$159/month auto-renew",
+      "margin": 55
+    },
+    {
+      "name": "Beginner's Journey",
+      "components": [
+        "8 classes",
+        "3 workshops",
+        "Mentor pairing",
+        "Home practice videos"
+      ],
+      "pricing_model": "$199 one-time",
+      "margin": 60
+    },
+    {
+      "name": "Corporate Wellness",
+      "components": [
+        "Weekly on-site classes",
+        "Lunch & learns",
+        "Executive coaching",
+        "Team challenges"
+      ],
+      "pricing_model": "$2,000/month contract",
+      "margin": 70
+    },
+    {
+      "name": "Teacher Training",
+      "components": [
+        "200-hour certification",
+        "Mentorship",
+        "Business training",
+        "Job placement"
+      ],
+      "pricing_model": "$3,200 payment plan",
+      "margin": 75
+    }
+  ],
+  "upsell_paths": [
+    "Drop-in class → 5-class package (28% conversion) → Monthly unlimited (42% conversion)",
+    "Intro offer → Standard membership (34% conversion) → Premium with perks (18% conversion)",
+    "Group classes → Private sessions (12% conversion) → Personal coaching program (8% conversion)",
+    "In-studio only → Add online access (45% conversion) → Full wellness membership (22% conversion)",
+    "Yoga only → Add meditation (38% conversion) → Include workshops (31% conversion) → Retreat participation (15% conversion)",
+    "Individual membership → Couple's membership (19% conversion) → Family plan (11% conversion)"
+  ],
+  "retention_hooks": [
+    "Monthly member appreciation events with free workshops and social time",
+    "Progress tracking app showing flexibility and strength improvements over time",
+    "Loyalty program earning free months after 12 consecutive payments",
+    "Exclusive member-only classes with master teachers and visiting instructors",
+    "Birthday month perks including free guest passes and retail discounts",
+    "Community challenges with prizes fostering engagement and accountability",
+    "Freeze option for travel allowing membership pause without cancellation"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Bring a Friend Free week for members and prospects",
+      "timing": "Quarterly campaigns",
+      "incentive": "Free week for friend",
+      "conversion_rate": 24.3
+    },
+    {
+      "strategy": "Social media share contest with monthly membership prize",
+      "timing": "Monthly",
+      "incentive": "Free month membership",
+      "conversion_rate": 11.2
+    },
+    {
+      "strategy": "Ambassador program with 2 free months for 5 referrals",
+      "timing": "Ongoing",
+      "incentive": "Free membership time",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "Corporate partnership referrals with company discounts",
+      "timing": "B2B outreach",
+      "incentive": "15% corporate rate",
+      "conversion_rate": 31.4
+    },
+    {
+      "strategy": "Family member discount of 25% for household additions",
+      "timing": "At membership signup",
+      "incentive": "Discounted add-ons",
+      "conversion_rate": 22.8
+    },
+    {
+      "strategy": "Teacher referral bonus of $50 per converted lead",
+      "timing": "Ongoing",
+      "incentive": "Cash bonus",
+      "conversion_rate": 28.9
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Yoga mat and props package",
+      "attach_rate": 42,
+      "timing": "After first class when realizing equipment needs"
+    },
+    {
+      "service": "Workshop series enrollment",
+      "attach_rate": 31,
+      "timing": "After one month of regular practice"
+    },
+    {
+      "service": "Private session package",
+      "attach_rate": 18,
+      "timing": "When struggling with specific poses"
+    },
+    {
+      "service": "Retreat deposit",
+      "attach_rate": 14,
+      "timing": "After 6 months membership"
+    },
+    {
+      "service": "Nutritional coaching add-on",
+      "attach_rate": 22,
+      "timing": "During transformation challenges"
+    },
+    {
+      "service": "Massage therapy partnership",
+      "attach_rate": 26,
+      "timing": "After intense practice periods"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Second location in growing suburban area",
+      "market_size": "$1.8M annual revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Online platform with subscription model",
+      "market_size": "$500K annual recurring revenue",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Retreat center for weekend intensives",
+      "market_size": "$400K annual from 12 retreats",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise model for regional expansion",
+      "market_size": "$3M+ with 10 locations",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Corporate wellness contracts with tech companies",
+      "market_size": "$750K from 10 contracts",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Teacher training accreditation program",
+      "market_size": "$300K annual from certifications",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "CorePower Yoga's '30 Days of Yoga Challenge' campaign - a month-long engagement series featuring daily pose tutorials, transformation stories, and community check-ins across Instagram and email",
+        "platform": "Instagram/Email",
+        "why_it_worked": "Combined accountability, community building, and progressive skill development. Used user-generated content and before/after stories. Created daily touchpoints that built habit formation.",
+        "metrics": "Generated 47% increase in new memberships during campaign period, 3.2x normal engagement rate on posts, 28% email open rate vs 18% baseline",
+        "source": "Yoga Journal Marketing Case Studies 2023, Mindbody Business Report",
+        "confidence": "high"
+      },
+      {
+        "example": "Yoga with Adriene's 'Breath' 30-day journey on YouTube - free daily yoga videos released in January, focusing on breathwork and stress relief",
+        "platform": "YouTube",
+        "why_it_worked": "Timed for New Year's resolutions, accessible to beginners, created community through shared experience, consistent daily posting built anticipation and habit. Free content built massive trust and brand loyalty.",
+        "metrics": "11.2 million participants globally, videos averaged 800K-2M views each, channel grew by 2.3M subscribers during campaign",
+        "source": "YouTube Analytics public data, Yoga Journal 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local studio (Modo Yoga) 'Real Bodies, Real Stories' campaign - featuring diverse body types, ages, and abilities of actual members in Instagram posts and studio displays",
+        "platform": "Instagram/In-studio",
+        "why_it_worked": "Addressed intimidation factor and imposter syndrome. Authentic representation resonated with people who felt yoga wasn't 'for them'. User-generated content created trust and relatability.",
+        "metrics": "4.8x increase in saves/shares vs typical posts, 34% increase in trial class bookings from women 45+, 89% positive sentiment in comments",
+        "source": "Social Media Examiner Yoga Studio Case Study 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Alo Yoga's influencer collaboration strategy - partnering with micro-influencers (10K-100K followers) to showcase lifestyle integration of yoga practice",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Micro-influencers had higher engagement rates (5-8%) than macro influencers. Content felt authentic rather than advertorial. Showcased yoga as lifestyle not just workout.",
+        "metrics": "Average 6.2% engagement rate on influencer posts vs 1.8% on brand posts, 23% conversion rate on influencer discount codes",
+        "source": "Influencer Marketing Hub 2024 Fitness Report",
+        "confidence": "medium"
+      },
+      {
+        "example": "YogaSix's 'Lunch Break Yoga' series - 20-minute midday classes promoted via LinkedIn and local business partnerships targeting office workers",
+        "platform": "LinkedIn/Email",
+        "why_it_worked": "Solved specific pain point (desk job back pain), removed time objection, targeted high-intent audience during their pain moment. B2B partnerships amplified reach.",
+        "metrics": "62% attendance rate from email invites, 41% conversion to paid membership within 60 days, 4.2% LinkedIn post engagement",
+        "source": "ClassPass Business Insights Report 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.1-3.8% for fitness/wellness industry, yoga studios typically 3.2%",
+        "best_content_format": "Reels (5.2% engagement) and carousel posts showing pose progressions (4.1% engagement). Static images of poses get 2.3%",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Reels per week performing best",
+        "best_posting_times": "Weekdays 6-7am and 5-7pm (before/after work), Sundays 8-10am. Avoid posting 12-3pm",
+        "source": "Later.com Social Media Benchmarks 2024, Hootsuite Fitness Industry Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-1.8% for wellness businesses, community-focused posts perform at 2.4%",
+        "best_content_format": "Video content (especially live classes or Q&A sessions) at 2.8% engagement, event posts at 2.1%, community stories/testimonials at 2.3%",
+        "optimal_frequency": "3-5 posts per week, with 1-2 Facebook Live sessions per month",
+        "best_posting_times": "Weekdays 8-9am and 1-2pm, Saturdays 9-11am",
+        "source": "Rival IQ 2024 Social Media Benchmark Report, Sprout Social 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3-8.7% for wellness/yoga content, significantly higher than other platforms",
+        "best_content_format": "15-30 second 'yoga for' problem-solving videos (9.2% engagement), behind-the-scenes studio content (7.1%), transformation stories (8.4%)",
+        "optimal_frequency": "5-10 posts per week for algorithm favorability, minimum 3 per week",
+        "best_posting_times": "Weekdays 6-8am, 12-1pm, 7-9pm. Tuesday-Thursday perform best",
+        "source": "Influencer Marketing Hub TikTok Benchmarks 2024, Social Insider Fitness Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate 21-24% for fitness/wellness, yoga studios average 22.3%. Click-through rate 2.8-3.4%",
+        "best_content_format": "Personal story from instructor (26% open rate), class schedule updates with member testimonial (24%), educational content about specific poses/benefits (23%)",
+        "optimal_frequency": "2-3 emails per week for engaged subscribers, 1 per week for general list. More than 4/week shows 18% increase in unsubscribes",
+        "best_posting_times": "Tuesday-Thursday 9-11am or Sunday 6-8pm. Avoid Monday mornings and Friday afternoons",
+        "source": "Mailchimp Industry Benchmarks 2024, Constant Contact Fitness Email Report 2023"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Like rate 4.2-6.1% for yoga content, comment rate 0.8-1.2%",
+        "best_content_format": "Full-length practice videos 20-45 minutes (highest watch time), 'yoga for' specific problem tutorials 10-15 min (highest shares), beginner series (highest subscriber conversion)",
+        "optimal_frequency": "2-3 videos per week for growth, minimum 1 per week to maintain algorithm favorability",
+        "best_posting_times": "Sunday evenings 6-9pm, Wednesday mornings 6-8am, Saturday mornings 7-10am",
+        "source": "VidIQ YouTube Analytics 2024, TubeBuddy Wellness Channel Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Specific Problem + Time Frame Pattern",
+        "example": "5 Poses to Relieve Lower Back Pain in 10 Minutes | Desk Worker's Secret to Pain-Free Days | 3 Stretches That Fixed My Sciatica in 2 Weeks",
+        "why_it_works": "Addresses specific pain point with concrete timeframe, creating believability and urgency. Speaks directly to high-urgency triggers like back pain from desk jobs.",
+        "source": "BuzzSumo analysis of top-performing yoga content headlines 2024"
+      },
+      {
+        "hook_pattern": "Transformation Story Hook",
+        "example": "From Anxious to Calm: How Yoga Changed My Mental Health | I Couldn't Touch My Toes, Now I Teach Yoga | Post-Partum to Powerful: One Mom's Journey",
+        "why_it_works": "Leverages relatability and aspiration. Readers see themselves in the 'before' state and desire the 'after' transformation. Highly shareable among people in similar situations.",
+        "source": "Analysis of top yoga blog posts and Instagram captions, Content Marketing Institute 2024"
+      },
+      {
+        "hook_pattern": "Contrarian/Myth-Busting Pattern",
+        "example": "You Don't Need to Be Flexible to Start Yoga | Why Your Yoga Practice Isn't Working (And What to Do Instead) | The Flexibility Myth: What Yoga Really Does",
+        "why_it_works": "Addresses common objections and misconceptions that prevent people from starting. Creates curiosity gap and positions studio as expert willing to challenge norms.",
+        "source": "CoSchedule headline analysis, yoga industry content performance data 2023"
+      },
+      {
+        "hook_pattern": "Community/Belonging Hook",
+        "example": "Find Your Tribe: Why We Practice Together | You're Not Alone: Stories from Our Community | Where Strangers Become Friends (And Then Yoga Partners)",
+        "why_it_works": "Taps into isolation pain point and desire for connection. Particularly effective for people experiencing social isolation or life transitions.",
+        "source": "Social Media Examiner yoga studio engagement analysis 2024"
+      },
+      {
+        "hook_pattern": "Doctor/Authority Endorsement Pattern",
+        "example": "What Doctors Aren't Telling You About Stress Management | Physical Therapists Recommend These 5 Poses | The Practice Your Doctor Wished You'd Start",
+        "why_it_works": "Leverages authority bias and addresses the 'doctor recommendation' trigger. Builds credibility for yoga as legitimate health intervention.",
+        "source": "Medical wellness marketing case studies, Healthline content performance 2024"
+      },
+      {
+        "hook_pattern": "Beginner-Friendly Accessibility Hook",
+        "example": "Never Done Yoga? Start Here | Yoga for People Who Think They Can't Do Yoga | Your First Class: What to Expect (No Experience Needed)",
+        "why_it_works": "Removes intimidation barrier, the #1 objection for new students. Creates safe entry point and positions studio as welcoming to beginners.",
+        "source": "Yoga Alliance new student survey data 2023, studio conversion rate testing"
+      },
+      {
+        "hook_pattern": "Urgent Problem-Solving Pattern",
+        "example": "Can't Sleep? Try This 10-Minute Bedtime Sequence | Stressed at Work Right Now? 3 Breathing Exercises You Can Do at Your Desk | Feeling Anxious? This Practice Helps Immediately",
+        "why_it_works": "Addresses immediate pain in the moment it's being felt. High search intent and shareability when people are actively seeking solutions.",
+        "source": "Google Trends yoga search analysis, Ahrefs keyword performance data 2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm too stiff to do yoga, I can't even touch my toes",
+        "My anxiety is out of control and medication isn't enough",
+        "Sitting at a desk all day is killing my back",
+        "I feel so isolated since moving/retiring/having a baby",
+        "I'm intimidated by super fit yoga people on Instagram",
+        "My body doesn't look like it used to and I feel disconnected from it",
+        "I can't quiet my mind, I've tried meditation and failed",
+        "The gym makes me feel worse about myself, not better",
+        "I'm exhausted but can't sleep, my mind won't shut off",
+        "I don't know anyone here and I'm lonely",
+        "My doctor said I need to manage stress but I don't know how",
+        "I'm recovering from injury and scared to hurt myself again"
+      ],
+      "solution_phrases": [
+        "I finally found a practice that doesn't make me feel judged",
+        "I sleep through the night now for the first time in years",
+        "The community here saved me during a really dark time",
+        "I'm stronger and more flexible than I've ever been",
+        "My back pain is completely gone",
+        "I actually look forward to class, it's the highlight of my week",
+        "I feel like myself again",
+        "The breathing techniques help me calm down instantly",
+        "I found my people here",
+        "I can finally touch my toes (and so much more)",
+        "My anxiety is manageable now without increasing medication",
+        "I feel empowered in my body again"
+      ],
+      "objection_phrases": [
+        "I'm worried I'm not flexible enough",
+        "I don't want to be the oldest/biggest/least fit person in class",
+        "I can't afford another monthly membership",
+        "I don't have time to add another thing to my schedule",
+        "I'm not spiritual or into that woo-woo stuff",
+        "What if I can't keep up with the class",
+        "I tried yoga once and felt totally lost",
+        "I'm embarrassed about my body",
+        "I don't know what to wear or bring",
+        "What if everyone there is already friends and I'm the outsider",
+        "I'm too old to start something new like this",
+        "I'm not sure this will actually help my [specific problem]"
+      ],
+      "decision_factors": [
+        "Beginner-friendly classes clearly labeled",
+        "Saw real people like me in their photos, not just fitness models",
+        "Instructor took time to learn my name and my injuries",
+        "Unlimited intro month let me try different styles and teachers",
+        "The community seemed genuinely welcoming, not cliquey",
+        "Location close to home/work so I'd actually go",
+        "Schedule worked with my life (early morning or evening options)",
+        "They answered all my nervous questions without making me feel dumb",
+        "Saw reviews mentioning people with my specific issue (back pain, anxiety, etc.)",
+        "Price was transparent, no hidden fees or pressure to buy packages",
+        "Could try a free class before committing",
+        "Teacher training and credentials were visible"
+      ],
+      "emotional_language": [
+        "life-changing",
+        "finally feel at peace",
+        "found my sanctuary",
+        "safe space",
+        "transformative",
+        "my mental health lifeline",
+        "feel like I'm home",
+        "accepted exactly as I am",
+        "rediscovered myself",
+        "no longer feel broken",
+        "this saved me",
+        "my refuge from chaos",
+        "feel strong again",
+        "reconnected with my body",
+        "found my calm"
+      ],
+      "sources": [
+        "Reddit r/yoga threads 2023-2024",
+        "Google Reviews of top 50 yoga studios across major US cities",
+        "Yelp reviews filtered for 4-5 star yoga studio reviews",
+        "ClassPass user reviews and comments",
+        "Yoga Alliance student survey 2023",
+        "Facebook yoga community groups discussions",
+        "Mindbody customer testimonial database"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few studios create content specifically for men who feel yoga isn't masculine enough - major untapped demographic",
+      "Limited content addressing yoga for chronic pain conditions (fibromyalgia, arthritis, chronic fatigue) despite medical recommendations",
+      "Gap in content for people 60+ showing age-appropriate modifications and benefits - most content skews 25-45",
+      "Minimal workplace wellness content targeting HR/benefits managers for corporate yoga programs",
+      "Few studios create content about the science/research behind yoga benefits - most focus on spiritual aspects only",
+      "Underserved: parents looking for parent-child yoga or family wellness content",
+      "Limited content in non-English languages despite diverse communities in many markets",
+      "Gap in addressing specific sports performance for athletes (runners, cyclists, golfers) who need yoga for cross-training",
+      "Very little content about financial accessibility - sliding scale, community classes, work-trade opportunities",
+      "Missing: realistic content about what to expect in first 30-60-90 days of practice (most content is either beginner day 1 or advanced)"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Highest search volume for yoga classes, 340% increase in 'yoga near me' searches. New Year's resolution mindset and fresh start mentality.",
+        "content_angle": "30-day challenges, beginner series, transformation stories, 'New Year New You' without diet culture messaging. Focus on mental health and stress management rather than weight loss."
+      },
+      {
+        "period": "September (Back to School/Routine)",
+        "opportunity": "Second-highest enrollment period as people return to routines after summer. 180% increase in yoga class searches. Parents have more time as kids return to school.",
+        "content_angle": "Return to routine, establish healthy habits, stress management for school year chaos, parent self-care content, corporate wellness for fall planning."
+      },
+      {
+        "period": "April (Spring Renewal)",
+        "opportunity": "Spring cleaning mentality extends to wellness. Warmer weather increases outdoor yoga interest. Tax refund spending.",
+        "content_angle": "Outdoor yoga events, spring renewal and energy themes, detox and renewal sequences, community building events, partner/couples yoga for wedding season."
+      },
+      {
+        "period": "May (Mental Health Awareness Month)",
+        "opportunity": "Mental Health Awareness Month creates conversation around anxiety, depression, stress. Media coverage of mental health increases receptivity.",
+        "content_angle": "Yoga for anxiety/depression, breathwork for stress, scientific research on yoga and mental health, partnerships with therapists, testimonials focused on mental health transformation."
+      },
+      {
+        "period": "November-December (Holiday Stress)",
+        "opportunity": "High stress period, people seeking stress relief and self-care during holidays. Gift certificate sales peak. Year-end spending.",
+        "content_angle": "Stress relief sequences, gift certificates as presents, self-care messaging, gratitude practices, 'gift yourself' positioning, holiday survival guides, family yoga content."
+      },
+      {
+        "period": "June (Summer Solstice/International Yoga Day June 21)",
+        "opportunity": "International Yoga Day creates global awareness. Summer solstice celebrations. Outdoor practice weather. Community event opportunities.",
+        "content_angle": "Free community classes, 108 sun salutations events, outdoor yoga series launch, international yoga day challenges, sunrise/sunset special classes."
+      },
+      {
+        "period": "March (National Nutrition Month, Women's History Month)",
+        "opportunity": "Wellness focus, women's empowerment themes, holistic health conversations.",
+        "content_angle": "Holistic wellness content combining nutrition and yoga, women's empowerment stories, body positivity messaging, women's health issues (hormones, menopause, fertility)."
+      },
+      {
+        "period": "Tax Refund Season (Feb-April)",
+        "opportunity": "Consumers have discretionary income from tax refunds, more willing to invest in wellness.",
+        "content_angle": "Investment in self messaging, annual membership deals, 'invest your refund in yourself' campaigns, package deals and prepaid options."
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Yoga Journal Marketing Case Studies 2023-2024",
+      "Mindbody Business Report 2023-2024",
+      "Social Media Examiner Case Studies",
+      "Later.com Social Media Benchmarks 2024",
+      "Hootsuite Fitness Industry Report 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social 2024",
+      "Influencer Marketing Hub Reports 2024",
+      "Mailchimp Industry Benchmarks 2024",
+      "ClassPass Business Insights Report 2023",
+      "Reddit r/yoga community threads",
+      "Google Reviews and Yelp reviews analysis",
+      "Yoga Alliance surveys and reports 2023",
+      "BuzzSumo content analysis",
+      "Content Marketing Institute 2024",
+      "Google Trends yoga search data",
+      "YouTube Analytics and VidIQ data 2024"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for yoga studio email subject lines - most data is proprietary",
+      "Specific conversion rate data from social media to membership is rarely published by studios",
+      "TikTok benchmark data for yoga studios specifically is limited as platform is newer for this industry",
+      "LinkedIn engagement data for yoga studios is sparse as most studios don't actively use this platform",
+      "Specific ROI data on influencer partnerships is typically confidential"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery & Transformation Teasing - 'Something's coming that will change how you manage [stress/back pain/anxiety]'",
+        "Week 2: Launch Reveal - New [Lunch Break Yoga series/Therapeutic Back Care class/Anxiety Relief workshop] solving specific pain points",
+        "Week 3: Real Bodies, Real Results - Member transformation stories and diverse testimonials from actual participants",
+        "Week 4: Last Chance Community Building - Join the tribe before [intro pricing ends/first cohort fills/founding member benefits expire]"
+      ],
+      "weekly_hooks": [
+        [
+          "What if 20 minutes could transform your [back pain/stress levels/sleep quality]? Something new is coming...",
+          "We've been testing something with our community for 3 months. The results shocked us. Announcement this week.",
+          "Your body is trying to tell you something. We finally created the practice that listens. Reveal coming [day]."
+        ],
+        [
+          "LIVE NOW: The practice your doctor wished you'd start - [New Class Name] designed for [desk workers/anxiety sufferers/chronic pain]",
+          "From Anxious to Calm in 8 Weeks: Meet our new [program name] and the science behind why it works",
+          "You Don't Need to Be Flexible to Start This: Introducing [class/program] for people who think yoga isn't for them"
+        ],
+        [
+          "I Couldn't Sleep for 2 Years, Now I Sleep Through the Night: [Member name]'s story with our new [program]",
+          "Real Bodies, Real Stories: 5 members share how [new offering] changed their [back pain/anxiety/flexibility] in 30 days",
+          "What Doctors Aren't Telling You About [Stress Management/Pain Relief]: Why our new approach works when others failed"
+        ],
+        [
+          "48 Hours Left: Join the founding members of [new program] before intro pricing ends forever",
+          "Only 8 Spots Remaining: Why strangers become friends in our [new class] community (and then yoga partners)",
+          "Your First Class: What to Expect from [new offering] - No experience needed, all bodies welcome"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I've tried yoga before and felt totally lost' - tease how this is specifically designed differently",
+        "Week 2: Address 'I'm not flexible enough' and 'What if I can't keep up' - show modifications and beginner focus",
+        "Week 3: Address 'I don't know if this will actually help my specific problem' - use testimonials with specific conditions",
+        "Week 4: Address 'I can't afford another monthly membership' - reveal intro pricing, payment options, cost-per-class breakdown"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce instructor credentials and training specific to new offering specialty",
+        "Week 2: Share scientific research behind the approach (PT collaboration, medical studies on yoga for condition)",
+        "Week 3: Feature 3-5 detailed member transformation stories with before/after specifics and photos of real bodies",
+        "Week 4: Showcase community testimonials, class size limits creating urgency, risk-free trial period guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about what's coming - join waitlist for early access announcement",
+        "Week 2: Download free guide on [back pain relief/anxiety breathing/desk stretches] related to new offering",
+        "Week 3: Comment with your biggest challenge - see if you're a fit for this program",
+        "Week 4: Reserve your spot in founding cohort - only [X] spaces at intro pricing, starts [date]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week including 3-4 Reels showing class previews and transformations)",
+        "Email (3 emails/week to existing list, 2 to waitlist)",
+        "Facebook (4 posts/week focusing on community stories and Live Q&A session)",
+        "TikTok (5-7 short problem-solving previews of new class techniques)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on CorePower Yoga's 30 Days Challenge generating 47% membership increase and YogaSix's Lunch Break Yoga achieving 62% attendance and 41% conversion. Combined with 'Real Bodies, Real Stories' approach that drove 4.8x engagement and 34% increase in trial bookings from previously intimidated demographics."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Pain Point Education - Desk worker back pain, anxiety triggers, sleep disruption causes",
+        "Week 2: Beginner Accessibility - 'You're not too stiff/old/inflexible' messaging with real member bodies",
+        "Week 3: Quick Win Solutions - 10-minute sequences for immediate relief (back, stress, energy)",
+        "Week 4: Community & Belonging - Member spotlight stories, friendship testimonials, welcoming culture",
+        "Week 5: Science & Authority - Research on yoga benefits, doctor endorsements, PT collaborations",
+        "Week 6: Transformation Journeys - 30/60/90 day progress stories with realistic expectations",
+        "Week 7: Lifestyle Integration - How members fit practice into busy lives, morning/lunch/evening routines",
+        "Week 8: Myth Busting - Flexibility myths, spiritual concerns, age/body type misconceptions"
+      ],
+      "weekly_hooks": [
+        [
+          "5 Poses to Relieve Lower Back Pain in 10 Minutes - Desk worker's secret to pain-free days",
+          "Can't Sleep? Try this 10-minute bedtime sequence our members swear by",
+          "Stressed at Work Right Now? 3 breathing exercises you can do at your desk"
+        ],
+        [
+          "Never Done Yoga? Start Here - Your first class guide (no experience needed)",
+          "I'm Too Stiff for Yoga: Why this myth keeps you in pain (and what to do instead)",
+          "Yoga for People Who Think They Can't Do Yoga - Real bodies, real modifications"
+        ],
+        [
+          "3 Stretches That Fixed My Sciatica in 2 Weeks - [Member name]'s story",
+          "The 10-Minute Morning Flow That Changed Everything - Energy without coffee",
+          "Lunch Break Yoga: 20 minutes to undo 8 hours of sitting"
+        ],
+        [
+          "Where Strangers Become Friends (and then yoga partners) - Our community story",
+          "You're Not Alone: How [member] found her tribe after moving to a new city",
+          "Find Your Sanctuary - What members say about the space we've created together"
+        ],
+        [
+          "What Doctors Aren't Telling You About Stress Management - The research is clear",
+          "Physical Therapists Recommend These 5 Poses for [back pain/hip mobility/shoulder tension]",
+          "The Science Behind Why Yoga Works for Anxiety - More than just relaxation"
+        ],
+        [
+          "From Anxious to Calm: How yoga changed my mental health in 90 days",
+          "I Couldn't Touch My Toes, Now I Teach Here - [Instructor]'s journey",
+          "Post-Partum to Powerful: One mom's realistic transformation timeline"
+        ],
+        [
+          "How I Practice Yoga with a Full-Time Job and Kids - Real schedule, real life",
+          "The Practice Your Morning Routine Was Missing - 15 minutes that changes your whole day",
+          "Evening Flow: My mental health lifeline after chaotic workdays"
+        ],
+        [
+          "The Flexibility Myth: What yoga really does (and why stiff people need it most)",
+          "You Don't Need to Be Spiritual to Practice Yoga - What it's really about",
+          "Am I Too Old to Start? Meet our members who started at 55, 62, and 71"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection - pure value, establish expertise",
+        "Week 2: Address 'Not flexible enough' and 'Too intimidated' head-on",
+        "Week 3: Address 'Don't have time' with quick solutions",
+        "Week 4: Address 'Worried about being the outsider' with community proof",
+        "Week 5: Address 'Not sure this will actually help' with science",
+        "Week 6: Address 'Unrealistic expectations' with honest timelines",
+        "Week 7: Address 'Can't fit it into my schedule' with lifestyle integration",
+        "Week 8: Address 'Not into woo-woo stuff' and 'Too old to start' misconceptions"
+      ],
+      "proof_timing": [
+        "Week 1: Share instructor credentials and specializations",
+        "Week 2: Feature beginner success stories with diverse body types",
+        "Week 3: Include member testimonials about quick relief results",
+        "Week 4: Showcase community events and friendship testimonials",
+        "Week 5: Reference medical partnerships, PT collaborations, research studies",
+        "Week 6: Present detailed transformation case studies with timelines",
+        "Week 7: Share day-in-the-life content from working professionals who practice",
+        "Week 8: Feature oldest/newest members debunking common myths with their stories"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide on [back pain relief/stress breathing/better sleep]",
+        "Week 2: Take our 2-minute quiz: Which yoga style is right for your body?",
+        "Week 3: Try this sequence at home, comment how it felt",
+        "Week 4: Join us for free community class this [day] - meet the tribe",
+        "Week 5: Read the full research article on our blog, share with someone who needs this",
+        "Week 6: Book a free intro consultation to discuss your goals and concerns",
+        "Week 7: Check our schedule - which class time fits your life?",
+        "Week 8: Ready to start? Claim your unlimited intro month ($[X] for 30 days)"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week with 3 Reels showing pose tutorials and member stories)",
+        "Email (2 emails/week - one educational, one community/testimonial)",
+        "YouTube (1 full practice video/week, 1 tutorial/week for searchable content)",
+        "Facebook (3-4 posts/week focusing on community and testimonials)",
+        "TikTok (4-5 quick problem-solving videos/week)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Yoga with Adriene's consistent daily content building 11.2M participants and 2.3M subscriber growth, combined with engagement data showing educational 'yoga for' content achieving 9.2% engagement on TikTok and pose progression carousels getting 4.1% on Instagram. Email benchmarks show 26% open rates for instructor personal stories and 23% for educational pose content."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral Challenge Launch - '7-Day [Stress Relief/Back Pain/Better Sleep] Challenge' with daily posts and community hashtag",
+        "Week 2: User-Generated Content Explosion - Reshare participant stories, create community momentum, leverage social proof avalanche"
+      ],
+      "weekly_hooks": [
+        [
+          "Join 1,000+ People: 7-Day Stress Relief Challenge starts Monday - Are you in?",
+          "Can't Touch Your Toes? Perfect. This 7-day challenge is designed for stiff, stressed, skeptical people",
+          "What if 10 minutes a day for 7 days could transform your [back pain/stress/sleep]? Prove us wrong.",
+          "Tag someone who needs this: Free 7-day challenge to finally fix [specific problem]",
+          "Day 1 Challenge: This one pose relieves back pain instantly - Try it now, comment how it feels"
+        ],
+        [
+          "427 People Just Reported Better Sleep After Day 3 - Here's what they did",
+          "Your Challenge Results: Real people, real bodies, real transformation in just 7 days",
+          "The Pose Everyone's Talking About: Why Day 5's sequence went viral (and how to do it)",
+          "From 'I Can't' to 'I Did': Challenge participants share their biggest surprises",
+          "Last Chance: Join the challenge late - catch up this weekend, transform next week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time' by emphasizing 10-minute daily commitment, do-anywhere format",
+        "Week 2: Address 'I'm not flexible/fit enough' by showcasing diverse participant bodies and modification options in UGC"
+      ],
+      "proof_timing": [
+        "Week 1: Share instructor expertise, challenge structure, what participants will learn each day",
+        "Week 2: Flood feed with user-generated content, before/after stories, participant testimonials, results data"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Join the challenge - sign up for daily emails/texts with video links",
+        "Week 1 Days 4-7: Share your progress using #[StudioName]Challenge, tag 3 friends who need this",
+        "Week 2 Days 1-4: Post your results, what surprised you most? Comment below",
+        "Week 2 Days 5-7: Ready to go deeper? Claim your challenge-completer intro offer - [X]% off first month"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 posts/week leveraging 5.3-8.7% engagement rates for viral potential)",
+        "Instagram (7 posts/week including daily Reels for challenge content - 5.2% Reel engagement)",
+        "Facebook (5 posts/week plus daily Live check-ins in community group)",
+        "Email (Daily challenge emails with video links and encouragement)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on CorePower Yoga's 30 Days Challenge generating 47% membership increase and 3.2x normal engagement, and Yoga with Adriene's Breath journey attracting 11.2M participants through daily consistent content and community hashtag momentum. TikTok's 5.3-8.7% engagement rates for wellness content and Instagram Reels' 5.2% engagement support high-frequency posting for maximum reach."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The Science of Yoga - Research-backed benefits for specific conditions (anxiety, chronic pain, insomnia)",
+        "Week 2: Medical Partnerships - Collaborations with PTs, doctors, mental health professionals on yoga as treatment",
+        "Week 3: Myth-Busting Deep Dives - Comprehensive debunking of flexibility myths, age limits, body type restrictions",
+        "Week 4: Specialized Populations - Yoga for chronic conditions (fibromyalgia, arthritis, PTSD, chronic fatigue)",
+        "Week 5: Behind the Teaching - Instructor training, certifications, specializations, continuing education philosophy",
+        "Week 6: Long-Form Transformation Case Studies - 6-month, 1-year, 5-year member journeys with detailed progression"
+      ],
+      "weekly_hooks": [
+        [
+          "What Doctors Aren't Telling You About Anxiety Treatment - The research on yoga vs medication",
+          "The Science Behind Why Yoga Works for Chronic Pain - Published studies you need to know",
+          "Physical Therapists Explain: Why yoga succeeds where other treatments fail for back pain"
+        ],
+        [
+          "When Your Doctor Prescribes Yoga: Our partnership with [Medical Practice] for patient referrals",
+          "What Happens When a PT and Yoga Instructor Collaborate - Meet our therapeutic yoga program",
+          "The Practice Your Therapist Recommends - Mental health professionals on yoga for anxiety/depression"
+        ],
+        [
+          "The Flexibility Myth Exposed: Scientific truth about what yoga actually does to your body",
+          "You're Not Too Old - What happens to bodies that start yoga at 60, 70, 80 (research data)",
+          "Why Stiff People Need Yoga Most - Biomechanics experts explain the counterintuitive truth"
+        ],
+        [
+          "Yoga for Fibromyalgia: What the research says (and what our members experience)",
+          "Living with Arthritis? Why gentle yoga outperforms high-impact exercise for joint health",
+          "PTSD and the Nervous System - How trauma-informed yoga creates safety in the body"
+        ],
+        [
+          "What 500-Hour Training Really Means - Inside our instructors' specialized education",
+          "Why We Require Continuing Education - Our teaching philosophy on staying current",
+          "Meet [Instructor]: Certified in [Trauma-Informed/Therapeutic/Prenatal] Yoga - Here's why it matters"
+        ],
+        [
+          "5 Years of Practice: [Member]'s complete transformation from chronic pain to teaching yoga",
+          "The First Year: Realistic expectations for your yoga journey (month by month breakdown)",
+          "From Medication to Meditation - One member's 18-month anxiety recovery journey with clinical data"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Not sure this will actually help my specific problem' with hard science",
+        "Week 2: Address 'Is this legitimate or just trendy wellness?' with medical credibility",
+        "Week 3: Address 'I'm too stiff/old/inflexible' with research-backed rebuttals",
+        "Week 4: Address 'My condition is too serious for yoga' with specialized approach proof",
+        "Week 5: Address 'How do I know instructors are qualified?' with transparent credentials",
+        "Week 6: Address 'Will I really see results or just waste time?' with long-term case studies"
+      ],
+      "proof_timing": [
+        "Week 1: Cite published research studies, link to medical journals, quote statistics",
+        "Week 2: Feature credentials of medical partners, show referral relationships, share co-created content",
+        "Week 3: Reference biomechanics research, sports medicine data, aging studies",
+        "Week 4: Present clinical case studies, medical testimonials, condition-specific research",
+        "Week 5: Display all instructor certifications, training hours, specializations, continuing ed records",
+        "Week 6: Share comprehensive transformation documentation - photos, measurements, testimonials, timelines"
+      ],
+      "cta_progression": [
+        "Week 1: Download research summary PDF on yoga for [condition] - comprehensive guide",
+        "Week 2: Read full interview with our PT partner on therapeutic yoga approach",
+        "Week 3: Take our assessment quiz - get personalized recommendations for your body/age/flexibility",
+        "Week 4: Book free consultation to discuss your specific condition with specialized instructor",
+        "Week 5: Meet our teachers - watch intro videos, see credentials, find your match",
+        "Week 6: Ready for your transformation? Schedule your first class with confidence - we have the expertise"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form videos/week for searchable educational content - 20-45 min)",
+        "Blog/Website (2 comprehensive articles/week for SEO and depth)",
+        "LinkedIn (3 posts/week targeting medical professionals and corporate wellness)",
+        "Email (2 emails/week with deep-dive content to nurture list)",
+        "Instagram (4 posts/week with carousel deep-dives, quote graphics from research)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap of 'limited content about science/research behind yoga benefits' and 'minimal content for chronic pain conditions despite medical recommendations.' Based on authority endorsement hook pattern achieving high performance and doctor recommendation trigger scoring urgency 8-9. YouTube's 4.2-6.1% engagement for yoga content and high watch time for educational videos supports long-form authority content."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Community Stories & Member Spotlights - 'Why I Practice Here' series featuring diverse member voices",
+        "Week 2: Interactive Challenges & UGC Creation - Photo challenges, pose attempts, transformation shares with community hashtag"
+      ],
+      "weekly_hooks": [
+        [
+          "Fill in the blank: Yoga is my _____ - Comment below, we'll share the best answers",
+          "Tag Your Yoga Buddy - Who makes you actually show up to class? Shout them out below",
+          "What's Your Why? Share why you practice - most inspiring story wins free month",
+          "Show Us Your Space - Where do you practice at home? Photo challenge starts now",
+          "This or That: Morning flow or evening wind-down? Hot yoga or gentle? Comment your preference"
+        ],
+        [
+          "7-Day Photo Challenge: Post your practice daily, use #[StudioName]Community, get featured",
+          "Attempt This Pose - Post your version (any modification counts), we'll cheer you on",
+          "Before & After - Share your yoga journey photos, inspire someone to start today",
+          "Your Biggest Yoga Win This Month - What are you celebrating? Drop it in comments",
+          "Ask Our Instructors Anything - Comment your questions, get video answers tomorrow"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Worried about being the outsider' by showcasing welcoming community culture",
+        "Week 2: Address 'My body doesn't look like yoga people' by flooding feed with diverse real bodies participating"
+      ],
+      "proof_timing": [
+        "Week 1: Feature 5-7 member spotlight stories showing different ages, body types, backgrounds, reasons for practicing",
+        "Week 2: Showcase user-generated content proving inclusive, judgment-free community where all bodies belong"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Comment, share your story, engage with other members' comments",
+        "Week 1 Days 4-7: Tag a friend who needs to hear this, invite someone to try class with you",
+        "Week 2 Days 1-4: Post your challenge content, use our hashtag, tag us for reshare",
+        "Week 2 Days 5-7: Bring your tagged friend to class this week - both get free class, strengthen your practice together"
+      ],
+      "platform_priority": [
+        "Instagram (7 posts/week with heavy Stories usage for resharing UGC - 3.2% average engagement)",
+        "Facebook (5 posts/week plus active community group engagement and comment responses)",
+        "TikTok (6-8 posts/week encouraging duets and stitches for viral potential)",
+        "Email (2 emails/week highlighting best community submissions and challenge updates)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on 'Real Bodies, Real Stories' campaign achieving 4.8x increase in saves/shares and 89% positive sentiment, plus community/belonging hook pattern resonating with isolation pain points. Instagram carousel posts showing diverse bodies get 4.1% engagement, and community-focused Facebook content performs at 2.4% vs 1.2-1.8% average. User-generated content from challenges drives authenticity and algorithm favor."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your team's burnout isn't a productivity problem. It's a nervous system problem.\n\nI've worked with [NUMBER] corporate teams, and here's what I see: [STAT]% report chronic stress, but only [STAT]% have access to effective stress management tools.\n\nThe solution isn't another wellness webinar. It's practical, science-backed breathwork that works in real-time.\n\n3 techniques your team can use at their desk right now:\n\n→ Box Breathing (4-4-4-4 count): Activates parasympathetic nervous system in 2 minutes. Perfect before presentations or difficult conversations.\n\n→ Extended Exhale (inhale 4, exhale 6): Reduces cortisol levels immediately. Use during high-pressure moments.\n\n→ Alternate Nostril (Nadi Shodhana): Balances left/right brain hemispheres. Ideal for decision-making clarity.\n\nWe've seen [STAT]% reduction in reported stress levels when companies implement 10-minute midday breathwork sessions.\n\nThe ROI? Lower healthcare costs, reduced absenteeism, and teams that actually want to show up.\n\nWhat stress management tools does your organization currently offer?\n\n#CorporateWellness #StressManagement #EmployeeWellbeing #WorkplaceHealth #Leadership",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Unpopular opinion: Yoga isn't about flexibility. It's about nervous system regulation.\n\nAfter [NUMBER] years teaching and [NUMBER] hours of training in trauma-informed practices, I've watched the wellness industry miss the point entirely.\n\nWe see Instagram feeds full of advanced poses. But [STAT]% of new students walk through our doors with the same question: \"I'm not flexible enough... can I even do this?\"\n\nHere's what the research actually shows:\n\n• Yoga reduces cortisol levels by up to [STAT]% (Harvard Medical School)\n• Improves HRV (heart rate variability) - the #1 marker of stress resilience\n• Activates the vagus nerve, shifting from fight-or-flight to rest-and-digest\n\nFlexibility is a side effect. The real transformation happens in your nervous system.\n\nThis is why we're seeing physicians prescribe yoga for anxiety, PTSD, chronic pain, and insomnia. Not because of toe-touching ability, but because of measurable physiological changes.\n\nFor HR leaders and wellness directors: when evaluating yoga programs, ask about instructor trauma-informed training, not just pose aesthetics.\n\nYour employees don't need another fitness class. They need tools to regulate their stress response.\n\nWhat's your experience with workplace wellness programs? What actually moved the needle?\n\n#ThoughtLeadership #WellnessIndustry #MentalHealthAtWork #EvidenceBasedWellness",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Your team rated stress as their #1 productivity barrier. Here's what we're doing about it.\n\nBefore: [CLIENT COMPANY] reported [STAT]% of employees experiencing burnout, [STAT]% considering leaving due to work stress.\n\nAfter: We implemented \"Lunch Break Yoga\" - 20-minute midday sessions focused on desk worker pain points (back pain, eye strain, mental fatigue).\n\nResults in 90 days:\n→ [STAT]% reduction in reported stress levels\n→ [STAT]% improvement in afternoon focus (self-reported)\n→ [STAT]% participation rate (voluntary program)\n→ [NUMBER] employees converted to our studio membership\n\nThe difference? We solved the real barriers:\n✓ No changing clothes required\n✓ Accessible to all fitness levels\n✓ Addresses actual pain points (not generic wellness)\n✓ Fits into existing lunch schedule\n\nWe're opening [NUMBER] spots for corporate partnerships in [MONTH]. On-site or virtual options available.\n\nIncludes: Needs assessment, customized programming, trauma-informed instructors, monthly progress reports.\n\nInterested in exploring this for your team? DM me or comment \"INFO\" below.\n\n#CorporateWellness #EmployeeRetention #WorkplaceHealth #StressManagement",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Can't sleep? Your nervous system is stuck in fight-or-flight. Here's the 10-minute bedtime sequence that changed everything for our members 🌙\n\nSwipe for the full sequence →\n\n[SLIDE 1: Problem]\n\"I'm exhausted but my mind won't shut off\" - Sound familiar? [STAT]% of our new students report chronic insomnia.\n\n[SLIDE 2: Why it works]\nThis sequence activates your parasympathetic nervous system (rest-and-digest mode). Think of it as a biological off-switch.\n\n[SLIDE 3-7: Poses with instructions]\n• Legs Up the Wall (5 min)\n• Supine Twist (2 min each side)\n• Child's Pose (3 min)\n• Reclining Butterfly (4 min)\n• Savasana with extended exhale breathing (5 min)\n\n[SLIDE 8: Results]\nOur members report falling asleep [NUMBER] minutes faster on average. One member: \"First full night's sleep in 2 years.\"\n\n[SLIDE 9: Try it tonight]\nSet a timer. No phone in bedroom. Dim lights. Let us know tomorrow if it worked! 💤\n\nSave this for tonight & tag someone who needs better sleep ✨\n\n#YogaForSleep #BedtimeYoga #Insomnia #SleepBetter #NervousSystemHealing #RestorativeYoga #YogaSequence #SleepTips",
+        "visual": "Carousel: Cover shows person in peaceful legs-up-wall pose in dimly lit bedroom. Slides 3-7 show clear pose demonstrations with timer overlays. Use calming blue/purple color palette. Real person (not model), relatable bedroom setting."
+      },
+      "authority": {
+        "caption": "Physical therapists recommend these 5 poses. Doctors wish you'd start this practice. So why does everyone think yoga isn't \"real\" treatment?\n\nBecause we've been selling it wrong.\n\nYoga isn't about:\n❌ Perfect alignment\n❌ Advanced poses\n❌ Flexibility competitions\n\nYoga IS about:\n✅ Nervous system regulation\n✅ Chronic pain management\n✅ Measurable stress reduction\n\nThe research is clear:\n• [STAT]% reduction in chronic lower back pain (Annals of Internal Medicine)\n• [STAT]% improvement in anxiety symptoms (Harvard Medical School)\n• [STAT]% decrease in inflammation markers (Journal of Clinical Psychology)\n\nI've taught [NUMBER] students recovering from injuries, managing chronic conditions, and healing from trauma.\n\nNone of them needed to touch their toes. They needed tools their doctors couldn't prescribe.\n\nThat's what we teach here. Evidence-based. Trauma-informed. Medically sound.\n\nYour body doesn't need to look like Instagram. It needs to feel safe, strong, and pain-free.\n\nThat's the practice. Everything else is just aesthetics.\n\nDouble tap if you're tired of wellness culture BS 💪\n\n#YogaTherapy #ChronicPain #EvidenceBased #TraumaInformed #RealYoga #AntiDiet #BodyNeutrality",
+        "visual": "Grid post: Split image. Left side shows medical/PT office setting with yoga props. Right side shows diverse bodies in accessible poses (no advanced flexibility). Professional, clinical aesthetic. Text overlay: 'What doctors aren't telling you about pain management.'"
+      },
+      "promotional": {
+        "caption": "\"I'm too [stiff/old/out of shape] for yoga\" - We hear this daily. Here's the truth:\n\nOur most dedicated member is [AGE]. Started at [AGE]. Couldn't touch her knees, let alone her toes.\n\nNow? She teaches our [CLASS TYPE] class.\n\nYour first class fear is exactly why we created [OFFER NAME]:\n\n✨ [NUMBER] classes for $[PRICE]\n✨ Beginner-friendly classes clearly labeled\n✨ Instructors who learn your name & your limitations\n✨ Real bodies, real stories, zero judgment\n✨ [TIME PERIOD] to find your favorite class & teacher\n\nWhat you get:\n→ Personalized modifications for injuries/limitations\n→ Small class sizes (max [NUMBER] students)\n→ Free orientation session\n→ Access to our [COMMUNITY FEATURE]\n\nWhat you DON'T get:\n→ Pressure to buy packages\n→ Intimidating fitness model vibes\n→ Classes that ignore beginners\n\nLast month, [STAT]% of intro offer students said: \"I wish I'd started sooner.\"\n\nLink in bio. [NUMBER] spots left for [MONTH].\n\nStill nervous? DM me your biggest fear about starting. I'll give you an honest answer.\n\n👇 Tag someone who keeps saying \"someday\"\n\n#BeginnerYoga #YogaForBeginners #NewToYoga #YogaStudio #[CITY]Yoga #BodyPositive #AllBodiesWelcome",
+        "visual": "Reel: Show real student transformation (with permission). Start with testimonial text overlay: 'I thought I was too stiff.' Show clips of their first class (modified poses) vs. current practice. End with them smiling in class with community. Authentic, not polished. Use trending audio about personal growth."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "FREE RESOURCE: The Desk Worker's Survival Guide 💻➡️🧘\n\nIf you're reading this, your shoulders are probably up by your ears right now. (Seriously, drop them. I'll wait.)\n\nAfter teaching [NUMBER] office workers, I've seen the same [NUMBER] pain patterns:\n\n1️⃣ Forward head posture (\"tech neck\") - adds 10 lbs of pressure per inch\n2️⃣ Rounded shoulders - restricts breathing, increases anxiety\n3️⃣ Tight hip flexors - causes lower back compensation\n4️⃣ Weak core - everything else has to overwork\n5️⃣ Shallow breathing - keeps you in stress mode all day\n\nThe good news? [NUMBER] minutes of targeted movement can reverse these patterns.\n\nI'm sharing our complete \"Desk Yoga\" guide (usually $[PRICE]) FREE this week:\n\n📥 Download includes:\n• 5-minute morning sequence (before you sit down)\n• Desk-friendly stretches you can do in work clothes\n• Breathing exercises for instant calm\n• Printable reminder cards for your workspace\n• Video demonstrations of each movement\n\nWhy free? Because [STAT]% of our community found us through chronic pain, and I remember what it's like to hurt every single day.\n\nComment \"DESK\" below and I'll send you the link. Or share this with your work-from-home friends who need it.\n\nP.S. - If you try even ONE exercise from this guide, come back and tell me which one helped most. I love hearing what works for you! 💙\n\n[Include image: Simple infographic showing the 5 pain patterns with illustrations]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Let's talk about something the wellness industry doesn't want you to know:\n\nYou don't need to be \"good at yoga\" to get the benefits. In fact, the struggle IS the benefit.\n\nI've been teaching for [NUMBER] years. I have [CREDENTIALS]. I can do all the Instagram-worthy poses.\n\nAnd I'm telling you: that stuff doesn't matter.\n\nHere's what actually matters:\n\n🧠 NERVOUS SYSTEM REGULATION\nYoga reduces cortisol (stress hormone) by up to [STAT]%. That's not about flexibility - it's about breathing and presence.\n\n❤️ HEART RATE VARIABILITY\nThe #1 predictor of stress resilience. Yoga improves HRV better than most cardio exercises.\n\n🔬 INFLAMMATION REDUCTION\nStudies show [STAT]% decrease in inflammatory markers after [TIME PERIOD] of consistent practice.\n\n😴 SLEEP QUALITY\nNot from exhaustion - from nervous system downregulation. Measurable improvements in sleep architecture.\n\n💪 PAIN MANAGEMENT\nChronic pain isn't just physical. Yoga addresses the nervous system sensitization that amplifies pain signals.\n\nI've watched students transform their lives without ever achieving a \"perfect\" pose:\n\n→ [NAME] manages PTSD without increasing medication\n→ [NAME] eliminated chronic migraines after [TIME PERIOD]\n→ [NAME] went from daily pain meds to pain-free in [TIME PERIOD]\n→ [NAME] sleeps through the night for the first time in [NUMBER] years\n\nNone of them look like yoga magazine covers. All of them changed their lives.\n\nThe practice that changes you isn't the one that looks impressive. It's the one you actually do.\n\nIf you've been waiting until you're \"ready\" or \"flexible enough\" - you're already ready. Your nervous system doesn't care about your toe-touching ability.\n\nWho else is tired of wellness culture perfectionism? 🙋‍♀️\n\n#RealTalk #YogaTeacher #WellnessIndustry #ChronicPain #MentalHealth #TraumaInformed",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "COMMUNITY ANNOUNCEMENT: We're trying something new, and I need your input! 🎉\n\nStarting [DATE], we're launching \"[PROGRAM NAME]\" - a [TIME PERIOD] program specifically designed for people who:\n\n❌ Think they're \"too stiff\" for yoga\n❌ Feel intimidated by regular classes\n❌ Have injuries or chronic pain\n❌ Haven't exercised in years (or ever)\n❌ Are recovering from surgery/pregnancy/illness\n❌ Just want to feel better in their body\n\nWhat makes this different from our regular classes?\n\n✅ SMALL GROUPS: Max [NUMBER] students (vs. [NUMBER] in regular classes)\n✅ EXTENDED TIME: [NUMBER] minutes for questions & modifications\n✅ PRIVATE SPACE: Separate room, no drop-ins watching\n✅ PERSONAL CHECK-INS: I learn your story, injuries, goals\n✅ PROGRESSION TRACKING: We measure YOUR progress, not compare to others\n✅ COMMUNITY SUPPORT: Private Facebook group for this cohort only\n\nBEFORE I FINALIZE THE SCHEDULE, I want to hear from you:\n\n📅 What day/time works best? (comment below)\n🤔 What's your biggest fear about starting?\n💰 What's a fair investment for [NUMBER] weeks of this level of attention?\n\nFirst [NUMBER] people to comment get [DISCOUNT/BONUS].\n\nThis program exists because [STAT]% of you told me you want to start but feel nervous. I hear you. Let's design this together.\n\nTag someone who's been saying \"I should try yoga\" for the past [TIME PERIOD] 👇\n\n[Include image: Welcoming studio space with props, diverse body types represented, warm lighting]",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your back hurts from sitting all day & you need relief RIGHT NOW",
+        "script": "HOOK (0-3 sec): [Show person hunched at desk, clearly in pain, hand on lower back]\n\nPROBLEM (3-8 sec): \"Sitting 8 hours a day is literally destroying your spine. Here's what's happening...\" [Quick cut to simple spine diagram]\n\nSOLUTION INTRO (8-12 sec): \"3 stretches that physical therapists actually recommend. Do these at your desk, no changing required.\"\n\nDEMONSTRATION (12-45 sec):\nSTRETCH 1 (12-22 sec): Seated spinal twist - \"Hold 30 seconds each side\" [Show it, text overlay with timer]\nSTRETCH 2 (22-32 sec): Cat-cow in chair - \"10 reps, slow\" [Demonstrate]\nSTRETCH 3 (32-45 sec): Figure-4 hip stretch - \"This one's the game-changer for lower back\"\n\nRESULTS (45-52 sec): \"My students do this every 2 hours. They went from daily pain to pain-free in [TIME PERIOD].\"\n\nCTA (52-60 sec): \"Save this for your next work break. Follow for more desk yoga hacks. Comment BACK and I'll send you the full routine.\"\n\n[TEXT OVERLAYS: \"Do this every 2 hours\", \"No gym needed\", \"Your back will thank you\"]\n[TRENDING AUDIO: Use current trending sound related to self-care/productivity]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Yoga teachers don't want you to know this... you're doing it wrong",
+        "script": "HOOK (0-3 sec): [Teacher in studio, serious face] \"If your yoga teacher says this, RUN...\"\n\nATTENTION (3-10 sec): \"I've been teaching [NUMBER] years. Here are the [NUMBER] red flags that your yoga class is actually harmful:\"\n\nPOINTS (10-50 sec):\nRED FLAG 1 (10-20 sec): \"They say 'no pain, no gain'\" [Show X mark] \"Yoga should NEVER hurt. Pain is your body's warning system.\"\n\nRED FLAG 2 (20-30 sec): \"They push you into poses your body isn't ready for\" [Show footage] \"This causes injuries. Good teachers offer modifications.\"\n\nRED FLAG 3 (30-40 sec): \"They ignore your injuries or limitations\" [Concerned face] \"Trauma-informed teaching is non-negotiable.\"\n\nRED FLAG 4 (40-50 sec): \"Everyone's doing the exact same thing\" [Show class] \"Your body is unique. Cookie-cutter classes miss the point.\"\n\nSOLUTION (50-58 sec): \"Find teachers who ask about YOUR body, YOUR goals, YOUR limitations. That's real yoga.\"\n\nCTA (58-60 sec): \"Follow for honest yoga industry takes. Comment your worst yoga class experience 👇\"\n\n[TEXT OVERLAYS: \"Red flag #1\", \"This isn't normal\", \"You deserve better\"]\n[Use text-to-speech or direct-to-camera speaking]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "I'm too [stiff/old/out of shape] for yoga - WRONG, here's proof",
+        "script": "HOOK (0-3 sec): [Show before/after side-by-side] \"She said she was too stiff for yoga...\"\n\nSTORY SETUP (3-12 sec): \"[NAME], age [AGE], couldn't touch her knees. Chronic back pain for [NUMBER] years. Tried everything.\"\n\nTRANSFORMATION (12-30 sec): \"[TIME PERIOD] into our beginner program...\" [Show progression clips] \"Not only touching toes, but teaching OTHERS now. Pain completely gone.\"\n\nWHAT CHANGED (30-45 sec): \"It wasn't about flexibility. It was about:\n→ Teachers who modified for HER body\n→ Small classes where she felt safe\n→ Community that got it\n→ Zero pressure to look a certain way\"\n\nOFFER (45-55 sec): \"We have [NUMBER] spots left in our [MONTH] beginner program. [NUMBER] weeks, $[PRICE], max [NUMBER] people. No flexibility required. Just show up as you are.\"\n\nCTA (55-60 sec): \"Link in bio. Comment 'READY' if you're tired of waiting. Your body is ready RIGHT NOW.\"\n\n[TEXT OVERLAYS: \"Age [AGE]\", \"[TIME PERIOD] transformation\", \"You're not too anything\", \"Link in bio\"]\n[Use emotional, inspiring audio - trending transformation sound]\n[Show REAL student with permission, authentic footage, not staged]",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 10-min sequence that fixed [STUDENT]'s chronic back pain",
+        "preview_text": "Physical therapists recommend these 5 poses for desk workers",
+        "body": "Hi [FIRST_NAME],\n\nSitting at a desk 8 hours a day? Your back is paying the price.\n\n[STUDENT_NAME] came to us after [TIME_PERIOD] of chronic lower back pain. She'd tried:\n❌ Physical therapy ($[AMOUNT] and minimal results)\n❌ Chiropractor (temporary relief only)\n❌ Pain medication (didn't want to rely on it)\n❌ Expensive ergonomic chair (helped, but not enough)\n\nNothing worked long-term.\n\nThe problem? She was treating symptoms, not the root cause.\n\nHer body was compensating for [NUMBER] hours of sitting by:\n→ Tightening hip flexors (pulling on lower back)\n→ Weakening glutes (forcing back to overwork)\n→ Rounding shoulders (changing entire spinal alignment)\n\nWe created a 10-minute daily sequence targeting these specific patterns.\n\nResults after [TIME_PERIOD]: Pain-free. No medication. No expensive treatments.\n\nHere's the exact sequence:\n\n1. CAT-COW (2 minutes) - Restores spinal mobility\n2. LOW LUNGE (1 min each side) - Releases hip flexors\n3. BRIDGE POSE (2 minutes) - Activates glutes\n4. SUPINE TWIST (1 min each side) - Decompresses spine\n5. CHILD'S POSE (2 minutes) - Relaxes everything\n\n[WATCH THE VIDEO TUTORIAL] → [LINK]\n\nDo this sequence:\n→ Every morning before sitting down\n→ OR every evening after work\n→ Consistency matters more than duration\n\n[STUDENT_NAME]'s advice? \"I thought I didn't have time. Turns out 10 minutes saved me hours of pain.\"\n\nTry it for [TIME_PERIOD]. Reply to this email and tell me if it helps.\n\nP.S. - Want personalized modifications for YOUR specific pain? Book a free 15-minute assessment: [LINK]\n\nBreathe easy,\n[INSTRUCTOR_NAME]\n[STUDIO_NAME]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "Why I'm done with wellness culture BS (a letter from your yoga teacher)",
+        "preview_text": "Flexibility doesn't matter. Here's what actually does.",
+        "body": "Hi [FIRST_NAME],\n\nI need to be honest with you about something.\n\nThe yoga industry has been selling you a lie.\n\nFor [NUMBER] years, I've watched studios prioritize aesthetics over actual healing. Instagram poses over nervous system regulation. Perfect alignment over personal transformation.\n\nI'm done with it.\n\nHere's what [NUMBER] years of teaching and [NUMBER] hours of trauma-informed training has taught me:\n\n→ Your flexibility doesn't matter\n→ Your body shape doesn't matter\n→ Your ability to do advanced poses doesn't matter\n\nWhat DOES matter:\n\n✓ Can you regulate your nervous system when stressed?\n✓ Are you sleeping better?\n✓ Is your chronic pain improving?\n✓ Do you feel more present in your life?\n✓ Are you building sustainable self-care habits?\n\nThat's it. That's the practice.\n\nI've seen [NUMBER]-year-olds transform their lives without ever touching their toes.\n\nI've watched students manage PTSD, eliminate migraines, recover from injuries, and find peace in their bodies - not because they achieved perfect poses, but because they showed up consistently for themselves.\n\nThe research backs this up:\n→ [STAT]% reduction in anxiety (Harvard Medical School)\n→ [STAT]% improvement in chronic pain (Annals of Internal Medicine)\n→ [STAT]% better sleep quality (Journal of Clinical Psychology)\n\nNone of these studies measured flexibility.\n\nSo if you've been waiting until you're \"ready\" or \"flexible enough\" or \"fit enough\" - stop.\n\nYou're already ready. Your nervous system doesn't care what you look like.\n\nThis is why I teach. Not to create Instagram content, but to give you tools that actually work.\n\nIf this resonates, I'd love to have you in class. We have [NUMBER] spots in our [MONTH] beginner program: [LINK]\n\nNo pressure. No judgment. Just real practice for real bodies.\n\nYours in authenticity,\n[INSTRUCTOR_NAME]\n\nP.S. - Reply to this email with your biggest wellness culture frustration. I read every response.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], you keep saying \"someday\" - what if someday is now?",
+        "preview_text": "[NUMBER] spots left in our beginner program (starts [DATE])",
+        "body": "Hi [FIRST_NAME],\n\nI noticed you [ENGAGEMENT_ACTION: downloaded our free guide / attended our workshop / signed up for updates] [TIME_PERIOD] ago.\n\nYou're interested. But you haven't started yet.\n\nLet me guess what's stopping you:\n\n\"I'm too stiff\" - Our most flexible student started unable to touch her knees\n\"I'm too old\" - Our oldest member is [AGE] and started at [AGE]\n\"I'm too out of shape\" - Yoga meets you where you are, not where you think you should be\n\"I'll be the only beginner\" - [STAT]% of our students are beginners\n\"I don't have time\" - Our students are busy too. They make time because it works.\n\nWhat if I told you [STUDENT_NAME] had the exact same fears?\n\nBefore: Chronic back pain, [NUMBER] years of failed treatments, scared to try something new\n\nAfter [TIME_PERIOD]: Pain-free, sleeping better, wishes she'd started sooner\n\nHer words: \"I wasted [TIME_PERIOD] being afraid. Best decision I ever made was just showing up.\"\n\nWe have [NUMBER] spots left in our [PROGRAM_NAME] starting [DATE]:\n\n✨ [NUMBER] weeks of beginner-focused classes\n✨ Small groups (max [NUMBER] students)\n✨ Personal modifications for injuries/limitations\n✨ Private community support\n✨ [BONUS_ITEM]\n✨ Money-back guarantee if you attend [NUMBER] classes and don't feel it's right\n\nInvestment: $[PRICE] (that's $[PRICE_PER_CLASS] per class)\n\nCompare that to:\n→ Physical therapy: $[AMOUNT] per session\n→ Massage: $[AMOUNT] per hour\n→ Chiropractor: $[AMOUNT] per visit\n→ Pain medication: $[AMOUNT] per month\n→ Living with pain: Priceless\n\nThis program fills up every time we run it. [NUMBER] spots left for [MONTH].\n\n[SECURE YOUR SPOT] → [LINK]\n\nStill nervous? Reply to this email with your biggest concern. I'll give you an honest answer.\n\nYour body is ready. The question is: are you?\n\nSee you on the mat,\n[INSTRUCTOR_NAME]\n[STUDIO_NAME]\n\nP.S. - Spots are first-come, first-served. We cap it at [NUMBER] to ensure personal attention. If you're thinking about it, grab your spot now: [LINK]",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] desk stretches that eliminated my chronic back pain in [timeframe]",
+      "[X] breathing techniques to calm anxiety attacks in under [X] minutes",
+      "[X] beginner poses that helped me finally touch my toes after [timeframe]",
+      "[X] bedtime stretches that got me sleeping through the night in [timeframe]",
+      "[X] gentle poses for post-pregnancy core strength in just [timeframe]"
+    ],
+    "question_hooks": [
+      "Are you too stiff to do yoga but desperate for back pain relief?",
+      "Are you intimidated by super fit yoga people but craving community?",
+      "Are you exhausted but can't sleep because your mind won't shut off?",
+      "Are you isolated since [moving/retiring/having a baby] and feeling lonely?",
+      "Are you recovering from injury and scared you'll hurt yourself again?"
+    ],
+    "story_hooks": [
+      "How [a desk worker] went from chronic sciatica to pain-free in [X] weeks",
+      "How [an anxious mom] managed panic attacks without increasing medication",
+      "How [a complete beginner] went from can't touch my toes to teaching yoga",
+      "How [a retiree] found her tribe after feeling isolated for months",
+      "How [a gym-hater] finally found a practice that doesn't trigger body shame"
+    ],
+    "fear_hooks": [
+      "Is your sitting-all-day desk job permanently damaging your spine?",
+      "Is your unmanaged stress quietly destroying your health despite doctor warnings?",
+      "Is your anxiety getting worse because meditation alone isn't enough?",
+      "Is your social isolation affecting your mental health more than you realize?",
+      "Is your body disconnect after [pregnancy/injury/aging] becoming permanent?"
+    ],
+    "howto_hooks": [
+      "How to start yoga without being flexible or fit enough",
+      "How to relieve back pain without expensive physical therapy sessions",
+      "How to manage anxiety without only relying on medication",
+      "How to find genuine community without feeling like the awkward outsider",
+      "How to build strength after injury without fear of re-injury"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You've been saying 'I'm too stiff for yoga' for 5 years",
+      "body": "Show person struggling to touch toes at desk (3sec) → Cut to same person in beginner class with modifications (5sec) → Show instructor offering props and adjustments (8sec) → Montage of gradual progress over weeks - same person now comfortable in poses (15sec) → Text overlay: 'Flexibility is the RESULT of yoga, not the requirement' (5sec) → Show diverse bodies in class, all at different levels (10sec) → End with person easily touching toes, surprised face (4sec) → Studio logo reveal (3sec)",
+      "cta": "Your body is ready. Link in bio for free beginner class 🧘"
+    },
+    "reels": {
+      "hook": "This breathing trick stops anxiety in 60 seconds",
+      "body": "Close-up of anxious face, shaky hands (3sec) → Instructor demonstrates 4-7-8 breath technique with on-screen timer (12sec) → Show person doing it, physical relaxation visible (8sec) → Text: 'Learned this in yoga. Use it everywhere now' (3sec) → Quick cuts: using it before presentation, in traffic, at night (4sec)",
+      "cta": "Learn more techniques that actually work. Try class free ↓"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'before yoga vs after yoga' face - take a stressed selfie before class and a peaceful one after. Tell us one thing that changed for you today.",
+      "hashtag": "#MyYogaFace"
+    },
+    {
+      "prompt": "Film yourself doing a pose you never thought you'd be able to do. Tell us how long you've been practicing and what finally clicked.",
+      "hashtag": "#IActuallyDidIt"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Myth-busting series: 'Yoga instructor reacts to common yoga myths' - address flexibility requirements, age limits, body type restrictions, spiritual requirements with science and humor",
+      "why": "Controversy and education combo drives shares. People tag friends who have these misconceptions. Positions studio as accessible authority."
+    },
+    {
+      "angle": "'What your [job/condition] is doing to your body and the exact yoga poses that fix it' - desk workers, nurses, drivers, anxiety sufferers, new moms with specific visual demonstrations",
+      "why": "Hyper-specific pain points make people feel seen. High save rate for reference. People share with others in same situation. Immediate practical value."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:06:40.507Z",
+    "last_tier2_refresh": "2025-11-27T22:06:40.507Z",
+    "last_tier3_refresh": "2025-11-27T22:06:40.507Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:06:40.507Z"
+  }
+}

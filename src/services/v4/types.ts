@@ -223,6 +223,19 @@ export interface CampaignWeek {
 // CONTENT GENERATION TYPES
 // ============================================================================
 
+/** Selected insight from the insight cards */
+export interface SelectedInsight {
+  id: string;
+  type: string;
+  title: string;
+  description?: string;
+  category: string;
+  confidence: number;
+  actionableInsight?: string;
+  evidence?: string[];
+  sources?: Array<{ source: string; quote: string }>;
+}
+
 export interface ContentRequest {
   uvp: CompleteUVP;
   pillar?: ContentPillar;
@@ -231,6 +244,31 @@ export interface ContentRequest {
   contentMixCategory?: ContentMixCategory;
   funnelStage?: FunnelStage;
   tone?: 'professional' | 'casual' | 'authoritative' | 'friendly';
+  /** Selected insights from the insight cards to incorporate into content */
+  selectedInsights?: SelectedInsight[];
+  /** Industry Profile 2.0 - Enhanced industry data with hooks, templates, psychology */
+  enhancedIndustryProfile?: {
+    industry_name: string;
+    hook_library: {
+      number_hooks?: string[];
+      question_hooks?: string[];
+      story_hooks?: string[];
+      fear_hooks?: string[];
+      howto_hooks?: string[];
+    };
+    power_words: string[];
+    avoid_words: string[];
+    headline_templates: { template: string; context: string }[];
+    customer_triggers: { trigger: string; urgency: number }[];
+    transformations: { from: string; to: string; emotional_value: string }[];
+    content_templates?: {
+      linkedin?: {
+        educational?: { hook: string; body: string; cta: string };
+        authority?: { hook: string; body: string; cta: string };
+        case_study?: { hook: string; body: string; cta: string };
+      };
+    };
+  };
 }
 
 export interface GeneratedContent {

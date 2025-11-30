@@ -419,6 +419,7 @@ function ProofCard({ proof, isSelected, onToggle }: ProofCardProps) {
 interface ProofTabProps {
   uvp: CompleteUVP;
   brandId?: string;
+  deepContext?: DeepContext | null;
   onSelectProofs?: (proofs: ConsolidatedProof[]) => void;
 }
 
@@ -426,14 +427,18 @@ interface ProofTabProps {
 // MAIN COMPONENT
 // ============================================================================
 
-export function ProofTab({ uvp, brandId, onSelectProofs }: ProofTabProps) {
+export function ProofTab({ uvp, brandId, deepContext: providedDeepContext, onSelectProofs }: ProofTabProps) {
   const { currentBrand } = useBrand();
   const [selectedProofs, setSelectedProofs] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [sortBy, setSortBy] = useState<'quality' | 'relevance'>('quality');
   const [liveLoading, setLiveLoading] = useState(false);
   const [liveLoadingStatus, setLiveLoadingStatus] = useState('');
-  const [cachedContext, setCachedContext] = useState<DeepContext | null>(() => loadCachedDeepContext());
+  const [localCachedContext, setLocalCachedContext] = useState<DeepContext | null>(() => loadCachedDeepContext());
+
+  // Use provided deepContext from parent if available, otherwise fall back to local cache
+  const cachedContext = providedDeepContext || localCachedContext;
+  const setCachedContext = providedDeepContext ? () => {} : setLocalCachedContext;
 
   // Detect business profile
   const profileType = useMemo(() => {

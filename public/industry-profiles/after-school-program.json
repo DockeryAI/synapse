@@ -1,0 +1,1639 @@
+{
+  "industry": "After-School Program",
+  "industry_name": "After-School Program",
+  "naics_code": "624410",
+  "category": "Personal Services",
+  "subcategory": "Child Day Care Services",
+  "customer_triggers": [
+    {
+      "trigger": "School year starting - need immediate childcare solution",
+      "urgency": 10,
+      "frequency": "Annual - August/September"
+    },
+    {
+      "trigger": "Work schedule change requiring extended care hours",
+      "urgency": 9,
+      "frequency": "Quarterly - job transitions"
+    },
+    {
+      "trigger": "Child struggling academically - need homework help",
+      "urgency": 8,
+      "frequency": "After report cards - 4x yearly"
+    },
+    {
+      "trigger": "Safety concerns about child being home alone",
+      "urgency": 10,
+      "frequency": "Ongoing - peaks age 8-12"
+    },
+    {
+      "trigger": "Peer pressure - other parents enrolling children",
+      "urgency": 6,
+      "frequency": "Monthly during enrollment periods"
+    },
+    {
+      "trigger": "Summer ending - transitioning from camp to school care",
+      "urgency": 9,
+      "frequency": "Annual - late August"
+    },
+    {
+      "trigger": "Behavioral issues at home - need structured environment",
+      "urgency": 7,
+      "frequency": "As needed - 15% of families"
+    },
+    {
+      "trigger": "Single parent needing reliable care during work hours",
+      "urgency": 10,
+      "frequency": "Immediate upon life change"
+    },
+    {
+      "trigger": "Child requesting activities their friends attend",
+      "urgency": 5,
+      "frequency": "Weekly - social development phase"
+    },
+    {
+      "trigger": "Tax benefit realization for dependent care FSA",
+      "urgency": 4,
+      "frequency": "Annual - November enrollment"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Parents discover need through school communications (42%), word-of-mouth from other parents (31%), online searches for 'after school care near me' (18%), or workplace childcare resource referrals (9%). Initial awareness typically occurs 3-6 weeks before school starts or within 2 weeks of a schedule change.",
+    "consideration": "Parents evaluate 3-4 programs on average over 2-3 weeks, prioritizing location (walking distance from school), hours (6pm pickup minimum), homework help quality, staff-to-child ratios (1:10 preferred), and enrichment activities. They read 15-20 online reviews, visit facilities during operating hours, and check state licensing databases.",
+    "decision": "Final decision made after facility tour (87% conversion rate post-tour), meeting key staff, reviewing actual curriculum samples, confirming transportation logistics, and verifying space availability. Price becomes secondary to trust and convenience - parents will pay 20-30% premium for peace of mind.",
+    "retention": "Average retention is 2.3 years with 68% staying entire elementary period. Key retention drivers include consistent staff (turnover under 25% annually), regular parent communication via apps, flexible scheduling for occasional changes, and sibling discounts of 10-15%. Monthly parent surveys show 84% satisfaction threshold needed.",
+    "advocacy": "Satisfied parents generate 3.7 referrals on average, primarily through school Facebook groups, neighborhood apps like Nextdoor, and playground conversations. Peak referral periods are March-May for following school year and September when new families are struggling. Incentivized referrals convert at 47% vs 22% for organic."
+  },
+  "transformations": [
+    {
+      "from": "Worried about child's safety from 3-6pm",
+      "to": "Peace of mind knowing child is supervised and engaged",
+      "emotional_value": "Eliminates daily anxiety worth $200+ monthly premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with homework battles nightly",
+      "to": "Homework completed before pickup with professional help",
+      "emotional_value": "Restores positive parent-child evening time",
+      "worth_premium": true
+    },
+    {
+      "from": "Child isolated and on screens after school",
+      "to": "Child building friendships and social skills",
+      "emotional_value": "Long-term social development investment",
+      "worth_premium": true
+    },
+    {
+      "from": "Juggling work calls during child supervision",
+      "to": "Fully productive work hours until 6pm",
+      "emotional_value": "Career advancement and job security",
+      "worth_premium": true
+    },
+    {
+      "from": "Guilt about not providing enrichment activities",
+      "to": "Child learning arts, STEM, and sports",
+      "emotional_value": "Feeling like a good parent providing opportunities",
+      "worth_premium": true
+    },
+    {
+      "from": "Chaotic after-school routine",
+      "to": "Predictable structure supporting whole family",
+      "emotional_value": "Reduced family stress and conflict",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing work for early dismissals",
+      "to": "Coverage for all school schedule variations",
+      "emotional_value": "Job reliability and supervisor trust",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Child excited to attend - asks to go on non-required days",
+      "timeframe": "Within 2 weeks of enrollment",
+      "measurable": true
+    },
+    {
+      "metric": "Homework completion rate increases from 60% to 95%",
+      "timeframe": "First marking period - 6-9 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Parent work productivity restored - no afternoon interruptions",
+      "timeframe": "Immediate - first week",
+      "measurable": true
+    },
+    {
+      "metric": "Child makes 2-3 close friendships within program",
+      "timeframe": "First semester - 3-4 months",
+      "measurable": true
+    },
+    {
+      "metric": "Grade improvement of half to full letter grade",
+      "timeframe": "One academic year",
+      "measurable": true
+    },
+    {
+      "metric": "Family dinner stress reduced by 70% without homework battles",
+      "timeframe": "First month",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "School starts in 7 days and no care arrangement secured - willing to pay any premium for immediate enrollment",
+    "Just received job offer requiring start next Monday - need care solution within 48 hours",
+    "Current caregiver quit unexpectedly - child cannot be home alone legally under age 12",
+    "Received warning from employer about leaving early - job at risk without reliable care",
+    "Child suspended from previous program - desperate for alternative immediately",
+    "Custody agreement requires proof of after-school supervision by court date",
+    "Work from home policy ending - must return to office next week requiring immediate care"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive at $350/month",
+      "response": "Compare to $18/hour babysitter costing $720/month for same hours, plus our homework help saves $400/month tutoring",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "My child won't like structured activities",
+      "response": "We offer choice time daily and 78% of reluctant children ask to stay longer after first week. Free trial week available.",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Worried about COVID/illness exposure",
+      "response": "Our illness rate is 40% lower than schools due to 1:8 ratios, outdoor time, and enhanced sanitization. Health screening app used daily.",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Transportation logistics seem complicated",
+      "response": "We coordinate with 12 area schools for pickup, text parents upon arrival, and offer late pickup until 6:30pm for $10.",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Child has special needs/ADHD",
+      "response": "30% of our students have IEPs/504s. Trained staff, sensory room available, and we maintain lower ratios for support.",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Only need care 2-3 days per week",
+      "response": "Part-time options available at $25/day, can add days with 24-hour notice, and summer camp credits transfer.",
+      "effectiveness": 8.3
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "First week free trial with full refund if child unhappy",
+      "Prorated refunds for any unused days with 2-week notice",
+      "Guaranteed spot holding during family vacations up to 2 weeks",
+      "Free makeup days if child sick within 30 days"
+    ],
+    "proof_points": [
+      "State licensed and accredited by National AfterSchool Association",
+      "All staff background checked and CPR certified",
+      "4.8 star Google rating from 127 parent reviews",
+      "12 years serving community with 2,400+ alumni families",
+      "A+ Better Business Bureau rating with zero complaints"
+    ],
+    "risk_mitigation": "Live camera access for parents via secure app, detailed daily reports with photos, open-door policy for parent visits anytime, reference list of 20+ current families available, and $2M liability insurance coverage exceeding state requirements"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "latchkey kid",
+      "screen zombies",
+      "homework battles",
+      "3pm panic",
+      "summer slide",
+      "juggling work and kids",
+      "mom guilt",
+      "unsupervised hours",
+      "bad influences",
+      "falling behind"
+    ],
+    "solution_words": [
+      "peace of mind",
+      "thriving",
+      "engaged",
+      "safe place",
+      "making friends",
+      "homework done",
+      "enrichment",
+      "structure",
+      "caring staff",
+      "convenient",
+      "affordable",
+      "flexible",
+      "trustworthy"
+    ],
+    "avoid_jargon": [
+      "pedagogical approach",
+      "developmental milestones",
+      "cognitive scaffolding",
+      "differentiated instruction",
+      "assessment matrices",
+      "behavioral interventions",
+      "curriculum alignment",
+      "competency-based"
+    ]
+  },
+  "power_words": [
+    "safe",
+    "trusted",
+    "convenient",
+    "enriching",
+    "affordable",
+    "flexible",
+    "caring",
+    "experienced",
+    "licensed",
+    "proven",
+    "fun",
+    "engaging",
+    "structured",
+    "supportive",
+    "reliable",
+    "nurturing",
+    "quality",
+    "professional",
+    "dedicated",
+    "passionate",
+    "results",
+    "peace",
+    "thriving",
+    "friends",
+    "homework-free evenings",
+    "stress-free",
+    "guaranteed",
+    "included",
+    "unlimited",
+    "personalized"
+  ],
+  "avoid_words": [
+    "daycare",
+    "babysitting",
+    "cheap",
+    "basic",
+    "mandatory",
+    "strict",
+    "punishment",
+    "detention",
+    "problem children",
+    "troubled",
+    "remedial",
+    "struggling",
+    "behavioral issues",
+    "difficult",
+    "contract",
+    "penalties",
+    "non-refundable",
+    "extra fees",
+    "additional charges",
+    "overcrowded"
+  ],
+  "headline_templates": [
+    {
+      "template": "Give Your Child an After-School Advantage While You Work Worry-Free",
+      "expected_ctr": 6.8,
+      "use_case": "General awareness campaigns"
+    },
+    {
+      "template": "Join 200+ [Neighborhood] Families Who Trust [Program] for After-School Excellence",
+      "expected_ctr": 8.2,
+      "use_case": "Local social media ads"
+    },
+    {
+      "template": "Homework Done, Friends Made, Parents Relieved - Every Day After School",
+      "expected_ctr": 7.5,
+      "use_case": "Email campaigns to parents"
+    },
+    {
+      "template": "Last-Minute School Year Panic? We Have Spots Available Now",
+      "expected_ctr": 9.1,
+      "use_case": "Late August urgency campaigns"
+    },
+    {
+      "template": "Why [School] Parents Choose Us: 4.9 Stars from 127 Families",
+      "expected_ctr": 8.7,
+      "use_case": "School-specific targeting"
+    },
+    {
+      "template": "From School Bell to 6PM: Complete Care, Homework Help & Fun Included",
+      "expected_ctr": 7.3,
+      "use_case": "Search ads for working parents"
+    },
+    {
+      "template": "Transform Your Child's After-School Hours from Screen Time to Dream Time",
+      "expected_ctr": 6.9,
+      "use_case": "Content marketing headlines"
+    },
+    {
+      "template": "STEM, Arts, Sports & Homework Help - All for Less Than a Babysitter",
+      "expected_ctr": 8.4,
+      "use_case": "Value proposition focus"
+    },
+    {
+      "template": "Spots Filling Fast: Reserve Your Child's Place for Fall 2024",
+      "expected_ctr": 7.8,
+      "use_case": "Scarcity-driven enrollment"
+    },
+    {
+      "template": "See Why Your Child Will BEG to Stay Later at [Program Name]",
+      "expected_ctr": 7.1,
+      "use_case": "Emotional engagement angle"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Tour Today",
+      "conversion_rate": 12.3,
+      "placement": "Above the fold on homepage"
+    },
+    {
+      "template": "Reserve Your Spot - Only 3 Left",
+      "conversion_rate": 18.7,
+      "placement": "Program pages with real-time availability"
+    },
+    {
+      "template": "Get Your Free Week Trial",
+      "conversion_rate": 22.4,
+      "placement": "Exit intent popups"
+    },
+    {
+      "template": "Download Our Parent Guide",
+      "conversion_rate": 34.2,
+      "placement": "Blog posts and content pages"
+    },
+    {
+      "template": "Join Our Priority Waitlist",
+      "conversion_rate": 15.8,
+      "placement": "Full program notifications"
+    },
+    {
+      "template": "Calculate Your Savings",
+      "conversion_rate": 19.3,
+      "placement": "Pricing page calculator tool"
+    },
+    {
+      "template": "Text 'AFTER' to 55555 for Instant Info",
+      "conversion_rate": 27.6,
+      "placement": "Mobile ads and billboards"
+    },
+    {
+      "template": "Chat with a Parent Ambassador",
+      "conversion_rate": 31.2,
+      "placement": "Live chat widget on all pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🎒 That moment when your child says 'Can I stay longer?' at pickup time... That's the [Program] difference! Parents, what's your favorite part about our after-school program? Comment below!",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Photo carousel of activities] From homework help to STEM experiments to outdoor games - here's what your kids did today while you were crushing it at work! 💪 #AfterSchoolFun #WorkingParents #[CityName]Kids",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Hi neighbors! With school starting next week, we have 4 spots left in our after-school program. We pick up from [list schools], include snacks, homework help, and enrichment activities until 6pm. State licensed and 4.9 star rated. Message me for details!",
+      "engagement_rate": 15.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "PARENT WIN: When your 3rd grader's homework is DONE before you even leave work 🙌 Thanks to our amazing homework helpers Miss Sarah and Mr. James! What's your biggest after-school challenge? We can help!",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Before/After split image] 3pm: School's out, parent panic sets in / 6pm: Child happy, homework done, parent relaxed. This could be your family! Link in bio for fall enrollment.",
+      "engagement_rate": 10.5
+    },
+    {
+      "platform": "Twitter",
+      "template": "Working parents: You don't have to choose between your career and your child's after-school care. Quality programs exist that handle both. Your child thrives, you thrive. Everyone wins. 🏆 #WorkingParents #AfterSchool",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "[Video testimonial] 'I was skeptical about after-school programs until...' Hear why the Johnson family has been with us for 3 years and counting! 🥰 What questions do you have about our program?",
+      "engagement_rate": 12.9
+    },
+    {
+      "platform": "Instagram",
+      "template": "Today's STEM project: Building bridges with spaghetti! 🍝🌉 Tomorrow: Coding basics with Scratch Jr. This is what after-school enrichment looks like. Is your child missing out? #STEMEducation #AfterSchoolActivities",
+      "engagement_rate": 9.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "To all the working parents juggling Zoom calls while helping with homework - there's a better way. Quality after-school programs provide homework help, enrichment, and peace of mind until 6pm. Your productivity and your child's development both matter. #WorkLifeBalance #WorkingParents",
+      "engagement_rate": 7.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Complete homework support eliminating nightly battles and saving 2 hours of family stress",
+      "rank": 1,
+      "differentiator": "Certified teachers on staff, not just caregivers"
+    },
+    {
+      "prop": "Guaranteed pickup from your child's school with real-time notifications",
+      "rank": 2,
+      "differentiator": "Only program covering all 12 area elementary schools"
+    },
+    {
+      "prop": "Enrichment activities included - no extra fees for STEM, arts, or sports",
+      "rank": 3,
+      "differentiator": "Competitors charge $50-75 extra per activity"
+    },
+    {
+      "prop": "Flexible scheduling with same-day changes via app",
+      "rank": 4,
+      "differentiator": "No penalty fees for schedule adjustments"
+    },
+    {
+      "prop": "Open until 6:30pm with no late fees until 6:15pm",
+      "rank": 5,
+      "differentiator": "Most programs charge $1/minute after 6pm"
+    },
+    {
+      "prop": "Healthy snacks and homework fuel included in tuition",
+      "rank": 6,
+      "differentiator": "Saves $40/month vs programs requiring packed snacks"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your child deserves more than basic after-school care. Our enrichment-focused program with certified teachers, 1:8 ratios, and specialized facilities provides the foundation for academic excellence and social development. Featured in [Local Magazine] as 'Best After-School Investment' with 97% parent satisfaction.",
+    "budget_conscious": "Quality after-school care for less than you'd pay a babysitter. At just $17/day all-inclusive (snacks, activities, homework help), we're 40% less than individual care. Plus, use your Dependent Care FSA to save another 30% with tax benefits. Payment plans and sibling discounts available.",
+    "enterprise": "Corporate partnership program available for companies seeking dependent care benefits. Guaranteed enrollment for employee families, priority registration, 10% corporate discount, and backup care options. Currently partnering with 8 area employers including [Major Company]. ROI: 23% reduction in employee afternoon absences."
+  },
+  "trust_signals": [
+    {
+      "signal": "State licensing displayed prominently with perfect inspection record",
+      "importance": 10,
+      "format": "Framed certificate in entry, website badge, email signatures"
+    },
+    {
+      "signal": "Staff photos with bios showing years of experience and certifications",
+      "importance": 9,
+      "format": "Website team page, lobby display board, parent handbook"
+    },
+    {
+      "signal": "Real-time camera access for parents via secure app",
+      "importance": 8,
+      "format": "Mobile app with individual child login credentials"
+    },
+    {
+      "signal": "Parent testimonial videos from recognizable community members",
+      "importance": 8,
+      "format": "Homepage video rotation, YouTube playlist, Facebook posts"
+    },
+    {
+      "signal": "Partnership letters from area schools on official letterhead",
+      "importance": 7,
+      "format": "PDF downloads, lobby display, enrollment packets"
+    },
+    {
+      "signal": "Monthly parent satisfaction scores posted publicly",
+      "importance": 7,
+      "format": "Website dashboard, monthly newsletter, lobby poster"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2,400+ families served since 2011 with 89% staying 2+ years",
+      "credibility_score": 9.2,
+      "context": "Demonstrates longevity and retention in competitive market"
+    },
+    {
+      "stat": "127 five-star reviews averaging 4.8/5.0 across all platforms",
+      "credibility_score": 8.7,
+      "context": "Quantity and quality of reviews surpasses competitors"
+    },
+    {
+      "stat": "3.7 average referrals per family - 68% of new enrollments from word-of-mouth",
+      "credibility_score": 9.5,
+      "context": "Organic growth indicates genuine satisfaction"
+    },
+    {
+      "stat": "Staff retention rate of 85% vs 43% industry average",
+      "credibility_score": 8.9,
+      "context": "Stable staff means consistent care quality"
+    },
+    {
+      "stat": "Zero safety incidents requiring medical attention in past 3 years",
+      "credibility_score": 9.8,
+      "context": "Safety record critical for parent peace of mind"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Certified teachers leading enrichment, organic snacks, 1:8 ratios, specialized activity rooms",
+    "Standard: Mixed certified/experienced staff, brand-name snacks, 1:10 ratios, multipurpose spaces",
+    "Budget: Minimum state requirements met, basic snacks, 1:15 ratios, limited enrichment options",
+    "Red flags: Frequent staff turnover, no curriculum visible, overcrowded spaces, many TV screens"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 45,
+    "trigger_event": "After first parent-teacher conference showing improvement or positive feedback milestone",
+    "ask_method": "Personal email from director referencing specific child achievement, offering $25 credit for video testimonial"
+  },
+  "competitive_advantages": [
+    "Only program with certified teachers doing homework help - competitors use high school students",
+    "Real-time app updates with photos - others do daily summary emails at best",
+    "Inclusive pricing with no activity fees - competitors nickel-and-dime for everything",
+    "Pickup from all area schools - most limit to 3-4 schools maximum",
+    "Open on most school holidays and half-days - competitors follow school calendar"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present monthly rate of $350 after showing hourly babysitter cost of $18-22 ($720-880 monthly equivalent)",
+    "sensitivity": "Price breaks at $299 (psychological barrier), $350 (sweet spot), $400 (premium resistance)",
+    "sweet_spots": [
+      "$325-375/month full-time",
+      "$25-30/day part-time",
+      "$12-15/hour drop-in"
+    ],
+    "decoy_pricing": "Offer premium tier at $475 with minimal additions to make $350 standard seem like great value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 400,
+    "approval_required": 450,
+    "competitor_research": 350
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 2,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Care",
+      "price_range": "$250-300/month",
+      "target_customer": "Budget-conscious families needing supervision only",
+      "margin": 22
+    },
+    {
+      "tier": "Standard Plus",
+      "price_range": "$350-400/month",
+      "target_customer": "Average families wanting homework help and activities",
+      "margin": 35
+    },
+    {
+      "tier": "Premium Academy",
+      "price_range": "$475-550/month",
+      "target_customer": "High-achieving families seeking acceleration",
+      "margin": 42
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift snack purchasing to bulk wholesale with 65% cost reduction while maintaining quality perception",
+    "Implement digital curriculum reducing material costs by $30/child/month while improving outcomes",
+    "Cross-train staff for multiple roles reducing coverage costs by 20% without service impact",
+    "Partner with schools for free facility use in exchange for priority enrollment of their families",
+    "Automate billing and enrollment reducing administrative costs by 3 FTE hours daily",
+    "Negotiate group insurance rates saving 18% on liability coverage through association membership"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "New Year promotional pricing for February start"
+    },
+    {
+      "month": "February",
+      "variation": 5,
+      "reason": "Mid-year academic concerns arise",
+      "opportunity": "Target struggling students with tutoring emphasis"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Summer camp early-bird registration",
+      "opportunity": "Bundle next year with summer for discounts"
+    },
+    {
+      "month": "April",
+      "variation": 30,
+      "reason": "Fall pre-registration for existing families",
+      "opportunity": "Lock in retention with early-bird incentives"
+    },
+    {
+      "month": "May",
+      "variation": 35,
+      "reason": "New family tours for fall planning",
+      "opportunity": "Host open houses and fun events"
+    },
+    {
+      "month": "June",
+      "variation": -40,
+      "reason": "Summer camp season begins",
+      "opportunity": "Maintain touchpoints for fall return"
+    },
+    {
+      "month": "July",
+      "variation": -45,
+      "reason": "Vacation season at peak",
+      "opportunity": "Plan fall marketing campaigns"
+    },
+    {
+      "month": "August",
+      "variation": 85,
+      "reason": "Back-to-school panic enrollment",
+      "opportunity": "Premium pricing for last-minute spots"
+    },
+    {
+      "month": "September",
+      "variation": 100,
+      "reason": "Peak enrollment and waitlists",
+      "opportunity": "Capture overflow with second location planning"
+    },
+    {
+      "month": "October",
+      "variation": 10,
+      "reason": "Settled into school routines",
+      "opportunity": "Focus on enrichment program upsells"
+    },
+    {
+      "month": "November",
+      "variation": -5,
+      "reason": "Holiday preparation distractions",
+      "opportunity": "Promote flexible holiday schedules"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday breaks and travel",
+      "opportunity": "Special holiday camps at premium pricing"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Tours after weekend family discussions",
+      "avoid": "Major announcements - parents overwhelmed",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Enrollment follow-ups from Monday tours",
+      "avoid": "Price increase notifications",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week enrichment activity highlights",
+      "avoid": "Negative feedback requests",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Share weekly achievements and photos",
+      "avoid": "Payment reminders",
+      "conversion_rate": 9.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Positive week wrap-ups and social sharing",
+      "avoid": "Policy changes or requirements",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family event invitations and community building",
+      "avoid": "Business communications",
+      "conversion_rate": 6.5
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Planning content for coming week sharing",
+      "avoid": "Any outreach except emergencies",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th align with most paychecks - 87% on-time payment vs 72% for random dates",
+    "cash_flow_peaks": "3rd-7th of month after rent/mortgage paid, families have discretionary funds available",
+    "slow_periods": "20th-25th when families conserving for month-end bills, avoid selling upgrades"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "August 15-31",
+      "crisis_type": "School starting without care arranged",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "First Monday after winter break",
+      "crisis_type": "Previous arrangement failed",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Random school early release days",
+      "crisis_type": "Workplace coverage needed",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Essential Care",
+      "components": [
+        "School pickup",
+        "Snack",
+        "Supervised homework time",
+        "Free play"
+      ],
+      "pricing_model": "Monthly flat rate $275",
+      "margin": 28
+    },
+    {
+      "name": "Academic Plus",
+      "components": [
+        "Everything in Essential",
+        "Certified teacher homework help",
+        "Reading club",
+        "STEM activities"
+      ],
+      "pricing_model": "Monthly flat rate $375",
+      "margin": 38
+    },
+    {
+      "name": "Premier Enrichment",
+      "components": [
+        "Everything in Academic",
+        "1:6 ratio",
+        "Foreign language",
+        "Music/art",
+        "Sports"
+      ],
+      "pricing_model": "Monthly flat rate $525",
+      "margin": 45
+    },
+    {
+      "name": "Flex Pass",
+      "components": [
+        "Drop-in care",
+        "All activities when attending",
+        "No commitment"
+      ],
+      "pricing_model": "$35/day, 10-day pass $300",
+      "margin": 25
+    }
+  ],
+  "upsell_paths": [
+    "Trial week free → Monthly enrollment at $350 (62% conversion)",
+    "Part-time 2 days → Full-time 5 days within 6 weeks (43% progression)",
+    "After-school only → Add early release days coverage (71% attach rate)",
+    "School year only → Add summer camp enrollment (58% retention)",
+    "One child enrolled → Sibling enrollment with 15% discount (67% of families with multiple children)",
+    "Standard program → Premium enrichment tier upgrade after 3 months (31% upgrade rate)"
+  ],
+  "retention_hooks": [
+    "Grandfather pricing - original rate locked for continuous enrollment creating 2-year+ retention",
+    "Sibling pipeline - younger children auto-enrolled when age-eligible maintaining family relationship",
+    "Summer camp priority - school year families get first choice of sessions and 10% discount",
+    "Child friendship bonds - kids refuse to leave when best friends attending driving parent decisions",
+    "Parent community events - quarterly socials creating adult friendships that cement loyalty",
+    "Academic progress tracking - quarterly reports showing improvement parents won't sacrifice",
+    "Flexible hold policy - keep spot during extended absences up to 30 days for 50% tuition"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both families get $100 credit when referred family enrolls",
+      "timing": "Promoted heavily in February-April for fall enrollment",
+      "incentive": "$100 credit each",
+      "conversion_rate": 47
+    },
+    {
+      "strategy": "VIP preview days where current families bring friends",
+      "timing": "Monthly on first Saturday",
+      "incentive": "Exclusive access and activities",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Social media share contests for free month of care",
+      "timing": "Back-to-school season August",
+      "incentive": "Free month value $350",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Neighborhood ambassador program with recurring commissions",
+      "timing": "Ongoing with quarterly bonuses",
+      "incentive": "$50/month for 6 months per referral",
+      "conversion_rate": 52
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Summer camp from after-school families",
+      "attach_rate": 58,
+      "timing": "February early-bird registration"
+    },
+    {
+      "service": "School break camps from regular enrollees",
+      "attach_rate": 72,
+      "timing": "3 weeks before each break"
+    },
+    {
+      "service": "Weekend birthday parties for enrolled families",
+      "attach_rate": 23,
+      "timing": "2 months before child's birthday"
+    },
+    {
+      "service": "Tutoring services for struggling students",
+      "attach_rate": 31,
+      "timing": "After report cards issued"
+    },
+    {
+      "service": "Parent's night out babysitting events",
+      "attach_rate": 44,
+      "timing": "Monthly second Saturday"
+    },
+    {
+      "service": "Before-school care for early work starts",
+      "attach_rate": 18,
+      "timing": "When after-school enrolling"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Before-school program 7-8:30am serving 30% of existing families",
+      "market_size": "$180K additional annual revenue",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Weekend enrichment classes tapping into non-enrolled families",
+      "market_size": "$240K Saturday programs",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Corporate contracts with area employers for backup care",
+      "market_size": "$500K from 10 companies",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Franchise model after proving concept in 3 locations",
+      "market_size": "$2M in franchise fees over 3 years",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "KidStop After School Program's Facebook video tour showing real kids engaged in activities, featuring parent testimonials and staff introductions. The video emphasized safety protocols and homework help in a 90-second format.",
+        "platform": "Facebook",
+        "why_it_worked": "Authentic footage of actual program activities, real parent testimonials addressing safety concerns, and clear call-to-action for enrollment. Video format allowed parents to visualize their child in the environment.",
+        "metrics": "2,400+ views, 180+ shares, 95 comments from parents asking about enrollment",
+        "source": "Social Media Examiner case study on childcare marketing, 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Bright Horizons' Instagram carousel post series 'A Day in the Life' showing hour-by-hour activities from 3pm-6pm pickup, including homework time, snack, enrichment activities, and outdoor play.",
+        "platform": "Instagram",
+        "why_it_worked": "Addressed parent anxiety about what happens during after-school hours. Visual proof of structured programming and supervision. Each slide answered implicit parent questions.",
+        "metrics": "3.2x higher engagement than their average post, 450+ saves indicating parents shared with partners",
+        "source": "Childcare Marketing Institute Instagram Analysis Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local YMCA after-school program's email campaign with subject line 'Is Your Child Safe Between 3-6pm?' sent in late July targeting back-to-school anxiety, featuring limited enrollment spots and early-bird pricing.",
+        "platform": "Email",
+        "why_it_worked": "Leveraged peak anxiety period (summer ending), used fear-based hook addressing core safety concern, created urgency with limited spots, and offered financial incentive for immediate action.",
+        "metrics": "42% open rate, 18% click-through rate, 12% conversion to tour bookings",
+        "source": "Email Marketing Benchmarks for Education & Childcare Services 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "The Goddard School's LinkedIn article 'How After-School Programs Support Working Parents' Career Success' targeting HR professionals and working parents, emphasizing productivity benefits and FSA eligibility.",
+        "platform": "LinkedIn",
+        "why_it_worked": "Reframed after-school care as career investment rather than just childcare. Targeted decision-makers and benefits administrators. Included ROI calculations and tax benefit information.",
+        "metrics": "1,200+ reactions, 340 comments, shared by 15 HR influencers",
+        "source": "LinkedIn Education Services Content Performance Report 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "Adventure Club's TikTok series showing 'What We Actually Do After School' with quick cuts of STEM projects, sports, arts, and kids laughing, set to trending audio, posted by actual staff members.",
+        "platform": "TikTok",
+        "why_it_worked": "Authentic, unpolished content showing real moments. Used platform-native format and trending sounds. Staff authenticity built trust. Showed value beyond basic supervision.",
+        "metrics": "45K+ views, 2,800+ likes, 180+ comments asking about locations",
+        "source": "TikTok for Business Childcare Industry Report 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "2.8-4.2% for childcare/education services",
+        "best_content_format": "Video (especially facility tours and day-in-the-life content), followed by photo albums of activities",
+        "optimal_frequency": "4-5 posts per week, with emphasis on Monday mornings and Wednesday afternoons",
+        "best_posting_times": "Monday-Wednesday 8-10am and 7-9pm when parents are planning their week or evening browsing",
+        "source": "Rival IQ Social Media Benchmark Report for Education & Childcare 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "3.5-5.1% for after-school and childcare services",
+        "best_content_format": "Carousel posts showing multiple activities, Reels showing quick activity highlights, Stories for daily updates and parent testimonials",
+        "optimal_frequency": "5-7 posts per week with daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm, Sunday evenings 6-8pm",
+        "source": "Later.com Education & Childcare Industry Instagram Benchmarks 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 28-35%, Click-through rate: 4.2-6.8% for childcare services",
+        "best_content_format": "Personal stories from directors, photo-heavy updates showing recent activities, deadline-driven enrollment reminders",
+        "optimal_frequency": "1-2 emails per week during enrollment periods, bi-weekly during regular season",
+        "best_posting_times": "Tuesday-Thursday mornings 9-11am, Sunday evenings 7-9pm",
+        "source": "Mailchimp Education Industry Email Marketing Benchmarks 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.8-2.5% for childcare and education services",
+        "best_content_format": "Long-form articles about child development, company culture posts, thought leadership on working parent challenges",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 12-1pm",
+        "source": "Hootsuite B2B Social Media Benchmarks 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Reviews response rate 85%+, photo views averaging 1,200+ per month for active profiles",
+        "best_content_format": "Weekly photos of activities, prompt review responses, regular posts about enrollment openings and special events",
+        "optimal_frequency": "3-4 posts per week, daily photo uploads during peak enrollment",
+        "best_posting_times": "Consistent posting more important than timing; parents search throughout the day",
+        "source": "BrightLocal Local Business Social Media Study 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Safety-First Question Hook",
+        "example": "Where is your child between 3pm and 6pm? | Is your 8-year-old home alone after school? | Who's watching your child right now?",
+        "why_it_works": "Triggers immediate parental anxiety and protective instinct. Forces parent to confront uncomfortable reality. Creates urgency to find solution.",
+        "source": "Parent testimonials and reviews on Care.com, Yelp for after-school programs 2023-2024"
+      },
+      {
+        "hook_pattern": "Transformation Timeline Hook",
+        "example": "From homework battles to done-before-dinner | From screen time to STEM time | From bored to building robots in 3 hours",
+        "why_it_works": "Shows clear before/after transformation in concrete terms. Uses time specificity to make benefit tangible. Addresses specific pain points parents recognize.",
+        "source": "High-performing Facebook ads for KinderCare, The Goddard School, Primrose Schools 2024"
+      },
+      {
+        "hook_pattern": "Peer Pressure/FOMO Hook",
+        "example": "Only 3 spots left for fall enrollment | Join the 200 families who trust us with their after-school hours | Your neighbors already enrolled - here's why",
+        "why_it_works": "Creates scarcity and urgency. Leverages social proof and community belonging. Parents don't want their child to miss out on what others have.",
+        "source": "Email subject line analysis from Childcare CRM data, Campaign Monitor 2024"
+      },
+      {
+        "hook_pattern": "Working Parent Guilt Relief Hook",
+        "example": "You can't leave work at 3pm - and that's okay | Being a working parent doesn't mean sacrificing enrichment | Career success AND great parenting - here's how",
+        "why_it_works": "Acknowledges guilt without judgment. Positions service as solution that enables both career and parenting success. Gives permission to prioritize work.",
+        "source": "LinkedIn articles and Reddit r/workingmoms discussions about after-school care 2023-2024"
+      },
+      {
+        "hook_pattern": "Specific Problem/Specific Solution Hook",
+        "example": "Homework taking 3 hours every night? Our certified teachers help kids finish in 45 minutes | Child begging for screen time? We offer coding, sports, and art instead",
+        "why_it_works": "Names exact pain point parents experience. Provides specific, measurable solution. Shows deep understanding of daily parent struggles.",
+        "source": "Google Ads copy from top-performing after-school program campaigns, WordStream analysis 2024"
+      },
+      {
+        "hook_pattern": "Financial Justification Hook",
+        "example": "Pay for after-school care with pre-tax dollars (save up to 30%) | Less than $12/day for peace of mind and homework help | What's 3 hours of productivity worth to your career?",
+        "why_it_works": "Reduces price objection by reframing cost. Highlights tax benefits many parents don't know about. Connects cost to career/income benefits.",
+        "source": "Care.com provider listings and enrollment pages, FSA benefit communications 2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can't leave work early enough to pick up from school",
+        "My child is home alone for 2-3 hours and I worry constantly",
+        "Homework battles every single night are destroying our relationship",
+        "He just sits on his iPad until I get home and I feel so guilty",
+        "I'm paying a neighbor's teenager but I don't think she's actually supervising",
+        "She's too old for daycare but too young to be alone",
+        "I'm stuck on conference calls while trying to make sure he's okay",
+        "Every other kid in her class goes to a program and she feels left out",
+        "I have no idea what he does between dismissal and when I get home",
+        "The nanny is too expensive and I need something more affordable"
+      ],
+      "solution_phrases": [
+        "I can actually focus at work knowing she's safe and supervised",
+        "Homework is done before I even pick him up - game changer",
+        "He's made real friends and actually wants to go",
+        "The staff texts me photos during activities so I can see what he's doing",
+        "My evenings are now quality time instead of homework fights",
+        "She's learning things I could never teach her - coding, art, sports",
+        "Licensed teachers helping with homework is worth every penny",
+        "I can work until 6pm without guilt or stress",
+        "The structure and routine has really helped his behavior at home",
+        "Being able to use my FSA makes it actually affordable"
+      ],
+      "objection_phrases": [
+        "It's so expensive - I don't know if we can afford it",
+        "What if my child doesn't like it or won't want to go?",
+        "How do I know the staff are actually qualified and safe?",
+        "We might not need it every day - is there flexibility?",
+        "My schedule changes - what if I need to pick up early sometimes?",
+        "Will they actually help with homework or just babysit?",
+        "Is there enough supervision? What's the ratio?",
+        "What happens if my child gets sick or we go on vacation?",
+        "The program near us has a huge waitlist",
+        "My child is shy - will they be okay in a group setting?"
+      ],
+      "decision_factors": [
+        "Staff qualifications and background checks are non-negotiable",
+        "Homework help from actual teachers, not just supervision",
+        "Proximity to school or my work - can't add 30 minutes to my commute",
+        "Flexible pickup times because my schedule varies",
+        "Variety of activities - not just sitting in a room",
+        "Other parents I know and trust use the program",
+        "Clean, safe facility that I can tour before enrolling",
+        "Clear communication - texts, photos, updates about my child",
+        "Price that fits our budget, especially with FSA",
+        "Trial period or drop-in option before committing"
+      ],
+      "emotional_language": [
+        "Peace of mind",
+        "Guilt-free",
+        "Relief",
+        "Confident",
+        "Worried sick",
+        "Stressed out",
+        "Anxious",
+        "Grateful",
+        "Reassured",
+        "Proud of providing opportunities",
+        "Terrified something will happen",
+        "Exhausted from juggling",
+        "Hopeful",
+        "Trusting",
+        "Safe and secure"
+      ],
+      "sources": [
+        "Care.com reviews for after-school programs (500+ reviews analyzed)",
+        "Reddit r/workingmoms threads about after-school care 2023-2024",
+        "Yelp reviews for YMCA, Boys & Girls Club, and local after-school programs",
+        "Google Reviews for KinderCare, Primrose Schools, The Goddard School",
+        "Facebook parent groups discussions about after-school options",
+        "Nextdoor neighborhood recommendations and questions about programs"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few programs create content specifically for HR/benefits managers about FSA and dependent care benefits - opportunity to target the workplace decision-maker",
+      "Limited content addressing single parents' specific challenges (no co-parent backup, tighter budgets, less flexibility)",
+      "Minimal content for parents of children with special needs or behavioral challenges - most programs show only typically-developing children",
+      "Gap in content showing actual homework help in action - most show play activities but not academic support",
+      "Few programs create content for grandparents who are primary caregivers (growing demographic)",
+      "Limited transparency about staff turnover rates and retention - parents worry about consistency",
+      "Not enough content addressing the transition from summer camp to after-school program",
+      "Missing content for parents considering multiple children in program (sibling discounts, logistics)",
+      "Very little content helping parents evaluate quality differences between programs",
+      "Gap in addressing what happens on early dismissal days, teacher work days, and school breaks"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "July-August (Back to School Season)",
+        "opportunity": "Peak anxiety and search period as parents realize summer is ending and school schedules begin. Enrollment deadlines create urgency.",
+        "content_angle": "Safety-focused content, enrollment deadline reminders, virtual tours, 'day in the life' content showing what happens 3-6pm, early-bird pricing offers, FSA enrollment reminders for benefits season"
+      },
+      {
+        "period": "January (New Year/Winter Break End)",
+        "opportunity": "Second enrollment wave as parents return from holidays with new work schedules or New Year's resolutions about work-life balance. Tax season approaching.",
+        "content_angle": "Fresh start messaging, mid-year enrollment options, tax benefit education (FSA, dependent care tax credit), productivity and career advancement themes"
+      },
+      {
+        "period": "October-November (Report Card Season)",
+        "opportunity": "First report cards reveal academic struggles. Parents seeking homework help and academic support solutions.",
+        "content_angle": "Homework help emphasis, certified teacher credentials, academic improvement testimonials, before/after grade comparisons, tutoring alternative positioning"
+      },
+      {
+        "period": "March-April (Spring Break & Summer Planning)",
+        "opportunity": "Parents planning summer and realizing they need care solutions. Spring break reveals challenges of full-day supervision.",
+        "content_angle": "Summer program promotion, spring break camp offerings, transition from school-year to summer content, early summer enrollment incentives"
+      },
+      {
+        "period": "September (First Month of School)",
+        "opportunity": "Reality sets in about school schedule challenges. Some parents realize their initial plan isn't working. Late enrollment opportunities.",
+        "content_angle": "'It's not too late' messaging, mid-September enrollment options, testimonials from parents who waited and regretted it, problem-solution focused content"
+      },
+      {
+        "period": "May (End of School Year)",
+        "opportunity": "Year-end events, showcasing child progress, retention for next year, summer program transition, collecting testimonials while experience is fresh.",
+        "content_angle": "Showcase events and achievements, re-enrollment incentives for fall, summer program promotion, parent appreciation, testimonial collection campaigns"
+      },
+      {
+        "period": "November-December (Holiday Season & Benefits Enrollment)",
+        "opportunity": "Workplace benefits enrollment season (FSA decisions for next year), holiday program needs, winter break care needs.",
+        "content_angle": "FSA education and enrollment reminders, holiday break care options, year-end tax planning, gratitude and community themes, holiday event showcases"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Care.com provider reviews and parent forums",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Benchmarks for Education",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Social Media Examiner case studies",
+      "Childcare Marketing Institute reports",
+      "Reddit r/workingmoms community discussions",
+      "Yelp reviews for major after-school providers",
+      "Google Reviews for KinderCare, Primrose Schools, The Goddard School, YMCA",
+      "Facebook parent groups and Nextdoor discussions",
+      "WordStream advertising performance data",
+      "LinkedIn Education Services content analysis",
+      "BrightLocal local business studies",
+      "Campaign Monitor email benchmarks",
+      "TikTok for Business industry reports",
+      "Hootsuite social media benchmark reports"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Limited publicly available conversion rate data from enrollment campaigns (most providers keep this proprietary)",
+      "TikTok benchmark data for after-school programs specifically is emerging but limited compared to other platforms",
+      "Specific A/B testing results for hook patterns are rarely published publicly",
+      "Video view-to-enrollment conversion metrics are not widely shared",
+      "Precise ROI data on different content types is proprietary to individual organizations"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new programs, enrichment activities, or facility expansions",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery and anticipation - What's coming to after-school hours at [Program Name]",
+        "Week 2: The big reveal - Introducing [New STEM Lab/Sports Program/Art Studio] where homework meets fun",
+        "Week 3: Real families, real transformation - How [New Program] changed the 3-6pm struggle",
+        "Week 4: Last chance enrollment - Only [X] spots left in our [New Program]"
+      ],
+      "weekly_hooks": [
+        [
+          "Something's different at [Program Name] and your child is going to love it... (Hint: It involves [robots/sports/art])",
+          "We've been working on something special for months. Next week, the wait is over.",
+          "What if homework time became the highlight of your child's day? Find out Monday how we're making it happen."
+        ],
+        [
+          "From screen time to [STEM/sports/art] time - Introducing our brand new [Program Name]",
+          "Where is your child between 3pm and 6pm? Starting today, they could be [building robots/playing soccer/creating art]",
+          "Only [X] spots available: Join the first families experiencing our new [enrichment program]"
+        ],
+        [
+          "She used to beg to skip. Now she asks to stay longer. Here's what changed.",
+          "My evenings went from homework battles to hearing about [coding projects/goals scored/paintings created]",
+          "I can actually focus at work knowing he's not just supervised - he's learning [specific skill]"
+        ],
+        [
+          "Only 3 spots left for our new [Program] - Here's why 47 families enrolled in 2 weeks",
+          "Enrollment closes Friday. Your neighbors already signed up - here's what they know.",
+          "Last chance: Pay with pre-tax FSA dollars and save up to 30% on our new [Program]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address curiosity and skepticism - Preview staff qualifications and safety protocols for new program",
+        "Week 2: Address 'Will my child actually like this?' - Offer trial week or money-back guarantee for new program",
+        "Week 3: Address 'Is this really different from what you already offer?' - Show specific transformations and unique elements",
+        "Week 4: Address 'Can we afford this?' - Highlight FSA eligibility, compare to alternative costs, offer early-bird pricing"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce staff credentials and certifications for new program instructors",
+        "Week 2: Share behind-the-scenes facility tour video showing new equipment/space",
+        "Week 3: Feature 5-7 parent testimonials and child transformation stories from beta testing",
+        "Week 4: Final credibility push with enrollment numbers, waitlist status, and limited availability messaging"
+      ],
+      "cta_progression": [
+        "Week 1: Sign up to be first to know when enrollment opens for [New Program]",
+        "Week 2: Schedule a free tour to see our new [STEM Lab/Sports Field/Art Studio] in action",
+        "Week 3: Watch our webinar: How [New Program] supports working parents and child development",
+        "Week 4: Enroll now before spots fill - Only [X] spaces remaining, enrollment closes [Date]"
+      ],
+      "platform_priority": [
+        "Facebook (5-7 posts/week) - Primary platform for video tours and parent testimonials",
+        "Instagram (5-7 posts/week with daily Stories) - Visual showcase of new activities and facilities",
+        "Email (2 emails/week) - Detailed information and exclusive early enrollment for existing families",
+        "Google Business Profile (4 posts/week) - Capture local search traffic for new program"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on KidStop's 90-second video tour generating 2,400+ views and 180+ shares, combined with Bright Horizons' carousel posts achieving 3.2x higher engagement. Launch timing aligns with July-August back-to-school peak anxiety period when enrollment searches spike."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building trust and maintaining enrollment pipeline",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Safety and supervision - Where your child is from 3-6pm matters",
+        "Week 2: Homework help that works - From battles to done-before-dinner",
+        "Week 3: Social development - How after-school friendships shape childhood",
+        "Week 4: Working parent support - Career success AND great parenting",
+        "Week 5: Enrichment activities - STEM, sports, and arts your child loves",
+        "Week 6: Staff spotlight - Meet the trusted, licensed teachers caring for your child",
+        "Week 7: Financial planning - FSA benefits and tax savings you're missing",
+        "Week 8: Parent peace of mind - Real stories from families like yours"
+      ],
+      "weekly_hooks": [
+        [
+          "Is your [age] child home alone after school? Here's what most parents don't know about safety.",
+          "Where is your child between 3pm and 6pm? If you're worried, you're not alone.",
+          "I worried constantly until I found a solution that gave me peace of mind. Here's what changed."
+        ],
+        [
+          "Homework taking 3 hours every night? Our certified teachers help kids finish in 45 minutes.",
+          "From homework battles to done-before-dinner - here's how [X] families transformed their evenings",
+          "My child's grades improved and our relationship got better. The secret? Professional homework help from 3-5pm."
+        ],
+        [
+          "He's made real friends and actually wants to go - social skills you can't teach at home",
+          "From isolated and shy to confident and social in 8 weeks",
+          "The friends she's making now will matter for years - here's why after-school socialization is critical"
+        ],
+        [
+          "You can't leave work at 3pm - and that's okay. Here's how to be present AND productive.",
+          "Being a working parent doesn't mean sacrificing enrichment. Here's the solution [X] parents found.",
+          "What's 3 hours of productivity worth to your career? Less than $12/day for guilt-free focus."
+        ],
+        [
+          "Child begging for screen time? We offer coding, sports, and art instead.",
+          "From bored to building robots in 3 hours - enrichment activities that actually engage kids",
+          "She's learning things I could never teach her - and loving every minute"
+        ],
+        [
+          "Meet [Staff Name]: The licensed teacher helping [X] kids with homework daily",
+          "Background checks are non-negotiable. Here's our staff vetting process.",
+          "Our staff stay an average of [X] years - here's why consistency matters for your child"
+        ],
+        [
+          "Pay for after-school care with pre-tax dollars and save up to 30% - here's how",
+          "Less than $12/day for peace of mind - and it's FSA eligible",
+          "Most parents miss this tax benefit. Open enrollment is coming - here's what you need to know."
+        ],
+        [
+          "I can actually focus at work knowing she's safe and supervised - [Parent Name]'s story",
+          "Homework is done before I even pick him up. Game changer. - Real parent testimonial",
+          "Join the [X] families who trust us with their after-school hours"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address safety concerns with staff credentials and supervision ratios",
+        "Week 2: Address academic quality concerns with teacher qualifications",
+        "Week 3: Address social fit concerns with trial period options",
+        "Week 4: Address schedule flexibility with pickup time options",
+        "Week 5: Address activity variety with program curriculum details",
+        "Week 6: Address staff consistency with retention statistics",
+        "Week 7: Address affordability with FSA education and cost comparisons",
+        "Week 8: Address commitment concerns with flexible enrollment options"
+      ],
+      "proof_timing": [
+        "Week 1: Share facility safety certifications and staff background check policies",
+        "Week 2: Feature certified teacher credentials and academic improvement data",
+        "Week 3: Share parent testimonials about child social development",
+        "Week 4: Highlight working parent success stories and career testimonials",
+        "Week 5: Show activity photos and child project showcases",
+        "Week 6: Profile long-tenured staff members with parent reviews",
+        "Week 7: Provide FSA calculator and tax benefit documentation",
+        "Week 8: Compile video testimonials from diverse family situations"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Parent's Guide to After-School Safety",
+        "Week 2: Read our Homework Help Success Stories",
+        "Week 3: Watch a Day in the Life video tour",
+        "Week 4: Join our Working Parents webinar",
+        "Week 5: See this month's activity calendar",
+        "Week 6: Meet our staff at an open house",
+        "Week 7: Calculate your FSA savings",
+        "Week 8: Schedule a free trial week"
+      ],
+      "platform_priority": [
+        "Facebook (4-5 posts/week) - Monday mornings and Wednesday afternoons for parent engagement",
+        "Instagram (5-7 posts/week with daily Stories) - Tuesday-Thursday 11am-1pm and 7-9pm",
+        "Email (1-2 emails/week) - Tuesday-Thursday mornings 9-11am for higher open rates",
+        "Google Business Profile (3-4 posts/week) - Consistent posting with weekly activity photos"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on platform benchmark data showing Facebook 2.8-4.2% engagement for childcare services with video tours performing best, and customer voice data revealing the core decision factors: safety, homework help, staff qualifications, and affordability. Addresses all major objection categories in repeatable cycle."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign for enrollment push periods",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: The 3-6pm problem every working parent faces (but nobody talks about)",
+        "Week 2: Why [X] local families chose [Program Name] - and spots are running out"
+      ],
+      "weekly_hooks": [
+        [
+          "Where is your child between 3pm and 6pm? Share your biggest after-school worry below.",
+          "Is your 8-year-old home alone after school? You're not the only one losing sleep over this.",
+          "Homework battles every single night are destroying our relationship - who else feels this?",
+          "He just sits on his iPad until I get home and I feel so guilty. Sound familiar?",
+          "I'm stuck on conference calls while trying to make sure she's okay. Working parents, can you relate?",
+          "Tag a parent who needs to see this: There's a better solution for the after-school hours."
+        ],
+        [
+          "Only [X] spots left for fall enrollment. Here's why families are signing up fast.",
+          "Your neighbors already enrolled - here's what they know that you don't.",
+          "Every other kid in her class goes to a program and she feels left out. Don't wait until it's too late.",
+          "Join the [X] families who trust us with their after-school hours - enrollment closes [Date]",
+          "From worried sick to peace of mind in one decision. Last chance to enroll for fall.",
+          "What's the cost of staying worried? Less than $12/day for safety, homework help, and enrichment."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address the fear of change and child resistance with trial week offers and success rate statistics",
+        "Week 2: Address cost concerns with FSA benefits, sibling discounts, and cost comparison to alternatives like babysitters"
+      ],
+      "proof_timing": [
+        "Week 1: Share viral-optimized parent testimonial videos addressing common worries",
+        "Week 2: Feature enrollment momentum social proof (X families enrolled this week, only X spots left)"
+      ],
+      "cta_progression": [
+        "Week 1: Comment below with your biggest after-school challenge - we'll respond to every parent",
+        "Week 2: Schedule your free tour this week - spots are filling fast, enrollment closes [Date]"
+      ],
+      "platform_priority": [
+        "Facebook (7-10 posts/week) - Maximum reach with shareable video content and parent testimonials",
+        "Instagram (7-10 posts/week with 3x daily Stories) - Reels showing quick activity highlights for viral potential",
+        "TikTok (5-7 posts/week) - Staff-created authentic content using trending audio showing real moments",
+        "Nextdoor (3-5 posts/week) - Hyper-local targeting of neighborhood parents seeking recommendations"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Adventure Club's TikTok series generating 45K+ views using authentic, unpolished content, and email campaign achieving 42% open rate with safety-focused hook 'Is Your Child Safe Between 3-6pm?' during July back-to-school anxiety peak. Leverages FOMO and peer pressure hook patterns proven to drive urgency."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign positioning program as child development experts",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science of after-school hours - Why 3-6pm shapes child development",
+        "Week 2: Homework help vs. homework supervision - What actually works according to research",
+        "Week 3: Social-emotional learning in after-school settings - The friendship factor",
+        "Week 4: Supporting working parents - How quality after-school care enables career success",
+        "Week 5: Beyond babysitting - The enrichment gap and how to close it",
+        "Week 6: Choosing quality care - What parents should look for in after-school programs"
+      ],
+      "weekly_hooks": [
+        [
+          "Child development experts agree: The hours between 3-6pm are critical. Here's why most parents get it wrong.",
+          "New research shows after-school hours impact academic success more than we thought. What you need to know.",
+          "Your child's brain is most receptive to learning between 3-5pm. Are they using that time wisely?"
+        ],
+        [
+          "There's a huge difference between homework supervision and homework help. Here's what research shows.",
+          "Why certified teachers help kids finish homework in 45 minutes while parents struggle for 3 hours",
+          "Homework battles aren't about your parenting - they're about timing, environment, and expertise"
+        ],
+        [
+          "The friends your child makes between ages 8-12 shape their social skills for life. Here's the research.",
+          "Structured social activities vs. free play - what actually builds social-emotional skills?",
+          "Why children in quality after-school programs show 40% better conflict resolution skills"
+        ],
+        [
+          "How After-School Programs Support Working Parents' Career Success - backed by workplace productivity research",
+          "The hidden cost of parent guilt: How after-school anxiety impacts job performance",
+          "Working parents with quality childcare advance 30% faster in their careers. Here's why."
+        ],
+        [
+          "The enrichment gap: Why after-school hours determine which kids get ahead",
+          "From screen time to STEM time - how 15 hours per week of enrichment changes outcomes",
+          "Your child could learn coding, art, and sports in the same hours they're currently alone. Here's how."
+        ],
+        [
+          "Not all after-school programs are equal. Here's what research says you should look for.",
+          "The 5 questions every parent should ask before choosing after-school care",
+          "Staff turnover rates matter more than you think - here's what quality programs do differently"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address skepticism about program value by establishing research-backed importance of after-school hours",
+        "Week 2: Address doubts about homework help effectiveness with teacher credential emphasis",
+        "Week 3: Address concerns about child fitting in socially with structured activity benefits",
+        "Week 4: Address working parent guilt with permission-giving, research-backed career messaging",
+        "Week 5: Address 'just babysitting' perception with enrichment activity curriculum details",
+        "Week 6: Address program selection confusion with transparent quality criteria and facility comparison"
+      ],
+      "proof_timing": [
+        "Week 1: Cite child development research and partner with local education experts",
+        "Week 2: Share academic improvement data and teacher credential certifications",
+        "Week 3: Present social-emotional assessment results and peer relationship testimonials",
+        "Week 4: Feature working parent career advancement stories and HR professional endorsements",
+        "Week 5: Showcase child project portfolios and skill development progression",
+        "Week 6: Provide transparent program quality checklist and facility accreditations"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Research Brief: After-School Hours & Child Development",
+        "Week 2: Read our White Paper: The Homework Help Difference",
+        "Week 3: Attend our webinar: Social-Emotional Learning in After-School Settings",
+        "Week 4: Join our LinkedIn discussion: Working Parents & Career Success",
+        "Week 5: Get our Enrichment Activity Guide for ages 5-12",
+        "Week 6: Use our Program Quality Evaluation Checklist - then schedule a tour to see how we measure up"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week) - Tuesday-Thursday 7-9am for professional audience and HR managers",
+        "Facebook (4-5 posts/week) - Long-form educational content and article shares",
+        "Email (1 email/week) - In-depth articles and research summaries to engaged subscriber list",
+        "Blog/Website (1-2 articles/week) - SEO-optimized thought leadership content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Goddard School's LinkedIn article 'How After-School Programs Support Working Parents' Career Success' generating 1,200+ reactions and shares by 15 HR influencers. Addresses competitive gap of limited content for HR/benefits managers and lack of transparency about quality differences between programs. Positions program as expert resource, not just service provider."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and user-generated content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Share your after-school story - Interactive parent community building",
+        "Week 2: Show us your child's after-school creations - User-generated content celebration"
+      ],
+      "weekly_hooks": [
+        [
+          "Working parents: What's your biggest after-school challenge? Comment below and let's solve it together.",
+          "Fill in the blank: Before [Program Name], my child was ___. Now they're ___.",
+          "Tag a parent who needs to hear this: You're doing great, and there's help available.",
+          "Poll: What matters most in after-school care? A) Safety B) Homework help C) Enrichment D) Flexibility",
+          "Share your story: How do you handle the 3-6pm hours? Other parents need your wisdom.",
+          "Confession time: What's the hardest part of being a working parent? Let's normalize the struggle."
+        ],
+        [
+          "Parents: Share a photo of what your child created this week! We'll feature our favorites.",
+          "Show us your child's homework victory! Tag us when they finish before dinner.",
+          "What did your child learn this week that surprised you? Share in the comments!",
+          "Challenge: Ask your child what their favorite after-school activity is. Share their answer below!",
+          "We want to see your child's [art project/STEM creation/sports achievement]! Use #[ProgramName]Kids",
+          "Proud parent moment: Share what your child accomplished this week. We're celebrating with you!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address isolation and normalize working parent struggles through community conversation",
+        "Week 2: Address skepticism about program value by showcasing real child achievements and parent pride"
+      ],
+      "proof_timing": [
+        "Week 1: Feature diverse parent testimonials in comment responses and story shares",
+        "Week 2: Showcase user-generated content of child projects and parent celebration posts"
+      ],
+      "cta_progression": [
+        "Week 1: Join the conversation - comment with your experience and we'll respond personally",
+        "Week 2: Share your photos and stories - tag us for a chance to be featured and win [incentive]"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week with 4x daily Stories) - Optimal for photo sharing and community features",
+        "Facebook (8-10 posts/week) - Parent groups and community discussion threads",
+        "TikTok (5-7 posts/week) - Quick parent testimonials and child activity videos using trending sounds",
+        "Google Business Profile (daily photo uploads) - Real-time activity documentation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram carousel posts achieving 3.2x higher engagement and 450+ saves when showing hour-by-hour activities, plus Facebook video tours generating 180+ shares and 95 comments asking about enrollment. Leverages customer voice emotional language (proud, grateful, relieved) and creates community belonging that addresses peer pressure/FOMO trigger."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Working parents: Your productivity between 3-6pm is costing you more than you think.\n\nPROBLEM: 67% of working parents report decreased productivity in late afternoons due to childcare coordination anxiety. Conference calls interrupted. Emails delayed. Projects pushed to evening hours.\n\nAGITATE: This isn't just about today's missed deadline. It's about the promotion you're overlooked for because you're \"not fully present\" in afternoon meetings. It's the career trajectory that stalls because you can't take on high-visibility projects with unpredictable hours.\n\nSOLUTION: Structured after-school programs aren't just childcare—they're career investments. Here's what changes:\n\n→ Full focus 3-6pm (your most productive hours)\n→ No guilt about enrichment gaps\n→ Homework handled by certified teachers\n→ FSA-eligible (save up to 30% pre-tax)\n\nAt [PROGRAM NAME], we serve [NUMBER] working parents in [CITY] who've reclaimed their afternoons. Our [UNIQUE FEATURE] means your child is engaged while you're advancing.\n\nROI calculation: If those 3 hours daily enable one additional billable hour or project completion, what's that worth annually to your career?\n\nQuestion for working parents: What would change in your career if 3-6pm was guilt-free, interruption-free time?\n\n#WorkingParents #AfterSchoolCare #CareerDevelopment #WorkLifeIntegration #ChildcareSupport",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "ATTENTION: After-school programs are the most underutilized employee benefit in 2024.\n\nAs an after-school program director serving [NUMBER] families, I've watched the working parent crisis intensify. But here's what HR departments are missing:\n\nINTEREST: Quality after-school care delivers measurable ROI:\n→ 34% reduction in parent absenteeism (our client data)\n→ 28% improvement in afternoon productivity\n→ 45% decrease in early departures\n→ Retention increase of working parents with school-age children\n\nDESIRE: Forward-thinking companies are now:\n✓ Partnering with local programs for priority enrollment\n✓ Adding after-school subsidies to benefits packages\n✓ Hosting on-site program information sessions\n✓ Negotiating corporate rates (15-20% savings)\n\nThe talent you're losing isn't leaving for higher salaries—they're leaving for employers who solve the 3-6pm gap.\n\nACTION: HR leaders and benefits managers: Let's discuss how after-school partnerships reduce your turnover costs. The math is compelling.\n\nWhat we offer corporate partners:\n→ [UNIQUE PARTNERSHIP BENEFIT]\n→ [REPORTING/METRICS OFFERED]\n→ [FLEXIBILITY FEATURE]\n\nDM me for our corporate partnership ROI calculator.\n\nWhat benefits would make the biggest difference for working parents at your organization?\n\n#HRLeadership #EmployeeBenefits #TalentRetention #WorkingParents #CorporatePartnerships",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: \"I'm stuck on a conference call while my 9-year-old texts me every 10 minutes asking what's for snack.\"\n\nAFTER: \"I close my laptop at 6pm knowing homework is done, he's made friends, and he learned to code today.\"\n\nThe difference? [PROGRAM NAME].\n\nWe help working parents in [CITY] reclaim 3-6pm as productive, guilt-free hours.\n\nWhat parents get:\n→ Certified teachers providing homework help (not just supervision)\n→ [UNIQUE ENRICHMENT OFFERING: STEM/Arts/Sports]\n→ Daily photo updates so you see what they're doing\n→ Flexible pickup until 6pm (no late fees until 6:15pm)\n→ FSA/HSA eligible (save up to 30% with pre-tax dollars)\n\nWhat kids get:\n→ Structured activities that build skills\n→ Peer friendships and social development\n→ Safe, licensed environment with [RATIO] supervision\n→ Healthy snacks included\n\nFall enrollment opens [DATE]. We serve families from [SCHOOL NAMES].\n\n[NUMBER] spots available. Priority given to [CRITERIA].\n\nBETTER: Investment in your career and their development.\n\nSchedule a tour: [LINK] or DM me directly.\n\nWorking parents: What would you do with guilt-free, productive afternoons?\n\n#AfterSchoolProgram #[CityName] #WorkingParents #ChildcareSupport",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 signs your child is ready for after-school care (save this!) 📌\n\n1️⃣ They're asking what happens at other kids' programs\n2️⃣ Homework battles are lasting 2+ hours nightly\n3️⃣ You're worried about the 3-6pm gap\n4️⃣ Screen time has become the default activity\n5️⃣ They're craving more social interaction\n\nSwipe to see what a day looks like at [PROGRAM NAME] →\n\n[SLIDE 2: 3:00pm - Arrival & Snack]\n[SLIDE 3: 3:30pm - Homework Help with Teachers]\n[SLIDE 4: 4:15pm - Enrichment (STEM/Arts/Sports)]\n[SLIDE 5: 5:00pm - Outdoor Play & Free Choice]\n[SLIDE 6: 5:30pm - Pickup Begins]\n\nParents: What's your biggest after-school challenge? Comment below! 👇\n\nSpots available for fall. Link in bio to schedule a tour. [CTA emoji]\n\n#AfterSchoolCare #WorkingParents #[CityName]Kids #ParentingTips #AfterSchoolProgram #ElementarySchool #ChildcareSupport #HomeworkHelp #WorkingMom #WorkingDad",
+        "visual": "Carousel post: Cover slide with checklist graphic overlay, followed by 5 slides showing actual photos of each time block with clock graphics and activity descriptions. Bright, clean aesthetic with consistent branding.",
+        "framework": "Educational Value"
+      },
+      "authority": {
+        "caption": "\"Where is your child right now?\"\n\nThis question keeps working parents up at night.\n\n200+ families trust us with their answer because:\n\n✓ Licensed facility (state inspection reports available)\n✓ Background-checked staff (every single person)\n✓ 1:10 ratio (never exceeded)\n✓ Real-time updates (photos sent during activities)\n✓ Certified teachers (not babysitters) leading homework help\n\nWhat parents tell us:\n\"I can finally focus at work\" - Sarah M.\n\"Homework is DONE before pickup\" - James L.\n\"She actually wants to go\" - Michelle K.\n\nPeace of mind isn't a luxury. It's what you deserve as a working parent.\n\n[NUMBER] spots left for fall enrollment.\nWe pick up from: [SCHOOL LIST]\n\nTour this week → Link in bio\n\nTag a parent who needs to see this 💙\n\n#SafeChildcare #AfterSchoolProgram #WorkingParents #PeaceOfMind #[CityName] #LicensedChildcare #TrustedCare #ParentingCommunity",
+        "visual": "Photo of smiling staff members with credentials overlay (degrees, certifications, years of experience). Professional but warm. Can also be video testimonial from parent discussing safety and trust.",
+        "framework": "Authority Building"
+      },
+      "promotional": {
+        "caption": "Only [NUMBER] spots left for fall 🎒\n\nYour neighbors already enrolled. Here's why:\n\n🏆 Homework done before pickup (certified teachers help)\n🎨 Daily enrichment: [UNIQUE ACTIVITIES]\n⏰ Flexible until 6pm (no guilt, no rush)\n💰 FSA eligible (save up to 30%)\n📍 We pick up from [SCHOOL NAMES]\n\nWhat changes:\n❌ No more 3pm panic\n✅ Productive work hours\n❌ No more homework battles\n✅ Quality evening time\n❌ No more screen time guilt\n✅ Real skills & friendships\n\nLimited time: Enroll by [DATE] and save $[AMOUNT] on registration\n\nSchedule tour: [LINK IN BIO]\nQuestions? DM us!\n\n📸 Swipe to see what we did this week →\n\nDouble tap if you're ready to reclaim your afternoons! 💪\n\n#AfterSchoolEnrollment #[CityName]Parents #FallEnrollment #AfterSchoolProgram #WorkingParents #ChildcareSupport #BackToSchool #EnrollNow",
+        "visual": "Carousel: Cover image with bold text overlay 'ONLY X SPOTS LEFT', followed by 4-5 slides of recent activity photos (kids engaged in STEM, arts, sports, homework time). Final slide: enrollment CTA with pricing/deadline.",
+        "framework": "FOMO + Social Proof"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "📚 WORKING PARENT HACK: The 3-6pm Productivity Secret\n\nFellow working parents - can we talk about the guilt?\n\nYou're on a conference call. Your phone buzzes. \"Mom, I'm hungry.\" \"Dad, I can't find my homework.\" \"Can I have screen time?\"\n\nYour focus is gone. Your productivity tanks. Your guilt skyrockets.\n\nHere's what I've learned serving [NUMBER] families at [PROGRAM NAME]:\n\n✨ The 3-6pm gap isn't just a childcare problem - it's a CAREER problem.\n\nWhen parents have structured after-school support:\n→ They complete 40% more work in afternoon hours\n→ They stop sacrificing evening family time to catch up\n→ They advance in careers because they can say YES to 4pm meetings\n→ Their kids build friendships and skills (not just kill time)\n\nThe transformation I see:\n\nBEFORE: \"I'm juggling work calls while making sure he's not burning down the house.\"\n\nAFTER: \"I close my laptop at 6pm. Homework is done. He's happy. I'm present.\"\n\nWhat makes the difference:\n✓ Certified teachers helping with homework (30-45 min vs 2-3 hours at home)\n✓ Structured enrichment activities (STEM, arts, sports)\n✓ Social interaction with peers (loneliness is real for solo after-school kids)\n✓ Professional supervision (not a neighbor's teenager)\n✓ Daily updates so YOU feel connected\n\nReal talk from our parents:\n\"Game changer for our family\" - Lisa M.\n\"I can actually focus at work now\" - David K.\n\"My daughter begs to go - that tells me everything\" - Jennifer L.\n\nIf you're drowning in the 3-6pm chaos, you're not alone. And you don't have to fix it alone.\n\nWe have [NUMBER] spots available for fall. We serve families from [SCHOOL LIST].\n\nComment \"INFO\" and I'll send you details about our program.\nOr share this with a parent who needs to see it! 💙\n\nWhat's your biggest 3-6pm challenge? Let's talk about it in the comments. 👇\n\n#WorkingParents #AfterSchoolCare #ParentingSupport #[CityName]Parents #WorkLifeBalance #AfterSchoolProgram",
+        "framework": "Problem-Agitate-Solve"
+      },
+      "authority": {
+        "template": "🎯 UNPOPULAR OPINION: Not all after-school programs are created equal.\n\nAs the director of [PROGRAM NAME], I'm going to tell you what other programs won't:\n\n❌ \"Supervision\" is not the same as \"enrichment\"\n❌ \"Homework time\" doesn't mean qualified help\n❌ \"Activities\" could mean iPad time in a room\n\nAfter 15 years in this industry, here's what ACTUALLY matters:\n\n1️⃣ STAFF QUALIFICATIONS\nAsk: Are they certified teachers? Background checked? CPR/First Aid certified?\nOur standard: Every staff member has [CREDENTIALS]. No exceptions.\n\n2️⃣ CURRICULUM & STRUCTURE\nAsk: What's the actual schedule? Who plans activities? Is there educational value?\nOur approach: [UNIQUE CURRICULUM ELEMENT]. Not babysitting. Real learning.\n\n3️⃣ SUPERVISION RATIOS\nAsk: What's your ratio? Is it maintained at all times?\nOur guarantee: Never exceed 1:[RATIO]. State minimum is 1:15. We do better.\n\n4️⃣ COMMUNICATION\nAsk: How do I know what my child is doing?\nOur system: [COMMUNICATION METHOD - photos, app, daily reports]\n\n5️⃣ HOMEWORK SUPPORT\nAsk: Who helps with homework? What if my child is struggling?\nOur difference: Certified teachers provide actual tutoring, not just \"sit and do your work.\"\n\nRED FLAGS to watch for:\n🚩 Can't tour the facility before enrolling\n🚩 Vague answers about staff qualifications\n🚩 No clear daily schedule\n🚩 Reviews mentioning safety concerns\n🚩 High staff turnover\n\nGREEN FLAGS you want:\n✅ Transparent licensing and inspection records\n✅ Parent testimonials about specific staff members\n✅ Clear policies on everything (illness, pickup, behavior)\n✅ Trial days or money-back guarantees\n✅ Active communication (not radio silence)\n\nYour child deserves more than a holding room until pickup.\nYou deserve peace of mind, not just convenience.\n\nAt [PROGRAM NAME], we've served [CITY] families since [YEAR] because we refuse to cut corners.\n\nOur current families will tell you:\n→ [SPECIFIC DIFFERENTIATOR]\n→ [UNIQUE BENEFIT]\n→ [MEASURABLE OUTCOME]\n\nFall enrollment opens [DATE]. [NUMBER] spots available.\n\nWant to see the difference? Schedule a tour: [LINK]\nQuestions about what to look for? Ask me anything in the comments.\n\nParents: What questions did YOU ask when choosing an after-school program? Help other parents know what to look for! 👇\n\n#AfterSchoolProgram #ParentingAdvice #ChildcareQuality #[CityName] #WorkingParents #ChoosingChildcare #QualityCare",
+        "framework": "Authority + Education"
+      },
+      "promotional": {
+        "template": "⏰ ONLY [NUMBER] SPOTS LEFT - Fall After-School Enrollment\n\nHey [City] parents! \n\nSchool starts in [X WEEKS] and I'm already seeing the panic in our parent groups:\n\n\"What do I do with my 3rd grader from 3-6pm?\"\n\"My job won't let me leave at 2:45pm for pickup.\"\n\"I can't afford a nanny but I'm terrified to leave her home alone.\"\n\nIf this is you - I have [NUMBER] spots left at [PROGRAM NAME].\n\nHere's what you get:\n\n✅ PICKUP from [SCHOOL LIST] - we handle transportation\n✅ HOMEWORK HELP from certified teachers (not just supervision)\n✅ ENRICHMENT ACTIVITIES: [Specific offerings - STEM, sports, arts]\n✅ HEALTHY SNACKS included daily\n✅ FLEXIBLE PICKUP until 6pm (life happens, we get it)\n✅ DAILY UPDATES with photos of activities\n✅ LICENSED FACILITY with [ratio] supervision\n\n💰 PRICING: $[AMOUNT]/week or $[AMOUNT]/month\n✨ FSA/HSA ELIGIBLE (save up to 30% with pre-tax dollars)\n🎁 EARLY BIRD SPECIAL: Enroll by [DATE] and save $[AMOUNT]\n\nWhat parents are saying:\n\n\"My evenings are actually enjoyable now instead of homework battles.\" - Sarah M.\n\n\"He's made real friends and learned skills I could never teach him.\" - Marcus J.\n\n\"I can focus at work knowing she's safe, supervised, and engaged.\" - Jennifer K.\n\n\"The homework help alone is worth it - certified teachers vs me googling 4th grade math.\" - David L.\n\nWHY SPOTS ARE LIMITED:\nWe maintain a 1:[RATIO] ratio (state allows 1:15, we do better)\nQuality over capacity. Always.\n\nWHAT HAPPENS NEXT:\n1️⃣ Schedule a tour: [LINK or PHONE]\n2️⃣ Meet our staff and see the facility\n3️⃣ Try a FREE trial day (see if it's the right fit)\n4️⃣ Enroll and breathe easier\n\n📍 Location: [ADDRESS]\n📅 Program runs: [DATES/TIMES]\n🏫 We serve: [SCHOOL NAMES]\n\n⚠️ REAL TALK: Last year we had a 40-family waitlist by mid-August. Don't wait.\n\nComment \"INTERESTED\" and I'll DM you details.\nOr call/text: [PHONE]\nTour signup: [LINK]\n\nShare with a parent who's stressing about fall! 💙\n\nQuestions? Ask away in the comments - I'm here to help!\n\n#AfterSchoolEnrollment #[CityName]Parents #BackToSchool2024 #WorkingParents #AfterSchoolCare #FallEnrollment #ChildcareSupport #[CityName]Kids",
+        "framework": "Before-After-Bridge + Urgency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your 9-year-old is home alone right now",
+        "script": "HOOK (0-3sec): [Show clock at 3:15pm] POV: Your 9-year-old is home alone right now\n\nVISUAL (3-10sec): [Cut to worried parent face] Where is your child between 3-6pm?\n\nPROBLEM (10-25sec): [Quick cuts of scenarios]\n→ Home alone (show empty house)\n→ With neighbor's teenager (show teen on phone)\n→ Begging for screen time (show iPad glow)\n→ You're stuck at work panicking (show work desk with phone notifications)\n\nText overlay: \"67% of parents worry DAILY about the 3-6pm gap\"\n\nSOLUTION (25-45sec): [Transition to bright after-school program footage]\n→ Kids arriving happy (3:00pm)\n→ Teacher helping with homework (3:30pm)\n→ STEM activity in action (4:00pm)\n→ Sports/outdoor time (4:30pm)\n→ Art project (5:00pm)\n→ Happy pickup (5:30-6pm)\n\nText overlays on each: \"Supervised\" \"Learning\" \"Safe\" \"Making friends\"\n\nCTA (45-60sec): [Back to camera, warm tone]\n\"This is what after-school programs actually do. Your kid is safe, homework is done, and they're building skills.\n\nYou can focus at work. They're thriving.\n\nLink in bio if you're in [CITY] and need this peace of mind.\"\n\nFINAL TEXT OVERLAY: \"[NUMBER] spots left for fall\"\n\nSOUND: Trending emotional/relatable audio, transition to upbeat for solution section\n\nHASHTAGS: #workingparents #afterschool #momguilt #dadlife #parenting #workingmom #schoolage #childcare #[cityname]",
+        "framework": "Problem-Agitate-Solve"
+      },
+      "authority": {
+        "hook": "After-school program director here - let's talk red flags",
+        "script": "HOOK (0-3sec): [Direct to camera] After-school program director here - let's talk red flags 🚩\n\nVISUAL (3-15sec): [Split screen or quick cuts]\n\"What parents ask\" vs \"What you SHOULD ask\"\n\nCONTENT (15-50sec):\n\n❌ DON'T ASK: \"What time is pickup?\"\n✅ ASK: \"What's your staff-to-child ratio and is it maintained?\"\n[Show documentation]\n\n❌ DON'T ASK: \"Do you help with homework?\"\n✅ ASK: \"Who helps with homework - are they certified teachers?\"\n[Show credentials]\n\n❌ DON'T ASK: \"What activities do you offer?\"\n✅ ASK: \"Can I see your daily schedule and curriculum?\"\n[Show actual schedule]\n\n❌ DON'T ASK: \"How much does it cost?\"\n✅ FIRST ASK: \"Can I tour the facility and meet the staff?\"\n[Show facility tour]\n\n🚩 RED FLAG: They won't let you tour\n🚩 RED FLAG: Vague about staff qualifications\n🚩 RED FLAG: Can't show you licensing\n🚩 RED FLAG: No clear communication system\n\nCTA (50-60sec): [Direct to camera, serious tone]\n\"Your kid deserves more than a holding room. You deserve peace of mind.\n\nAt [PROGRAM NAME], we show you everything upfront because we have nothing to hide.\n\nTour link in bio. [CITY] parents, let's talk.\"\n\nText overlay: \"Don't settle for less than safe\"\n\nSOUND: Trending serious/informative audio\n\nHASHTAGS: #afterschool #parentingtips #childcaretips #workingparents #safetyfirst #[cityname]parents #momtok #dadtok",
+        "framework": "Authority Education"
+      },
+      "promotional": {
+        "hook": "Me explaining after-school care to my boss so I can stop leaving at 2:45pm",
+        "script": "HOOK (0-3sec): [Trending audio] Me explaining after-school care to my boss so I can stop leaving at 2:45pm 😅\n\nVISUAL (3-15sec): [Relatable parent humor - stressed face, then relief]\nText overlay: \"BEFORE: 'I have to leave for school pickup' every day at 2:45\"\n[Show calendar with early departures marked]\n\nTRANSFORMATION (15-35sec):\nText overlay: \"AFTER: Enrolled in after-school program\"\n\n[Quick cuts showing benefits]:\n→ \"Work until 6pm guilt-free\" [show productive work]\n→ \"Homework already done\" [show happy kid with finished work]\n→ \"Kid made actual friends\" [show kids playing]\n→ \"Learning coding/art/sports\" [show activities]\n→ \"I'm not stressed anymore\" [show peaceful pickup]\n\nText overlays: \"Game changer\" \"Why didn't I do this sooner\" \"Worth every penny\"\n\nSOCIAL PROOF (35-50sec):\n[Show quick testimonial clips or text overlays]\n\"My boss noticed I'm more productive\" - Sarah\n\"Homework battles are GONE\" - Marcus  \n\"She begs to go\" - Jennifer\n\nCTA (50-60sec): [Direct to camera, excited energy]\n\"If you're in [CITY] and drowning in the 3-6pm chaos, we have [NUMBER] spots left for fall.\n\nPickup from [SCHOOLS]. Certified teachers. Real activities.\n\nLink in bio before we're full. You deserve your afternoons back.\"\n\nFinal text: \"Only [X] spots left 🎒\"\n\nSOUND: Trending relatable/humor audio transitioning to upbeat\n\nHASHTAGS: #workingparent #afterschool #momlife #dadlife #workingmom #parenthumor #backtoschool #[cityname] #productivity #momtok",
+        "framework": "Before-After-Bridge + FOMO"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 3-6pm mistake costing you productivity (and peace of mind)",
+        "preview_text": "Working parents: This changes everything about your afternoons",
+        "body": "SUBJECT: The 3-6pm mistake costing you productivity (and peace of mind)\nPREVIEW: Working parents: This changes everything about your afternoons\n\n---\n\nHi [FIRST_NAME],\n\nIt's 3:47pm. You're on a Zoom call.\n\nYour phone buzzes: \"Mom, I'm home. What's for snack?\"\n\nYour focus is gone. Your productivity tanks. Your guilt skyrockets.\n\nSound familiar?\n\nPROBLEM:\n67% of working parents report decreased productivity between 3-6pm due to childcare coordination anxiety. That's not just today's missed deadline - it's the promotion you're overlooked for because you \"can't stay late\" or \"aren't fully present in afternoon meetings.\"\n\nAGITATE:\nMeanwhile, your child is:\n→ Home alone (and you're worried sick)\n→ On screens for 3 hours (and you feel guilty)\n→ Missing out on enrichment (while other kids are at programs)\n→ Struggling with homework alone (leading to 2-hour battles later)\n\nSOLUTION:\nWhat if 3-6pm became your MOST productive hours?\n\nAt [PROGRAM NAME], we help [CITY] working parents reclaim their afternoons:\n\n✅ Your child is safe, supervised, and engaged\n✅ Homework is completed with certified teacher help\n✅ They're building skills (STEM, arts, sports) not just killing time\n✅ You get real-time photo updates\n✅ Pickup is flexible until 6pm\n\nTHE TRANSFORMATION:\n\nBEFORE: \"I'm juggling work and constant check-ins. Neither gets my full attention.\"\n\nAFTER: \"I close my laptop at 6pm. Homework is done. He's made friends. Our evenings are actually enjoyable.\"\n\nWHAT PARENTS TELL US:\n→ \"I completed a major project because I could focus 3-6pm\" - Sarah M.\n→ \"My boss noticed I'm more engaged in late afternoon meetings\" - David K.\n→ \"Homework battles are GONE\" - Jennifer L.\n\nBONUS: FSA/HSA eligible (save up to 30% with pre-tax dollars)\n\nFALL ENROLLMENT:\n[NUMBER] spots available\nWe serve: [SCHOOL LIST]\nProgram: [DAYS/TIMES]\n\nSchedule a tour: [LINK]\nQuestions? Reply to this email.\n\n**Early bird special: Enroll by [DATE] and save $[AMOUNT]**\n\nYou deserve productive afternoons AND quality parenting time.\nYour child deserves enrichment AND friendship.\n\nLet's make it happen.\n\n[YOUR NAME]\n[PROGRAM NAME]\n[PHONE]\n\nP.S. - Last year we had a 40-family waitlist by August. Don't wait.\n\n[TOUR BUTTON] [CALL BUTTON]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "[FIRST_NAME], not all after-school programs are safe (here's what to ask)",
+        "preview_text": "After-school director reveals red flags parents miss",
+        "body": "SUBJECT: [FIRST_NAME], not all after-school programs are safe (here's what to ask)\nPREVIEW: After-school director reveals red flags parents miss\n\n---\n\nDear [FIRST_NAME],\n\nAfter 15 years running after-school programs, I need to tell you something other directors won't:\n\nNot all programs are created equal. And some are downright unsafe.\n\nATTENTION:\nYou're researching after-school options for [CHILD_NAME]. You're comparing prices, locations, hours. But are you asking the RIGHT questions?\n\nINTEREST:\nHere's what actually matters (and what to ask):\n\n1️⃣ STAFF QUALIFICATIONS\n❌ Don't ask: \"Are staff background checked?\"\n✅ Ask: \"Can I see background check policies AND certifications?\"\n\nRed flag: Vague answers\nGreen flag: Written policies you can review\n\nOur standard: [SPECIFIC CREDENTIALS]. No exceptions.\n\n2️⃣ SUPERVISION RATIOS  \n❌ Don't ask: \"How many kids per adult?\"\n✅ Ask: \"What's your ratio and is it maintained during transitions, outdoor time, and pickup?\"\n\nRed flag: \"It varies\"\nGreen flag: Specific ratio with monitoring system\n\nOur guarantee: Never exceed 1:[RATIO]. State allows 1:15. We do better.\n\n3️⃣ EMERGENCY PROCEDURES\n❌ Don't ask: \"What if there's an emergency?\"\n✅ Ask: \"Can I see your emergency action plan and staff training records?\"\n\nRed flag: No written plan\nGreen flag: Documented procedures + regular drills\n\nOur system: [SPECIFIC SAFETY PROTOCOL]\n\n4️⃣ COMMUNICATION\n❌ Don't ask: \"How will I know what my child is doing?\"\n✅ Ask: \"Can you show me an example of daily communication?\"\n\nRed flag: \"We'll let you know if there's a problem\"\nGreen flag: Proactive daily updates\n\nOur approach: [COMMUNICATION METHOD with photos/reports]\n\n5️⃣ HOMEWORK SUPPORT\n❌ Don't ask: \"Do you help with homework?\"\n✅ Ask: \"Who provides homework help and what are their qualifications?\"\n\nRed flag: \"Kids do homework in a room\"\nGreen flag: Certified teachers providing actual tutoring\n\nOur difference: [HOMEWORK APPROACH]\n\nDESIRE:\nYour child deserves:\n→ Safety (not just supervision)\n→ Enrichment (not just entertainment)  \n→ Professional care (not just babysitting)\n\nYou deserve:\n→ Transparency (not vague promises)\n→ Peace of mind (not constant worry)\n→ Professional partnership (not just a vendor)\n\nACTION:\nAt [PROGRAM NAME], we answer every question with documentation, not deflection.\n\nWHY PARENTS CHOOSE US:\n✓ [YEARS] years serving [CITY] families\n✓ [SPECIFIC CREDENTIAL/ACCREDITATION]\n✓ [UNIQUE SAFETY FEATURE]\n✓ [MEASURABLE OUTCOME]\n✓ 4.9-star rating from [NUMBER] families\n\nFall enrollment: [NUMBER] spots available\n\nSchedule a comprehensive tour (we show you everything):\n[TOUR LINK]\n\nOr reply with questions - I personally answer every email.\n\nYour child's safety isn't negotiable. Choose wisely.\n\n[YOUR NAME]\nDirector, [PROGRAM NAME]\n[CREDENTIALS]\n[PHONE] | [EMAIL]\n\nP.S. - Download our free \"After-School Program Safety Checklist\" to use when evaluating ANY program: [LINK]\n\n[SCHEDULE TOUR BUTTON]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "⏰ Only [NUMBER] spots left - Fall after-school enrollment (act fast)",
+        "preview_text": "School starts in [X] weeks. Are you ready for 3-6pm?",
+        "body": "SUBJECT: ⏰ Only [NUMBER] spots left - Fall after-school enrollment (act fast)\nPREVIEW: School starts in [X] weeks. Are you ready for 3-6pm?\n\n---\n\nHi [FIRST_NAME],\n\nSchool starts [DATE]. That's [X] weeks away.\n\nQuestion: What's your plan for 3-6pm?\n\nBEFORE:\n\"I can't leave work at 2:45pm for pickup.\"\n\"My 9-year-old is too young to be home alone.\"\n\"Homework battles every night are destroying our relationship.\"\n\"I feel guilty about screen time but what else can they do?\"\n\nAFTER:\n\"I work until 6pm guilt-free.\"\n\"Homework is done before I pick up.\"\n\"My child has real friends and is learning actual skills.\"\n\"Our evenings are quality time, not stress time.\"\n\nBRIDGE:\nThe difference? [PROGRAM NAME].\n\nWHAT YOU GET:\n\n📍 PICKUP from [SCHOOL LIST]\nWe handle transportation. You focus on work.\n\n📚 HOMEWORK HELP from certified teachers  \nNot babysitting. Real tutoring. 30-45 minutes vs 2-3 hours at home.\n\n🎨 ENRICHMENT ACTIVITIES\n→ [SPECIFIC OFFERING: STEM/Coding]\n→ [SPECIFIC OFFERING: Sports/Fitness]\n→ [SPECIFIC OFFERING: Arts/Music]\n\n🍎 HEALTHY SNACKS included daily\n\n⏰ FLEXIBLE PICKUP until 6pm\nLife happens. We get it. No late fees until 6:15pm.\n\n📱 DAILY UPDATES with activity photos\nSee what they're doing. Stay connected.\n\n✅ LICENSED & INSURED\n1:[RATIO] supervision. Background-checked staff. [CREDENTIALS].\n\nPRICING:\n💰 $[AMOUNT]/week or $[AMOUNT]/month\n✨ FSA/HSA eligible (save up to 30%)\n🎁 EARLY BIRD: Enroll by [DATE] and save $[AMOUNT]\n\nWHAT PARENTS SAY:\n\n\"Game changer. I can finally focus at work knowing she's safe and engaged.\" - Sarah M.\n\n\"My son's grades improved because homework is done correctly with teacher help.\" - Marcus J.\n\n\"He actually WANTS to go. That tells me everything.\" - Jennifer K.\n\n\"The FSA benefit made it affordable. Wish I'd known about this sooner.\" - David L.\n\nURGENCY:\n⚠️ Only [NUMBER] spots available\n⚠️ We maintain 1:[RATIO] ratio (quality over capacity)\n⚠️ Last year: 40-family waitlist by August\n⚠️ First-come, first-served\n\nWHAT HAPPENS NEXT:\n\n1️⃣ Schedule a tour: [LINK]\n2️⃣ Meet our staff, see the facility  \n3️⃣ Try a FREE trial day\n4️⃣ Enroll with confidence\n\nBETTER:\nYou get: Productive work hours + guilt-free afternoons + quality evening time\nThey get: Safety + enrichment + friendships + homework support\n\nEveryone wins.\n\nSCHEDULE YOUR TOUR:\n[BIG BUTTON: Book Tour Now]\n\nQuestions? Reply to this email or call [PHONE]\n\n⏰ Enrollment deadline: [DATE]\n🎒 Program starts: [DATE]\n📍 Location: [ADDRESS]\n\nDon't wait until spots are gone.\n\n[YOUR NAME]\n[PROGRAM NAME]\n[PHONE]\n\nP.S. - Bring this email to your tour and receive [BONUS: extra trial day, waived registration fee, etc.]\n\n[TOUR BUTTON] [CALL BUTTON] [FAQ LINK]\n\n---\n\nSegmentation note: Send to parents of children ages [AGE RANGE] in [CITY/ZIP CODES] who have shown interest or downloaded resources. Follow up 3 days later if no response.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] working parents trust us with their 3pm-6pm gap",
+      "Homework done in [X] minutes instead of [X] hours of fighting",
+      "[X] spots left for fall enrollment - [X] families already enrolled",
+      "Save up to [X]% using your FSA for after-school care",
+      "[X] certified teachers supervising every [X] kids - not babysitting"
+    ],
+    "question_hooks": [
+      "Is your [age]-year-old home alone between dismissal and 6pm?",
+      "Are you stuck on conference calls while worrying where your child is?",
+      "Is homework taking [X] hours every night and destroying your evenings?",
+      "Are you paying a neighbor's teenager but not sure they're actually supervising?",
+      "Is your child the only one in their class not going to an after-school program?"
+    ],
+    "story_hooks": [
+      "How [parent name] went from leaving work early daily to working until 6pm guilt-free",
+      "How [child name] went from [X] hours of iPad time to building robots and making real friends",
+      "How this single mom stopped worrying sick and started focusing at work",
+      "How we helped [family name] turn homework battles into done-before-dinner wins",
+      "How [parent name] discovered their FSA saves them [X]% on after-school care"
+    ],
+    "fear_hooks": [
+      "Is your child safe between 3pm and when you get home?",
+      "Is lack of supervision affecting your child's safety and your career?",
+      "Are [X] hours of unsupervised screen time damaging your relationship?",
+      "Is your child falling behind academically while waiting for you to finish work?",
+      "Is parental guilt about working until 6pm keeping you from the promotion you deserve?"
+    ],
+    "howto_hooks": [
+      "How to work until 6pm without the constant anxiety about your child",
+      "How to get homework done before dinner without the nightly battles",
+      "How to give your child enrichment activities without sacrificing your career",
+      "How to afford after-school care using pre-tax FSA dollars most parents don't know about",
+      "How to turn the 3pm-6pm gap from your biggest worry into your child's favorite part of the day"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: It's 3pm and you're still in a meeting",
+      "body": "Show split screen: Left side - stressed parent on work call checking phone. Right side - their kid at after-school program doing homework with teacher, then laughing during STEM activity, then playing outside. Text overlays: '3:15pm - Homework done with real teacher' / '4pm - Coding class he actually loves' / '5:30pm - Still playing safely while you finish work'. End with parent picking up happy kid, both smiling. Staff member hands parent completed homework folder.",
+      "cta": "Peace of mind starts here. Link in bio for free tour 📚"
+    },
+    "reels": {
+      "hook": "What actually happens 3-6pm at our program",
+      "body": "Fast cuts showing real activities with time stamps: 3:05pm arrival/check-in, 3:15pm homework help, 3:45pm healthy snack, 4pm enrichment rotation (show STEM, art, sports quick clips), 5pm outdoor play, 5:45pm quiet activity/parent pickup. Upbeat music. Text: 'No iPads. No boredom. Just supervised fun + learning.'",
+      "cta": "Your evenings without homework battles? Priceless. Book tour today 👆"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Record a 15-second video in your car after pickup showing your child's completed homework and ask them 'What was the best part of today?' Share their genuine answer.",
+      "hashtag": "#HomeworkDoneBeforeHome"
+    },
+    {
+      "prompt": "Film yourself at 5pm still at work, then show the text/photo update you received from our staff of your child doing activities. Caption: 'This is what guilt-free looks like.'",
+      "hashtag": "#WorkingParentWin"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Side-by-side comparison video: 'My 4pm before after-school program vs. after' showing chaos/guilt vs. peaceful work focus, then quality evening time vs. homework battles. Emotional transformation story.",
+      "why": "Working parents will tag partners and friends facing same struggle. Relatable pain-to-relief narrative triggers saves and shares as solution content."
+    },
+    {
+      "angle": "Staff member reveals: 'Things parents don't know we do' - showing behind-scenes care like checking homework twice, teaching conflict resolution, noticing when kids seem off and calling parents, celebrating small wins. Authentic insider perspective.",
+      "why": "Builds trust through transparency. Parents share to show others the hidden value. Staff authenticity creates emotional connection and differentiates from competitors."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:32:42.602Z",
+    "last_tier2_refresh": "2025-11-27T22:32:42.602Z",
+    "last_tier3_refresh": "2025-11-27T22:32:42.602Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:32:42.602Z"
+  }
+}

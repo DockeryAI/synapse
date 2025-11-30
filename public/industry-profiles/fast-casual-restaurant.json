@@ -1,0 +1,1721 @@
+{
+  "industry": "Fast Casual Restaurant",
+  "industry_name": "Fast Casual Restaurant",
+  "naics_code": "722513",
+  "category": "Food Service",
+  "subcategory": "Limited-Service Restaurants",
+  "customer_triggers": [
+    {
+      "trigger": "Lunch break with 30-45 minute window",
+      "urgency": 9,
+      "frequency": "Daily for office workers"
+    },
+    {
+      "trigger": "Family dinner solution without cooking",
+      "urgency": 8,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Healthy meal option while maintaining diet",
+      "urgency": 7,
+      "frequency": "4-5 times weekly for health-conscious"
+    },
+    {
+      "trigger": "Team lunch order for office meeting",
+      "urgency": 8,
+      "frequency": "Weekly for many businesses"
+    },
+    {
+      "trigger": "Quick dinner between activities",
+      "urgency": 9,
+      "frequency": "2-3 times weekly for busy families"
+    },
+    {
+      "trigger": "Post-workout protein-focused meal",
+      "urgency": 7,
+      "frequency": "3-4 times weekly for fitness enthusiasts"
+    },
+    {
+      "trigger": "Weekend casual dining without full service",
+      "urgency": 6,
+      "frequency": "1-2 times weekly"
+    },
+    {
+      "trigger": "Late-night food craving after events",
+      "urgency": 8,
+      "frequency": "Weekly for young adults"
+    },
+    {
+      "trigger": "Catering need for casual events",
+      "urgency": 7,
+      "frequency": "Monthly for event planners"
+    },
+    {
+      "trigger": "Road trip or travel meal stop",
+      "urgency": 9,
+      "frequency": "Varies seasonally"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Mobile app notifications, social media ads targeted by location and time, Google Maps searches for 'food near me', colleague recommendations, visible storefront locations with high foot traffic",
+    "consideration": "Menu browsing online or app showing calories and customization options, review checking for speed and quality, price comparison with competitors, checking wait times via app, dietary accommodation verification",
+    "decision": "Mobile order placed for pickup, walk-in decision based on visible queue length, group ordering through shared cart feature, subscription or loyalty program activation for regular visitors",
+    "retention": "App-based rewards program with points per dollar, personalized offers based on order history, convenient reorder feature, consistent quality and speed maintaining trust, new menu item notifications",
+    "advocacy": "Social media food photos with location tags, office lunch recommendations, family meal solution sharing, fitness community endorsements for healthy options, corporate catering referrals"
+  },
+  "transformations": [
+    {
+      "from": "Hungry and rushed",
+      "to": "Satisfied with time to spare",
+      "emotional_value": "Stress relief and efficiency",
+      "worth_premium": true
+    },
+    {
+      "from": "Drive-thru guilt",
+      "to": "Healthy choice pride",
+      "emotional_value": "Wellness achievement",
+      "worth_premium": true
+    },
+    {
+      "from": "Cooking exhaustion",
+      "to": "Family fed happily",
+      "emotional_value": "Parental success without burden",
+      "worth_premium": true
+    },
+    {
+      "from": "Diet restriction worry",
+      "to": "Customized perfect meal",
+      "emotional_value": "Inclusion and control",
+      "worth_premium": true
+    },
+    {
+      "from": "Office lunch chaos",
+      "to": "Team meal hero",
+      "emotional_value": "Professional competence",
+      "worth_premium": false
+    },
+    {
+      "from": "Post-gym hunger",
+      "to": "Macro-perfect recovery meal",
+      "emotional_value": "Fitness goal support",
+      "worth_premium": true
+    },
+    {
+      "from": "Budget stress",
+      "to": "Affordable quality meal",
+      "emotional_value": "Smart spending satisfaction",
+      "worth_premium": false
+    },
+    {
+      "from": "Meal planning overwhelm",
+      "to": "Week's lunches solved",
+      "emotional_value": "Organization achievement",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average ticket time under 7 minutes",
+      "timeframe": "Daily tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Mobile orders representing 45% of sales",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer frequency of 2.3 visits per month",
+      "timeframe": "Quarterly cohort analysis",
+      "measurable": true
+    },
+    {
+      "metric": "Average order value of $14-16 per person",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Loyalty program enrollment at 35% of customers",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Food cost maintaining 28-32% of revenue",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Labor cost at 25-28% with optimized scheduling",
+      "timeframe": "Bi-weekly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited-time seasonal menu items available for 6-8 weeks only",
+    "Daily specials ending at 2pm for lunch crowd",
+    "App-exclusive flash deals lasting 2-4 hours",
+    "Loyalty point multiplier days requiring same-day action",
+    "Pre-order deadlines for catering 24 hours in advance",
+    "Happy hour pricing 3-5pm on specific items",
+    "Weekend family meal deals Saturday-Sunday only",
+    "New location grand opening specials for first 2 weeks"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "More expensive than traditional fast food",
+      "response": "Emphasize fresh ingredients, larger portions, healthier options worth $3-4 premium, calculate cost per nutrition not just dollars",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Takes longer than drive-thru",
+      "response": "Highlight mobile ordering for zero wait, better food requires 3-5 extra minutes, time saved from not getting order wrong",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Not filling enough for the price",
+      "response": "Show protein and fiber content, free unlimited toppings at many concepts, portion sizes 30% larger than perceived",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Too healthy/not comfort food",
+      "response": "Point to indulgent options available, customization allows comfort within healthy framework, taste testimonials from converts",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Inconsistent between locations",
+      "response": "Emphasize standardized training, digital recipe management, feedback system for quick corrections, franchise quality standards",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "Mobile app required for best deals",
+      "response": "Show one-time setup saves money long-term, in-store ordering still available, app saves 3-5 minutes per visit",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Limited menu variety",
+      "response": "Focus on customization creating hundreds of combinations, seasonal rotations, quality over quantity approach",
+      "effectiveness": 7.7
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Freshness guarantee with remake if not satisfied",
+      "Accurate order guarantee or free next meal",
+      "Speed guarantee - free if mobile order takes over 10 minutes",
+      "Allergen safety guarantee with strict protocols"
+    ],
+    "proof_points": [
+      "A+ health department ratings displayed",
+      "Calorie and nutrition transparency",
+      "Local sourcing partnerships visible",
+      "Real-time customer ratings shown",
+      "Third-party delivery ratings above 4.5 stars",
+      "Employee satisfaction scores indicating good culture"
+    ],
+    "risk_mitigation": "First-time customer offers to reduce trial risk, detailed allergen matrices available, modification options for every dish, contactless payment and pickup options, satisfaction follow-up via app"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "quick",
+      "fresh",
+      "healthy",
+      "convenient",
+      "customizable",
+      "affordable",
+      "consistent",
+      "dietary-friendly",
+      "mobile-friendly",
+      "family-friendly"
+    ],
+    "solution_words": [
+      "bowls",
+      "wraps",
+      "protein-packed",
+      "made-to-order",
+      "locally-sourced",
+      "grab-and-go",
+      "meal prep",
+      "gluten-free",
+      "plant-based",
+      "rewards"
+    ],
+    "avoid_jargon": [
+      "fast food",
+      "chain",
+      "processed",
+      "frozen",
+      "mass-produced",
+      "industrial",
+      "artificial",
+      "cheap",
+      "low-quality",
+      "unhealthy"
+    ]
+  },
+  "power_words": [
+    "fresh",
+    "customizable",
+    "quick",
+    "healthy",
+    "local",
+    "sustainable",
+    "convenient",
+    "delicious",
+    "nutritious",
+    "handcrafted",
+    "authentic",
+    "quality",
+    "value",
+    "speedy",
+    "mobile",
+    "rewards",
+    "protein",
+    "organic",
+    "natural",
+    "wholesome",
+    "satisfying",
+    "craveable",
+    "guilt-free",
+    "energizing",
+    "real",
+    "clean",
+    "made-to-order",
+    "artisan",
+    "community",
+    "responsible"
+  ],
+  "avoid_words": [
+    "slow",
+    "expensive",
+    "processed",
+    "artificial",
+    "frozen",
+    "microwaved",
+    "unhealthy",
+    "greasy",
+    "cheap",
+    "mass-produced",
+    "industrial",
+    "factory",
+    "synthetic",
+    "fake",
+    "boring",
+    "basic",
+    "limited",
+    "complicated",
+    "inconvenient",
+    "old"
+  ],
+  "headline_templates": [
+    {
+      "template": "Lunch in 7 Minutes: Fresh, Customizable, Under $[Price]",
+      "expected_ctr": 5.8,
+      "use_case": "Lunch hour targeting"
+    },
+    {
+      "template": "[Number]% More Protein, [Number]% Less Time Than Cooking",
+      "expected_ctr": 6.2,
+      "use_case": "Health and convenience focus"
+    },
+    {
+      "template": "New [Season] Menu: [Number] Fresh Ingredients, Unlimited Combinations",
+      "expected_ctr": 5.4,
+      "use_case": "Seasonal menu launch"
+    },
+    {
+      "template": "Feed Your Team: Catering for [Number]+ Starting at $[Price]/Person",
+      "expected_ctr": 4.9,
+      "use_case": "B2B catering promotion"
+    },
+    {
+      "template": "Mobile Order, Skip the Line: Ready in [Number] Minutes",
+      "expected_ctr": 7.1,
+      "use_case": "App download driver"
+    },
+    {
+      "template": "[Day] Special: Free [Item] with Any [Category] Purchase",
+      "expected_ctr": 6.8,
+      "use_case": "Daily deal promotion"
+    },
+    {
+      "template": "Join [Number]K+ Rewards Members: Earn Free Meals",
+      "expected_ctr": 5.6,
+      "use_case": "Loyalty program recruitment"
+    },
+    {
+      "template": "Now Open: [Location] Grand Opening - [Offer] All Week",
+      "expected_ctr": 8.3,
+      "use_case": "New location launch"
+    },
+    {
+      "template": "Meal Prep Made Easy: [Number] Bowls for $[Price]",
+      "expected_ctr": 5.2,
+      "use_case": "Bulk order promotion"
+    },
+    {
+      "template": "Tonight's Dinner: Solved in [Number] Clicks",
+      "expected_ctr": 6.4,
+      "use_case": "Dinner daypart growth"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Order Now",
+      "conversion_rate": 12.3,
+      "placement": "Mobile app home screen"
+    },
+    {
+      "template": "Start Your Order",
+      "conversion_rate": 10.8,
+      "placement": "Website hero section"
+    },
+    {
+      "template": "Customize Your Bowl",
+      "conversion_rate": 9.7,
+      "placement": "Menu pages"
+    },
+    {
+      "template": "Join Rewards",
+      "conversion_rate": 8.4,
+      "placement": "Checkout flow"
+    },
+    {
+      "template": "Schedule Pickup",
+      "conversion_rate": 11.2,
+      "placement": "Mobile ordering flow"
+    },
+    {
+      "template": "Get Catering Quote",
+      "conversion_rate": 6.9,
+      "placement": "Catering landing page"
+    },
+    {
+      "template": "Find Location",
+      "conversion_rate": 7.8,
+      "placement": "Mobile and desktop footer"
+    },
+    {
+      "template": "Claim Offer",
+      "conversion_rate": 13.7,
+      "placement": "Push notifications"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Bowl aesthetic shot with colorful ingredients. 'Lunch goals 🥗 What's your go-to order? Tag us in your bowl!' #FreshEats",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "Speed-build of custom bowl with trending audio. 'POV: You have 30 mins for lunch' with order hack reveal",
+      "engagement_rate": 15.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "It's [Day]! Who needs a quick, healthy lunch? Order ahead on our app and skip the line. Link in comments 👇",
+      "engagement_rate": 4.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "Lunch poll: 🌯 Burrito vs 🥗 Bowl? Vote below and get 20% off your choice today only with code [CODE]",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Behind-the-scenes morning prep footage. 'Fresh ingredients arriving daily' with swipe-up to order",
+      "engagement_rate": 10.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Fueling productivity: Our catering solutions for teams of 10-100. Quick setup, dietary options, and reliable delivery. Let's connect!",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "Customer reaction compilation to new menu item. 'You asked, we delivered: [Item] is here!'",
+      "engagement_rate": 12.7
+    },
+    {
+      "platform": "Facebook Groups",
+      "template": "Local community group post: 'Neighbors! We're donating 10% of sales this [Day] to [Local Charity]. Details in comments'",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "60-second nutrition breakdown of popular meal. 'Dietitian approved: Here's why our [item] fits your macros'",
+      "engagement_rate": 9.1
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Average meal ready in under 7 minutes",
+      "rank": 1,
+      "differentiator": "Faster than competitors without sacrificing quality"
+    },
+    {
+      "prop": "100% customizable with 50+ ingredients",
+      "rank": 2,
+      "differentiator": "More options than any competitor"
+    },
+    {
+      "prop": "Fresh ingredients delivered daily, never frozen",
+      "rank": 3,
+      "differentiator": "Quality commitment visible in taste"
+    },
+    {
+      "prop": "Transparent nutrition with calorie counts on everything",
+      "rank": 4,
+      "differentiator": "Diet-friendly decision making"
+    },
+    {
+      "prop": "Mobile ordering with accurate pickup times",
+      "rank": 5,
+      "differentiator": "Technology-enabled convenience"
+    },
+    {
+      "prop": "Rewards program with free meal every 10 visits",
+      "rank": 6,
+      "differentiator": "Better value than competitor programs"
+    },
+    {
+      "prop": "Locally sourced produce from farms within 100 miles",
+      "rank": 7,
+      "differentiator": "Community support and freshness"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your everyday meals with chef-crafted recipes, premium ingredients, and endless customization. Our commitment to fresh, locally-sourced ingredients means you're getting restaurant quality at fast-casual speed. Every bowl, wrap, and salad is made to order with your preferences in mind. Join our community of food lovers who refuse to compromise on quality, even when time is short.",
+    "budget_conscious": "Great food doesn't have to break the bank. Our portions are 30% larger than competitors, and with unlimited toppings at no extra charge, you're getting maximum value. Join our rewards program for a free meal every 10 visits, plus exclusive member-only deals. Daily specials and combo meals make feeding your family affordable without sacrificing nutrition or taste.",
+    "enterprise": "Streamline your corporate catering with our reliable, scalable solutions. From team lunches to all-hands meetings, we handle groups of 10 to 500 with customizable options for every dietary need. Our dedicated catering team ensures on-time delivery, professional setup, and individually labeled meals. Volume discounts, NET 30 billing, and a dedicated account manager make us the smart choice for your company's meal needs."
+  },
+  "trust_signals": [
+    {
+      "signal": "Real-time order tracking in app",
+      "importance": 9,
+      "format": "Mobile app feature"
+    },
+    {
+      "signal": "Open kitchen design visible to customers",
+      "importance": 8,
+      "format": "Restaurant layout"
+    },
+    {
+      "signal": "Health inspection scores posted prominently",
+      "importance": 9,
+      "format": "Entry display and website"
+    },
+    {
+      "signal": "Customer reviews integrated in ordering",
+      "importance": 7,
+      "format": "Menu item ratings"
+    },
+    {
+      "signal": "Allergen and dietary badges on menu",
+      "importance": 10,
+      "format": "Digital and print menus"
+    },
+    {
+      "signal": "Team member names and tenure displayed",
+      "importance": 6,
+      "format": "Wall of fame in store"
+    },
+    {
+      "signal": "Local supplier partnerships highlighted",
+      "importance": 7,
+      "format": "Wall graphics and website"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 2 million meals served annually",
+      "credibility_score": 8.3,
+      "context": "Scale demonstrates trust and reliability"
+    },
+    {
+      "stat": "4.6 average star rating across 10,000+ reviews",
+      "credibility_score": 8.9,
+      "context": "Consistent satisfaction at scale"
+    },
+    {
+      "stat": "73% of customers visit at least twice monthly",
+      "credibility_score": 9.1,
+      "context": "High frequency indicates satisfaction"
+    },
+    {
+      "stat": "15-location expansion in past 24 months",
+      "credibility_score": 7.8,
+      "context": "Growth validates business model"
+    },
+    {
+      "stat": "92% order accuracy rate via digital ordering",
+      "credibility_score": 8.6,
+      "context": "Technology delivering on promises"
+    },
+    {
+      "stat": "Average 6-minute ticket time during lunch rush",
+      "credibility_score": 9.3,
+      "context": "Speed promise consistently delivered"
+    }
+  ],
+  "quality_indicators": [
+    "Visible prep kitchen with staff cutting vegetables throughout day",
+    "Date and time stamps on all prepared ingredients",
+    "Color-coded systems for allergen prevention",
+    "Digital temperature monitoring displays for hot and cold storage",
+    "Compostable packaging indicating environmental commitment",
+    "Staff food safety certifications displayed on wall"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 0,
+    "trigger_event": "Immediately after positive mobile app order experience while satisfaction is highest",
+    "ask_method": "In-app popup after order completion with one-tap star rating, incentive of 50 bonus points for written review"
+  },
+  "competitive_advantages": [
+    "Only fast-casual with sous vide proteins ensuring perfect temperature and tenderness",
+    "Proprietary app with group ordering allowing multiple people to add to single order",
+    "In-house bakery producing fresh breads and wraps daily starting at 4am",
+    "Sustainability program with 100% compostable packaging ahead of regulations",
+    "Ghost kitchen operations enabling delivery-only expansion without real estate costs",
+    "Subscription meal program offering 20% discount for 5+ meals weekly commitment"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium protein options first making standard proteins seem like great value, combo meals at $12-14 making individual items seem expensive",
+    "sensitivity": "Price breaks at psychological thresholds - $9.99, $12.99, $14.99, avoid crossing $15 for lunch perception",
+    "sweet_spots": [
+      "$11-13 for individual lunch",
+      "$35-40 for family of four",
+      "$9-10 per person for catering"
+    ],
+    "decoy_pricing": "Medium drink only $0.50 less than large pushing large size, premium proteins $2 more making regular proteins attractive"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 12,
+    "approval_required": 15,
+    "competitor_research": 10
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1,
+    "weekend": 1,
+    "holiday": 1.2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Individual Quick Service",
+      "price_range": "$10-15 per person",
+      "target_customer": "Daily lunch crowd, solo diners",
+      "margin": 58
+    },
+    {
+      "tier": "Family Meal Deals",
+      "price_range": "$35-45 for 4 people",
+      "target_customer": "Busy families, dinner solution seekers",
+      "margin": 62
+    },
+    {
+      "tier": "Catering Services",
+      "price_range": "$8-12 per person minimum 10",
+      "target_customer": "Corporate clients, event planners",
+      "margin": 68
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Beverage sales at 82% margin pushed through combo deals",
+    "Premium protein upcharges at $2-3 with 65% margin",
+    "Sides and extras with 75% margins via suggested add-ons",
+    "Delivery channel pricing 15% higher to offset fees",
+    "Breakfast daypart addition utilizing same ingredients with 70% margins",
+    "Retail product line (sauces, seasonings) at 78% margins"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 15,
+      "reason": "New Year health resolutions",
+      "opportunity": "Healthy menu promotions, meal prep packages"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Winter weather, shorter month",
+      "opportunity": "Comfort food LTOs, delivery push"
+    },
+    {
+      "month": "March",
+      "variation": 8,
+      "reason": "Spring break, weather improving",
+      "opportunity": "Fresh spring menu items, outdoor seating prep"
+    },
+    {
+      "month": "April",
+      "variation": 12,
+      "reason": "Tax refunds, spring activity",
+      "opportunity": "Family meal deals, catering for events"
+    },
+    {
+      "month": "May",
+      "variation": 10,
+      "reason": "Graduation season, Cinco de Mayo",
+      "opportunity": "Mexican-inspired LTOs, party platters"
+    },
+    {
+      "month": "June",
+      "variation": 5,
+      "reason": "Summer vacation begins",
+      "opportunity": "Kids eat free promotions, lighter menu options"
+    },
+    {
+      "month": "July",
+      "variation": -8,
+      "reason": "Peak vacation, cookout season",
+      "opportunity": "Picnic-ready takeout, refreshing beverages"
+    },
+    {
+      "month": "August",
+      "variation": -10,
+      "reason": "Continued vacation, back-to-school prep",
+      "opportunity": "Back-to-school teacher discounts"
+    },
+    {
+      "month": "September",
+      "variation": 18,
+      "reason": "Return to routine, football season",
+      "opportunity": "Game day catering, hearty fall items"
+    },
+    {
+      "month": "October",
+      "variation": 14,
+      "reason": "Halloween, fall comfort food",
+      "opportunity": "Seasonal flavors, family bundles"
+    },
+    {
+      "month": "November",
+      "variation": 12,
+      "reason": "Holiday catering begins",
+      "opportunity": "Thanksgiving sides, office party catering"
+    },
+    {
+      "month": "December",
+      "variation": 20,
+      "reason": "Holiday parties, shopping fuel",
+      "opportunity": "Gift cards, catering packages, extended hours"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Meal prep promotions, healthy starts",
+      "avoid": "Indulgent items",
+      "conversion_rate": 5.8
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Taco Tuesday themed items",
+      "avoid": "Premium pricing",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Hump day deals, family meals",
+      "avoid": "Complex LTOs",
+      "conversion_rate": 6.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend energy, new item launch",
+      "avoid": "Breakfast push",
+      "conversion_rate": 7.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Lunch rush optimization, treat yourself messaging",
+      "avoid": "Health-focused campaigns",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family meals, all-day breakfast",
+      "avoid": "Business catering",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Meal prep for week, family dinners",
+      "avoid": "Lunch-only promotions",
+      "conversion_rate": 6.9
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Catering invoices due NET 30, affecting corporate order timing end of month",
+    "cash_flow_peaks": "1st and 15th of month paydays drive individual sales spikes of 15-20%",
+    "slow_periods": "Days 25-31 see 10-12% decrease as personal budgets tighten"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Weekday 12:00-1:00pm",
+      "crisis_type": "Lunch rush overwhelming",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Friday 6:00-7:30pm",
+      "crisis_type": "Dinner rush plus mobile orders",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Sunday 5:00-7:00pm",
+      "crisis_type": "Family dinner peak",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Game days 11:00am-1:00pm",
+      "crisis_type": "Catering order surge",
+      "premium_multiplier": 1.2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Lunch Express",
+      "components": [
+        "Pre-selected popular items",
+        "5-minute guarantee",
+        "Express lane access"
+      ],
+      "pricing_model": "Standard pricing with speed promise",
+      "margin": 60
+    },
+    {
+      "name": "Meal Prep Weekly",
+      "components": [
+        "5 customized meals",
+        "Bulk discount",
+        "Sunday pickup",
+        "Nutrition consultation"
+      ],
+      "pricing_model": "20% discount for commitment",
+      "margin": 65
+    },
+    {
+      "name": "Office Catering",
+      "components": [
+        "Delivery and setup",
+        "Serving utensils",
+        "Labels for dietary needs",
+        "Online ordering portal"
+      ],
+      "pricing_model": "Per person with 10 minimum",
+      "margin": 68
+    },
+    {
+      "name": "Family Bundle",
+      "components": [
+        "4 entrées",
+        "2 sides",
+        "4 drinks",
+        "Kids activities"
+      ],
+      "pricing_model": "Fixed price $38-42",
+      "margin": 63
+    }
+  ],
+  "upsell_paths": [
+    "Single item → Combo meal with drink and side (45% conversion)",
+    "Regular protein → Premium protein upgrade (22% take rate)",
+    "Small size → Large size for $1.50 more (38% upgrade)",
+    "Individual order → Family meal for next visit (18% progression)",
+    "Walk-in → Mobile app user for convenience (35% conversion within 3 visits)",
+    "Occasional → Rewards member → Subscription member (12% full progression)"
+  ],
+  "retention_hooks": [
+    "Points-based rewards with visible progress to free meal",
+    "Personalized offers based on order history and preferences",
+    "Birthday month free entrée with any purchase",
+    "Exclusive menu previews for app users 1 week early",
+    "Subscription program with 20% savings for 5+ meals monthly",
+    "Gamification with challenges for bonus points",
+    "VIP tier with permanent 10% discount after 50 visits annually"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "App-based referral code sharing",
+      "timing": "After positive order experience",
+      "incentive": "Free side for both parties",
+      "conversion_rate": 14.2
+    },
+    {
+      "strategy": "Corporate lunch referral program",
+      "timing": "After successful catering",
+      "incentive": "10% off next catering order",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "Social media share for discount",
+      "timing": "During order pickup",
+      "incentive": "$2 off next visit",
+      "conversion_rate": 8.9
+    },
+    {
+      "strategy": "Email forward for family deal",
+      "timing": "Weekend promotion",
+      "incentive": "Kids eat free with adult entrée",
+      "conversion_rate": 11.3
+    },
+    {
+      "strategy": "Review-based rewards",
+      "timing": "24 hours post-order",
+      "incentive": "100 bonus points per platform",
+      "conversion_rate": 16.4
+    },
+    {
+      "strategy": "Group order organizer benefits",
+      "timing": "After coordinating 5+ person order",
+      "incentive": "Free entrée for organizer",
+      "conversion_rate": 21.8
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Drinks with any entrée",
+      "attach_rate": 68,
+      "timing": "During order flow"
+    },
+    {
+      "service": "Sides or appetizers",
+      "attach_rate": 42,
+      "timing": "After entrée selection"
+    },
+    {
+      "service": "Dessert cookies or treats",
+      "attach_rate": 23,
+      "timing": "At checkout"
+    },
+    {
+      "service": "Extra protein portion",
+      "attach_rate": 31,
+      "timing": "During customization"
+    },
+    {
+      "service": "Retail sauces or seasonings",
+      "attach_rate": 8,
+      "timing": "At pickup counter"
+    },
+    {
+      "service": "Gift cards during holidays",
+      "attach_rate": 12,
+      "timing": "November-December checkout"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Breakfast daypart addition 6-11am",
+      "market_size": "$2.1M annual per location",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Ghost kitchen delivery-only locations",
+      "market_size": "$1.5M annual per kitchen",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Grocery retail with packaged meals",
+      "market_size": "$3.2M annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Food truck for events and festivals",
+      "market_size": "$400K annual per truck",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Airport and travel plaza locations",
+      "market_size": "$4.5M annual per location",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise model development",
+      "market_size": "$50M+ total market",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Chipotle's 'Lid Flip Challenge' on TikTok - User-generated content campaign where customers filmed themselves flipping and catching burrito bowl lids. Generated over 230 million views and became one of the most successful branded challenges on TikTok.",
+        "platform": "TikTok",
+        "why_it_worked": "Leveraged user-generated content, created a simple participatory challenge, tapped into TikTok's younger demographic, encouraged organic brand engagement without hard selling",
+        "metrics": "230+ million views, 110,000+ video submissions, significant increase in app downloads during campaign period",
+        "source": "Restaurant Business Online, AdAge TikTok Marketing Case Studies 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Sweetgreen's 'What Fuels You' Instagram campaign featuring real customer transformation stories with their actual meal orders. Combined lifestyle photography with nutritional transparency and personal narratives.",
+        "platform": "Instagram",
+        "why_it_worked": "Authentic customer stories, visual appeal of fresh ingredients, connected food to lifestyle outcomes, user-generated content with professional polish, addressed health-conscious positioning",
+        "metrics": "Average engagement rate of 4.2% (vs industry average of 1.5%), 35% increase in Instagram followers over campaign period",
+        "source": "Social Media Today Fast Casual Report 2023, Sweetgreen investor presentations",
+        "confidence": "high"
+      },
+      {
+        "example": "Panera Bread's MyPanera loyalty program email campaigns with personalized 'You Pick Two' recommendations based on past orders. Sent targeted offers during typical lunch hours (10:30 AM - 11:30 AM).",
+        "platform": "Email",
+        "why_it_worked": "Personalization based on purchase history, time-sensitive delivery matching lunch decision window, clear value proposition, mobile-optimized for on-the-go ordering",
+        "metrics": "22% open rate, 8.5% click-through rate, 3.2x higher conversion than non-personalized emails",
+        "source": "Email Marketing Benchmarks Report 2024, Restaurant Technology News",
+        "confidence": "high"
+      },
+      {
+        "example": "Cava's behind-the-scenes 'Grain Bowl Assembly' short-form videos on Instagram Reels and TikTok showing the customization process and ingredient sourcing stories.",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Transparency in food preparation, ASMR-like satisfying visual content, educational about customization options, short format perfect for mobile consumption",
+        "metrics": "Average 6.8% engagement rate on Reels, 3x higher save rate than static posts, strong performance in 25-34 age demographic",
+        "source": "Rival IQ Social Media Benchmarks 2024, QSR Magazine Digital Marketing Analysis",
+        "confidence": "medium"
+      },
+      {
+        "example": "Dig Inn's (now Dig) local farm partnership stories on LinkedIn targeting corporate catering decision-makers, featuring sustainability metrics and team meal case studies.",
+        "platform": "LinkedIn",
+        "why_it_worked": "B2B focus for catering sales, sustainability credentials important to corporate buyers, case study format builds credibility, professional platform matching decision-maker audience",
+        "metrics": "4.1% engagement rate (LinkedIn average for food industry is 2.1%), 40% of catering inquiries attributed to LinkedIn content",
+        "source": "LinkedIn Industry Benchmarks 2024, Modern Restaurant Management",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.1% for fast casual restaurant industry (higher than QSR at 0.8-1.2%)",
+        "best_content_format": "Reels and carousel posts showing food preparation, customization options, or ingredient stories. Video content gets 2.1x more engagement than static images.",
+        "optimal_frequency": "5-7 posts per week, with 3-4 Reels per week for maximum reach",
+        "best_posting_times": "Tuesday-Thursday 11:00 AM - 1:00 PM (lunch decision time), Sunday 5:00-7:00 PM (dinner planning), avoid posting during typical meal times (12-1 PM, 6-7 PM) when consumption drops",
+        "source": "Rival IQ 2024 Social Media Benchmark Report, Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3-7.2% for restaurant content (significantly higher than other platforms)",
+        "best_content_format": "15-30 second videos showing food assembly, ASMR preparation sounds, trending audio with food reveals, behind-the-scenes kitchen content",
+        "optimal_frequency": "3-5 posts per week, consistency more important than volume",
+        "best_posting_times": "Tuesday-Thursday 12:00 PM - 3:00 PM, Friday 9:00 AM - 11:00 AM, Sunday 7:00-9:00 PM",
+        "source": "Influencer Marketing Hub TikTok Engagement Study 2024, QSR Magazine Digital Trends Report"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.1% for fast casual restaurants",
+        "best_content_format": "Location-specific posts, event announcements, community involvement stories, longer-form video (1-3 minutes) performs better than on other platforms",
+        "optimal_frequency": "3-5 posts per week, over-posting decreases engagement",
+        "best_posting_times": "Wednesday-Friday 11:00 AM - 1:00 PM, Thursday 7:00-9:00 PM for family dinner audience",
+        "source": "Hootsuite Social Media Trends 2024, Restaurant Dive Marketing Analysis"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 18-22%, Click-through rate: 2.5-3.8% for restaurant industry",
+        "best_content_format": "Mobile-optimized single-column design, prominent CTA for online ordering, personalized recommendations, time-sensitive offers (lunch specials, dinner deals)",
+        "optimal_frequency": "2-3 emails per week maximum, loyalty members tolerate higher frequency (up to 5/week) if personalized",
+        "best_posting_times": "Tuesday-Thursday 10:00-11:00 AM for lunch, Sunday 3:00-5:00 PM for dinner planning, Monday 6:00-8:00 AM for weekly meal planning",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Constant Contact Restaurant Industry Report"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1-3.2% for B2B restaurant content (catering focus)",
+        "best_content_format": "Case studies, sustainability reports, corporate catering success stories, employee culture content, thought leadership about food trends",
+        "optimal_frequency": "2-3 posts per week, quality over quantity for professional audience",
+        "best_posting_times": "Tuesday-Wednesday 10:00 AM - 12:00 PM, Thursday 9:00-10:00 AM",
+        "source": "LinkedIn Marketing Solutions Industry Benchmarks 2024, B2B Marketing Analytics Report"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-Saving Promise with Specific Minutes",
+        "example": "Fresh lunch in under 10 minutes | Customize your bowl and skip the line with mobile order",
+        "why_it_works": "Addresses primary pain point of lunch time constraints, specific number creates credibility, implies solution to rushed feeling",
+        "source": "Sweetgreen and Cava email subject lines, Restaurant Marketing Case Studies 2024"
+      },
+      {
+        "hook_pattern": "Health Transformation + Permission",
+        "example": "Eat clean without giving up flavor | 500 calorie bowls that actually satisfy",
+        "why_it_works": "Removes guilt from fast food, addresses diet restriction concerns, promises satisfaction not deprivation, specific calorie count builds trust",
+        "source": "Freshii and Protein Bar marketing campaigns, analyzed in QSR Magazine"
+      },
+      {
+        "hook_pattern": "Customization Control Statement",
+        "example": "Your way, exactly. 100+ combinations, zero compromises",
+        "why_it_works": "Empowers customer control, addresses dietary restriction anxiety, implies inclusivity for all preferences",
+        "source": "Chipotle and MOD Pizza advertising copy, AdAge Fast Casual Analysis"
+      },
+      {
+        "hook_pattern": "Local/Fresh Credentials with Timeframe",
+        "example": "Harvested this morning, on your plate by noon | Farm-to-table in 30 miles",
+        "why_it_works": "Specific timeframes create authenticity, addresses quality concerns, differentiates from chain competitors, appeals to sustainability values",
+        "source": "Dig and Tender Greens social media analysis, Modern Restaurant Management"
+      },
+      {
+        "hook_pattern": "Guilt-Free Indulgence Permission",
+        "example": "Finally, fast food you can feel good about | Real ingredients, real fast",
+        "why_it_works": "Resolves cognitive dissonance between convenience and health, positions as solution to drive-thru guilt, 'finally' implies long-awaited solution",
+        "source": "Panera Bread and Sweetgreen campaign analysis, Brand Storytelling in Food Service Report"
+      },
+      {
+        "hook_pattern": "Social Proof + Specific Outcome",
+        "example": "Why 10,000+ office teams order from us every week | Team lunch, solved",
+        "why_it_works": "Specific numbers build credibility, addresses B2B catering pain point, implies you're missing out if not using, 'solved' promises complete solution",
+        "source": "Catering platform marketing emails, LinkedIn B2B restaurant content analysis"
+      },
+      {
+        "hook_pattern": "Problem Agitation with Immediate Solution",
+        "example": "Dinner in 20 minutes or your family gets hangry | Order now, pick up on your way home",
+        "why_it_works": "Acknowledges real family stress, humor makes it relatable, specific action removes decision paralysis, addresses evening rush pain point",
+        "source": "Chipotle and Panera Bread mobile app notifications, Restaurant Technology News"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I only have 30 minutes for lunch and the line is always too long",
+        "I'm trying to eat healthy but I don't have time to meal prep",
+        "Everything on the menu has something I can't eat",
+        "I feel guilty getting fast food but I'm too tired to cook",
+        "Ordering lunch for the team is always a nightmare",
+        "The kids are hungry and I have 10 minutes between soccer and piano",
+        "I need protein after the gym but don't want to go home and cook",
+        "I'm sick of the same boring salad every day",
+        "Drive-thrus make me feel like I'm failing at being healthy",
+        "I never know if they can handle my dietary restrictions"
+      ],
+      "solution_phrases": [
+        "I can customize everything exactly how I need it",
+        "Mobile order is a lifesaver - I just pick it up",
+        "Finally a fast option that doesn't wreck my diet",
+        "The ingredients are actually fresh and you can tell",
+        "I feel good about what I'm eating, not guilty",
+        "It's faster than going home and cooking",
+        "They have all the nutrition info right there",
+        "I can feed my family real food in less time than a drive-thru",
+        "The app remembers my order so it's literally two clicks",
+        "My kids actually eat vegetables here"
+      ],
+      "objection_phrases": [
+        "It's more expensive than a drive-thru",
+        "I don't know if it will actually fill me up",
+        "Is it really that much healthier than other fast food?",
+        "I'm not sure they can handle my allergy",
+        "What if I don't like it after I customize it?",
+        "The portion sizes look small in the pictures",
+        "I don't have time to figure out all the options",
+        "My kids are picky eaters",
+        "Is this going to take longer than just going to McDonald's?",
+        "I'm not paying $12 for a salad"
+      ],
+      "decision_factors": [
+        "How fast can I actually get in and out",
+        "Can I see the nutrition and calorie information",
+        "Do they have options for my dietary restrictions",
+        "Is there a mobile app so I don't have to wait in line",
+        "Are the ingredients actually fresh or is that just marketing",
+        "Can I customize without being difficult",
+        "Is it on my way home from work",
+        "Do they have enough protein options",
+        "Can I feed my whole family for a reasonable price",
+        "Are the portions actually satisfying"
+      ],
+      "emotional_language": [
+        "guilt-free",
+        "feel good about",
+        "actually satisfying",
+        "stress-free",
+        "finally",
+        "lifesaver",
+        "game-changer",
+        "proud of",
+        "relief",
+        "empowered",
+        "confident",
+        "accomplished",
+        "energized",
+        "no compromise",
+        "worth it"
+      ],
+      "sources": [
+        "Reddit r/fastfood, r/healthyfood, r/mealprep discussions 2023-2024",
+        "Yelp reviews for Chipotle, Sweetgreen, Panera Bread, Cava, Dig",
+        "Google Reviews for top 20 fast casual chains",
+        "TrustPilot restaurant category reviews",
+        "Twitter/X search for brand mentions and complaints",
+        "Facebook community groups for working parents and fitness enthusiasts"
+      ]
+    },
+    "competitive_gaps": [
+      "Behind-the-scenes supply chain transparency - most brands claim 'fresh' and 'local' but don't show the actual farms or delivery process",
+      "Nutrition education content beyond calorie counts - how to build balanced meals, macro explanations for fitness audience",
+      "Real customer transformation stories with specific results - most use stock imagery rather than actual customer journeys",
+      "Catering decision-maker content on LinkedIn - huge B2B opportunity largely ignored in social strategy",
+      "Meal planning integration content - how to incorporate fast casual into weekly meal prep strategy",
+      "Sustainability metrics with actual data - vague claims without carbon footprint numbers or waste reduction specifics",
+      "Employee stories and culture content - differentiation opportunity in tight labor market",
+      "Late-night and off-peak hour promotion - most content focuses on lunch/dinner, missing late-night cravings audience",
+      "Dietary restriction educational content - how to navigate menus for keto, vegan, gluten-free beyond just listing options",
+      "Cross-platform loyalty integration stories - showing how app/rewards actually save time and money with real examples"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - New Year Resolution Season",
+        "opportunity": "Peak health-conscious behavior, gym memberships spike, diet commitments highest",
+        "content_angle": "New Year nutrition goals, meal planning for success, healthy habit formation, macro-friendly bowls, transformation challenge content, partnership with fitness influencers"
+      },
+      {
+        "period": "Back to School (Late August - September)",
+        "opportunity": "Families establish new routines, working parents need quick dinner solutions, students need affordable healthy options",
+        "content_angle": "Quick family dinner solutions, meal prep for busy schedules, student discounts and deals, lunch solutions for remote workers resetting routines"
+      },
+      {
+        "period": "Summer (June - August)",
+        "opportunity": "Lighter eating preferences, outdoor dining appeal, vacation travel stops, beach body consciousness",
+        "content_angle": "Refreshing summer bowls, lighter options, cold beverages, outdoor seating promotions, road trip convenience, pre/post-beach meals"
+      },
+      {
+        "period": "Corporate Catering Season (September - November, March - May)",
+        "opportunity": "Business meetings peak, corporate events, team building, fiscal year planning meetings",
+        "content_angle": "Team lunch solutions, meeting catering packages, corporate wellness programs, bulk ordering ease, dietary accommodation for diverse teams"
+      },
+      {
+        "period": "Lunch Rush Daily (11:00 AM - 1:30 PM)",
+        "opportunity": "Peak decision-making window for same-day lunch, mobile order opportunity",
+        "content_angle": "Beat the line messaging, mobile order reminders, limited-time lunch specials, speed and convenience emphasis"
+      },
+      {
+        "period": "Sunday Meal Planning (4:00 PM - 8:00 PM)",
+        "opportunity": "Families and individuals plan week ahead, meal prep mindset, grocery alternative consideration",
+        "content_angle": "Week-ahead planning, family meal solutions, healthy week kickoff, meal prep inspiration using fast casual as shortcut"
+      },
+      {
+        "period": "Post-Workout Hours (6:00 AM - 9:00 AM, 5:00 PM - 7:00 PM)",
+        "opportunity": "Gym-goers need protein-focused meals, fitness-conscious audience highly engaged",
+        "content_angle": "Post-workout bowls, protein content highlighting, macro-friendly options, fitness partnership content, recovery meal positioning"
+      },
+      {
+        "period": "Holiday Season (November - December)",
+        "opportunity": "Gift card sales, party catering, shopping convenience meals, indulgence permission",
+        "content_angle": "Holiday catering for office parties, gift card promotions, quick meals during shopping trips, balance indulgence messaging, appreciation for frontline workers"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-28",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Restaurant Business Online case studies",
+      "QSR Magazine Digital Marketing Analysis 2023-2024",
+      "Modern Restaurant Management industry reports",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "LinkedIn Marketing Solutions Industry Benchmarks 2024",
+      "Hootsuite Social Media Trends 2024",
+      "AdAge TikTok Marketing Case Studies",
+      "Reddit communities: r/fastfood, r/healthyfood, r/mealprep",
+      "Yelp, Google Reviews, TrustPilot for customer voice",
+      "Social Media Today Fast Casual Report 2023",
+      "Influencer Marketing Hub TikTok Engagement Study 2024",
+      "Restaurant Dive Marketing Analysis",
+      "Constant Contact Restaurant Industry Report"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook variations",
+      "Some engagement metrics are aggregated across multiple campaigns rather than single-campaign specific",
+      "LinkedIn B2B catering metrics less publicly documented than B2C social platforms",
+      "Conversion rate data often proprietary and not disclosed in public case studies",
+      "Some seasonal timing data extrapolated from general restaurant industry rather than fast casual specific"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new menu items, seasonal bowls, or service updates",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes ingredient sourcing and farm partnerships - building anticipation through transparency",
+        "Week 2: Customization possibilities and nutritional benefits - empowering customer control",
+        "Week 3: Real customer first-taste reactions and meal transformations - authentic social proof",
+        "Week 4: Limited-time urgency and mobile order convenience - removing friction for trial"
+      ],
+      "weekly_hooks": [
+        [
+          "Something fresh is coming... Harvested this week, on your plate next [DAY] | [INGREDIENT] from [LOCAL FARM]",
+          "Finally, [CUISINE TYPE] you can feel good about | Sneak peek at our newest [BOWL/ITEM]",
+          "We've been testing this for [NUMBER] months with [NUMBER] customers. Here's what they said..."
+        ],
+        [
+          "It's here: [NEW ITEM NAME] with [NUMBER]+ customization combinations, zero compromises",
+          "Fresh [NEW ITEM] in under 10 minutes | Customize your [BOWL/PLATE] and skip the line with mobile order",
+          "[CALORIES] calories that actually satisfy | Eat clean without giving up flavor with our new [ITEM]"
+        ],
+        [
+          "Why [NUMBER]+ customers ordered [NEW ITEM] in the first [NUMBER] days | Real reviews, real results",
+          "[CUSTOMER NAME]'s transformation: 'Finally, fast food I can feel good about' | See their [NEW ITEM] order",
+          "Your way, exactly: Watch how [NUMBER] different people customized the same [NEW ITEM]"
+        ],
+        [
+          "Last [NUMBER] days for [NEW ITEM] | Order now, pick up on your way home in [NUMBER] minutes",
+          "[NUMBER] orders and counting - don't miss [NEW ITEM] before [END DATE]",
+          "Why [NUMBER]+ office teams already added [NEW ITEM] to their rotation | Team lunch, solved"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is it really that much healthier than other fast food?' - Show ingredient sourcing, nutritional transparency, farm-to-table timeframes",
+        "Week 2: Address 'What if I don't like it after I customize it?' - Demonstrate customization flexibility, show variety of customer combinations, taste guarantee",
+        "Week 3: Address 'The portion sizes look small in the pictures' - Real customer photos, protein and fiber content, satisfaction testimonials",
+        "Week 4: Address 'It's more expensive than a drive-thru' - Calculate cost per nutrition, emphasize fresh ingredients worth premium, show loyalty rewards value"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce behind-the-scenes farm partnerships and ingredient delivery process - build authenticity before launch",
+        "Week 2: Share nutrition information dashboard and macro breakdowns - establish health credentials at launch",
+        "Week 3: Feature real customer transformation stories with actual meal orders and specific outcomes - peak social proof",
+        "Week 4: Final push with aggregate metrics ([NUMBER]+ orders, [RATING] stars, [NUMBER]+ five-star reviews) and scarcity signals"
+      ],
+      "cta_progression": [
+        "Week 1: 'Get notified when [NEW ITEM] launches' - email/SMS signup for early access",
+        "Week 2: 'Try [NEW ITEM] today - mobile order for zero wait' - direct trial conversion",
+        "Week 3: 'Share your [NEW ITEM] combo in comments' - engagement and user-generated content",
+        "Week 4: 'Order [NEW ITEM] before [DATE] - limited time only' - urgency-driven conversion"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week with 4 Reels showing preparation and customization)",
+        "TikTok (4-5 posts/week with ASMR assembly videos and customer reactions)",
+        "Email (3 sends: teaser, launch, last chance - Tuesday-Thursday 10:00-11:00 AM)",
+        "Facebook (3-4 posts/week for family audience and location-specific announcements)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Cava's behind-the-scenes assembly videos achieving 6.8% engagement rate and Chipotle's TikTok challenges generating 230M+ views. Launch campaigns require high value content (ingredient stories, preparation transparency) mixed with strategic promotional pushes. Customer voice data shows 'I can customize everything exactly how I need it' as key solution phrase, while seasonal opportunities highlight new product introduction windows."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent engagement",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Meal planning shortcuts - how to incorporate fast casual into weekly nutrition goals",
+        "Week 2: Nutrition education beyond calories - macro building for fitness goals and dietary needs",
+        "Week 3: Behind-the-scenes supply chain transparency - farm partnerships and ingredient journeys",
+        "Week 4: Customer transformation stories - real people, real results with specific meal orders",
+        "Week 5: Dietary restriction navigation - keto, vegan, gluten-free customization guides",
+        "Week 6: Time-saving mobile order strategies - beating lunch rush and dinner chaos",
+        "Week 7: Sustainability metrics and impact - actual data on waste reduction and local sourcing",
+        "Week 8: Team meal solutions - corporate catering case studies and office lunch simplification"
+      ],
+      "weekly_hooks": [
+        [
+          "Sunday meal prep, simplified: Use [YOUR BRAND] [NUMBER] times this week without guilt | Here's the plan",
+          "How to hit your [MACRO GOAL] without cooking every meal | Weekly planning template inside",
+          "Meal planning for busy schedules | Quick family dinner solutions that actually work"
+        ],
+        [
+          "Building a balanced bowl: [PROTEIN]g protein + [FIBER]g fiber = actually satisfying lunch",
+          "Nutrition education: How to customize for [DIET TYPE] without feeling restricted",
+          "Post-workout bowls that fuel recovery | [PROTEIN] options ranked by [NUTRITION METRIC]"
+        ],
+        [
+          "Harvested this morning, on your plate by noon | Meet the farm [MILES] miles from our kitchen",
+          "Farm-to-table in [NUMBER] miles: Follow [INGREDIENT] from [FARM NAME] to your bowl",
+          "Behind-the-scenes: Why our [INGREDIENT] costs more (and tastes better) than competitors"
+        ],
+        [
+          "[CUSTOMER NAME]'s story: 'I feel good about what I'm eating, not guilty' | See their go-to order",
+          "How [CUSTOMER] feeds their family real food in less time than a drive-thru",
+          "From drive-thru guilt to healthy choice pride: [NUMBER] customer transformations"
+        ],
+        [
+          "Keto at [YOUR BRAND]: [NUMBER] combinations under [CARBS]g carbs | Complete guide",
+          "Finally, fast food you can feel good about | Navigating [DIET RESTRICTION] with confidence",
+          "Your dietary restrictions, solved: [NUMBER]+ allergen-free combinations"
+        ],
+        [
+          "Beat the line: Mobile order is a lifesaver | Fresh lunch in under 10 minutes",
+          "The app remembers your order so it's literally two clicks | Dinner in [NUMBER] minutes or your family gets hangry",
+          "Skip the lunch rush: Order at [TIME], pick up at [TIME], back to desk by [TIME]"
+        ],
+        [
+          "Our sustainability by the numbers: [STAT] less waste, [STAT] local sourcing, [STAT] carbon reduction",
+          "What happens to our food waste? Transparency you won't see from drive-thrus",
+          "Local sourcing impact: [DOLLAR AMOUNT] invested in farms within [MILES] miles this year"
+        ],
+        [
+          "Why [NUMBER]+ office teams order from us every week | Team lunch, solved",
+          "Case study: How [COMPANY] handles dietary restrictions for [NUMBER] person team lunches",
+          "Corporate catering without the chaos | [NUMBER] clicks to feed your whole team"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time to figure out all the options' - provide simple planning frameworks",
+        "Week 2: Address 'I don't know if it will actually fill me up' - show protein/fiber content and satisfaction data",
+        "Week 3: Address 'Is it really that much healthier than other fast food?' - transparent sourcing comparison",
+        "Week 4: Address 'The portion sizes look small in the pictures' - real customer portions and testimonials",
+        "Week 5: Address 'I'm not sure they can handle my allergy' - demonstrate accommodation process and safety",
+        "Week 6: Address 'Takes longer than drive-thru' - prove mobile order time savings with real examples",
+        "Week 7: Address 'More expensive than traditional fast food' - justify premium with sustainability and quality data",
+        "Week 8: Address 'Ordering lunch for the team is always a nightmare' - show simplified catering process"
+      ],
+      "proof_timing": [
+        "Week 1: Share customer meal planning success stories and weekly routine examples",
+        "Week 2: Present nutritionist-verified macro combinations and fitness partnership credentials",
+        "Week 3: Show farm partnership certifications, delivery timestamps, and sourcing documentation",
+        "Week 4: Feature detailed customer transformation stories with before/after meal choices",
+        "Week 5: Display allergen training certifications and dietary accommodation success rate",
+        "Week 6: Reveal mobile order time-saving data and average pickup times by location",
+        "Week 7: Release annual sustainability report metrics and third-party verification",
+        "Week 8: Present corporate catering case studies with client testimonials and team size examples"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our free meal planning template' - educational resource",
+        "Week 2: 'Calculate your perfect macro bowl' - interactive tool engagement",
+        "Week 3: 'See which farms supply your location' - transparency exploration",
+        "Week 4: 'Share your transformation story in comments' - community building",
+        "Week 5: 'Find your dietary restriction guide' - personalized education",
+        "Week 6: 'Download the app and save [NUMBER] minutes today' - conversion with value proof",
+        "Week 7: 'Read our full sustainability report' - authority building",
+        "Week 8: 'Get a corporate catering quote in [NUMBER] minutes' - B2B conversion"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, focusing on Reels for preparation and customer stories)",
+        "Email (2 sends/week Tuesday-Thursday 10:00-11:00 AM with personalized recommendations)",
+        "TikTok (3-4 posts/week with educational and behind-the-scenes content)",
+        "LinkedIn (2 posts/week for B2B catering and sustainability thought leadership)",
+        "Facebook (3-4 posts/week for community stories and location-specific content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps analysis showing need for nutrition education beyond calorie counts, supply chain transparency, and meal planning integration content. Sweetgreen's customer story campaign achieved 4.2% engagement vs 1.5% industry average. Platform benchmarks show Instagram Reels get 2.1x more engagement than static posts. Customer voice data reveals 'I can customize everything exactly how I need it' and 'The ingredients are actually fresh and you can tell' as key satisfaction drivers requiring ongoing educational content."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral content formats and high-frequency posting",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Participatory challenge content - user-generated bowl creations and customization reveals",
+        "Week 2: ASMR food assembly and satisfying preparation videos - maximizing shareability and saves"
+      ],
+      "weekly_hooks": [
+        [
+          "The [YOUR BRAND] Challenge: Show us your wildest customization combo | Tag us for a chance to win [PRIZE]",
+          "Can you guess the ingredients? Watch till the end | [NUMBER]+ combinations possible",
+          "POV: You finally found fast food you can feel good about | Your turn - what's your order?",
+          "We asked [NUMBER] customers to build their perfect bowl. The results surprised us",
+          "Replying to 'what should I order?' Here are the top [NUMBER] combinations from real customers",
+          "This is what [CALORIES] calories of actual food looks like | No compromises"
+        ],
+        [
+          "ASMR: Building the perfect [ITEM] from scratch | Watch with sound on",
+          "The most satisfying [NUMBER] seconds of your day | Fresh ingredients, real fast",
+          "Harvested this morning, assembled right now | Farm-to-bowl in [NUMBER] hours",
+          "Behind-the-scenes: How we prep [NUMBER] bowls during lunch rush | You've never seen this",
+          "The sound of fresh: [INGREDIENT] chopping, [INGREDIENT] sizzling, perfection assembling",
+          "Why [NUMBER]+ people saved this video | The customization process revealed"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if it will actually fill me up' - show generous portion sizes in challenge videos",
+        "Week 2: Address 'Takes longer than drive-thru' - demonstrate speed of assembly in real-time ASMR videos"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase volume of user-generated challenge entries as social proof of popularity and variety",
+        "Week 2: Feature high save rates and share counts as credibility signals for quality and satisfaction"
+      ],
+      "cta_progression": [
+        "Week 1: 'Post your combo with #[BRANDCHALLENGE] for a chance to be featured' - UGC generation",
+        "Week 2: 'Save this for your next order | Tag someone who needs to try this' - viral amplification"
+      ],
+      "platform_priority": [
+        "TikTok (5-7 posts/week leveraging trending audio and challenge formats)",
+        "Instagram Reels (5-7 posts/week with cross-posted TikTok content optimized for saves)",
+        "Instagram Stories (3-5 stories/day featuring user submissions and behind-the-scenes)",
+        "Facebook (3 posts/week sharing top-performing TikTok content for family audience)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Chipotle's 'Lid Flip Challenge' generating 230M+ views and 110K+ video submissions on TikTok. Cava's ASMR assembly videos achieved 6.8% engagement rate and 3x higher save rate than static posts. TikTok benchmarks show 5.3-7.2% engagement rate for restaurant content with 15-30 second videos performing best. Platform data indicates Tuesday-Thursday 12:00-3:00 PM optimal posting times. Customer voice shows 'I can customize everything exactly how I need it' as key satisfaction driver, making customization reveals highly shareable."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in nutrition, sustainability, and fast-casual innovation",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Nutrition science education - macro building, meal timing, and performance optimization",
+        "Week 2: Sustainable sourcing deep-dive - carbon footprint data, local farm economics, waste reduction metrics",
+        "Week 3: Dietary restriction expertise - medical-grade allergen protocols and customization science",
+        "Week 4: Food preparation transparency - kitchen operations, quality standards, and safety protocols",
+        "Week 5: Corporate wellness thought leadership - team nutrition, productivity research, catering best practices",
+        "Week 6: Industry innovation positioning - technology integration, customer experience evolution, future of fast-casual"
+      ],
+      "weekly_hooks": [
+        [
+          "Nutrition science: Why [PROTEIN]g protein + [FIBER]g fiber = sustained energy for [HOURS] hours",
+          "Building balanced meals: A nutritionist's guide to customizing for [GOAL TYPE]",
+          "Post-workout nutrition explained: What your body actually needs in the [NUMBER] minute window"
+        ],
+        [
+          "Our sustainability by the numbers: [METRIC] carbon footprint vs traditional fast food",
+          "Farm-to-table economics: Why paying farmers [PERCENTAGE]% more creates better [INGREDIENT]",
+          "What happens to our food waste? Complete transparency on our [PERCENTAGE]% diversion rate"
+        ],
+        [
+          "Allergen safety protocols: How we prevent cross-contamination in [NUMBER] steps",
+          "The science of customization: Managing [NUMBER]+ ingredients for [NUMBER]+ dietary needs",
+          "Medical-grade allergen training: What our team learns that drive-thrus don't teach"
+        ],
+        [
+          "Behind-the-scenes kitchen standards: [NUMBER] quality checkpoints before your order",
+          "From delivery to your bowl: [NUMBER] hour freshness guarantee explained",
+          "Why our [INGREDIENT] prep takes [NUMBER] minutes longer than competitors (and why it matters)"
+        ],
+        [
+          "Corporate wellness research: How team lunch quality affects [METRIC] by [PERCENTAGE]%",
+          "Case study: [COMPANY]'s productivity increase after switching to healthier team meals",
+          "The hidden cost of bad office lunches: [DOLLAR AMOUNT] in lost productivity per employee"
+        ],
+        [
+          "The future of fast-casual: How technology reduces wait time by [PERCENTAGE]% without sacrificing quality",
+          "Customer experience evolution: What [NUMBER] million orders taught us about convenience",
+          "Industry innovation: Why mobile ordering is just the beginning of the fast-casual revolution"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is it really that much healthier than other fast food?' - scientific nutrition comparison",
+        "Week 2: Address 'More expensive than traditional fast food' - value justification through sustainability data",
+        "Week 3: Address 'I'm not sure they can handle my allergy' - demonstrate medical-grade protocols",
+        "Week 4: Address 'Inconsistent between locations' - explain standardization and quality systems",
+        "Week 5: Address 'Ordering lunch for the team is always a nightmare' - show simplified corporate solutions",
+        "Week 6: Address 'Takes longer than drive-thru' - prove technology creates speed without quality loss"
+      ],
+      "proof_timing": [
+        "Week 1: Share nutritionist partnerships, registered dietitian endorsements, and macro verification",
+        "Week 2: Release third-party sustainability audits, farm partnership certifications, and environmental impact data",
+        "Week 3: Display food safety certifications, allergen training credentials, and medical advisory board",
+        "Week 4: Reveal kitchen inspection scores, quality assurance metrics, and franchise training standards",
+        "Week 5: Present corporate client testimonials, productivity research citations, and wellness program results",
+        "Week 6: Showcase technology patents, industry awards, customer experience metrics, and innovation partnerships"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our complete macro-building guide' - educational authority",
+        "Week 2: 'Read our full sustainability report' - transparency credibility",
+        "Week 3: 'See our allergen safety protocols' - safety authority",
+        "Week 4: 'Take a virtual kitchen tour' - operational transparency",
+        "Week 5: 'Schedule a corporate wellness consultation' - B2B conversion",
+        "Week 6: 'Join our innovation beta program' - community leadership"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week for B2B thought leadership and corporate wellness content)",
+        "Email (2 sends/week with in-depth educational content and research findings)",
+        "Instagram (4-5 posts/week with educational carousels and expert interviews)",
+        "Blog/Website (1 long-form article/week for SEO and comprehensive guides)",
+        "TikTok (2-3 posts/week with educational shorts and expert Q&A)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps showing lack of nutrition education beyond calorie counts, sustainability metrics with actual data, and behind-the-scenes supply chain transparency. Dig's LinkedIn content targeting corporate catering achieved 4.1% engagement vs 2.1% industry average. Research shows dietary restriction educational content and employee culture stories as major differentiation opportunities. Customer decision factors include 'Can I see the nutrition and calorie information' and 'Are the ingredients actually fresh or is that just marketing' requiring authoritative, data-driven content."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and user-generated content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive customization games - polls, quizzes, and 'build my bowl' challenges",
+        "Week 2: Community storytelling - customer spotlights, team member features, and local impact stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Help us settle this: [INGREDIENT A] or [INGREDIENT B]? Comment your choice",
+          "Build the perfect bowl in [NUMBER] choices | Poll results reveal most popular combo",
+          "What's your go-to order? Drop it in comments and we'll feature the best [NUMBER]",
+          "This or that: [BOWL TYPE A] vs [BOWL TYPE B] | The community decides",
+          "Quiz: What does your customization say about you? Comment your order for your personality type",
+          "We're creating a new bowl based on YOUR votes | First decision: protein choice"
+        ],
+        [
+          "Customer spotlight: Meet [NAME] who orders [ITEM] [NUMBER] times a week | What's your routine?",
+          "Behind the counter: [TEAM MEMBER] has made [NUMBER]+ bowls | Ask them anything in comments",
+          "How [YOUR BRAND] changed [CUSTOMER]'s [ROUTINE/HEALTH/LIFE] | Share your story below",
+          "Local impact: We've sourced [AMOUNT] of [INGREDIENT] from [LOCAL FARM] | Tag your favorite local spot",
+          "Team member takeover: [NAME] shows their favorite customization | What questions do you have?",
+          "Your transformation stories inspire us | Comment how [YOUR BRAND] fits into your [GOAL]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if I don't like it after I customize it?' - show community's favorite combinations and variety",
+        "Week 2: Address 'My kids are picky eaters' - feature family stories and kid-approved customizations"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase volume of poll responses and quiz participation as popularity signals",
+        "Week 2: Feature authentic customer and team member stories as relatable social proof"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in our poll | Comment your perfect combo | Tag someone who needs to try this'",
+        "Week 2: 'Share your story in comments | Tag us in your order photo | Tell us how we can improve'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-7 stories/day with polls, quizzes, and question stickers)",
+        "Instagram Feed (4-6 posts/week optimized for comments and shares)",
+        "TikTok (4-5 posts/week with duet/stitch-friendly content and comment prompts)",
+        "Facebook (3-4 posts/week with community-focused content for family audience)",
+        "Email (1 send/week featuring community highlights and encouraging story submissions)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Chipotle's TikTok challenge generating 110K+ user submissions and Sweetgreen's customer story campaign achieving 4.2% engagement rate vs 1.5% industry average. Instagram benchmarks show interactive content (polls, quizzes) drives 2.8x more comments than standard posts. Customer voice data shows community language like 'finally,' 'lifesaver,' and 'game-changer' indicating emotional connection opportunities. Platform data shows Tuesday-Thursday 11:00 AM-1:00 PM optimal for lunch audience engagement and Sunday 5:00-7:00 PM for dinner planning community."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Why 10,000+ office teams order from us every week | Team lunch, solved.\n\nThe corporate catering nightmare is real:\n❌ Dietary restrictions spreadsheet chaos\n❌ 45-minute ordering process\n❌ Half the team unhappy with limited options\n❌ Delivery timing disasters\n\nWhat if team lunch could be:\n✅ Ordered in under 3 minutes\n✅ 100+ customization options (vegan, keto, gluten-free, halal)\n✅ Nutrition info transparent for every order\n✅ Scheduled delivery down to the minute\n\nOur [CORPORATE CATERING PROGRAM] serves [NUMBER] companies because we solved the biggest pain point: individual customization at scale.\n\nReal case study: [COMPANY NAME] reduced lunch coordination time by 80% and saw [METRIC]% increase in team satisfaction scores.\n\nHow we do it:\n→ Individual ordering links (no spreadsheets)\n→ Dietary filters built into every menu\n→ Scheduled recurring orders for weekly meetings\n→ Dedicated catering coordinator for teams of 20+\n\nWhat's your biggest team lunch challenge? Comment below.\n\n#CorporateCatering #OfficeLife #TeamLunch #WorkplaceWellness #B2BCatering",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "Farm-to-table in 30 miles isn't marketing. It's our supply chain.\n\nAfter analyzing [NUMBER] fast casual supply chains, we discovered the industry's dirty secret: \"fresh\" often means 7-14 days from harvest to plate.\n\nOur model is different:\n\n🌱 Monday: Harvested from [LOCAL FARM PARTNERS] within 30-mile radius\n🚚 Tuesday: Delivered to our kitchens\n🥗 Wednesday: On your plate\n\nThis isn't just about taste. It's about:\n→ 40% higher nutrient retention vs. traditional supply chains\n→ 60% reduction in food waste (shorter shelf life = better planning)\n→ $[AMOUNT] returned to local economy per location annually\n→ Transparent sourcing you can verify\n\nSustainability metrics that matter:\n• [NUMBER] local farms supported\n• [NUMBER] tons CO2 saved vs. national distribution\n• [PERCENTAGE]% compostable packaging\n• Zero artificial preservatives needed (because actually fresh)\n\nThe fast casual industry is at an inflection point. Customers demand transparency. Corporate buyers require sustainability credentials. Investors want operational efficiency.\n\nWe're proving you can deliver all three.\n\nWhat sustainability metrics matter most to your organization?\n\n#Sustainability #FoodInnovation #SupplyChain #LocalFood #RestaurantIndustry",
+        "framework": "AIDA",
+        "character_count": 1289
+      },
+      "promotional": {
+        "template": "Your team deserves better than sad desk salads and pizza regret.\n\nBefore [YOUR COMPANY]:\n→ Generic catering menus nobody's excited about\n→ Dietary restrictions = someone goes hungry\n→ Post-lunch energy crash kills afternoon productivity\n\nAfter [YOUR COMPANY]:\n→ 100+ customizable combinations (everyone gets exactly what they want)\n→ Protein-forward options that sustain energy through 3pm meetings\n→ Team actually looks forward to lunch\n\nBridge: Our [CORPORATE PROGRAM NAME] transforms team meals from logistics headache to culture builder.\n\nWhat you get:\n✓ Dedicated catering coordinator\n✓ Individual ordering (no spreadsheet chaos)\n✓ Scheduled recurring delivery\n✓ Full nutrition transparency\n✓ Dietary filter options (vegan, keto, gluten-free, halal, kosher)\n✓ Volume pricing for teams of 10+\n\n[COMPANY NAME] switched from traditional catering and saw:\n• 85% team satisfaction score (up from 42%)\n• Average order time reduced from 45 min to 3 min\n• [PERCENTAGE]% of team now orders healthy options\n\n\"[TESTIMONIAL QUOTE]\" - [NAME], [TITLE] at [COMPANY]\n\nReady to upgrade your team lunch experience?\n\n👉 Book a tasting for your team: [LINK]\n👉 Download our corporate menu: [LINK]\n\nComment 'CATERING' and I'll send you our complete corporate guide.\n\n#CorporateCatering #OfficePerks #TeamMeals #EmployeeExperience",
+        "framework": "BAB",
+        "character_count": 1398
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your way, exactly. 100+ combinations, zero compromises ✨\n\nSwipe to see how we turn [NUMBER] base ingredients into YOUR perfect bowl →\n\n1️⃣ Choose your base: [GRAIN OPTIONS]\n2️⃣ Pick your protein: [PROTEIN OPTIONS]\n3️⃣ Load the veggies: [VEGGIE OPTIONS]\n4️⃣ Sauce it up: [SAUCE OPTIONS]\n5️⃣ Top it off: [TOPPING OPTIONS]\n\nEvery combo shows full nutrition info in our app before you order. No surprises, no guessing.\n\n💡 Pro tip: Save your go-to orders in the app for literally 2-click ordering.\n\nWhat's YOUR perfect combo? Drop it in the comments 👇\n\n#CustomizableEats #HealthyFastFood #YourWayExactly #BowlGoals #FreshEats",
+        "visual": "Carousel post: Slide 1 - Overhead shot of colorful ingredient bins (ASMR-style, satisfying organization). Slides 2-6 - Step-by-step build of a bowl, each slide adding the next layer. Slide 7 - Finished bowl with nutrition info overlay. Slide 8 - App screenshot showing saved favorites feature. Use bright, natural lighting and emphasize ingredient freshness.",
+        "framework": "Educational + AIDA",
+        "hashtags": "#healthybowls #customfood #freshingredients #healthylunch #quickmeals #mealprep #cleaneating #proteinbowl #fastcasual #foodcustomization #nutritiontransparency #healthyeating #lunchideas #dinnerideas #mobilefood #eatfresh #realfood #wholesome #balancedmeals #foodiegram"
+      },
+      "authority": {
+        "caption": "Harvested this morning, on your plate by noon 🌱\n\nFarm-to-table in 30 miles isn't marketing. Here's our actual supply chain:\n\nMonday AM: [FARM NAME] harvests greens\nMonday PM: Delivered to our kitchen\nTuesday: Prepped and ready\nTuesday lunch: On your plate\n\nWhy it matters:\n→ 40% more nutrients than week-old produce\n→ Zero preservatives needed\n→ $[AMOUNT] to local farmers per year\n→ You can literally taste the difference\n\nReal ingredients. Real fast. No compromises.\n\nTag a friend who cares where their food comes from 🥗\n\n#FarmToTable #LocalFood #SustainableEating #FreshFood #KnowYourFarmer",
+        "visual": "Reel/Video: Open with farmer harvesting greens at sunrise (3 seconds). Cut to delivery truck arriving at restaurant (2 seconds). Kitchen prep footage showing fresh ingredients (5 seconds). Time-lapse of bowl being assembled (3 seconds). Close-up of finished dish with text overlay '30 miles. 24 hours. 100% fresh.' Use natural, documentary-style footage. Include farm name and location text overlays for authenticity.",
+        "framework": "Authority + credibility building",
+        "hashtags": "#farmtotable #locallysourced #sustainablefood #freshproduce #supportlocalfarmers #knowyourfood #transparentfood #realingredients #farmfresh #eatlocal #sustainableliving #ethicaleating #communitysupported #fresheats #qualityingredients #foodtransparency #consciouseating #healthyliving #wholefood #greenrestaurant"
+      },
+      "promotional": {
+        "caption": "Finally, fast food you can feel good about 🙌\n\nFresh lunch in under 10 minutes:\n\n📱 Open app (remembers your faves)\n👆 Two taps to order\n🚗 Pick up on your way\n⏱️ In and out in 90 seconds\n\nNo line. No guilt. Just real ingredients, real fast.\n\nOrder now, pick up at [TIME] → Link in bio\n\nFirst mobile order? Use code [PROMOCODE] for [DISCOUNT] off 💚\n\n#QuickLunch #HealthyFastFood #MobileOrder #LunchGoals #GuiltyFree",
+        "visual": "Reel: POV-style video. Start with phone screen showing app (3 sec). Quick cuts of: tapping through order (2 sec), driving/walking (2 sec), picking up from mobile order shelf (2 sec), unwrapping fresh bowl (3 sec), first satisfying bite (2 sec). Text overlays: '10:47 AM - Ordered', '10:58 AM - Picked up', '10:59 AM - Eating'. Use trending upbeat audio. Show time stamps prominently. End with CTA text overlay and promo code.",
+        "framework": "Promotional + time-saving promise",
+        "hashtags": "#mobileordering #fastlunch #healthyeats #quickmeals #lunchbreak #timeserver #convenientfood #freshfood #guiltfreeeating #healthychoices #busylunch #officelunch #lunchonthego #smartordering #efficientliving #healthylifestyle #fastcasual #modernconvenience #apporder #skiptheline"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🥗 HEALTHY EATING HACK: The 5-Minute Meal Prep That Isn't Meal Prep\n\nRaise your hand if you're tired of:\n❌ Spending Sunday doing meal prep\n❌ Eating the same boring thing all week\n❌ Throwing away containers of wilted salad by Thursday\n\nHere's what smart busy people are doing instead:\n\nMONDAY: [BOWL COMBO 1] - High protein after weekend\nTUESDAY: [BOWL COMBO 2] - Lighter, veggie-forward\nWEDNESDAY: [BOWL COMBO 3] - Balanced energy for mid-week\nTHURSDAY: [BOWL COMBO 4] - Comfort food that's still healthy\nFRIDAY: [BOWL COMBO 5] - Treat yourself option\n\nSave these combos in our app (literally takes 30 seconds) and you've got variety all week WITHOUT spending your Sunday in the kitchen.\n\nBonus: Every combo shows full nutrition info so you can track macros if that's your thing.\n\nPro tips from our regulars:\n💡 Order the night before for faster pickup\n💡 Add extra protein on workout days (just tap the +)\n💡 Save your 3 go-to orders for different moods\n💡 Use the 'surprise me' feature when you're bored\n\nWho else is DONE with traditional meal prep? Drop a 🙋 below!\n\nTrying this? Tag us in your bowl pics this week - we're featuring customer combos in our stories!\n\n[LOCATION] friends: We're at [ADDRESSES]. Mobile order in the app → [LINK]\n\n#MealPrepAlternative #HealthyEating #BusyLifeHacks #NoMoreMealPrep #HealthyLunch",
+        "framework": "Educational + PAS",
+        "engagement_tactics": "Emoji for interaction, tag request, location-specific CTA, save-worthy content"
+      },
+      "authority": {
+        "template": "TRANSPARENCY TUESDAY: Here's exactly what's in your bowl (and what's NOT)\n\nWe get asked this a lot: \"Is this REALLY healthier than other fast food?\"\n\nFair question. Here's the honest answer with actual data:\n\n✅ WHAT'S IN OUR FOOD:\n• [INGREDIENT 1] - sourced from [LOCAL FARM/SUPPLIER]\n• [INGREDIENT 2] - delivered fresh [FREQUENCY]\n• [INGREDIENT 3] - [SPECIFIC QUALITY DETAIL]\n• Full ingredient list available for every item (check the app)\n\n❌ WHAT'S NOT IN OUR FOOD:\n• Zero artificial preservatives\n• No high-fructose corn syrup\n• No artificial colors or flavors\n• No mystery ingredients you can't pronounce\n\n📊 THE NUMBERS:\nAverage [YOUR RESTAURANT] bowl:\n→ [CALORIES] calories\n→ [PROTEIN]g protein\n→ [FIBER]g fiber\n→ [SODIUM]mg sodium\n\nCompare that to typical fast food meal:\n→ [CALORIES] calories\n→ [PROTEIN]g protein\n→ [FIBER]g fiber\n→ [SODIUM]mg sodium\n\nBUT HERE'S WHAT MATTERS MORE:\n\nYou can SEE your food being made. You CHOOSE every ingredient. You KNOW the nutrition info before ordering. You're not guessing what's in that sauce or where that chicken came from.\n\nThat's the difference.\n\n🌱 OUR COMMITMENTS:\n→ Source from farms within [RADIUS] miles when possible\n→ Post full nutritional info (including allergens) for every menu item\n→ Update ingredient sourcing quarterly on our website\n→ Never use ingredients we wouldn't feed our own families\n\nQuestions about specific ingredients? Ask below - we'll answer every single one.\n\nWant to see our full sourcing list? Comment 'SOURCE' and we'll send you the link.\n\n#FoodTransparency #KnowYourFood #HealthyEating #RealIngredients #CleanEating",
+        "framework": "Authority + transparency",
+        "engagement_tactics": "Data-driven, comment trigger, question invitation, educational value"
+      },
+      "promotional": {
+        "template": "It's WEDNESDAY and you know what that means... 🥗\n\nYour family needs dinner in approximately [TIME UNTIL DINNER] hours and you're already exhausted thinking about it.\n\nSound familiar?\n\nHere's your stress-free dinner solution:\n\n🍽️ FAMILY DINNER BUNDLE - $[PRICE]\nFeeds family of 4, ready in 10 minutes\n\nWhat you get:\n→ 4 fully customizable [MEAL TYPE]\n→ [SIDE ITEMS]\n→ [DRINK OPTIONS]\n→ [EXTRA ITEM]\n\nEveryone gets exactly what they want (yes, even your picky eater).\n\nORDER BY [TIME] TODAY → Pick up on your way home → Dinner solved by [TIME]\n\nReal parent review:\n\"[TESTIMONIAL QUOTE]\" - [NAME], [TOWN]\n\n💚 WHY FAMILIES LOVE IT:\n✓ Faster than cooking (and cleanup!)\n✓ Healthier than drive-thru\n✓ Kids actually eat vegetables here\n✓ Cheaper than you think\n✓ Everyone's happy (including you)\n\nTONIGHT ONLY: Use code [PROMOCODE] for [DISCOUNT] off family bundles\n\n👉 Order now: [LINK]\n👉 See full menu: [LINK]\n\nTag a parent who needs this tonight! ⬇️\n\nP.S. - We're open until [TIME] and yes, we have high chairs 😊\n\n[LOCATION] locations: [ADDRESSES]\n\n#FamilyDinner #DinnerSolved #BusyParents #HealthyFamily #QuickDinner #FamilyMeal #ParentingWin",
+        "framework": "Promotional + BAB",
+        "engagement_tactics": "Time-sensitive offer, specific price point, testimonial, tag invitation, location-specific"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You have 30 mins for lunch and you're trying to eat healthy",
+        "script": "[0-3 sec] Text overlay: 'POV: 30 min lunch break' - Show clock at 12:00, stressed face\n\n[3-8 sec] Problem montage: Long drive-thru line (cross out), sad desk salad (cross out), expensive sit-down restaurant (cross out)\n\n[8-12 sec] Solution reveal: Open phone, show app with 'Saved Orders' - tap favorite bowl\n\n[12-20 sec] Speed-run footage: Drive to restaurant, walk straight to mobile pickup shelf (no line), grab bag, back to car\n\n[20-25 sec] Show clock: 12:11 AM - 'Still have 19 minutes left'\n\n[25-35 sec] Unbox bowl - satisfying reveal of fresh ingredients, take first bite with exaggerated satisfaction\n\n[35-45 sec] Text overlays rapid fire: 'Full nutrition info ✓' 'Customized exactly how I want ✓' 'Actually filling ✓' 'No guilt ✓'\n\n[45-55 sec] Show app again: 'Pro tip: Save your 3 go-to orders for different moods'\n\n[55-60 sec] End card: 'Link in bio for first order discount' + show finished bowl\n\nTEXT OVERLAYS: '11 mins total', 'No line', 'Saved order = 2 clicks', 'Actually healthy', Code: [PROMOCODE]\n\nAUDIO: Use trending sound about efficiency/life hacks\n\nSTYLE: Fast cuts, POV perspective, relatable stressed energy → satisfied relief",
+        "framework": "Educational + Problem-Solution",
+        "trending_elements": "POV format, time-lapse, life hack angle, satisfying food reveal"
+      },
+      "authority": {
+        "hook": "We asked our farmer where our greens come from... he pointed across the street",
+        "script": "[0-3 sec] Hook with text: 'Farm to table in 30 miles' - Show farm field\n\n[3-8 sec] Interview snippet: 'When were these harvested?' Farmer: 'This morning'\n\n[8-15 sec] Follow delivery truck from farm to restaurant - time-lapse style\n\n[15-22 sec] Kitchen footage: Unloading fresh produce, prepping ingredients (ASMR sounds)\n\n[22-30 sec] Split screen: Show typical supply chain (7-14 days) vs. ours (24 hours)\n\n[30-38 sec] Taste test: 'Week-old lettuce vs. today's harvest' - exaggerated difference reaction\n\n[38-48 sec] Show map: Pin farm locations within 30-mile radius, overlay with restaurant location\n\n[48-55 sec] Final bowl assembly - emphasize ingredient quality and freshness\n\n[55-60 sec] Text overlay: 'This is what actually fresh means' + CTA 'Location in bio'\n\nTEXT OVERLAYS: 'Harvested Monday AM', 'Delivered Monday PM', 'On your plate Tuesday', '40% more nutrients', '[FARM NAME] - 12 miles away'\n\nAUDIO: Behind-the-scenes documentary style or trending audio about authenticity\n\nSTYLE: Documentary feel, authentic footage, educational but entertaining, transparency focus",
+        "framework": "Authority + Transparency",
+        "trending_elements": "Behind-the-scenes, supply chain transparency, interview snippets, split-screen comparison"
+      },
+      "promotional": {
+        "hook": "Dinner in 20 minutes or your family gets hangry",
+        "script": "[0-3 sec] Chaos scene: Kids fighting, clock showing 5:47 PM, parent looking stressed\n\n[3-7 sec] Text: 'Soccer ended at 5:30, piano starts at 6:30, nobody's eaten'\n\n[7-12 sec] Phone notification: 'Your order is ready for pickup' - relief face\n\n[12-18 sec] Fast-motion drive, run into restaurant, grab from mobile shelf, run back\n\n[18-25 sec] Car scene: Kids opening bags, excited reactions, 'They have [ITEM]!', 'Mine has extra [INGREDIENT]!'\n\n[25-35 sec] Show 4 different customized meals - emphasize everyone got what they wanted\n\n[35-42 sec] Text overlays: 'Ordered while at soccer ✓', 'Everyone's happy ✓', 'Healthier than drive-thru ✓', 'Made it to piano on time ✓'\n\n[42-50 sec] Parent eating own bowl: 'And I don't feel guilty' - satisfied face\n\n[50-57 sec] Show app: 'Save this order for next Tuesday' - tap button\n\n[57-60 sec] End card: 'Use code [PROMOCODE]' + 'Link in bio'\n\nTEXT OVERLAYS: 'Total time: 11 minutes', 'Cost: $[PRICE] for 4', 'Hangry level: ZERO', 'Parent win'\n\nAUDIO: Chaotic trending sound → calm satisfying sound (before/after vibe)\n\nSTYLE: Relatable parent humor, fast-paced, before/after energy shift, authentic family chaos",
+        "framework": "Promotional + Relatable Problem-Solving",
+        "trending_elements": "Parent POV, chaotic to calm narrative, family content, time-crunch relatability"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Fresh lunch in under 10 minutes | Your saved orders inside",
+        "preview_text": "Hi [FIRST_NAME], here are your go-to combos for the week ahead ⚡",
+        "body": "Subject: Fresh lunch in under 10 minutes | Your saved orders inside\nPreview: Hi [FIRST_NAME], here are your go-to combos for the week ahead ⚡\n\n---\n\nHi [FIRST_NAME],\n\nYou have 30 minutes for lunch. We have your meal ready in 10.\n\nHere's how [NUMBER] smart professionals are doing lunch this week:\n\n🥗 YOUR SAVED FAVORITES:\n→ [SAVED_ORDER_1] - [CALORIES] cal, [PROTEIN]g protein\n→ [SAVED_ORDER_2] - [CALORIES] cal, [PROTEIN]g protein  \n→ [SAVED_ORDER_3] - [CALORIES] cal, [PROTEIN]g protein\n\n[CTA BUTTON: Order Your Favorite Now]\n\nNEW THIS WEEK:\nTry our [SEASONAL_ITEM] - [BRIEF_DESCRIPTION]\n[CALORIES] calories | [PROTEIN]g protein | [SPECIAL_FEATURE]\n\n💡 PRO TIP: Order by 10:30 AM for 12:00 PM pickup\nNo line. No wait. Just grab and go.\n\n[CTA BUTTON: Schedule Tomorrow's Lunch]\n\nQUICK LINKS:\n• Modify your saved orders\n• Browse full menu + nutrition info  \n• Manage your preferences\n\nQuestions? Just reply to this email.\n\nSee you tomorrow,\n[TEAM_MEMBER_NAME]\n[LOCATION_NAME]\n\nP.S. - Bringing the team? Groups of 5+ get [DISCOUNT]% off. [Learn more →]\n\n---\n\nMOBILE OPTIMIZATION: Single column, large tap targets, prominent CTA buttons, nutrition info scannable",
+        "framework": "Educational + AIDA (personalized)",
+        "send_time": "Tuesday-Thursday 10:00-11:00 AM",
+        "segment": "Active customers with saved orders"
+      },
+      "authority": {
+        "subject": "Harvested this morning, on your plate by noon | Our supply chain explained",
+        "preview_text": "30 miles. 24 hours. Zero preservatives. Here's how we do it.",
+        "body": "Subject: Harvested this morning, on your plate by noon | Our supply chain explained\nPreview: 30 miles. 24 hours. Zero preservatives. Here's how we do it.\n\n---\n\nHi [FIRST_NAME],\n\nFarm-to-table in 30 miles isn't marketing. It's our supply chain.\n\nHere's exactly where your food comes from:\n\n🌱 MONDAY MORNING:\n[FARM_NAME_1] harvests greens (12 miles from our kitchen)\n[FARM_NAME_2] delivers proteins (18 miles)\n[SUPPLIER_NAME] brings grains (22 miles)\n\n🚚 MONDAY AFTERNOON:\nEverything arrives at our [LOCATION] kitchen\n\n🥗 TUESDAY LUNCH:\nOn your plate. Fresh. No preservatives needed.\n\nWHY IT MATTERS:\n→ 40% higher nutrient retention vs. traditional supply chains\n→ Zero artificial preservatives (because actually fresh)\n→ $[AMOUNT] returned to local economy annually\n→ You can verify every source on our website\n\n[CTA BUTTON: See Our Full Sourcing List]\n\nTHIS WEEK'S HARVEST:\n• [INGREDIENT_1] from [FARM_NAME]\n• [INGREDIENT_2] from [FARM_NAME]  \n• [INGREDIENT_3] from [SUPPLIER_NAME]\n\nFull nutrition info + sourcing details for every menu item: [LINK]\n\n[CTA BUTTON: Order Today's Fresh Menu]\n\nOUR COMMITMENTS TO YOU:\n✓ Source within [RADIUS] miles when seasonally available\n✓ Full transparency on every ingredient\n✓ Updated sourcing list published quarterly\n✓ Never use ingredients we wouldn't feed our families\n\nQuestions about specific ingredients? Reply to this email - we answer every one.\n\nFresh regards,\n[TEAM_MEMBER_NAME]\n[TITLE]\n[LOCATION_NAME]\n\nP.S. - Want to meet our farmers? Join our [FARM_TOUR_EVENT] on [DATE]. [RSVP →]\n\n---\n\nINCLUDES: Sourcing map graphic, farm photos, transparency credentials",
+        "framework": "Authority + Transparency",
+        "send_time": "Tuesday 9:00-10:00 AM",
+        "segment": "Health-conscious customers, sustainability-focused segment"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your usual is ready in 10 minutes ⚡",
+        "preview_text": "Order now → Pick up at [OPTIMAL_TIME] → Skip the lunch rush",
+        "body": "Subject: [FIRST_NAME], your usual is ready in 10 minutes ⚡\nPreview: Order now → Pick up at [OPTIMAL_TIME] → Skip the lunch rush\n\n---\n\nHi [FIRST_NAME],\n\nIt's [DAY] at [CURRENT_TIME]. You need lunch in [TIME_UNTIL_LUNCH].\n\nGood news: Your favorite is ready in 10 minutes.\n\n[HERO IMAGE: Their most-ordered bowl]\n\nYOUR GO-TO ORDER:\n[SAVED_ORDER_NAME]\n[CALORIES] cal | [PROTEIN]g protein | [PRICE]\n\n[LARGE CTA BUTTON: Order Now - Ready at [OPTIMAL_PICKUP_TIME]]\n\nWHY [NUMBER] PEOPLE ORDERED AHEAD TODAY:\n✓ No line (mobile order shelf ready)\n✓ Guaranteed [PICKUP_TIME] pickup\n✓ Exactly how you like it\n✓ In and out in 90 seconds\n\nNOT YOUR USUAL DAY?\nBrowse our full menu → [LINK]\n\n[CTA BUTTON: See All Options]\n\n🎁 SURPRISE BONUS:\nOrder in the next [TIME_WINDOW] and get [REWARD_POINTS] bonus points\n(That's [DOLLAR_VALUE] toward your next meal)\n\n[CTA BUTTON: Claim Your Bonus Points]\n\nQUICK LINKS:\n• Modify your usual order\n• Add a side or drink  \n• Schedule tomorrow's lunch\n• Invite a coworker (you both get [DISCOUNT])\n\nQuestions? Text us at [PHONE] or just reply.\n\nSee you at [OPTIMAL_TIME],\n[TEAM_MEMBER_NAME]\n[LOCATION_NAME]\n\nP.S. - First time using mobile order? Here's a 60-second video showing how easy it is: [LINK]\n\n---\n\n[FOOTER]\nManage preferences | Pause emails | Update dietary filters\n\n---\n\nPERSONALIZATION TOKENS: [FIRST_NAME], [SAVED_ORDER_NAME], [OPTIMAL_PICKUP_TIME], [LAST_ORDER_DATE], [REWARD_POINTS]\n\nTIMING: Sent at 10:30 AM on customer's typical order days (Tuesday-Thursday based on history)\n\nMOBILE: Large buttons, single column, prominent pickup time, one-tap ordering",
+        "framework": "Promotional + BAB (personalized urgency)",
+        "send_time": "10:30-11:00 AM on customer's typical order days",
+        "segment": "Active customers with order history, personalized by behavior"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] office teams solved their lunch chaos in under [Y] minutes with our catering app",
+      "[X] hangry families fed in the time it takes to drive through [competitor] - but actually healthy",
+      "[X] customizable bowls, [Y] dietary restrictions covered, zero compromises on flavor"
+    ],
+    "question_hooks": [
+      "Are you stuck eating the same boring salad because healthy options take too long?",
+      "Are you tired of feeling guilty every time you hit a drive-thru after work?",
+      "Are you wasting your entire lunch break standing in line instead of actually eating?"
+    ],
+    "story_hooks": [
+      "How [busy mom] feeds her picky kids vegetables in less time than [fast food chain] - without the meltdown",
+      "How [office manager] went from lunch ordering nightmare to hero in [X] clicks with mobile catering",
+      "How [gym regular] gets [X]g of protein post-workout without going home to cook or breaking their macros"
+    ],
+    "fear_hooks": [
+      "Is your lunch break disappearing into line-waiting while your inbox piles up?",
+      "Is your family's health at risk because you're too exhausted to cook real food?",
+      "Is your diet getting sabotaged by hidden calories in 'healthy' fast food that isn't actually fresh?"
+    ],
+    "howto_hooks": [
+      "How to feed your family real food in under [X] minutes without the drive-thru guilt",
+      "How to eat clean on your lunch break without meal prep or waiting in line",
+      "How to customize your bowl for [dietary restriction] without being difficult or compromising on taste"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You have 12 minutes before your next meeting",
+      "body": "0:00-0:03 - Show clock at 11:48 AM, stressed face\n0:03-0:15 - Open app, tap 'Reorder Last' (2 clicks), show confirmation\n0:15-0:30 - Drive/walk to location, grab from mobile pickup shelf\n0:30-0:45 - Back at desk unwrapping fresh bowl, show ingredients close-up\n0:45-0:55 - Check nutrition info on app, satisfied nod, eating\n0:55-1:00 - Clock shows 11:59, caption: 'Guilt-free lunch in under 12 minutes'",
+      "cta": "Download the app. Your lunch break will thank you. Link in bio."
+    },
+    "reels": {
+      "hook": "They said healthy fast food doesn't exist...",
+      "body": "0:00-0:02 - Split screen: drive-thru vs our location\n0:02-0:10 - Fast cuts of fresh ingredient prep, farm footage, bowl assembly\n0:10-0:20 - Show nutrition label, customization options, happy customer eating\n0:20-0:28 - Text overlay: 'Fresh ingredients. Your way. Under 10 minutes.'\n0:28-0:30 - Logo reveal",
+      "cta": "Find your nearest location. Real food, really fast."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your go-to order! Film yourself picking up your mobile order and unboxing it. Tell us why this combo is your lifesaver. Best videos get featured and free meals for a month.",
+      "hashtag": "#MyGoToOrder"
+    },
+    {
+      "prompt": "Film your 'before gym vs after gym' meal. Show what you order pre-workout vs post-workout and why. Bonus points for showing the nutrition info that helps you decide.",
+      "hashtag": "#FuelYourWorkout"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Farm-to-bowl time-lapse: Show actual ingredient journey from partner farm harvest to customer's bowl in under 48 hours with timestamps and locations. End with side-by-side comparison of our supply chain vs typical fast food (weeks vs days).",
+      "why": "Radical transparency creates trust and shareability. People share content that makes them feel informed and validates their choices. The visual contrast is inherently engaging and challenges industry norms."
+    },
+    {
+      "angle": "'What $12 Actually Gets You' breakdown series: Film ingredient-by-ingredient cost and nutrition breakdown comparing a $12 bowl to $12 at drive-thru. Show actual portion weights, macro counts, and ingredient quality differences.",
+      "why": "Addresses the #1 objection (price) with data-driven visual proof. Empowers customers to defend their choice to skeptical friends/family. Educational content gets saved and shared as reference material."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:08:13.012Z",
+    "last_tier2_refresh": "2025-11-28T00:08:13.012Z",
+    "last_tier3_refresh": "2025-11-28T00:08:13.012Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:08:13.012Z"
+  }
+}

@@ -1,0 +1,1750 @@
+{
+  "industry": "Investment Advisory",
+  "industry_name": "Investment Advisory",
+  "naics_code": "523930",
+  "category": "Professional Services",
+  "subcategory": "Financial Planning and Wealth Management",
+  "customer_triggers": [
+    {
+      "trigger": "Received inheritance over $100,000",
+      "urgency": 9,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Approaching retirement within 5 years",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Job loss or career transition",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Market volatility exceeding 15% swing",
+      "urgency": 10,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Tax bill shock over $50,000",
+      "urgency": 9,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Divorce proceedings initiated",
+      "urgency": 8,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Business sale or liquidity event",
+      "urgency": 10,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Birth of first child",
+      "urgency": 6,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "401k balance exceeding $500,000",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Real estate portfolio reaching $2M",
+      "urgency": 8,
+      "frequency": "monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Realizes current DIY approach or basic advisor isn't sophisticated enough after portfolio exceeds $250,000 or experiences first major loss over $25,000",
+    "consideration": "Compares 3-5 advisors over 2-3 months, reviews Form ADV disclosures, checks FINRA BrokerCheck, seeks referrals from CPAs and attorneys",
+    "decision": "Selects based on 40% credentials/experience, 35% personal chemistry, 25% fee structure after minimum of 2 meetings averaging 90 minutes each",
+    "retention": "Stays average 7.3 years when receiving quarterly reviews, proactive tax strategies saving $10,000+ annually, and consistent 15-minute response times",
+    "advocacy": "Refers 2.7 new clients annually after portfolio gains exceed 12% or tax savings surpass $25,000, peak referrals occur 18-24 months after onboarding"
+  },
+  "transformations": [
+    {
+      "from": "Anxious about retirement adequacy",
+      "to": "Confident with documented 95% success probability",
+      "emotional_value": "Peace of mind worth 1.5% higher fees",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by 15+ investment accounts",
+      "to": "Simplified dashboard with one-click access",
+      "emotional_value": "Time savings of 8 hours monthly",
+      "worth_premium": true
+    },
+    {
+      "from": "Paying 38% effective tax rate",
+      "to": "Optimized 24% rate through strategic planning",
+      "emotional_value": "Annual savings of $35,000+",
+      "worth_premium": true
+    },
+    {
+      "from": "Reactive to market news",
+      "to": "Disciplined with written investment policy",
+      "emotional_value": "Reduced stress during volatility",
+      "worth_premium": false
+    },
+    {
+      "from": "Estate planning procrastination",
+      "to": "Complete trust and succession plan",
+      "emotional_value": "Family protection valued at $500,000+",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing tax deadlines",
+      "to": "Proactive quarterly tax payments",
+      "emotional_value": "Avoiding $5,000+ penalties",
+      "worth_premium": true
+    },
+    {
+      "from": "Random charitable giving",
+      "to": "Strategic philanthropy with 37% tax savings",
+      "emotional_value": "Legacy impact multiplied 3x",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncoordinated advisors",
+      "to": "Integrated wealth team",
+      "emotional_value": "Seamless coordination saving 20 hours annually",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Portfolio value increase of 25% within 24 months",
+      "timeframe": "2 years",
+      "measurable": true
+    },
+    {
+      "metric": "Tax savings exceeding advisory fees by 2.5x",
+      "timeframe": "annual",
+      "measurable": true
+    },
+    {
+      "metric": "Retirement readiness score above 90%",
+      "timeframe": "ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Estate plan completion within 6 months",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Risk-adjusted returns beating benchmark by 2%",
+      "timeframe": "3-year rolling",
+      "measurable": true
+    },
+    {
+      "metric": "Client satisfaction score above 9.2/10",
+      "timeframe": "quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Response time under 4 hours for urgent matters",
+      "timeframe": "ongoing",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Market correction exceeding 20% triggers rebalancing opportunities worth $50,000+ if acted upon within 72 hours",
+    "Year-end tax loss harvesting deadline captures average $15,000 deduction if completed by December 15th",
+    "Retirement date within 12 months requires immediate income strategy to avoid 6-month cash shortage",
+    "Estate tax exemption changes pending in Congress could cost $2.3M if not addressed before legislation passes",
+    "Company stock option expiration within 90 days risks forfeiting average $175,000 in value",
+    "Medicare enrollment period missing deadline results in lifetime premium penalties of 10% per year delayed",
+    "Concentrated position exceeding 30% of portfolio creates bankruptcy risk requiring immediate diversification"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Fees seem high at 1% AUM",
+      "response": "Our average client sees tax savings of 2.8% annually plus risk-adjusted outperformance of 1.9%, delivering 3.7% net value above our fee",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I can manage myself with index funds",
+      "response": "Self-directed investors miss 73% of rebalancing opportunities and pay 31% more in taxes according to Vanguard's advisor alpha study",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "My returns haven't beaten the S&P 500",
+      "response": "Proper benchmarking shows your risk-adjusted returns are 23% higher with 40% less volatility, plus you're on track for retirement 7 years earlier",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "I don't have enough assets for your minimum",
+      "response": "Our emerging wealth program starts at $250,000 with graduated pricing, and 67% of these clients exceed $1M within 4 years",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "I'm worried about losing control",
+      "response": "You maintain 100% ownership and final approval rights, we simply provide institutional-quality research and handle execution at your direction",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Previous advisor lost me money",
+      "response": "Our risk management protocols would have limited that loss to 6% maximum, and our make-whole guarantee covers first-year underperformance",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Too busy to meet quarterly",
+      "response": "Virtual reviews save 3 hours per meeting, and our client portal provides 24/7 access with 5-minute video updates on demand",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "90-day fee refund if not completely satisfied",
+      "Performance guarantee matching index returns minimum",
+      "Tax savings guarantee exceeding advisory fees or fee credit applied"
+    ],
+    "proof_points": [
+      "SEC-registered with zero compliance violations in 15 years",
+      "Average client tenure of 12.3 years with 94% retention",
+      "$3.2B under management across 1,400 families"
+    ],
+    "risk_mitigation": "Comprehensive onboarding includes risk tolerance questionnaire, investment policy statement, and documented financial plan with Monte Carlo simulations showing 95% confidence levels"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "worried",
+      "confused",
+      "overwhelmed",
+      "uncertain",
+      "behind",
+      "missed opportunities",
+      "paying too much",
+      "not enough time",
+      "complex",
+      "scattered"
+    ],
+    "solution_words": [
+      "confident",
+      "clear",
+      "organized",
+      "certain",
+      "ahead",
+      "maximized",
+      "optimized",
+      "efficient",
+      "simplified",
+      "consolidated"
+    ],
+    "avoid_jargon": [
+      "alpha",
+      "beta",
+      "basis points",
+      "derivatives",
+      "standard deviation",
+      "Sharpe ratio",
+      "duration",
+      "convexity",
+      "backwardation",
+      "contango"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "proven",
+    "exclusive",
+    "comprehensive",
+    "tailored",
+    "strategic",
+    "optimized",
+    "maximized",
+    "protected",
+    "secured",
+    "accelerated",
+    "simplified",
+    "coordinated",
+    "integrated",
+    "personalized",
+    "institutional-quality",
+    "tax-advantaged",
+    "risk-adjusted",
+    "fiduciary",
+    "transparent",
+    "proactive",
+    "sophisticated",
+    "holistic",
+    "generational",
+    "legacy",
+    "independent",
+    "objective",
+    "certified",
+    "credentialed",
+    "award-winning"
+  ],
+  "avoid_words": [
+    "maybe",
+    "hopefully",
+    "try",
+    "attempt",
+    "possibly",
+    "might",
+    "could",
+    "sometimes",
+    "usually",
+    "probably",
+    "risky",
+    "gamble",
+    "bet",
+    "speculate",
+    "aggressive",
+    "conservative",
+    "boring",
+    "complex",
+    "complicated",
+    "expensive"
+  ],
+  "headline_templates": [
+    {
+      "template": "How [City] Executives Save $[Amount] Annually in Taxes",
+      "expected_ctr": 4.2,
+      "use_case": "tax planning campaigns"
+    },
+    {
+      "template": "The $[Amount] Retirement Mistake 73% of Professionals Make",
+      "expected_ctr": 5.8,
+      "use_case": "retirement planning"
+    },
+    {
+      "template": "[Number] Ways to Protect Wealth During Market Volatility",
+      "expected_ctr": 6.1,
+      "use_case": "market downturns"
+    },
+    {
+      "template": "Why [Profession] Families Trust Us With $[AUM]",
+      "expected_ctr": 3.7,
+      "use_case": "credibility building"
+    },
+    {
+      "template": "Turn Your $[Amount] Into $[Higher Amount] by [Year]",
+      "expected_ctr": 7.3,
+      "use_case": "growth focused"
+    },
+    {
+      "template": "The Hidden 401(k) Feature Costing You $[Amount]",
+      "expected_ctr": 5.4,
+      "use_case": "401k optimization"
+    },
+    {
+      "template": "[Percentage]% Returns With [Percentage]% Less Risk",
+      "expected_ctr": 4.9,
+      "use_case": "risk-adjusted returns"
+    },
+    {
+      "template": "Estate Planning Checklist for $[Amount]+ Net Worth",
+      "expected_ctr": 4.1,
+      "use_case": "estate planning"
+    },
+    {
+      "template": "Free Portfolio Analysis Reveals $[Amount] in Hidden Fees",
+      "expected_ctr": 8.2,
+      "use_case": "lead generation"
+    },
+    {
+      "template": "[Time Period] to Financial Independence: Your Roadmap",
+      "expected_ctr": 5.6,
+      "use_case": "financial planning"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Free Portfolio X-Ray ($2,500 Value)",
+      "conversion_rate": 12.3,
+      "placement": "above fold"
+    },
+    {
+      "template": "Get Your Personalized Retirement Readiness Score",
+      "conversion_rate": 9.7,
+      "placement": "calculator tool"
+    },
+    {
+      "template": "Download: 2024 Tax Planning Guide for High Earners",
+      "conversion_rate": 15.2,
+      "placement": "blog posts"
+    },
+    {
+      "template": "Reserve Your Spot: Quarterly Market Outlook Webinar",
+      "conversion_rate": 7.8,
+      "placement": "email signature"
+    },
+    {
+      "template": "Claim Your Complimentary Second Opinion Review",
+      "conversion_rate": 10.4,
+      "placement": "landing page"
+    },
+    {
+      "template": "Start Your 90-Day Risk-Free Trial",
+      "conversion_rate": 8.9,
+      "placement": "pricing page"
+    },
+    {
+      "template": "See How Much You Could Save in Taxes",
+      "conversion_rate": 11.6,
+      "placement": "tax calculator"
+    },
+    {
+      "template": "Join 1,400+ Families Building Generational Wealth",
+      "conversion_rate": 6.8,
+      "placement": "homepage"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "LinkedIn",
+      "template": "Market down [X]%? Here's the rebalancing opportunity most investors miss: [insight]. Our clients captured $[amount] in tax losses yesterday alone.",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: [Tax deadline] is [days] away. Still time to [specific action] and save $[amount]. Here's how: [thread]",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "Congratulations to the [Family Name] family on retiring [X years] early! Their secret? [Strategy]. Want to know if you could too? Comment 'RETIRE' below.",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Infographic]: The $[amount] difference between average and optimized portfolios over [timeframe]. Swipe to see the breakdown.",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "YouTube",
+      "template": "[Length] video: '[Celebrity/CEO] Investment Strategy Revealed - What Individual Investors Can Learn'",
+      "engagement_rate": 8.1
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your portfolio vs. inflation (not good news). Body: Inflation hit [X]% last month. Your portfolio needs [Y]% returns just to break even. Here's our 3-step protection plan.",
+      "engagement_rate": 22.4
+    },
+    {
+      "platform": "Podcast",
+      "template": "Episode [X]: 'From $[amount] to $[higher amount] - [Guest Name]'s Journey to Financial Independence Before 50'",
+      "engagement_rate": 12.7
+    },
+    {
+      "platform": "Webinar",
+      "template": "'[Quarter] Market Outlook: [Number] Opportunities in [Market Condition]' - Register for live Q&A with portfolio managers",
+      "engagement_rate": 18.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "Rich people secret #[X]: They [specific strategy]. Here's how you can too in 60 seconds.",
+      "engagement_rate": 9.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Reduce taxes by average $47,000 annually through coordinated planning",
+      "rank": 1,
+      "differentiator": "In-house CPA coordination"
+    },
+    {
+      "prop": "Achieve retirement 5.7 years earlier with same lifestyle",
+      "rank": 2,
+      "differentiator": "Proprietary retirement optimizer"
+    },
+    {
+      "prop": "Access institutional investments with 2.3% lower fees",
+      "rank": 3,
+      "differentiator": "$3.2B buying power"
+    },
+    {
+      "prop": "Protect wealth with 40% less volatility than market",
+      "rank": 4,
+      "differentiator": "Dynamic risk management"
+    },
+    {
+      "prop": "Consolidate 12+ accounts into single unified strategy",
+      "rank": 5,
+      "differentiator": "Full aggregation technology"
+    },
+    {
+      "prop": "24/7 access to your entire financial picture",
+      "rank": 6,
+      "differentiator": "Client portal and mobile app"
+    },
+    {
+      "prop": "Guaranteed response within 4 hours on urgent matters",
+      "rank": 7,
+      "differentiator": "Dedicated service team model"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Institutional-caliber wealth management previously reserved for $25M+ families, now accessible at $2M+ with white-glove service including dedicated team, custom indexing, alternative investments, and family office coordination",
+    "budget_conscious": "Smart money management that pays for itself through tax savings alone - our average client saves 3.2x our fee in taxes while building wealth 47% faster than self-directed investors",
+    "enterprise": "Comprehensive executive wealth solutions including equity compensation optimization, concentrated position management, 10b5-1 plans, and coordinated estate planning for complex multi-generational wealth transfer"
+  },
+  "trust_signals": [
+    {
+      "signal": "SEC Registered Investment Advisor",
+      "importance": 10,
+      "format": "badge on website"
+    },
+    {
+      "signal": "CFP® and CFA® credentialed team",
+      "importance": 9,
+      "format": "team bio pages"
+    },
+    {
+      "signal": "$3.2B assets under management",
+      "importance": 8,
+      "format": "homepage statistic"
+    },
+    {
+      "signal": "15-year track record with 800+ reviews",
+      "importance": 9,
+      "format": "testimonial section"
+    },
+    {
+      "signal": "Featured in Wall Street Journal and Forbes",
+      "importance": 7,
+      "format": "media logo bar"
+    },
+    {
+      "signal": "Fiduciary standard pledge",
+      "importance": 10,
+      "format": "prominent disclosure"
+    },
+    {
+      "signal": "GIPS® verified performance",
+      "importance": 8,
+      "format": "performance reports"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "94% client retention rate over 12 years",
+      "credibility_score": 9.2,
+      "context": "Industry average is 78%"
+    },
+    {
+      "stat": "Average client portfolio grew 287% in 10 years",
+      "credibility_score": 8.7,
+      "context": "S&P 500 grew 198% same period"
+    },
+    {
+      "stat": "$47,000 average annual tax savings per family",
+      "credibility_score": 9.5,
+      "context": "Based on 2023 client data"
+    },
+    {
+      "stat": "4.9/5.0 Google reviews from 800+ clients",
+      "credibility_score": 8.9,
+      "context": "Highest rated firm in metro area"
+    },
+    {
+      "stat": "2.7 referrals per client annually",
+      "credibility_score": 8.3,
+      "context": "Industry average is 0.8"
+    },
+    {
+      "stat": "100% of clients with written financial plan",
+      "credibility_score": 7.8,
+      "context": "National average is 31%"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Dedicated team of 3+ professionals, quarterly in-person reviews, direct access to portfolio managers, custom indexing available",
+    "Standard: Shared advisor model, semi-annual reviews, email/phone access, model portfolios with slight customization",
+    "Budget: Robo-advisor with annual human touchpoint, digital-first service, ETF-only portfolios, no tax planning included",
+    "Ultra-high: Family office services, daily portfolio monitoring, concierge services, alternative investments, multi-generational planning"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 457,
+    "trigger_event": "After first full year when tax savings exceed advisory fees and portfolio outperforms by 2%+",
+    "ask_method": "Personal call from lead advisor followed by easy 3-question form with video option"
+  },
+  "competitive_advantages": [
+    "Only firm in region with in-house CPA team providing real-time tax optimization worth $47,000 annually",
+    "Proprietary retirement income optimizer that extends portfolio longevity by average 7.3 years",
+    "Direct indexing capabilities starting at $500,000 vs. industry standard $2M minimum",
+    "24/7 concierge service team with guaranteed 4-hour response vs. next-day industry standard",
+    "Access to pre-IPO investments typically requiring $5M minimum, available at $1M with us"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Start with comprehensive planning fee of $15,000 to establish value, then show ongoing 1% AUM as bargain",
+    "sensitivity": "Breakpoint at 0.75% for $5M+ creates aspiration to grow assets, psychological resistance above 1.25%",
+    "sweet_spots": [
+      "0.90% for $1-2M",
+      "0.75% for $2-5M",
+      "0.60% for $5M+",
+      "0.50% for $10M+"
+    ],
+    "decoy_pricing": "Show premium family office service at 1.5% to make standard 1% seem reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 10000,
+    "approval_required": 25000,
+    "competitor_research": 5000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.75,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emerging Wealth",
+      "price_range": "$2,500-7,500/year",
+      "target_customer": "$250K-1M portfolios",
+      "margin": 42
+    },
+    {
+      "tier": "Established Wealth",
+      "price_range": "$10,000-50,000/year",
+      "target_customer": "$1M-5M portfolios",
+      "margin": 58
+    },
+    {
+      "tier": "Ultra High Net Worth",
+      "price_range": "$50,000+/year",
+      "target_customer": "$5M+ portfolios",
+      "margin": 67
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Automate quarterly reviews for sub-$1M accounts to reduce advisor time by 60% while maintaining satisfaction",
+    "Negotiate institutional pricing on funds saving 0.15% expense ratio passed partially to clients",
+    "Implement model portfolios for 70% of clients reducing research costs by $200,000 annually",
+    "Outsource back-office to reduce overhead by 35% while improving compliance",
+    "Create digital onboarding reducing new client setup from 8 hours to 2 hours",
+    "Bundle tax prep services at 70% margin vs. 58% on investment management alone"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 43,
+      "reason": "New year financial resolutions and bonus investment decisions",
+      "opportunity": "Resolution campaign and bonus optimization"
+    },
+    {
+      "month": "February",
+      "variation": -12,
+      "reason": "Post-holiday spending recovery",
+      "opportunity": "Tax planning early bird specials"
+    },
+    {
+      "month": "March",
+      "variation": 28,
+      "reason": "Tax season creates urgency for planning",
+      "opportunity": "Last-minute IRA contributions"
+    },
+    {
+      "month": "April",
+      "variation": 67,
+      "reason": "Tax bill shock drives advisor search",
+      "opportunity": "Tax reduction strategy campaigns"
+    },
+    {
+      "month": "May",
+      "variation": 15,
+      "reason": "Spring cleaning includes financial review",
+      "opportunity": "Portfolio spring cleaning theme"
+    },
+    {
+      "month": "June",
+      "variation": -8,
+      "reason": "Vacation season begins",
+      "opportunity": "Mid-year review campaigns"
+    },
+    {
+      "month": "July",
+      "variation": -22,
+      "reason": "Summer slowdown",
+      "opportunity": "Educational webinar series"
+    },
+    {
+      "month": "August",
+      "variation": -18,
+      "reason": "Continued summer slowdown",
+      "opportunity": "Back-to-school planning themes"
+    },
+    {
+      "month": "September",
+      "variation": 34,
+      "reason": "Back to business mindset",
+      "opportunity": "Q4 tax planning push"
+    },
+    {
+      "month": "October",
+      "variation": 52,
+      "reason": "Year-end planning urgency builds",
+      "opportunity": "Open enrollment coordination"
+    },
+    {
+      "month": "November",
+      "variation": 38,
+      "reason": "Tax loss harvesting and RMD planning",
+      "opportunity": "Year-end tax strategies"
+    },
+    {
+      "month": "December",
+      "variation": 71,
+      "reason": "Final tax moves and bonus allocations",
+      "opportunity": "Next year planning packages"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling initial consultations",
+      "avoid": "Cold outreach",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Webinars and educational content",
+      "avoid": "Fee discussions",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Portfolio reviews and check-ins",
+      "avoid": "Major decision requests",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Closing new business",
+      "avoid": "Complex presentations",
+      "conversion_rate": 11.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Relationship building calls",
+      "avoid": "New client onboarding",
+      "conversion_rate": 6.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "High-net-worth convenience meetings",
+      "avoid": "Mass marketing",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Email campaigns for Monday open",
+      "avoid": "Phone calls",
+      "conversion_rate": 3.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage on 1st, credit cards on 15th create cash flow awareness windows days 2-5 and 16-20",
+    "cash_flow_peaks": "Payroll deposits on 1st and 15th generate 3-day windows of investment readiness",
+    "slow_periods": "Days 6-14 and 21-28 see 40% lower engagement requiring stronger offers"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Market open after 5%+ overnight drop",
+      "crisis_type": "Portfolio panic",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "April 14th 11pm",
+      "crisis_type": "Tax filing deadline",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "December 30-31",
+      "crisis_type": "Year-end tax moves",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Job loss notification day",
+      "crisis_type": "401k rollover decisions",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Wealth Foundation",
+      "components": [
+        "Investment management",
+        "Annual tax planning",
+        "Basic estate review"
+      ],
+      "pricing_model": "1% AUM",
+      "margin": 52
+    },
+    {
+      "name": "Wealth Acceleration",
+      "components": [
+        "Everything in Foundation",
+        "Quarterly tax optimization",
+        "Alternative investments",
+        "Insurance review"
+      ],
+      "pricing_model": "0.85% AUM + $5,000",
+      "margin": 61
+    },
+    {
+      "name": "Family Office Lite",
+      "components": [
+        "Everything in Acceleration",
+        "Bill pay services",
+        "Concierge support",
+        "Multi-generational planning"
+      ],
+      "pricing_model": "0.75% AUM + $15,000",
+      "margin": 68
+    },
+    {
+      "name": "Executive Package",
+      "components": [
+        "Equity compensation planning",
+        "10b5-1 plans",
+        "Concentrated position management",
+        "Insider trading windows"
+      ],
+      "pricing_model": "$25,000 flat + 0.5% AUM",
+      "margin": 73
+    }
+  ],
+  "upsell_paths": [
+    "Free portfolio review → Paid comprehensive plan ($2,500) → Ongoing management (1% AUM)",
+    "Tax preparation client ($500) → Tax planning ($2,500) → Investment management ($10,000+)",
+    "401k advice ($500) → IRA rollover management → Full wealth management",
+    "Investment only → Add tax planning (+$5,000) → Add estate planning (+$7,500) → Family office services (+$15,000)",
+    "Individual client → Spouse added (+50% revenue) → Adult children added (+30% each) → Parents added (+40%)",
+    "Traditional portfolios → Alternative investments (+0.25% fee) → Private equity access (+0.5% fee) → Direct deals (+1% fee)"
+  ],
+  "retention_hooks": [
+    "Annual tax savings report showing 3x+ fee value keeps 91% of clients beyond year 2",
+    "Quarterly family financial education events create emotional connection and 8-year average tenure",
+    "Client advisory board participation increases retention to 97% for involved members",
+    "Proprietary mobile app with daily engagement creates 73% higher lifetime value",
+    "Multi-generational planning involving adult children reduces attrition by 82%",
+    "Concierge services for travel, tickets, reservations create lifestyle dependency worth 2.3 years added tenure",
+    "Annual strategic planning retreats for top 20% of clients generate 14-year average relationships"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Tax savings celebration letter",
+      "timing": "April after filing",
+      "incentive": "$500 donation to charity of choice",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Portfolio milestone announcements",
+      "timing": "When account hits round numbers",
+      "incentive": "Exclusive investment opportunity access",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Client appreciation events",
+      "timing": "Quarterly wine tastings or golf outings",
+      "incentive": "Bring a successful friend free",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Professional alliance program",
+      "timing": "After successful CPA/attorney collaboration",
+      "incentive": "Reciprocal referral agreement",
+      "conversion_rate": 67
+    },
+    {
+      "strategy": "Family expansion program",
+      "timing": "After 18 months of service",
+      "incentive": "Discounted fees for family members",
+      "conversion_rate": 51
+    },
+    {
+      "strategy": "Success story sharing",
+      "timing": "After major financial milestone achieved",
+      "incentive": "Featured in newsletter and social media",
+      "conversion_rate": 38
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Tax preparation",
+      "attach_rate": 73,
+      "timing": "January-March after first investment year"
+    },
+    {
+      "service": "Estate planning",
+      "attach_rate": 61,
+      "timing": "After portfolio exceeds $1M or age 50"
+    },
+    {
+      "service": "Insurance review",
+      "attach_rate": 44,
+      "timing": "During annual planning meeting"
+    },
+    {
+      "service": "Business planning",
+      "attach_rate": 31,
+      "timing": "When self-employment income identified"
+    },
+    {
+      "service": "Mortgage optimization",
+      "attach_rate": 28,
+      "timing": "When rates drop 0.75% or relocation"
+    },
+    {
+      "service": "Education planning",
+      "attach_rate": 52,
+      "timing": "When children reach age 5"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Corporate 401k management",
+      "market_size": "$500M in local plans",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Nonprofit endowment management",
+      "market_size": "$200M in foundations",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Divorce financial planning specialty",
+      "market_size": "2,000 high-net-worth divorces annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Crypto and digital asset management",
+      "market_size": "$50M in client holdings",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Impact investing solutions",
+      "market_size": "30% of millennials interested",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Subscription model for mass affluent",
+      "market_size": "10,000 prospects $100-250K",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Vanguard's 'How America Saves' annual report - comprehensive 401(k) data analysis shared across LinkedIn with interactive data visualizations showing retirement savings trends, contribution rates, and asset allocation patterns",
+        "platform": "LinkedIn",
+        "why_it_worked": "Data-driven content positioning Vanguard as thought leader; provided actionable benchmarks advisors and individuals could use; annual cadence created anticipation; free valuable resource with no sales pitch",
+        "metrics": "Report downloaded over 50,000 times annually; LinkedIn posts sharing insights averaged 2,500+ engagements; cited by major financial publications",
+        "source": "Vanguard Institutional Investor Group research publications and Content Marketing Institute financial services case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Ritholtz Wealth Management's 'The Compound' blog and podcast featuring CEO Josh Brown - weekly market commentary blending data, humor, and plain-English explanations of complex financial topics",
+        "platform": "Blog/Podcast/Twitter",
+        "why_it_worked": "Authentic voice breaking industry jargon; consistent weekly publishing built loyal audience; CEO as face of brand created trust; cross-platform distribution maximized reach; addressed real-time market events",
+        "metrics": "Podcast averages 50,000+ downloads per episode; blog posts generate 500-2,000 social shares; Twitter following over 1.4M; firm grew from $500M to $3B+ AUM partially attributed to content marketing",
+        "source": "Ritholtz Wealth Management public metrics, Barron's profile on Josh Brown's digital strategy, AdvisorPerspectives.com",
+        "confidence": "high"
+      },
+      {
+        "example": "Morgan Stanley's 'Tax Loss Harvesting' video series on YouTube during Q4 - short 2-3 minute educational videos explaining year-end tax strategies with clear CTAs to schedule advisor consultations",
+        "platform": "YouTube",
+        "why_it_worked": "Timely seasonal content aligned with tax planning urgency; bite-sized format fit busy professionals; addressed specific high-value pain point; professional production quality built credibility; clear next step provided",
+        "metrics": "Videos averaged 15,000-25,000 views; 4.2% click-through rate to consultation booking page; 18% conversion rate from consultation to new client relationship",
+        "source": "Financial Planning Association conference presentation on digital marketing ROI, YouTube analytics",
+        "confidence": "medium"
+      },
+      {
+        "example": "Fidelity's 'Viewpoints' article series featuring 'The 50/30/20 budget rule' and retirement planning calculators - evergreen educational content optimized for SEO with interactive tools",
+        "platform": "Website/SEO",
+        "why_it_worked": "Solved immediate practical problems; interactive calculators increased engagement time; SEO optimization captured high-intent search traffic; no account required to access built trust; clear pathway to services",
+        "metrics": "Budget rule article receives 200,000+ organic visits monthly; average time on page 4:30 minutes; 12% of visitors create Fidelity accounts within 30 days",
+        "source": "Fidelity Viewpoints public traffic data, SEMrush financial services content analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Charles Schwab's market volatility email campaigns during major market events (2022 bear market, 2023 banking crisis) - timely perspective emails sent within 24 hours of major market moves with reassuring data and historical context",
+        "platform": "Email",
+        "why_it_worked": "Addressed immediate anxiety during high-stress moments; data-driven reassurance vs emotional reaction; speed demonstrated attentiveness; reinforced advisor value during volatility; reduced panic selling",
+        "metrics": "Open rates 42-58% during volatility events vs 22% baseline; click-through rates 8-12%; phone call volume to advisors increased 35% (positive engagement); client retention during 2022 bear market exceeded industry average by 4%",
+        "source": "Schwab Advisor Services marketing benchmarks report, Financial Planning magazine case study",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.5-2.8% for financial services (higher than 0.9% cross-industry average)",
+        "best_content_format": "Document posts (carousels) and native video perform best; data visualizations and charts generate 3x engagement vs text-only; personal stories from advisors outperform corporate announcements",
+        "optimal_frequency": "3-5 posts per week for company pages; daily posting for individual advisors; consistency more important than volume",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 12-1 PM EST; avoid Mondays (market open chaos) and Fridays (lowest engagement); market event response posts perform well 4-6 PM",
+        "source": "Hootsuite 2024 Social Media Benchmarks Report, Sprout Social Financial Services Industry Report, LinkedIn Marketing Solutions B2B benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate 21-24% for financial services; click-through rate 2.5-3.2%; unsubscribe rate 0.2-0.3%",
+        "best_content_format": "Market commentary newsletters (weekly); educational series (monthly); personalized portfolio reviews (quarterly); plain text from individual advisor outperforms HTML templates by 18%",
+        "optimal_frequency": "Weekly for engaged subscribers; bi-weekly for general list; daily during major market events acceptable; monthly minimum to maintain awareness",
+        "best_posting_times": "Tuesday-Thursday 6-8 AM or 12-1 PM local time; avoid Monday mornings and Friday afternoons; end-of-quarter timing for tax/planning content",
+        "source": "Mailchimp 2024 Email Marketing Benchmarks, Constant Contact Financial Services Report, HubSpot State of Marketing 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "0.5-1.2% engagement rate (likes, comments, shares); 45-55% average view duration for financial content; 8-12 minute videos perform best for education",
+        "best_content_format": "Educational explainer videos (5-10 min); market commentary (3-5 min); client success stories (2-3 min); webinar recordings (30-45 min for existing audience); screen-share tutorials for tools",
+        "optimal_frequency": "Weekly uploads for active channels; bi-weekly minimum to maintain algorithm favor; batch filming recommended for consistency",
+        "best_posting_times": "Weekday evenings 6-9 PM when professionals research after work; Sunday afternoons 2-5 PM; avoid market hours when target audience is working",
+        "source": "Think with Google Financial Services insights, Wistia Video Marketing Statistics 2024, VidIQ YouTube benchmarks"
+      },
+      {
+        "platform": "Twitter/X",
+        "avg_engagement_rate": "0.3-0.8% for financial services; real-time market commentary drives highest engagement; thread format increases engagement 2-3x vs single tweets",
+        "best_content_format": "Market commentary threads; data visualizations/charts; quick takes on financial news; polls about investor sentiment; links to longer-form content",
+        "optimal_frequency": "3-8 tweets per day for active accounts; real-time responses during market events; consistency matters more than volume",
+        "best_posting_times": "Weekdays 8-10 AM and 3-6 PM EST (market open/close); breaking financial news response immediate; avoid weekends unless major event",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Twitter Business financial services data, Sprout Social industry benchmarks"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.4-0.9% for B2B financial services (lower than B2C); younger advisor demographic (under 45) sees higher engagement; visual financial education performs best",
+        "best_content_format": "Carousel posts with financial tips/data (highest engagement); short-form Reels explaining concepts (15-30 sec); infographics; behind-scenes of advisor life; client testimonial graphics",
+        "optimal_frequency": "4-6 posts per week; daily Stories for active accounts; 3-5 Reels per week for growth; quality over quantity critical",
+        "best_posting_times": "Weekdays 11 AM-1 PM and 7-9 PM; Wednesdays and Thursdays highest engagement; weekend mornings 9-11 AM for lifestyle content",
+        "source": "Later.com 2024 Instagram Engagement Report, Hootsuite Social Media Trends, financial advisor marketing surveys from Broadridge"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Contrarian/Myth-Busting: 'Everyone says X, but here's why Y is actually true'",
+        "example": "'Most advisors tell you to max out your 401(k). Here's why that could be costing you $100K+' or 'The retirement rule everyone follows that could leave you broke'",
+        "why_it_works": "Challenges conventional wisdom creating curiosity gap; positions advisor as independent thinker; appeals to sophisticated investors who want edge; pattern interrupt in feed of generic advice",
+        "source": "Analysis of top-performing financial advisor LinkedIn posts, Kitces.com marketing research"
+      },
+      {
+        "hook_pattern": "Specific Number + Timeframe: 'X things in Y time that led to Z outcome'",
+        "example": "'3 tax moves before December 31st that saved clients $47,000 average' or '5 portfolio changes in Q4 that protected $2M+ from bear market'",
+        "why_it_works": "Specificity builds credibility; deadline creates urgency; concrete outcome demonstrates value; easy to scan and share; promises actionable takeaways",
+        "source": "Financial Planning magazine headline analysis, advisor email subject line A/B testing data from Broadridge"
+      },
+      {
+        "hook_pattern": "Mistake/Warning: 'The [costly mistake] I see [target audience] make'",
+        "example": "'The $500K mistake I see successful executives make with their RSUs' or 'Why your CPA's advice could trigger a 6-figure tax bomb'",
+        "why_it_works": "Fear of loss stronger motivator than potential gain; targets specific audience creating relevance; positions advisor as protector; implies insider knowledge",
+        "source": "Reddit r/financialplanning top posts analysis, investment advisor content marketing case studies"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes/Transparency: 'Here's exactly how we [process] for [client type]'",
+        "example": "'Here's the exact 7-step process we use when a client receives a $1M+ windfall' or 'What really happens in your first meeting with us (no sales pitch)'",
+        "why_it_works": "Transparency builds trust in skeptical industry; demystifies advisor relationship; reduces anxiety about unknown process; differentiates from opaque competitors",
+        "source": "Ritholtz Wealth Management blog analysis, Advisor Perspectives top content review"
+      },
+      {
+        "hook_pattern": "Timely Event Tie-In: 'What [current event] means for your [specific financial situation]'",
+        "example": "'Fed rate cut: 3 immediate moves for retirees with $1M+ in bonds' or 'New tax law: How business owners can save $30K+ in 2024'",
+        "why_it_works": "Leverages existing awareness and anxiety; demonstrates advisor is current and responsive; creates urgency; shows relevance to individual situation",
+        "source": "Schwab Advisor Services email marketing benchmarks, financial news headline performance analysis"
+      },
+      {
+        "hook_pattern": "Question That Reveals Gap: 'Do you know [specific thing sophisticated people should know]?'",
+        "example": "'Do you know your portfolio's tax-cost ratio? (Most $5M+ investors don't)' or 'Can you explain your estate plan to your kids in 60 seconds?'",
+        "why_it_works": "Self-assessment creates engagement; reveals knowledge gap without shame; implies sophistication of advisor; targets specific wealth level; easy to answer mentally",
+        "source": "Fidelity Viewpoints engagement analysis, LinkedIn poll performance data for financial advisors"
+      },
+      {
+        "hook_pattern": "Personal Story Opening: 'A client came to me [situation] and here's what we discovered'",
+        "example": "'A client came to me paying $80K in taxes. We found $35K in savings her CPA missed' or 'Client retired with $3M. Was broke in 7 years. Here's what went wrong'",
+        "why_it_works": "Story format increases retention and sharing; creates relatability; demonstrates real-world expertise; builds credibility through specifics; emotional connection",
+        "source": "StoryBrand framework application in financial services, advisor podcast analysis, client testimonial research"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I have no idea if I'm on track for retirement",
+        "I'm paying way too much in taxes and don't know what I'm missing",
+        "My investments are all over the place and I can't get a clear picture",
+        "I'm terrified of running out of money in retirement",
+        "Every advisor I talk to just wants to sell me something",
+        "I don't trust anyone with my money after [market crash/Bernie Madoff/etc]",
+        "My current advisor never calls unless they want to sell me something",
+        "I have no clue what I'm paying in fees and if it's worth it",
+        "I'm overwhelmed by all the financial decisions I need to make",
+        "I inherited this money and I'm scared of screwing it up",
+        "The market keeps dropping and I don't know if I should do anything",
+        "I'm successful at my job but feel like an idiot with money",
+        "My spouse and I fight about money constantly",
+        "I have all this money in my 401k but no plan for what's next"
+      ],
+      "solution_phrases": [
+        "I finally have a clear plan and know exactly what I need to do",
+        "I can see all my accounts in one place and actually understand where I stand",
+        "Someone who explains things in plain English without talking down to me",
+        "I sleep better at night knowing there's a strategy in place",
+        "They showed me exactly what I'm paying and why it's worth it",
+        "I have a written plan I can actually follow when markets get crazy",
+        "They found tax savings my CPA completely missed",
+        "My advisor actually picks up the phone when I'm worried",
+        "I know my family will be taken care of if something happens to me",
+        "Everything is coordinated - investments, taxes, estate planning all work together",
+        "I'm not worried about running out of money anymore",
+        "They helped me understand without making me feel stupid",
+        "I have confidence in my retirement date now",
+        "Someone who has my back and isn't just selling products"
+      ],
+      "objection_phrases": [
+        "I can't justify paying 1% when I can do this myself for free",
+        "How do I know you're not going to churn my account for commissions?",
+        "I don't have enough money to work with a real advisor",
+        "My brother-in-law is a broker and does this for free",
+        "I'll just wait until the market settles down",
+        "I need to talk to my spouse first",
+        "What if I need my money back - am I locked in?",
+        "I had a bad experience with an advisor before",
+        "Can't I just use a robo-advisor for way less money?",
+        "I don't want to give up control of my money",
+        "How do I know you won't lose everything in the next crash?",
+        "I'm not old enough to need financial planning yet",
+        "The fees seem really high for what you're doing"
+      ],
+      "decision_factors": [
+        "I wanted someone who would take time to understand my full situation",
+        "The fee structure was completely transparent from the start",
+        "They had experience with people in my exact situation [doctors/executives/business owners]",
+        "I could tell they weren't going to pressure me into anything",
+        "Their credentials and how long they've been doing this",
+        "Other people like me recommended them",
+        "They explained everything in a way I could actually understand",
+        "I felt like they were on my side, not just selling",
+        "They showed me a clear plan, not just vague promises",
+        "The technology platform was easy to use and I could see everything",
+        "They were responsive when I had questions or concerns",
+        "They coordinated with my CPA and attorney",
+        "I liked that they're fiduciaries and have to put me first",
+        "The minimum wasn't so high I felt like a small fish"
+      ],
+      "emotional_language": [
+        "terrified of making a mistake",
+        "overwhelmed by all the options",
+        "peace of mind",
+        "finally feel confident",
+        "scared of running out",
+        "anxious every time the market drops",
+        "relief knowing someone is watching",
+        "frustrated with my current advisor",
+        "worried I'm missing something",
+        "embarrassed I don't understand this",
+        "stressed about my family's future",
+        "confused by all the jargon",
+        "angry I've been overpaying",
+        "grateful someone finally explained it",
+        "reassured there's a plan"
+      ],
+      "sources": [
+        "Reddit r/financialplanning user posts and comments (2023-2024)",
+        "Reddit r/personalfinance investment advisor threads",
+        "Bogleheads.org forum discussions on hiring advisors",
+        "Google Reviews for top RIA firms (Vanguard Personal Advisor, Schwab Intelligent Portfolios, Betterment Premium)",
+        "Yelp reviews for local investment advisory firms",
+        "Trustpilot reviews for online advisory services",
+        "Client testimonials from advisor websites (Fisher Investments, Edelman Financial, Creative Planning)",
+        "Financial advisor subreddit discussions",
+        "Kitces.com blog comments from consumers",
+        "White Coat Investor forum physician discussions on advisors"
+      ]
+    },
+    "competitive_gaps": [
+      "Video content showing actual client meeting processes - most firms talk about their process but don't show it, creating mystery and anxiety",
+      "Transparent fee breakdowns and ROI calculations - competitors hide behind 'it depends' rather than showing specific value scenarios",
+      "Real-time market commentary during volatility - most advisors go silent exactly when clients are most anxious",
+      "Advisor personality and team culture content - industry is overly corporate; opportunity to humanize through behind-scenes content",
+      "Niche-specific content for underserved markets (physicians, tech employees with equity comp, small business owners, divorcees) - most content is generic",
+      "Interactive tools and calculators that don't require email capture - competitors gate everything, creating friction",
+      "Mistake/failure content - industry afraid to show vulnerability; opportunity to build trust through transparency about what can go wrong",
+      "Comparison content (fee structures, service models, when to use different types of advisors) - industry avoids direct comparisons",
+      "Client success story video case studies with actual numbers - testimonials exist but rarely show specific outcomes",
+      "Tax planning content that goes beyond generic tips - deep, actionable tax strategy content is rare and highly valued",
+      "Coordinated multi-generational wealth planning content - most focus on individual, not family system",
+      "Technology walkthrough content showing platforms and tools - firms mention tech but don't demonstrate it"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - Q1",
+        "opportunity": "New year financial resolutions; tax documents arriving; 401k contribution limit increases; annual bonus decisions for executives",
+        "content_angle": "Year-end tax recap and planning for current year; retirement contribution strategy; bonus allocation optimization; financial goal-setting frameworks; IRA contribution deadlines (April 15)"
+      },
+      {
+        "period": "March - April (Tax Season)",
+        "opportunity": "Tax filing deadline; tax refund decisions; tax bill shock; last-minute IRA contributions; estimated tax payment stress",
+        "content_angle": "What to do with tax refunds; tax-loss harvesting education for next year; Roth conversion opportunities; estimated tax planning; tax filing extension strategies; working with CPAs"
+      },
+      {
+        "period": "May - June (Graduation/Wedding Season)",
+        "opportunity": "College graduations triggering parent financial transitions; weddings creating financial planning needs; summer planning with more free time",
+        "content_angle": "Empty nester financial planning; combining finances for newlyweds; education funding completion and redirection; mid-year financial checkup; summer reading lists for financial education"
+      },
+      {
+        "period": "September - October (Back to School/Q4 Planning)",
+        "opportunity": "Return from summer with renewed focus; Q4 planning urgency building; open enrollment for benefits; market historically volatile in October",
+        "content_angle": "Year-end tax planning strategies; benefits optimization during open enrollment; college funding for current academic year; Q4 portfolio positioning; charitable giving strategies before year-end"
+      },
+      {
+        "period": "November - December (Year-End)",
+        "opportunity": "Tax-loss harvesting window; charitable giving surge; required minimum distributions (RMDs) deadline; annual gifting limits; benefit enrollment; bonus announcements",
+        "content_angle": "Tax-loss harvesting execution; charitable giving strategies (donor-advised funds, QCDs); RMD planning; Roth conversion opportunities; annual gifting to family; executive bonus tax planning; year-in-review market commentary"
+      },
+      {
+        "period": "Market Volatility Events (Ongoing)",
+        "opportunity": "10%+ market swings; Fed rate decisions; recession fears; banking crises; geopolitical events",
+        "content_angle": "Real-time perspective emails; historical context for current volatility; rebalancing opportunities; staying disciplined messaging; what we're doing for clients now; tax-loss harvesting in down markets"
+      },
+      {
+        "period": "Retirement Milestones (Age-Based)",
+        "opportunity": "Age 50 (catch-up contributions); Age 59.5 (penalty-free withdrawals); Age 62 (early Social Security); Age 65 (Medicare); Age 70 (max Social Security); Age 73 (RMDs start 2024)",
+        "content_angle": "Age-specific planning guides; Social Security claiming strategies; Medicare enrollment education; RMD planning and tax implications; catch-up contribution strategies; penalty-free withdrawal planning"
+      },
+      {
+        "period": "Quarterly Earnings Season",
+        "opportunity": "Corporate earnings drive market movement; executive compensation decisions; stock option exercises; RSU vesting",
+        "content_angle": "Executive compensation planning; stock option exercise strategies; RSU tax planning; concentrated stock position management; earnings volatility perspective"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Vanguard Institutional Investor Group research publications",
+      "Content Marketing Institute financial services case studies",
+      "Ritholtz Wealth Management public metrics and blog",
+      "Barron's advisor marketing profiles",
+      "AdvisorPerspectives.com industry research",
+      "Financial Planning Association conference materials",
+      "Fidelity Viewpoints analytics",
+      "SEMrush financial services content analysis",
+      "Schwab Advisor Services marketing benchmarks",
+      "Hootsuite 2024 Social Media Benchmarks Report",
+      "Sprout Social Financial Services Industry Report",
+      "LinkedIn Marketing Solutions B2B benchmarks",
+      "Mailchimp 2024 Email Marketing Benchmarks",
+      "Constant Contact Financial Services Report",
+      "HubSpot State of Marketing 2024",
+      "Think with Google Financial Services insights",
+      "Wistia Video Marketing Statistics 2024",
+      "VidIQ YouTube benchmarks",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com 2024 Instagram Engagement Report",
+      "Kitces.com marketing research and blog analysis",
+      "Reddit r/financialplanning and r/personalfinance forums",
+      "Bogleheads.org forum discussions",
+      "Google Reviews, Yelp, and Trustpilot for major RIA firms",
+      "White Coat Investor forum discussions",
+      "Financial advisor marketing surveys from Broadridge"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "TikTok and Instagram Reels specific engagement data for investment advisors is limited - platform still emerging for B2B financial services",
+      "Precise conversion rate data from content to clients is proprietary and rarely published; estimates based on case studies and conference presentations",
+      "Some customer voice quotes synthesized from multiple similar statements in reviews to protect individual privacy while maintaining authenticity",
+      "Smaller RIA firm performance data limited compared to major brands; benchmarks skew toward larger firms with public data",
+      "A/B testing data for specific hooks is rarely published; effectiveness assessment based on engagement patterns and marketing expert analysis"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new advisory services, planning tools, or service tier expansions",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The hidden cost of fragmented financial planning - why coordinated advice matters now",
+        "Week 2: Introducing [Service Name]: The comprehensive solution to [specific pain point like tax drag or retirement uncertainty]",
+        "Week 3: Real client outcomes - how [Service] delivered $[X] in value for [client type]",
+        "Week 4: Limited availability - secure your spot before year-end tax planning deadline"
+      ],
+      "weekly_hooks": [
+        [
+          "Most $1M+ investors have 8-12 accounts scattered across platforms. Here's what this fragmentation is costing you in taxes and missed opportunities...",
+          "A client came to me paying $47K in unnecessary taxes because their investments, estate plan, and retirement accounts weren't coordinated. Here's what we discovered...",
+          "Do you know your portfolio's total tax-cost ratio? (Most investors with $2M+ don't - and it's costing them 1.8% annually)"
+        ],
+        [
+          "We've spent 18 months building something that solves the #1 problem I hear from successful professionals: 'I have no clear picture of whether I'm actually on track'",
+          "The $500K mistake I see executives make with their equity compensation - and the 7-step process we built to prevent it",
+          "Everyone says diversify your portfolio. Here's why that could be costing you $100K+ in taxes without our new integrated planning approach"
+        ],
+        [
+          "3 tax moves before December 31st that saved our first clients an average of $35,000 using [Service Name]",
+          "A client retired with $3M and was on track to run out in 12 years. Here's exactly how our new [Service] extended that to 30+ years with 95% confidence",
+          "Here's the exact process we use when a client receives a $1M+ windfall - now available through our expanded [Service Name]"
+        ],
+        [
+          "Fed rate environment + new tax laws = perfect storm for strategic planning. Here's why the next 60 days matter for 2024 taxes",
+          "Only 15 spots remaining for year-end onboarding. Here's what happens in your first 30 days with our comprehensive [Service]",
+          "The retirement planning mistake everyone makes that could leave you broke - and why our new guaranteed process eliminates this risk"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can manage myself with index funds' - show complexity of coordinated planning beyond investment returns",
+        "Week 2: Address 'I don't have enough assets for your minimum' - introduce tiered service with emerging wealth program starting at $250K",
+        "Week 3: Address 'My returns haven't beaten the S&P 500' - demonstrate risk-adjusted returns, tax alpha, and planning value beyond performance",
+        "Week 4: Address 'Fees seem high at 1% AUM' - show tax savings of 2.8% annually plus comprehensive value delivered"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce credentials and fiduciary standard - CFP, CFA, years of experience serving [niche]",
+        "Week 2: Share beta client feedback and early results - specific dollar amounts saved or retirement years gained",
+        "Week 3: Feature 2-3 detailed case studies with actual numbers - tax savings, portfolio optimization, retirement confidence scores",
+        "Week 4: Final credibility push - industry recognition, technology platform superiority, limited capacity reasoning"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide: 'The Hidden Costs of Fragmented Financial Planning' - educational resource",
+        "Week 2: Watch 3-minute video walkthrough of [Service Name] - see exactly how it works with no obligation",
+        "Week 3: Read full case study: How we saved [Client Type] $35K in first year - builds confidence through proof",
+        "Week 4: Schedule your complimentary portfolio and tax review (15 spots remaining before December 31st) - urgent conversion CTA"
+      ],
+      "platform_priority": [
+        "LinkedIn (5 posts/week) - primary platform for professional audience, document posts for service details",
+        "Email (3 sends over 4 weeks) - existing list gets exclusive early access, plain text from advisor",
+        "YouTube (2 videos) - detailed service walkthrough and client success story interview",
+        "Twitter/X (daily) - real-time commentary tying service to current market events"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Morgan Stanley's Tax Loss Harvesting video series success (18% consultation-to-client conversion) and Schwab's timely market volatility emails (42-58% open rates). Launch timing aligns with Q4 tax planning seasonal opportunity when urgency peaks and year-end deadline creates natural scarcity."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and nurturing prospects",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Retirement adequacy assessment - am I actually on track?",
+        "Week 2: Tax optimization strategies most CPAs miss",
+        "Week 3: Investment behavioral psychology - staying disciplined during volatility",
+        "Week 4: Estate planning coordination for families with $1M+ net worth",
+        "Week 5: Executive compensation complexity - RSUs, options, and concentrated positions",
+        "Week 6: Social Security and Medicare optimization for high earners",
+        "Week 7: Multi-generational wealth transfer and family governance",
+        "Week 8: Year-end financial checklist and planning opportunities"
+      ],
+      "weekly_hooks": [
+        [
+          "Can you explain your retirement plan to your spouse in 60 seconds? Here's the framework 95% of our successful retirees use...",
+          "Most people with $2M saved have no idea if they can actually retire. Here's the 3-number test that tells you immediately",
+          "A client asked me 'Am I on track?' - I showed them their 87% probability of success. Here's how we calculate that..."
+        ],
+        [
+          "Your CPA files your taxes. Here's why that's different from tax planning - and the $35K+ difference for high earners",
+          "The tax strategy I see successful business owners miss that costs them $50K+ annually (and takes 20 minutes to implement)",
+          "3 tax moves before December 31st that our clients use to save an average of $28,000 - here's the exact playbook"
+        ],
+        [
+          "Market dropped 12% this month. Here's the email I sent clients (and why none of them panicked)",
+          "The biggest mistake I see investors make during volatility: checking their accounts daily. Here's what to do instead...",
+          "A client called terrified about a 15% market drop. Here's the historical data I showed them that changed everything"
+        ],
+        [
+          "Most estate plans sit in a drawer and are never coordinated with investments. Here's why that creates a $200K+ problem",
+          "Do your kids know your estate plan? 73% of families never discuss it. Here's the conversation framework we use...",
+          "The estate planning mistake that costs families $500K+ in unnecessary taxes - and how to fix it this quarter"
+        ],
+        [
+          "The $500K mistake I see tech executives make with their RSUs - and the exact 7-step process to avoid it",
+          "Everyone says diversify. Here's why selling concentrated stock positions triggers massive tax bills - and 4 strategies that don't",
+          "A physician came to me with $2M in employer stock. Here's how we diversified without a $400K tax bomb"
+        ],
+        [
+          "Most high earners claim Social Security wrong and lose $100K+ lifetime benefits. Here's the optimization framework",
+          "Medicare at 65 seems simple. For $200K+ earners, IRMAA surcharges change everything. Here's what you need to know...",
+          "The Social Security claiming mistake 68% of couples make - and the strategy that maximizes household benefits"
+        ],
+        [
+          "Passing wealth to kids: Here's why giving them money without preparation destroys 70% of inheritances within one generation",
+          "A family came to me with $10M and three adult children. Here's the governance structure we built to preserve it for generations",
+          "The conversation successful families have about money that prevents the 'shirtsleeves to shirtsleeves' curse"
+        ],
+        [
+          "December 31st tax deadline approaching: Here's the prioritized checklist for $500K+ earners (start with #3)",
+          "5 year-end financial moves that take less than 2 hours but save our clients $15K+ on average",
+          "What we're doing for clients right now before year-end: tax-loss harvesting, Roth conversions, and charitable bunching explained"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Establish value beyond investment returns - planning, tax strategy, coordination",
+        "Week 3-4: Address control concerns - show transparency in process, client maintains ownership",
+        "Week 5-6: Handle DIY objection - demonstrate complexity that self-directed investors miss",
+        "Week 7-8: Justify fees - show tax alpha, behavioral coaching value, time savings quantified"
+      ],
+      "proof_timing": [
+        "Week 1: Share client testimonial about peace of mind and retirement confidence",
+        "Week 2-3: Reference specific tax savings case study with dollar amounts",
+        "Week 4-5: Feature credentials and continuing education commitment",
+        "Week 6: Share third-party research (Vanguard Advisor Alpha, Morningstar studies)",
+        "Week 7: Client success story video or detailed written case study",
+        "Week 8: Year-end results summary - aggregate client outcomes and benchmarks"
+      ],
+      "cta_progression": [
+        "Week 1-2: Download educational guide or use free calculator - no email gate",
+        "Week 3-4: Comment with your biggest [topic] question - engagement focus",
+        "Week 5-6: Subscribe to weekly market commentary - soft list building",
+        "Week 7: Schedule complimentary second opinion review - conversion offer",
+        "Week 8: Year-end planning consultation (limited availability) - urgency-based conversion"
+      ],
+      "platform_priority": [
+        "LinkedIn (4 posts/week) - primary authority building platform, mix of articles and document posts",
+        "Email (weekly newsletter) - consistent market commentary and planning tips, plain text format",
+        "Blog/Website (weekly long-form) - SEO-optimized educational content, evergreen resources",
+        "YouTube (bi-weekly) - 5-10 minute educational videos on weekly themes"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Ritholtz Wealth Management's consistent weekly publishing success (50K+ podcast downloads, $500M to $3B+ AUM growth) and Fidelity Viewpoints' evergreen educational model (200K+ monthly organic visits, 12% account creation rate). Addresses competitive gap of niche-specific content for underserved markets while maintaining educational focus that builds trust."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging timely market events or seasonal opportunities",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Real-time market event response - what [Fed decision/market drop/crisis] means for your specific situation",
+        "Week 2: Actionable strategies to capitalize on current environment - turning volatility into opportunity"
+      ],
+      "weekly_hooks": [
+        [
+          "Fed just cut rates 0.5%. Here's what this means for retirees with $1M+ in bonds - 3 immediate moves to consider",
+          "Market dropped 15% in 3 weeks. Here's the exact email I sent to clients at 4 PM today (and why none are panicking)",
+          "Everyone's talking about [current event]. Here's what nobody's telling you about the impact on your [retirement/taxes/portfolio]",
+          "The market volatility question I've gotten 47 times this week - here's the data-driven answer with historical context",
+          "What really happens to your portfolio during [current event]? I analyzed 40 years of data - here's what I found"
+        ],
+        [
+          "Market chaos creates opportunity: 3 tax-loss harvesting moves to make this week that could save you $20K+",
+          "While everyone's panicking, here's the 5-step rebalancing process we're using for clients right now",
+          "The mistake I see investors making during this volatility that will cost them 18% over the next decade",
+          "Contrarian take: Here's why this market drop might be the best thing for your retirement plan",
+          "What we're actually doing in client portfolios right now - complete transparency on our current strategy"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'll just wait until the market settles down' - show why timing the market fails and opportunity cost of waiting",
+        "Week 2: Address 'I'm terrified of losing everything in the next crash' - historical data showing recovery patterns and disciplined approach"
+      ],
+      "proof_timing": [
+        "Week 1: Share immediate credibility - years navigating similar events, client retention during past crises",
+        "Week 2: Feature specific client outcome from previous volatility event - how staying disciplined paid off with numbers"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Download our 'Market Volatility Survival Guide' - immediate value, shareable resource",
+        "Week 1 Days 4-7: Join live Q&A session on [current event] - community engagement, low commitment",
+        "Week 2 Days 1-4: Read our detailed analysis: 'What History Tells Us About [Event]' - authority building",
+        "Week 2 Days 5-7: Schedule portfolio stress test - see how your specific situation holds up (urgent, timely offer)"
+      ],
+      "platform_priority": [
+        "Twitter/X (3-8 posts/day) - real-time commentary during market hours, thread format for analysis",
+        "LinkedIn (daily posts) - professional analysis with data visualizations, document posts for detailed breakdowns",
+        "Email (3 sends in 2 weeks) - timely perspective within 24 hours of major moves, plain text urgency",
+        "YouTube (2 videos) - 3-5 minute market commentary, screen-share of data analysis"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Charles Schwab's market volatility email success (42-58% open rates vs 22% baseline, 35% increase in positive client engagement) and competitive gap of real-time commentary during volatility when most advisors go silent. Leverages seasonal opportunity of market volatility events when anxiety peaks and advisor value becomes most apparent."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing deep expertise in specific niche",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The comprehensive landscape - state of [niche topic] in 2024 with original data analysis",
+        "Week 2: Common mistakes and misconceptions - myth-busting with evidence",
+        "Week 3: Advanced strategies - going beyond basic advice to sophisticated planning",
+        "Week 4: Case study deep-dive - detailed walkthrough of complex client situation",
+        "Week 5: Coordinated planning approach - how [topic] integrates with taxes, estate, investments",
+        "Week 6: Future outlook and positioning - preparing for upcoming changes and opportunities"
+      ],
+      "weekly_hooks": [
+        [
+          "I analyzed 500 client portfolios to find the average tax drag. The results shocked me: 2.3% annually for $1M+ investors. Here's the breakdown...",
+          "State of retirement planning 2024: Our data shows 68% of $2M+ households can't answer this one question about their plan",
+          "Everyone says you need $1M to retire. I ran the numbers on 200 actual retirements - here's what the data really shows"
+        ],
+        [
+          "The retirement rule everyone follows that could leave you broke: Why the 4% rule fails for early retirees and high earners",
+          "Most advisors tell you to max out your 401(k). Here's why that could be costing physicians and executives $100K+ in flexibility",
+          "Your CPA's advice could trigger a 6-figure tax bomb in retirement. Here's the RMD mistake I see constantly"
+        ],
+        [
+          "Advanced Roth conversion strategy: The 3-year window that saved a client $180K in lifetime taxes (with detailed math)",
+          "Beyond asset allocation: The 7-factor portfolio construction process we use for $5M+ clients",
+          "Tax-loss harvesting is table stakes. Here's the tax-gain harvesting strategy only 12% of advisors use"
+        ],
+        [
+          "A tech executive came to me with $4M in company stock. Here's the exact 18-month diversification plan we executed (with results)",
+          "Case study: How we helped a physician couple retire 5 years early with $2.8M instead of their target $4M",
+          "The complete financial plan for a $500K income business owner: investments, taxes, estate, insurance - all coordinated"
+        ],
+        [
+          "Why your investment strategy and estate plan are fighting each other (and costing you 1.2% annually in inefficiency)",
+          "Here's exactly how we coordinate with your CPA and attorney - the integration most advisors skip",
+          "The family financial system: How we align three generations around $10M in assets with zero conflicts"
+        ],
+        [
+          "2025 tax law changes: 3 planning moves to make now before rates potentially increase",
+          "Fed policy outlook: What the next 12 months means for bond portfolios and retiree income strategies",
+          "The wealth transfer tsunami: $84 trillion changing hands by 2045 - here's how to position your family"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Pre-empt 'This seems too complex for me' - break down sophisticated concepts into clear frameworks",
+        "Week 3: Address 'I can't justify paying for advice' - demonstrate value of advanced strategies unavailable to DIY investors",
+        "Week 4-5: Handle 'My situation is unique' - show breadth of experience with complex cases",
+        "Week 6: Counter 'I'll implement this myself' - reveal coordination complexity and error costs"
+      ],
+      "proof_timing": [
+        "Week 1: Establish credentials - advanced designations, years of specialization, continuing education",
+        "Week 2: Share original research or proprietary data analysis - demonstrate analytical rigor",
+        "Week 3: Reference third-party academic research and industry studies supporting strategies",
+        "Week 4: Present detailed case study with actual client numbers (anonymized) showing outcomes",
+        "Week 5: Feature professional network - CPAs, attorneys, other specialists you coordinate with",
+        "Week 6: Industry recognition - speaking engagements, publications, media mentions in niche"
+      ],
+      "cta_progression": [
+        "Week 1: Download comprehensive white paper on [niche topic] - substantial educational resource",
+        "Week 2: Access our proprietary calculator or assessment tool - interactive value demonstration",
+        "Week 3: Register for deep-dive webinar on advanced strategies - commitment to learning signals intent",
+        "Week 4: Request personalized case study - see how strategies apply to your situation",
+        "Week 5: Schedule strategy session with our [niche] specialist - qualified consultation offer",
+        "Week 6: Apply for our [niche] client program (limited capacity) - exclusive positioning creates urgency"
+      ],
+      "platform_priority": [
+        "LinkedIn (5 posts/week) - long-form articles, data visualizations, document posts for detailed analysis",
+        "Blog/Website (weekly 2000+ word articles) - SEO-optimized thought leadership, evergreen authority content",
+        "YouTube (weekly 8-12 minute videos) - detailed educational content, screen-share analysis",
+        "Email (weekly) - curated insights for existing audience, plain text from advisor builds intimacy"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Vanguard's 'How America Saves' annual report success (50K+ downloads, 2,500+ LinkedIn engagements, cited by major publications) demonstrating power of original data-driven research. Addresses competitive gap of deep niche-specific content for underserved markets like physicians, tech employees, and business owners while establishing differentiated expertise."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive financial decision-making - polls, questions, and community wisdom",
+        "Week 2: Behind-the-scenes transparency - humanizing the advisor relationship and process"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: When did you start seriously planning for retirement? A) 20s B) 30s C) 40s D) 50s+ (Comment why)",
+          "Quick question: What's the #1 financial decision you're struggling with right now? I'll answer the top 5 in tomorrow's post",
+          "Controversial take: Dollar-cost averaging is overrated for lump sum investors. Change my mind in the comments",
+          "Fill in the blank: 'I wish someone had told me about __________ before I turned 40.' (I'll share the best answers)",
+          "What's the worst financial advice you've ever received? I'll start: 'Your home is your best investment'"
+        ],
+        [
+          "Here's what really happens in your first meeting with us - no sales pitch, I promise. (Video walkthrough)",
+          "Behind the scenes: Here's my actual morning routine on a market open day (coffee, data review, client check-ins)",
+          "I made a $50K mistake in my own portfolio 10 years ago. Here's what I learned and how it made me a better advisor",
+          "Ask me anything: I'm answering every question in the comments for the next 2 hours - nothing off limits",
+          "Here's the exact tech stack we use to manage $500M - complete transparency on platforms, tools, and why we chose them",
+          "What nobody tells you about being a financial advisor: The 3 AM client calls during market crashes and why I wouldn't change it",
+          "My team's Friday afternoon ritual: Reviewing the week's client wins. Here's what made us proud this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Every advisor I talk to just wants to sell me something' - demonstrate genuine engagement without pitch",
+        "Week 2: Address 'I don't trust anyone with my money' - build trust through vulnerability and transparency"
+      ],
+      "proof_timing": [
+        "Week 1: Share community wisdom - aggregate poll results showing collective experience",
+        "Week 2: Behind-scenes credibility - show real work, real tools, real process without polish"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-4: Comment with your answer/experience - pure engagement, no ask",
+        "Week 1 Days 5-7: Tag someone who needs to see this - amplification through sharing",
+        "Week 2 Days 1-3: Share your biggest question - AMA format, giving not taking",
+        "Week 2 Days 4-7: DM me for the full process document - soft conversion, relationship building"
+      ],
+      "platform_priority": [
+        "LinkedIn (daily posts) - polls, questions, and discussion posts for professional engagement",
+        "Instagram (daily Stories, 5 feed posts/week) - behind-scenes content, team culture, humanizing",
+        "Twitter/X (5-8 posts/day) - quick polls, hot takes, real-time interaction",
+        "Facebook Groups (if applicable, 3 posts/week) - community discussion, longer engagement threads"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on competitive gap of advisor personality and team culture content - industry is overly corporate with opportunity to humanize through behind-scenes transparency. Addresses customer voice theme of wanting 'someone who explains things in plain English without talking down to me' and 'authentic voice' success of Ritholtz Wealth Management's personal brand approach."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The $[DOLLAR_AMOUNT] mistake I see [TARGET_AUDIENCE] make with their [FINANCIAL_INSTRUMENT]:\n\nMost people don't realize [COMMON_MISCONCEPTION]. Here's what's actually happening:\n\n→ Problem: [SPECIFIC_ISSUE]\n→ Hidden Cost: $[ANNUAL_COST] per year\n→ Compounded Over [TIMEFRAME]: $[TOTAL_COST]\n\nWhat to do instead:\n\n1. [ACTION_STEP_1]\n2. [ACTION_STEP_2]\n3. [ACTION_STEP_3]\n\nReal example: A client came to us [BRIEF_SITUATION]. We [SOLUTION_IMPLEMENTED] and saved $[AMOUNT_SAVED] in the first year alone.\n\nAre you making this mistake? Drop a comment or DM me for a complimentary portfolio review.\n\n#FinancialPlanning #[NICHE_HASHTAG] #RetirementPlanning #WealthManagement #TaxStrategy",
+        "framework": "PAS",
+        "character_count": "850-1200",
+        "notes": "Problem-Agitate-Solution framework. Hook reveals costly mistake in first 200 chars. Uses contrarian pattern and specific numbers from research."
+      },
+      "authority": {
+        "template": "Everyone's talking about [CURRENT_MARKET_EVENT]. Here's what the data actually shows:\n\n📊 Analysis of [X] similar events since [YEAR]:\n\n• Average drawdown: [PERCENTAGE]%\n• Average recovery time: [TIMEFRAME]\n• Portfolios that stayed invested: [OUTCOME]\n• Portfolios that sold: [NEGATIVE_OUTCOME]\n\nWhat we're doing for clients right now:\n\n✓ [STRATEGIC_ACTION_1]\n✓ [STRATEGIC_ACTION_2]\n✓ [STRATEGIC_ACTION_3]\n\nThe investors who win aren't the ones who predict the market. They're the ones who have a plan and stick to it.\n\nWe've documented this in our latest analysis: [REPORT_TITLE]. Download the full report here: [LINK]\n\nWhat's your biggest concern about [MARKET_EVENT]? Let's discuss in the comments.\n\n#MarketAnalysis #InvestmentStrategy #FinancialAdvisor #WealthManagement #DataDriven",
+        "framework": "AIDA",
+        "character_count": "900-1300",
+        "notes": "Attention with timely event, Interest with data, Desire through strategic actions, Action via report download. Mirrors Vanguard's data-driven approach."
+      },
+      "promotional": {
+        "template": "A [CLIENT_TYPE] came to me [TIMEFRAME_AGO] with $[PORTFOLIO_SIZE] and [PAINFUL_SITUATION].\n\nThey were:\n❌ [PAIN_POINT_1]\n❌ [PAIN_POINT_2]\n❌ [PAIN_POINT_3]\n\nToday they have:\n✅ [TRANSFORMATION_1]\n✅ [TRANSFORMATION_2]\n✅ [TRANSFORMATION_3]\n\nThe difference? A comprehensive plan that coordinates [SERVICE_1], [SERVICE_2], and [SERVICE_3].\n\nHere's our exact process:\n\nStep 1: [PROCESS_STEP_1]\nStep 2: [PROCESS_STEP_2]\nStep 3: [PROCESS_STEP_3]\nStep 4: [PROCESS_STEP_4]\n\nNo sales pitch. No products pushed. Just a fiduciary obligation to put your interests first.\n\nWe're accepting [NUMBER] new clients this quarter. If you're a [TARGET_AUDIENCE] with [QUALIFICATION], let's talk.\n\nBook a complimentary consultation: [LINK]\n\n#FinancialPlanning #RetirementPlanning #WealthAdvisor #FiduciaryAdvice",
+        "framework": "BAB",
+        "character_count": "950-1400",
+        "notes": "Before-After-Bridge framework. Personal story hook, transformation focus, transparent process. Mirrors Ritholtz's authentic voice and behind-the-scenes pattern."
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "The [TAX/RETIREMENT/INVESTMENT] rule everyone follows that could cost you $[AMOUNT]+ 🚨\n\nSwipe through to see:\n→ What \"experts\" tell you\n→ Why it's wrong for [TARGET_AUDIENCE]\n→ What to do instead\n→ Real client example\n\nSlide 5 shows exactly how much this could cost you over [TIMEFRAME].\n\nSave this for [TAX_SEASON/YEAR_END/RETIREMENT_PLANNING].\n\n💬 Comment \"GUIDE\" for our free [RESOURCE_NAME]\n\n#FinancialPlanning #[NICHE] #MoneyTips #WealthBuilding #RetirementPlanning #TaxStrategy #FinancialFreedom #InvestingTips #MoneyManagement #FinancialAdvisor",
+        "visual": "Carousel post - 5 slides: (1) Bold text: 'Everyone says [RULE]' with ❌ overlay (2) 'But here's the problem...' with data visualization (3) 'What [TARGET] should do instead' with ✓ checklist (4) 'Real example' with before/after numbers (5) Cost comparison chart showing difference over time. Brand colors, clean typography, mobile-optimized text size.",
+        "framework": "PAS",
+        "slides": 5,
+        "notes": "Myth-busting hook pattern. Carousel format drives highest engagement per research. Educational value with clear CTA."
+      },
+      "authority": {
+        "caption": "[CURRENT_EVENT]: What this means for your [FINANCIAL_SITUATION] 📉📈\n\nI analyzed [X] similar situations since [YEAR]. Here's what the data shows:\n\n[KEY_INSIGHT_1]\n[KEY_INSIGHT_2]\n[KEY_INSIGHT_3]\n\nSwipe for the full breakdown →\n\nThe investors who thrive during [SITUATION] do these [NUMBER] things. Slide [X] shows the exact playbook.\n\nQuestions? Drop them below 👇\n\n#MarketUpdate #InvestmentAdvice #FinancialPlanning #WealthManagement #MarketAnalysis #InvestingStrategy #FinancialEducation #MoneyTips #RetirementPlanning #FinancialAdvisor",
+        "visual": "Carousel post - 6 slides: (1) Headline with event + your photo/logo for credibility (2) Data chart showing historical context (3) '3 Things Smart Investors Do Now' list (4) 'What to Avoid' with ❌ symbols (5) Client portfolio example (anonymized) (6) 'Next Steps' with consultation CTA. Professional but approachable design.",
+        "framework": "AIDA",
+        "slides": 6,
+        "notes": "Timely event tie-in pattern. Demonstrates responsiveness and data-driven approach like Schwab's volatility emails."
+      },
+      "promotional": {
+        "caption": "From [NEGATIVE_STATE] to [POSITIVE_STATE] in [TIMEFRAME] ✨\n\nThis is what happens when you have a plan that actually works.\n\nMy client (let's call them J) came to me:\n• [PAIN_POINT_1]\n• [PAIN_POINT_2]\n• [PAIN_POINT_3]\n\nNow they:\n• [TRANSFORMATION_1]\n• [TRANSFORMATION_2]\n• [TRANSFORMATION_3]\n\nSwipe to see the exact framework we used →\n\nIf you're a [TARGET_AUDIENCE] feeling [EMOTIONAL_STATE], this is your sign.\n\n[NUMBER] spots open this month. Link in bio to apply.\n\n#FinancialPlanning #WealthManagement #RetirementPlanning #FinancialAdvisor #MoneyGoals #FinancialFreedom #WealthBuilding #InvestmentAdvice #FinancialSuccess #RetirementGoals",
+        "visual": "Carousel post - 4 slides: (1) Client testimonial quote (anonymized) with emotional before/after statement (2) 'The Problem' - visualized pain points (3) 'The Solution' - your process/framework diagram (4) Results with specific metrics + soft CTA. Use client-style imagery (stock photos of diverse professionals) not corporate headshots.",
+        "framework": "BAB",
+        "slides": 4,
+        "notes": "Story-based transformation. Social proof without being salesy. Emotional language from customer voice research."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🎯 [TIMELY_HOOK]: [NUMBER] moves to make before [DEADLINE]\n\nHey everyone - getting a lot of questions about [TOPIC] with [UPCOMING_EVENT/DEADLINE] approaching.\n\nHere's what you need to know:\n\n1️⃣ [ACTION_ITEM_1]\nWhy it matters: [BENEFIT/CONSEQUENCE]\nHow to do it: [SIMPLE_STEPS]\nDeadline: [DATE]\n\n2️⃣ [ACTION_ITEM_2]\nWhy it matters: [BENEFIT/CONSEQUENCE]\nHow to do it: [SIMPLE_STEPS]\nDeadline: [DATE]\n\n3️⃣ [ACTION_ITEM_3]\nWhy it matters: [BENEFIT/CONSEQUENCE]\nHow to do it: [SIMPLE_STEPS]\nDeadline: [DATE]\n\n💡 Real example: Just helped a [LOCAL_AREA] family save $[AMOUNT] by doing [SPECIFIC_ACTION]. It took [TIMEFRAME] and they wished they'd known about it sooner.\n\n❓ Questions about your specific situation? Drop them in the comments and I'll answer them this week. Or grab a spot on my calendar: [LINK]\n\nP.S. - If you found this helpful, share it with someone who needs to see it. [DEADLINE] comes faster than you think!\n\n#[LOCAL_CITY]Business #FinancialPlanning #[TOPIC]Tips",
+        "framework": "PAS",
+        "word_count": "200-300",
+        "notes": "Specific number + timeframe hook pattern. Community-focused with local angle. Conversational tone. Encourages sharing and comments."
+      },
+      "authority": {
+        "template": "📊 I just published our [QUARTERLY/ANNUAL] [REPORT_NAME] and the findings are surprising...\n\nWe analyzed [X] [TARGET_AUDIENCE] portfolios and found:\n\n🔴 [CONCERNING_FINDING_1] - this affects [PERCENTAGE]% of [AUDIENCE]\n🔴 [CONCERNING_FINDING_2] - average cost of $[AMOUNT] per year\n🟢 [POSITIVE_FINDING] - but only [PERCENTAGE]% are taking advantage\n\nThe biggest takeaway? [KEY_INSIGHT]\n\nWhat does this mean for you?\n\nIf you're [SITUATION_1]: [RECOMMENDATION_1]\nIf you're [SITUATION_2]: [RECOMMENDATION_2]\nIf you're [SITUATION_3]: [RECOMMENDATION_3]\n\nI've put together a [FREE_RESOURCE] that breaks down:\n✓ [BENEFIT_1]\n✓ [BENEFIT_2]\n✓ [BENEFIT_3]\n✓ [BENEFIT_4]\n\nDownload it here: [LINK]\n\nNo email required. No sales pitch. Just [X] pages of actionable data.\n\nWhat surprised you most about these findings? Let's discuss in the comments 👇\n\n#FinancialPlanning #InvestmentResearch #[NICHE]Planning #WealthManagement",
+        "framework": "AIDA",
+        "word_count": "225-325",
+        "notes": "Data-driven thought leadership mirroring Vanguard's report strategy. Free value with no gate. Encourages discussion."
+      },
+      "promotional": {
+        "template": "🎉 Huge congratulations to [CLIENT_INITIAL/ANONYMOUS] on [ACHIEVEMENT]!\n\nWhen they first came to me [TIMEFRAME_AGO], they told me: \"[CUSTOMER_VOICE_QUOTE]\"\n\nThey were:\n→ [RELATABLE_STRUGGLE_1]\n→ [RELATABLE_STRUGGLE_2]\n→ [RELATABLE_STRUGGLE_3]\n\nSound familiar?\n\nHere's what we did together:\n\nMonths 1-2: [PHASE_1_DESCRIPTION]\nMonths 3-6: [PHASE_2_DESCRIPTION]\nMonths 7+: [PHASE_3_DESCRIPTION]\n\nThe result? [SPECIFIC_OUTCOME]\n\nBut here's what they told me mattered most: \"[EMOTIONAL_TRANSFORMATION_QUOTE]\"\n\nThat's the part that doesn't show up in the numbers. The peace of mind. The confidence. The feeling of finally having a plan.\n\nIf you're a [TARGET_AUDIENCE] in [LOCAL_AREA] who's feeling [EMOTIONAL_STATE], I want you to know: this is possible for you too.\n\nI'm accepting [NUMBER] new clients this [QUARTER/MONTH]. No pressure, no sales pitch - just an honest conversation about whether we're a fit.\n\nClick here to schedule: [LINK]\n\nOr comment \"INTERESTED\" below and I'll send you details.\n\n#[LOCAL_CITY] #FinancialPlanning #RetirementPlanning #FinancialAdvisor #WealthManagement",
+        "framework": "BAB",
+        "word_count": "250-350",
+        "notes": "Story-driven transformation with local community focus. Emotional language from research. Clear process transparency. Soft-sell approach."
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your CPA just told you that you owe $[AMOUNT] in taxes 😱 But wait—",
+        "script": "[0-3 sec] Show shocked reaction to tax bill on screen\n\n[4-8 sec] \"Here's what they didn't tell you about [TAX_STRATEGY]...\"\n\n[9-15 sec] Quick cut to whiteboard/screen: \"If you made $[INCOME] this year, you could have:\"\n\n[16-30 sec] Show 3 strategies rapid-fire:\n• [STRATEGY_1] = $[SAVINGS]\n• [STRATEGY_2] = $[SAVINGS]\n• [STRATEGY_3] = $[SAVINGS]\n\n[31-45 sec] \"Real example: Client came to me with $[TAX_BILL]. We implemented these. New bill: $[REDUCED_AMOUNT].\"\n\n[46-55 sec] \"But here's the catch - [DEADLINE/REQUIREMENT]. So if you're [TARGET_AUDIENCE]...\"\n\n[56-60 sec] \"Follow for Part 2 tomorrow. Or link in bio for the full guide.\"\n\nText overlays: \"Wait for it...\" \"$[X] saved\" \"You need to know this\" \"Part 2 tomorrow\"\n\nSound: Trending audio or original voiceover",
+        "framework": "PAS",
+        "notes": "Native TikTok format. Fast cuts, text overlays. Cliffhanger for Part 2 drives follows. Educational but entertaining."
+      },
+      "authority": {
+        "hook": "The market just dropped [X]% and my phone is blowing up. Here's what I'm telling every client:",
+        "script": "[0-3 sec] Show phone with notifications/concerned face\n\n[4-10 sec] \"Everyone's panicking. But here's what the data actually shows:\"\n\n[11-25 sec] Quick cuts showing charts/data:\n• \"[X] times this happened since [YEAR]\"\n• \"Average recovery: [TIMEFRAME]\"\n• \"Investors who sold: lost [X]%\"\n• \"Investors who stayed: gained [X]%\"\n\n[26-40 sec] \"So what are we actually doing right now?\"\nShow 3 strategic moves with checkmarks:\n✓ [ACTION_1]\n✓ [ACTION_2]\n✓ [ACTION_3]\n\n[41-50 sec] \"This is why you have a plan BEFORE the chaos. Not during.\"\n\n[51-60 sec] \"Financial advisor for [X] years. Follow for real talk, no BS. Link in bio for our market guide.\"\n\nText overlays: \"Don't panic\" \"Here's the data\" \"What we're actually doing\" \"Follow for more\"\n\nSound: Calm, authoritative voiceover",
+        "framework": "AIDA",
+        "notes": "Timely market commentary. Data-driven calm. Mirrors Schwab's volatility response strategy. Builds authority through crisis leadership."
+      },
+      "promotional": {
+        "hook": "Client came to me with $[AMOUNT] and said 'I have no idea if I can retire.' Watch this:",
+        "script": "[0-3 sec] Show concerned client scenario (acted/stock footage)\n\n[4-12 sec] \"They had: [X] different accounts, no plan, paying $[FEES] in fees they didn't know about.\"\n\n[13-25 sec] \"Here's what we did:\"\nQuick visual of process:\n→ Consolidated [X] accounts\n→ Created retirement projection\n→ Found $[AMOUNT] in tax savings\n→ Reduced fees by [X]%\n\n[26-40 sec] \"The result? They're retiring [X] years early with [X]% more income.\"\n\n[41-50 sec] \"But here's what they told me: 'I finally sleep at night knowing there's a plan.'\"\n\n[51-60 sec] \"That's what real financial planning does. Not a sales pitch. A plan. Link in bio if you're ready.\"\n\nText overlays: \"No plan\" → \"Clear path\" \"$[X] saved\" \"Retired early\" \"You could be next\"\n\nSound: Inspirational trending audio",
+        "framework": "BAB",
+        "notes": "Transformation story. Quick pacing. Emotional payoff. Soft CTA. Authentic not salesy tone per platform norms."
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST_NAME], [X] moves before [DEADLINE] (could save $[AMOUNT])",
+        "preview_text": "Your [TAX/RETIREMENT/INVESTMENT] checklist for [TIME_PERIOD]",
+        "body": "Hi [FIRST_NAME],\n\n[DEADLINE] is [X] days away. Based on your [SITUATION/ACCOUNT_TYPE], here are [NUMBER] moves that could save you $[AMOUNT_RANGE]:\n\n1. [ACTION_ITEM_1]\n→ Potential savings: $[AMOUNT]\n→ Time required: [MINUTES/HOURS]\n→ Deadline: [DATE]\n→ How to do it: [BRIEF_STEPS]\n\n2. [ACTION_ITEM_2]\n→ Potential savings: $[AMOUNT]\n→ Time required: [MINUTES/HOURS]\n→ Deadline: [DATE]\n→ How to do it: [BRIEF_STEPS]\n\n3. [ACTION_ITEM_3]\n→ Potential savings: $[AMOUNT]\n→ Time required: [MINUTES/HOURS]\n→ Deadline: [DATE]\n→ How to do it: [BRIEF_STEPS]\n\n📊 Real example: [CLIENT_TYPE] implemented all three last year and saved $[SPECIFIC_AMOUNT]. It took [TIMEFRAME].\n\n❓ Questions about your specific situation? Reply to this email or schedule a quick call: [CALENDAR_LINK]\n\nP.S. - Item #[X] alone saved clients an average of $[AMOUNT] last year. Don't miss it.\n\n[SIGNATURE]\n[CREDENTIALS]\n[CONTACT_INFO]",
+        "framework": "PAS",
+        "notes": "Specific number + deadline creates urgency. Personalization tokens. Plain text format outperforms HTML per research. Clear action steps."
+      },
+      "authority": {
+        "subject": "What [CURRENT_EVENT] means for your portfolio (data inside)",
+        "preview_text": "I analyzed [X] similar situations. Here's what we're doing.",
+        "body": "[FIRST_NAME],\n\nMy phone's been ringing all day about [CURRENT_EVENT].\n\nSo I pulled the data on every similar situation since [YEAR]. Here's what it shows:\n\n📉 Average immediate impact: [PERCENTAGE]%\n📈 Average recovery time: [TIMEFRAME]\n💰 Portfolios that stayed the course: [OUTCOME]\n🚨 Portfolios that panic-sold: [NEGATIVE_OUTCOME]\n\nWhat we're doing for clients right now:\n\n✓ [STRATEGIC_ACTION_1] - [WHY]\n✓ [STRATEGIC_ACTION_2] - [WHY]\n✓ [STRATEGIC_ACTION_3] - [WHY]\n\nWhat we're NOT doing:\n\n✗ [COMMON_MISTAKE_1]\n✗ [COMMON_MISTAKE_2]\n✗ [COMMON_MISTAKE_3]\n\nYour specific situation:\n\n[PERSONALIZED_INSIGHT_BASED_ON_SEGMENT]\n\nI've put together a detailed analysis: [REPORT_TITLE]. Download it here: [LINK]\n\nIf you want to discuss your specific portfolio, my calendar is open: [CALENDAR_LINK]\n\nOr just reply to this email with questions.\n\nThe investors who win aren't the ones who predict what's next. They're the ones who have a plan and stick to it.\n\n[SIGNATURE]\n\nP.S. - This is exactly why we create written investment policies. So you know what to do when emotions run high.",
+        "framework": "AIDA",
+        "notes": "Timely response within 24 hours of event per Schwab strategy. Data-driven reassurance. Personalized segment insight. Multiple CTAs."
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], are you making the $[AMOUNT] mistake?",
+        "preview_text": "Most [TARGET_AUDIENCE] are. Here's how to fix it.",
+        "body": "Hi [FIRST_NAME],\n\nLast week, a [CLIENT_TYPE] came to me with [PORTFOLIO_SIZE]. Successful [CAREER], great income, but told me:\n\n\"I have no idea if I'm on track. I'm terrified of making a mistake.\"\n\nSound familiar?\n\nHere's what we discovered:\n\n❌ Paying $[AMOUNT] in unnecessary fees\n❌ Missing $[AMOUNT] in annual tax savings\n❌ [SPECIFIC_ISSUE] that could cost $[AMOUNT] over [TIMEFRAME]\n\nThe fix wasn't complicated. But it required someone to actually look.\n\nHere's our process:\n\nWeek 1: [DISCOVERY_STEP]\nWeek 2-3: [ANALYSIS_STEP]\nWeek 4: [PRESENTATION_STEP]\nOngoing: [IMPLEMENTATION_STEP]\n\nNo products pushed. No commissions. Just fiduciary advice that puts your interests first.\n\nThe result for this client?\n\n✓ [TRANSFORMATION_1]\n✓ [TRANSFORMATION_2]\n✓ [TRANSFORMATION_3]\n\nBut here's what they told me mattered most:\n\n\"[EMOTIONAL_TRANSFORMATION_QUOTE]\"\n\nIf you're a [TARGET_AUDIENCE] with [QUALIFICATION], I have [NUMBER] consultation spots open this month.\n\nNo obligation. No sales pitch. Just an honest conversation about whether we're a fit.\n\nSchedule here: [CALENDAR_LINK]\n\nOr reply with questions.\n\n[SIGNATURE]\n\nP.S. - The consultation is complimentary, but the insights you'll get about your situation aren't. Come prepared with questions.",
+        "framework": "BAB",
+        "notes": "Story-driven. Addresses specific pain points from customer voice research. Transparent process. Soft-sell with clear qualification. Personal from-advisor format."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[3] tax moves before [December 31st] that saved clients [$47,000] on average",
+      "[5] portfolio changes in [Q4] that protected [$2M+] from the bear market",
+      "[7] steps we take when a client receives a [$1M+ windfall] (here's the exact process)",
+      "[$500K] mistake I see [successful executives] make with their RSUs every year",
+      "[4] fee traps costing [401k millionaires] [$80,000+] they'll never get back"
+    ],
+    "question_hooks": [
+      "Do you know your portfolio's [tax-cost ratio]? (Most [$5M+ investors] don't)",
+      "Can you explain your [estate plan] to your kids in [60 seconds]?",
+      "Are you paying [$35K+ in unnecessary taxes] because your CPA and advisor don't talk?",
+      "Is your [retirement plan] based on the [4% rule] everyone follows (that could leave you broke)?",
+      "Do you have a [written plan] for what to do when the market drops [15%+] again?"
+    ],
+    "story_hooks": [
+      "A [client] came to me paying [$80K in taxes]. We found [$35K in savings] her CPA completely missed",
+      "[Client] retired with [$3M]. Was broke in [7 years]. Here's what went wrong",
+      "How a [physician couple] turned their [inheritance] into [$2M+] without touching principal",
+      "[Executive] received [$500K in RSUs]. His broker's advice would have cost him [$127K in taxes]",
+      "A [business owner] sold for [$5M]. Here's how we saved [$890K] in capital gains (legally)"
+    ],
+    "fear_hooks": [
+      "Is your [401k] at risk from [hidden fee drag] costing you [$200K+] by retirement?",
+      "Is your [inheritance] at risk from [estate tax bombs] your family doesn't see coming?",
+      "Is your [retirement date] at risk from [sequence of returns] (the risk no one explains)?",
+      "Is your [portfolio] at risk from [tax-loss harvesting] mistakes costing [$50K+ annually]?",
+      "Is your [family's future] at risk from [outdated beneficiary designations] on your [$2M+ 401k]?"
+    ],
+    "howto_hooks": [
+      "How to [coordinate your investments and taxes] without [paying two separate advisors]",
+      "How to [know if you're on track for retirement] without [complicated spreadsheets]",
+      "How to [protect your portfolio from market drops] without [missing the recovery]",
+      "How to [reduce your tax bill by $30K+] without [risky tax shelters]",
+      "How to [hire a fiduciary advisor] without [getting sold products you don't need]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're paying your advisor 1% and have no idea what you're getting",
+      "body": "Let me show you what that fee should actually buy you. [Screen record of planning software] This is what I see when I look at a client's full picture. Tax loss harvesting saved this client $8,400 last year. Roth conversion strategy saved $47,000 in future taxes. Estate plan coordination caught a $200k beneficiary mistake. Portfolio rebalancing during 2022 volatility prevented $31,000 in panic-selling losses. Asset location strategy saves $3,200 annually in taxes. That 1% fee? It cost them $12,000. Value delivered? Over $90,000. If your advisor can't show you this kind of breakdown, you're paying for nothing.",
+      "cta": "Comment 'BREAKDOWN' for a free fee analysis"
+    },
+    "reels": {
+      "hook": "Your 401k just hit $500k. Now what?",
+      "body": "Most people have zero plan beyond 'save more.' Here's what actually matters now: [Quick cuts] Roth conversion window before RMDs. Mega backdoor Roth if your plan allows. Tax-loss harvesting in taxable accounts. Beneficiary check (70% are wrong). Asset location - bonds in 401k, growth in Roth. This is the difference between retiring at 62 vs 67. The plan matters more than the portfolio.",
+      "cta": "Link in bio for retirement readiness checklist"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second reaction video to checking your investment account after working with us for 6 months. Show your genuine reaction to seeing your full financial picture in one place for the first time. What surprised you most?",
+      "hashtag": "#FinancialClarity"
+    },
+    {
+      "prompt": "Share a 30-second story: What specific question or fear brought you to a financial advisor? What's different now? Be specific about the before/after feeling, not numbers.",
+      "hashtag": "#MoneyPeace"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "I reviewed 500 client portfolios and found the same 3 expensive mistakes in 80% of them",
+      "why": "Fear of missing something + specific number + immediate self-assessment drives shares and saves"
+    },
+    {
+      "angle": "What your financial advisor sees vs what they tell you - a behind-the-scenes screen recording series",
+      "why": "Transparency breaking industry secrecy + educational + builds trust through vulnerability"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T23:52:12.728Z",
+    "last_tier2_refresh": "2025-11-27T23:52:12.728Z",
+    "last_tier3_refresh": "2025-11-27T23:52:12.728Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T23:52:12.728Z"
+  }
+}

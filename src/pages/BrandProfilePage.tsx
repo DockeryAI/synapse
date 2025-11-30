@@ -59,7 +59,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useBrand } from '@/hooks/useBrand';
 import { useBrandProfile } from '@/hooks/useBrandProfile';
-import { getUVPByBrand, updateUVPComponent } from '@/services/database/marba-uvp.service';
+import { getUVPByBrand, updateUVPComponent, recoverDriversFromSession } from '@/services/database/marba-uvp.service';
 import { profileScannerService, type ProfileScanResult } from '@/services/intelligence/profile-scanner.service';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, Differentiator } from '@/types/uvp-flow.types';
 import type { BusinessProfileType } from '@/services/triggers/profile-detection.service';
@@ -67,6 +67,10 @@ import { CustomerTypeToggle } from '@/components/settings/CustomerTypeToggle';
 import { GeographicScopeSelector } from '@/components/settings/GeographicScopeSelector';
 import { RegionMultiSelect } from '@/components/settings/RegionMultiSelect';
 import { ProfileTypeOverride } from '@/components/settings/ProfileTypeOverride';
+import { ProductList } from '@/components/settings/ProductList';
+import { AddEditProductModal } from '@/components/settings/AddEditProductModal';
+import { useProducts } from '@/hooks/useProducts';
+import type { BrandProduct, BrandProductInput } from '@/types/product.types';
 
 // Profile type labels
 const PROFILE_LABELS: Record<BusinessProfileType, string> = {
@@ -249,12 +253,12 @@ function RoleCategoryGroup({ category, profiles, emotionalDrivers, functionalDri
         <div className="flex items-center gap-2">
           <IconComponent className={`w-4 h-4 ${style.color}`} />
           <span className={`font-medium text-sm ${style.color}`}>{category}</span>
-          <Badge variant="outline" className="text-xs">{profiles.length}</Badge>
+          <Badge variant="outline" className="text-xs text-gray-700 dark:text-gray-300">{profiles.length}</Badge>
         </div>
         {isExpanded ? (
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-300" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-gray-400" />
+          <ChevronRight className="w-4 h-4 text-gray-500 dark:text-gray-300" />
         )}
       </button>
 
@@ -266,7 +270,7 @@ function RoleCategoryGroup({ category, profiles, emotionalDrivers, functionalDri
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <div className="p-2 space-y-2 bg-white/50 dark:bg-slate-800/30">
+            <div className="p-2 space-y-2 bg-white/50 dark:bg-slate-900/50">
               {profiles.map((profile, index) => (
                 <CustomerProfileCard
                   key={`${category}-profile-${index}`}
@@ -300,7 +304,7 @@ function CustomerProfileCard({ title, description, emotionalDrivers, functionalD
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-600 overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-start justify-between p-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors"
@@ -310,9 +314,9 @@ function CustomerProfileCard({ title, description, emotionalDrivers, functionalD
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">{description}</p>
         </div>
         {isExpanded ? (
-          <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
+          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-300 flex-shrink-0 ml-2" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
+          <ChevronRight className="w-4 h-4 text-gray-500 dark:text-gray-300 flex-shrink-0 ml-2" />
         )}
       </button>
 
@@ -694,10 +698,36 @@ export function BrandProfilePage() {
     profileType: BusinessProfileType;
   } | null>(null);
 
+  // Products management state
+  const [showProductModal, setShowProductModal] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<BrandProduct | null>(null);
+  const [productSaving, setProductSaving] = useState(false);
+
+  // Products hook with auto-migration from UVP
+  const {
+    products,
+    loading: productsLoading,
+    scanning: productsScanning,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    rescanProducts,
+    migrateFromUVP
+  } = useProducts(brand?.id, { autoMigrateFromUVP: true, uvp });
+
   // Parse customers from UVP statement using role category parsing
   const parsedProfiles = useMemo(() => {
-    if (!uvp?.targetCustomer?.statement) return [];
-    return parseCustomerProfiles(uvp.targetCustomer.statement);
+    if (!uvp?.targetCustomer?.statement) {
+      console.log('[BrandProfilePage] No targetCustomer.statement in UVP');
+      return [];
+    }
+    const profiles = parseCustomerProfiles(uvp.targetCustomer.statement);
+    console.log('[BrandProfilePage] Parsed profiles:', {
+      statement: uvp.targetCustomer.statement.slice(0, 100),
+      profileCount: profiles.length,
+      profiles: profiles.map(p => ({ title: p.title, category: p.roleCategory }))
+    });
+    return profiles;
   }, [uvp?.targetCustomer?.statement]);
 
   // Group profiles by role category
@@ -713,14 +743,32 @@ export function BrandProfilePage() {
     }));
   }, [groupedProfiles]);
 
-  // Get drivers from UVP
+  // Get drivers from UVP - check multiple sources (same as sidebar)
   const emotionalDrivers = useMemo(() => {
-    return uvp?.targetCustomer?.emotionalDrivers || [];
-  }, [uvp?.targetCustomer?.emotionalDrivers]);
+    const drivers =
+      uvp?.transformationGoal?.emotionalDrivers ||
+      uvp?.targetCustomer?.emotionalDrivers ||
+      [];
+    console.log('[BrandProfilePage] Emotional drivers:', {
+      fromTransformation: uvp?.transformationGoal?.emotionalDrivers,
+      fromCustomer: uvp?.targetCustomer?.emotionalDrivers,
+      resolved: drivers
+    });
+    return drivers;
+  }, [uvp?.transformationGoal?.emotionalDrivers, uvp?.targetCustomer?.emotionalDrivers]);
 
   const functionalDrivers = useMemo(() => {
-    return uvp?.targetCustomer?.functionalDrivers || [];
-  }, [uvp?.targetCustomer?.functionalDrivers]);
+    const drivers =
+      uvp?.transformationGoal?.functionalDrivers ||
+      uvp?.targetCustomer?.functionalDrivers ||
+      [];
+    console.log('[BrandProfilePage] Functional drivers:', {
+      fromTransformation: uvp?.transformationGoal?.functionalDrivers,
+      fromCustomer: uvp?.targetCustomer?.functionalDrivers,
+      resolved: drivers
+    });
+    return drivers;
+  }, [uvp?.transformationGoal?.functionalDrivers, uvp?.targetCustomer?.functionalDrivers]);
 
   // Legacy parsedCustomers for backward compat with update handlers
   const parsedCustomers = useMemo(() => {
@@ -770,7 +818,41 @@ export function BrandProfilePage() {
       try {
         setLoading(true);
         setError(null);
-        const uvpData = await getUVPByBrand(brand.id);
+        let uvpData = await getUVPByBrand(brand.id);
+
+        if (uvpData) {
+          console.log('[BrandProfilePage] UVP loaded:', {
+            id: uvpData?.id,
+            hasTargetCustomer: !!uvpData?.targetCustomer,
+            targetCustomerStatement: uvpData?.targetCustomer?.statement?.slice(0, 100),
+            targetCustomerEmotional: uvpData?.targetCustomer?.emotionalDrivers,
+            targetCustomerFunctional: uvpData?.targetCustomer?.functionalDrivers,
+            hasTransformationGoal: !!uvpData?.transformationGoal,
+            transformationEmotional: uvpData?.transformationGoal?.emotionalDrivers,
+            transformationFunctional: uvpData?.transformationGoal?.functionalDrivers
+          });
+
+          // Check if drivers are missing and attempt recovery from session data
+          const hasDrivers = (uvpData.targetCustomer?.emotionalDrivers?.length || 0) > 0 ||
+                            (uvpData.transformationGoal?.emotionalDrivers?.length || 0) > 0;
+
+          if (!hasDrivers) {
+            console.log('[BrandProfilePage] UVP missing drivers, attempting recovery from session...');
+            const recoveryResult = await recoverDriversFromSession(brand.id);
+
+            if (recoveryResult.updated) {
+              console.log('[BrandProfilePage] Drivers recovered:', {
+                emotional: recoveryResult.emotionalDriversCount,
+                functional: recoveryResult.functionalDriversCount
+              });
+              // Re-fetch UVP with recovered drivers
+              uvpData = await getUVPByBrand(brand.id) || uvpData;
+            } else {
+              console.log('[BrandProfilePage] No drivers found in session data');
+            }
+          }
+        }
+
         setUVP(uvpData);
 
         // Run profile scan in background
@@ -1194,11 +1276,12 @@ export function BrandProfilePage() {
                 <Button
                   variant={isEditingCustomers ? 'default' : 'ghost'}
                   size="sm"
+                  className="text-gray-700 dark:text-gray-200"
                   onClick={() => setIsEditingCustomers(!isEditingCustomers)}
                 >
                   {isEditingCustomers ? <><X className="w-4 h-4 mr-1" /> Done</> : <><Edit2 className="w-4 h-4 mr-1" /> Edit</>}
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleAddCustomer} disabled={saving}>
+                <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-500" onClick={handleAddCustomer} disabled={saving}>
                   <Plus className="w-4 h-4 mr-1" /> Add
                 </Button>
               </div>
@@ -1331,35 +1414,85 @@ export function BrandProfilePage() {
           </ExpandableSection>
         </motion.div>
 
-        {/* Products & Services */}
-        {uvp.productsServices?.categories && uvp.productsServices.categories.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-            <ExpandableSection
-              icon={<Package className="w-5 h-5" />}
-              title="Products & Services"
-              badge={uvp.productsServices.categories.reduce((acc, cat) => acc + (cat.items?.length || 0), 0)}
-              iconColor="text-green-600"
-              defaultOpen={false}
-            >
-              <div className="space-y-4">
-                {uvp.productsServices.categories.map((category, idx) => (
-                  <div key={idx}>
-                    <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
-                      {category.name}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {category.items?.map((item, itemIdx) => (
-                        <Badge key={itemIdx} variant="outline" className="text-gray-700 dark:text-gray-300">
-                          {item.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+        {/* Products & Services - NEW: Full CRUD with database storage */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+          <ExpandableSection
+            icon={<Package className="w-5 h-5" />}
+            title="Products & Services"
+            badge={products.length}
+            iconColor="text-green-600"
+            defaultOpen={true}
+            headerActions={
+              <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (brand?.website) {
+                      rescanProducts(brand.website, brand.name, brand.industry);
+                    }
+                  }}
+                  disabled={productsScanning || !brand?.website}
+                  className="border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-600"
+                >
+                  <RefreshCw className={`w-4 h-4 mr-1 ${productsScanning ? 'animate-spin' : ''}`} />
+                  {productsScanning ? 'Scanning...' : 'Rescan Website'}
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setShowProductModal(true);
+                  }}
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  Add Product
+                </Button>
               </div>
-            </ExpandableSection>
-          </motion.div>
-        )}
+            }
+          >
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Products and services extracted from your website or added manually. Click "Rescan Website" to discover new products.
+            </p>
+            <ProductList
+              products={products}
+              onEdit={(product) => {
+                setEditingProduct(product);
+                setShowProductModal(true);
+              }}
+              onDelete={async (productId) => {
+                if (confirm('Are you sure you want to delete this product?')) {
+                  await deleteProduct(productId);
+                }
+              }}
+              isLoading={productsLoading}
+            />
+          </ExpandableSection>
+        </motion.div>
+
+        {/* Product Add/Edit Modal */}
+        <AddEditProductModal
+          isOpen={showProductModal}
+          onClose={() => {
+            setShowProductModal(false);
+            setEditingProduct(null);
+          }}
+          onSave={async (productInput) => {
+            setProductSaving(true);
+            try {
+              if (editingProduct) {
+                await updateProduct(editingProduct.id, productInput);
+              } else {
+                await addProduct(productInput);
+              }
+            } finally {
+              setProductSaving(false);
+            }
+          }}
+          product={editingProduct}
+          isLoading={productSaving}
+        />
 
         {/* Data Sources & Timestamps */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>

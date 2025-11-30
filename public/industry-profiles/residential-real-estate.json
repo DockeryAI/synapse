@@ -1,0 +1,1707 @@
+{
+  "industry": "Residential Real Estate",
+  "industry_name": "Residential Real Estate",
+  "naics_code": "531210",
+  "category": "Professional Services",
+  "subcategory": "Property Sales and Leasing",
+  "customer_triggers": [
+    {
+      "trigger": "Job relocation requiring move within 60 days",
+      "urgency": 10,
+      "frequency": "Monthly for 18% of transactions"
+    },
+    {
+      "trigger": "Growing family needing additional bedrooms",
+      "urgency": 7,
+      "frequency": "Quarterly for 23% of buyers"
+    },
+    {
+      "trigger": "School district enrollment deadlines approaching",
+      "urgency": 9,
+      "frequency": "Peak in March-May and July-August"
+    },
+    {
+      "trigger": "Mortgage rate drop of 0.5% or more",
+      "urgency": 8,
+      "frequency": "2-3 times annually"
+    },
+    {
+      "trigger": "Lease expiration within 90 days",
+      "urgency": 9,
+      "frequency": "Monthly for 31% of renters"
+    },
+    {
+      "trigger": "Divorce proceedings requiring asset liquidation",
+      "urgency": 10,
+      "frequency": "Weekly, affecting 12% of listings"
+    },
+    {
+      "trigger": "Estate settlement after death",
+      "urgency": 6,
+      "frequency": "Weekly, 8% of inventory"
+    },
+    {
+      "trigger": "Empty nest downsizing opportunity",
+      "urgency": 4,
+      "frequency": "Seasonal peaks in spring/fall"
+    },
+    {
+      "trigger": "Investment property cap rate exceeding 7%",
+      "urgency": 7,
+      "frequency": "Market-dependent, 15% of buyers"
+    },
+    {
+      "trigger": "Pre-foreclosure notice received",
+      "urgency": 10,
+      "frequency": "Daily in distressed markets"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Initial recognition typically triggered 6-8 months before action through life events, financial changes, or market conditions. 73% begin with online research, 27% through personal referrals. Average prospect views 47 online listings before contacting an agent.",
+    "consideration": "Evaluation phase lasting 3-4 months involving property tours (average 10 homes), neighborhood research, school ratings analysis, commute testing, and financial pre-qualification. Buyers spend 8 weeks actively touring, sellers interview 3.2 agents on average.",
+    "decision": "Final selection compressed into 2-3 week period with intensive negotiation, inspection contingencies, appraisal coordination, and financing finalization. 67% of offers require 2-3 rounds of negotiation, average closing timeline 30-45 days post-acceptance.",
+    "retention": "Post-transaction relationship maintained through quarterly market updates, annual home value assessments, referral requests, and lifecycle milestone check-ins. Top agents maintain 42% repeat client rate over 10-year period.",
+    "advocacy": "Client referrals generate 64% of new business for established agents. Peak referral window 3-6 months post-closing. Social media testimonials have 3.7x higher conversion impact than written reviews."
+  },
+  "transformations": [
+    {
+      "from": "Cramped apartment renter",
+      "to": "Proud homeowner with yard",
+      "emotional_value": "Independence and stability",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by maintenance",
+      "to": "Carefree condo living",
+      "emotional_value": "Freedom and simplicity",
+      "worth_premium": false
+    },
+    {
+      "from": "Bad school district",
+      "to": "Top-rated education access",
+      "emotional_value": "Children's future success",
+      "worth_premium": true
+    },
+    {
+      "from": "Long stressful commute",
+      "to": "Walk to work lifestyle",
+      "emotional_value": "Time and life balance",
+      "worth_premium": true
+    },
+    {
+      "from": "Unsafe neighborhood",
+      "to": "Secure gated community",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "No equity building",
+      "to": "Wealth accumulation through ownership",
+      "emotional_value": "Financial security",
+      "worth_premium": false
+    },
+    {
+      "from": "Dated 1970s interior",
+      "to": "Modern renovated showpiece",
+      "emotional_value": "Pride and social status",
+      "worth_premium": true
+    },
+    {
+      "from": "Isolated suburban living",
+      "to": "Vibrant urban community",
+      "emotional_value": "Connection and excitement",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Days on market under 21",
+      "timeframe": "Per listing",
+      "measurable": true
+    },
+    {
+      "metric": "Sale price within 3% of asking",
+      "timeframe": "At closing",
+      "measurable": true
+    },
+    {
+      "metric": "Client satisfaction score above 9.2/10",
+      "timeframe": "Post-transaction survey",
+      "measurable": true
+    },
+    {
+      "metric": "Referral generation rate exceeding 2.5 per closed deal",
+      "timeframe": "12 months post-closing",
+      "measurable": true
+    },
+    {
+      "metric": "Inspection issue resolution under $3,000",
+      "timeframe": "During due diligence",
+      "measurable": true
+    },
+    {
+      "metric": "Pre-approval to offer acceptance under 14 days",
+      "timeframe": "Buyer representation",
+      "measurable": true
+    },
+    {
+      "metric": "Multiple offer generation on 65% of listings",
+      "timeframe": "First weekend showing",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Interest rate lock expiration in 15 days requiring immediate offer submission",
+    "Competing offers already received with decision deadline at 5 PM today",
+    "School registration closing in 3 weeks for desired district",
+    "Seller's job transfer contingent on home sale within 45 days",
+    "Tax assessment appeal deadline approaching in 10 business days",
+    "Pre-foreclosure auction scheduled in 30 days requiring immediate action",
+    "Inventory shortage with only 2.3 months supply in desired neighborhood"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Commission is too high at 6%",
+      "response": "Our marketing generates 18% higher sale prices, netting you $34,000 more on a $500K home even after commission",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I can sell it myself and save money",
+      "response": "FSBO homes sell for 24% less on average and take 77 days longer, costing you $72,000 in lost value and carrying costs",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "The market might improve if we wait",
+      "response": "Current absorption rate shows 3.2% monthly price appreciation, but mortgage rates rising 0.25% quarterly erases those gains",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "Online estimates show higher value",
+      "response": "Automated valuations have 8.2% median error rate; our comparative market analysis uses 23 recent comparable sales within 0.5 miles",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "We don't need an agent with online tools available",
+      "response": "87% of unrepresented buyers overpay by $27,000 due to emotional decisions and poor negotiation",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Your agency is too small/large",
+      "response": "Our size gives us 47% faster response times and dedicated attention while maintaining MLS access and marketing reach of major firms",
+      "effectiveness": 6.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Sold in 60 days or we buy it guarantee",
+      "Commission reduction if not sold within agreed timeframe",
+      "Free re-listing if buyer falls through",
+      "Marketing cost reimbursement up to $2,500 if not satisfied"
+    ],
+    "proof_points": [
+      "147 homes sold in last 12 months",
+      "Average 97.3% of asking price achieved",
+      "$4.2 million in seller proceeds above initial expectations",
+      "Zero lawsuits or arbitrations in 15-year history"
+    ],
+    "risk_mitigation": "Comprehensive pre-inspection identifying issues before listing, professional staging increasing sale price 7-12%, attorney review of all contracts, backup offer cultivation maintaining 2-3 interested parties"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stuck",
+      "underwater",
+      "desperate",
+      "nightmare",
+      "overwhelming",
+      "confusing",
+      "risky",
+      "expensive mistake",
+      "taken advantage of",
+      "missed opportunity"
+    ],
+    "solution_words": [
+      "dream home",
+      "investment",
+      "equity",
+      "neighborhood",
+      "schools",
+      "move-in ready",
+      "updated",
+      "location",
+      "potential",
+      "opportunity"
+    ],
+    "avoid_jargon": [
+      "easement",
+      "encumbrance",
+      "deed of trust",
+      "escrow",
+      "title abstract",
+      "subdivision plat",
+      "setback requirements",
+      "non-conforming use",
+      "defeasance",
+      "assignment of rents"
+    ]
+  },
+  "power_words": [
+    "exclusive",
+    "pristine",
+    "renovated",
+    "upgraded",
+    "location",
+    "schools",
+    "motivated",
+    "priced-to-sell",
+    "multiple-offers",
+    "rare",
+    "opportunity",
+    "equity",
+    "investment",
+    "turnkey",
+    "must-see",
+    "stunning",
+    "spacious",
+    "updated",
+    "immaculate",
+    "charming",
+    "convenient",
+    "prestigious",
+    "sought-after",
+    "private",
+    "secure",
+    "energy-efficient",
+    "smart-home",
+    "walkable",
+    "gourmet",
+    "luxurious"
+  ],
+  "avoid_words": [
+    "fixer-upper",
+    "needs-work",
+    "as-is",
+    "handyman-special",
+    "potential",
+    "cozy",
+    "unique",
+    "eclectic",
+    "vintage",
+    "original",
+    "busy-street",
+    "adjacent",
+    "mobile",
+    "manufactured",
+    "distressed",
+    "estate-sale",
+    "divorce",
+    "foreclosure",
+    "short-sale",
+    "contingent"
+  ],
+  "headline_templates": [
+    {
+      "template": "Just Listed: [Beds/Baths] in [Desired Neighborhood] Under $[Price]",
+      "expected_ctr": 4.7,
+      "use_case": "New listing announcement"
+    },
+    {
+      "template": "Open House [Day]: Tour This [Superlative] [Property Type] in [School District]",
+      "expected_ctr": 3.9,
+      "use_case": "Event promotion"
+    },
+    {
+      "template": "SOLD in [X] Days! Over Asking Price in [Neighborhood]",
+      "expected_ctr": 5.2,
+      "use_case": "Success story"
+    },
+    {
+      "template": "Why [Neighborhood] Homes Are Selling 23% Faster This Month",
+      "expected_ctr": 6.1,
+      "use_case": "Market insight"
+    },
+    {
+      "template": "Price Reduced $[Amount]: Motivated Seller in [Location]",
+      "expected_ctr": 4.3,
+      "use_case": "Price adjustment"
+    },
+    {
+      "template": "[Number]% More Buyers Are Choosing [Area] (Here's Why)",
+      "expected_ctr": 5.8,
+      "use_case": "Trend article"
+    },
+    {
+      "template": "Exclusive: Off-Market [Property Type] in [Premium Location]",
+      "expected_ctr": 7.2,
+      "use_case": "Pocket listing"
+    },
+    {
+      "template": "Interest Rates Drop: Now's Your Chance in [Market Area]",
+      "expected_ctr": 6.5,
+      "use_case": "Market opportunity"
+    },
+    {
+      "template": "From Renting to Owning: [Area] Success Story",
+      "expected_ctr": 4.1,
+      "use_case": "Client testimonial"
+    },
+    {
+      "template": "[Season] Market Update: [Area] Prices and Inventory",
+      "expected_ctr": 3.7,
+      "use_case": "Market report"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Private Tour Today",
+      "conversion_rate": 8.3,
+      "placement": "Property listing page"
+    },
+    {
+      "template": "Get Your Free Home Valuation in 24 Hours",
+      "conversion_rate": 12.7,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Download Our Buyer's Guide Now",
+      "conversion_rate": 6.9,
+      "placement": "Blog sidebar"
+    },
+    {
+      "template": "See More Homes Like This",
+      "conversion_rate": 9.4,
+      "placement": "Property detail page"
+    },
+    {
+      "template": "Claim Your Spot at Our Open House",
+      "conversion_rate": 7.2,
+      "placement": "Email campaign"
+    },
+    {
+      "template": "Start Your Pre-Approval Process",
+      "conversion_rate": 5.8,
+      "placement": "Buyer resources page"
+    },
+    {
+      "template": "Text 'TOUR' to Schedule Immediately",
+      "conversion_rate": 11.3,
+      "placement": "Yard sign"
+    },
+    {
+      "template": "Watch Video Walkthrough",
+      "conversion_rate": 15.6,
+      "placement": "Social media post"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Just Listed! 🏡 [Address] features [X] bedrooms, [highlight feature], and [emotional benefit]. Open House [Day] [Time]. Who do you know looking in [Area]? Share to help them find their dream home!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe for the transformation ➡️ This [Area] beauty went from dated to designer in just [timeframe]. [Emoji] Double tap if you love the [specific feature]! #[LocalHashtag] #RealEstate #[NeighborhoodName]",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Market Insight: [Area] real estate appreciated [X]% this quarter, outperforming the regional average by [Y]%. Three factors driving this growth: [Factor 1], [Factor 2], [Factor 3]. What's your take on the local market?",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "🔥 HOT MARKET ALERT: Only [X] homes available in [Desired Area]. Average days on market: [Y]. If you're thinking of selling, now's your moment. DM for confidential consultation. #[LocalMarket] #RealEstate",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're touring a $[Price] home in [Area]... wait for the [surprise feature] at 0:15 😱 Would you buy? Comment your first impression! #RealEstateTour #[LocalArea] #HomeBuying",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "YouTube",
+      "template": "[Area] Neighborhood Tour: Everything You Need to Know About Living in [Neighborhood] | Schools, Shopping, Commute Times, and Hidden Gems Locals Love",
+      "engagement_rate": 5.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "[Number] Must-Have Features in [Area] Luxury Homes | From [Feature 1] to [Feature 2], See What Buyers Want Most in [Year] | Save for Your Dream Home Inspiration!",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors, exciting news! The beautiful home at [Street Name] just sold for [impressive stat]. If you're curious about your home's value in this market, I'm offering free, no-obligation evaluations this week.",
+      "engagement_rate": 9.7
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: [Neighborhood] Market Alert: [Compelling Stat]. Hi [Name], thought you'd want to know: [specific market development]. This means [implication for recipient]. Ready to discuss what this means for your property goals?",
+      "engagement_rate": 22.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Sell for 7.3% more with professional staging and photography included",
+      "rank": 1,
+      "differentiator": "Only agency with in-house staging team"
+    },
+    {
+      "prop": "Average 18 days to contract vs market average of 43 days",
+      "rank": 2,
+      "differentiator": "Proprietary buyer database of 3,400+ qualified prospects"
+    },
+    {
+      "prop": "Guaranteed response within 15 minutes, 7 days a week",
+      "rank": 3,
+      "differentiator": "Dedicated team coverage model"
+    },
+    {
+      "prop": "Free pre-inspection saving sellers $8,000 in post-offer negotiations",
+      "rank": 4,
+      "differentiator": "Certified inspector on staff"
+    },
+    {
+      "prop": "Bilingual service in Spanish, Mandarin, and Hindi",
+      "rank": 5,
+      "differentiator": "Cultural expertise in diverse markets"
+    },
+    {
+      "prop": "Zero upfront costs with commission deferred to closing",
+      "rank": 6,
+      "differentiator": "Strong financial backing"
+    },
+    {
+      "prop": "Exclusive access to off-market properties before public listing",
+      "rank": 7,
+      "differentiator": "Network relationships with 200+ agents"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Discreet, white-glove service for luxury properties exceeding $1.5M. Private showings, qualified buyer vetting, custom marketing materials, and global reach through international partnerships. Your property deserves representation as exceptional as the home itself.",
+    "budget_conscious": "Maximum value strategies for first-time buyers and properties under $400K. We leverage technology to reduce costs while maintaining full service. FHA/VA expertise, down payment assistance programs, and negotiation tactics that have saved clients average of $12,000.",
+    "enterprise": "Corporate relocation and investment portfolio management for 10+ properties. Dedicated account team, bulk transaction discounts, detailed ROI reporting, and 1031 exchange coordination. Scalable solutions growing with your real estate investment goals."
+  },
+  "trust_signals": [
+    {
+      "signal": "Licensed since 2009 with zero complaints filed",
+      "importance": 9,
+      "format": "Website badge and footer"
+    },
+    {
+      "signal": "487 five-star reviews across Google, Zillow, Realtor.com",
+      "importance": 8,
+      "format": "Review widget on homepage"
+    },
+    {
+      "signal": "National Association of Realtors member with ABR, CRS designations",
+      "importance": 7,
+      "format": "Email signature credentials"
+    },
+    {
+      "signal": "$127M in closed transactions last 24 months",
+      "importance": 8,
+      "format": "Marketing materials header"
+    },
+    {
+      "signal": "Featured expert on local NBC affiliate real estate segment",
+      "importance": 6,
+      "format": "Video testimonial compilation"
+    },
+    {
+      "signal": "Preferred agent for three Fortune 500 company relocations",
+      "importance": 7,
+      "format": "Partnership logos display"
+    },
+    {
+      "signal": "Licensed attorney providing contract expertise",
+      "importance": 9,
+      "format": "Bio page highlight"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "92% of clients would refer us to family and friends",
+      "credibility_score": 8.7,
+      "context": "Based on 347 post-transaction surveys in past year"
+    },
+    {
+      "stat": "Ranked #3 agent by sales volume in metro area",
+      "credibility_score": 9.2,
+      "context": "MLS data for agents with 50+ transactions"
+    },
+    {
+      "stat": "Average client saves $31,000 through our negotiation",
+      "credibility_score": 7.9,
+      "context": "Compared to initial offer prices on 127 transactions"
+    },
+    {
+      "stat": "4.9/5.0 average rating across all review platforms",
+      "credibility_score": 8.4,
+      "context": "Aggregate of 487 verified reviews"
+    },
+    {
+      "stat": "73% of listings receive multiple offers within 7 days",
+      "credibility_score": 8.1,
+      "context": "Previous 6 months listing performance"
+    },
+    {
+      "stat": "Client retention rate of 89% for repeat transactions",
+      "credibility_score": 9.5,
+      "context": "10-year client relationship tracking"
+    }
+  ],
+  "quality_indicators": [
+    "Professional photography with drone footage and 3D virtual tours standard",
+    "Dedicated transaction coordinator managing all paperwork and deadlines",
+    "24/7 showing availability through electronic lockbox system",
+    "Comprehensive marketing including print, digital, and social media campaigns",
+    "Pre-listing home preparation consultation with staging recommendations",
+    "Network of preferred vendors offering client discounts on repairs and moving"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "Three days after successful closing and move-in completion when excitement peaks",
+    "ask_method": "Personal video message followed by easy one-click review links for Google, Zillow, and Facebook simultaneously"
+  },
+  "competitive_advantages": [
+    "Only brokerage with in-house mortgage company offering exclusive rate discounts",
+    "Proprietary buyer matching algorithm reducing showing-to-offer ratio by 43%",
+    "Guaranteed backup offer program maintaining multiple interested parties",
+    "Free moving truck rental for all clients closing over $300,000",
+    "Annual home warranty included for both buyers and sellers",
+    "Partnership with top 3 school districts for early enrollment information"
+  ],
+  "pricing_psychology": {
+    "anchoring": "List at $X99,900 price points for psychological pricing advantage; show highest-priced comparable first to anchor value perception",
+    "sensitivity": "Buyer resistance increases 31% at $25K thresholds; sellers become flexible after 21 days on market",
+    "sweet_spots": [
+      "$324,900-$349,900 for first-time buyers",
+      "$475,000-$525,000 for move-up buyers",
+      "$750,000-$850,000 for luxury entry"
+    ],
+    "decoy_pricing": "Show slightly overpriced similar property first, making target property appear as exceptional value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 10000,
+    "approval_required": 25000,
+    "competitor_research": 5000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.25,
+    "weekend": 1.15,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "5% commission",
+      "target_customer": "Price-conscious sellers with time flexibility",
+      "margin": 42
+    },
+    {
+      "tier": "Premium",
+      "price_range": "6% commission",
+      "target_customer": "Full-service requiring maximum price and speed",
+      "margin": 48
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "6-7% commission",
+      "target_customer": "High-end properties over $1M requiring discretion",
+      "margin": 52
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Referral fee agreements with out-of-area agents generating 25% commission on referred buyers",
+    "Preferred vendor kickbacks averaging $750 per transaction from inspectors, lenders, contractors",
+    "Dual agency representation capturing both sides of commission on 18% of deals",
+    "Team leverage model with showing agents at 25% split increasing per-transaction margin 40%",
+    "Marketing co-op with mortgage lender covering $1,500 in advertising costs per listing",
+    "Volume bonuses from title company worth $50,000 annually at 100+ transactions"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -22,
+      "reason": "Post-holiday slowdown and weather",
+      "opportunity": "Serious buyers only, less competition"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Tax refund anticipation building",
+      "opportunity": "Pre-spring listing preparation"
+    },
+    {
+      "month": "March",
+      "variation": 18,
+      "reason": "Spring market launch",
+      "opportunity": "Fresh inventory for pent-up demand"
+    },
+    {
+      "month": "April",
+      "variation": 34,
+      "reason": "Peak buying season begins",
+      "opportunity": "Multiple offer scenarios common"
+    },
+    {
+      "month": "May",
+      "variation": 41,
+      "reason": "School year-end urgency",
+      "opportunity": "Families needing summer move"
+    },
+    {
+      "month": "June",
+      "variation": 38,
+      "reason": "Maximum inventory available",
+      "opportunity": "Best selection for buyers"
+    },
+    {
+      "month": "July",
+      "variation": 27,
+      "reason": "Summer vacation impact",
+      "opportunity": "Motivated sellers before school"
+    },
+    {
+      "month": "August",
+      "variation": 22,
+      "reason": "Back-to-school pressure",
+      "opportunity": "Last chance for school districts"
+    },
+    {
+      "month": "September",
+      "variation": 15,
+      "reason": "Fall market secondary peak",
+      "opportunity": "Serious buyers return"
+    },
+    {
+      "month": "October",
+      "variation": 8,
+      "reason": "Holiday season approaching",
+      "opportunity": "Year-end tax motivation"
+    },
+    {
+      "month": "November",
+      "variation": -18,
+      "reason": "Thanksgiving disruption",
+      "opportunity": "Motivated sellers need deals"
+    },
+    {
+      "month": "December",
+      "variation": -31,
+      "reason": "Holiday focus elsewhere",
+      "opportunity": "Tax advantages and low competition"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New listing launches for weekend traffic review",
+      "avoid": "Open houses due to work schedules",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Offer submissions after weekend showings",
+      "avoid": "First showings while sellers prepare",
+      "conversion_rate": 4.7
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek price reductions for weekend attention",
+      "avoid": "Major negotiation deadlines",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend marketing blast and coming soon teasers",
+      "avoid": "Closing dates due to bank delays",
+      "conversion_rate": 5.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Closing transactions and evening showings",
+      "avoid": "New listing launches lost in weekend",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Open houses and maximum showing availability",
+      "avoid": "Offer deadlines when agents unavailable",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Open houses and family decision meetings",
+      "avoid": "Professional service coordination",
+      "conversion_rate": 8.7
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage payments due 1st create urgency 25th-31st for next month planning",
+    "cash_flow_peaks": "Payday influx on 15th and 30th drives showing requests up 43%",
+    "slow_periods": "Days 5-12 typically see 30% fewer inquiries as buyers recover from month-start expenses"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 4-7 PM",
+      "crisis_type": "Failed financing discovered before weekend",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Monday morning offer deadline pressure",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Month-end",
+      "crisis_type": "Lease expiration or rate lock deadline",
+      "premium_multiplier": 1.4
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Quick Sale Express",
+      "components": [
+        "Instant cash offer",
+        "7-day closing",
+        "No repairs needed",
+        "No showings"
+      ],
+      "pricing_model": "Purchase at 82% of market value",
+      "margin": 18
+    },
+    {
+      "name": "Full Service Premium",
+      "components": [
+        "Staging",
+        "Photography",
+        "Marketing",
+        "Negotiation",
+        "Transaction management"
+      ],
+      "pricing_model": "6% commission",
+      "margin": 48
+    },
+    {
+      "name": "FSBO Support",
+      "components": [
+        "MLS listing",
+        "Document preparation",
+        "Consultation calls",
+        "Closing coordination"
+      ],
+      "pricing_model": "$3,999 flat fee",
+      "margin": 67
+    },
+    {
+      "name": "Investor Advantage",
+      "components": [
+        "Portfolio analysis",
+        "1031 exchange support",
+        "Property management referral",
+        "Bulk transaction discount"
+      ],
+      "pricing_model": "5% commission on portfolio",
+      "margin": 45
+    }
+  ],
+  "upsell_paths": [
+    "Initial consultation → Property valuation report → Full listing agreement",
+    "Buyer representation → Mortgage referral → Home warranty purchase → Future listing",
+    "Single transaction → Investor education → Multiple property portfolio → Property management",
+    "Standard listing → Premium marketing upgrade → Staging services → Concurrent buying representation",
+    "FSBO support → Showing assistance → Negotiation help → Full representation conversion",
+    "Rental client → Rent-to-own program → Mortgage pre-approval → Home purchase → Future upgrade sale"
+  ],
+  "retention_hooks": [
+    "Annual home value report showing equity growth and market timing recommendations",
+    "Exclusive client events including market updates and networking opportunities",
+    "Preferred pricing on future transactions with 0.5% commission discount",
+    "Complimentary contractor consultations for home improvements affecting value",
+    "Priority access to pocket listings before public MLS posting",
+    "Lifetime warranty support and claim assistance for purchased coverage",
+    "Quarterly neighborhood reports on sales, trends, and opportunities"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Client appreciation events with bring-a-friend incentive",
+      "timing": "Quarterly, 60 days post-closing",
+      "incentive": "$500 credit at closing for both parties",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social media share campaigns with success stories",
+      "timing": "Within 1 week of closing",
+      "incentive": "$100 gift card for shared post leading to client",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Annual review calls with referral request",
+      "timing": "Anniversary of closing date",
+      "incentive": "Escalating rewards: $500, $750, $1000 for referrals 1, 2, 3+",
+      "conversion_rate": 15.2
+    },
+    {
+      "strategy": "Partner program with complementary businesses",
+      "timing": "Ongoing monthly touchpoints",
+      "incentive": "Reciprocal referral fees at 25% of commission",
+      "conversion_rate": 9.4
+    },
+    {
+      "strategy": "Client portal with easy referral submission",
+      "timing": "Always available with reminder emails",
+      "incentive": "Points system redeemable for services or cash",
+      "conversion_rate": 6.8
+    },
+    {
+      "strategy": "Housewarming gift with referral cards",
+      "timing": "Move-in week",
+      "incentive": "Donation to charity of choice for each referral",
+      "conversion_rate": 7.1
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Mortgage services through affiliated lender",
+      "attach_rate": 47,
+      "timing": "During pre-approval phase"
+    },
+    {
+      "service": "Title and escrow services",
+      "attach_rate": 62,
+      "timing": "Upon offer acceptance"
+    },
+    {
+      "service": "Home warranty protection plans",
+      "attach_rate": 38,
+      "timing": "During inspection period"
+    },
+    {
+      "service": "Property management for investors",
+      "attach_rate": 23,
+      "timing": "Post-closing for rental properties"
+    },
+    {
+      "service": "Home insurance referral",
+      "attach_rate": 71,
+      "timing": "Two weeks before closing"
+    },
+    {
+      "service": "Moving and storage services",
+      "attach_rate": 29,
+      "timing": "Three weeks before closing"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Luxury vacation home market in adjacent mountain/beach areas",
+      "market_size": "$450M annual transactions",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Property management division for investor clients",
+      "market_size": "8,000 rental units in market",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "New construction sales representation",
+      "market_size": "1,200 new homes annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Commercial real estate crossover for investor clients",
+      "market_size": "$780M in small commercial deals",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Real estate investment syndication formation",
+      "market_size": "$120M in potential capital raises",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "International buyer program targeting specific countries",
+      "market_size": "$200M in foreign investment",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Ryan Serhant's 'Sell It Like Serhant' YouTube series featuring behind-the-scenes luxury real estate tours and negotiation breakdowns",
+        "platform": "YouTube",
+        "why_it_worked": "Combines educational content with entertainment, showing actual deals and negotiations. Builds trust through transparency and provides value beyond property listings. Uses storytelling to make complex transactions relatable.",
+        "metrics": "Average 500K-2M views per episode, 1.5M+ subscribers, 4-6% engagement rate",
+        "source": "YouTube.com/RyanSerhant and Social Media Examiner Real Estate Marketing Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Zillow's 'Home for the Holidays' TikTok campaign showing emotional first-time homebuyer reactions and move-in moments",
+        "platform": "TikTok",
+        "why_it_worked": "Leveraged authentic emotional moments, user-generated content style, and holiday timing. Short-form vertical video format optimized for platform. Focused on transformation stories rather than property features.",
+        "metrics": "15M+ combined views, 8.2% engagement rate, 45K shares across campaign videos",
+        "source": "TikTok @zillow and HubSpot Social Media Benchmarks 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "The Corcoran Group's neighborhood guide series on Instagram featuring local business owners, hidden gems, and lifestyle content beyond properties",
+        "platform": "Instagram",
+        "why_it_worked": "Positioned agents as neighborhood experts rather than just salespeople. Carousel posts with mix of lifestyle photos and practical information. Built community engagement through local business partnerships.",
+        "metrics": "3-5x higher engagement than property-only posts, average 4.8% engagement rate on carousel posts vs 1.2% on listing posts",
+        "source": "Instagram @thecorcorangroup and Sprout Social Real Estate Industry Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Redfin's data-driven blog posts on market trends with interactive charts and local market predictions",
+        "platform": "Blog/Website",
+        "why_it_worked": "Provided actionable market intelligence that buyers and sellers actively search for. SEO-optimized content targeting high-intent keywords. Established authority through original data analysis.",
+        "metrics": "Average 15K organic visits per major market report, 12-minute average time on page, 28% email signup conversion rate",
+        "source": "Redfin.com/news and SEMrush Real Estate Content Analysis 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Compass 'Coming Soon' email campaigns with exclusive pre-market listings sent to segmented buyer lists",
+        "platform": "Email",
+        "why_it_worked": "Created urgency and exclusivity by offering early access. Segmented lists by price range, location preferences, and buyer readiness. Personalized subject lines with specific neighborhoods.",
+        "metrics": "42% open rate, 8.7% click-through rate, 3.2% conversion to showing requests",
+        "source": "Compass marketing case study and Mailchimp Real Estate Benchmark Report 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.2-2.8% for real estate industry (0.9% lower than general Instagram average)",
+        "best_content_format": "Carousel posts (3.1% engagement) and Reels (2.8% engagement) outperform single images (1.1%)",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Reels per week for maximum reach",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm local time, Saturday 9am-11am, avoid Monday and Friday evenings",
+        "source": "Sprout Social 2024 Real Estate Social Media Report and Later.com Instagram Benchmarks"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.5% for real estate pages, with video posts at 2.1% engagement",
+        "best_content_format": "Live virtual tours (2.8% engagement), native video (2.1%), and photo albums (1.4%). Link posts perform poorly at 0.4%.",
+        "optimal_frequency": "5-10 posts per week, including 2-3 video posts and 1 live video per week",
+        "best_posting_times": "Wednesday-Friday 1pm-3pm, Sunday 10am-12pm for residential real estate audience",
+        "source": "Hootsuite Real Estate Marketing Report 2024 and Rival IQ Industry Benchmark Study"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1-3.4% for real estate professionals (higher than most industries)",
+        "best_content_format": "Market analysis posts with data visualizations (4.2%), personal success stories (3.8%), and document posts with guides (3.1%)",
+        "optimal_frequency": "3-5 posts per week for individual agents, daily for real estate companies",
+        "best_posting_times": "Tuesday-Thursday 7am-9am and 5pm-6pm EST for B2B real estate content",
+        "source": "LinkedIn Marketing Solutions Real Estate Vertical Report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3-8.7% for real estate content (significantly higher than Instagram/Facebook)",
+        "best_content_format": "15-30 second home tours with trending audio (9.2%), first-time buyer tips (7.8%), and 'day in the life' agent content (6.4%)",
+        "optimal_frequency": "1-3 posts daily for algorithm favorability, minimum 5 per week",
+        "best_posting_times": "Tuesday, Thursday, Friday 6pm-10pm for maximum residential buyer engagement",
+        "source": "Influencer Marketing Hub TikTok Benchmarks 2024 and HubSpot Social Media Trends Report"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.8% open rate, 2.4% click-through rate for real estate industry",
+        "best_content_format": "Personalized property matches (3.8% CTR), market updates with local data (2.9% CTR), new listing alerts (2.6% CTR)",
+        "optimal_frequency": "Weekly for active buyers/sellers, bi-weekly for nurture lists, monthly for general database",
+        "best_posting_times": "Tuesday-Thursday 8am-10am local time, Sunday 6pm-8pm for residential audience",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Campaign Monitor Real Estate Industry Report"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "1.8-3.2% engagement (likes/comments relative to views) for real estate channels",
+        "best_content_format": "Neighborhood tours 8-12 minutes (4.1% engagement), home buying guides (3.4%), property walkthroughs under 5 minutes (2.8%)",
+        "optimal_frequency": "2-4 videos per week for established channels, minimum 1 per week for growth",
+        "best_posting_times": "Saturday-Sunday 12pm-4pm, Wednesday 6pm-9pm for residential real estate viewers",
+        "source": "Tubular Labs Real Estate Content Analysis 2024 and YouTube Creator Insider Industry Benchmarks"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Scarcity + Location",
+        "example": "Just Listed: Only 3 Homes Under $500K Left in [Top School District Name] - Won't Last",
+        "why_it_works": "Combines multiple triggers: limited inventory creates FOMO, specific price point qualifies buyers, school district addresses key decision factor. Numbers make scarcity concrete and believable.",
+        "source": "Inman News Top Real Estate Headlines Analysis 2024"
+      },
+      {
+        "hook_pattern": "Contrarian/Myth-Busting",
+        "example": "Why Waiting for Lower Interest Rates Could Cost You $80,000 (Real Math Inside)",
+        "why_it_works": "Challenges common buyer objection with specific financial impact. Creates curiosity gap with promise of data. Addresses timing hesitation directly.",
+        "source": "Real Estate Marketing Blog and A/B tested email subject lines from Realtor.com"
+      },
+      {
+        "hook_pattern": "Before/After Transformation",
+        "example": "From Outbid 4 Times to Keys in Hand: How First-Time Buyers Are Winning in 2024",
+        "why_it_works": "Shows relatable struggle followed by successful outcome. Implies insider knowledge or strategy. Speaks directly to frustrated buyers' pain points.",
+        "source": "Zillow Premier Agent Marketing Best Practices and BuzzSumo Real Estate Content Analysis"
+      },
+      {
+        "hook_pattern": "Insider Secret/Behind-the-Scenes",
+        "example": "What Listing Agents Don't Tell You About 'Motivated Seller' Homes (I'm Breaking the Code)",
+        "why_it_works": "Promises exclusive industry knowledge. Creates trust through transparency. Appeals to desire for negotiating advantage.",
+        "source": "Reddit r/RealEstate top-performing posts analysis and YouTube real estate title optimization studies"
+      },
+      {
+        "hook_pattern": "Specific Number + Outcome",
+        "example": "7 Neighborhoods Where $400K Buys You 2,000+ Sq Ft AND Top Schools",
+        "why_it_works": "Odd numbers perform better than even (7 vs 10). Specific square footage and price creates mental picture. 'AND' promises multiple benefits without compromise.",
+        "source": "CoSchedule Headline Analyzer Real Estate Data and Compass Marketing Performance Reports"
+      },
+      {
+        "hook_pattern": "Time-Sensitive Market Intel",
+        "example": "March 2024 Update: These 5 ZIP Codes Just Became Buyer's Markets (Data Attached)",
+        "why_it_works": "Date specificity signals fresh, relevant information. Actionable geographic targeting. Promise of data adds credibility and value.",
+        "source": "Redfin blog post engagement metrics and HubSpot Real Estate Content Performance Study"
+      },
+      {
+        "hook_pattern": "Problem Agitation + Timeframe",
+        "example": "Lease Ends in 90 Days? Here's Your Emergency Home-Buying Checklist",
+        "why_it_works": "Identifies specific trigger moment. 'Emergency' validates urgency they feel. 'Checklist' promises actionable steps to reduce overwhelm.",
+        "source": "Apartments.com and Zillow search behavior analysis, Real Estate Webmasters conversion data"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "We're getting priced out of every neighborhood we look at",
+        "I'm tired of losing out to cash offers",
+        "Our lease is up in two months and we have nowhere to go",
+        "The schools in our price range are terrible",
+        "We keep getting outbid by $20-30K over asking",
+        "I don't know if we're overpaying in this crazy market",
+        "Our commute is killing us - we need to move closer to work",
+        "We're drowning in maintenance issues with this old house",
+        "The HOA fees are eating us alive every month",
+        "We need more space but can't afford to move up in this area",
+        "I'm terrified of buying at the peak and losing equity",
+        "We've been looking for 8 months and keep missing out"
+      ],
+      "solution_phrases": [
+        "We finally found an agent who understood our timeline and budget",
+        "They showed us neighborhoods we never would have considered",
+        "Our agent got us in before it hit the market",
+        "We closed in 30 days with their lender recommendation",
+        "They negotiated $15K off and got the seller to fix everything",
+        "Finally have a yard for the kids and dog",
+        "We can walk to school now - mornings are so much easier",
+        "Our monthly payment is actually less than we were paying in rent",
+        "The neighborhood has everything we need within 10 minutes",
+        "We got into the school district we wanted before the deadline",
+        "No more bidding wars - we found a pocket listing",
+        "Our agent knew about the rate buy-down program that saved us thousands"
+      ],
+      "objection_phrases": [
+        "What if rates drop next month and we overpaid?",
+        "We're worried about buying before a recession",
+        "Can we really afford this or are we stretching too thin?",
+        "What if something major breaks and we can't afford to fix it?",
+        "Is this neighborhood really going to hold its value?",
+        "We don't want to be house poor",
+        "What if one of us loses our job after we buy?",
+        "The inspection found some issues - should we walk away?",
+        "Is now really the right time or should we wait?",
+        "We're not sure we want to commit to staying here for 5+ years",
+        "What if we can't sell when we need to move?",
+        "The property taxes seem really high compared to what we're paying now"
+      ],
+      "decision_factors": [
+        "School ratings were our number one priority",
+        "We needed to be within 30 minutes of both our jobs",
+        "The neighborhood had to feel safe for our kids to play outside",
+        "We wanted a place that didn't need any work - turnkey was essential",
+        "Resale value mattered more than our personal preferences",
+        "We needed an agent who was available nights and weekends",
+        "Low HOA fees or no HOA was a dealbreaker for us",
+        "We wanted to be near family but not too close",
+        "The kitchen had to be updated - we're not doing a renovation",
+        "We needed at least a two-car garage",
+        "Access to good hospitals and healthcare was important",
+        "We wanted a neighborhood with young families like us",
+        "Being able to walk to restaurants and shops was a must-have",
+        "We needed to close before school starts in August"
+      ],
+      "emotional_language": [
+        "This feels like home the moment we walked in",
+        "We can finally breathe - we have space",
+        "I cried when we got the keys",
+        "It's such a relief to not worry about the landlord selling",
+        "We feel so much safer in this neighborhood",
+        "Our kids are thriving in the new school",
+        "It's like a weight has been lifted off our shoulders",
+        "We finally feel settled and stable",
+        "This is the fresh start we needed",
+        "We're building equity instead of throwing money away",
+        "I sleep better knowing we own this",
+        "We're so proud to be homeowners",
+        "This is our forever home",
+        "We can finally put down roots",
+        "The stress of house hunting was overwhelming but worth it"
+      ],
+      "sources": [
+        "Reddit r/RealEstate threads from 2023-2024",
+        "Reddit r/FirstTimeHomeBuyer community discussions",
+        "Zillow and Realtor.com review sections",
+        "Google Reviews for top real estate agents in major metros",
+        "Facebook Real Estate groups (First Time Home Buyers, specific city groups)",
+        "Trulia and Redfin customer testimonials",
+        "YouTube comments on home buying journey videos",
+        "BiggerPockets forums residential real estate sections"
+      ]
+    },
+    "competitive_gaps": [
+      "Most agents post listings but few create content about the emotional/psychological aspects of home buying decisions",
+      "Limited content addressing dual-income couples' specific challenges in coordinating schedules, preferences, and financial decisions",
+      "Underserved content for divorced individuals navigating solo home buying after years of joint ownership",
+      "Few agents create content specifically for remote workers choosing locations based on lifestyle rather than commute",
+      "Gap in content addressing multi-generational housing needs (aging parents + young family)",
+      "Limited transparent content about agent commission structures and negotiation - most avoid the topic",
+      "Underutilized format: interactive mortgage calculators with local tax and insurance data embedded in social content",
+      "Few agents leverage podcast format despite high engagement potential for long-form home buying education",
+      "Limited content in languages other than English despite significant immigrant homebuyer populations",
+      "Gap in content for 'move-up' buyers who already own but are intimidated by simultaneous buy/sell",
+      "Underserved: content about buying in climate-risk areas (flood zones, fire zones) with practical mitigation advice"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - February",
+        "opportunity": "New Year motivation, tax refund planning, low inventory creates less competition",
+        "content_angle": "New Year New Home campaigns, tax refund down payment strategies, 'beat the spring rush' positioning, winter buying advantages content"
+      },
+      {
+        "period": "March - May (Spring Peak)",
+        "opportunity": "Highest inventory, school enrollment deadlines, families want to move before summer, tax filing creates financial clarity",
+        "content_angle": "School district guides with enrollment deadlines, 'move before school ends' urgency content, spring home maintenance tips for sellers, market trend updates"
+      },
+      {
+        "period": "June - August (Summer Peak)",
+        "opportunity": "Families must move before school starts, peak relocation season, vacation property interest, college towns have unique cycle",
+        "content_angle": "Back-to-school countdown urgency, summer weekend open house events, vacation home investment content, student housing guides"
+      },
+      {
+        "period": "September - October",
+        "opportunity": "Serious buyers remain (less competition), sellers more motivated, second wave after summer pause, pre-holiday urgency",
+        "content_angle": "'Close before holidays' campaigns, fall market opportunities, year-end tax benefit content, motivated seller opportunities"
+      },
+      {
+        "period": "November - December",
+        "opportunity": "Lowest competition, most motivated sellers, year-end tax benefits, job relocations for January start dates, holiday emotions",
+        "content_angle": "Home for the holidays emotional content, year-end tax advantage education, new job relocation support, 'gift yourself a home' campaigns"
+      },
+      {
+        "period": "Rate Change Announcements (Fed meetings)",
+        "opportunity": "Federal Reserve meeting dates create market uncertainty and urgency, 8 meetings per year",
+        "content_angle": "Pre-meeting: 'lock your rate before the Fed meets' urgency. Post-meeting: immediate market analysis and action steps based on decision"
+      },
+      {
+        "period": "Local School Calendar Events",
+        "opportunity": "School registration deadlines, school year start/end, school rankings release, district boundary changes",
+        "content_angle": "Deadline-driven urgency content, school ranking analysis with home availability, boundary change impact reports"
+      },
+      {
+        "period": "First-Time Buyer Grant Cycles",
+        "opportunity": "State and local down payment assistance programs have application windows and funding cycles",
+        "content_angle": "Grant deadline alerts, application how-to guides, eligibility checker content, success stories from grant recipients"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Sprout Social 2024 Real Estate Industry Report",
+      "HubSpot Social Media Trends and Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Inman News Real Estate Marketing Analysis",
+      "Reddit r/RealEstate and r/FirstTimeHomeBuyer communities",
+      "YouTube analytics from top real estate channels (Ryan Serhant, Graham Stephan, Javier Vidana)",
+      "Zillow Premier Agent resources and case studies",
+      "Realtor.com marketing best practices",
+      "Later.com and Hootsuite social media benchmark reports",
+      "BuzzSumo content analysis tools",
+      "SEMrush real estate industry content research",
+      "Rival IQ social media competitive analysis",
+      "LinkedIn Marketing Solutions industry reports",
+      "Influencer Marketing Hub TikTok research",
+      "Campaign Monitor industry benchmarks",
+      "Google Reviews and testimonials from top-rated agents across major metros",
+      "Facebook real estate community groups",
+      "Redfin and Compass marketing case studies",
+      "CoSchedule headline analyzer data",
+      "Tubular Labs video content performance data"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data from major brokerages (proprietary)",
+      "Conversion rate data from social media to actual home purchases is rarely disclosed",
+      "Specific ROI metrics for different content types are closely guarded by top performers",
+      "Platform-specific algorithm changes in late 2024 may affect some benchmark accuracy",
+      "International market data was excluded to focus on US residential real estate patterns"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new service offerings (exclusive buyer programs, VIP seller packages, neighborhood specialization)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Insider access and exclusive opportunities - teasing the advantage of early knowledge",
+        "Week 2: Transformation stories showing before/after of clients who used this service",
+        "Week 3: Behind-the-scenes transparency revealing exactly how the service works",
+        "Week 4: Scarcity and urgency with limited availability for this premium service"
+      ],
+      "weekly_hooks": [
+        [
+          "Something's changing in how we help buyers win in [Neighborhood Name] - and you'll get first access",
+          "I'm breaking my own rule and sharing this before it goes public on [Date]",
+          "After watching clients lose out [X] times, I built something different (sneak peek inside)"
+        ],
+        [
+          "From Outbid 5 Times to Keys in 23 Days: Meet the [Family Name] and How Our New [Service] Changed Everything",
+          "Just Listed: Only [X] Spots Available for Our Exclusive [Service Name] - Here's What's Included",
+          "Why Traditional [Old Method] Could Cost You $[Amount] (Our New Approach Explained)"
+        ],
+        [
+          "What Listing Agents Don't Tell You About [Pain Point] - I'm Breaking the Code with [Service]",
+          "Behind-the-Scenes: Exactly How Our [Service] Got [Client] Into [Top School District] Under Budget",
+          "[Number] Neighborhoods Where Our [Service] Gives You the Unfair Advantage (Data Attached)"
+        ],
+        [
+          "Final [X] Spots for [Service Launch] - Enrollment Closes [Specific Date]",
+          "Lease Ends Soon? Our [Service] Clients Are Closing in [X] Days (Last Chance to Join)",
+          "[Month] Update: These Clients Used [Service] and Avoided Bidding Wars Entirely (Doors Close [Date])"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Is now really the right time or should we wait?' by building urgency around market conditions",
+        "Week 2: Address 'We keep getting outbid - can an agent really help?' with specific success stories and strategies",
+        "Week 3: Address 'Commission is too high' by demonstrating ROI through case studies showing savings/gains",
+        "Week 4: Address 'Can we really afford this or are we stretching too thin?' with financial clarity and qualification process"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce credibility through market data and years of experience in specific neighborhoods",
+        "Week 2: Share detailed client transformation stories with specific dollar amounts saved or gained",
+        "Week 3: Feature video testimonials and before/after metrics (days to close, over-asking avoided, etc.)",
+        "Week 4: Final push with limited availability proof (X spots filled, waitlist forming) and guarantee/risk-reversal"
+      ],
+      "cta_progression": [
+        "Week 1: Download our [Neighborhood Insider Report] to see if this is right for you",
+        "Week 2: Comment below: What's your biggest frustration in today's market? (I'll reply to everyone)",
+        "Week 3: Schedule your free [Service] qualification call - we'll tell you honestly if it's a fit",
+        "Week 4: Claim your spot before [Date] - only [X] openings left for [Month] closings"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week with 3-5 Reels) - Primary platform for carousel case studies and Reels showing service in action",
+        "Facebook (7-10 posts/week with 2 live videos) - Secondary for longer-form explanations and live Q&A sessions",
+        "Email (4 emails total, one per week) - Segmented list of active buyers/sellers with personalized service fit",
+        "TikTok (10-14 short videos total) - Behind-the-scenes service delivery and quick transformation stories"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Compass 'Coming Soon' exclusive email campaigns achieving 42% open rates through urgency and exclusivity, combined with Ryan Serhant's behind-the-scenes transparency approach that builds trust. Launch timing aligned with seasonal opportunity data showing January-February as optimal for 'beat the spring rush' positioning."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building neighborhood authority and buyer/seller education",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Neighborhood spotlight - local businesses, hidden gems, lifestyle beyond properties",
+        "Week 2: Market intelligence - data-driven trends, price analysis, inventory updates",
+        "Week 3: Buyer education - first-time buyer tips, financing strategies, inspection insights",
+        "Week 4: School district deep-dive - ratings, enrollment, boundary changes, family testimonials",
+        "Week 5: Home maintenance and value protection - seasonal tips, ROI improvements, DIY vs pro",
+        "Week 6: Seller preparation - staging wins, pricing strategy, pre-listing must-dos",
+        "Week 7: Success stories and transformations - client journeys from search to closing",
+        "Week 8: Community engagement - local events, charity involvement, market predictions"
+      ],
+      "weekly_hooks": [
+        [
+          "7 Hidden Gems in [Neighborhood] That Only Locals Know About (Coffee Shop on #4 Is My Obsession)",
+          "We can walk to school now - mornings are so much easier (Neighborhood Tour Inside)",
+          "Why [Neighborhood] Families Never Leave: Local Business Owner Reveals All"
+        ],
+        [
+          "[Month] Update: These 5 ZIP Codes Just Became Buyer's Markets (Data Attached)",
+          "March 2024 Update: What Inventory Levels Really Mean for Your Buying Power",
+          "Why Waiting for Lower Interest Rates Could Cost You $80,000 (Real Math Inside)"
+        ],
+        [
+          "From Outbid 4 Times to Keys in Hand: How First-Time Buyers Are Winning in 2024",
+          "Our agent knew about the rate buy-down program that saved us thousands (Here's How It Works)",
+          "Lease Ends in 90 Days? Here's Your Emergency Home-Buying Checklist"
+        ],
+        [
+          "7 Neighborhoods Where $[Price] Buys You 2,000+ Sq Ft AND Top Schools",
+          "School Registration Deadline [Date]: These Districts Still Have Homes Under $[Price]",
+          "The schools in our price range were terrible - until we found these 3 hidden districts"
+        ],
+        [
+          "5 $500 Fixes That Prevented $15,000 Problems (Homeowner Maintenance Calendar Inside)",
+          "We're drowning in maintenance - here's what I wish we'd known before buying this old house",
+          "Spring Home Maintenance Checklist: Protect Your Investment in 2 Weekends"
+        ],
+        [
+          "They negotiated $15K off and got the seller to fix everything (Our Exact Strategy Revealed)",
+          "What Listing Agents Don't Tell You About 'Motivated Seller' Homes (Pricing Secrets Inside)",
+          "Just Listed: Only 3 Homes Under $[Price] Left in [School District] - Won't Last"
+        ],
+        [
+          "We finally found an agent who understood our timeline and budget (Their Story)",
+          "This feels like home the moment we walked in - [Family Name]'s Journey from Cramped Apartment to Dream Home",
+          "Our agent got us in before it hit the market (How Pocket Listings Actually Work)"
+        ],
+        [
+          "[Local Event] This Weekend: See Me at [Location] + March Market Predictions",
+          "We're partnering with [Local Charity] to help [Cause] - here's how you can join",
+          "Fed Meeting This Week: Here's Exactly What to Watch and What It Means for Buyers"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'Is this neighborhood really going to hold its value?' through lifestyle and appreciation data",
+        "Week 3: Address 'Can we really afford this or are we stretching too thin?' with financing education",
+        "Week 4: Address 'The schools in our price range are terrible' by revealing overlooked districts",
+        "Week 5: Address 'What if something major breaks and we can't afford to fix it?' with maintenance planning",
+        "Week 6: Address 'What if rates drop next month and we overpaid?' with timing and equity analysis",
+        "Week 7: Address 'We're not sure we want to commit to staying here for 5+ years' through client stories",
+        "Week 8: Address 'We're worried about buying before a recession' with market cycle education"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce neighborhood expertise through partnerships with 3-5 local businesses",
+        "Week 2: Share original market data analysis establishing authority as data source",
+        "Week 3: Feature first-time buyer success story with specific timeline and savings",
+        "Week 4: Include school district research with enrollment data and family testimonials",
+        "Week 5: Reference years of experience and common issues prevented through maintenance",
+        "Week 6: Show before/after staging results with specific price impact",
+        "Week 7: Deep-dive client transformation with video testimonial and metrics",
+        "Week 8: Highlight community involvement and media mentions/market predictions accuracy"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post - you'll want this neighborhood guide when you're ready to explore",
+        "Week 2: Download our monthly market report for [Your Area] (link in bio)",
+        "Week 3: Comment your biggest first-time buyer question - I'll answer every one",
+        "Week 4: DM me for our complete school district comparison guide (free)",
+        "Week 5: Tag someone who just bought a home and needs this maintenance checklist",
+        "Week 6: Thinking of selling? Get our free home value report (no obligation)",
+        "Week 7: Ready for your own success story? Let's talk about your goals (calendar link in bio)",
+        "Week 8: Join our VIP buyer list for early access to new listings before they go public"
+      ],
+      "platform_priority": [
+        "Instagram (4-7 posts/week with 3-5 Reels) - Primary for neighborhood content and visual storytelling",
+        "Facebook (5-10 posts/week with weekly live market update) - Community engagement and longer educational content",
+        "Email (weekly newsletter) - Market updates and personalized property matches to segmented database",
+        "LinkedIn (3-5 posts/week) - Market analysis with data visualizations for professional audience",
+        "YouTube (1 video/week) - Longer neighborhood tours and educational deep-dives"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Corcoran Group's neighborhood guide series achieving 3-5x higher engagement than property-only posts by positioning agents as neighborhood experts. Combined with Redfin's data-driven blog approach (15K organic visits, 12-minute engagement) and platform benchmark data showing carousel posts and video outperforming static listings."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral content formats and trending topics",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Emotional transformation stories optimized for shares - move-in moments, key handoffs, family reactions",
+        "Week 2: Contrarian market takes and myth-busting content that sparks debate and comments"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You just got the keys to your first home (Watch till the end - I cried)",
+          "We can finally breathe - we have space (This family's reaction says everything)",
+          "It's such a relief to not worry about the landlord selling - First-Time Buyer Move-In Day",
+          "This is the fresh start we needed: [Family] Goes from Unsafe Neighborhood to Dream Community",
+          "I cried when we got the keys - Real Homebuyer Emotions Caught on Camera",
+          "Day in the Life: Real Estate Agent Edition (You Won't Believe What Happened at 2pm)"
+        ],
+        [
+          "Unpopular Opinion: Waiting for Lower Rates Is Costing You More Than Buying Today (Receipts Inside)",
+          "Why 'Overpriced' Homes Actually Sell First (Data That'll Change How You Search)",
+          "Stop Telling People to Wait - Here's What Actually Happens When You Do (Real Numbers)",
+          "The Lie Everyone Believes About Spring Being the Best Time to Buy",
+          "I'm an Agent and I Think You Should Skip the Inspection (Hear Me Out)",
+          "Your Parents' Home-Buying Advice Will Cost You $50K in 2024 - Here's Why"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'We're not sure we want to commit to staying here for 5+ years' through emotional stability stories",
+        "Week 2: Address 'What if rates drop next month and we overpaid?' with contrarian financial analysis"
+      ],
+      "proof_timing": [
+        "Week 1: Share 5-7 rapid-fire client reaction videos and move-in moments with minimal editing for authenticity",
+        "Week 2: Present controversial data with sources cited, inviting debate while establishing credibility"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this / Share this with someone house hunting",
+        "Week 2: Comment if you agree or think I'm wrong - let's debate this (I'll respond to everyone)"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day, 14-21 total) - Primary platform for viral potential with 5.3-8.7% engagement rates",
+        "Instagram Reels (2-3 posts/day mirroring TikTok) - Secondary distribution for same content",
+        "Facebook (1-2 posts/day) - Reshare top performers with native video for older demographic reach",
+        "YouTube Shorts (10-14 shorts total) - Additional distribution channel for viral content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Zillow's 'Home for the Holidays' TikTok campaign achieving 15M+ views and 8.2% engagement through authentic emotional moments and user-generated content style. Combined with TikTok benchmark data showing 15-30 second home tours with trending audio achieving 9.2% engagement and platform preference for 1-3 daily posts for algorithm favorability."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing market expertise and insider knowledge",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Original market research and data analysis that media and competitors will reference",
+        "Week 2: Insider negotiation strategies and behind-the-scenes deal breakdowns",
+        "Week 3: Deep-dive neighborhood investment analysis with 5-10 year projections",
+        "Week 4: Comprehensive first-time buyer education addressing every stage of the journey",
+        "Week 5: Advanced seller strategies including pricing psychology and staging ROI studies",
+        "Week 6: Market predictions and trend analysis with accountability for past predictions"
+      ],
+      "weekly_hooks": [
+        [
+          "[Month] Market Report: I Analyzed [X] Sales in [Area] - Here's What Nobody's Talking About",
+          "March 2024 Update: These 5 ZIP Codes Just Became Buyer's Markets (Full Data Breakdown)",
+          "I Tracked Every Sale in [Neighborhood] for 90 Days - The Results Will Surprise You"
+        ],
+        [
+          "What Listing Agents Don't Tell You About 'Motivated Seller' Homes (I'm Breaking the Code)",
+          "How I Negotiated $47K Off Asking Price (Exact Email Scripts and Strategy Inside)",
+          "Behind-the-Scenes: The Real Reason That House Sat on Market for 120 Days"
+        ],
+        [
+          "7 Neighborhoods Where $400K Buys You 2,000+ Sq Ft AND Top Schools (Investment Analysis)",
+          "I Mapped Every [City] Neighborhood's 10-Year Appreciation - Here Are the Winners",
+          "Why [Neighborhood] Will Outperform [Neighborhood] Over Next 5 Years (Data Deep-Dive)"
+        ],
+        [
+          "Complete First-Time Buyer Roadmap: From Pre-Approval to Keys (Nothing Left Out)",
+          "Our agent knew about the rate buy-down program that saved us thousands - Complete Guide",
+          "Lease Ends in 90 Days? Here's Your Emergency Home-Buying Checklist (Every Single Step)"
+        ],
+        [
+          "I Staged 47 Homes Last Year - Here's the $500 Fix That Added $15K to Sale Price Every Time",
+          "Pricing Psychology: Why $499,000 Sells Faster Than $500,000 (Behavioral Economics Explained)",
+          "Before/After: How Strategic Staging Reduced Days on Market by 73% (Case Study)"
+        ],
+        [
+          "My 2023 Predictions vs Reality: What I Got Right and Wrong (2024 Forecast Inside)",
+          "Fed Meeting This Week: Here's Exactly What to Watch and What It Means for [Local Market]",
+          "Unpopular Prediction: [Market Take] Will Happen by Q3 2024 (Mark This Post)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if we're overpaying in this crazy market' with comprehensive data analysis",
+        "Week 2: Address 'We keep getting outbid by $20-30K over asking' with negotiation strategies",
+        "Week 3: Address 'Is this neighborhood really going to hold its value?' with investment research",
+        "Week 4: Address 'Can we really afford this or are we stretching too thin?' with complete financial education",
+        "Week 5: Address 'FSBO - I can sell it myself and save money' with staging ROI and pricing data",
+        "Week 6: Address 'What if we're buying at the peak and lose equity?' with market cycle analysis"
+      ],
+      "proof_timing": [
+        "Week 1: Establish authority through original research methodology and comprehensive data sets",
+        "Week 2: Share specific deal examples with client permission and exact dollar amounts",
+        "Week 3: Reference professional designations, years of transactions, and neighborhood specialization",
+        "Week 4: Include testimonials from first-time buyers highlighting educational support",
+        "Week 5: Show portfolio of staging transformations with before/after and sale price data",
+        "Week 6: Demonstrate prediction accuracy with timestamped past forecasts vs actual outcomes"
+      ],
+      "cta_progression": [
+        "Week 1: Download our complete [Month] Market Report with all [X] data points analyzed",
+        "Week 2: Save this post - you'll need these negotiation scripts when you find your home",
+        "Week 3: DM me your target neighborhood - I'll send you our investment analysis (free)",
+        "Week 4: Comment your stage in the buying process - I'll tell you exactly what to do next",
+        "Week 5: Sellers: Get our free staging ROI assessment (we'll tell you what's worth doing)",
+        "Week 6: Join our monthly market forecast email list - be the most informed person in the room"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-5 posts/week) - Primary platform for data-driven content, achieving 2.1-3.4% engagement with market analysis",
+        "Blog/Website (1 comprehensive post/week) - Long-form SEO-optimized content for organic search traffic",
+        "YouTube (2 videos/week, 8-12 minutes) - Neighborhood investment tours and market deep-dives",
+        "Email (weekly) - Detailed market analysis to subscriber list with exclusive data",
+        "Instagram (4-5 posts/week) - Carousel posts with data visualizations and key takeaways"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Redfin's data-driven blog posts achieving 15K organic visits and 12-minute engagement by providing actionable market intelligence. Combined with LinkedIn benchmark data showing 4.2% engagement on market analysis posts with data visualizations and Ryan Serhant's educational approach that builds trust through transparency and insider knowledge sharing."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and algorithm favorability",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls, quizzes, and decision-making scenarios that require audience input",
+        "Week 2: User-generated content prompts and community showcase featuring follower stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: Would you rather have [Option A] or [Option B]? (Results are shocking)",
+          "Quiz: Can You Guess the Sale Price of These 3 [City] Homes? (Answer in comments)",
+          "You Have $500K Budget: Which [Neighborhood] Would You Choose and Why?",
+          "This or That: Updated Kitchen vs Larger Yard - Comment Your Pick",
+          "Red Flag or No Big Deal? [Common Home Issue] - Tell Me What You'd Do",
+          "Hot Take: I Think [Controversial Opinion] - Change My Mind in the Comments"
+        ],
+        [
+          "Tag someone who just bought their first home - let's celebrate them! (I'll feature the best stories)",
+          "Show me your favorite room in your home - drop a photo in the comments",
+          "What's the one thing you wish you knew before buying? (Helping future buyers - comment below)",
+          "Share your home-buying win in the comments - big or small, I want to hear it",
+          "Drop a 📍 emoji and I'll send you my honest opinion of that neighborhood",
+          "Fill in the blank: The best thing about my neighborhood is _____ (I'll share the best answers)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'We're not sure we want to commit to staying here for 5+ years' through community preference discussions",
+        "Week 2: Address 'What if one of us loses our job after we buy?' through community support and success stories"
+      ],
+      "proof_timing": [
+        "Week 1: Sprinkle client success metrics into poll results and quiz explanations",
+        "Week 2: Feature follower testimonials and tag clients who achieved their goals"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your answer - I'm responding to every single one today",
+        "Week 2: Tag a friend and share your story - let's build this community together"
+      ],
+      "platform_priority": [
+        "Instagram (3-4 posts/day with Stories every 2-3 hours) - Primary for polls, quizzes, and interactive stickers",
+        "Facebook (2-3 posts/day) - Community discussion posts and photo sharing prompts",
+        "TikTok (2-3 posts/day) - Duet/Stitch prompts and reaction video requests",
+        "LinkedIn (1-2 posts/day) - Professional community polls and industry opinion questions"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on platform benchmark data showing carousel posts achieving 3.1% engagement on Instagram and the proven success of interactive content formats. Leverages the gap identified in research around underutilized interactive content and community-building approaches that go beyond property listings to create genuine follower relationships and algorithm-favoring engagement signals."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "March 2024 Market Reality: [X]% of buyers are losing out because they're making these 3 critical mistakes.\n\nPROBLEM: I've watched qualified buyers get outbid 4-5 times in [CITY/AREA] this quarter. The frustration is real.\n\nHere's what's actually costing them homes:\n\n1. Waiting for the 'perfect' rate drop (cost: $[X]K in appreciation)\n2. Skipping pre-underwriting for just pre-approval (cost: losing to stronger offers)\n3. Limiting search to [X] ZIP codes (cost: missing [Y]% of inventory)\n\nSOLUTION: The buyers winning right now are doing this instead:\n→ Locking rates with buy-down options (saving $[X]/month)\n→ Getting fully underwritten before touring (closing in [X] days)\n→ Expanding [X] miles out (finding [Y]% more inventory)\n\nReal example: Client was outbid 3 times in [NEIGHBORHOOD]. We expanded [X] miles, found comparable home for $[X]K less, closed in [X] days.\n\nWhat's the biggest misconception you're hearing from buyers right now?\n\n#RealEstate #[CityName]RealEstate #HomeBuying #MarketInsights #RealEstateTips",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "ATTENTION: [NEIGHBORHOOD/AREA] just became a buyer's market. Here's the data everyone's missing.\n\nWhile headlines scream about [REGIONAL] trends, hyperlocal data tells a different story:\n\n📊 [NEIGHBORHOOD] inventory: Up [X]% month-over-month\n📊 Average days on market: [X] days (up from [Y])\n📊 List-to-sale price ratio: [X]% (down from [Y]%)\n📊 Pending sales: Down [X]% vs last quarter\n\nINTEREST: What this means for buyers:\n→ Negotiating power is shifting\n→ Inspection repairs back on the table\n→ Seller concessions becoming common\n→ Rate buy-downs being offered\n\nDESIRE: I'm seeing $[X]K-[Y]K in concessions on homes in the $[PRICE RANGE]. One client just negotiated [X]% below ask + $[Y]K in closing costs.\n\nACTION: If you've been waiting for leverage, this is your window. Market data suggests [X-Y] month opportunity before spring inventory surge.\n\nDM me for the full [NEIGHBORHOOD] market report with [X] comparable sales analysis.\n\nWhat are you seeing in your local markets? 👇\n\n#MarketAnalysis #RealEstateData #[CityName] #BuyersMarket #RealEstateInvesting",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Outbid 4 times, losing hope, considering giving up on [NEIGHBORHOOD].\n\nAFTER: Keys in hand, $[X]K under budget, closed in [X] days, dream school district.\n\nWhat changed? Strategy over emotion.\n\nThe Bridge:\n\nMost buyers in [CITY/AREA] are fighting over the same [X]% of listings. My clients access the other [Y]%:\n\n✓ Pre-market pocket listings (avg [X] days before MLS)\n✓ Coming soon exclusives (zero bidding wars)\n✓ Off-market seller connections ([X]+ year network)\n✓ Builder allocation priorities (new construction access)\n\nRecent win: First-time buyers, $[X]K budget, needed [SCHOOL DISTRICT]. Found them a [X] bed/[Y] bath that never hit public MLS. Closed [X]% below comparable sales.\n\nI'm taking on [X] new buyer clients this quarter who are serious about [TIMEFRAME] closing.\n\nRequirements:\n→ Pre-approved (I can connect you with lenders offering [X]% rates)\n→ Flexible on [X] secondary criteria\n→ Ready to move on the right opportunity\n\nNot ready yet? I'm hosting a free \"[TITLE]\" workshop on [DATE]. [X] spots left. Link in comments.\n\n#[CityName]RealEstate #HomeBuying #RealEstateAgent #[Neighborhood]Homes",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Why waiting for lower rates could cost you $80K (real math inside) 📊\n\nEveryone's waiting for rates to drop, but here's what they're missing:\n\n→ Home prices appreciate avg [X]% annually in [AREA]\n→ $[PRICE] home = $[X]K appreciation per year\n→ Wait 12 months for [X]% rate drop = save $[Y]/month\n→ But lose $[X]K in appreciation + equity building\n\nSlide 2: Real scenario breakdown\nSlide 3: What to do instead (buy now, refi later strategy)\nSlide 4: Rate buy-down options saving $[X]/month\nSlide 5: Client success story - saved $[X]K total\n\nThe buyers winning right now aren't waiting for perfect conditions. They're using [STRATEGY].\n\nDM me 'RATES' for the full calculator + current buy-down programs in [AREA] 📩\n\n[FIRST COMMENT HASHTAGS: #RealEstateTips #HomeBuying #MortgageRates #[CityName]RealEstate #FirstTimeHomeBuyer #RealEstateInvesting #HomeOwnership #RealEstateEducation #BuyingAHome #RealEstateAdvice #HousingMarket #RealEstate101 #HomeBuyingTips #PropertyInvestment #RealEstateGoals #DreamHome #HouseHunting #RealEstateLife #[NeighborhoodName] #[StateName]RealEstate]",
+        "visual": "Carousel: Slide 1 - Bold text overlay '$80,000 COST OF WAITING' on graph background. Slides 2-4 - Clean infographic showing math breakdown with calculator imagery. Slide 5 - Before/after client testimonial with home photo."
+      },
+      "authority": {
+        "caption": "Just Listed: Only 3 homes under $[PRICE]K left in [TOP SCHOOL DISTRICT] 🏡\n\nThis is what inventory shortage actually looks like:\n\n[MONTH] [YEAR]: [X] active listings in [SCHOOL DISTRICT]\n[MONTH] [YEAR]: [Y] active listings (down [Z]%)\n\nAll 3 are getting multiple offers this weekend.\n\nWhat I'm telling my buyers:\n→ Pre-underwriting (not just pre-approval) is non-negotiable\n→ Escalation clauses structured correctly\n→ Appraisal gap coverage of $[X]K minimum\n→ [X]-day close timeline or better\n\nReal talk: If [SCHOOL DISTRICT] is your priority and you're waiting for more inventory, you're waiting for something that's not coming before [SEASON/DATE].\n\nOne of these 3 will work for serious buyers ready to move. Two won't make it to Monday.\n\nAre you positioned to compete? Let's talk strategy. Link in bio for buyer consultation 🔗\n\n[FIRST COMMENT HASHTAGS: #JustListed #[SchoolDistrict]Homes #[CityName]RealEstate #NewListing #HousehuntingRealEstate #RealEstateMarket #HomesForSale #BuyersMarket #RealEstateAgent #DreamHome #HouseHunting #RealEstateLife #PropertyForSale #LuxuryRealEstate #[NeighborhoodName] #SchoolDistrict #FamilyHome #[StateName]Homes #RealEstateInvesting #HomeOwnership]",
+        "visual": "Reel: Quick-cut neighborhood footage showing 'ONLY 3 LEFT' text overlay, followed by split-screen showing each property exterior with key stats (beds/baths/price). Ends with agent direct-to-camera with urgency message. Trending audio underneath."
+      },
+      "promotional": {
+        "caption": "From outbid 4 times to keys in hand in 30 days 🔑\n\nMeet [CLIENT NAMES] - they were ready to give up on [NEIGHBORHOOD].\n\nTheir story (swipe):\n\n→ Lost 4 homes to cash offers\n→ Budget: $[X]K\n→ Non-negotiables: [SCHOOL DISTRICT], [X] bed, move-in ready\n→ Timeline: Lease ending in [X] days\n\nWhat we did differently:\n\n✓ Accessed pre-market listing (never hit MLS)\n✓ Structured offer with [STRATEGY]\n✓ Negotiated $[X]K in seller concessions\n✓ Closed in [X] days, $[Y]K under budget\n\nNow they're [X] minutes from work, kids start at [SCHOOL NAME] in [MONTH], and monthly payment is less than their rent was.\n\nThis is what happens when you stop competing with [X] other buyers and start accessing the [Y]% of inventory most people never see.\n\nIf you're tired of losing, let's change your strategy. Taking [X] new clients this month. DM me your situation 📩\n\n[FIRST COMMENT HASHTAGS: #ClientSuccess #HomeBuyingJourney #RealEstateSuccess #DreamHome #NewHomeowners #[CityName]RealEstate #RealEstateAgent #HomeBuyers #FirstTimeHomeBuyer #RealEstateGoals #HouseHunting #ClosingDay #NewHome #RealEstateLife #PropertySearch #HomeOwnership #[NeighborhoodName] #SuccessStory #RealEstateTips #MovingDay]",
+        "visual": "Carousel: Slide 1 - Client photo with keys in front of new home. Slide 2 - 'Their struggle' with rejection imagery. Slide 3 - 'The strategy' infographic. Slide 4 - Home exterior. Slide 5 - Happy family move-in moment. Professional but authentic photography."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🏡 LEASE ENDS IN 90 DAYS? Here's Your Emergency Home-Buying Checklist\n\nI'm seeing SO many renters in [CITY/AREA] facing this exact situation right now. Your landlord just gave notice, or your lease is up soon, and you're panicking about whether to renew or finally buy.\n\nHere's the reality: You can go from lease-ending stress to homeowner in 60-75 days if you do these things THIS WEEK:\n\n✅ WEEK 1-2: Get fully underwritten (not just pre-approved)\n→ Pre-approval = soft look at finances\n→ Full underwriting = you're basically already approved\n→ This makes you competitive with cash offers\n→ I can connect you with lenders doing this in 5-7 days\n\n✅ WEEK 2-3: Define your REAL non-negotiables\n→ Most buyers have 8-10 must-haves\n→ In reality, you have 2-3 TRUE dealbreakers\n→ Everything else is negotiable if the numbers work\n→ This expands your inventory by [X]%\n\n✅ WEEK 3-6: Tour aggressively and make STRONG offers\n→ See [X] properties minimum\n→ Offer on [Y] (yes, multiple if needed)\n→ Include escalation clause up to $[X]K over ask\n→ Offer [X]-day close or seller rent-back if needed\n\n✅ WEEK 6-10: Inspection, appraisal, clear to close\n→ Don't nickel-and-dime on small repairs\n→ Focus on major systems only\n→ Keep your lender updated daily\n→ Start packing!\n\nREAL EXAMPLE: Just closed with clients who were in this exact spot 75 days ago. Lease ending April 30th, got them into a [X] bed/[Y] bath in [NEIGHBORHOOD] for $[PRICE]. Monthly payment is $[X] LESS than their rent was, and they're building equity now.\n\nThe #1 mistake I see? Waiting to \"see what happens\" with your lease situation. By the time you decide, you've lost 30 days of searching in a market where good homes go in [X] days.\n\nDrop a 🏠 if you're in this situation right now, and I'll send you the full timeline checklist plus current listings that could close before your lease ends.\n\nAnd if you know someone stressing about their lease ending, TAG THEM below! 👇",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "[MONTH] [YEAR] Market Update: These 5 ZIP Codes Just Became Buyer's Markets (Data Attached) 📊\n\nOkay [CITY/AREA] friends, I just finished analyzing [X] months of sales data, and there's a significant shift happening that most buyers don't know about yet.\n\nWhile everyone's focused on interest rates, the REAL story is hyperlocal inventory changes. Here's what I'm seeing:\n\n🔴 SHIFTED TO BUYER'S MARKET:\n→ [ZIP CODE 1]: Inventory up [X]%, DOM up [Y] days, prices softening [Z]%\n→ [ZIP CODE 2]: [X] months of supply (was [Y] months last quarter)\n→ [ZIP CODE 3]: List-to-sale ratio dropped to [X]% (was [Y]%)\n→ [ZIP CODE 4]: [X]% of listings seeing price reductions\n→ [ZIP CODE 5]: Pending sales down [X]%, active listings up [Y]%\n\nWHAT THIS ACTUALLY MEANS FOR YOU:\n\n✅ Inspection repairs are back on the table (seeing $[X]K-[Y]K in concessions)\n✅ Appraisal gaps less common (only [X]% of sales vs [Y]% last year)\n✅ Contingencies acceptable again (selling your current home first)\n✅ Time to negotiate (avg [X] days vs [Y] days to think about offers)\n✅ Seller concessions returning ($[X]K toward closing costs becoming normal)\n\nREAL EXAMPLE: Client just negotiated [X]% under asking + $[Y]K in repairs + $[Z]K closing cost credit on a home in [ZIP CODE]. This was IMPOSSIBLE 6 months ago.\n\nBUT HERE'S THE CATCH: This window is probably [X-Y] months before spring inventory surge brings more competition. The data suggests [MONTH]-[MONTH] is your best opportunity.\n\n🔵 STILL SELLER'S MARKETS (for now):\n→ [ZIP CODE A]: Still seeing multiple offers, [X]% over ask\n→ [ZIP CODE B]: Under [X] days on market average\n→ [ZIP CODE C]: Inventory still critically low at [X] months supply\n\nWant the full report with [X] comparable sales, appreciation trends, and my predictions for [SEASON]? Comment 'DATA' below and I'll DM you the complete analysis.\n\nIf you've been waiting for leverage to shift back to buyers, THIS is what it looks like. Not dramatic crashes or perfect conditions - just subtle data changes that create opportunity.\n\nWhat are you seeing in your neighborhood? Anyone noticing homes sitting longer? 👇\n\n[Feel free to share this with anyone house hunting right now!]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🎯 COMING SOON: [X] Homes Hitting the Market in [NEIGHBORHOOD] This Week (Exclusive Early Access)\n\nHey [CITY/AREA] home buyers - quick question:\n\nWould you rather fight with [X] other buyers over a home that's been on the market for [Y] days...\n\nOR get early access to properties [Z] days before they go public, with zero competition?\n\nBEFORE I worked this way: My buyers were constantly in bidding wars, getting outbid by $[X]K-[Y]K, losing to cash offers, and feeling defeated.\n\nAFTER I built my pre-market system: My buyers see homes [X] days early, make offers with no competition, and close at or below list price.\n\nTHE BRIDGE (how this actually works):\n\nEvery week, I get [X-Y] listings from my network BEFORE they hit MLS:\n→ Sellers testing the market quietly\n→ Agents giving their buyers first look\n→ Homeowners who want to avoid public showings\n→ Builders offering allocation spots early\n\nThis week's pre-market pipeline in [NEIGHBORHOOD]:\n✓ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], coming [DATE]\n✓ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], coming [DATE]\n✓ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], coming [DATE]\n\n(Full details available to registered buyers only)\n\nREAL RESULTS:\n→ [CLIENT NAME] saw their home [X] days before MLS, offered asking, closed in [Y] days\n→ [CLIENT NAME] avoided [X] competing offers, negotiated $[Y]K in concessions\n→ [CLIENT NAME] accessed builder allocation that never went public\n\nHERE'S HOW TO GET ACCESS:\n\n1️⃣ You need to be fully pre-approved (I can connect you with lenders if needed)\n2️⃣ Ready to move within [X] days on the right property\n3️⃣ Clear on your non-negotiables (area, beds/baths, budget)\n\nI send my pre-market list every [DAY] at [TIME] to [X] registered buyers. When something matches your criteria, you get a text immediately with photos, details, and showing availability.\n\nNO OBLIGATION. If nothing matches, you don't hear from me. If something's perfect, you get first shot.\n\nI'm adding [X] new buyers to the list this week. If you're tired of losing out and want access to homes before the masses see them, comment 'EARLY ACCESS' below or DM me.\n\nAlready working with an agent? No problem - most of my clients are, and their agents appreciate the early intel too. This is about access, not exclusivity.\n\nWho do you know that's been house hunting for months with no luck? TAG THEM! 👇\n\n(And yes, this is 100% free. I only get paid when you close, like any agent. The difference is WHEN you see the homes.)",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're about to make a $50K mistake because you don't know this",
+        "script": "HOOK (0-3s): [Text overlay: 'Why waiting for rates to drop will cost you $50K'] Agent looking shocked at phone\n\nPROBLEM (3-15s): 'Everyone's like wait for rates to drop wait for rates to drop' [mocking voice] 'But here's the math they're not doing' [Cut to calculator/spreadsheet]\n\nAGITATE (15-35s): '$[PRICE] home in [AREA] appreciates [X]% per year = $[Y]K. You wait 12 months for rates to drop [X]%? You save $[Z]/month. But you LOSE $[Y]K in appreciation PLUS 12 months of equity you could've built. The math ain't mathing.'\n\n[Text overlays showing: Lost appreciation $[X]K, Lost equity $[Y]K, Rate savings $[Z]/month, NET LOSS: $[TOTAL]]\n\nSOLUTION (35-55s): 'What smart buyers are doing: Buying NOW with rate buy-down programs [show example], building equity immediately [show graph going up], then refinancing when rates drop [show refi example]. You win TWICE.'\n\n[Show client testimonial clip: 'We bought in [MONTH], rates dropped in [MONTH], we refinanced, now we have $[X]K in equity AND a lower payment']\n\nCTA (55-60s): 'Want the full breakdown? Link in bio for the calculator. Stop waiting, start winning.' [Point to link]\n\n[TRENDING AUDIO: Use current trending sound, lower volume under voiceover]"
+      },
+      "authority": {
+        "hook": "I'm a real estate agent and I'm about to break the code we don't talk about",
+        "script": "HOOK (0-3s): [Whispering to camera] 'When a listing says motivated seller, here's what it ACTUALLY means' [Text: 'AGENT SECRETS']\n\nATTENTION (3-15s): [Normal voice] 'Y'all think motivated seller just means they want to sell fast. Wrong. Let me decode this for you because I'm tired of watching buyers overpay.'\n\n[Cut to showing MLS listing examples on screen]\n\nINTEREST (15-35s): 'Motivated seller ACTUALLY means: [Quick cuts with text overlays]\n→ Job transfer, closing on new house, will negotiate HARD\n→ Inherited property, never lived there, wants it GONE\n→ Divorce situation, need to split equity ASAP\n→ Bought another house, carrying two mortgages, DESPERATE\n→ Investor who miscalculated, needs to cut losses'\n\n[Show example: 'This one in [AREA] - motivated seller - we got $[X]K off + $[Y]K in closing costs']\n\nDESIRE (35-50s): 'Meanwhile everyone else is bidding asking price because they don't know the backstory. My buyers? We're getting [X]% below ask on motivated sellers because we UNDERSTAND the situation and structure offers that solve THEIR problem.'\n\n[Show DM screenshots: 'Got the house $[X]K under!' 'Closed in [Y] days!']\n\nACTION (50-60s): 'Follow for more agent secrets. Next video: What 'priced to sell' REALLY means. You're welcome.' [Wink at camera]\n\n[TRENDING AUDIO: 'Secrets' themed trending sound]"
+      },
+      "promotional": {
+        "hook": "We got outbid 4 times and were ready to give up, then this happened",
+        "script": "HOOK (0-3s): [Couple looking defeated] 'After losing our 4th house, we were done' [Text: 'OUTBID AGAIN']\n\nBEFORE (3-20s): [Quick montage of sad couple, rejection emails, higher offer notifications]\n\n'Every house: $[X]K over ask. Cash offers. Waived inspections. We couldn't compete. Our agent kept saying just offer more, just waive contingencies. We were about to give up on [NEIGHBORHOOD] completely.'\n\n[Show rejection notifications, text overlays of prices going up]\n\nAFTER (20-40s): [Cut to happy couple with keys]\n\n'Then we switched to an agent who actually had a STRATEGY. [Agent name] showed us a house [X] days before it hit the market. ZERO competition. We offered asking, got $[Y]K in seller concessions, closed in [Z] days.'\n\n[Show house exterior, interior shots, keys, closing documents]\n\nBRIDGE (40-55s): [Agent talking to camera]\n\n'Here's what changed: I don't make my buyers fight over public listings. I give them access to pre-market properties my network brings me [X] days early. No bidding wars. No overpaying. Just first access.'\n\n[Text overlay: '[X] homes this week before MLS' 'DM for early access']\n\nCTA (55-60s): [Back to happy couple in new home]\n\n'If you're tired of losing, DM [agent handle]. This is how you actually win in [CITY].' [Point to DM button]\n\n[TRENDING AUDIO: Transformation/glow-up trending sound]"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST NAME], your lease ends in [X] days - emergency home-buying timeline",
+        "preview_text": "From lease-ending panic to homeowner in 60-75 days (step-by-step checklist inside)",
+        "body": "Hi [FIRST NAME],\n\nI noticed you've been looking at rentals in [AREA] - but have you run the numbers on buying instead?\n\nIf your lease ends in the next 90 days, you have JUST enough time to go from renter to homeowner. Here's the exact timeline:\n\n📅 WEEK 1-2: Get Fully Underwritten\n→ Not just pre-approved (that's weak)\n→ Full underwriting = you're basically already approved\n→ Makes you competitive with cash offers\n→ I'll connect you with lenders doing this in 5-7 days\n\n📅 WEEK 2-3: Define Real Non-Negotiables\n→ You think you have 8 must-haves\n→ Reality: you have 2-3 TRUE dealbreakers\n→ This expands inventory by [X]%\n→ I'll help you prioritize what actually matters\n\n📅 WEEK 3-6: Tour & Offer Aggressively\n→ See [X] properties minimum\n→ Make strong offers (escalation clauses, fast close)\n→ I'll show you homes [Y] days before they hit MLS\n\n📅 WEEK 6-10: Close & Move\n→ Inspection, appraisal, clear to close\n→ Time your move-out perfectly\n→ Start building equity instead of paying rent\n\nREAL EXAMPLE:\n[CLIENT NAMES] were in your exact situation 75 days ago. Lease ending April 30th. Now they're in a [X] bed/[Y] bath in [NEIGHBORHOOD] for $[PRICE]. Monthly payment: $[X] LESS than rent. And they're building $[Y]K+ in equity annually.\n\nThe biggest mistake? Waiting to \"see what happens.\" By then you've lost 30 days in a market where homes go in [X] days.\n\n[CTA BUTTON: Send Me the Full Timeline Checklist]\n\nOr just reply to this email with:\n→ Your lease end date\n→ Your budget\n→ Your must-have area/schools\n\nI'll send you current listings that could close before your lease ends.\n\n[SIGNATURE]\n\nP.S. Know someone stressing about their lease ending? Forward this to them - they'll thank you later."
+      },
+      "authority": {
+        "subject": "March 2024 Update: These 5 [CITY] ZIP codes just became buyer's markets",
+        "preview_text": "Data shows inventory up [X]%, prices softening [Y]% - your [X]-month window starts now",
+        "body": "Hi [FIRST NAME],\n\nI just finished analyzing [X] months of sales data across [CITY], and there's a shift happening that most buyers don't know about yet.\n\nWhile everyone's obsessing over interest rates, the REAL story is hyperlocal inventory changes.\n\n📊 THESE ZIP CODES JUST SHIFTED TO BUYER'S MARKETS:\n\n[ZIP 1]: Inventory +[X]%, DOM +[Y] days, prices -[Z]%\n[ZIP 2]: [X] months supply (was [Y] last quarter)\n[ZIP 3]: List-to-sale ratio dropped to [X]%\n[ZIP 4]: [Y]% of listings seeing price reductions\n[ZIP 5]: Pending sales -[X]%, active listings +[Y]%\n\nWHAT THIS MEANS FOR YOU:\n\n✅ Inspection repairs back on table ($[X]K-[Y]K concessions)\n✅ Appraisal gaps less common (only [X]% of sales)\n✅ Contingencies acceptable again\n✅ Time to negotiate (avg [X] days vs [Y] days)\n✅ Seller concessions returning ($[Z]K toward closing)\n\nREAL EXAMPLE:\nClient just negotiated [X]% under asking + $[Y]K repairs + $[Z]K closing costs on a [BEDS]/[BATHS] in [ZIP]. This was impossible 6 months ago.\n\nTHE CATCH:\nThis window is probably [X-Y] months before spring inventory surge brings more competition.\n\n[CTA BUTTON: Send Me the Full Market Report]\n\nThe report includes:\n→ [X] comparable sales in each ZIP\n→ Appreciation trends\n→ My predictions for [SEASON]\n→ Specific homes currently negotiable\n\nIf you've been waiting for leverage to shift back to buyers, THIS is what it looks like. Not dramatic crashes - just subtle data changes that create opportunity.\n\nWant to talk strategy for your specific situation? Just reply with your target area and budget.\n\n[SIGNATURE]\n\nP.S. Still seller's markets: [ZIP A], [ZIP B], [ZIP C]. But even these are showing early signs of softening."
+      },
+      "promotional": {
+        "subject": "Coming Soon in [NEIGHBORHOOD]: [X] homes (see them [Y] days early)",
+        "preview_text": "Exclusive pre-market access - zero competition, no bidding wars, just first look",
+        "body": "Hi [FIRST NAME],\n\nQuick question:\n\nWould you rather fight with [X] other buyers over a home that's been on the market for [Y] days...\n\nOR see it [Z] days before it goes public, with zero competition?\n\n🏡 THIS WEEK'S PRE-MARKET PIPELINE IN [NEIGHBORHOOD]:\n\n→ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], showing [DATE]\n→ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], showing [DATE]\n→ [X] bed/[Y] bath, $[PRICE RANGE], [FEATURE], showing [DATE]\n\n(Photos and full details available to registered buyers only)\n\nHOW IT WORKS:\n\nEvery week I get [X-Y] listings from my network BEFORE they hit MLS:\n✓ Sellers testing the market quietly\n✓ Agents giving buyers first look\n✓ Homeowners avoiding public showings\n✓ Builders offering early allocation\n\nRECENT WINS:\n→ [CLIENT] saw home [X] days early, offered asking, closed in [Y] days\n→ [CLIENT] avoided [X] competing offers, negotiated $[Y]K concessions\n→ [CLIENT] accessed builder allocation that never went public\n\nWANT IN?\n\nI send my pre-market list every [DAY] at [TIME] to registered buyers. When something matches YOUR criteria, you get a text immediately.\n\nNo obligation. If nothing matches, you don't hear from me. If something's perfect, you get first shot.\n\n[CTA BUTTON: Register for Pre-Market Access]\n\nTO QUALIFY:\n→ Fully pre-approved (I can connect you with lenders)\n→ Ready to move within [X] days on the right property\n→ Clear on your area, beds/baths, budget\n\nAlready working with an agent? No problem. This is about access, not exclusivity.\n\nJust click the button above or reply with:\n→ Your pre-approval amount\n→ Target neighborhoods\n→ Must-have features\n\nI'll add you to this week's list.\n\n[SIGNATURE]\n\nP.S. This is 100% free. I only get paid when you close, like any agent. The difference is WHEN you see the homes - before everyone else."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "5 Neighborhoods Where [Price Point] Still Gets You [School District Rating]+ Schools Before August Enrollment",
+      "3 Homes Under [Price] in [Neighborhood] That Accept FHA (Closing in 30 Days)",
+      "7 Turnkey Properties Within [Commute Time] of [Job Location] - No Renovation Needed"
+    ],
+    "question_hooks": [
+      "Are You Getting Priced Out of [Neighborhood] While Waiting for Rates to Drop?",
+      "Tired of Losing to Cash Offers in [ZIP Code]? (Here's How 4 Buyers Won Last Month)",
+      "Lease Ends in [Timeframe] and Nowhere to Go? This Emergency Checklist Helps"
+    ],
+    "story_hooks": [
+      "How a Family Outbid 4 Times Finally Got Keys in [Neighborhood] Under Asking",
+      "From Drowning in Maintenance to Turnkey Dream Home: [Buyer Type]'s 45-Day Journey",
+      "Priced Out of [Desired Area]? How This Couple Found [School Rating] Schools for [Lower Price]"
+    ],
+    "fear_hooks": [
+      "Is Waiting for Lower Rates Costing You [Dollar Amount] in [Neighborhood] Appreciation?",
+      "Will [School District] Enrollment Deadlines Lock Your Kids Out This Fall?",
+      "Are You About to Overpay in [Neighborhood]? (Real Comps Inside)"
+    ],
+    "howto_hooks": [
+      "How to Beat Cash Offers in [Market] Without Waiving Inspections",
+      "How to Get Into [School District] Before August Without Stretching Your Budget",
+      "How to Close in 30 Days Without Losing Your Mind (Or Your Deposit)"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You lost 6 houses to cash offers until...",
+      "body": "Show agent on phone at 6am → Cut to exclusive pre-market showing → Agent explaining seller motivation → Quick negotiation scene → Keys handoff. Text overlay: 'We closed in 21 days, $10K under ask, before it hit Zillow.' Voiceover reveals strategy: relationship with pocket listing network, knowing which sellers prioritize timeline over price, creative financing that competes with cash.",
+      "cta": "DM 'EARLY ACCESS' for our pre-market list"
+    },
+    "reels": {
+      "hook": "Your rent just paid someone else's mortgage again",
+      "body": "Split screen: Left shows rent receipt disappearing, right shows equity building chart. Quick cuts of actual monthly costs: '$2,400 rent vs $2,350 mortgage payment' → 'After 5 years: $144K to landlord vs $87K equity built' → Show family in their owned home. Text: 'Same monthly payment, completely different outcome.'",
+      "cta": "Link in bio: See what you qualify for in 60 seconds"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second walkthrough of your favorite room in your new home and tell us the ONE thing about it that made you say 'this is the one.' Bonus: show us what that room looked like in your old place.",
+      "hashtag": "#ThisIsTheOne"
+    },
+    {
+      "prompt": "Show us your 'before and after' commute - film your old morning commute time/route vs your new one. Caption it with how many hours per week you got back.",
+      "hashtag": "#CommuteGlowUp"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The '$50K Mistake' series - show specific inspection red flags that buyers missed (foundation cracks, outdated electrical, roof issues) with actual repair cost breakdowns. Use real photos from inspections (blurred addresses). Format: 'This looked like a steal at $425K until the inspection revealed...'",
+      "why": "Fear-based content drives saves and shares. Buyers tag their house-hunting friends as warnings. Positions agent as protective expert who catches what others miss. Evergreen content that stays relevant."
+    },
+    {
+      "angle": "Neighborhood cost-of-living breakdowns that go beyond home price: '3 neighborhoods, same $500K budget, wildly different monthly reality' - compare property taxes, HOA, insurance, gas costs for commute, grocery prices, childcare costs. Show total monthly difference is $800-1200.",
+      "why": "Challenges conventional wisdom about affordability. Highly shareable because it reveals hidden costs most buyers don't calculate. Saves-worthy as reference tool. Positions agent as financial advisor, not just home-finder."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:06:19.822Z",
+    "last_tier2_refresh": "2025-11-27T21:06:19.822Z",
+    "last_tier3_refresh": "2025-11-27T21:06:19.822Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:06:19.822Z"
+  }
+}

@@ -1,0 +1,1708 @@
+{
+  "industry": "Food Manufacturing",
+  "industry_name": "Food Manufacturing",
+  "naics_code": "311999",
+  "category": "Food Service",
+  "subcategory": "Specialty Food Production",
+  "customer_triggers": [
+    {
+      "trigger": "Retailer shelf reset requiring new product submissions",
+      "urgency": 9,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Food safety recall requiring immediate supplier change",
+      "urgency": 10,
+      "frequency": "rare"
+    },
+    {
+      "trigger": "Restaurant menu development needing custom formulations",
+      "urgency": 7,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Private label opportunity from major retailer",
+      "urgency": 8,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Ingredient shortage forcing reformulation needs",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Regulatory compliance deadline approaching",
+      "urgency": 10,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Competitor stockout creating market opportunity",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Consumer trend shift requiring product innovation",
+      "urgency": 6,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Distribution expansion into new geographic market",
+      "urgency": 7,
+      "frequency": "bi-annual"
+    },
+    {
+      "trigger": "Cost reduction mandate from corporate buyers",
+      "urgency": 8,
+      "frequency": "annual"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through trade shows (31%), industry publications (24%), broker introductions (22%), online searches for suppliers (15%), or referrals from other manufacturers (8%). Initial research focuses on production capacity, certifications, and product samples",
+    "consideration": "Evaluation period of 30-90 days including facility audits, sample testing with 3-5 iterations, price negotiations comparing 3-4 suppliers, reviewing food safety documentation, checking references from 2-3 current customers",
+    "decision": "Purchase decision driven by meeting quality specifications (mandatory), competitive pricing within 5% of target, production capacity guarantees, flexibility on minimum order quantities, and demonstrated food safety compliance. Average decision timeline: 45 days",
+    "retention": "Ongoing relationship management through quarterly business reviews, annual contract negotiations, continuous improvement initiatives reducing costs by 3-5% annually, new product development partnerships, and supply chain integration",
+    "advocacy": "Established manufacturers become reference accounts after 12-18 months, participating in case studies, recommending to industry peers at trade associations, and co-developing innovative products that drive category growth"
+  },
+  "transformations": [
+    {
+      "from": "Generic commodity supplier",
+      "to": "Strategic innovation partner",
+      "emotional_value": "Career advancement through innovation",
+      "worth_premium": true
+    },
+    {
+      "from": "Compliance headache and risk",
+      "to": "Certified safe supply chain",
+      "emotional_value": "Peace of mind and risk mitigation",
+      "worth_premium": true
+    },
+    {
+      "from": "Inflexible mass producer",
+      "to": "Agile custom manufacturer",
+      "emotional_value": "Market responsiveness",
+      "worth_premium": true
+    },
+    {
+      "from": "Unknown startup brand",
+      "to": "Retail-ready success story",
+      "emotional_value": "Market credibility",
+      "worth_premium": true
+    },
+    {
+      "from": "Cost center burden",
+      "to": "Profit margin enhancer",
+      "emotional_value": "Financial performance",
+      "worth_premium": false
+    },
+    {
+      "from": "Capacity constrained operation",
+      "to": "Scalable growth partner",
+      "emotional_value": "Business expansion enabler",
+      "worth_premium": true
+    },
+    {
+      "from": "Single product supplier",
+      "to": "Full category solution provider",
+      "emotional_value": "Simplified procurement",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "On-time delivery rate (target: 98.5%)",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Product quality acceptance (target: 99.7%)",
+      "timeframe": "per batch",
+      "measurable": true
+    },
+    {
+      "metric": "Cost reduction achieved (target: 3-5% annually)",
+      "timeframe": "annual",
+      "measurable": true
+    },
+    {
+      "metric": "New product speed to market (target: 90 days)",
+      "timeframe": "per project",
+      "measurable": true
+    },
+    {
+      "metric": "Food safety audit scores (target: 95%+)",
+      "timeframe": "annual",
+      "measurable": true
+    },
+    {
+      "metric": "Customer retention rate (target: 92%)",
+      "timeframe": "annual",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Retail authorization windows closing in 10 days for next quarter's shelf sets",
+    "Production slots filling up 6-8 weeks in advance during peak seasons",
+    "Raw material price increases taking effect in 30 days requiring quick commitments",
+    "Regulatory compliance deadlines with potential production shutdown risks",
+    "Limited allocation of specialized ingredients or packaging materials",
+    "Seasonal production windows for temperature-sensitive products",
+    "Trade promotion calendar deadlines requiring 60-day lead times"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Your pricing is 15% higher than offshore suppliers",
+      "response": "Our domestic production eliminates 45-day shipping delays, reduces inventory carrying costs by 30%, provides supply chain flexibility worth 8% premium, and ensures compliance with all FDA regulations avoiding costly recalls averaging $10M",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Minimum order quantities are too high for our needs",
+      "response": "We offer graduated MOQs starting 40% lower for new customers, warehouse programs to spread delivery over 3 months, and co-packing arrangements where you can share production runs with complementary brands",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Concerned about switching from current supplier",
+      "response": "Our transition team manages the entire process including parallel production for 60 days, matching current specifications exactly, handling all retailer notifications, and guaranteeing no supply disruption with safety stock",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Need more product development support",
+      "response": "Our R&D team of 12 food scientists provides unlimited iterations, consumer testing coordination, nutritional optimization, and regulatory compliance review - all included in our partnership at no additional cost",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Worried about production capacity during peak seasons",
+      "response": "We maintain 30% surge capacity, offer guaranteed slot reservations with annual contracts, have backup co-packer relationships for overflow, and have never missed a ship date in our 15-year history",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "Food safety and liability concerns",
+      "response": "We carry $50M in product liability insurance, maintain SQF Level 3 certification with 98% audit scores, have zero recalls in company history, and provide complete indemnification with supply agreements",
+      "effectiveness": 9.4
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% on-spec guarantee or free replacement",
+      "On-time delivery guarantee with 2% penalty per day late",
+      "Price protection for 12 months on contracted volumes",
+      "Capacity guarantee with financial penalties for stockouts"
+    ],
+    "proof_points": [
+      "SQF Level 3 certified with 98% average audit score",
+      "15-year track record with zero recalls",
+      "Supply to 8 of top 10 national retailers",
+      "99.7% order accuracy rate over past 24 months"
+    ],
+    "risk_mitigation": "Dual sourcing capabilities for critical ingredients, $50M product liability insurance, business continuity plan with redundant facilities, safety stock programs, and annual disaster recovery testing"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "supply chain disruption",
+      "quality issues",
+      "recall risk",
+      "margin pressure",
+      "capacity constraints",
+      "compliance failures",
+      "stockouts",
+      "shelf life problems",
+      "inconsistent product",
+      "rising costs"
+    ],
+    "solution_words": [
+      "reliable partner",
+      "consistent quality",
+      "food safety",
+      "cost optimization",
+      "scalable production",
+      "innovation pipeline",
+      "speed to market",
+      "margin enhancement",
+      "supply security",
+      "turnkey solution"
+    ],
+    "avoid_jargon": [
+      "hydrocolloids",
+      "organoleptic",
+      "retort",
+      "aseptic",
+      "HPP",
+      "water activity",
+      "glass transition",
+      "rheology",
+      "emulsification",
+      "crystallization"
+    ]
+  },
+  "power_words": [
+    "certified",
+    "guaranteed",
+    "scalable",
+    "innovative",
+    "reliable",
+    "compliant",
+    "efficient",
+    "premium",
+    "consistent",
+    "traceable",
+    "sustainable",
+    "automated",
+    "validated",
+    "optimized",
+    "integrated",
+    "transparent",
+    "flexible",
+    "proven",
+    "exclusive",
+    "proprietary",
+    "patented",
+    "award-winning",
+    "industry-leading",
+    "state-of-the-art",
+    "turnkey",
+    "custom",
+    "dedicated",
+    "strategic",
+    "breakthrough",
+    "differentiated"
+  ],
+  "avoid_words": [
+    "risky",
+    "experimental",
+    "untested",
+    "offshore",
+    "manual",
+    "outdated",
+    "generic",
+    "inflexible",
+    "slow",
+    "non-compliant",
+    "recalled",
+    "contaminated",
+    "delayed",
+    "inconsistent",
+    "unreliable",
+    "budget",
+    "cheap",
+    "lowest-cost",
+    "basic",
+    "standard"
+  ],
+  "headline_templates": [
+    {
+      "template": "Reduce Manufacturing Costs by [NUMBER]% Without Sacrificing Quality",
+      "expected_ctr": 9.2,
+      "use_case": "cost reduction focus"
+    },
+    {
+      "template": "How [COMPANY] Achieved [NUMBER]% Growth with Our Co-Packing",
+      "expected_ctr": 7.8,
+      "use_case": "case study promotion"
+    },
+    {
+      "template": "[NUMBER]-Day Turnaround: From Concept to Shelf-Ready Product",
+      "expected_ctr": 8.4,
+      "use_case": "speed to market"
+    },
+    {
+      "template": "SQF Level 3 Certified: Your Food Safety Assurance",
+      "expected_ctr": 7.1,
+      "use_case": "compliance focus"
+    },
+    {
+      "template": "Limited Production Slots Available for Q[NUMBER] - Reserve Now",
+      "expected_ctr": 8.9,
+      "use_case": "urgency creation"
+    },
+    {
+      "template": "New: [TREND] Products with [NUMBER]% Better Margins",
+      "expected_ctr": 8.2,
+      "use_case": "innovation announcement"
+    },
+    {
+      "template": "Zero Recalls in [NUMBER] Years: Our Safety Record Speaks",
+      "expected_ctr": 7.6,
+      "use_case": "trust building"
+    },
+    {
+      "template": "Private Label Success: [NUMBER]+ SKUs Launched This Year",
+      "expected_ctr": 6.9,
+      "use_case": "capability showcase"
+    },
+    {
+      "template": "Breaking: New [CERTIFICATION] Achieved - Expand Your Market",
+      "expected_ctr": 7.3,
+      "use_case": "news announcement"
+    },
+    {
+      "template": "Warning: Raw Material Costs Rising [NUMBER]% - Lock in Pricing Now",
+      "expected_ctr": 9.5,
+      "use_case": "market alert"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Request Production Quote",
+      "conversion_rate": 11.8,
+      "placement": "service pages"
+    },
+    {
+      "template": "Schedule Facility Tour",
+      "conversion_rate": 14.2,
+      "placement": "homepage"
+    },
+    {
+      "template": "Download Capabilities Deck",
+      "conversion_rate": 8.9,
+      "placement": "resource center"
+    },
+    {
+      "template": "Reserve Q[X] Production Slot",
+      "conversion_rate": 13.1,
+      "placement": "email campaigns"
+    },
+    {
+      "template": "Get Free R&D Consultation",
+      "conversion_rate": 10.7,
+      "placement": "innovation pages"
+    },
+    {
+      "template": "Access Pricing Calculator",
+      "conversion_rate": 9.4,
+      "placement": "cost pages"
+    },
+    {
+      "template": "View Certifications",
+      "conversion_rate": 7.8,
+      "placement": "compliance section"
+    },
+    {
+      "template": "Start Your Project",
+      "conversion_rate": 12.3,
+      "placement": "contact forms"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "LinkedIn",
+      "template": "🏭 New production line increases capacity by [NUMBER]%. Now accepting Q[X] orders for [CATEGORY] products. #FoodManufacturing #Innovation",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Industry Forums",
+      "template": "CASE STUDY: How we helped [CLIENT] reduce costs by $[NUMBER]K annually through formula optimization. Read more...",
+      "engagement_rate": 5.2
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: [NUMBER]% cost reduction opportunity identified | Based on your current volumes, we can save you $[NUMBER] annually...",
+      "engagement_rate": 24.7
+    },
+    {
+      "platform": "Trade Publications",
+      "template": "ADVERTORIAL: Meeting [TREND] demand with innovative [PRODUCT TYPE] solutions - [NUMBER]% growth in category",
+      "engagement_rate": 4.1
+    },
+    {
+      "platform": "Webinar",
+      "template": "Live Demo: See our [TECHNOLOGY] in action - reducing processing time by [NUMBER]% while improving quality",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Direct Mail",
+      "template": "Facility Capabilities: [NUMBER] production lines, [NUMBER]K sq ft, SQF Level 3 certified - Let's discuss your needs",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "Trade Show",
+      "template": "Booth [NUMBER]: Live samples of our latest [PRODUCT] innovations. Schedule your private meeting slot.",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "SMS",
+      "template": "Flash capacity available for [MONTH] production. First 3 commitments receive 10% discount. Reply YES for details.",
+      "engagement_rate": 19.8
+    },
+    {
+      "platform": "Partner Portal",
+      "template": "New self-service features: Track orders, access COAs, download specs, manage forecasts. Login for tour.",
+      "engagement_rate": 31.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "30% faster speed to market than industry average with dedicated project management",
+      "rank": 1,
+      "differentiator": "Execution speed"
+    },
+    {
+      "prop": "Zero recalls in 15-year operating history with comprehensive safety protocols",
+      "rank": 2,
+      "differentiator": "Risk mitigation"
+    },
+    {
+      "prop": "Average 12% cost reduction achieved through process optimization",
+      "rank": 3,
+      "differentiator": "Financial impact"
+    },
+    {
+      "prop": "Single-source solution for entire product portfolio reducing supplier complexity 60%",
+      "rank": 4,
+      "differentiator": "Operational efficiency"
+    },
+    {
+      "prop": "In-house R&D team providing unlimited product development support",
+      "rank": 5,
+      "differentiator": "Innovation capability"
+    },
+    {
+      "prop": "Flexible MOQs 40% lower than industry standard for growing brands",
+      "rank": 6,
+      "differentiator": "Accessibility"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Partner with the industry's most sophisticated manufacturing platform, where cutting-edge automation, predictive quality systems, and world-class food scientists converge to create products that define categories and drive premium price points. Our white-glove service includes dedicated account teams, unlimited R&D support, and exclusive access to proprietary ingredients.",
+    "budget_conscious": "Maximize your margins without compromising quality through our efficient production systems that reduce costs by 12-18% versus industry alternatives. Our economies of scale, optimized formulations, and lean manufacturing processes deliver the lowest total cost of ownership while maintaining the certifications and quality standards your customers demand.",
+    "enterprise": "Scale confidently with a manufacturing partner capable of supporting your growth from regional to national distribution. Our multi-facility network, $2B in annual production capacity, enterprise-grade systems integration, and dedicated corporate account teams ensure seamless execution of your most complex supply chain requirements."
+  },
+  "trust_signals": [
+    {
+      "signal": "Facility certifications and audit scores",
+      "importance": 10,
+      "format": "downloadable certificates"
+    },
+    {
+      "signal": "Client testimonials from recognized brands",
+      "importance": 9,
+      "format": "video case studies"
+    },
+    {
+      "signal": "Years in business and production volume metrics",
+      "importance": 7,
+      "format": "infographic display"
+    },
+    {
+      "signal": "Insurance coverage and indemnification details",
+      "importance": 8,
+      "format": "legal documentation"
+    },
+    {
+      "signal": "Real-time production capacity dashboard",
+      "importance": 6,
+      "format": "interactive portal"
+    },
+    {
+      "signal": "Industry association memberships",
+      "importance": 7,
+      "format": "logo displays"
+    },
+    {
+      "signal": "Awards and recognition from trade organizations",
+      "importance": 8,
+      "format": "trophy case section"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "500+ active SKUs in production across 200 brand partners",
+      "credibility_score": 8.9,
+      "context": "Capability presentations"
+    },
+    {
+      "stat": "99.7% on-time delivery rate maintained for 24 consecutive months",
+      "credibility_score": 9.3,
+      "context": "Performance metrics"
+    },
+    {
+      "stat": "$2B in annual production volume across 8 facilities",
+      "credibility_score": 8.7,
+      "context": "Scale demonstration"
+    },
+    {
+      "stat": "SQF Level 3 certification with 98% average audit score",
+      "credibility_score": 9.5,
+      "context": "Quality assurance"
+    },
+    {
+      "stat": "15-year track record with zero product recalls",
+      "credibility_score": 9.8,
+      "context": "Risk mitigation"
+    },
+    {
+      "stat": "Supporting 8 of top 10 national grocery chains",
+      "credibility_score": 9.1,
+      "context": "Market credibility"
+    }
+  ],
+  "quality_indicators": [
+    "SQF Level 3 certification indicates highest food safety standards versus Level 2 basic compliance",
+    "Automated production lines with vision systems signal premium quality control versus manual inspection",
+    "In-house laboratory capabilities indicate serious quality commitment versus third-party testing only",
+    "Multiple redundant facilities suggest supply security versus single-location operations",
+    "Published R&D capabilities and patents indicate innovation leadership versus contract manufacturing only"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 90,
+    "trigger_event": "After successful product launch or first reorder when satisfaction peaks, typically seeing 87% positive feedback rate",
+    "ask_method": "Personal call from account manager followed by professional video testimonial capture at customer facility"
+  },
+  "competitive_advantages": [
+    "Only manufacturer with both organic and conventional lines preventing cross-contamination",
+    "Proprietary high-pressure processing technology extending shelf life 40% beyond competitors",
+    "Vertical integration of key ingredients providing 15% cost advantage and supply security",
+    "24/7 production capability with three shifts reducing lead times by 10 days",
+    "In-house packaging design and procurement saving customers average $50K annually"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present full-service option first at $50K minimum, making $25K co-packing appear reasonable, increasing mid-tier selection 42%",
+    "sensitivity": "Price breaks at 10,000, 50,000, and 100,000 unit levels align with customer procurement thresholds",
+    "sweet_spots": [
+      "$25-35K minimum orders for emerging brands",
+      "$100-250K for regional players",
+      "$1M+ for national accounts"
+    ],
+    "decoy_pricing": "Three-tier service model with premium at 2x base price drives 61% to select middle option versus 38% with two options"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 10000,
+    "approval_required": 50000,
+    "competitor_research": 25000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.3,
+    "weekend": 1.5,
+    "holiday": 1.75
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Startup",
+      "price_range": "$25K-100K minimum",
+      "target_customer": "Emerging brands under $5M revenue",
+      "margin": 35
+    },
+    {
+      "tier": "Growth",
+      "price_range": "$100K-500K minimum",
+      "target_customer": "Regional brands $5-50M revenue",
+      "margin": 42
+    },
+    {
+      "tier": "Enterprise",
+      "price_range": "$500K+ minimum",
+      "target_customer": "National brands $50M+ revenue",
+      "margin": 38
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Implement formula optimization reducing ingredient costs 8-12% without quality impact",
+    "Shift to annual contracts with volume commitments improving margins 5%",
+    "Automate packaging lines reducing labor costs 22% and improving margins 7%",
+    "Negotiate raw material contracts with 6-month forward pricing saving 11%",
+    "Consolidate SKUs with similar formulas reducing changeover time 30%",
+    "Implement predictive maintenance reducing downtime 18% and improving utilization"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 20,
+      "reason": "New Year health product launches",
+      "opportunity": "Better-for-you formulations"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Post-holiday slowdown",
+      "opportunity": "R&D project focus"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring product development",
+      "opportunity": "Seasonal flavors"
+    },
+    {
+      "month": "April",
+      "variation": 25,
+      "reason": "Summer product preparation",
+      "opportunity": "Outdoor/picnic items"
+    },
+    {
+      "month": "May",
+      "variation": 30,
+      "reason": "Back-to-school planning begins",
+      "opportunity": "Kid-friendly products"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Peak summer production",
+      "opportunity": "Capacity planning critical"
+    },
+    {
+      "month": "July",
+      "variation": 30,
+      "reason": "Fall/holiday planning",
+      "opportunity": "Limited edition runs"
+    },
+    {
+      "month": "August",
+      "variation": 40,
+      "reason": "Holiday production starts",
+      "opportunity": "Gift sets and seasonal"
+    },
+    {
+      "month": "September",
+      "variation": 45,
+      "reason": "Peak production period",
+      "opportunity": "Maximize throughput"
+    },
+    {
+      "month": "October",
+      "variation": 50,
+      "reason": "Holiday fulfillment rush",
+      "opportunity": "Premium pricing power"
+    },
+    {
+      "month": "November",
+      "variation": 35,
+      "reason": "Last-minute holiday orders",
+      "opportunity": "Express production"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Facility maintenance period",
+      "opportunity": "Planning next year"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Production planning meetings",
+      "avoid": "Equipment maintenance",
+      "conversion_rate": 12.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Quality audits and testing",
+      "avoid": "Rush orders",
+      "conversion_rate": 10.7
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Peak production runs",
+      "avoid": "Facility tours",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Customer visits and demos",
+      "avoid": "Changeovers",
+      "conversion_rate": 13.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Shipping and logistics",
+      "avoid": "New product trials",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Overtime production runs",
+      "avoid": "Customer meetings",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Deep cleaning and maintenance",
+      "avoid": "Any production",
+      "conversion_rate": 0.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Net 30 payment terms mean cash collection peaks around the 30th, affecting purchasing power early month",
+    "cash_flow_peaks": "Strongest cash position days 5-10 after major retailers pay, enabling raw material purchases",
+    "slow_periods": "Production typically slower days 25-30 as monthly targets are met and maintenance scheduled"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Hurricane season June-November",
+      "crisis_type": "Supply chain disruption",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "FDA recall announcements",
+      "crisis_type": "Emergency replacement needs",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Port strikes or delays",
+      "crisis_type": "Ingredient shortages",
+      "premium_multiplier": 1.7
+    },
+    {
+      "time": "Major retailer audit failures",
+      "crisis_type": "Immediate supplier change",
+      "premium_multiplier": 1.8
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Contract Manufacturing",
+      "components": [
+        "Production",
+        "Quality control",
+        "Basic packaging",
+        "Warehousing"
+      ],
+      "pricing_model": "Per unit + setup fees",
+      "margin": 38
+    },
+    {
+      "name": "Full Service Co-Packing",
+      "components": [
+        "R&D support",
+        "Sourcing",
+        "Production",
+        "Packaging",
+        "Fulfillment"
+      ],
+      "pricing_model": "Turnkey pricing",
+      "margin": 45
+    },
+    {
+      "name": "Private Label Development",
+      "components": [
+        "Product development",
+        "Branding",
+        "Manufacturing",
+        "Category management"
+      ],
+      "pricing_model": "Revenue share or fixed",
+      "margin": 52
+    },
+    {
+      "name": "Innovation Partnership",
+      "components": [
+        "Dedicated R&D",
+        "Pilot production",
+        "Scale-up",
+        "Launch support"
+      ],
+      "pricing_model": "Project-based",
+      "margin": 48
+    }
+  ],
+  "upsell_paths": [
+    "Trial run (1,000 units) → Small batch (10,000 units) with 35% conversion in 60 days",
+    "Single SKU → Full product line (4-6 SKUs) with 42% expansion rate year one",
+    "Regional distribution → National rollout with 28% achieving scale in 18 months",
+    "Standard packaging → Custom packaging solutions with 51% upgrade rate",
+    "Basic production → Full service including R&D with 33% conversion by year two",
+    "Quarterly orders → Annual contracts with 67% conversion after 4 successful orders"
+  ],
+  "retention_hooks": [
+    "Annual volume rebates ranging from 2-5% creating switching barriers",
+    "Dedicated account teams knowing product history and preferences intimately",
+    "Continuous improvement programs delivering 3-5% annual cost reductions",
+    "Priority production scheduling for long-term partners ensuring on-time delivery",
+    "Co-investment in specialized equipment creating mutual dependency",
+    "Integrated IT systems making switching costs prohibitive ($50-100K)",
+    "Exclusive territorial or category rights protecting market position"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Broker commission program for new account introductions",
+      "timing": "Ongoing",
+      "incentive": "3-5% of year one revenue",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Customer success story co-marketing campaigns",
+      "timing": "Post-launch success",
+      "incentive": "Shared PR value",
+      "conversion_rate": 24
+    },
+    {
+      "strategy": "Trade show booth partnership opportunities",
+      "timing": "Major industry events",
+      "incentive": "Shared booth costs",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Industry association speaking engagements",
+      "timing": "Quarterly meetings",
+      "incentive": "Thought leadership",
+      "conversion_rate": 21
+    },
+    {
+      "strategy": "Consultant partnership program",
+      "timing": "Ongoing relationships",
+      "incentive": "Finder's fee structure",
+      "conversion_rate": 37
+    },
+    {
+      "strategy": "Customer advisory board participation",
+      "timing": "Bi-annual meetings",
+      "incentive": "Input on innovation",
+      "conversion_rate": 29
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Packaging design and procurement services",
+      "attach_rate": 47,
+      "timing": "During formula finalization"
+    },
+    {
+      "service": "Warehousing and distribution services",
+      "attach_rate": 38,
+      "timing": "Production planning phase"
+    },
+    {
+      "service": "Quality testing and certification support",
+      "attach_rate": 29,
+      "timing": "Pre-production phase"
+    },
+    {
+      "service": "Marketing and branding services",
+      "attach_rate": 22,
+      "timing": "Product development stage"
+    },
+    {
+      "service": "Supply chain financing programs",
+      "attach_rate": 31,
+      "timing": "Contract negotiation"
+    },
+    {
+      "service": "Equipment leasing for dedicated lines",
+      "attach_rate": 18,
+      "timing": "Capacity planning"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Adjacent category manufacturing (e.g., beverages to snacks)",
+      "market_size": "$8.2M incremental revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Geographic expansion with new facility locations",
+      "market_size": "$15.3M per new region",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Backward integration into ingredient manufacturing",
+      "market_size": "$6.7M cost savings",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Direct-to-consumer fulfillment services",
+      "market_size": "$4.1M new revenue stream",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "International export services and certifications",
+      "market_size": "$9.8M export potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Technology licensing of proprietary processes",
+      "market_size": "$3.2M annual licensing",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Tyson Foods' 'Feeding the Future' LinkedIn video series showcasing sustainable farming practices and technology integration in food production",
+        "platform": "LinkedIn",
+        "why_it_worked": "Combined B2B thought leadership with sustainability messaging, featured real facility tours and employee stories, addressed retailer and foodservice buyer concerns about supply chain transparency",
+        "metrics": "Average 15,000+ views per video, 300+ engagements, 4.2% engagement rate",
+        "source": "LinkedIn Business Case Studies 2024, Tyson Foods LinkedIn company page",
+        "confidence": "high"
+      },
+      {
+        "example": "Hormel Foods' 'Know Your Farmer' Instagram campaign featuring ingredient traceability and farm-to-table stories",
+        "platform": "Instagram",
+        "why_it_worked": "Humanized B2B brand by showing supply chain transparency, used carousel posts with behind-the-scenes content, resonated with private label buyers seeking authentic stories",
+        "metrics": "2.8% engagement rate (above industry average), 5,000+ average likes per post",
+        "source": "Food Processing Magazine Marketing Awards 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Glanbia Nutritionals' technical white paper series on protein innovation distributed via email and LinkedIn",
+        "platform": "Email/LinkedIn",
+        "why_it_worked": "Addressed specific formulation challenges for product developers, included downloadable technical specs, positioned company as innovation partner not just supplier",
+        "metrics": "42% email open rate, 18% click-through rate, generated 230 qualified leads in 6 months",
+        "source": "Content Marketing Institute B2B Manufacturing Case Study 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "SupplyChainBrain webinar series on food safety compliance featuring co-manufacturing experts",
+        "platform": "Webinar/YouTube",
+        "why_it_worked": "Timely content addressing FSMA regulations, featured multiple manufacturer perspectives, provided actionable compliance checklists, generated high-quality leads",
+        "metrics": "1,200+ live attendees per session, 65% attendance rate, 3,500+ on-demand views",
+        "source": "SupplyChainBrain 2024 Content Performance Report",
+        "confidence": "high"
+      },
+      {
+        "example": "Kerry Group's 'Taste Charts' interactive tool showing flavor trend data for product developers",
+        "platform": "Website/LinkedIn promotion",
+        "why_it_worked": "Provided proprietary market intelligence valuable to R&D teams, interactive format encouraged sharing, positioned Kerry as trend authority, gated content generated leads",
+        "metrics": "8,500+ downloads in first quarter, 22% conversion rate from visitor to lead",
+        "source": "Food Dive Marketing Innovation Report 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1% for food manufacturing (vs 1.8% cross-industry average)",
+        "best_content_format": "Video posts and document carousels showing facility capabilities, technical posts with data/charts, employee thought leadership",
+        "optimal_frequency": "3-5 posts per week for company pages, daily for executive thought leaders",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 12-1 PM EST (when procurement and R&D teams check feeds)",
+        "source": "Hootsuite B2B Social Media Benchmarks 2024, Sprout Social Industry Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for food manufacturing B2B",
+        "best_content_format": "Technical bulletins, case studies, regulatory updates, product innovation announcements",
+        "optimal_frequency": "Bi-weekly for newsletters, monthly for technical content, immediate for time-sensitive compliance updates",
+        "best_posting_times": "Tuesday-Wednesday 10 AM EST (highest open rates for B2B food industry)",
+        "source": "Mailchimp Industry Benchmark Report 2024, Campaign Monitor B2B Email Stats 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "1.8% engagement rate for industrial/manufacturing content",
+        "best_content_format": "Facility tours (3-5 min), equipment demonstrations, technical how-to videos, customer testimonials, process explanation videos",
+        "optimal_frequency": "2-4 videos per month for consistent channel growth",
+        "best_posting_times": "Weekday mornings 9-11 AM when product developers research solutions",
+        "source": "Wyzowl Video Marketing Statistics 2024, TubeBuddy B2B Channel Analytics 2024"
+      },
+      {
+        "platform": "Trade Publications (Food Processing, Food Dive, Food Business News)",
+        "avg_engagement_rate": "3.5% click-through rate on sponsored content, 12% on contributed articles",
+        "best_content_format": "Thought leadership articles (1,200-1,500 words), technical case studies, trend analysis pieces",
+        "optimal_frequency": "Monthly contributed content, quarterly sponsored features",
+        "best_posting_times": "Monday-Wednesday publication dates for highest readership",
+        "source": "Food Processing Magazine Media Kit 2024, BNP Media Engagement Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.2% for B2B food manufacturing (lower than B2C but growing)",
+        "best_content_format": "Behind-the-scenes production photos, sustainability initiatives, employee spotlights, product innovation teasers",
+        "optimal_frequency": "3-4 posts per week, daily stories for active brands",
+        "best_posting_times": "Weekdays 11 AM - 1 PM EST",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Food & Beverage Manufacturing Sector"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Regulatory Urgency Hook",
+        "example": "New FDA Requirements Take Effect in 90 Days - Is Your Supply Chain Ready?",
+        "why_it_works": "Triggers compliance anxiety and fear of penalties, creates immediate need to engage, positions company as regulatory expert and solution provider",
+        "source": "Food Safety Magazine email campaigns, analysis of top-performing food manufacturing email subject lines"
+      },
+      {
+        "hook_pattern": "Capability Proof Hook",
+        "example": "How We Scaled [Client Name]'s Production from 10K to 500K Units in 6 Months",
+        "why_it_works": "Provides specific social proof with numbers, demonstrates scalability concern resolution, implies partnership over transactional relationship",
+        "source": "Contract Packaging Association case study analysis, top-performing LinkedIn posts in food manufacturing"
+      },
+      {
+        "hook_pattern": "Problem-Agitation Hook",
+        "example": "Your Co-Packer Just Failed Audit. Now What?",
+        "why_it_works": "Speaks to worst-case scenario buyers face, creates emotional response, positions company as emergency solution and risk mitigator",
+        "source": "Food Manufacturing magazine headline analysis, high-engagement LinkedIn posts"
+      },
+      {
+        "hook_pattern": "Trend Authority Hook",
+        "example": "3 Protein Innovations Retailers Are Demanding for 2025 Shelf Resets",
+        "why_it_works": "Positions company as market intelligence source, addresses shelf reset trigger, provides forward-looking value to product developers",
+        "source": "Kerry Group and Glanbia content analysis, IFT (Institute of Food Technologists) webinar titles"
+      },
+      {
+        "hook_pattern": "Cost-Efficiency Hook",
+        "example": "The Hidden Costs of Ingredient Substitution (And How to Avoid Them)",
+        "why_it_works": "Addresses reformulation pain point, suggests cost savings opportunity, promises insider knowledge, appeals to procurement and finance stakeholders",
+        "source": "Food Dive sponsored content analysis, top-performing food manufacturing webinar titles"
+      },
+      {
+        "hook_pattern": "Speed-to-Market Hook",
+        "example": "From Concept to Retail-Ready in 120 Days: Our Rapid Launch Process",
+        "why_it_works": "Addresses private label opportunity urgency, quantifies timeline advantage, appeals to innovation managers under pressure",
+        "source": "Contract manufacturing company LinkedIn campaigns, Prepared Foods magazine case studies"
+      },
+      {
+        "hook_pattern": "Risk Mitigation Hook",
+        "example": "5 Supply Chain Vulnerabilities That Could Shut Down Your Production",
+        "why_it_works": "Creates fear of operational disruption, positions company as risk management partner, appeals to operations and supply chain managers",
+        "source": "Supply Chain Brain email newsletter analysis, food manufacturing LinkedIn engagement data"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "Our current co-packer can't scale with us and we're losing opportunities",
+        "We need someone who can handle our compliance documentation nightmare",
+        "Every time we try to innovate, our manufacturer says it's not possible",
+        "We're stuck between minimum order quantities that are too high and lead times that are too long",
+        "Our supplier failed an audit and now we're scrambling to find alternatives",
+        "We can't get consistent quality batch to batch and it's killing our brand",
+        "The ingredient shortage is forcing us to reformulate but we don't have the expertise",
+        "We need a partner who understands retail requirements, not just production",
+        "Our margins are getting squeezed and we need to reduce COGS without sacrificing quality",
+        "We're getting ghosted by manufacturers who don't want to work with smaller brands"
+      ],
+      "solution_phrases": [
+        "We need a manufacturing partner who acts like they're invested in our success",
+        "Looking for someone with certified facilities and bulletproof documentation",
+        "Want a co-manufacturer who can handle custom formulations and small batch runs",
+        "Need a partner with proven experience getting products onto major retail shelves",
+        "Seeking a manufacturer who can pivot quickly when market conditions change",
+        "Looking for transparent pricing and no hidden fees or surprise charges",
+        "Need someone who can handle our growth from startup to national distribution",
+        "Want a partner with in-house R&D capabilities for product development",
+        "Looking for a manufacturer who communicates proactively, not just when there's a problem",
+        "Need full supply chain traceability and sustainability certifications"
+      ],
+      "objection_phrases": [
+        "The minimum order quantities are too high for our current volume",
+        "We're worried about losing control of our proprietary formulations",
+        "The setup costs and tooling fees are more than we budgeted",
+        "We've been burned before by co-packers overpromising and underdelivering",
+        "We're concerned about lead times affecting our ability to respond to demand",
+        "The contract terms are too rigid and long-term for our stage",
+        "We're not sure if they can really handle our specific regulatory requirements",
+        "Their facility is too far from our distribution centers",
+        "We're worried about being a small fish in a big pond and not getting attention",
+        "The quality standards don't seem stringent enough for our premium positioning"
+      ],
+      "decision_factors": [
+        "Facility certifications (SQF, BRC, organic, kosher, etc.) are non-negotiable",
+        "Flexibility on minimum order quantities during our growth phase",
+        "Speed to market and ability to meet tight launch deadlines",
+        "In-house technical expertise and R&D support for formulation",
+        "Track record with similar products or brands in our category",
+        "Transparent communication and dedicated account management",
+        "Geographic proximity to our distribution network",
+        "Financial stability and long-term viability of the manufacturer",
+        "References from current clients, especially in similar situations",
+        "Scalability and capacity to grow with us from 10K to 1M+ units"
+      ],
+      "emotional_language": [
+        "We're betting our company on this partnership",
+        "Finally found a manufacturer who gets it",
+        "The peace of mind knowing our supply chain is secure",
+        "We can sleep at night knowing compliance is handled",
+        "It's like having an extension of our own team",
+        "The relief when they solved our formulation crisis",
+        "Confident we can hit our retail deadlines now",
+        "No more anxiety about audit season",
+        "They treat us like a partner, not just another account number",
+        "The excitement of finally being able to innovate without limitations"
+      ],
+      "sources": [
+        "Reddit r/FoodManufacturing discussions 2023-2024",
+        "Reddit r/StartupFood community posts",
+        "Food Business Forum LinkedIn group discussions",
+        "G2 and Clutch reviews of co-manufacturing services",
+        "Food Industry Executive roundtable transcripts",
+        "Contract Packaging Association member forums",
+        "Trustpilot and Google reviews of food manufacturing companies",
+        "LinkedIn comments on food manufacturing company posts",
+        "Food Startup Help Facebook group discussions",
+        "IFT (Institute of Food Technologists) community forums"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few manufacturers create content about handling startup brands specifically - most content targets established companies",
+      "Limited transparency around actual pricing structures and cost breakdowns - everyone says 'contact us for quote'",
+      "Lack of educational content on navigating retail requirements (packaging specs, EDI setup, slotting fees) from manufacturer perspective",
+      "Minimal content addressing the emotional/relationship side of manufacturer partnerships - all technical specs and capabilities",
+      "Few manufacturers share failure stories or lessons learned - all success stories create skepticism",
+      "Limited content on ingredient sourcing strategies during shortage periods - major gap given current supply chain issues",
+      "Sparse content on sustainability and regenerative agriculture practices in manufacturing context",
+      "Almost no manufacturers create content for the CFO/finance buyer persona - all focused on operations and R&D",
+      "Gap in content about navigating co-manufacturing for e-commerce brands vs traditional retail",
+      "Limited video content showing actual facility operations and quality processes - mostly stock photos and generic descriptions"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February (Q1)",
+        "opportunity": "New Year product innovation planning, budget allocation for new product development, trade show season begins (Natural Products Expo West prep)",
+        "content_angle": "Trend forecasting content, innovation partnership positioning, case studies of successful Q4 launches, budget planning guides for product development"
+      },
+      {
+        "period": "March-April (Expo Season)",
+        "opportunity": "Natural Products Expo West, IFT Food Expo prep, spring product launches for summer season, shelf reset planning",
+        "content_angle": "Live event coverage, new capability announcements, speed-to-market case studies, retail readiness checklists"
+      },
+      {
+        "period": "May-June (Summer Prep)",
+        "opportunity": "Summer production ramp-up, seasonal product manufacturing, compliance audit season, intern/hiring season",
+        "content_angle": "Capacity planning content, seasonal formulation ideas, audit preparation guides, behind-the-scenes facility content"
+      },
+      {
+        "period": "July-August (Mid-Year)",
+        "opportunity": "Q3 planning, fall product development begins, back-to-school product launches, budget reviews for next year",
+        "content_angle": "Mid-year trend reports, fall/winter product innovation ideas, efficiency optimization content, partnership success stories"
+      },
+      {
+        "period": "September-October (Fall Launch Season)",
+        "opportunity": "Holiday product production begins, Q4 planning, major retail shelf resets, FSMA compliance deadline periods",
+        "content_angle": "Holiday production capacity updates, regulatory compliance reminders, Q4 launch case studies, year-end partnership opportunities"
+      },
+      {
+        "period": "November-December (Year-End)",
+        "opportunity": "Holiday production peak, next year planning and budgeting, relationship building season, Supply Side West trade show",
+        "content_angle": "Year-in-review content, 2025 trend predictions, capacity booking for next year, customer appreciation content, strategic planning resources"
+      },
+      {
+        "period": "Quarterly (Ongoing)",
+        "opportunity": "Retailer shelf reset cycles (major retailers reset different categories each quarter), quarterly earnings pressure on brands",
+        "content_angle": "Retail readiness content timed to category resets, cost optimization strategies, quarterly trend snapshots"
+      },
+      {
+        "period": "Regulatory Deadline Periods",
+        "opportunity": "FDA FSMA compliance deadlines, GFSI certification renewal periods, new labeling requirement implementation dates",
+        "content_angle": "Compliance deadline reminders, regulatory change explainers, certification support content, risk mitigation guides"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "LinkedIn company pages (Tyson Foods, Hormel, Kerry Group, Glanbia)",
+      "Content Marketing Institute B2B case studies",
+      "Hootsuite Social Media Benchmarks 2024",
+      "Sprout Social Industry Report 2024",
+      "Mailchimp Industry Benchmark Report 2024",
+      "Campaign Monitor B2B Email Statistics 2024",
+      "Food Processing Magazine archives and media kit",
+      "Food Dive marketing coverage",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Reddit communities (r/FoodManufacturing, r/StartupFood)",
+      "G2 and Clutch review platforms",
+      "Contract Packaging Association resources",
+      "Institute of Food Technologists (IFT) content",
+      "SupplyChainBrain reports and webinars",
+      "BNP Media engagement reports",
+      "Wyzowl Video Marketing Statistics 2024",
+      "Food Business News archives",
+      "Prepared Foods Magazine case studies",
+      "LinkedIn group discussions (Food Business Forum)",
+      "Trade show calendars (Natural Products Expo, IFT, Supply Side West)"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook patterns - most is proprietary",
+      "Instagram engagement data for B2B food manufacturing is sparse as platform is still emerging for this sector",
+      "Specific conversion rate data from content to sales is rarely published in this industry",
+      "TikTok benchmarks for food manufacturing are very limited as platform adoption is low in B2B",
+      "Exact ROI figures for content marketing campaigns are generally not disclosed",
+      "Some customer voice data is inferred from public forums rather than direct customer interviews",
+      "Pricing transparency data is extremely limited as it's considered proprietary information"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new manufacturing capabilities, certifications, or service offerings",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Teaser - Address supply chain vulnerabilities and capacity constraints that leave brands scrambling",
+        "Week 2: Launch - Introduce scalable manufacturing solution with certified facilities and proven compliance documentation",
+        "Week 3: Validation - Demonstrate speed-to-market capabilities and retail-readiness through customer success stories",
+        "Week 4: Urgency - Position as strategic innovation partner for upcoming shelf reset season and Q4 planning"
+      ],
+      "weekly_hooks": [
+        [
+          "5 Supply Chain Vulnerabilities That Could Shut Down Your Production (And How [New Capability] Eliminates Them)",
+          "Your Co-Packer Can't Scale With You. Here's What Happens Next.",
+          "New [Certification Type] Facility Coming: What This Means for Your Retail Compliance Requirements"
+        ],
+        [
+          "Introducing [New Capability]: From Concept to Retail-Ready in 120 Days",
+          "How We're Solving the [Industry Pain Point] That's Costing Brands Millions in Lost Opportunities",
+          "Finally: A Manufacturing Partner Who Acts Like They're Invested in Your Success"
+        ],
+        [
+          "How We Scaled [Client Name]'s Production from 10K to 500K Units in 6 Months Using [New Capability]",
+          "Behind the Scenes: See How Our [Certified Facility] Handles Custom Formulations and Small Batch Runs",
+          "3 Brands That Went From Startup to National Distribution With Our [New Service] (Full Case Studies)"
+        ],
+        [
+          "Retailers Are Demanding [Trend] for 2025 Shelf Resets - Is Your Manufacturer Ready?",
+          "Only 48 Hours Left: Lock In Your [New Capability] Production Slots Before Q4 Capacity Fills",
+          "The Hidden Costs of Staying With Your Current Co-Packer (And How to Avoid Them)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address concerns about losing control of proprietary formulations by showcasing security protocols and NDAs",
+        "Week 2: Handle worries about being too small by demonstrating graduated MOQ programs and startup-specific support",
+        "Week 3: Overcome switching anxiety by detailing transition team process and 60-day parallel production guarantee",
+        "Week 4: Address setup costs and contract rigidity with transparent pricing and flexible partnership terms"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce facility certifications (SQF, BRC, organic, kosher) and regulatory compliance track record",
+        "Week 2: Share technical specifications, R&D capabilities, and innovation partnership model",
+        "Week 3: Feature detailed customer success stories with specific metrics (10K to 500K scale, 120-day launches)",
+        "Week 4: Present financial stability proof, capacity guarantees, and client references from similar brands"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Supply Chain Risk Assessment Checklist",
+        "Week 2: Watch the 3-minute facility tour showing [New Capability] in action",
+        "Week 3: Read the full case study: How [Brand] achieved retail-ready status in 4 months",
+        "Week 4: Schedule your complimentary formulation consultation before Q4 capacity books up"
+      ],
+      "platform_priority": [
+        "LinkedIn (5 posts/week: 3 company page, 2 executive thought leadership)",
+        "Email (3 sends: Week 1 teaser, Week 2 launch announcement, Week 4 final push to existing leads)",
+        "YouTube (2 videos: Week 2 facility tour, Week 3 customer testimonial)",
+        "Trade Publications (1 contributed article in Week 2, 1 sponsored feature in Week 3)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Tyson Foods' 'Feeding the Future' LinkedIn video series (15,000+ views, 4.2% engagement) and Kerry Group's interactive tool launch (8,500+ downloads, 22% conversion rate). Combines facility transparency with technical proof points, using the Speed-to-Market and Capability Proof hook patterns that drove highest engagement in food manufacturing content."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle establishing manufacturing partnership authority",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Regulatory compliance education - navigating FSMA requirements and audit preparation",
+        "Week 2: Supply chain transparency - ingredient traceability and sustainability certifications",
+        "Week 3: Innovation partnership - R&D capabilities and custom formulation support",
+        "Week 4: Retail readiness - packaging specs, EDI setup, and shelf reset preparation",
+        "Week 5: Quality consistency - batch-to-batch reliability and SQF/BRC processes",
+        "Week 6: Scalability planning - from startup volumes to national distribution capacity",
+        "Week 7: Cost optimization - reducing COGS without sacrificing quality or compliance",
+        "Week 8: Industry trends - protein innovation, flavor trends, and market intelligence"
+      ],
+      "weekly_hooks": [
+        [
+          "New FDA Requirements Take Effect in 90 Days - Is Your Supply Chain Ready?",
+          "The Compliance Documentation Nightmare: How Certified Manufacturers Handle It For You",
+          "5 Audit Failures That Could Have Been Prevented With the Right Manufacturing Partner"
+        ],
+        [
+          "From Farm to Table: How We Provide Full Traceability for Every Ingredient",
+          "What Retailers Really Mean When They Ask for 'Supply Chain Transparency'",
+          "Behind the Scenes: How Our Sustainable Farming Partnerships Work"
+        ],
+        [
+          "Your Manufacturer Says 'It's Not Possible' - Here's How We Make Innovation Happen",
+          "The Hidden Value of In-House R&D: Unlimited Formulation Iterations at No Extra Cost",
+          "How Our Food Scientists Solved [Common Formulation Challenge] for 3 Different Brands"
+        ],
+        [
+          "The Retail Readiness Checklist: Everything Buyers Need Before Your First PO",
+          "Why Your Amazing Product Keeps Getting Rejected by Retailers (And How to Fix It)",
+          "Navigating Shelf Reset Season: A Manufacturer's Guide to Retailer Requirements"
+        ],
+        [
+          "Batch-to-Batch Consistency: The Quality Standard That's Killing or Building Your Brand",
+          "What Happens During an SQF Audit (And Why You Should Care About Your Manufacturer's Score)",
+          "The Real Cost of Inconsistent Quality: Lost Retail Relationships and Brand Damage"
+        ],
+        [
+          "From 10K to 1M Units: The Scalability Roadmap Every Startup Brand Needs",
+          "How to Choose a Manufacturing Partner Who Can Grow With You",
+          "The Minimum Order Quantity Trap (And How to Negotiate Better Terms)"
+        ],
+        [
+          "The Hidden Costs of Ingredient Substitution (And How to Avoid Them)",
+          "How We Reduced [Client]'s COGS by 18% Without Changing Their Formula",
+          "Premium Positioning on a Budget: Quality Manufacturing at Optimized Costs"
+        ],
+        [
+          "3 Protein Innovations Retailers Are Demanding for 2025 Shelf Resets",
+          "Flavor Trend Data: What Product Developers Need to Know for Next Year",
+          "Market Intelligence: The Ingredient Trends Driving Reformulation Right Now"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address regulatory compliance concerns with certification proof",
+        "Week 2: Handle transparency worries with traceability demonstrations",
+        "Week 3: Overcome innovation limitations with R&D capabilities showcase",
+        "Week 4: Address retail inexperience with buyer requirement education",
+        "Week 5: Handle quality inconsistency fears with process documentation",
+        "Week 6: Address MOQ concerns with graduated programs and flexibility",
+        "Week 7: Overcome pricing objections with total cost of ownership analysis",
+        "Week 8: Address capacity concerns with surge capability proof"
+      ],
+      "proof_timing": [
+        "Week 1: Facility certifications and compliance track record",
+        "Week 2: Sustainability certifications and supply chain documentation",
+        "Week 3: R&D team credentials and innovation case studies",
+        "Week 4: Retail client list and successful product launches",
+        "Week 5: Quality metrics and audit scores",
+        "Week 6: Growth case studies showing 10x+ scaling",
+        "Week 7: Cost savings testimonials with specific percentages",
+        "Week 8: Trend prediction accuracy and market intelligence sources"
+      ],
+      "cta_progression": [
+        "Week 1: Download Compliance Deadline Calendar",
+        "Week 2: Access Supply Chain Transparency Guide",
+        "Week 3: Request Formulation Feasibility Assessment",
+        "Week 4: Get Retail Readiness Checklist",
+        "Week 5: Tour Our Certified Facility (Video)",
+        "Week 6: Calculate Your Scalability Requirements",
+        "Week 7: Schedule Cost Optimization Consultation",
+        "Week 8: Subscribe to Monthly Trend Report"
+      ],
+      "platform_priority": [
+        "LinkedIn (4 posts/week: mix of company and executive content)",
+        "Email (bi-weekly newsletter with technical focus)",
+        "YouTube (2 videos/month: how-to and facility tours)",
+        "Trade Publications (monthly contributed article)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Glanbia Nutritionals' technical white paper series (42% email open rate, 18% CTR, 230 qualified leads in 6 months) and SupplyChainBrain webinar series (1,200+ live attendees, 65% attendance rate). Addresses the competitive gap of limited educational content on retail requirements and finance buyer personas, using Regulatory Urgency and Trend Authority hook patterns proven at 3.5% CTR in trade publications."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging industry pain points and viral-ready content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Expose common co-manufacturing nightmares and supply chain disasters brands are facing right now",
+        "Week 2: Position as the solution through transparent facility tours, real customer stories, and immediate capacity availability"
+      ],
+      "weekly_hooks": [
+        [
+          "Your Co-Packer Just Failed Audit. Now What? (The 72-Hour Recovery Plan)",
+          "We Asked 100 Food Brands About Their Biggest Manufacturing Nightmares - Here's What They Said",
+          "The Ingredient Shortage Forcing Reformulation: 5 Alternatives Your Manufacturer Should Know",
+          "Why Small Brands Keep Getting Ghosted by Manufacturers (And How to Fix It)",
+          "The $2M Mistake: What Happens When Your Manufacturer Can't Meet Retail Deadlines",
+          "Every Time We Try to Innovate, Our Manufacturer Says It's Not Possible - Sound Familiar?"
+        ],
+        [
+          "Unfiltered Facility Tour: See Exactly How We Handle Small Batch Custom Formulations",
+          "How We Became the Manufacturing Partner Startups Wish They'd Found First",
+          "Real Talk: The 10 Questions Every Brand Should Ask Before Choosing a Co-Packer",
+          "We're Opening 30% Surge Capacity for Q4 - Here's Who Gets Priority Access",
+          "The Manufacturing Partner Checklist: 15 Non-Negotiables for Your Next RFP",
+          "From Ghosted to Partnered: How We Help Brands Retailers Actually Want to Work With"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'we've been burned before' skepticism with transparent failure stories and lessons learned",
+        "Week 2: Handle 'too good to be true' concerns with unfiltered facility access and client reference offers"
+      ],
+      "proof_timing": [
+        "Week 1: Share industry statistics on co-packer failures, recall costs, and missed opportunities",
+        "Week 2: Feature 5+ customer video testimonials, live facility walkthrough, and real-time capacity dashboard"
+      ],
+      "cta_progression": [
+        "Week 1: Tag a founder who needs to see this, Download the Co-Packer Red Flags Checklist",
+        "Week 2: Schedule your facility tour (virtual or in-person), Join our Manufacturing Partner Workshop"
+      ],
+      "platform_priority": [
+        "LinkedIn (10 posts/week: high-frequency mix of text, video, and document carousels)",
+        "Instagram (7 posts/week: behind-the-scenes stories and reels)",
+        "Reddit (5 strategic posts in r/FoodManufacturing and r/StartupFood)",
+        "Email (2 sends to cold list segments with viral content)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Hormel Foods' 'Know Your Farmer' Instagram campaign (2.8% engagement rate, 5,000+ average likes) and customer voice data showing 'we've been burned before' as top objection. Leverages Problem-Agitation hook pattern and addresses competitive gap of limited transparency around failures. Timing aligns with LinkedIn's Tuesday-Thursday 7-9 AM peak engagement for procurement teams and Instagram's 11 AM-1 PM optimal posting times."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in food manufacturing innovation and compliance",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Deep-dive into FSMA compliance and food safety modernization strategies",
+        "Week 2: Technical series on protein innovation and functional ingredient formulation",
+        "Week 3: Supply chain resilience and risk mitigation frameworks for food manufacturers",
+        "Week 4: Retail buyer requirements decoded - from EDI to shelf reset strategies",
+        "Week 5: Sustainability and regenerative agriculture in manufacturing operations",
+        "Week 6: The future of food manufacturing - automation, traceability, and technology integration"
+      ],
+      "weekly_hooks": [
+        [
+          "The Complete FSMA Compliance Guide for Co-Manufacturers (2024 Updated Requirements)",
+          "What the FDA Isn't Telling You About Preventive Controls (But Your Auditor Will)",
+          "How to Build Bulletproof Documentation That Survives Any Food Safety Audit"
+        ],
+        [
+          "Protein Innovation Masterclass: Formulating for Taste, Texture, and Clean Label",
+          "The Science Behind Batch-to-Batch Consistency in High-Protein Formulations",
+          "Technical Deep-Dive: How We Solve the 5 Most Common Formulation Challenges"
+        ],
+        [
+          "Supply Chain Resilience Framework: The 8 Vulnerabilities Every Food Brand Must Address",
+          "Ingredient Sourcing Strategies During Shortage Periods (With Real Examples)",
+          "The Risk Mitigation Playbook: How to Audit-Proof Your Manufacturing Partnership"
+        ],
+        [
+          "What Retail Buyers Actually Look for in Co-Manufacturing Partners (Insider Perspective)",
+          "The Hidden Requirements of Shelf Resets: Packaging, Compliance, and Timing",
+          "From RFP to PO: Navigating Major Retailer Requirements Without a Broker"
+        ],
+        [
+          "Regenerative Agriculture Meets Manufacturing: Our Supply Chain Transformation Story",
+          "The Business Case for Sustainability Certifications in Food Manufacturing",
+          "Carbon Footprint Reduction: How We Cut Emissions 40% While Scaling Production"
+        ],
+        [
+          "The Technology Stack Powering Modern Food Manufacturing (And Why It Matters to You)",
+          "Blockchain Traceability: Beyond the Hype to Real Supply Chain Transparency",
+          "Automation vs. Craftsmanship: Finding the Balance in Premium Food Production"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address regulatory expertise concerns with detailed compliance frameworks",
+        "Week 2: Handle formulation capability doubts with technical deep-dives",
+        "Week 3: Overcome supply chain reliability fears with risk mitigation proof",
+        "Week 4: Address retail inexperience with buyer requirement education",
+        "Week 5: Handle sustainability skepticism with certified practices and metrics",
+        "Week 6: Address technology concerns with practical implementation examples"
+      ],
+      "proof_timing": [
+        "Week 1: Share audit scores, FDA inspection history, and zero-recall track record",
+        "Week 2: Feature R&D team credentials, published research, and formulation patents",
+        "Week 3: Present business continuity plans, backup supplier networks, and insurance coverage",
+        "Week 4: List retail clients, successful launches, and buyer testimonials",
+        "Week 5: Display sustainability certifications, third-party audits, and impact metrics",
+        "Week 6: Demonstrate technology investments, system integrations, and innovation pipeline"
+      ],
+      "cta_progression": [
+        "Week 1: Download our 50-page FSMA Compliance Handbook",
+        "Week 2: Access Technical Formulation White Papers Library",
+        "Week 3: Request Supply Chain Risk Assessment",
+        "Week 4: Get the Retail Readiness Masterclass Recording",
+        "Week 5: Read our Sustainability Impact Report",
+        "Week 6: Join our Manufacturing Innovation Webinar Series"
+      ],
+      "platform_priority": [
+        "LinkedIn (5 posts/week: long-form articles and document carousels with data/charts)",
+        "Email (weekly technical bulletin to qualified leads)",
+        "YouTube (1 deep-dive video/week: 8-12 minutes educational content)",
+        "Trade Publications (2 contributed articles: Week 2 and Week 5, 1,200-1,500 words each)",
+        "Webinar Platform (1 live webinar in Week 6 with on-demand replay)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Glanbia Nutritionals' technical white paper series generating 230 qualified leads in 6 months and SupplyChainBrain webinar series with 65% attendance rate. Addresses competitive gaps of limited CFO/finance content, sparse sustainability manufacturing content, and minimal education on retail requirements. Uses Trend Authority and Capability Proof hook patterns, optimized for LinkedIn's 2.1% engagement rate for food manufacturing technical posts with data/charts."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls and debates on controversial industry topics (sustainability vs. cost, automation vs. jobs, etc.)",
+        "Week 2: User-generated content featuring customer success stories, employee spotlights, and community challenges"
+      ],
+      "weekly_hooks": [
+        [
+          "Hot Take: Offshore Manufacturing Is Costing Food Brands More Than They Save - Agree or Disagree?",
+          "Poll: What's Your Biggest Manufacturing Nightmare? (Results Will Surprise You)",
+          "Debate: Should Startups Prioritize Organic Certification or Lower MOQs? Comment Your Take",
+          "Fill in the Blank: 'I wish my co-manufacturer would just ___________'",
+          "Controversial Opinion: Most Food Brands Choose Manufacturers for the Wrong Reasons - Here's Why",
+          "Quick Question: How Many Co-Packers Did You Interview Before Finding the Right One?"
+        ],
+        [
+          "Share Your Story: Tag the Manufacturing Partner That Changed Your Business (We'll Feature the Best)",
+          "Employee Spotlight: Meet the Food Scientist Who's Solved 50+ 'Impossible' Formulation Challenges",
+          "30-Day Transparency Challenge: Every Day We're Sharing Something Most Manufacturers Hide - Day 1: Our Actual Pricing Structure",
+          "Caption This: Wrong Answers Only (Photo of Complex Manufacturing Equipment)",
+          "Success Story Spotlight: From Kitchen Table to 10,000 Retail Doors - [Customer] Shares Their Journey",
+          "Behind the Scenes: You Asked, We're Showing - Live Q&A Tour of Our [Certification] Facility Tomorrow"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address pricing transparency through interactive cost breakdown discussions",
+        "Week 2: Handle trust concerns through authentic employee and customer storytelling"
+      ],
+      "proof_timing": [
+        "Week 1: Share poll results and industry benchmarking data showing community consensus",
+        "Week 2: Feature 10+ customer video testimonials, employee credentials, and live facility access"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in our poll, Comment with your experience, Share if you agree",
+        "Week 2: Tag a brand that needs to see this, Submit your success story, Join our live facility tour Q&A"
+      ],
+      "platform_priority": [
+        "LinkedIn (12 posts/week: heavy use of polls, questions, and comment-driving formats)",
+        "Instagram (14 posts/week: daily stories with polls/questions, 7 feed posts with engagement prompts)",
+        "Facebook Groups (Food Business Forum, Food Startup Help: 5 discussion starters)",
+        "Reddit (r/FoodManufacturing, r/StartupFood: 4 authentic community posts)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on LinkedIn's 2.1% average engagement rate for food manufacturing (higher than 1.8% cross-industry) and Instagram's growing 1.2% B2B engagement. Addresses competitive gap of limited emotional/relationship content and lack of transparency around pricing. Uses customer voice phrases like 'we've been burned before' and 'treat us like a partner' to drive authentic conversations. Optimized for Tuesday-Thursday 7-9 AM LinkedIn engagement peaks and weekday 11 AM-1 PM Instagram activity windows."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your Co-Packer Just Failed Audit. Now What?\n\nWe analyzed 47 failed food safety audits in 2024. Here's what caused 89% of them:\n\n❌ Problem: Inadequate supplier verification programs\n❌ Problem: Missing traceability documentation\n❌ Problem: Insufficient environmental monitoring\n\nThe cost? Average $340K in lost production + retailer penalties.\n\n✅ Solution: [NUMBER]-point audit preparation system\n✅ Solution: Real-time traceability platform\n✅ Solution: Quarterly mock audits\n\nWe've helped [NUMBER] brands maintain 100% audit pass rates since [YEAR].\n\nDownload our free audit readiness checklist: [LINK]\n\nWhat's your biggest compliance concern heading into [QUARTER]?\n\n#FoodSafety #FoodManufacturing #QualityAssurance #SQF #BRC",
+        "framework": "PAS",
+        "why_this_works": "Uses Problem-Agitation Hook from research, addresses compliance anxiety trigger, provides specific data points, includes downloadable lead magnet matching Glanbia white paper success pattern"
+      },
+      "authority": {
+        "template": "3 Protein Innovations Retailers Are Demanding for 2025 Shelf Resets\n\nJust returned from [TRADE SHOW/RETAILER MEETINGS]. Here's what buyers told us:\n\n1️⃣ [INNOVATION TREND #1]\nRetailers need: [SPECIFIC REQUIREMENT]\nOpportunity: [MARKET SIZE/GROWTH STAT]\n\n2️⃣ [INNOVATION TREND #2]\nRetailers need: [SPECIFIC REQUIREMENT]\nOpportunity: [MARKET SIZE/GROWTH STAT]\n\n3️⃣ [INNOVATION TREND #3]\nRetailers need: [SPECIFIC REQUIREMENT]\nOpportunity: [MARKET SIZE/GROWTH STAT]\n\nThe brands winning shelf space share these traits:\n→ Speed to market under 120 days\n→ Certified sustainable sourcing\n→ Clean label formulations\n→ Scalable from test to national\n\nWe're already in R&D on formulations for all three trends.\n\nWhich trend are you betting on? Comment below.\n\n#FoodInnovation #ProductDevelopment #RetailTrends #FoodScience #CPG",
+        "framework": "AIDA",
+        "why_this_works": "Uses Trend Authority Hook, positions as market intelligence source, addresses shelf reset trigger with 9/10 urgency, mirrors Kerry Group Taste Charts success"
+      },
+      "promotional": {
+        "template": "From Concept to Retail-Ready in 120 Days: Our Rapid Launch Process\n\nBefore: [CLIENT NAME] had a winning formula but no path to retail\n→ 18-month timeline quoted by competitors\n→ $250K+ in setup costs\n→ No flexibility on MOQs\n\nAfter: Launched in [NUMBER] major retailers in 4 months\n→ Full SQF Level 3 certification\n→ Scaled from 10K to 500K units\n→ Flexible batch sizes during growth phase\n\nHow we did it:\n✓ Week 1-2: Formula validation + compliance review\n✓ Week 3-6: Pilot runs + sensory testing\n✓ Week 7-12: Scale-up + packaging optimization\n✓ Week 13-16: Production + distribution\n\nOur [CERTIFICATION TYPE] facility handles:\n→ Custom formulations with in-house R&D\n→ Small batch capabilities (as low as [NUMBER] units)\n→ Full regulatory documentation\n→ Dedicated account management\n\nCurrently accepting [QUARTER] production slots for [PRODUCT CATEGORIES].\n\nDM me or visit [LINK] to discuss your project.\n\n#CoManufacturing #PrivateLabel #FoodProduction #ContractManufacturing",
+        "framework": "BAB",
+        "why_this_works": "Uses Speed-to-Market Hook, applies BAB framework with specific client transformation, addresses key decision factors (certifications, MOQs, speed), mirrors Tyson transparency approach"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "New FDA Requirements Take Effect in 90 Days ⚠️\n\nIs your supply chain ready? Here's your compliance checklist:\n\n✅ Supplier verification updated\n✅ Traceability records digitized\n✅ Environmental monitoring logs current\n✅ Preventive controls validated\n✅ Mock audit completed\n\nWe help brands sleep at night during audit season 😴\n\n[NUMBER]% audit pass rate since [YEAR]\n[NUMBER] certified facilities nationwide\n[CERTIFICATION] | [CERTIFICATION] | [CERTIFICATION]\n\nLink in bio for free audit prep guide 📋\n\n#FoodSafety #FoodManufacturing #Compliance #FSMA #QualityControl #FoodProduction #B2BFood #SupplyChain #AuditReady #FoodIndustry",
+        "visual": "Carousel Post - Slide 1: Bold text '90 DAYS' with calendar graphic and warning symbol. Slide 2-6: Each checklist item as individual slide with icon. Slide 7: Facility certification badges. Slide 8: CTA with link reminder. Brand colors, clean design, professional but approachable.",
+        "framework": "PAS",
+        "why_this_works": "Uses Regulatory Urgency Hook, carousel format matches Hormel's successful approach, addresses compliance trigger, provides actionable value"
+      },
+      "authority": {
+        "caption": "Behind every retail success is a manufacturing partner who said YES 🏭\n\nMost manufacturers told [CLIENT NAME]: \"Your batch size is too small\" \"Your formula is too complex\" \"Your timeline is impossible\"\n\nWe said: \"Let's figure it out together\"\n\nResult: [NUMBER] stores in [TIMEFRAME] 🚀\n\nThat's the difference between a supplier and a partner.\n\nWhat \"impossible\" challenge are you facing? 👇\n\n#FoodManufacturing #StartupFood #CoManufacturing #FoodBusiness #CPGBrands #ProductDevelopment #FoodInnovation #Manufacturing #B2BPartnership #FoodEntrepreneur",
+        "visual": "Before/After split image - Left: Frustrated entrepreneur at desk with rejection emails visible. Right: Same person smiling in front of product on retail shelf. Include small text overlays of actual objections. Authentic, documentary-style photography matching Hormel's humanization approach.",
+        "framework": "BAB",
+        "why_this_works": "Addresses common objections from customer voice data, humanizes B2B relationship, uses emotional language from research, encourages engagement"
+      },
+      "promotional": {
+        "caption": "The Hidden Costs of Ingredient Substitution 💰\n\nSwipe to see what that \"cheaper\" ingredient really costs you:\n\n→ Slide 2: Reformulation delays\n→ Slide 3: Failed sensory tests\n→ Slide 4: Lost retail opportunities\n→ Slide 5: Brand reputation damage\n→ Slide 6: Our ingredient sourcing solution\n\nWe maintain [NUMBER]+ certified supplier relationships so you don't have to compromise.\n\nCurrently accepting [QUARTER] projects for [PRODUCT CATEGORIES]\n\nDM \"SOURCING\" for our ingredient network guide 📊\n\n#FoodSourcing #IngredientSourcing #FoodManufacturing #SupplyChain #FoodQuality #CoManufacturing #B2BFood #FoodProduction #QualityMatters #FoodBusiness",
+        "visual": "Carousel with data visualization - Slide 1: Hook with dollar signs and ingredient imagery. Slides 2-5: Simple infographics showing each hidden cost with specific dollar/time impacts. Slide 6: Solution slide showing certified supplier network map. Slide 7: CTA. Professional charts with brand colors.",
+        "framework": "PAS",
+        "why_this_works": "Uses Cost-Efficiency Hook, addresses reformulation pain point and ingredient shortage trigger, carousel format proven effective, provides lead magnet"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚨 COMPLIANCE ALERT: New FSMA Rules Effective [DATE]\n\nIf you're working with co-manufacturers or contract packers, here's what changed and what you need to do NOW:\n\n📋 WHAT'S NEW:\n• Enhanced supplier verification requirements\n• Stricter traceability documentation (1-up, 1-back, 1-deep)\n• Expanded environmental monitoring protocols\n• Updated preventive controls validation\n\n⚠️ WHY IT MATTERS:\nFailed audits cost an average $340K in lost production + potential retailer penalties. We've seen brands lose major accounts over compliance gaps.\n\n✅ YOUR ACTION PLAN:\n\n1. Request updated compliance documentation from ALL suppliers by [DATE]\n2. Audit your traceability system - can you trace any ingredient lot in under 4 hours?\n3. Review your co-manufacturer's certifications (SQF Level 3, BRC, organic, etc.)\n4. Schedule a mock audit BEFORE your official audit\n5. Document everything in a centralized system\n\n💡 PRO TIP: The brands that sleep well at night have quarterly compliance reviews, not annual scrambles.\n\nWe're hosting a FREE webinar on [DATE] covering:\n→ Line-by-line regulation breakdown\n→ Documentation templates you can use immediately\n→ Common audit failures and how to avoid them\n→ Q&A with our compliance team\n\nRegister here: [LINK]\n\nDrop a 🙋 if you're attending or tag someone who needs to see this.\n\nWhat's your biggest compliance headache? Let's help each other out in the comments.\n\n#FoodSafety #FSMA #Compliance #FoodManufacturing #QualityAssurance",
+        "framework": "PAS",
+        "why_this_works": "Addresses regulatory urgency trigger, community-focused tone, provides immediate value, includes webinar CTA matching SupplyChainBrain success pattern"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: Your \"cost savings\" from switching manufacturers might be costing you millions.\n\nHere's what I'm seeing in 2024:\n\nBrands chase 15% lower per-unit costs, then lose:\n→ 6 months in reformulation delays\n→ Retail placement opportunities during key seasons\n→ Brand reputation from inconsistent quality\n→ Existing customer trust from supply disruptions\n\nReal example (details changed for privacy):\n\nA [PRODUCT CATEGORY] brand switched manufacturers to save $0.23 per unit on a product with 500K annual volume = $115K savings.\n\nWhat they didn't calculate:\n→ $85K in reformulation and requalification\n→ Lost Q4 retail placement worth $400K+ in revenue\n→ 6-month delay to market for new product launches\n→ Customer complaints about quality changes\n\nNet result: $285K+ loss in year one.\n\nThe brands winning right now understand this:\n\n✅ Your manufacturer is a STRATEGIC PARTNER, not a vendor\n✅ Scalability matters more than unit cost\n✅ Speed to market beats cost savings\n✅ Quality consistency protects brand equity\n✅ Technical expertise enables innovation\n\nWhen evaluating manufacturing partners, ask:\n\n1. Can you scale with us from [X] to [Y] units without quality drops?\n2. What's your average time from concept to production?\n3. How do you handle ingredient shortages or supply disruptions?\n4. What's your audit pass rate and certification level?\n5. Can I talk to 3 current clients in similar situations?\n\nThe cheapest option is rarely the best investment.\n\nWhat do you prioritize when choosing manufacturing partners? Cost or capability?\n\nLet's discuss 👇\n\n#FoodManufacturing #BusinessStrategy #SupplyChain #FoodBusiness #Manufacturing #CPG",
+        "framework": "AIDA",
+        "why_this_works": "Contrarian angle drives engagement, uses specific data, addresses decision factors from research, encourages discussion, positions as thought leader"
+      },
+      "promotional": {
+        "template": "How We Helped [CLIENT NAME] Go From Farmers Market to [NUMBER] Retail Stores in [TIMEFRAME] 🚀\n\n[CLIENT NAME] had everything: amazing product, loyal local following, retail interest.\n\nWhat they didn't have: a manufacturing partner who could scale with them.\n\nTheir challenges:\n❌ Minimum order quantities were 10x their current volume\n❌ $150K+ in setup costs quoted by large manufacturers\n❌ 18-month timeline meant missing retail shelf reset deadlines\n❌ No one would work with their custom formulation\n❌ Losing sleep over compliance and certification requirements\n\nSound familiar?\n\nHere's what we did differently:\n\n✅ MONTH 1-2: Formula validation in our R&D lab\n→ Maintained their signature taste profile\n→ Optimized for shelf stability and scaling\n→ Completed all regulatory documentation\n\n✅ MONTH 3-4: Pilot production runs\n→ Started with [NUMBER] unit batches\n→ Sensory testing and adjustments\n→ Packaging optimization for retail requirements\n\n✅ MONTH 5-6: Scale-up and launch\n→ Ramped to [NUMBER] units per run\n→ Full SQF Level 3 certification\n→ Just-in-time delivery to distribution centers\n\nThe Results:\n🎯 Launched in [NUMBER] stores across [REGIONS]\n🎯 Maintained quality consistency batch to batch\n🎯 Scaled production by [NUMBER]% in first year\n🎯 Zero compliance issues or failed audits\n🎯 Flexible terms that grew with their business\n\n\"[TESTIMONIAL QUOTE about partnership, peace of mind, and growth]\" - [CLIENT NAME], Founder\n\nWhy it worked:\n→ We treated them like a partner, not a number\n→ Flexible minimums during growth phase\n→ In-house R&D support for formulation\n→ Transparent pricing with no hidden fees\n→ Dedicated account manager who actually responds\n\nWe're currently accepting [QUARTER] production projects for:\n→ [PRODUCT CATEGORY]\n→ [PRODUCT CATEGORY]\n→ [PRODUCT CATEGORY]\n\nOur facility capabilities:\n✓ [CERTIFICATION] certified\n✓ [NUMBER] sq ft production space\n✓ Batch sizes from [NUMBER] to [NUMBER]+ units\n✓ In-house R&D and quality lab\n✓ [SPECIAL CAPABILITIES]\n\nIf you're ready to scale from local to national, let's talk.\n\nSchedule a facility tour and capability assessment: [LINK]\n\nOr DM me \"SCALE\" and I'll send you our manufacturing partner guide.\n\nWhat's holding you back from scaling right now? 👇\n\n#FoodManufacturing #CoManufacturing #StartupFood #FoodBusiness #Scaling #ContractManufacturing #PrivateLabel #CPG",
+        "framework": "BAB",
+        "why_this_works": "Full transformation story, addresses all major objections from research, uses emotional language, specific metrics, clear CTA, community engagement question"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your co-packer just failed their audit and you have 30 days to find a new manufacturer 😱",
+        "script": "[0-3s] HOOK with stressed entrepreneur face, text overlay: \"Co-packer failed audit\"\n\n[4-10s] Quick cut to checklist appearing:\n\"Here's your 30-day emergency plan:\"\n\n[11-20s] Day 1-7 actions:\n• Text overlay: \"Week 1: Get your docs\"\n• Show gathering formulation specs, compliance records\n• Quick tip: \"You own the formula, not them\"\n\n[21-35s] Day 8-14 actions:\n• Text overlay: \"Week 2: Vet new partners FAST\"\n• Show certification check (SQF, BRC badges)\n• \"Red flag: If they can't show current audit reports\"\n• \"Green flag: Facility tour within 48 hours\"\n\n[36-50s] Day 15-30 actions:\n• Text overlay: \"Week 3-4: Transfer & test\"\n• Show pilot batch production\n• \"Do sensory testing before full production\"\n• \"Document EVERYTHING for retailers\"\n\n[51-57s] Result:\n• Show product back on shelf\n• Text: \"Crisis avoided ✅\"\n\n[58-60s] CTA:\n• \"Save this for when you need it\"\n• \"Link in bio: Emergency transfer checklist\"\n• Point to profile\n\nTEXT OVERLAYS: \"Day 1\", \"Week 1\", \"RED FLAG\", \"GREEN FLAG\", \"Week 3-4\", \"Crisis avoided\"\n\nSOUND: Trending anxious/urgent audio, transitions to relief audio at end",
+        "framework": "PAS",
+        "why_this_works": "Uses Problem-Agitation Hook, addresses food safety recall trigger (urgency 10), native TikTok format, educational value drives saves and shares"
+      },
+      "authority": {
+        "hook": "Manufacturer told you your batch size is too small? Here's what they're not telling you... 👀",
+        "script": "[0-3s] HOOK with text overlay: \"Batch too small?\"\n\n[4-12s] PROBLEM reveal:\n• \"They want you to order 50K units\"\n• \"You only need 5K\"\n• Show confused entrepreneur with calculator\n• Text: \"But you're not too small...\"\n\n[13-25s] TRUTH bomb:\n• \"You're just not PROFITABLE ENOUGH for them\"\n• Quick cuts showing:\n  - Large facility = high overhead\n  - Automated lines = can't do custom\n  - Big clients = you're not priority\n• Text overlays: \"Wrong fit ≠ Too small\"\n\n[26-40s] SOLUTION:\n• \"What to look for instead:\"\n• Show checklist:\n  ✓ \"Flexible batch minimums\"\n  ✓ \"Custom formulation capabilities\"\n  ✓ \"Dedicated account manager\"\n  ✓ \"Growth-friendly contracts\"\n• Text: \"Partners who WANT to grow with you\"\n\n[41-52s] PROOF:\n• \"We started [CLIENT] at 2K units\"\n• \"Now they're at 500K\"\n• Show progression visual\n• Text: \"Same quality, same partner\"\n\n[53-60s] CTA:\n• \"Your batch size is perfect for the RIGHT partner\"\n• \"Comment SCALE for our manufacturer evaluation guide\"\n• Point to comments\n\nTEXT OVERLAYS: \"Batch too small?\", \"WRONG\", \"Wrong fit ≠ Too small\", \"2K → 500K units\", \"Comment SCALE\"\n\nSOUND: Trending \"story time\" or \"truth reveal\" audio",
+        "framework": "PAS",
+        "why_this_works": "Addresses MOQ objection from customer voice, authentic tone, provides insider knowledge, drives comment engagement for algorithm"
+      },
+      "promotional": {
+        "hook": "We just toured a co-manufacturer's facility and RAN 🏃💨 Here's why...",
+        "script": "[0-3s] HOOK with person literally running away from building\n\n[4-15s] RED FLAGS revealed:\n• Quick cuts of problematic signs:\n  \"No certifications visible\"\n  \"Dirty equipment between runs\"\n  \"Couldn't answer basic compliance questions\"\n  \"No traceability system\"\n• Dramatic music, text overlays of each flag\n\n[16-28s] CONTRAST:\n• \"Here's what GOOD looks like:\"\n• Show OUR facility:\n  ✓ Certification plaques clearly displayed\n  ✓ Spotless production floor\n  ✓ Digital traceability dashboard\n  ✓ Quality lab in action\n• Upbeat music transition\n• Text: \"This is the difference\"\n\n[29-45s] WHAT TO LOOK FOR:\n• \"Your facility tour checklist:\"\n• Quick overlay checklist:\n  \"Ask to see audit reports\"\n  \"Check equipment cleanliness\"\n  \"Meet the quality team\"\n  \"See the testing lab\"\n  \"Review certifications\"\n• Text: \"Don't skip the tour\"\n\n[46-55s] OFFER:\n• \"We do virtual tours every [DAY]\"\n• Show quick virtual tour clip\n• \"See our [CERTIFICATION] facility\"\n• \"Ask our team anything\"\n\n[56-60s] CTA:\n• \"Link in bio to schedule\"\n• \"Comment TOUR for the checklist\"\n• Point to profile and comments\n\nTEXT OVERLAYS: \"RAN\", \"RED FLAGS\", \"This is the difference\", \"Your checklist\", \"Comment TOUR\"\n\nSOUND: Dramatic/comedic audio for first half, professional/trustworthy audio for second half",
+        "framework": "BAB",
+        "why_this_works": "Entertainment value drives shares, addresses audit/quality concerns, showcases facility capabilities like Tyson's transparency approach, native format, drives engagement"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST_NAME], new FDA requirements in 90 days - compliance checklist inside",
+        "preview_text": "Is your supply chain audit-ready? Here's your step-by-step plan",
+        "body": "Subject: [FIRST_NAME], new FDA requirements in 90 days - compliance checklist inside\nPreview: Is your supply chain audit-ready? Here's your step-by-step plan\n\n---\n\nHi [FIRST_NAME],\n\nNew FSMA enforcement guidelines take effect on [DATE] - just 90 days away.\n\nWe've analyzed the updated requirements and identified the 5 areas causing the most audit failures:\n\n❌ Inadequate supplier verification programs (cited in 34% of failed audits)\n❌ Missing lot traceability documentation (28% of failures)\n❌ Insufficient environmental monitoring records (23%)\n❌ Outdated preventive controls validation (19%)\n❌ Incomplete recall procedures (15%)\n\nThe average cost of a failed audit? $340K in lost production + potential retailer penalties.\n\n**YOUR 90-DAY ACTION PLAN:**\n\n**Days 1-30: Documentation Audit**\n→ Download our compliance gap assessment tool [LINK]\n→ Review all supplier certifications (we've included a template)\n→ Verify traceability system can trace any lot in under 4 hours\n\n**Days 31-60: System Updates**\n→ Implement missing preventive controls\n→ Update environmental monitoring protocols\n→ Schedule mock audit with third-party auditor\n\n**Days 61-90: Validation & Training**\n→ Run complete traceability drill\n→ Train team on new documentation requirements\n→ Finalize all compliance documentation\n\n**FREE RESOURCES FOR YOU:**\n\n📋 Compliance Gap Assessment Tool [LINK]\n📊 Supplier Verification Template [LINK]\n🎥 Webinar: \"Line-by-Line FSMA Updates\" - [DATE] at [TIME] [REGISTER LINK]\n\nWe've helped [NUMBER] brands maintain 100% audit pass rates through these transitions.\n\nQuestions about your specific situation? Reply to this email - I read every response.\n\n**Next Steps:**\n1. Download the gap assessment tool [LINK]\n2. Register for the webinar [LINK]\n3. Schedule a 15-min compliance review call [LINK]\n\nStaying compliant,\n\n[SIGNATURE]\n[TITLE]\n[COMPANY]\n\nP.S. - The brands that sleep well during audit season start preparing 90+ days early, not 90 hours. Don't wait.\n\n---\n\n[FOOTER with certifications, unsubscribe]",
+        "framework": "PAS",
+        "why_this_works": "Uses Regulatory Urgency Hook, 42% open rate benchmark achievable, provides immediate value, multiple CTAs, matches Glanbia technical content success"
+      },
+      "authority": {
+        "subject": "The hidden costs of ingredient substitution [COMPANY_NAME] should know about",
+        "preview_text": "That \"cheaper\" ingredient might be costing you $340K+ annually",
+        "body": "Subject: The hidden costs of ingredient substitution [COMPANY_NAME] should know about\nPreview: That \"cheaper\" ingredient might be costing you $340K+ annually\n\n---\n\nHi [FIRST_NAME],\n\nI noticed [COMPANY_NAME] works with [PRODUCT_CATEGORY] - an area where we're seeing significant ingredient volatility right now.\n\nA question I'm hearing from [JOB_TITLE]s like you:\n\n*\"Should we substitute [INGREDIENT] with a cheaper alternative to protect margins?\"*\n\nBefore you do, here's what we've learned from analyzing 47 reformulation projects in 2024:\n\n**THE VISIBLE COST:**\n→ $0.15-$0.45 per unit savings\n→ Looks great on the initial spreadsheet\n\n**THE HIDDEN COSTS:**\n→ $45K-$85K in reformulation and testing\n→ 3-6 month delay to market (missing key retail windows)\n→ 18-24% failure rate in sensory testing\n→ Lost retail placements worth $200K-$600K\n→ Customer complaints impacting brand reputation\n\n**REAL EXAMPLE:**\n\nA [PRODUCT_CATEGORY] brand substituted [INGREDIENT] to save $0.23/unit on 500K annual volume = $115K savings.\n\nActual result:\n→ $85K reformulation costs\n→ Failed sensory tests (too [TEXTURE/TASTE ISSUE])\n→ Missed Q4 retail reset deadline\n→ Lost $400K+ in projected revenue\n→ 9-month delay for course correction\n\n**Net: $285K+ loss in year one.**\n\n**SMARTER APPROACH:**\n\nInstead of substitution, consider:\n\n1. **Formula optimization** - We've reduced ingredient costs 12-18% through process improvements without changing formulation\n\n2. **Strategic sourcing** - Our [NUMBER] certified supplier relationships provide cost stability\n\n3. **Value engineering** - Maintain quality while optimizing packaging, processing, or logistics\n\n**CASE STUDY:**\n\n[CLIENT_NAME] faced similar pressure. Instead of substitution:\n→ Optimized processing parameters (saved $0.18/unit)\n→ Renegotiated supplier contracts (saved $0.12/unit)\n→ Improved yield rates (saved $0.09/unit)\n→ Total savings: $0.39/unit with ZERO quality impact\n\nWant to explore this for [COMPANY_NAME]?\n\nI've prepared a quick cost analysis based on [PRODUCT_CATEGORY] formulations. It shows:\n→ Potential savings opportunities\n→ Risk assessment for common substitutions\n→ Alternative cost reduction strategies\n\n**Get your custom analysis:** [LINK]\n\nOr simply reply with your current ingredient challenge - I'll share specific insights.\n\nProtecting your margins AND quality,\n\n[SIGNATURE]\n[TITLE]\n[COMPANY]\n\nP.S. - We're hosting a private roundtable on [DATE] for [JOB_TITLE]s facing ingredient cost pressure. [NUMBER] spots available. [REGISTER LINK]\n\n---\n\n[FOOTER]",
+        "framework": "PAS",
+        "why_this_works": "Uses Cost-Efficiency Hook, highly personalized, data-driven authority positioning, addresses margin pressure pain point, multiple engagement options"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], [NUMBER] Q[QUARTER] production slots remaining for [PRODUCT_CATEGORY]",
+        "preview_text": "From concept to retail-ready in 120 days - here's how we do it",
+        "body": "Subject: [FIRST_NAME], [NUMBER] Q[QUARTER] production slots remaining for [PRODUCT_CATEGORY]\nPreview: From concept to retail-ready in 120 days - here's how we do it\n\n---\n\nHi [FIRST_NAME],\n\nI saw [COMPANY_NAME] is in the [PRODUCT_CATEGORY] space - congrats on [RECENT_ACHIEVEMENT/NEWS].\n\nQuick question: Are you planning any new product launches or production scaling for [QUARTER/NEXT_QUARTER]?\n\nWe have [NUMBER] production slots opening up, and based on your [PRODUCT_TYPE], you might be a great fit.\n\n**WHY BRANDS CHOOSE US:**\n\n**BEFORE working with us:**\n❌ 18-month timelines quoted by competitors\n❌ Minimum order quantities too high for testing\n❌ $150K+ in setup costs and tooling fees\n❌ \"Your formula is too complex\"\n❌ Zero flexibility on batch sizes\n\n**AFTER working with us:**\n✅ 120-day concept to retail-ready timeline\n✅ Flexible minimums (as low as [NUMBER] units)\n✅ Transparent pricing, no hidden fees\n✅ In-house R&D for custom formulations\n✅ Scalable from pilot to [NUMBER]+ units\n\n**RECENT SUCCESS STORY:**\n\n[CLIENT_NAME] came to us with:\n→ Winning formula but no manufacturing partner\n→ Retail interest but tight deadline\n→ Limited budget for large minimum orders\n\nWe delivered:\n→ [NUMBER] units pilot batch in Week 4\n→ Full production by Week 12\n→ Launched in [NUMBER] stores by Week 16\n→ Scaled to [NUMBER]K units in first year\n\n*\"[TESTIMONIAL_QUOTE about partnership, speed, quality]\"* - [CLIENT_NAME], Founder\n\n**OUR CAPABILITIES:**\n\n✓ [CERTIFICATION] Level 3 Certified Facility\n✓ [NUMBER] sq ft production space\n✓ Batch sizes: [NUMBER] to [NUMBER]+ units\n✓ In-house R&D and sensory lab\n✓ Full regulatory documentation support\n✓ [SPECIAL_CAPABILITY_1]\n✓ [SPECIAL_CAPABILITY_2]\n\n**CURRENT AVAILABILITY:**\n\nProduct categories we're accepting for Q[QUARTER]:\n→ [CATEGORY_1]\n→ [CATEGORY_2]\n→ [CATEGORY_3]\n\n**YOUR NEXT STEPS:**\n\n**Option 1:** Schedule a facility tour (virtual or in-person)\n→ See our [CERTIFICATION] certified facility\n→ Meet our R&D and quality teams\n→ Review your specific requirements\n→ [SCHEDULE_LINK]\n\n**Option 2:** Get a custom capability assessment\n→ We'll review your formulation\n→ Provide timeline and pricing estimate\n→ Identify any potential challenges early\n→ [ASSESSMENT_LINK]\n\n**Option 3:** Download our manufacturing partner guide\n→ Questions to ask any co-manufacturer\n→ Red flags to watch for\n→ How to evaluate certifications\n→ [DOWNLOAD_LINK]\n\nInterested in discussing [COMPANY_NAME]'s specific needs?\n\nSimply reply to this email or grab time on my calendar: [CALENDAR_LINK]\n\nLooking forward to exploring how we can support your growth,\n\n[SIGNATURE]\n[TITLE]\n[COMPANY]\n[PHONE]\n\nP.S. - Q[QUARTER] slots fill up fast, especially for [PRODUCT_CATEGORY]. If you're planning a launch, let's talk soon to secure your timeline.\n\n---\n\n[FOOTER with certifications, case studies link, unsubscribe]",
+        "framework": "BAB",
+        "why_this_works": "Personalized approach, clear before/after transformation, addresses all major objections, multiple CTA options, urgency without pressure, mirrors successful co-manufacturing outreach patterns"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] Compliance Documentation Gaps That Could Trigger an FDA Warning Letter",
+      "From [X] Units to [Y] Units Monthly: How We Scaled [Brand Name]'s Co-Packing in [Timeframe]",
+      "[X] Hidden Costs in Your Current Co-Packer Agreement (And How to Eliminate Them)",
+      "[X] Formulation Adjustments That Got [Product] Onto [Retailer] Shelves in [Timeframe]",
+      "[X] Supply Chain Vulnerabilities Exposed by the [Ingredient] Shortage Crisis"
+    ],
+    "question_hooks": [
+      "Is Your Co-Packer Ghosting You Right Before [Retailer]'s Shelf Reset Deadline?",
+      "Are You Losing Retail Opportunities Because Your Manufacturer Can't Handle Small Batch Runs?",
+      "Is Your Current Supplier's Audit Failure About to Become Your Compliance Nightmare?",
+      "Are Minimum Order Quantities Forcing You to Choose Between Cash Flow and Stockouts?",
+      "Is Batch-to-Batch Inconsistency Killing Your Premium Brand Positioning?"
+    ],
+    "story_hooks": [
+      "How [Startup Brand] Went From Farmers Market to [Major Retailer] Distribution in [Timeframe] With the Right Co-Packer",
+      "How [Brand Name] Reformulated [Product] During the Ingredient Crisis Without Losing Shelf Space",
+      "How [Company] Survived Their Co-Packer's Failed Audit and Found a Certified Alternative in [Timeframe]",
+      "How [Brand] Reduced COGS by [X]% Without Sacrificing Quality or Changing Formulation",
+      "How [Product Line] Launched [X] SKUs in [Timeframe] With In-House R&D Support"
+    ],
+    "fear_hooks": [
+      "Is Your Co-Manufacturer's Lack of [Certification] Putting Your Retail Contracts at Risk?",
+      "Is Your Proprietary Formulation Safe With a Co-Packer Who Works With Your Competitors?",
+      "Are You [X] Days Away From Missing [Retailer]'s Product Submission Deadline?",
+      "Is Your Supply Chain One Ingredient Shortage Away From Complete Production Shutdown?",
+      "Could Your Manufacturer's Quality Issues Trigger a Recall That Destroys Your Brand?"
+    ],
+    "howto_hooks": [
+      "How to Launch [Product Category] in [Timeframe] Without Paying Six Figures in Tooling Fees",
+      "How to Scale From [X] to [Y] Units Monthly Without Getting Trapped in Rigid Long-Term Contracts",
+      "How to Pass [Retailer] Audits Without Hiring a Full-Time Compliance Team",
+      "How to Reformulate During Ingredient Shortages Without Losing Your Premium Positioning",
+      "How to Get Proactive Communication From Your Co-Packer Instead of Radio Silence Until Crisis Hits"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your co-packer just failed an audit 48 hours before your Whole Foods launch",
+      "body": "Show frantic founder on phone → Cut to calm manufacturer rep reviewing docs → Show certified facility walkthrough → Flash certifications (SQF, BRC, Organic) → Show product being made → End with product on shelf. Text overlay: 'We keep backup documentation for YOUR backup documentation' → 'Because your launch date isn't negotiable'",
+      "cta": "Link in bio for our facility tour + certification checklist"
+    },
+    "reels": {
+      "hook": "What 500 units looks like vs what 50,000 units looks like",
+      "body": "Split screen showing small batch setup → transition to full production line → Text: 'Same formulation, same quality, zero compromise' → Quick cuts of scaling process → End with founder testimonial clip: 'They grew with us from farmers market to Target'",
+      "cta": "DM 'SCALE' for our flexible MOQ guide"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show the moment you got the email that your product passed its first retail audit. What did that feel like? Tag your manufacturing partner who made it possible.",
+      "hashtag": "#FoodManufacturingPartner"
+    },
+    {
+      "prompt": "Film a 15-second tour of your manufacturer's facility focusing on ONE thing that gave you confidence to partner with them (certifications, equipment, team, etc). Explain why it mattered.",
+      "hashtag": "#BehindTheFood"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Expose the hidden costs of food manufacturing nobody talks about—breakdown of setup fees, tooling, storage, and minimums with actual numbers for different product types",
+      "why": "Fills transparency gap competitors avoid; startup founders will save and share for budgeting; positions you as honest partner"
+    },
+    {
+      "angle": "Ingredient shortage war stories: Show side-by-side reformulations your R&D team created when suppliers couldn't deliver—what changed, what stayed the same, how taste/cost compared",
+      "why": "Timely pain point; demonstrates problem-solving capability; other brands facing same issues will share with their teams"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:11:26.476Z",
+    "last_tier2_refresh": "2025-11-28T00:11:26.476Z",
+    "last_tier3_refresh": "2025-11-28T00:11:26.476Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:11:26.476Z"
+  }
+}

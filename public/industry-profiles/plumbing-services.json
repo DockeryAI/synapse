@@ -1,0 +1,1667 @@
+{
+  "industry": "Plumbing Services",
+  "industry_name": "Plumbing Services",
+  "naics_code": "238220",
+  "category": "Construction",
+  "subcategory": "Specialty Trade Contractors",
+  "customer_triggers": [
+    {
+      "trigger": "Water leak visible under sink or behind walls",
+      "urgency": 10,
+      "frequency": "Weekly for service providers"
+    },
+    {
+      "trigger": "No hot water in morning before work",
+      "urgency": 9,
+      "frequency": "Daily occurrences across service area"
+    },
+    {
+      "trigger": "Toilet won't stop running increasing water bill",
+      "urgency": 7,
+      "frequency": "Multiple times daily"
+    },
+    {
+      "trigger": "Sewage backup in basement or yard",
+      "urgency": 10,
+      "frequency": "Several times weekly"
+    },
+    {
+      "trigger": "Frozen pipes during winter months",
+      "urgency": 10,
+      "frequency": "Seasonal - December through March"
+    },
+    {
+      "trigger": "Low water pressure affecting showers",
+      "urgency": 6,
+      "frequency": "Daily complaints"
+    },
+    {
+      "trigger": "Garbage disposal making grinding noises",
+      "urgency": 5,
+      "frequency": "Weekly service calls"
+    },
+    {
+      "trigger": "Planning bathroom renovation requiring permits",
+      "urgency": 3,
+      "frequency": "Monthly projects"
+    },
+    {
+      "trigger": "Annual water heater inspection due",
+      "urgency": 4,
+      "frequency": "Scheduled quarterly"
+    },
+    {
+      "trigger": "Faucet dripping keeping family awake at night",
+      "urgency": 8,
+      "frequency": "Daily emergency calls"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer discovers problem through visible water damage (43%), unusually high water bill (28%), or complete fixture failure (29%). Initial reaction involves panic googling 'emergency plumber near me' at 2AM or asking neighbors for recommendations on local Facebook groups",
+    "consideration": "Comparing 3-5 plumbers within 15 minutes based on Google reviews (4.5+ stars minimum), response time promises, upfront pricing transparency, and licensing verification. 67% check Better Business Bureau ratings, while 82% read negative reviews first to identify red flags",
+    "decision": "Selection made within 30 minutes for emergencies, 2-3 days for planned work. Key factors: availability within 2 hours (emergency), fixed pricing quotes, warranty offerings, and professional phone manner. Price becomes secondary to speed for water damage situations",
+    "retention": "Annual service agreements capture 34% of emergency customers. Maintenance reminders via text achieve 3x higher response than email. Customers stay loyal when plumber remembers their system history and offers preventive solutions",
+    "advocacy": "Satisfied customers refer average 2.3 new clients annually, primarily through NextDoor (41%), Facebook community groups (33%), and direct neighbor conversations (26%). Video testimonials showing before/after generate 5x more referral traffic"
+  },
+  "transformations": [
+    {
+      "from": "Ankle-deep sewage in finished basement",
+      "to": "Clean, sanitized, functional drainage system",
+      "emotional_value": "Relief from health hazard nightmare",
+      "worth_premium": true
+    },
+    {
+      "from": "No hot water for three days",
+      "to": "Reliable hot showers and clean dishes",
+      "emotional_value": "Restored family harmony and comfort",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant worry about pipe burst",
+      "to": "Peace of mind with new copper repiping",
+      "emotional_value": "Security and property protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassing bathroom at dinner parties",
+      "to": "Modern, impressive powder room guests compliment",
+      "emotional_value": "Pride and social confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Monthly $400 water bills from hidden leak",
+      "to": "Normal $80 bills after leak detection and repair",
+      "emotional_value": "Financial relief and control",
+      "worth_premium": true
+    },
+    {
+      "from": "Shower taking 10 minutes to warm up",
+      "to": "Instant hot water with tankless system",
+      "emotional_value": "Daily convenience and luxury",
+      "worth_premium": false
+    },
+    {
+      "from": "Rusty water staining fixtures and laundry",
+      "to": "Crystal clear water throughout home",
+      "emotional_value": "Health confidence and aesthetic improvement",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Water damage prevented within 2 hours of call",
+      "timeframe": "Same day service",
+      "measurable": true
+    },
+    {
+      "metric": "Monthly water bill reduced by 30-60%",
+      "timeframe": "First billing cycle",
+      "measurable": true
+    },
+    {
+      "metric": "Hot water restoration within 4 hours",
+      "timeframe": "Same day",
+      "measurable": true
+    },
+    {
+      "metric": "Zero callbacks on completed repairs",
+      "timeframe": "30-day period",
+      "measurable": true
+    },
+    {
+      "metric": "Property value increased $5,000-15,000",
+      "timeframe": "After bathroom remodel",
+      "measurable": true
+    },
+    {
+      "metric": "Insurance claim avoided saving $1,000 deductible",
+      "timeframe": "Immediate",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Water actively flooding living space causing $5,000+ damage per hour according to insurance data",
+    "Guests arriving in 3 hours for holiday dinner with non-functional guest bathroom",
+    "Home inspection scheduled tomorrow requiring all plumbing issues resolved for sale",
+    "Elderly parent unable to use only bathroom due to toilet failure",
+    "Restaurant health inspection in morning with grease trap backup",
+    "Tenant threatening to withhold rent due to plumbing problems lasting over 48 hours",
+    "Insurance company requiring immediate repair documentation to maintain coverage"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Your price is $200 higher than another quote",
+      "response": "We include a 5-year warranty, use premium parts, and our master plumber has 20 years experience. The cheaper quote likely uses apprentices and offers only 90-day coverage. Would you prefer to pay once or risk paying twice?",
+      "effectiveness": 78
+    },
+    {
+      "objection": "I want to think about it and get more quotes",
+      "response": "I understand completely. While you're deciding, that leak is causing approximately $50 in water waste daily plus potential structural damage. I can lock in today's price for 48 hours, but I should mention we're booking into next week now",
+      "effectiveness": 71
+    },
+    {
+      "objection": "Can't this wait until next month when I have more money?",
+      "response": "Waiting typically increases repair costs by 40-60% as damage spreads. We offer 12-month zero-interest financing approved in 5 minutes. Most customers save money by acting now versus waiting",
+      "effectiveness": 83
+    },
+    {
+      "objection": "How do I know you won't find more problems once you start?",
+      "response": "We provide video inspection showing exactly what needs repair before starting any work. Our fixed-price quote includes everything needed, and 94% of our jobs complete at the quoted price. We absorb any overage unless you approve changes",
+      "effectiveness": 89
+    },
+    {
+      "objection": "My husband wants to try fixing it himself first",
+      "response": "DIY plumbing causes 73% of our emergency calls, often tripling the original repair cost. We offer a DIY consultation service for $95 where we guide him through it safely, and if he decides he needs us, we credit that toward the repair",
+      "effectiveness": 67
+    },
+    {
+      "objection": "I need to check if insurance covers this",
+      "response": "We work with all major insurers and handle claim documentation. Most policies cover sudden water damage but not gradual leaks. Acting now preserves your coverage eligibility. We can start mitigation immediately and sort payment details later",
+      "effectiveness": 74
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or we return within 24 hours at no charge",
+      "Fixed price guarantee - no surprises even if job takes longer",
+      "Damage-free guarantee with $2 million insurance backing",
+      "Lifetime warranty on all pipe installations",
+      "90-day no-questions-asked money back on repairs under $500"
+    ],
+    "proof_points": [
+      "Licensed and bonded in state for 15+ years",
+      "A+ BBB rating with 847 verified reviews",
+      "Factory-certified for all major brands",
+      "Before/after photos from 500+ similar projects",
+      "Video testimonials from 50+ local customers"
+    ],
+    "risk_mitigation": "We photograph pre-existing conditions, provide detailed written estimates before starting, maintain comprehensive insurance, offer multiple payment options including financing, and guarantee our work passes inspection or we fix it free"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "flooding",
+      "backed up",
+      "won't flush",
+      "no hot water",
+      "keeps running",
+      "dripping",
+      "smells bad",
+      "making noise",
+      "water everywhere",
+      "emergency",
+      "broken",
+      "leaking"
+    ],
+    "solution_words": [
+      "fixed today",
+      "guaranteed",
+      "affordable",
+      "licensed",
+      "available now",
+      "free estimate",
+      "warranty included",
+      "financing available",
+      "5-star rated",
+      "family-owned",
+      "24/7 service",
+      "no mess"
+    ],
+    "avoid_jargon": [
+      "PRV",
+      "backflow preventer",
+      "P-trap",
+      "supply lines",
+      "rough-in",
+      "DWV system",
+      "fixture units",
+      "water hammer",
+      "stack vent",
+      "cleanout",
+      "nipple",
+      "street elbow"
+    ]
+  },
+  "power_words": [
+    "emergency",
+    "immediate",
+    "guaranteed",
+    "licensed",
+    "certified",
+    "available",
+    "today",
+    "free",
+    "warranty",
+    "fixed-price",
+    "trusted",
+    "local",
+    "family-owned",
+    "24/7",
+    "insured",
+    "professional",
+    "expert",
+    "reliable",
+    "affordable",
+    "quality",
+    "permanent",
+    "fast",
+    "clean",
+    "honest",
+    "experienced",
+    "master",
+    "same-day",
+    "no-mess",
+    "upfront",
+    "transparent"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "economy",
+    "basic",
+    "standard",
+    "simple",
+    "temporary",
+    "patch",
+    "band-aid",
+    "maybe",
+    "probably",
+    "should",
+    "might",
+    "usually",
+    "sometimes",
+    "depends",
+    "additional",
+    "extra",
+    "hidden"
+  ],
+  "headline_templates": [
+    {
+      "template": "Emergency Plumber Available Now - [City] 24/7 Service",
+      "expected_ctr": 8.2,
+      "use_case": "Google Ads emergency campaigns"
+    },
+    {
+      "template": "Water Leak? Fixed Today With 5-Year Guarantee",
+      "expected_ctr": 6.7,
+      "use_case": "Facebook ads for leak searches"
+    },
+    {
+      "template": "$89 Drain Cleaning Special - Today Only",
+      "expected_ctr": 9.1,
+      "use_case": "Email promotion campaigns"
+    },
+    {
+      "template": "[City]'s #1 Rated Plumber - 847 Five-Star Reviews",
+      "expected_ctr": 7.3,
+      "use_case": "Homepage and local SEO"
+    },
+    {
+      "template": "No Hot Water? Restored in 4 Hours Guaranteed",
+      "expected_ctr": 8.8,
+      "use_case": "Google Ads for water heater"
+    },
+    {
+      "template": "Save $500 on Whole-House Repiping This Month",
+      "expected_ctr": 5.9,
+      "use_case": "Direct mail campaigns"
+    },
+    {
+      "template": "Toilet Won't Stop Running? $125 Fix - Same Day",
+      "expected_ctr": 7.6,
+      "use_case": "Social media ads"
+    },
+    {
+      "template": "Insurance Claims Welcome - Direct Billing Available",
+      "expected_ctr": 4.8,
+      "use_case": "Water damage campaigns"
+    },
+    {
+      "template": "Senior Discount 20% Off - Local Family Plumber",
+      "expected_ctr": 6.2,
+      "use_case": "Community publications"
+    },
+    {
+      "template": "Free Camera Inspection With Any Drain Service",
+      "expected_ctr": 7.9,
+      "use_case": "Upsell campaigns"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Call Now: Water Damage Worsens Every Minute",
+      "conversion_rate": 14.3,
+      "placement": "Emergency landing pages"
+    },
+    {
+      "template": "Get Fixed Price Quote in 30 Seconds",
+      "conversion_rate": 11.2,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Book Online - Arrival in 90 Minutes",
+      "conversion_rate": 9.8,
+      "placement": "Mobile homepage"
+    },
+    {
+      "template": "Text Photos for Instant Estimate",
+      "conversion_rate": 16.7,
+      "placement": "Social media"
+    },
+    {
+      "template": "Schedule Free Inspection - No Obligation",
+      "conversion_rate": 8.4,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Claim Your $50 Off First Service",
+      "conversion_rate": 12.1,
+      "placement": "Pop-up forms"
+    },
+    {
+      "template": "24/7 Emergency? We're 15 Minutes Away",
+      "conversion_rate": 18.2,
+      "placement": "Google Ads"
+    },
+    {
+      "template": "See If You Qualify for 0% Financing",
+      "conversion_rate": 7.6,
+      "placement": "Estimate follow-ups"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ PSA: That small leak under your sink? It's causing more damage than you think! Here's what's really happening behind your cabinets... [before/after photos] Call us for a FREE inspection: [phone]",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Transformation Tuesday! 🔧 Swipe to see how we turned this flooding disaster into a dream bathroom in just 3 days ➡️ #[City]Plumber #BathroomRemodel #LocalBusiness",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Hi neighbors! Friendly reminder to locate your water shut-off valve BEFORE an emergency. It's usually near the water heater or front of house. Save our number for emergencies: [phone]. Stay dry! 💧",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "Winter tip: Let faucets drip when temps drop below 25°F. A frozen pipe costs $5,000+ to repair. A dripping faucet costs $0.50/night. Easy choice! #WinterPlumbing #[City]",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Commercial property managers: Our predictive maintenance program reduces emergency calls by 67% and cuts annual plumbing costs by 34%. Let's discuss how we're helping 50+ local properties. Link in comments.",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Shut Off Water in an Emergency (Could Save You $10,000!)",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a plumber and the customer says 'it just started leaking today' 😂 [shows massive hidden damage] #PlumberLife #WaterDamage #HomeMaintenance",
+      "engagement_rate": 14.6
+    },
+    {
+      "platform": "Google Business",
+      "template": "Thank you [Customer Name] for the 5-star review! We're honored to be your trusted plumber for 10 years. Neighbors - mention this post for 15% off your first service!",
+      "engagement_rate": 5.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Signs You Need to Call a Plumber Immediately [Infographic with emergency scenarios and estimated damage costs]",
+      "engagement_rate": 7.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Prevent $10,000+ in water damage with our 90-minute emergency response",
+      "rank": 1,
+      "differentiator": "Fastest guaranteed response time in market"
+    },
+    {
+      "prop": "Fixed, upfront pricing with no surprises - know costs before we start",
+      "rank": 2,
+      "differentiator": "Only company offering true fixed pricing"
+    },
+    {
+      "prop": "Lifetime warranty on all major installations with transferable coverage",
+      "rank": 3,
+      "differentiator": "Longest warranty in local market"
+    },
+    {
+      "prop": "Master plumbers only - no apprentices learning on your property",
+      "rank": 4,
+      "differentiator": "100% master-certified team"
+    },
+    {
+      "prop": "Insurance direct billing - we handle all claim paperwork",
+      "rank": 5,
+      "differentiator": "Full-service insurance liaison"
+    },
+    {
+      "prop": "24/7/365 availability with same rates nights and weekends",
+      "rank": 6,
+      "differentiator": "No emergency upcharges ever"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your home deserves master craftsmanship and premium materials that last generations. Our white-glove service includes protective floor coverings, detailed system documentation, and a dedicated project concierge. We're not the cheapest, we're the best - and our 500+ executive clients agree. Investment starts at $500 minimum.",
+    "budget_conscious": "Quality plumbing doesn't have to break the bank. We offer flexible payment plans, use reliable mid-tier fixtures, and focus on practical solutions that work. Our transparent pricing means no surprises, and we'll always present multiple options to fit your budget. Most repairs under $300.",
+    "enterprise": "Minimize operational disruption with our commercial rapid response team. We maintain parts inventory for 200+ commercial fixtures, offer predictive maintenance contracts, and provide 24/7 dedicated support. Our enterprise clients experience 67% fewer emergency calls and 34% lower annual costs. Comprehensive SLA available."
+  },
+  "trust_signals": [
+    {
+      "signal": "State license number prominently displayed",
+      "importance": 10,
+      "format": "Header of website and trucks"
+    },
+    {
+      "signal": "Before/after photo galleries of 100+ local projects",
+      "importance": 8,
+      "format": "Interactive website gallery"
+    },
+    {
+      "signal": "Better Business Bureau A+ rating badge",
+      "importance": 9,
+      "format": "Homepage and email signatures"
+    },
+    {
+      "signal": "Real-time GPS tracking of technician arrival",
+      "importance": 7,
+      "format": "SMS updates to customer"
+    },
+    {
+      "signal": "Uniformed technicians with photo ID badges",
+      "importance": 8,
+      "format": "Professional appearance"
+    },
+    {
+      "signal": "Insurance certificate available on request",
+      "importance": 9,
+      "format": "PDF email attachment"
+    },
+    {
+      "signal": "Video testimonials from recognizable local residents",
+      "importance": 7,
+      "format": "YouTube playlist embedded"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "847 five-star Google reviews (4.8 average)",
+      "credibility_score": 9,
+      "context": "More reviews than next 3 competitors combined"
+    },
+    {
+      "stat": "Serving local community for 23 years",
+      "credibility_score": 8,
+      "context": "Family business passed to second generation"
+    },
+    {
+      "stat": "12,000+ homes serviced in [County]",
+      "credibility_score": 7,
+      "context": "Approximately 1 in 8 local homes"
+    },
+    {
+      "stat": "Zero BBB complaints in past 3 years",
+      "credibility_score": 9,
+      "context": "Industry average is 2-3 annually"
+    },
+    {
+      "stat": "Featured expert on Local News Channel 6",
+      "credibility_score": 8,
+      "context": "Quarterly maintenance tips segment"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Kohler, Moen, Delta fixtures with lifetime manufacturer warranties",
+    "Budget: Builder-grade Glacier Bay, Project Source with 1-year warranties",
+    "Premium: Copper or PEX-A piping with 50-year life expectancy",
+    "Budget: PEX-B or CPVC with 20-year life expectancy",
+    "Premium: Tankless water heaters with smart home integration",
+    "Budget: Standard 40-gallon tanks with basic functionality"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After successful final inspection or customer confirms satisfaction",
+    "ask_method": "Automated SMS with direct link to Google review page, followed by email with video testimonial request offering $50 future service credit"
+  },
+  "competitive_advantages": [
+    "Only local plumber with in-house restoration team for complete water damage solutions",
+    "Proprietary leak detection system finds hidden leaks 40% faster than traditional methods",
+    "Exclusive dealer for premium German whole-house water filtration systems",
+    "24/7 live answer by actual plumber, not answering service",
+    "Fleet of 15 fully-stocked trucks means no parts runs delaying your repair"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Quote premium option first at $3,500, making $1,800 standard option seem reasonable",
+    "sensitivity": "Price breaks at $299, $499, $999 to stay under psychological barriers",
+    "sweet_spots": [
+      "$189 for drain cleaning",
+      "$379 for toilet replacement",
+      "$1,499 for water heater",
+      "$89 for diagnostic"
+    ],
+    "decoy_pricing": "Offer basic service at $149, standard at $189, premium at $199 - most choose $189"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 500,
+    "competitor_research": 1000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.3,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Express",
+      "price_range": "$299-999",
+      "target_customer": "Urgent residential needs",
+      "margin": 0.45
+    },
+    {
+      "tier": "Standard Service",
+      "price_range": "$150-500",
+      "target_customer": "Planned residential repairs",
+      "margin": 0.38
+    },
+    {
+      "tier": "Premium Complete",
+      "price_range": "$500-5000",
+      "target_customer": "Whole-system solutions",
+      "margin": 0.52
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle diagnostic with repair for 15% higher margin than separate services",
+    "Upsell annual maintenance contracts on emergency calls for 40% lifetime value increase",
+    "Source fixtures directly from manufacturer for 20% better margins than supply house",
+    "Offer financing to capture 30% more high-ticket jobs at full margin",
+    "Implement flat-rate pricing book to improve margins 8-12% over time and materials",
+    "Cross-train techs to handle HVAC basics for 25% more billable hours per truck"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 1.4,
+      "reason": "Frozen pipe emergencies",
+      "opportunity": "Preventive insulation services"
+    },
+    {
+      "month": "February",
+      "variation": 1.2,
+      "reason": "Continued freeze risk",
+      "opportunity": "Thawing and repair services"
+    },
+    {
+      "month": "March",
+      "variation": 1.1,
+      "reason": "Spring home maintenance",
+      "opportunity": "Inspection specials"
+    },
+    {
+      "month": "April",
+      "variation": 1.3,
+      "reason": "Tax refund spending",
+      "opportunity": "Bathroom remodel promotions"
+    },
+    {
+      "month": "May",
+      "variation": 1,
+      "reason": "Normal demand",
+      "opportunity": "Graduation party prep"
+    },
+    {
+      "month": "June",
+      "variation": 0.9,
+      "reason": "Vacation season begins",
+      "opportunity": "Vacation shut-off services"
+    },
+    {
+      "month": "July",
+      "variation": 0.8,
+      "reason": "Peak vacation",
+      "opportunity": "Commercial focus period"
+    },
+    {
+      "month": "August",
+      "variation": 0.9,
+      "reason": "Back-to-school prep",
+      "opportunity": "Rental property services"
+    },
+    {
+      "month": "September",
+      "variation": 1,
+      "reason": "Fall maintenance",
+      "opportunity": "Water heater tune-ups"
+    },
+    {
+      "month": "October",
+      "variation": 1.1,
+      "reason": "Pre-winter prep",
+      "opportunity": "Winterization services"
+    },
+    {
+      "month": "November",
+      "variation": 1.3,
+      "reason": "Holiday guest prep",
+      "opportunity": "Guest bathroom updates"
+    },
+    {
+      "month": "December",
+      "variation": 1.5,
+      "reason": "Emergency calls spike",
+      "opportunity": "Gift certificates for services"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling non-emergency appointments",
+      "avoid": "Major project starts",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Commercial service calls",
+      "avoid": "Residential cold calls",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Maintenance contract sales",
+      "avoid": "Emergency response",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Estimates and consultations",
+      "avoid": "Collection calls",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency availability",
+      "avoid": "Starting major projects",
+      "conversion_rate": 9.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Residential emergency response",
+      "avoid": "Commercial work",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Premium emergency service",
+      "avoid": "Routine maintenance",
+      "conversion_rate": 6.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage due 1st creates cash crunch until 5th, utilities due 15th creates second squeeze until 20th",
+    "cash_flow_peaks": "Payday influx on 1st, 15th, and last Friday shows 40% higher acceptance of quotes",
+    "slow_periods": "Days 20-25 consistently show 30% lower call volume and price sensitivity increases"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "6:00-8:00 AM weekdays",
+      "crisis_type": "No hot water discovered before work",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "5:00-7:00 PM weekdays",
+      "crisis_type": "Coming home to water damage",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "10:00 PM - 2:00 AM",
+      "crisis_type": "Major leaks and backups",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Holiday mornings",
+      "crisis_type": "Toilet/kitchen failures before guests",
+      "premium_multiplier": 2.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Home Protection Plan",
+      "components": [
+        "Annual inspection",
+        "Priority scheduling",
+        "15% repair discount",
+        "No emergency fees"
+      ],
+      "pricing_model": "$299/year",
+      "margin": 0.72
+    },
+    {
+      "name": "Complete Bathroom Refresh",
+      "components": [
+        "All fixtures",
+        "Installation",
+        "Disposal",
+        "Warranty"
+      ],
+      "pricing_model": "$3,500 fixed",
+      "margin": 0.48
+    },
+    {
+      "name": "Whole House Repiping",
+      "components": [
+        "All supply lines",
+        "Permits",
+        "Drywall repair",
+        "Paint touch-up"
+      ],
+      "pricing_model": "$8,000-12,000",
+      "margin": 0.41
+    },
+    {
+      "name": "Emergency Response",
+      "components": [
+        "2-hour arrival",
+        "Diagnosis",
+        "Temporary fix",
+        "Quote for permanent"
+      ],
+      "pricing_model": "$299 minimum",
+      "margin": 0.65
+    }
+  ],
+  "upsell_paths": [
+    "Emergency drain cleaning → Camera inspection → Hydro jetting → Pipe lining (average journey value: $3,200)",
+    "Faucet repair → Faucet replacement → Sink replacement → Full vanity upgrade ($150 → $1,800)",
+    "Water heater repair → Water heater replacement → Tankless upgrade → Whole-house filtration ($200 → $5,500)",
+    "Toilet repair → Toilet replacement → Bathroom update → Full bathroom remodel ($150 → $12,000)",
+    "Leak detection → Leak repair → Preventive repiping → Smart leak detection system ($300 → $8,500)",
+    "Single fixture → Multiple fixtures → Annual maintenance → Lifetime customer ($200 → $15,000+ lifetime)"
+  ],
+  "retention_hooks": [
+    "Annual reminder calls for water heater flushing and inspection with 20% seasonal discount",
+    "Birthday month special offering $50 off any service as customer appreciation",
+    "Automatic enrollment in priority scheduling for repeat customers",
+    "Digital home plumbing profile tracking all work history and warranty dates",
+    "Quarterly newsletter with seasonal tips and exclusive customer-only promotions",
+    "VIP status after $1,000 spent unlocking permanent 10% discount",
+    "Free emergency consultation for maintenance plan members"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "$50 credit for both referrer and referee",
+      "timing": "Mentioned at job completion",
+      "incentive": "Applied to next service",
+      "conversion_rate": 0.23
+    },
+    {
+      "strategy": "Three referrals earn free annual maintenance",
+      "timing": "Email 30 days post-service",
+      "incentive": "$299 value service",
+      "conversion_rate": 0.18
+    },
+    {
+      "strategy": "Social media share contest for monthly drawing",
+      "timing": "After positive review",
+      "incentive": "$500 service credit",
+      "conversion_rate": 0.31
+    },
+    {
+      "strategy": "Neighborhood group exclusive discount codes",
+      "timing": "Community event sponsorship",
+      "incentive": "15% group rate",
+      "conversion_rate": 0.27
+    },
+    {
+      "strategy": "Professional network reciprocal referrals",
+      "timing": "Ongoing partnerships",
+      "incentive": "Mutual business exchange",
+      "conversion_rate": 0.42
+    },
+    {
+      "strategy": "Customer appreciation events with bring-a-friend",
+      "timing": "Quarterly BBQ events",
+      "incentive": "Free consultation",
+      "conversion_rate": 0.19
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Water heater service → HVAC maintenance",
+      "attach_rate": 0.34,
+      "timing": "During annual inspection"
+    },
+    {
+      "service": "Drain cleaning → Garbage disposal upgrade",
+      "attach_rate": 0.28,
+      "timing": "While under sink"
+    },
+    {
+      "service": "Bathroom repair → Electrical outlet GFCI upgrade",
+      "attach_rate": 0.22,
+      "timing": "Safety compliance discussion"
+    },
+    {
+      "service": "Kitchen plumbing → Water filtration system",
+      "attach_rate": 0.31,
+      "timing": "Water quality testing"
+    },
+    {
+      "service": "Emergency service → Maintenance plan",
+      "attach_rate": 0.41,
+      "timing": "Prevention discussion post-crisis"
+    },
+    {
+      "service": "Repiping → Smart home leak detection",
+      "attach_rate": 0.26,
+      "timing": "Modern upgrade package"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Add drain cleaning division with hydro-jetting",
+      "market_size": "$2.3M annual in service area",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Acquire struggling competitor's customer base",
+      "market_size": "400-600 customers valued at $300K",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Launch commercial maintenance contracts",
+      "market_size": "$4.1M annual B2B market",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Partner with real estate agents for inspections",
+      "market_size": "2,000 transactions yearly",
+      "difficulty": 2
+    },
+    {
+      "opportunity": "Develop handyman services for small repairs",
+      "market_size": "$1.8M adjacent market",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Create online DIY courses with tool sales",
+      "market_size": "$500K passive income potential",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Roto-Rooter's 'Pipe Relining vs Replacement' educational video series on YouTube showing side-by-side cost comparisons and process demonstrations",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content addressing a major decision point for homeowners, transparent pricing builds trust, visual demonstration reduces uncertainty about complex service",
+        "metrics": "Videos in series averaged 45K-120K views, 89% positive engagement ratio",
+        "source": "YouTube channel analytics and SocialBlade data for Roto-Rooter official channel",
+        "confidence": "high"
+      },
+      {
+        "example": "Benjamin Franklin Plumbing's 'If there's any delay, it's you we pay' guarantee campaign across Facebook and local search ads emphasizing punctuality promise",
+        "platform": "Facebook/Google Ads",
+        "why_it_worked": "Addresses major pain point (waiting for service), concrete guarantee reduces risk, memorable tagline, differentiates from competitors",
+        "metrics": "Campaign contributed to 23% year-over-year growth in service calls according to franchise disclosure documents",
+        "source": "Benjamin Franklin Plumbing marketing materials and franchise performance data",
+        "confidence": "high"
+      },
+      {
+        "example": "Local plumber Roger Wakefield's TikTok account showing common DIY plumbing mistakes with humor and education, building authority while entertaining",
+        "platform": "TikTok",
+        "why_it_worked": "Authenticity and personality-driven content, educational value mixed with entertainment, addresses DIY audience that may convert to service customers, algorithm-friendly short format",
+        "metrics": "2.1M followers, videos regularly achieve 500K+ views, 8-12% engagement rate",
+        "source": "TikTok @RogerWakefield verified account statistics",
+        "confidence": "high"
+      },
+      {
+        "example": "Mr. Rooter's seasonal 'Drain Cleaning Before Thanksgiving' email campaign with urgency messaging about preventing holiday disasters",
+        "platform": "Email",
+        "why_it_worked": "Timely seasonal relevance, taps into fear of embarrassment during family gatherings, preventive angle easier to sell than emergency, scarcity messaging with limited appointment slots",
+        "metrics": "32% open rate, 4.7% conversion to booked appointments (above industry average)",
+        "source": "Email marketing case study published in Service Business Magazine 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "Local plumbing companies using Google Business Profile posts showing before/after photos of completed jobs with same-day response times highlighted",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Visual proof of quality work, emphasizes speed which is critical for emergency services, appears in high-intent local search results, builds credibility through transparency",
+        "metrics": "Businesses posting 3+ times weekly see 40% more customer actions than those posting less frequently",
+        "source": "Google Business Profile performance insights and LocalU case studies 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% for service businesses, with video content performing at 0.18%",
+        "best_content_format": "Short-form video (under 2 minutes) showing before/after transformations, followed by photo posts with educational tips",
+        "optimal_frequency": "4-7 posts per week for local service businesses",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM and 1-3 PM local time, Saturday mornings 8-10 AM",
+        "source": "Rival IQ 2024 Social Media Benchmark Report - Home Services Industry"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for home service businesses, Reels achieving 1.2-2.1% engagement",
+        "best_content_format": "Instagram Reels showing quick fixes, problem identification, or dramatic before/after reveals. Carousel posts for educational content perform second best",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels",
+        "best_posting_times": "Weekdays 11 AM - 1 PM, evenings 7-9 PM when homeowners are active",
+        "source": "Hootsuite Social Media Trends Report 2024 and Later.com engagement data for service industries"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Local service businesses with weekly posts see 70% more customer actions (calls, direction requests, website visits)",
+        "best_content_format": "Photo posts showing completed work with brief description, update posts about availability/special offers, Q&A responses",
+        "optimal_frequency": "3-5 posts per week minimum, daily during peak seasons",
+        "best_posting_times": "Monday mornings for week planning, Thursday/Friday for weekend emergency preparation",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Sterling Sky case studies"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.1% for educational home service content, how-to videos performing strongest",
+        "best_content_format": "Educational how-to videos (5-10 minutes), problem diagnosis guides, product comparison videos",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month to maintain channel",
+        "best_posting_times": "Weekday evenings 6-9 PM and weekend mornings when DIY research happens",
+        "source": "Think With Google Home Services Research 2023 and Tubular Labs industry benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-24% open rate for home services, 2.3-3.1% click-through rate",
+        "best_content_format": "Seasonal maintenance reminders, educational tips with clear CTAs, limited-time service offers",
+        "optimal_frequency": "2-4 emails per month for existing customers, weekly for active leads",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM, avoid Mondays and Fridays",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Construction/Home Services category"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Consequence Warning",
+        "example": "That dripping faucet is costing you $35/month - here's how to know if it's an emergency",
+        "why_it_works": "Quantifies the problem in dollars, creates urgency through financial loss, promises diagnostic information that builds trust",
+        "source": "Analysis of high-performing plumbing service ads on Google Ads and Facebook Ad Library"
+      },
+      {
+        "hook_pattern": "Seasonal Fear Trigger",
+        "example": "Before the first freeze: 3 signs your pipes won't survive winter",
+        "why_it_works": "Leverages seasonal anxiety, specific number promises digestible content, focuses on prevention which feels more controllable",
+        "source": "Top-performing email subject lines from Service Titan customer data 2023-2024"
+      },
+      {
+        "hook_pattern": "DIY Mistake Revelation",
+        "example": "Stop! That YouTube fix will cost you $2,000 more - here's why",
+        "why_it_works": "Interrupts DIY behavior, quantifies the risk, positions professional as money-saving option paradoxically, creates curiosity gap",
+        "source": "Roger Wakefield TikTok top-performing videos and engagement analysis"
+      },
+      {
+        "hook_pattern": "Social Proof + Specificity",
+        "example": "How we fixed 47 slab leaks this month without jackhammering floors",
+        "why_it_works": "Specific number builds credibility, addresses major fear (property damage), promises innovative solution, implies expertise through volume",
+        "source": "High-engagement LinkedIn posts from commercial plumbing companies"
+      },
+      {
+        "hook_pattern": "Price Transparency Opener",
+        "example": "Why we show our prices online (and why most plumbers hide theirs)",
+        "why_it_works": "Addresses major trust barrier in industry, positions company as transparent, creates us-vs-them dynamic, promises insider information",
+        "source": "Analysis of top-performing blog posts in plumbing industry via Ahrefs content explorer"
+      },
+      {
+        "hook_pattern": "Time-Saving Promise",
+        "example": "Same-day water heater replacement (yes, really) - here's our process",
+        "why_it_works": "Addresses major pain point of waiting days for service, parenthetical adds credibility by acknowledging skepticism, promises transparency",
+        "source": "Mr. Rooter and Benjamin Franklin Plumbing high-converting landing page headlines"
+      },
+      {
+        "hook_pattern": "Problem Identification Helper",
+        "example": "Is that sewage smell or something else? 5 odors that mean call us NOW",
+        "why_it_works": "Helps customer diagnose their own situation, specific number, urgency word, addresses embarrassing problem indirectly",
+        "source": "Top-performing organic search content from plumbing company blogs ranking in top 3 positions"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "Water is literally pouring through my ceiling and I don't know where it's coming from",
+        "My water bill doubled this month and I can't find any leaks",
+        "The basement smells like sewage and it's getting worse every day",
+        "I hear water running in the walls but all the faucets are off",
+        "Our only bathroom is out of commission and we have kids",
+        "The toilet keeps running and the sound is driving me insane at night",
+        "I'm scared to flush because it almost overflowed last time",
+        "There's a wet spot on the ceiling that keeps getting bigger",
+        "My shower has no pressure but the kitchen sink is fine",
+        "The garbage disposal is making a horrible grinding metal sound"
+      ],
+      "solution_phrases": [
+        "I just want someone reliable who will show up when they say they will",
+        "I need it fixed right the first time, not a temporary patch",
+        "Looking for a plumber who can explain what's wrong in plain English",
+        "I want a price quote before any work starts, no surprises",
+        "Need someone licensed and insured, had a bad experience before",
+        "Just want my life back to normal, hot showers and working toilets",
+        "I need peace of mind that this won't happen again",
+        "Want someone who can come today, not next week",
+        "Looking for a permanent solution, not a bandaid fix",
+        "Need a plumber who won't judge the mess or make me feel stupid"
+      ],
+      "objection_phrases": [
+        "I'm worried this is going to cost thousands of dollars",
+        "How do I know you're not going to rip me off",
+        "Every plumber I call wants to charge just to come look at it",
+        "I got three different quotes and they're all totally different",
+        "Last plumber said I needed to replace everything but I think he was lying",
+        "I can probably just watch a YouTube video and fix it myself",
+        "You guys always try to upsell stuff I don't need",
+        "I called two days ago and you still haven't called me back",
+        "Your reviews are good but so are your competitors, why should I choose you",
+        "I need to wait until I have more money saved up"
+      ],
+      "decision_factors": [
+        "They could come out the same day, everyone else was booking 3-4 days out",
+        "The price was in the middle but they had way better reviews",
+        "They gave me an exact price over the phone, no hidden fees",
+        "The plumber explained everything and showed me photos of what was wrong",
+        "They've been in business locally for 20+ years, that matters to me",
+        "They warranty their work for a year, others only did 90 days",
+        "The guy who answered the phone was actually helpful, not just taking a message",
+        "They had a real person answer, not a call center in another state",
+        "Their Google reviews mentioned them being clean and respectful of the home",
+        "They're licensed and insured and could prove it, some others were sketchy about that"
+      ],
+      "emotional_language": [
+        "I was panicking when I saw water everywhere",
+        "Such a relief to finally have hot water again",
+        "I felt so stupid that I let it go this long",
+        "I was embarrassed to have guests over with the bathroom like that",
+        "The stress of not knowing how much this would cost was killing me",
+        "I can finally sleep without hearing that dripping sound",
+        "I was terrified the whole house was going to flood",
+        "It's such a weight off my shoulders knowing it's actually fixed",
+        "I felt so helpless, like I was at the mercy of whoever I called",
+        "The peace of mind is worth every penny"
+      ],
+      "sources": [
+        "Reddit r/homeowners, r/plumbing, r/HomeImprovement threads from 2023-2024",
+        "Google Reviews for top 20 plumbing companies in major metro areas",
+        "Yelp reviews filtered for 4-5 star detailed reviews",
+        "HomeAdvisor and Angi customer review sections",
+        "NextDoor neighborhood discussions about plumber recommendations",
+        "Facebook community groups for homeowners seeking plumber recommendations"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few plumbing companies create content about financing options or payment plans in relatable terms - most just have a logo on their site",
+      "Limited content addressing the emotional stress and family disruption of plumbing emergencies - most focus only on technical fixes",
+      "Minimal educational content for landlords and property managers as a distinct audience with different needs than homeowners",
+      "Almost no companies address the decision between repair vs. replace for major systems in transparent, non-sales way",
+      "Gap in content about what happens during a service call - reducing anxiety about strangers in the home",
+      "Very few companies create content about preventive maintenance in a way that doesn't feel like a sales pitch",
+      "Limited authentic behind-the-scenes content showing the actual plumbers and company culture",
+      "Minimal content addressing concerns of first-time homeowners who don't know what's normal vs. emergency",
+      "Gap in addressing environmental/water conservation angle that appeals to certain demographics",
+      "Almost no content helping customers understand when they actually need permits and inspections"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "November - Early December",
+        "opportunity": "Pre-holiday preparation, Thanksgiving cooking disasters, house guests arriving, winter freeze preparation",
+        "content_angle": "Preventive maintenance before family visits, drain cleaning before big meals, guest bathroom updates, winterization checklists before first freeze"
+      },
+      {
+        "period": "Late December - February",
+        "opportunity": "Frozen pipe emergencies, holiday cleanup issues, winter storm preparation, tax refund season planning",
+        "content_angle": "Emergency frozen pipe response, what to do when pipes freeze, winter maintenance tips, planning larger projects with tax refunds"
+      },
+      {
+        "period": "March - April",
+        "opportunity": "Spring thaw revealing winter damage, spring cleaning motivation, tax refund spending, pre-summer preparation",
+        "content_angle": "Post-winter inspection offers, spring plumbing checkup content, outdoor faucet/sprinkler system prep, water heater maintenance before summer vacation season"
+      },
+      {
+        "period": "May - June",
+        "opportunity": "Home improvement season peaks, moving season, graduation parties, wedding season, Father's Day",
+        "content_angle": "Bathroom renovation content, new homeowner plumbing guides, preparing for summer entertaining, Father's Day tool/DIY content with professional backup message"
+      },
+      {
+        "period": "July - August",
+        "opportunity": "Vacation season, back-to-school preparation, high water usage from kids at home, outdoor entertainment",
+        "content_angle": "Pre-vacation plumbing checklist, water conservation during drought/high usage, preparing plumbing for kids going back to school routine, outdoor kitchen/bar plumbing"
+      },
+      {
+        "period": "September - October",
+        "opportunity": "Fall maintenance season, preparing for winter, holiday preparation begins, end of construction season",
+        "content_angle": "Fall plumbing maintenance checklist, winterization services, water heater inspection before heating season, completing projects before weather turns"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit communities: r/homeowners, r/plumbing, r/HomeImprovement",
+      "Google Business Profile reviews for top 50 plumbing companies across major metros",
+      "Yelp and HomeAdvisor review databases",
+      "YouTube analytics for Roto-Rooter, Roger Wakefield, and other plumbing content creators",
+      "TikTok verified accounts in plumbing industry",
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Hootsuite Social Media Trends Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Think With Google Home Services Research",
+      "Service Titan customer data reports",
+      "Facebook Ad Library for active plumbing service campaigns",
+      "Ahrefs content explorer for top-ranking plumbing blog content",
+      "Benjamin Franklin Plumbing and Mr. Rooter marketing materials",
+      "NextDoor community recommendation threads",
+      "Google Trends data for plumbing-related searches"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for specific campaigns - most is proprietary",
+      "Exact engagement metrics for some smaller local companies not publicly reported",
+      "Some platform benchmarks combine all home services rather than plumbing-specific data",
+      "A/B testing data for hooks is limited to what companies publicly share in case studies",
+      "LinkedIn engagement data for plumbing industry specifically is sparse compared to other platforms"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes reveal of new service technology/process that solves common pain points",
+        "Week 2: Transparent pricing and warranty details - addressing the trust gap competitors avoid",
+        "Week 3: Real customer transformation stories showing before/after and emotional relief",
+        "Week 4: Limited-time launch incentive with same-day availability emphasis"
+      ],
+      "weekly_hooks": [
+        [
+          "We're fixing [common plumbing problem] in half the time without [feared consequence] - here's how our new [service/technology] works",
+          "Why we're showing our exact prices for [new service] online (and why most plumbers hide theirs)",
+          "Before the official launch: 3 signs you need [new service] instead of the old expensive way"
+        ],
+        [
+          "Same-day [new service] installation (yes, really) - here's our process from start to finish",
+          "That [plumbing problem] is costing you $[amount]/month - our new [service] pays for itself in [timeframe]",
+          "Stop! That traditional [old method] will cost you $[amount] more - here's why [new service] is better"
+        ],
+        [
+          "How we've already completed [specific number] [new service] installations this month without [common fear]",
+          "[Customer name]'s [problem] was literally [dramatic description] - watch the transformation with our new [service]",
+          "Is your [system] showing these 5 warning signs? Our new [service] fixes all of them permanently"
+        ],
+        [
+          "Last chance: [Number] spots left for same-day [new service] at launch pricing this week",
+          "We fixed [number] [problems] in [timeframe] with our new [service] - your home could be next",
+          "Before [seasonal event/deadline]: Why waiting on [new service] could cost you $[amount] in [consequence]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know this actually works better than traditional methods' with technical education and third-party validation",
+        "Week 2: Address 'Your price is higher than traditional service quotes' by breaking down warranty value, time savings, and long-term cost comparison",
+        "Week 3: Address 'I want to think about it and get more quotes' with customer testimonials showing decision factors and limited availability messaging",
+        "Week 4: Address 'Can't this wait until next month when I have more money' with financing options and cost-of-waiting calculations"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce licensing, certifications, and manufacturer partnerships for new technology/service",
+        "Week 2: Share detailed process videos and transparent pricing breakdowns with warranty terms",
+        "Week 3: Feature 3-5 detailed customer transformation stories with before/after photos and emotional testimonials",
+        "Week 4: Final credibility push with volume metrics (jobs completed), guarantee reinforcement, and local business longevity"
+      ],
+      "cta_progression": [
+        "Week 1: 'Watch the full demo video' or 'Download our comparison guide: [New Service] vs [Traditional Method]'",
+        "Week 2: 'Get your free estimate in 60 seconds' or 'See if your home qualifies for same-day installation'",
+        "Week 3: 'Schedule your free inspection - limited spots this week' or 'Join [number] homeowners who've already switched'",
+        "Week 4: 'Call now for same-day service: [phone number]' or 'Book your installation before launch pricing ends [date]'"
+      ],
+      "platform_priority": [
+        "Google Business Profile (daily posts with photos showing new service in action)",
+        "Facebook (5-6 posts/week with video demos and customer stories)",
+        "Email (2 emails/week to existing customer list)",
+        "Instagram (4-5 posts/week including Reels of installation process)",
+        "YouTube (1-2 detailed educational videos about new service)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Benjamin Franklin Plumbing's guarantee campaign showing 23% YoY growth by addressing punctuality pain point, and Roto-Rooter's educational video series achieving 45K-120K views by transparently comparing service options. Launch campaigns work when they combine transparent pricing (identified competitive gap) with specific guarantees that reduce customer risk."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: DIY mistake education - when to call professionals vs. safe homeowner fixes",
+        "Week 2: Seasonal preparation content aligned with current time of year",
+        "Week 3: Cost-saving maintenance tips that build trust without hard selling",
+        "Week 4: Problem diagnosis helpers - identifying symptoms before they become emergencies",
+        "Week 5: Transparent pricing education and what affects service costs",
+        "Week 6: Customer transformation stories focusing on emotional relief and peace of mind",
+        "Week 7: Behind-the-scenes team culture and local community involvement",
+        "Week 8: Preventive maintenance checklists and when-to-schedule guides"
+      ],
+      "weekly_hooks": [
+        [
+          "Stop! That YouTube fix will cost you $[amount] more on [common problem] - here's why",
+          "5 plumbing fixes you CAN do yourself (and 3 you absolutely cannot)",
+          "I've seen this DIY disaster [number] times this month - here's what actually works"
+        ],
+        [
+          "Before [seasonal event]: 3 signs your [plumbing system] won't survive [season]",
+          "[Season] is coming - here's your [timeframe] plumbing checklist to avoid $[amount] emergencies",
+          "We fixed [number] [seasonal problem] calls this week that could've been prevented - here's how"
+        ],
+        [
+          "That dripping faucet is costing you $[amount]/month - here's how to know if it's an emergency",
+          "The 10-minute maintenance task that prevents 80% of [expensive problem] repairs",
+          "Your water heater needs this simple check twice a year - here's why and how"
+        ],
+        [
+          "Is that sewage smell or something else? 5 odors that mean call us NOW",
+          "Hear water running in the walls? Here's how to find the leak before it finds your ceiling",
+          "3 sounds your plumbing makes that are normal (and 4 that mean emergency)"
+        ],
+        [
+          "Why [service] costs $[range] and what makes it more or less expensive",
+          "We show our prices online - here's exactly what you're paying for with [service]",
+          "The real reason some plumbers charge just to show up (and why we don't)"
+        ],
+        [
+          "From ankle-deep sewage to clean basement in [timeframe] - [customer name]'s story",
+          "She couldn't have guests over for [timeframe] - watch this bathroom transformation",
+          "His water bill went from $[high amount] to $[normal amount] - here's what we found"
+        ],
+        [
+          "Meet [plumber name]: [years] years fixing [area] plumbing and still loves the challenge",
+          "Why our trucks are always clean and our plumbers wear shoe covers - it matters",
+          "This week we [community involvement activity] - being local means giving back"
+        ],
+        [
+          "The twice-yearly plumbing check that takes 15 minutes and saves thousands",
+          "When to schedule your annual water heater flush (and what happens if you don't)",
+          "Your home's plumbing maintenance calendar - save this post for year-round reference"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Subtly address 'I can probably just watch a YouTube video and fix it myself' through educational content showing complexity",
+        "Week 3: Address 'You guys always try to upsell stuff I don't need' by providing genuine value with no strings attached",
+        "Week 5: Address 'Every plumber I call wants different amounts and I don't know who to trust' with pricing transparency",
+        "Week 6: Address 'Your reviews are good but so are your competitors, why should I choose you' through differentiated customer stories",
+        "Week 7: Address trust and legitimacy concerns through team introductions and community presence",
+        "Week 8: Address 'I need to wait until I have more money saved up' by showing how prevention costs less than emergency repairs"
+      ],
+      "proof_timing": [
+        "Week 1: Share credentials and years of experience handling DIY disasters",
+        "Week 2: Reference number of seasonal emergency calls prevented through education",
+        "Week 4: Include diagnostic accuracy statistics and problem identification expertise",
+        "Week 6: Feature detailed before/after photos with customer testimonials emphasizing emotional transformation",
+        "Week 7: Highlight local business longevity, family-owned status, community involvement",
+        "Week 8: Share warranty information and maintenance program customer retention rates"
+      ],
+      "cta_progression": [
+        "Week 1: 'Save this post for when you need it' or 'Tag someone who tried this DIY disaster'",
+        "Week 2: 'Download our [seasonal] preparation checklist' or 'Comment which task you're doing first'",
+        "Week 3: 'Share this tip with a homeowner who needs it' or 'Follow for weekly maintenance reminders'",
+        "Week 4: 'Not sure about that smell/sound? DM us a description for free advice'",
+        "Week 5: 'Get your free estimate - no trip charges, no pressure'",
+        "Week 6: 'See yourself in this story? Let's talk about your situation: [phone]'",
+        "Week 7: 'Meet our team - schedule with your favorite plumber by name'",
+        "Week 8: 'Sign up for our seasonal maintenance reminders' or 'Book your annual inspection today'"
+      ],
+      "platform_priority": [
+        "Google Business Profile (3-5 posts/week with mix of tips, photos, and updates)",
+        "Facebook (5-7 posts/week with educational focus and community engagement)",
+        "Email (2-3 emails/month to customer list with seasonal tips)",
+        "Instagram (5-7 posts/week including 3-4 Reels showing quick tips and transformations)",
+        "YouTube (2 videos/month with detailed how-to and when-to-call-pro content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Roger Wakefield's TikTok success (2.1M followers, 8-12% engagement) showing DIY mistakes with humor and education, combined with research showing 'minimal content addressing when repair vs. replace' and 'gap in preventive maintenance content that doesn't feel like sales pitch.' The 8-week cycle addresses all major customer journey stages while maintaining the 70-20-10 value-first ratio that builds authority."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized shocking revelations about common plumbing myths and mistakes",
+        "Week 2: Interactive challenges and shareable before/after transformations with community engagement focus"
+      ],
+      "weekly_hooks": [
+        [
+          "I've been a plumber for [number] years and I'm about to make a lot of plumbers mad - here's what they don't want you to know about [common service]",
+          "That 'plumber' who quoted you $[amount] isn't licensed - here's how to check in 30 seconds",
+          "Stop putting [common item] down your drain! We've pulled [number] of these from pipes this month alone - here's what happens",
+          "The $3 part that prevents $2,000 water damage - why don't plumbers tell you about this?",
+          "I responded to [number] flooded homes this week - every single one ignored this warning sign"
+        ],
+        [
+          "Show me your worst plumbing problem in the comments - I'll tell you if it's a $50 fix or $5,000 emergency",
+          "Tag a homeowner who needs to see this before/after [dramatic transformation]",
+          "Guess how much this repair cost - closest answer gets free plumbing consultation (hint: way less than you think)",
+          "Drop a 🚨 if you've experienced this nightmare - you're not alone and here's the permanent fix",
+          "Which would you choose: [Option A] or [Option B]? Vote in comments and I'll explain why one costs 3x more later"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know you're not going to rip me off' by exposing industry practices and showing transparency",
+        "Week 2: Address 'Your reviews are good but so are your competitors' by demonstrating unique expertise through interactive engagement and personalized responses"
+      ],
+      "proof_timing": [
+        "Week 1: Lead with shocking statistics and volume metrics (number of calls, problems seen, years of experience) to establish authority",
+        "Week 2: Share rapid-fire before/after transformations with brief customer quotes emphasizing speed and relief"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily plumbing secrets your plumber won't tell you' or 'Share this to save someone from a $[amount] mistake'",
+        "Week 1: 'Comment your plumbing question - I'll answer every single one today' or 'Tag someone who just bought a house and needs this'",
+        "Week 2: 'DM me photos of your problem for free diagnosis' or 'Click the link in bio for same-day emergency service'",
+        "Week 2: 'Save this account - you'll need us when [common emergency] happens at 2am' or 'Call now: [phone] - we're answering phones right now'"
+      ],
+      "platform_priority": [
+        "Instagram Reels (2-3 per day with trending audio and shocking reveals)",
+        "TikTok (2-3 per day with DIY mistake content and dramatic transformations)",
+        "Facebook (6-8 posts/week with shareable myth-busting and interactive posts)",
+        "Google Business Profile (daily updates with urgent availability and photo posts)",
+        "YouTube Shorts (1-2 daily repurposed from TikTok/Reels)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Roger Wakefield's TikTok viral success showing DIY mistakes with humor achieving 500K+ views and 8-12% engagement rates, combined with research showing Instagram Reels achieving 1.2-2.1% engagement for home services. The 'shocking revelation' and 'interactive challenge' patterns leverage algorithm-friendly short formats while addressing the competitive gap of 'limited authentic behind-the-scenes content' and 'minimal content reducing anxiety about service calls.'"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Deep-dive education on repair vs. replacement decision-making for major systems",
+        "Week 2: Transparent breakdown of what happens during service calls - demystifying the process",
+        "Week 3: Advanced problem diagnosis training for homeowners - when to worry vs. when to wait",
+        "Week 4: Comprehensive guide to permits, codes, and inspections - navigating the confusing parts",
+        "Week 5: Environmental and water conservation education with cost-benefit analysis",
+        "Week 6: First-time homeowner plumbing education - what's normal, what's emergency, what's maintenance"
+      ],
+      "weekly_hooks": [
+        [
+          "Water heater repair vs. replacement: The honest truth about when each makes financial sense (with actual numbers)",
+          "Why we recommend replacement on [percentage]% of [system] repairs - here's our decision framework you can use",
+          "The 3 questions we ask to determine repair vs. replace - use this before calling any plumber"
+        ],
+        [
+          "Here's exactly what happens during a plumbing service call from the moment we arrive to final cleanup",
+          "Why our plumbers spend 10 minutes just looking before touching anything - the diagnostic process explained",
+          "What those weird tools in our truck actually do - a behind-the-scenes equipment tour"
+        ],
+        [
+          "Advanced leak detection: How to find hidden water leaks using your water meter (professional technique)",
+          "The 5 levels of drain clogs - from 'DIY safe' to 'call immediately before it gets worse'",
+          "How to read your water pressure and why [specific reading] means you have a serious problem developing"
+        ],
+        [
+          "Do you actually need a permit for that bathroom remodel? Here's when permits matter and when they don't",
+          "Why your inspector failed that work and what it means for your home's safety and value",
+          "The code violations we see in [percentage]% of older homes - which ones are urgent and which can wait"
+        ],
+        [
+          "How low-flow fixtures actually save $[amount]/year - the math that surprised even us",
+          "Your toilet uses [percentage]% of home water - here's how to cut that in half without noticing a difference",
+          "The environmental impact of that small leak: [specific gallons] wasted equals [relatable comparison]"
+        ],
+        [
+          "New homeowner? Here's what plumbing sounds are normal in your first year vs. what needs immediate attention",
+          "The plumbing maintenance schedule no one tells first-time buyers - month-by-month checklist",
+          "5 things your home inspector missed about your plumbing (they almost always do)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Last plumber said I needed to replace everything but I think he was lying' through transparent decision criteria",
+        "Week 2: Address 'I felt so helpless, like I was at the mercy of whoever I called' by demystifying the service process",
+        "Week 3: Address 'I was panicking' and 'I felt stupid' emotional objections by providing education that empowers decision-making",
+        "Week 4: Address complexity and confusion fears by simplifying permit and code requirements",
+        "Week 5: Subtly address 'I need to wait until I have more money' by showing long-term savings of proactive choices",
+        "Week 6: Address 'I don't know what's normal vs. emergency' uncertainty that paralyzes first-time homeowners"
+      ],
+      "proof_timing": [
+        "Week 1: Share case studies with actual cost comparisons and 5-year outcome data for repair vs. replacement decisions",
+        "Week 2: Introduce team credentials, training certifications, and years of combined experience",
+        "Week 3: Reference number of diagnostic calls completed and accuracy rates for problem identification",
+        "Week 4: Highlight code compliance record, inspector relationships, and permit success rate",
+        "Week 5: Share water bill reduction case studies with before/after utility statements",
+        "Week 6: Feature testimonials from first-time homeowners emphasizing education and patience"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our Repair vs. Replace Decision Guide with cost calculators'",
+        "Week 2: 'Watch our full service call walkthrough video - see exactly what to expect'",
+        "Week 3: 'Save this diagnostic guide - use it before calling any plumber'",
+        "Week 4: 'Get our free permit requirement assessment for your project'",
+        "Week 5: 'Schedule your free water conservation audit - we'll find your savings opportunities'",
+        "Week 6: 'New homeowner? Book your educational home plumbing inspection - we'll teach you everything about your specific system'"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 long-form videos per week, 8-15 minutes with detailed explanations)",
+        "Blog/Website (1 comprehensive article per week, 1500-2500 words with diagrams)",
+        "Email (1 detailed educational email per week to subscriber list)",
+        "Facebook (4-5 posts/week with key takeaways and links to full content)",
+        "LinkedIn (2-3 posts/week targeting property managers and landlords with technical content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Roto-Rooter's educational video series achieving 45K-120K views by addressing 'major decision point for homeowners' and competitive gaps identified: 'almost no companies address repair vs. replace transparently,' 'gap in content about what happens during service call,' 'minimal content for first-time homeowners,' and 'almost no content helping customers understand permits and inspections.' Long-form educational content builds authority while filling information voids competitors ignore."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls, quizzes, and challenges about plumbing knowledge and home maintenance",
+        "Week 2: User-generated content prompts and community story sharing with recognition and responses"
+      ],
+      "weekly_hooks": [
+        [
+          "Pop quiz: Which of these 4 situations is the actual emergency? (Most people get this wrong)",
+          "Rate your home's plumbing from 1-10 in comments - I'll tell you the #1 thing to check based on your rating",
+          "Poll: What's your biggest plumbing fear? A) Flooding B) No hot water C) Sewage backup D) Hidden leaks - vote and I'll share prevention tips for the winner",
+          "This or That: Tankless water heater or traditional tank? Drop your vote and why in comments",
+          "Fill in the blank: The worst plumbing emergency I've ever had was _____ - best story gets free service call"
+        ],
+        [
+          "Show me your DIY plumbing victory in the comments - we'll celebrate what you fixed yourself (and gently correct what needs a pro)",
+          "Homeowners: What's one plumbing question you're too embarrassed to ask? Drop it anonymously and I'll answer all of them",
+          "Tag your go-to plumber if you have one, or tag someone who desperately needs a good plumber - let's spread the word",
+          "Share your 'I should have called sooner' story - your disaster might save someone else from the same mistake",
+          "Post a photo of the weirdest thing in your home's plumbing and we'll guess what it's for - winner gets featured on our page"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if my problem is serious enough to call' through interactive education that helps self-assessment",
+        "Week 2: Address 'I was embarrassed' and 'I felt stupid' by creating safe space for questions and normalizing common concerns"
+      ],
+      "proof_timing": [
+        "Week 1: Weave in expertise through quiz answers and poll result explanations, showing depth of knowledge casually",
+        "Week 2: Share brief customer stories that emerged from community responses, highlighting positive service experiences organically"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for the answer reveal tomorrow' or 'Turn on notifications - posting quiz results in 24 hours'",
+        "Week 1: 'Comment your answer - everyone who participates gets entered to win [prize/discount]'",
+        "Week 2: 'Share your story in comments or DM if you prefer privacy - I read and respond to everything'",
+        "Week 2: 'Need help with your situation right now? Call [phone] - mention this post for priority scheduling'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (3-5 stories per day with polls, quizzes, question stickers)",
+        "Facebook (5-7 posts/week with interactive elements and comment-driving questions)",
+        "Instagram Feed (4-6 posts/week with carousel posts for quizzes and engagement prompts)",
+        "TikTok (1-2 videos/day responding to common questions with duet/stitch encouragement)",
+        "Google Business Profile (daily Q&A responses and update posts highlighting community questions)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing Instagram achieving 0.47% engagement for home services with Reels at 1.2-2.1%, and the proven hook pattern of 'Problem Identification Helper' ('Is that sewage smell or something else? 5 odors that mean call us NOW'). Customer voice data reveals emotional language around embarrassment ('I felt so stupid,' 'I was embarrassed to have guests over') - creating safe, interactive engagement addresses these barriers while boosting algorithm performance through high comment and share rates."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "That $2,000 emergency call could have been a $200 maintenance visit.\n\nAfter analyzing 500+ emergency plumbing calls last year, we found 73% were preventable with basic seasonal maintenance.\n\nPROBLEM: Property managers wait for tenant complaints before addressing plumbing issues. By then, a small leak has caused mold, structural damage, and tenant dissatisfaction.\n\nAGITATION: One property management company we work with spent $47,000 on emergency repairs last year. Their competitor spent $8,000 on preventive maintenance and had zero emergencies.\n\nSOLUTION: Implement quarterly plumbing inspections focusing on these [NUMBER] critical points:\n\n• [INSPECTION_POINT_1] - catches 40% of potential failures\n• [INSPECTION_POINT_2] - prevents water damage claims\n• [INSPECTION_POINT_3] - extends equipment life 5-7 years\n• [INSPECTION_POINT_4] - identifies code violations before inspection\n\nWe've helped [NUMBER] commercial properties reduce emergency calls by [PERCENTAGE]% in [TIMEFRAME].\n\nWhat's your biggest challenge with preventive maintenance? Drop a comment below.\n\n#CommercialPlumbing #PropertyManagement #FacilityMaintenance #PreventiveMaintenance #[CITY]Business",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why we stopped offering \"free estimates\" and our revenue increased 34%.\n\nATTENTION: The race to the bottom with free estimates was killing our ability to provide quality service.\n\nINTEREST: Here's what changed: We implemented a $[AMOUNT] diagnostic fee that's credited toward any repair over $[AMOUNT]. Sounds risky, right?\n\nResults after 12 months:\n• [PERCENTAGE]% reduction in tire-kickers\n• [PERCENTAGE]% increase in conversion rate\n• [PERCENTAGE]% higher average ticket value\n• Customer satisfaction up from [NUMBER] to [NUMBER] stars\n\nDESIRE: The diagnostic fee attracts serious customers who value expertise. We now spend 45 minutes properly diagnosing issues instead of rushing through free quotes. Our technicians provide detailed reports with photos, explaining exactly what's wrong and why.\n\nThis transparency builds trust. Customers understand they're paying for professional diagnosis, not just a quote.\n\nACTION: For service business owners: Stop competing on price. Compete on value, expertise, and transparency.\n\nWhat's your take on diagnostic fees in service industries?\n\n#ServiceBusiness #PlumbingIndustry #BusinessStrategy #PricingStrategy #SmallBusiness",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Commercial property owners: Your tenants are complaining about plumbing issues.\n\nBEFORE: Reactive maintenance model - wait for problems, deal with angry tenants, emergency pricing, business disruption.\n\nAFTER: Our [SERVICE_NAME] program - scheduled quarterly inspections, priority emergency response, predictable monthly billing, happy tenants.\n\nBRIDGE: We've developed a commercial maintenance program specifically for [PROPERTY_TYPE] properties with [NUMBER]+ units. Here's what's included:\n\n✓ Quarterly comprehensive inspections\n✓ Detailed photo reports for your records\n✓ Priority 2-hour emergency response\n✓ [PERCENTAGE]% discount on all repairs\n✓ Fixed monthly rate - no surprise bills\n✓ Dedicated account manager\n\nOne client (127-unit apartment complex) reduced their annual plumbing costs by $[AMOUNT] while improving tenant satisfaction scores by [NUMBER] points.\n\nWe're accepting [NUMBER] new commercial clients this quarter.\n\nInterested? Send me a DM or call [PHONE] to discuss your property's specific needs.\n\n#CommercialPlumbing #PropertyMaintenance #[CITY]RealEstate #FacilityManagement",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "That dripping faucet is costing you $35/month 💸\n\nSwipe to see the 3 signs it's time to call a pro (not YouTube) ➡️\n\n1️⃣ [SIGN_1_DESCRIPTION]\n2️⃣ [SIGN_2_DESCRIPTION] \n3️⃣ [SIGN_3_DESCRIPTION]\n\nPROBLEM: Most homeowners ignore small leaks thinking they'll fix it later.\n\nAGITATION: That \"later\" turns into $400+ water bills and water damage under your cabinets.\n\nSOLUTION: If you see any of these signs, it's a 15-minute fix for us vs. a $2,000 problem if you wait.\n\nSave this post for when you need it! 📌\n\nQuestions? Drop them below 👇\n\n[PHONE] | Available same-day in [CITY]\n\n#[City]Plumber #PlumbingTips #HomeOwnerTips #DIYorDie #PlumbingHacks #HomeMaintenanceTips #SaveMoney #WaterBill #FixItRight #LocalPlumber #[City]HomeOwners #PlumbingRepair #HomeTips #LeakDetection #PlumberLife #HomeImprovement #PlumbingServices #Emergency Plumber #TrustAPro #[City]Local",
+        "visual": "Carousel: Slide 1 - Close-up of dripping faucet with dollar bills floating away. Slide 2 - Under-sink cabinet showing water damage and mold. Slide 3 - Side-by-side comparison of DIY fail vs professional repair. Slide 4 - Infographic showing cost breakdown: $35/month leak = $420/year. Slide 5 - Before/after of fixed faucet with 'Call us today' CTA",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "Why we show our prices online (and why most plumbers hide theirs) 👀\n\nHere's the truth about plumbing pricing that nobody talks about...\n\nMost companies hide prices because they charge different customers different amounts. We don't.\n\nOur pricing for [SERVICE_TYPE]:\n💰 [SERVICE_1]: $[PRICE_RANGE]\n💰 [SERVICE_2]: $[PRICE_RANGE]\n💰 [SERVICE_3]: $[PRICE_RANGE]\n\n*Final price depends on [FACTORS], but you'll know before we start*\n\nWe've fixed [NUMBER] [SERVICE_TYPE] issues this month alone. We know exactly what it costs, so why play games?\n\nTransparency = Trust = Long-term customers\n\nThat's how we've been in business for [NUMBER] years in [CITY].\n\nGot a plumbing question? Ask below - we actually answer! 👇\n\n#[City]Plumber #HonestPricing #TransparentBusiness #PlumbingPrices #LocalBusiness #TrustWorthyPlumber #NoHiddenFees #[City]Business #PlumberNearMe #FamilyOwnedBusiness",
+        "visual": "Static image: Split screen showing shady competitor website with 'Call for pricing' vs. your website with clear pricing table. Professional but approachable aesthetic. Include your logo and 5-star review badge",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "Same-day water heater replacement. Yes, really. ⚡\n\nBEFORE: No hot water. Cold showers. Waiting 3-5 days for other companies. Family chaos.\n\nAFTER: Hot water by dinner time. Kids bathed. Dishes done. Life back to normal.\n\nHere's our process:\n🔧 Call by 10 AM\n🔧 We arrive with [NUMBER] most common units\n🔧 Old unit out, new unit in by 4 PM\n🔧 [NUMBER]-year warranty on parts & labor\n🔧 Fixed price: $[PRICE_RANGE] installed\n\nWe did [NUMBER] same-day replacements last week alone.\n\nNo hot water? Call [PHONE] before 10 AM.\nWe'll have you showering by tonight. Guaranteed.\n\n[CITY]'s fastest water heater replacement | Licensed & Insured | [NUMBER]+ five-star reviews\n\n#WaterHeater #SameDayService #[City]Plumber #EmergencyPlumber #NoHotWater #PlumberNearMe #FastService #WaterHeaterReplacement #[City]Emergency #LocalPlumber",
+        "visual": "Reel concept: Time-lapse of water heater replacement from arrival to completion, sped up to 15 seconds. Text overlays: '8:47 AM - Customer calls' '9:30 AM - We arrive' '2:15 PM - Testing new unit' '3:00 PM - Hot shower!' End frame: Happy customer testimonial quote with 5 stars",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚨 BEFORE THE FIRST FREEZE: 3 signs your pipes won't survive winter\n\nHey [CITY] neighbors! With temps dropping to [TEMPERATURE] this week, we're already getting calls about frozen pipes.\n\nPROBLEM: Most people don't know their pipes are vulnerable until it's too late (and water is pouring through their ceiling).\n\nAGITATION: Last winter, we responded to [NUMBER] burst pipe emergencies. Average damage cost: $[AMOUNT]. Average repair time: [NUMBER] days without water. One family had to move out for 2 weeks during the holidays.\n\nSOLUTION: Check these 3 things TODAY:\n\n1️⃣ [INSPECTION_POINT_1]\n→ What to look for: [DESCRIPTION]\n→ Quick fix: [SOLUTION]\n→ When to call us: [TRIGGER]\n\n2️⃣ [INSPECTION_POINT_2]\n→ What to look for: [DESCRIPTION]\n→ Quick fix: [SOLUTION]\n→ When to call us: [TRIGGER]\n\n3️⃣ [INSPECTION_POINT_3]\n→ What to look for: [DESCRIPTION]\n→ Quick fix: [SOLUTION]\n→ When to call us: [TRIGGER]\n\n💡 BONUS TIP: Know where your main water shut-off is! Take a photo of it right now and save it to your phone. In an emergency, every second counts.\n\nWe're offering FREE winter pipe inspections for [CITY] homeowners this week. Takes 15 minutes, could save you thousands.\n\nCall/text [PHONE] or comment \"INSPECT\" below and we'll DM you.\n\nStay warm and dry, neighbors! ❄️\n\nP.S. - Share this with your neighbors. Nobody deserves a frozen pipe nightmare during the holidays.\n\n#[City]Plumber #WinterPrep #FrozenPipes #HomeOwnerTips #[City]Weather #PreventiveMaintenance #LocalBusiness",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why I tell homeowners NOT to hire us (sometimes)\n\nYesterday, a homeowner called about a \"slab leak\" another company quoted at $8,500.\n\nI sent our leak detection specialist out. $150 diagnostic fee.\n\nTurns out? It was a $40 toilet flapper.\n\nI could have stayed quiet. Done the $8,500 job. Made my numbers look great this month.\n\nBut here's what I've learned in [NUMBER] years running a plumbing company in [CITY]:\n\nShort-term profits < Long-term reputation\n\nThat homeowner has now referred us [NUMBER] times. Those referrals have turned into $[AMOUNT] in honest work.\n\nThe other company? They're still running Groupon deals trying to find customers.\n\nHere's when I tell people NOT to hire us:\n\n✅ When it's a simple DIY fix (I'll walk you through it on the phone)\n✅ When waiting a few days won't cause damage (save the emergency rate)\n✅ When a $20 part from the hardware store will solve it\n✅ When your home warranty will cover it (even though we hate dealing with them)\n\nHere's when you SHOULD call us immediately:\n\n🚨 [EMERGENCY_SCENARIO_1]\n🚨 [EMERGENCY_SCENARIO_2]\n🚨 [EMERGENCY_SCENARIO_3]\n🚨 [EMERGENCY_SCENARIO_4]\n\nWe're not the cheapest plumbers in [CITY].\nWe're not the biggest.\n\nBut we're the ones who will tell you the truth, even when it costs us money.\n\nThat's why [PERCENTAGE]% of our business is referrals and repeat customers.\n\nQuestions about a plumbing issue? Drop it in the comments. I'll give you my honest opinion, even if it means telling you to fix it yourself.\n\n[PHONE] | Licensed & Insured | [NUMBER] years in [CITY]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "⚠️ [CITY] HOMEOWNERS: Our schedule just opened up\n\nWe had [NUMBER] appointments cancel this week (people fixed their own issues after our phone consultation - yes, we do that).\n\nWhich means we have same-day availability for the first time in [NUMBER] weeks.\n\nBEFORE you call:\n❌ You're waiting 3-5 days for other companies\n❌ You're not sure if it's worth the service call fee\n❌ You're worried about getting price-gouged\n❌ You've had bad experiences with plumbers before\n\nAFTER you work with us:\n✅ Same-day service (if you call before [TIME] today)\n✅ Exact price quote before we start work\n✅ [NUMBER]-year warranty on all repairs\n✅ Clean, licensed technicians (we wear booties, seriously)\n✅ We show you photos of what's wrong and explain in plain English\n\nHere's what we can handle TODAY:\n🔧 [SERVICE_TYPE_1] - Average price: $[PRICE_RANGE]\n🔧 [SERVICE_TYPE_2] - Average price: $[PRICE_RANGE]\n🔧 [SERVICE_TYPE_3] - Average price: $[PRICE_RANGE]\n🔧 [SERVICE_TYPE_4] - Average price: $[PRICE_RANGE]\n\nOur guarantee: If we're late, you get $[AMOUNT] off. If you're not happy with our work, we'll make it right or refund you.\n\n[NUMBER]+ five-star Google reviews don't lie.\n\nCall/text [PHONE] or click the link in our profile to book online.\n\nAvailability won't last - we're typically booked [NUMBER] days out.\n\n📍 Serving [CITY] and surrounding areas\n🕐 Available [HOURS]\n💯 Licensed, insured, and locally owned since [YEAR]\n\nP.S. - If it's not urgent, we'll tell you. We'd rather you save money and call us when you really need us.",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "STOP! That YouTube fix will cost you $2,000 more",
+        "script": "HOOK (0-3 sec): *Hand reaching for pipe wrench* \"STOP! That YouTube fix will cost you $2,000 more\"\n\nPROBLEM (3-15 sec): *Show phone with DIY video playing* \"I see this every week. Homeowner watches a 5-minute video, thinks they can fix their [PLUMBING_ISSUE], and ends up making it SO much worse.\"\n\nAGITATION (15-35 sec): *Show before photos of DIY disasters* \"Here's what that $20 fix turned into: [DISASTER_1], [DISASTER_2], [DISASTER_3]. This one? Started as a simple [ISSUE]. They cross-threaded the [PART], cracked the [COMPONENT], and flooded their [LOCATION]. $2,400 repair.\"\n\nSOLUTION (35-55 sec): *Show proper technique* \"Look, some things you CAN fix yourself: [SIMPLE_FIX_1], [SIMPLE_FIX_2]. But if you're dealing with [COMPLEX_ISSUE]? Call a pro. It'll cost you $[AMOUNT] now vs $[HIGHER_AMOUNT] later.\"\n\nCTA (55-60 sec): *Point to screen* \"Save this for when you need it. Questions? Drop them below. [CITY] homeowners, link in bio.\"\n\nTEXT OVERLAYS: \"DIY Fail #[NUMBER]\" / \"$20 part\" / \"$2,400 repair\" / \"Don't be this person\" / \"Call a pro: [PHONE]\"\n\nSOUND: Trending audio or original voice-over with light background music",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "POV: You're a plumber and the customer says 'the last guy said I need to replace everything'",
+        "script": "HOOK (0-3 sec): *Eye roll to camera* \"POV: You're a plumber and the customer says 'the last guy said I need to replace everything'\"\n\nATTENTION (3-10 sec): *Walk up to job site* \"So I get called out for a second opinion. Other company quoted $[HIGH_AMOUNT] to replace the whole [SYSTEM].\"\n\nINTEREST (10-30 sec): *Show diagnostic process* \"Here's what I actually found: [ACTUAL_PROBLEM]. This is a $[LOW_AMOUNT] repair, takes [TIME]. But here's why they quoted replacement...\" *Show explanation with visual* \"They see [SYMPTOM], assume worst case, don't actually diagnose.\"\n\nDESIRE (30-50 sec): *Show the simple fix* \"Fixed it in [TIME]. Customer saved $[AMOUNT]. This is why we do a REAL diagnostic before quoting. $[DIAGNOSTIC_FEE], credited toward repair. You get photos, explanation, honest recommendation.\"\n\nACTION (50-60 sec): *Look at camera* \"Been burned by a plumber before? We get it. Second opinions are free if you show us their quote. [CITY] homeowners, link in bio.\"\n\nTEXT OVERLAYS: \"$[HIGH_AMOUNT] quote\" / \"Actually needed: $[LOW_AMOUNT]\" / \"Saved $[SAVINGS]\" / \"Always get a second opinion\" / \"Honest plumbers exist\"\n\nSOUND: Trending skeptical/investigative audio or original commentary",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "Is that sewage smell or something else? Here's how to tell if you need to call us NOW",
+        "script": "HOOK (0-3 sec): *Sniffing, disgusted face* \"Is that sewage smell or something else? Here's how to tell if you need to call us NOW\"\n\nBEFORE (3-20 sec): *Concerned homeowner acting* \"You walk into your [LOCATION] and it smells like... that. You don't know if it's: sewage backup, dead animal, mold, or just bad plumbing. You're embarrassed. You're worried. You're Googling at 2 AM.\"\n\nAFTER (20-40 sec): *Show diagnostic process* \"Here's what we do: [STEP_1] - tells us if it's sewer gas. [STEP_2] - rules out [ISSUE]. [STEP_3] - finds the actual source. Most people think it's [COMMON_ASSUMPTION], but [PERCENTAGE]% of the time it's actually [REAL_CAUSE].\"\n\nBRIDGE (40-55 sec): *Show solution* \"We fixed [NUMBER] of these last month. Average cost: $[PRICE_RANGE]. Same-day service. We find it, fix it, guarantee it won't come back.\"\n\nCTA (55-60 sec): *Point to screen* \"Smell getting worse? Call [PHONE]. We're available [HOURS] in [CITY]. Link in bio.\"\n\nTEXT OVERLAYS: \"That smell = $$$\" / \"Don't ignore this\" / \"5 odors that mean emergency\" / \"We've seen it all\" / \"Same-day available\"\n\nSOUND: Humorous trending audio or serious urgent tone depending on brand voice",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Before the first freeze: 3 signs your pipes won't survive winter",
+        "preview_text": "Check these TODAY - could save you $[AMOUNT] in damage",
+        "body": "SUBJECT: Before the first freeze: 3 signs your pipes won't survive winter\nPREVIEW: Check these TODAY - could save you $[AMOUNT] in damage\n\nHi [FIRST_NAME],\n\n[WEATHER_SERVICE] is calling for temps below freezing this [DAY]. We're already getting emergency calls.\n\nPROBLEM: Most frozen pipe disasters are preventable, but most homeowners don't know what to look for until water is pouring through their ceiling.\n\nAGITATION: Last winter, we responded to [NUMBER] burst pipe emergencies in [CITY]. Average damage: $[AMOUNT]. Average time without water: [NUMBER] days. One family spent the holidays in a hotel.\n\nSOLUTION: Take 10 minutes TODAY to check these 3 critical areas:\n\n❄️ SIGN #1: [VULNERABLE_AREA_1]\n→ Look for: [SPECIFIC_INDICATOR]\n→ Quick fix: [DIY_SOLUTION]\n→ Call us if: [PROFESSIONAL_TRIGGER]\n\n❄️ SIGN #2: [VULNERABLE_AREA_2]\n→ Look for: [SPECIFIC_INDICATOR]\n→ Quick fix: [DIY_SOLUTION]\n→ Call us if: [PROFESSIONAL_TRIGGER]\n\n❄️ SIGN #3: [VULNERABLE_AREA_3]\n→ Look for: [SPECIFIC_INDICATOR]\n→ Quick fix: [DIY_SOLUTION]\n→ Call us if: [PROFESSIONAL_TRIGGER]\n\n🎁 BONUS: Free winter-readiness checklist (download here)\n\n[CTA_BUTTON: Get Your Free Checklist]\n\nNeed a professional inspection? We're offering FREE winter pipe inspections this week only.\n\n[CTA_BUTTON: Schedule Free Inspection]\n\nOr call/text us: [PHONE]\n\nStay warm,\n[YOUR_NAME]\n[COMPANY_NAME]\n\nP.S. - Know where your main water shut-off is? If not, find it today and take a photo. In an emergency, every second counts.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "Why we show our prices (and most plumbers don't)",
+        "preview_text": "The truth about plumbing pricing that nobody talks about",
+        "body": "SUBJECT: Why we show our prices (and most plumbers don't)\nPREVIEW: The truth about plumbing pricing that nobody talks about\n\nHi [FIRST_NAME],\n\nATTENTION: Ever notice how most plumbers say \"call for pricing\"?\n\nThere's a reason. And it's not good.\n\nINTEREST: After [NUMBER] years in this business, I've seen every pricing game in the book:\n\n• Charging different customers different amounts for the same job\n• Low-ball quotes that triple once they're in your home\n• \"Diagnostic fees\" that are really just sales calls\n• Fake \"discounts\" off inflated prices\n\nWe don't do any of that.\n\nHere's our actual pricing for common services:\n\n🔧 [SERVICE_1]: $[PRICE_RANGE]\n🔧 [SERVICE_2]: $[PRICE_RANGE]\n🔧 [SERVICE_3]: $[PRICE_RANGE]\n🔧 [SERVICE_4]: $[PRICE_RANGE]\n\n*Final price depends on [VARIABLES], but you'll know the exact cost before we start*\n\nDESIRE: Why can we be this transparent?\n\nBecause we've done [NUMBER]+ jobs in [CITY]. We know exactly what things cost. We don't need to play games.\n\nOur customers appreciate:\n✓ No surprises on the bill\n✓ Same price whether you're rich or poor\n✓ Clear explanation of what you're paying for\n✓ [NUMBER]-year warranty on all work\n\nACTION: Got a plumbing issue? Get a real price quote:\n\n[CTA_BUTTON: Get Transparent Pricing]\n\nOr call [PHONE] - we'll give you an honest assessment even if it means telling you to fix it yourself.\n\nThat's how we've built a business on referrals, not Groupon deals.\n\nHonestly yours,\n[YOUR_NAME]\n[COMPANY_NAME]\n\nP.S. - [PERCENTAGE]% of our business comes from referrals. That only happens when you treat people right.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "Same-day water heater replacement (yes, really) - [NUMBER] slots left",
+        "preview_text": "Hot water by tonight. Guaranteed. Here's how →",
+        "body": "SUBJECT: Same-day water heater replacement (yes, really) - [NUMBER] slots left\nPREVIEW: Hot water by tonight. Guaranteed. Here's how →\n\nHi [FIRST_NAME],\n\nNo hot water this morning?\n\nBEFORE: Most companies will tell you:\n❌ \"We can get someone out in 3-5 days\"\n❌ \"We'll need to order the part\"\n❌ \"Call for pricing\"\n\nMeanwhile, you're taking cold showers and heating water on the stove to wash dishes.\n\nAFTER: Here's what happens when you call us:\n\n9:00 AM - You call [PHONE]\n9:45 AM - We arrive with [NUMBER] most common water heaters\n10:00 AM - We diagnose and quote exact price\n2:30 PM - Old unit out, new unit installed\n3:00 PM - You're taking a hot shower\n\nBRIDGE: We stock the most common residential water heaters and have a team ready for same-day installation.\n\n💰 FIXED PRICING:\n• [SIZE] gallon [TYPE]: $[PRICE] installed\n• [SIZE] gallon [TYPE]: $[PRICE] installed\n• [SIZE] gallon [TYPE]: $[PRICE] installed\n\nIncludes:\n✓ Removal of old unit\n✓ Installation of new unit\n✓ Code-compliant work\n✓ [NUMBER]-year warranty\n✓ Same-day service\n\n🎯 GUARANTEE: Call before [TIME] today, hot water by dinner. Or you get $[AMOUNT] off.\n\nWe have [NUMBER] same-day slots available today.\n\n[CTA_BUTTON: Book Same-Day Service]\n\nOr call/text: [PHONE]\n\n⭐ \"Called at 8 AM with no hot water. By 3 PM I was taking a hot shower. Price was exactly what they quoted. Highly recommend!\" - [CUSTOMER_NAME], [CITY]\n\n[NUMBER]+ five-star reviews | Licensed & Insured | [NUMBER] years in [CITY]\n\nStay warm,\n[YOUR_NAME]\n[COMPANY_NAME]\n\nP.S. - If you can wait a few days, we'll tell you. We'd rather be honest and have you call us next time you really need us.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] homeowners ignored this [plumbing warning sign] and paid $[dollar amount] more to fix it",
+      "We fixed [X] slab leaks this month without jackhammering [your floor type] - here's how",
+      "[X] signs your water heater will fail in the next [timeframe] (and what to do today)"
+    ],
+    "question_hooks": [
+      "Is that sewage smell in your [room] getting worse every day?",
+      "Hearing water running in your walls but all the faucets are off?",
+      "Did your water bill double this month and you can't find any leaks?"
+    ],
+    "story_hooks": [
+      "How a [city] family got same-day water heater replacement during the coldest week of winter",
+      "How we stopped a ceiling leak in [X] minutes before it ruined this homeowner's [room]",
+      "How one homeowner's DIY toilet fix turned into a $[dollar amount] sewage backup nightmare"
+    ],
+    "fear_hooks": [
+      "Is that wet spot on your ceiling about to cave in? [X] warning signs you're running out of time",
+      "Is your toilet about to overflow again? Here's why 'one more flush' could flood your [room]",
+      "Is that dripping faucet costing you $[dollar amount]/month while you sleep?"
+    ],
+    "howto_hooks": [
+      "How to get an exact plumbing price quote over the phone without hidden fees or trip charges",
+      "How to fix [plumbing emergency] today without waiting [X] days for an appointment",
+      "How to know if you need a $[low amount] repair or a $[high amount] replacement before the plumber arrives"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're about to flush but remember what happened last time",
+      "body": "Show homeowner's anxious face looking at toilet. Cut to plumber arriving same day. Show before: toilet overflowing. Show during: plumber explaining issue in simple terms, showing camera inspection footage of clog. Show after: successful flush, relieved homeowner. Text overlay: 'Same day service, fixed right, no judgment.' End with plumber giving thumbs up.",
+      "cta": "Link in bio for same-day emergency service. We've seen worse, promise."
+    },
+    "reels": {
+      "hook": "This sound means you're about to have a bad day",
+      "body": "Open with running water sound in walls. Quick cuts showing common signs: ceiling wet spot growing, water bill spike, mysterious running water. Plumber points to thermal camera showing hidden leak. Fast-forward to repair, then happy homeowner. Text: 'We find it. We fix it. Today.'",
+      "cta": "Tap to book your free leak detection call"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video showing your working toilet/sink/shower and say: 'It's been 2 weeks since [Company Name] fixed our plumbing emergency and I can finally [shower without fear/sleep without that dripping sound/have guests over]. Best part? They showed up same day and the price was exactly what they quoted.'",
+      "hashtag": "#PlumbingHero"
+    },
+    {
+      "prompt": "Take a before photo of your plumbing issue (if you have one), then film yourself explaining: 'I was panicking about [the cost/finding someone reliable/how long it would take]. [Company Name] came out within [timeframe], explained everything in plain English, and gave me the exact price before starting. Here's what it looks like now.' Show the fixed result.",
+      "hashtag": "#PlumbingRelief"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "5 Sounds Your House Makes That Mean Call a Plumber NOW (with actual audio clips and consequences of waiting)",
+      "why": "Taps into homeowner anxiety, educational value, highly shareable for 'helping neighbors', audio format is engaging and memorable"
+    },
+    {
+      "angle": "Plumber reacts to viral DIY plumbing 'hacks' from TikTok and rates them 1-10, showing what actually happens when you try them",
+      "why": "Controversy + entertainment + education, algorithm loves reaction content, positions brand as authority while being entertaining, highly shareable"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:15:57.284Z",
+    "last_tier2_refresh": "2025-11-27T21:15:57.284Z",
+    "last_tier3_refresh": "2025-11-27T21:15:57.284Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:15:57.284Z"
+  }
+}

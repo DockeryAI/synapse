@@ -32,6 +32,7 @@ import { industryProfiles, type IndustryProfile } from '@/services/v2/data/indus
 import { intelligenceIntegration, type IntelligenceContext } from './intelligence-integration';
 import { v4CalendarIntegration } from './calendar-integration';
 import { intelligencePopulator } from './intelligence-populator';
+import { templateInjector } from '@/services/industry/template-injector.service';
 
 // ============================================================================
 // INDUSTRY CONTEXT TYPES
@@ -140,6 +141,160 @@ class ContentOrchestrator {
   }
 
   /**
+   * Build enhanced prompt context from Industry Profile 2.0 data
+   * This provides much richer industry intelligence than the basic context
+   * Also applies template token replacement to inject UVP data into templates
+   */
+  private buildEnhancedIndustryPrompt(
+    profile: ContentRequest['enhancedIndustryProfile'],
+    uvp?: CompleteUVP
+  ): string {
+    if (!profile) return '';
+
+    const sections: string[] = [
+      `\n\n=== ENHANCED INDUSTRY INTELLIGENCE (Profile 2.0) ===`,
+      `Industry: ${profile.industry_name}`,
+    ];
+
+    // Build token context for template injection
+    const tokenContext = uvp ? { uvp, profile: profile as any } : null;
+
+    // Add hook library for inspiration - with token replacement
+    const allHooks: string[] = [];
+    if (profile.hook_library.number_hooks?.length) {
+      allHooks.push(...profile.hook_library.number_hooks.slice(0, 2));
+    }
+    if (profile.hook_library.question_hooks?.length) {
+      allHooks.push(...profile.hook_library.question_hooks.slice(0, 2));
+    }
+    if (profile.hook_library.story_hooks?.length) {
+      allHooks.push(...profile.hook_library.story_hooks.slice(0, 2));
+    }
+    if (allHooks.length > 0) {
+      sections.push(`\nPROVEN HOOKS (use as inspiration, adapt to context):`);
+      allHooks.forEach((hook, i) => {
+        // Apply token replacement if we have UVP context
+        const processedHook = tokenContext
+          ? templateInjector.replaceTokens(hook, tokenContext).text
+          : hook;
+        sections.push(`${i + 1}. "${processedHook}"`);
+      });
+    }
+
+    // Add power words
+    if (profile.power_words?.length > 0) {
+      sections.push(`\nPOWER WORDS to incorporate: ${profile.power_words.slice(0, 8).join(', ')}`);
+    }
+
+    // Add words to avoid
+    if (profile.avoid_words?.length > 0) {
+      sections.push(`\nWORDS TO AVOID: ${profile.avoid_words.slice(0, 5).join(', ')}`);
+    }
+
+    // Add customer psychology triggers
+    if (profile.customer_triggers?.length > 0) {
+      sections.push(`\nCUSTOMER TRIGGERS (pain points to address):`);
+      profile.customer_triggers.slice(0, 3).forEach(t => {
+        sections.push(`- ${t.trigger} (urgency: ${t.urgency}/10)`);
+      });
+    }
+
+    // Add transformation themes
+    if (profile.transformations?.length > 0) {
+      sections.push(`\nTRANSFORMATION THEMES (before → after emotional journey):`);
+      profile.transformations.slice(0, 2).forEach(t => {
+        sections.push(`- From "${t.from}" → To "${t.to}" (emotional value: ${t.emotional_value})`);
+      });
+    }
+
+    // Add headline templates if available - with token replacement
+    if (profile.headline_templates?.length > 0) {
+      sections.push(`\nHEADLINE TEMPLATE PATTERNS:`);
+      profile.headline_templates.slice(0, 3).forEach(t => {
+        const processedTemplate = tokenContext
+          ? templateInjector.replaceTokens(t.template, tokenContext).text
+          : t.template;
+        sections.push(`- "${processedTemplate}" (${t.context})`);
+      });
+    }
+
+    // Add content templates if available - with token replacement
+    if (profile.content_templates?.linkedin) {
+      const linkedin = profile.content_templates.linkedin;
+      sections.push(`\nLINKEDIN CONTENT TEMPLATES:`);
+
+      if (linkedin.educational) {
+        const processed = tokenContext
+          ? templateInjector.replaceInContent(linkedin.educational, tokenContext)
+          : linkedin.educational;
+        sections.push(`Educational: Hook="${processed.hook?.slice(0, 60)}..."`);
+      }
+      if (linkedin.authority) {
+        const processed = tokenContext
+          ? templateInjector.replaceInContent(linkedin.authority, tokenContext)
+          : linkedin.authority;
+        sections.push(`Authority: Hook="${processed.hook?.slice(0, 60)}..."`);
+      }
+      if (linkedin.case_study) {
+        const processed = tokenContext
+          ? templateInjector.replaceInContent(linkedin.case_study, tokenContext)
+          : linkedin.case_study;
+        sections.push(`Case Study: Hook="${processed.hook?.slice(0, 60)}..."`);
+      }
+    }
+
+    sections.push(`\n=== END ENHANCED INDUSTRY INTELLIGENCE ===\n`);
+
+    console.log(`[V4 Orchestrator] Using Enhanced Industry Profile 2.0 for ${profile.industry_name}`);
+    return sections.join('\n');
+  }
+
+  /**
+   * Build prompt enhancement from user-selected insights
+   * This is the key connection between the insight selection UI and content generation
+   */
+  private buildSelectedInsightsPrompt(insights: ContentRequest['selectedInsights']): string {
+    if (!insights || insights.length === 0) return '';
+
+    const sections: string[] = [
+      '\n\n=== SELECTED INSIGHTS (USER CURATED) ===',
+      'The user has specifically selected these insights to incorporate into the content.',
+      'CRITICAL: Weave these insights naturally into the content. Use them as:',
+      '- Supporting evidence for claims',
+      '- Emotional hooks and pain points',
+      '- Proof points and testimonials',
+      '- Trend data for timeliness',
+      '- Competitive advantages',
+      ''
+    ];
+
+    insights.forEach((insight, idx) => {
+      sections.push(`[INSIGHT ${idx + 1}: ${insight.type.toUpperCase()}]`);
+      sections.push(`Title: ${insight.title}`);
+      if (insight.description) {
+        sections.push(`Description: ${insight.description}`);
+      }
+      if (insight.actionableInsight) {
+        sections.push(`Actionable Insight: ${insight.actionableInsight}`);
+      }
+      if (insight.evidence && insight.evidence.length > 0) {
+        sections.push(`Evidence: ${insight.evidence.slice(0, 3).join('; ')}`);
+      }
+      if (insight.sources && insight.sources.length > 0) {
+        const quotes = insight.sources.slice(0, 2).map(s => `"${s.quote}" - ${s.source}`);
+        sections.push(`Quotes: ${quotes.join(' | ')}`);
+      }
+      sections.push('');
+    });
+
+    sections.push('=== END SELECTED INSIGHTS ===');
+    sections.push('Remember: The content MUST incorporate these insights naturally. They are the foundation of what the user wants to communicate.\n');
+
+    console.log(`[V4 Orchestrator] Including ${insights.length} user-selected insights in prompt`);
+    return sections.join('\n');
+  }
+
+  /**
    * Generate content from UVP
    *
    * Main entry point for content generation with full intelligence integration
@@ -189,7 +344,12 @@ class ContentOrchestrator {
       let prompt = promptLibrary.buildPrompt(templateId, request.uvp);
 
       // 4. Enhance with industry context
-      prompt = this.enhancePromptWithIndustry(prompt, this.industryContext);
+      // Prefer Enhanced Industry Profile 2.0 over basic industry context
+      if (request.enhancedIndustryProfile) {
+        prompt += this.buildEnhancedIndustryPrompt(request.enhancedIndustryProfile, request.uvp);
+      } else {
+        prompt = this.enhancePromptWithIndustry(prompt, this.industryContext);
+      }
 
       // 5. Enhance with intelligence context (website, trends, competitors, etc.)
       if (this.intelligenceContext) {
@@ -199,9 +359,21 @@ class ContentOrchestrator {
         }
       }
 
+      // 5b. IMPORTANT: Enhance with selected insights from user
+      if (request.selectedInsights && request.selectedInsights.length > 0) {
+        prompt += this.buildSelectedInsightsPrompt(request.selectedInsights);
+      }
+
       // 6. Add platform constraints to prompt
       const platformLimits = PLATFORM_LIMITS[request.platform] || PLATFORM_LIMITS.linkedin;
       prompt += `\n\nPLATFORM CONSTRAINTS:\n- Maximum body length: ${platformLimits.body} characters\n- Maximum headline length: ${platformLimits.headline} characters\n- Keep content concise and within these limits.`;
+
+      // 6b. Add platform-specific formatting instructions for TikTok and Twitter
+      if (request.platform === 'tiktok') {
+        prompt += this.buildTikTokPromptAddition();
+      } else if (request.platform === 'twitter') {
+        prompt += this.buildTwitterPromptAddition();
+      }
 
       // 7. Call AI via edge function WITH RETRY
       const rawResponse = await this.callAIWithRetry(prompt, DEFAULT_MODEL);
@@ -822,6 +994,131 @@ class ContentOrchestrator {
       FAB: 'AIDA'
     };
     return alternatives[currentFramework] || 'AIDA';
+  }
+
+  /**
+   * Build TikTok-specific prompt additions
+   * Generates video script format with timing markers and visual cues
+   */
+  private buildTikTokPromptAddition(): string {
+    return `
+
+=== TIKTOK VIDEO SCRIPT FORMAT ===
+
+Generate a TikTok video script with the following structure:
+
+1. HOOK (0-3 seconds):
+   - Pattern interrupt or surprising statement
+   - "POV:", "Wait for it...", "Nobody talks about..."
+   - Must stop the scroll immediately
+
+2. REVEAL/VALUE (3-15 seconds):
+   - Core insight or information
+   - Keep it punchy and visual
+   - Include [VISUAL CUE] suggestions
+
+3. EXPLANATION (15-45 seconds):
+   - Break down the concept
+   - Use simple language
+   - Include [ON-SCREEN TEXT] for key points
+
+4. CTA (45-60 seconds):
+   - Clear call to action
+   - "Follow for more", "Save this", "Comment below"
+
+OUTPUT FORMAT (JSON):
+{
+  "hook": "The opening hook text",
+  "body": "Main script content with timing markers like [0:03] [0:15] [0:45]",
+  "cta": "Call to action",
+  "hashtags": ["fyp", "industry_specific", "viral"],
+  "tiktok_metadata": {
+    "total_duration": 60,
+    "sections": [
+      {
+        "name": "Hook",
+        "start_time": 0,
+        "end_time": 3,
+        "script": "Script text...",
+        "visual_cue": "Close-up, quick zoom",
+        "on_screen_text": "POV: You just discovered..."
+      }
+    ],
+    "sound_suggestion": "Trending sound or original",
+    "caption_style": "bold"
+  }
+}
+
+TIKTOK BEST PRACTICES:
+- First 1-3 seconds determine 90% of watch time
+- Use pattern interrupts and curiosity gaps
+- Visual cues every 3-5 seconds
+- On-screen text for accessibility
+- Keep total under 60 seconds for best engagement
+`;
+  }
+
+  /**
+   * Build Twitter/X thread prompt additions
+   * Generates thread format with numbered tweets
+   */
+  private buildTwitterPromptAddition(): string {
+    return `
+
+=== TWITTER/X THREAD FORMAT ===
+
+Generate a Twitter thread with the following structure:
+
+1. OPENER (Tweet 1):
+   - Bold claim or question
+   - Curiosity gap
+   - "Here's what I learned..." or "X things about Y that will change how you think"
+
+2. VALUE TWEETS (Tweets 2-6):
+   - One key point per tweet
+   - Use bullet points or numbered lists
+   - Include data/stats when relevant
+   - Keep each under 280 characters
+
+3. CLOSER (Final Tweet):
+   - Summary or key takeaway
+   - Retweet request
+   - "If you found this valuable, RT the first tweet"
+
+OUTPUT FORMAT (JSON):
+{
+  "hook": "The opening tweet text (first tweet of thread)",
+  "body": "Combined thread content (all middle tweets)",
+  "cta": "Final tweet with call to action",
+  "hashtags": ["relevant", "hashtags"],
+  "twitter_metadata": {
+    "thread_title": "Thread title for reference",
+    "total_tweets": 5,
+    "tweets": [
+      {
+        "number": 1,
+        "content": "Tweet 1 content (max 280 chars)...",
+        "has_media": false
+      },
+      {
+        "number": 2,
+        "content": "Tweet 2 content...",
+        "has_media": true,
+        "media_description": "Infographic showing X"
+      }
+    ],
+    "call_to_action": "Like + RT if helpful"
+  }
+}
+
+TWITTER THREAD BEST PRACTICES:
+- Each tweet MUST be under 280 characters
+- First tweet is most important (hook)
+- Use line breaks for readability
+- Number your tweets (1/, 2/, etc. in content)
+- End with engagement CTA
+- 5-10 tweets is optimal length
+`;
   }
 }
 

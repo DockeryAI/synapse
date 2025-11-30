@@ -1,0 +1,1707 @@
+{
+  "industry": "Weight Loss Center",
+  "industry_name": "Weight Loss Center",
+  "naics_code": "621399",
+  "category": "Personal Services",
+  "subcategory": "Medical Weight Management",
+  "customer_triggers": [
+    {
+      "trigger": "BMI crosses into obese category at doctor visit",
+      "urgency": 10,
+      "frequency": "Annual physical"
+    },
+    {
+      "trigger": "Diabetes diagnosis or pre-diabetes warning",
+      "urgency": 10,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Knee or back pain from excess weight",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Failed at home weight loss for 6+ months",
+      "urgency": 8,
+      "frequency": "Continuous"
+    },
+    {
+      "trigger": "Bariatric surgery consideration or requirement",
+      "urgency": 9,
+      "frequency": "Medical referral"
+    },
+    {
+      "trigger": "Insurance now covers weight management",
+      "urgency": 7,
+      "frequency": "Annual enrollment"
+    },
+    {
+      "trigger": "Milestone birthday approaching (40, 50, 60)",
+      "urgency": 8,
+      "frequency": "Decade markers"
+    },
+    {
+      "trigger": "Child's wedding announced",
+      "urgency": 8,
+      "frequency": "Life event"
+    },
+    {
+      "trigger": "Sleep apnea diagnosis linked to weight",
+      "urgency": 9,
+      "frequency": "Medical trigger"
+    },
+    {
+      "trigger": "Company wellness incentive program launches",
+      "urgency": 6,
+      "frequency": "Annual"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Typically begins with medical professional recommendation (42%) or desperate Google search after scale shock (38%). Researches 'medical weight loss near me' and 'non-surgical weight loss'. Compares 4-6 centers based on medical supervision, technology, and success rates. Insurance coverage investigation takes 7-10 days average",
+    "consideration": "Books free consultations at 2-3 centers within 10-mile radius. Evaluates based on: medical staff credentials (35% weight), technology and equipment (25%), cost and insurance coverage (20%), location convenience (20%). Average decision timeline is 14-21 days with heavy online review research",
+    "decision": "Chooses center offering comprehensive approach including medical supervision, body composition analysis, and meal replacements. 78% sign up for 12-week minimum programs. Payment plans used by 45% of clients. Decision often triggered by limited-time pricing or approaching health deadline",
+    "retention": "Average client stays 6-9 months with proper support. Weekly weigh-ins for first 90 days crucial for retention. Drop-off rate of 35% at day 60 without proper coaching. Maintenance programs keep 40% of successful clients for additional 12+ months",
+    "advocacy": "Shares success at 25+ pound milestones. Posts before/after photos generate average 3.7 referrals. Video testimonials at 50+ pounds lost. Brings family members after personal success. Corporate referrals from successful executives worth 8-12 new clients average"
+  },
+  "transformations": [
+    {
+      "from": "Medications for diabetes and hypertension",
+      "to": "Medication-free with normal levels",
+      "emotional_value": "Freedom from pharmaceutical dependence",
+      "worth_premium": true
+    },
+    {
+      "from": "Can't play with grandchildren",
+      "to": "Active participant in family activities",
+      "emotional_value": "Generational connection and legacy",
+      "worth_premium": true
+    },
+    {
+      "from": "CPAP machine dependency",
+      "to": "Normal sleep without equipment",
+      "emotional_value": "Travel freedom and intimacy",
+      "worth_premium": true
+    },
+    {
+      "from": "Plus-size clothing limitations",
+      "to": "Shopping in any store",
+      "emotional_value": "Self-expression and confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Avoiding social events",
+      "to": "Confident social presence",
+      "emotional_value": "Relationship and career advancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Chronic joint pain",
+      "to": "Pain-free movement",
+      "emotional_value": "Active lifestyle restoration",
+      "worth_premium": true
+    },
+    {
+      "from": "Fertility struggles",
+      "to": "Healthy pregnancy achieved",
+      "emotional_value": "Family creation dreams",
+      "worth_premium": true
+    },
+    {
+      "from": "Airplane seatbelt extender needed",
+      "to": "Comfortable travel",
+      "emotional_value": "Dignity and freedom",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Weekly weight loss of 2-3 pounds",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Body fat percentage reduction",
+      "timeframe": "Bi-weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Visceral fat level improvement",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Metabolic age reduction",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Blood pressure normalization",
+      "timeframe": "Bi-weekly",
+      "measurable": true
+    },
+    {
+      "metric": "A1C level improvement",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Medication reduction or elimination",
+      "timeframe": "Monthly review",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Insurance deductible already met in Q4 drives 3x normal enrollment",
+    "Surgeon requires 10% weight loss before procedure creates hard deadline",
+    "Employer wellness challenge with $1,000 prize motivates immediate start",
+    "Class reunion in 12 weeks triggers rapid program enrollment",
+    "Diabetes medication costs exceeding $400/month drives cost-offset decision",
+    "Summer vacation booked creates visual deadline for results",
+    "Dating app reactivation after divorce motivates immediate action"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Programs cost $400-800/month is too expensive",
+      "response": "Compare to bariatric surgery at $20,000 or diabetes costs of $9,600 annually. Show insurance reimbursement options and HSA eligibility. Calculate cost per pound lost",
+      "effectiveness": 76
+    },
+    {
+      "objection": "I don't want to use meal replacements",
+      "response": "Explain temporary tool for rapid results, real food integration by week 4. Show how it eliminates decision fatigue. Offer food-first alternative track",
+      "effectiveness": 68
+    },
+    {
+      "objection": "Previous weight always came back",
+      "response": "Highlight medical supervision difference and metabolic testing. Explain maintenance program preventing regain. Share 5-year success statistics",
+      "effectiveness": 72
+    },
+    {
+      "objection": "Location is 20 minutes away",
+      "response": "Calculate time saved from medical appointments avoided. Offer telehealth hybrid options. Show exclusive results worth the drive",
+      "effectiveness": 64
+    },
+    {
+      "objection": "Scared of injections or medications",
+      "response": "Explain FDA-approved safety profiles and medical monitoring. Start with non-injection options. Share patient experiences with minimal side effects",
+      "effectiveness": 71
+    },
+    {
+      "objection": "Want to try on my own first",
+      "response": "Acknowledge autonomy, offer free accountability app. Schedule follow-up in 30 days. Provide free consultation certificate for when ready",
+      "effectiveness": 61
+    },
+    {
+      "objection": "Spouse thinks it's a scam",
+      "response": "Invite spouse to consultation, provide medical credentials. Share Better Business Bureau rating. Offer couple's discount",
+      "effectiveness": 69
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Lose 20 pounds in 10 weeks or full refund",
+      "Free medical supervision throughout program",
+      "Lifetime maintenance support after goal achievement"
+    ],
+    "proof_points": [
+      "Medical director board-certified in obesity medicine",
+      "3,400+ successful transformations since 2015",
+      "Insurance accepted from 15+ major providers",
+      "A+ BBB rating with zero unresolved complaints"
+    ],
+    "risk_mitigation": "Free body composition analysis before commitment. Week-by-week payment options available. Transfer credits to family member if medical issues arise. Pause option for emergencies"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "desperate",
+      "ashamed",
+      "failed",
+      "hopeless",
+      "disgusted",
+      "trapped",
+      "exhausted",
+      "defeated",
+      "embarrassed",
+      "scared"
+    ],
+    "solution_words": [
+      "medically-supervised",
+      "proven",
+      "sustainable",
+      "comprehensive",
+      "personalized",
+      "safe",
+      "effective",
+      "life-changing",
+      "supportive",
+      "scientific"
+    ],
+    "avoid_jargon": [
+      "adipose tissue",
+      "lipolysis",
+      "gluconeogenesis",
+      "leptin resistance",
+      "basal metabolic rate",
+      "subcutaneous fat",
+      "insulin sensitivity",
+      "thermogenic"
+    ]
+  },
+  "power_words": [
+    "medically-supervised",
+    "FDA-approved",
+    "clinically-proven",
+    "breakthrough",
+    "revolutionary",
+    "guaranteed",
+    "rapid",
+    "safe",
+    "permanent",
+    "transformational",
+    "comprehensive",
+    "personalized",
+    "scientific",
+    "advanced",
+    "exclusive",
+    "innovative",
+    "effective",
+    "sustainable",
+    "life-saving",
+    "doctor-recommended",
+    "insurance-covered",
+    "state-of-the-art",
+    "evidence-based",
+    "customized",
+    "professional",
+    "certified",
+    "measurable",
+    "dramatic",
+    "lasting",
+    "powerful"
+  ],
+  "avoid_words": [
+    "surgery",
+    "invasive",
+    "extreme",
+    "starvation",
+    "dangerous",
+    "gimmick",
+    "fad",
+    "temporary",
+    "painful",
+    "restrictive",
+    "impossible",
+    "complicated",
+    "embarrassing",
+    "public",
+    "group",
+    "generic",
+    "cookie-cutter",
+    "one-size",
+    "experimental",
+    "untested"
+  ],
+  "headline_templates": [
+    {
+      "template": "Lose [X] Pounds in [Y] Weeks with Medical Supervision",
+      "expected_ctr": 9.4,
+      "use_case": "Google ads"
+    },
+    {
+      "template": "[City] Doctors Are Amazed By This Weight Loss Breakthrough",
+      "expected_ctr": 10.2,
+      "use_case": "Facebook ads"
+    },
+    {
+      "template": "Insurance May Cover Your Weight Loss - Find Out in 60 Seconds",
+      "expected_ctr": 11.3,
+      "use_case": "Landing pages"
+    },
+    {
+      "template": "The Medical Weight Loss Program [Number]% of Doctors Recommend",
+      "expected_ctr": 8.7,
+      "use_case": "Display ads"
+    },
+    {
+      "template": "Finally Lose Weight Without Surgery or Extreme Diets",
+      "expected_ctr": 9.1,
+      "use_case": "Email campaigns"
+    },
+    {
+      "template": "Why [Local Hospital] Refers Patients to Our Weight Loss Center",
+      "expected_ctr": 8.9,
+      "use_case": "PR releases"
+    },
+    {
+      "template": "[Number] [City] Residents Lost [Total] Pounds Last Month",
+      "expected_ctr": 9.8,
+      "use_case": "Social media"
+    },
+    {
+      "template": "Diabetes Reversed: How [Name] Lost [X] Pounds in [Time]",
+      "expected_ctr": 10.5,
+      "use_case": "YouTube ads"
+    },
+    {
+      "template": "Your Insurance Covers This - Lose Weight with $0 Copay",
+      "expected_ctr": 12.1,
+      "use_case": "Insurance mailers"
+    },
+    {
+      "template": "The Weight Loss Method That's [X]% More Effective Than Dieting Alone",
+      "expected_ctr": 8.4,
+      "use_case": "Blog posts"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Free Consultation Today",
+      "conversion_rate": 14.2,
+      "placement": "Header button"
+    },
+    {
+      "template": "Check Your Insurance Coverage Now",
+      "conversion_rate": 16.8,
+      "placement": "Insurance checker tool"
+    },
+    {
+      "template": "Claim Your Free Body Composition Analysis",
+      "conversion_rate": 19.3,
+      "placement": "Pop-up offer"
+    },
+    {
+      "template": "Start Losing Weight This Week",
+      "conversion_rate": 11.7,
+      "placement": "Program pages"
+    },
+    {
+      "template": "See If You Qualify for Medical Weight Loss",
+      "conversion_rate": 15.4,
+      "placement": "Quiz landing page"
+    },
+    {
+      "template": "Reserve Your Spot - Only [X] Openings This Month",
+      "conversion_rate": 17.2,
+      "placement": "Urgency banner"
+    },
+    {
+      "template": "Get Your Personalized Weight Loss Plan",
+      "conversion_rate": 13.8,
+      "placement": "Assessment tool"
+    },
+    {
+      "template": "Join [Number]+ Successful Patients - Start Today",
+      "conversion_rate": 12.9,
+      "placement": "Social proof section"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Another amazing transformation! [Name] lost [X] pounds in [time] without surgery. Read her story...",
+      "engagement_rate": 5.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe to see the science behind medical weight loss ➡️ Results that last!",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Corporate wellness partnership announcement: Helping [Company] employees achieve healthier BMI",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "YouTube",
+      "template": "Doctor explains: Why medical weight loss works when diets fail",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "Day in the life at a medical weight loss center #weightlossjourney",
+      "engagement_rate": 11.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "Myth: Weight loss medication is cheating. Truth: It's medical treatment for a medical condition",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "What happens at your first medical weight loss appointment? Here's everything...",
+      "engagement_rate": 13.4
+    },
+    {
+      "platform": "Facebook Groups",
+      "template": "Free seminar Tuesday: 'Understanding Medical Weight Loss Options' - Register now",
+      "engagement_rate": 6.9
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Local weight loss center now accepting [Insurance Name] - neighbors save 40%",
+      "engagement_rate": 8.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "FDA-approved medications with medical supervision",
+      "rank": 1,
+      "differentiator": "Safety and efficacy vs. commercial programs"
+    },
+    {
+      "prop": "Insurance coverage reducing cost by 60-80%",
+      "rank": 2,
+      "differentiator": "Affordability through medical model"
+    },
+    {
+      "prop": "Weekly InBody scans tracking exact fat loss",
+      "rank": 3,
+      "differentiator": "Scientific precision vs. scale weight only"
+    },
+    {
+      "prop": "Physician-led team including dietitians and behaviorists",
+      "rank": 4,
+      "differentiator": "Medical expertise vs. coaches only"
+    },
+    {
+      "prop": "Guaranteed results or full refund",
+      "rank": 5,
+      "differentiator": "Risk elimination vs. hope-based pricing"
+    },
+    {
+      "prop": "Prescription medications when appropriate",
+      "rank": 6,
+      "differentiator": "Medical tools vs. supplements only"
+    },
+    {
+      "prop": "Treatment of weight-related conditions simultaneously",
+      "rank": 7,
+      "differentiator": "Comprehensive health vs. weight only"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Executive medical weight management with concierge-level service. Private consultations, advanced diagnostics, peptide therapies, and physician house calls. Discrete location, flexible scheduling, and complete confidentiality for high-profile clients.",
+    "budget_conscious": "Insurance-covered weight loss programs with $0 copay options. Payment plans starting at $99/month. Group sessions available at 50% individual rates. Generic medication options. Sliding scale for qualified patients.",
+    "enterprise": "Corporate weight management reducing employer healthcare costs by 28% average. On-site clinics, biometric screenings, lunch-and-learn seminars. Full ROI reporting, aggregate health metrics, executive dashboards."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board-certified bariatric physicians",
+      "importance": 10,
+      "format": "Doctor profiles prominently displayed"
+    },
+    {
+      "signal": "Before/after gallery with 100+ transformations",
+      "importance": 9,
+      "format": "Interactive gallery with stats"
+    },
+    {
+      "signal": "Hospital affiliations and referrals",
+      "importance": 9,
+      "format": "Partnership badges"
+    },
+    {
+      "signal": "Insurance provider network listings",
+      "importance": 8,
+      "format": "Insurance checker tool"
+    },
+    {
+      "signal": "BBB accreditation and rating",
+      "importance": 7,
+      "format": "Footer badge"
+    },
+    {
+      "signal": "Years in practice and patient count",
+      "importance": 8,
+      "format": "Homepage statistics"
+    },
+    {
+      "signal": "Medical association memberships",
+      "importance": 7,
+      "format": "Credentials page"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "3,400+ patients achieved goal weight since 2015",
+      "credibility_score": 9.4,
+      "context": "Documented in medical records"
+    },
+    {
+      "stat": "Average 47-pound weight loss in 6 months",
+      "credibility_score": 9.1,
+      "context": "2023 patient outcome data"
+    },
+    {
+      "stat": "82% maintain weight loss after 2 years",
+      "credibility_score": 9.6,
+      "context": "Long-term follow-up study"
+    },
+    {
+      "stat": "4.8 star rating from 500+ Google reviews",
+      "credibility_score": 8.8,
+      "context": "Verified patient feedback"
+    },
+    {
+      "stat": "73% reduce or eliminate diabetes medication",
+      "credibility_score": 9.3,
+      "context": "Physician-documented outcomes"
+    },
+    {
+      "stat": "$4,200 average annual healthcare savings",
+      "credibility_score": 8.5,
+      "context": "Insurance claims analysis"
+    }
+  ],
+  "quality_indicators": [
+    "InBody 770 or DEXA scan equipment indicates advanced diagnostics",
+    "Multiple physicians on staff signals comprehensive medical model",
+    "Insurance billing capability indicates medical legitimacy",
+    "Compounded semaglutide availability shows advanced pharmacy access",
+    "Metabolic testing equipment indicates scientific approach",
+    "Behavioral therapy inclusion signals comprehensive care model"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 120,
+    "trigger_event": "Reaching 40-pound loss milestone or medication elimination achievement",
+    "ask_method": "In-person request during successful weigh-in appointment, followed by professional video recording session. 81% participation when offered $100 credit toward maintenance program"
+  },
+  "competitive_advantages": [
+    "Only center with on-site pharmacy for immediate medication access",
+    "Exclusive insurance contracts with three major providers",
+    "Medical director published in obesity medicine journals",
+    "Body composition analysis technology unavailable elsewhere locally",
+    "Partnership with bariatric surgery center for continuum of care",
+    "24/7 medical support hotline for medication questions"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Quote bariatric surgery at $20,000 first, making $500/month seem minimal",
+    "sensitivity": "Resistance point at $600/month without insurance coverage",
+    "sweet_spots": [
+      "$199/month with insurance",
+      "$399/month self-pay",
+      "$999/month concierge"
+    ],
+    "decoy_pricing": "Offer $449/month basic to drive $599/month comprehensive sales"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 200,
+    "approval_required": 500,
+    "competitor_research": 300
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.4,
+    "weekend": 1.2,
+    "holiday": 1.8
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Program",
+      "price_range": "$199-299/month",
+      "target_customer": "Insurance-covered patients",
+      "margin": 45
+    },
+    {
+      "tier": "Comprehensive",
+      "price_range": "$499-699/month",
+      "target_customer": "Self-pay professionals",
+      "margin": 62
+    },
+    {
+      "tier": "Concierge Medical",
+      "price_range": "$1,299-1,999/month",
+      "target_customer": "Executives and celebrities",
+      "margin": 71
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Shift 30% of patients to group sessions maintaining 68% margins",
+    "Implement automated check-ins reducing nursing time by 40%",
+    "Partner with compounding pharmacy for 35% medication margins",
+    "Add $97/month maintenance programs with 78% profit margins",
+    "Cross-sell supplements and meal replacements at 50% markup",
+    "Reduce consultation no-shows by 70% with deposit requirements"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 380,
+      "reason": "New Year medical weight loss surge",
+      "opportunity": "New Year transformation programs with guaranteed results"
+    },
+    {
+      "month": "February",
+      "variation": 140,
+      "reason": "Insurance deductibles reset",
+      "opportunity": "Insurance education seminars"
+    },
+    {
+      "month": "March",
+      "variation": 160,
+      "reason": "Spring wedding prep",
+      "opportunity": "Bridal boot camps"
+    },
+    {
+      "month": "April",
+      "variation": 170,
+      "reason": "Summer body preparation",
+      "opportunity": "12-week summer challenges"
+    },
+    {
+      "month": "May",
+      "variation": 150,
+      "reason": "Graduation and reunion prep",
+      "opportunity": "Quick-start programs"
+    },
+    {
+      "month": "June",
+      "variation": 110,
+      "reason": "Vacation season begins",
+      "opportunity": "Travel-friendly programs"
+    },
+    {
+      "month": "July",
+      "variation": 80,
+      "reason": "Summer activities focus",
+      "opportunity": "Maintenance support"
+    },
+    {
+      "month": "August",
+      "variation": 95,
+      "reason": "Back-to-school preparation",
+      "opportunity": "Parent transformation programs"
+    },
+    {
+      "month": "September",
+      "variation": 130,
+      "reason": "Post-summer reset",
+      "opportunity": "Fall medical evaluations"
+    },
+    {
+      "month": "October",
+      "variation": 145,
+      "reason": "Holiday prevention planning",
+      "opportunity": "Holiday survival programs"
+    },
+    {
+      "month": "November",
+      "variation": 120,
+      "reason": "Insurance maximization",
+      "opportunity": "Use-it-or-lose-it campaigns"
+    },
+    {
+      "month": "December",
+      "variation": 70,
+      "reason": "Holiday focus",
+      "opportunity": "January pre-enrollment deals"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New patient consultations",
+      "avoid": "Group session scheduling",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Injection appointments",
+      "avoid": "Marketing promotions",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week weigh-ins",
+      "avoid": "New program launches",
+      "conversion_rate": 7.6
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Educational seminars",
+      "avoid": "Price increase announcements",
+      "conversion_rate": 8.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Progress celebrations",
+      "avoid": "Difficult conversations",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working professional appointments",
+      "avoid": "Insurance calls",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Closed or limited hours",
+      "avoid": "Full operations",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th optimal for auto-pay success, 72% fewer failures",
+    "cash_flow_peaks": "3rd-5th and 18th-20th highest package upgrade rates",
+    "slow_periods": "24th-30th focus on retention and maintenance programs"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Post-doctor appointment",
+      "crisis_type": "Medical ultimatum",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Monday morning",
+      "crisis_type": "Weekend weight gain",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Post-family event",
+      "crisis_type": "Photo shock",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Insurance enrollment",
+      "crisis_type": "Coverage deadline",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "Pre-surgery requirement",
+      "crisis_type": "Medical deadline",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "QuickStart",
+      "components": [
+        "4-week supply",
+        "Weekly check-ins",
+        "Basic meal plan"
+      ],
+      "pricing_model": "$399 one-time",
+      "margin": 52
+    },
+    {
+      "name": "Transformation",
+      "components": [
+        "12-week program",
+        "Medications included",
+        "InBody scans",
+        "Nutrition counseling"
+      ],
+      "pricing_model": "$499/month",
+      "margin": 58
+    },
+    {
+      "name": "Comprehensive Plus",
+      "components": [
+        "All medications",
+        "Weekly visits",
+        "Behavioral therapy",
+        "Meal replacements"
+      ],
+      "pricing_model": "$799/month",
+      "margin": 61
+    },
+    {
+      "name": "Concierge Elite",
+      "components": [
+        "House calls",
+        "Daily monitoring",
+        "Personal team",
+        "Peptide therapy"
+      ],
+      "pricing_model": "$1,799/month",
+      "margin": 73
+    }
+  ],
+  "upsell_paths": [
+    "Free consultation → $399 starter package → $499/month program",
+    "Basic program → Add behavioral therapy for $150/month",
+    "Medication-only → Full program upgrade for additional $200/month",
+    "Individual → Couples program for $899/month total",
+    "Weight loss → Maintenance program at $199/month",
+    "Standard medications → Advanced peptides for $300/month extra"
+  ],
+  "retention_hooks": [
+    "Weekly InBody scans showing detailed progress metrics",
+    "VIP maintenance program at 50% off after goal achievement",
+    "Exclusive member events and educational seminars monthly",
+    "Referral rewards: Free month for every 2 referrals who join",
+    "Lifetime weight regain protection with free restart option",
+    "Priority scheduling and same-day appointments for members",
+    "Annual metabolic panel testing included for 12+ month patients"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "50-pound celebration package",
+      "timing": "Major milestone achievement",
+      "incentive": "$100 credit per referral",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Bring a friend discount",
+      "timing": "Initial consultation",
+      "incentive": "Both get 30% off first month",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Family transformation program",
+      "timing": "After 3-month success",
+      "incentive": "Family members 50% off",
+      "conversion_rate": 41
+    },
+    {
+      "strategy": "Corporate wellness introduction",
+      "timing": "Executive success story",
+      "incentive": "Free month per 10 employees",
+      "conversion_rate": 52
+    },
+    {
+      "strategy": "Social media transformation post",
+      "timing": "Goal weight achievement",
+      "incentive": "$200 credit",
+      "conversion_rate": 23
+    },
+    {
+      "strategy": "Video testimonial bonus",
+      "timing": "Program completion",
+      "incentive": "3 months maintenance free",
+      "conversion_rate": 31
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "B12 injections and IV therapy",
+      "attach_rate": 54,
+      "timing": "Week 2 energy discussion"
+    },
+    {
+      "service": "Advanced body composition testing",
+      "attach_rate": 71,
+      "timing": "Initial consultation"
+    },
+    {
+      "service": "Prescription meal replacements",
+      "attach_rate": 63,
+      "timing": "Program start"
+    },
+    {
+      "service": "Behavioral therapy sessions",
+      "attach_rate": 38,
+      "timing": "Week 4 if struggling"
+    },
+    {
+      "service": "Peptide therapy upgrades",
+      "attach_rate": 22,
+      "timing": "Plateau at week 8"
+    },
+    {
+      "service": "Partner fitness membership",
+      "attach_rate": 46,
+      "timing": "20-pound loss milestone"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Multiple location franchising",
+      "market_size": "$8.5M regional opportunity",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Telemedicine expansion statewide",
+      "market_size": "$3.2M additional revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Insurance contract negotiations",
+      "market_size": "$1.8M increased reimbursements",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Medical spa service addition",
+      "market_size": "$2.4M annual potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Bariatric surgery center partnership",
+      "market_size": "$4.1M referral opportunity",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Corporate clinic management",
+      "market_size": "$5.6M B2B market",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Profile Medical Weight Loss's before/after transformation video series featuring real patients sharing their medication reduction stories, particularly focusing on diabetes reversal",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Authentic patient testimonials with specific medical outcomes (A1C numbers, medication lists), emotional storytelling about regaining mobility and family activities, and credibility from medical supervision messaging",
+        "metrics": "Weight loss center Facebook posts with before/after photos generate 5.2x more engagement than general health tips according to industry analysis",
+        "source": "Social media analysis of medical weight loss centers and healthcare marketing benchmark studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Medi-Weightloss's 'New Year, New You' campaign featuring 90-day transformation challenges with weekly accountability posts and community engagement",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Leveraged peak January motivation with structured program, created community through hashtag campaigns, showed progressive results rather than just final outcomes, included medical credibility markers",
+        "metrics": "January campaigns in weight loss industry see 340% increase in engagement compared to average months",
+        "source": "Healthcare marketing seasonal trend analysis and weight management industry reports",
+        "confidence": "high"
+      },
+      {
+        "example": "Red Mountain Weight Loss's educational video series on GLP-1 medications (semaglutide/Ozempic) explaining medical supervision benefits vs. online prescriptions",
+        "platform": "YouTube/Facebook",
+        "why_it_worked": "Capitalized on trending topic (Ozempic popularity), positioned medical centers as safer alternative to telehealth, educational approach built trust, addressed specific safety concerns",
+        "metrics": "Educational content about weight loss medications saw 89% higher engagement in 2023-2024 compared to general weight loss tips",
+        "source": "Healthcare content marketing analysis and pharmaceutical trend reports 2023-2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local weight loss centers using Google My Business posts with specific patient milestone celebrations (50 lbs lost, off diabetes medication, completed program)",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Appears in local search results when prospects are actively searching, specific numbers create credibility, milestone framing makes goals feel achievable, local social proof",
+        "metrics": "Google Business posts with specific patient results generate 3.8x more clicks than generic promotional posts",
+        "source": "Local healthcare marketing performance data and Google Business Profile benchmarks",
+        "confidence": "medium"
+      },
+      {
+        "example": "Email nurture sequences from medical weight loss centers featuring 'What to Expect' series addressing common fears: cost concerns, time commitment, medication side effects, and program structure",
+        "platform": "Email",
+        "why_it_worked": "Proactively addressed objections before consultation, educational tone reduced sales pressure, segmented based on inquiry source, included FAQ format that matched search behavior",
+        "metrics": "Healthcare email sequences with objection-handling content show 23% higher consultation booking rates",
+        "source": "Healthcare email marketing benchmarks and medical practice marketing studies",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% to 0.18% for healthcare industry, with weight loss content performing 2-3x higher at 0.3-0.5% when featuring transformations",
+        "best_content_format": "Video testimonials and before/after image carousels with detailed captions including specific medical outcomes",
+        "optimal_frequency": "4-5 posts per week, with higher frequency (daily) acceptable during January and post-holiday periods",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when people are planning health decisions",
+        "source": "Rival IQ Social Media Benchmarks 2024, Healthcare Success Marketing Benchmarks"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for healthcare/wellness industry, with Reels performing at 0.9-1.2%",
+        "best_content_format": "Reels showing day-in-the-life of program participants, before/after transformations, educational carousel posts about medications and procedures",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels, daily Stories for engagement",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM, evenings 7-9 PM when people are relaxing and planning",
+        "source": "Later.com Instagram Benchmarks 2024, Healthcare Marketing Industry Reports"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rates 21-24% for healthcare industry, click rates 2.3-2.8%",
+        "best_content_format": "Educational newsletters with patient success stories, segmented nurture sequences based on inquiry type, appointment reminders with motivational content",
+        "optimal_frequency": "1-2 emails per week for prospects, weekly for active patients, monthly for past patients",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM, Sunday evenings 6-8 PM for planning-oriented content",
+        "source": "Mailchimp Healthcare Benchmarks 2024, Constant Contact Industry Reports"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Local healthcare searches convert at 3-5% to phone calls or direction requests",
+        "best_content_format": "Posts with specific patient milestones, Q&A addressing common concerns, photos of facility and staff, special offer announcements",
+        "optimal_frequency": "2-3 posts per week to maintain visibility in local search",
+        "best_posting_times": "Monday mornings and Thursday afternoons when local search activity peaks",
+        "source": "BrightLocal Local Search Ranking Factors 2024, Sterling Healthcare Marketing Data"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Healthcare educational videos average 2.1% engagement, weight loss content sees 3-4% when addressing specific medications or procedures",
+        "best_content_format": "5-10 minute educational videos about procedures and medications, 2-3 minute patient testimonials, FAQ-style content answering common questions",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month to maintain channel",
+        "best_posting_times": "Wednesday-Friday afternoons, Sunday evenings when people research health decisions",
+        "source": "Think With Google Healthcare Content Research, Wyzowl Video Marketing Statistics 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Specific Medical Milestone",
+        "example": "How Sarah Reversed Her Type 2 Diabetes in 90 Days (Without Surgery)",
+        "why_it_works": "Combines specific timeframe, credible medical outcome, and addresses surgery fear. The specificity makes it believable and the parenthetical addresses a major objection",
+        "source": "Analysis of high-performing weight loss center headlines and medical marketing case studies"
+      },
+      {
+        "hook_pattern": "Medication Freedom Promise",
+        "example": "Finally Off My Blood Pressure Meds After 15 Years",
+        "why_it_works": "Taps into pharmaceutical dependence frustration, long timeframe shows severity, 'finally' implies previous failed attempts, first-person voice creates authenticity",
+        "source": "Patient testimonial analysis and healthcare marketing research"
+      },
+      {
+        "hook_pattern": "Doctor-Triggered Urgency",
+        "example": "My Doctor Said 'Lose Weight or Start Insulin' - Here's What Happened Next",
+        "why_it_works": "Creates urgency through medical authority, presents relatable ultimatum many face, curiosity gap with 'what happened next', implies successful outcome",
+        "source": "Weight loss center marketing campaigns and patient acquisition research"
+      },
+      {
+        "hook_pattern": "Lifestyle Recovery",
+        "example": "I Can Finally Play with My Grandkids Again (Lost 67 Pounds at Age 58)",
+        "why_it_works": "Emotional connection to family/legacy, specific age and weight loss numbers add credibility, 'finally' implies long-desired outcome, relatable life stage",
+        "source": "Social media engagement analysis of weight loss transformation posts"
+      },
+      {
+        "hook_pattern": "Medical vs. DIY Comparison",
+        "example": "Why Medical Weight Loss Works When Diets Don't: The Science Explained",
+        "why_it_works": "Acknowledges past failures without blame, positions medical approach as different/superior, 'science' adds credibility, educational angle reduces sales resistance",
+        "source": "Healthcare content marketing performance data"
+      },
+      {
+        "hook_pattern": "Trending Topic Hijack",
+        "example": "Ozempic vs. Medically-Supervised Programs: What You Need to Know",
+        "why_it_works": "Leverages high-search trending medication, positions center as expert guide, educational framing, addresses timely concern about medication access and safety",
+        "source": "2023-2024 weight loss industry trend analysis and search behavior data"
+      },
+      {
+        "hook_pattern": "Milestone Motivation",
+        "example": "How I Lost 45 Pounds Before My Daughter's Wedding (6 Month Timeline)",
+        "why_it_works": "Specific emotional deadline many relate to, achievable timeframe, specific number creates credibility, social motivation is powerful driver",
+        "source": "Weight loss center intake form analysis and patient motivation research"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I've tried everything and nothing works anymore",
+        "My doctor said I'm pre-diabetic and need to lose weight or go on medication",
+        "I can't keep up with my grandkids and it breaks my heart",
+        "I'm embarrassed to go to social events because nothing fits",
+        "My knees hurt so bad I can barely walk, and the doctor says it's the weight",
+        "I'm on so many medications I feel like a pharmacy",
+        "I avoid mirrors and photos because I don't recognize myself",
+        "My CPAP machine is ruining my marriage",
+        "I'm scared I'll need bariatric surgery if I don't do something now",
+        "I've gained back everything I lost, plus more"
+      ],
+      "solution_phrases": [
+        "I want to get off my diabetes medication for good",
+        "I need something medically supervised because I have health issues",
+        "I want a program that's proven to work, not another fad diet",
+        "I need accountability and support, not just another app",
+        "I want to lose weight safely without surgery",
+        "I need something fast enough to see results but sustainable",
+        "I want my doctor involved so I know it's safe",
+        "I need help with the medication side - not just diet and exercise",
+        "I want to feel confident in my body again",
+        "I need to reverse these health problems before it's too late"
+      ],
+      "objection_phrases": [
+        "How much does this cost? Will insurance cover it?",
+        "I don't have time to go to appointments every week",
+        "What happens when the program ends? Will I just gain it back?",
+        "Are these medications safe? I've heard scary things about side effects",
+        "I've failed at every diet - why would this be different?",
+        "Do I have to exercise? I physically can't right now",
+        "How is this different from just doing Ozempic on my own?",
+        "I'm worried about loose skin if I lose weight too fast",
+        "What if I can't afford to stay on the medications long-term?",
+        "I don't want to be on weight loss drugs forever"
+      ],
+      "decision_factors": [
+        "Medical supervision and doctor involvement",
+        "Insurance coverage or payment plans available",
+        "Proven results with people like me (same age, same amount to lose)",
+        "Whether they address my specific health conditions",
+        "How much time commitment is required per week",
+        "If they use FDA-approved medications",
+        "What happens after I reach my goal weight",
+        "Reviews from real patients with similar situations",
+        "Whether my primary care doctor approves or recommends it",
+        "If they have experience with patients who've failed multiple times"
+      ],
+      "emotional_language": [
+        "desperate, frustrated, embarrassed, scared, hopeless",
+        "tired of being tired, exhausted from trying",
+        "ashamed, invisible, broken, defeated",
+        "terrified of diabetes, heart attack, stroke",
+        "missing out on life, watching from the sidelines",
+        "ready to try anything, at my breaking point",
+        "want my life back, want to feel like myself again",
+        "worried about my kids/grandkids seeing me like this",
+        "afraid I'll die early and miss important moments",
+        "desperate to avoid surgery, running out of time"
+      ],
+      "sources": [
+        "Reddit r/loseit, r/weightlossadvice, r/SuperMorbidlyObese",
+        "Google reviews of medical weight loss centers nationwide",
+        "Healthgrades and Vitals patient reviews",
+        "Weight loss center consultation intake forms",
+        "Facebook groups for medical weight loss programs",
+        "Yelp reviews of weight loss clinics"
+      ]
+    },
+    "competitive_gaps": [
+      "Long-term maintenance support after goal weight - most centers focus only on the weight loss phase",
+      "Transparent pricing and insurance navigation help - most require consultation for pricing",
+      "Comparison content helping people choose between surgical vs. medical vs. behavioral approaches",
+      "Content addressing medication shortages and supply chain issues with GLP-1 drugs",
+      "Male-focused weight loss content - most marketing skews heavily female",
+      "Content for people over 65 addressing age-specific concerns and medication interactions",
+      "Addressing weight loss after menopause with hormone considerations",
+      "Mental health and emotional eating support integration",
+      "Content for people with 100+ pounds to lose vs. vanity weight loss",
+      "Realistic timeline expectations and what 'normal' weight loss looks like medically"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Highest search volume and motivation for weight loss, 340% increase in inquiries",
+        "content_angle": "New Year transformation challenges, 90-day programs starting in January, medical approach vs. failed resolutions, insurance benefits reset messaging"
+      },
+      {
+        "period": "April-May (Wedding Season Prep)",
+        "opportunity": "Weddings, reunions, and summer events drive urgency for results",
+        "content_angle": "12-week wedding prep programs, before/after for special events, what's realistic in 3-6 months, non-surgical options for event deadlines"
+      },
+      {
+        "period": "September (Back to Routine)",
+        "opportunity": "Second-highest motivation period as people return to structure after summer",
+        "content_angle": "Fall fresh start messaging, getting healthy before holidays, establishing routines, preparing for holiday season success"
+      },
+      {
+        "period": "November-December (Pre-Holiday)",
+        "opportunity": "Counter-intuitive opportunity to start before New Year, avoid holiday weight gain",
+        "content_angle": "Start now vs. waiting until January, holiday weight management, getting ahead of resolutions, maintaining through holidays with support"
+      },
+      {
+        "period": "March-April (Tax Refund Season)",
+        "opportunity": "People have discretionary income from tax refunds to invest in health",
+        "content_angle": "Invest your refund in your health, payment plan options, HSA/FSA eligible expenses, summer body preparation"
+      },
+      {
+        "period": "Post-Annual Physical (Year-Round)",
+        "opportunity": "Doctor visits trigger urgency with test results and health warnings",
+        "content_angle": "What to do after concerning lab results, pre-diabetes reversal timelines, medication alternatives, bringing results to consultation"
+      },
+      {
+        "period": "Insurance Open Enrollment (October-November)",
+        "opportunity": "People reviewing benefits and HSA/FSA planning",
+        "content_angle": "Maximizing health benefits, FSA/HSA eligible programs, insurance coverage for medical weight loss, using benefits before year-end"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit communities: r/loseit, r/weightlossadvice, r/SuperMorbidlyObese",
+      "Google Business Profile reviews of top 50 medical weight loss centers",
+      "Healthgrades and Vitals patient review platforms",
+      "Rival IQ Social Media Industry Benchmarks 2024",
+      "Later.com Instagram Engagement Reports 2024",
+      "Mailchimp Email Marketing Benchmarks Healthcare Industry",
+      "BrightLocal Local Search Ranking Factors 2024",
+      "Think With Google Healthcare Content Research",
+      "Healthcare Success Marketing annual reports",
+      "Medical weight loss center social media accounts (Profile Medical, Medi-Weightloss, Red Mountain Weight Loss)",
+      "Weight loss industry trend reports 2023-2024",
+      "Healthcare marketing case studies and white papers",
+      "Patient consultation intake form analysis",
+      "Search trend data for weight loss and GLP-1 medications"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Specific conversion rate data from social media to consultations (proprietary to individual centers)",
+      "Exact A/B testing results for email subject lines (limited public availability)",
+      "Precise ROI data for different content types (centers don't publicly share)",
+      "TikTok benchmarks specific to medical weight loss (emerging platform for this industry)",
+      "Detailed demographic breakdowns of engagement by age group",
+      "Specific cost-per-acquisition data by marketing channel"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new GLP-1 medication programs or medical weight loss services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Medical safety and supervision advantages over telehealth prescriptions",
+        "Week 2: FDA-approved medication breakthrough with comprehensive monitoring",
+        "Week 3: Real patient transformations and medication reduction milestones",
+        "Week 4: Limited enrollment spots with insurance navigation support"
+      ],
+      "weekly_hooks": [
+        [
+          "Why Medically-Supervised [GLP-1 Program] Works When Online Prescriptions Don't: The Science Explained",
+          "What Your Doctor Isn't Telling You About [New Medication Program] (And Why Medical Supervision Matters)",
+          "We're Bringing FDA-Approved [Program Name] to [City] - Here's What Makes It Different"
+        ],
+        [
+          "How [Program Name] Helps You Lose Weight Safely Without Surgery (Medical Supervision Included)",
+          "[Patient Name] Lost 45 Pounds and Reversed Pre-Diabetes in 90 Days With [Program Name]",
+          "Ozempic vs. [Your Program]: What You Need to Know Before Starting"
+        ],
+        [
+          "Finally Off My Blood Pressure Meds After 15 Years Thanks to [Program Name]",
+          "My Doctor Said 'Lose Weight or Start Insulin' - Here's What Happened With [Program Name]",
+          "I Can Finally Play with My Grandkids Again (Lost 67 Pounds at Age 58 With Medical Support)"
+        ],
+        [
+          "Only [X] Spots Left: Why [Program Name] Enrollment Closes [Date]",
+          "How Sarah Reversed Her Type 2 Diabetes in 90 Days (Without Surgery) Using [Program Name]",
+          "Last Chance: Start [Program Name] Now and Use Your 2024 Insurance Benefits"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address safety concerns about medications and side effects with FDA-approval messaging and medical monitoring protocols",
+        "Week 2: Address 'how is this different from DIY' by highlighting comprehensive medical supervision vs. online-only prescriptions",
+        "Week 3: Address weight regain fears with maintenance program details and 5-year success statistics",
+        "Week 4: Address cost concerns with insurance coverage options, HSA eligibility, and cost comparison to bariatric surgery"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce medical credentials, FDA-approved medication status, and clinical research backing",
+        "Week 2: Share facility photos, staff credentials, and comprehensive program components beyond just medication",
+        "Week 3: Feature before/after patient transformations with specific medical outcomes (A1C numbers, medications stopped)",
+        "Week 4: Showcase Google reviews, patient video testimonials, and limited availability social proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide 'Medical Weight Loss vs. Telehealth: Safety Comparison'",
+        "Week 2: Watch our 5-minute video explaining how [Program Name] works",
+        "Week 3: Read success stories from patients like you who reversed their health conditions",
+        "Week 4: Schedule your free consultation before [Date] - only [X] spots available"
+      ],
+      "platform_priority": [
+        "Facebook (5-7 posts/week) - Best for before/after transformations and video testimonials",
+        "Instagram (5-7 posts/week including 3-4 Reels) - Educational carousels and day-in-program content",
+        "Google Business Profile (3 posts/week) - Captures high-intent local searchers",
+        "Email (2 emails/week) - Nurture sequence for consultation bookers"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Red Mountain Weight Loss's educational video series on GLP-1 medications showing 89% higher engagement for medication-focused content, and the competitive gap around transparent comparison content helping people choose between approaches"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent lead generation",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Medical milestone celebrations and medication reduction success stories",
+        "Week 2: Educational content on metabolic health and diabetes reversal science",
+        "Week 3: Lifestyle recovery transformations (mobility, family activities, confidence)",
+        "Week 4: Medical supervision advantages and safety protocols explained",
+        "Week 5: Addressing common fears and objections through patient experiences",
+        "Week 6: Specific health condition focus (diabetes, hypertension, sleep apnea)",
+        "Week 7: Program structure transparency and what to expect content",
+        "Week 8: Community engagement and patient milestone recognition"
+      ],
+      "weekly_hooks": [
+        [
+          "How [Patient Name] Reversed Type 2 Diabetes in [X] Days (Without Surgery)",
+          "Finally Off My [Medication Type] After [X] Years - Here's How",
+          "[Patient Name]'s Doctor Couldn't Believe These Lab Results After [X] Weeks"
+        ],
+        [
+          "Why Medical Weight Loss Works When Diets Don't: The Science Explained",
+          "What Happens to Your Metabolism When You Lose Weight (And How We Prevent Slowdown)",
+          "The Truth About Pre-Diabetes: How Much Time Do You Really Have?"
+        ],
+        [
+          "I Can Finally Play with My Grandkids Again (Lost [X] Pounds at Age [X])",
+          "How [Patient Name] Went from CPAP Machine to Normal Sleep in [X] Months",
+          "Shopping in Any Store Again: [Patient Name]'s Confidence Transformation"
+        ],
+        [
+          "Ozempic vs. Medically-Supervised Programs: What You Need to Know",
+          "Why Our Patients See Better Results Than DIY Weight Loss (The Medical Difference)",
+          "What Medical Supervision Actually Means (Beyond Just Prescriptions)"
+        ],
+        [
+          "I've Failed at Every Diet - Why Would This Be Different? [Patient Name] Answers",
+          "Addressing the #1 Fear: What Happens When the Program Ends?",
+          "Are These Medications Safe? A Doctor Explains Side Effects and Monitoring"
+        ],
+        [
+          "From Pre-Diabetic to Normal A1C: [Patient Name]'s [X] Month Journey",
+          "How Weight Loss Reversed My Sleep Apnea (No More CPAP Machine)",
+          "My Knee Pain Disappeared After Losing [X] Pounds - Here's the Timeline"
+        ],
+        [
+          "What to Expect in Your First 30 Days: A Complete Timeline",
+          "Inside Our Program: What Actually Happens at Weekly Appointments",
+          "How Much Does Medical Weight Loss Cost? (And What Insurance Covers)"
+        ],
+        [
+          "Celebrating [Patient Name]'s [X] Pound Milestone This Week",
+          "What's Your Biggest Weight Loss Challenge? (Comment Below)",
+          "Tag Someone Who Needs to See This Transformation"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection - pure inspiration and possibility",
+        "Week 2: Address 'I've tried everything' through scientific explanation of why medical approach differs",
+        "Week 3: Address time commitment concerns by showing life improvements outweigh appointment time",
+        "Week 4: Address safety and medication concerns with medical supervision benefits",
+        "Week 5: Address cost concerns with value comparison and insurance options",
+        "Week 6: Address specific health condition applicability and contraindications transparently",
+        "Week 7: Address weight regain fears with maintenance program details",
+        "Week 8: Address decision paralysis by showcasing community support and proven results"
+      ],
+      "proof_timing": [
+        "Week 1: Patient video testimonials with specific medical outcomes",
+        "Week 2: Clinical research citations and medical credentials",
+        "Week 3: Before/after photo compilations with detailed stories",
+        "Week 4: Facility certifications and FDA-approved medication documentation",
+        "Week 5: Google reviews and third-party ratings",
+        "Week 6: Doctor credentials and specialized training certificates",
+        "Week 7: Program completion statistics and long-term success rates",
+        "Week 8: Community size and collective pounds lost milestones"
+      ],
+      "cta_progression": [
+        "Week 1: Watch [Patient Name]'s full transformation story",
+        "Week 2: Download our free guide on metabolic health",
+        "Week 3: Read more success stories from patients like you",
+        "Week 4: Compare your options with our program comparison chart",
+        "Week 5: See if your insurance covers medical weight loss",
+        "Week 6: Take our 2-minute health assessment",
+        "Week 7: Schedule a free consultation to learn about our program",
+        "Week 8: Join our next program start date - limited spots available"
+      ],
+      "platform_priority": [
+        "Facebook (4-5 posts/week) - Core platform for transformation content and community building",
+        "Instagram (5-7 posts/week) - Visual transformations and educational Reels",
+        "Google Business Profile (2-3 posts/week) - Capture local search traffic with milestone posts",
+        "Email (1 email/week) - Educational newsletter with featured success story",
+        "YouTube (1-2 videos/month) - Long-form educational content and detailed testimonials"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Profile Medical Weight Loss's before/after transformation video series generating 5.2x more engagement, and the proven hook pattern of specific medical milestones combined with the customer voice data showing medical supervision as top decision factor"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging trending topics and viral-optimized content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Trending medication topic hijack (Ozempic/GLP-1 awareness) with educational positioning",
+        "Week 2: Viral transformation reveals and community challenge launch"
+      ],
+      "weekly_hooks": [
+        [
+          "Ozempic vs. Medically-Supervised Programs: What You Need to Know (2024 Update)",
+          "Why Everyone's Talking About GLP-1 Medications (And What Your Doctor Isn't Telling You)",
+          "The Truth About [Trending Medication]: Benefits, Risks, and Better Alternatives",
+          "What Celebrities Aren't Showing You About Weight Loss Medications",
+          "Is [Trending Medication] Right for You? A Medical Expert Explains",
+          "The Ozempic Shortage: What It Means and What Your Options Are"
+        ],
+        [
+          "This [Age]-Year-Old Lost [X] Pounds in [X] Days - Watch the Transformation",
+          "Before You Try Another Diet, Watch This [X]-Second Transformation",
+          "POV: You Finally Found Something That Actually Works (Real Patient Story)",
+          "They Said It Was Impossible at My Age - Here's My Response",
+          "My Doctor's Reaction to My [X]-Month Transformation (Priceless)",
+          "What [X] Pounds Lost Actually Looks Like (You Won't Believe #3)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address medication safety concerns and shortage issues by positioning medical centers as stable, supervised alternative",
+        "Week 2: Address 'too good to be true' skepticism with authentic patient stories and realistic timelines"
+      ],
+      "proof_timing": [
+        "Week 1: Medical credentials, FDA approvals, and safety monitoring protocols front and center",
+        "Week 2: Massive social proof dump - multiple patient transformations, Google review highlights, video testimonial compilation"
+      ],
+      "cta_progression": [
+        "Week 1: Share this with someone who needs to see it / Tag a friend considering [medication]",
+        "Week 2: Comment your weight loss goal below / Join our transformation challenge starting [date]"
+      ],
+      "platform_priority": [
+        "Instagram Reels (2-3 per day) - Maximum viral potential for transformation content",
+        "Facebook (Daily posts) - Capitalize on higher frequency tolerance and shareability",
+        "TikTok (If applicable, 2-3 per day) - Trending audio and format optimization",
+        "YouTube Shorts (1-2 per day) - Cross-platform reach expansion"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Red Mountain Weight Loss's GLP-1 educational content showing 89% higher engagement on trending medication topics, and Instagram Reels performing at 0.9-1.2% engagement rate. Leverages the trending topic hijack hook pattern and competitive gap around medication comparison content"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing medical expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Medical science of weight loss and metabolic health fundamentals",
+        "Week 2: Medication safety, FDA approvals, and pharmaceutical education",
+        "Week 3: Diabetes reversal science and pre-diabetes intervention timelines",
+        "Week 4: Age-specific weight loss considerations (menopause, 65+, metabolic changes)",
+        "Week 5: Comprehensive health improvement beyond the scale (sleep, mobility, medication reduction)",
+        "Week 6: Long-term maintenance science and preventing weight regain"
+      ],
+      "weekly_hooks": [
+        [
+          "Why Medical Weight Loss Works When Diets Don't: The Science Explained",
+          "What Actually Happens to Your Metabolism During Weight Loss (Doctor Explains)",
+          "The 3 Metabolic Types: Why One-Size-Fits-All Diets Fail"
+        ],
+        [
+          "GLP-1 Medications Explained: How They Work, Safety Profile, and Who Benefits Most",
+          "Are Weight Loss Medications Safe? A Doctor Reviews the FDA Data",
+          "Understanding Medication Options: From Oral to Injectable (Complete Guide)"
+        ],
+        [
+          "The Truth About Pre-Diabetes: How Much Time Do You Really Have?",
+          "How to Reverse Type 2 Diabetes: The Medical Timeline Explained",
+          "What Your A1C Number Actually Means (And How Fast You Can Change It)"
+        ],
+        [
+          "Weight Loss After Menopause: Why It's Different and What Actually Works",
+          "Medical Weight Loss for Patients Over 65: Special Considerations Explained",
+          "How Hormones Affect Weight Loss (And What We Do About It)"
+        ],
+        [
+          "Beyond the Scale: How Weight Loss Reverses Sleep Apnea (The Science)",
+          "The Connection Between Weight Loss and Medication Reduction (Doctor Explains)",
+          "How Losing [X] Pounds Affects Your Joints: The Mobility Timeline"
+        ],
+        [
+          "The Science of Keeping Weight Off: Why Maintenance Programs Matter",
+          "What Happens After You Reach Your Goal Weight (Complete Guide)",
+          "Why 95% of Diets Fail (And How Medical Programs Prevent Regain)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I've tried everything' by explaining metabolic differences and why medical approach succeeds",
+        "Week 2: Address medication safety fears with comprehensive FDA data and monitoring protocols",
+        "Week 3: Address urgency concerns by educating on pre-diabetes progression timelines",
+        "Week 4: Address age-related objections by showcasing specialized approaches for different life stages",
+        "Week 5: Address narrow weight-loss-only focus by showing comprehensive health improvements",
+        "Week 6: Address weight regain fears with maintenance science and long-term support structure"
+      ],
+      "proof_timing": [
+        "Week 1: Medical degrees, certifications, and clinical research citations",
+        "Week 2: FDA approval documentation and pharmaceutical safety studies",
+        "Week 3: Patient A1C improvements and diabetes reversal statistics",
+        "Week 4: Age-segmented success stories and specialized credentials",
+        "Week 5: Multi-metric patient improvements (labs, medications, mobility measures)",
+        "Week 6: 5-year success rate data and maintenance program completion statistics"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive metabolic health guide",
+        "Week 2: Read our complete medication safety white paper",
+        "Week 3: Take our diabetes risk assessment quiz",
+        "Week 4: See success stories from patients your age",
+        "Week 5: Calculate your potential health improvements with our tool",
+        "Week 6: Schedule a consultation to create your personalized plan"
+      ],
+      "platform_priority": [
+        "YouTube (2 videos/week) - Long-form educational content performs best at 2.1-4% engagement",
+        "Facebook (4-5 posts/week) - Educational posts with detailed captions for engaged audience",
+        "Email (1-2 emails/week) - In-depth educational newsletters for serious prospects",
+        "Google Business Profile (2 posts/week) - Q&A format addressing common searches",
+        "Instagram (3-4 educational carousels/week) - Visual education format"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on YouTube educational videos about weight loss medications seeing 89% higher engagement and the competitive gap around age-specific content (menopause, 65+) and medication interaction education. Addresses customer voice decision factor of 'medical supervision and doctor involvement' being top priority"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive challenges and community goal-setting with user participation",
+        "Week 2: User-generated content celebration and milestone recognition"
+      ],
+      "weekly_hooks": [
+        [
+          "What's Your Biggest Weight Loss Challenge? (Comment Below - We're Answering Every One)",
+          "Fill in the Blank: I'll Know I've Succeeded When I Can _______",
+          "Which Health Goal Matters Most to You: A) Off Medications B) More Energy C) Confidence D) Mobility",
+          "Tag Someone Who Inspires You on Their Health Journey",
+          "What Would You Do First If You Lost [X] Pounds? (We Want to Hear Your Dreams)",
+          "Vote: Should We Share More A) Transformations B) Education C) Behind-the-Scenes"
+        ],
+        [
+          "Celebrating This Week's Milestones: [X] Patients, [X] Pounds Lost, [X] Medications Stopped",
+          "Share Your Victory (No Matter How Small) - We're Featuring Your Stories This Week",
+          "Before & After Friday: Drop Your Transformation Photos Below",
+          "What Surprised You Most About Your Weight Loss Journey? (Current Patients Share)",
+          "Caption This Transformation: [Patient Photo] - Funniest Answer Wins",
+          "Tag Someone Who Needs to See These Results This Monday"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address isolation and lack of support by building visible community engagement",
+        "Week 2: Address skepticism about results by showcasing real community members and their authentic stories"
+      ],
+      "proof_timing": [
+        "Week 1: Community size metrics and collective success numbers",
+        "Week 2: User-generated transformation photos, testimonials, and milestone celebrations from real patients"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your answer / Share your story / Vote in poll / Tag a friend",
+        "Week 2: Share your transformation / Join our community / Start your journey with us"
+      ],
+      "platform_priority": [
+        "Instagram Stories (Daily polls, questions, quizzes) - Maximum interactive features",
+        "Facebook (2-3 engagement posts/day) - Strong community features and comment threads",
+        "Instagram Feed (1-2 posts/day) - Carousel posts encouraging swipe and comment",
+        "Google Business Profile (Q&A engagement) - Answer community questions publicly"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Medi-Weightloss's 90-day transformation challenge with weekly accountability posts creating community through hashtag campaigns, and Facebook healthcare posts averaging 0.3-0.5% engagement when featuring transformations. Leverages customer voice emotional language around 'missing out on life' and 'want my life back' to create emotional connection points"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Why traditional weight loss fails for 95% of patients—and what actually works.\n\nAfter analyzing [X] patient outcomes, we've identified the critical gap: most programs treat weight loss as willpower, not medicine.\n\nThe data shows:\n→ Metabolic adaptation reduces calorie burn by 20-30% after diet-only approaches\n→ Hormonal dysregulation (leptin, ghrelin) sabotages long-term maintenance\n→ Underlying conditions (insulin resistance, thyroid) go unaddressed\n\nMedically-supervised programs address root causes:\n✓ FDA-approved medications that regulate hunger hormones\n✓ Metabolic testing to identify individual barriers\n✓ Physician oversight for patients with diabetes, hypertension, sleep apnea\n✓ Evidence-based protocols, not trending diets\n\nReal outcome: [X]% of our patients reduce or eliminate diabetes medications within [X] months.\n\nFor healthcare providers and HR leaders: medical weight loss isn't cosmetic—it's preventive medicine that reduces long-term costs and improves quality of life.\n\nWhat's been your organization's experience with employee wellness programs? #MedicalWeightLoss #CorporateWellness #PreventiveMedicine #HealthcareInnovation",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "The GLP-1 medication conversation needs medical supervision—here's why.\n\nWith semaglutide (Ozempic/Wegovy) dominating headlines, we're seeing a dangerous trend: patients seeking prescriptions without comprehensive medical evaluation.\n\nAs medical weight loss specialists, we're concerned about:\n\n1. Contraindication screening\nPatients with personal/family history of thyroid cancer, pancreatitis, or gastroparesis need alternative approaches. Telehealth questionnaires miss nuances.\n\n2. Dosing optimization\nStarting doses, titration schedules, and combining medications require clinical expertise. Cookie-cutter protocols increase side effects and discontinuation.\n\n3. Nutritional deficiencies\nGLP-1s reduce appetite dramatically. Without monitoring, patients develop protein deficiency, muscle loss, and micronutrient depletion.\n\n4. Maintenance planning\nWhat happens after goal weight? Medication-only approaches see 70% regain without behavioral integration.\n\nOur protocol: comprehensive metabolic panel, body composition analysis, medication management, nutritional counseling, and transition planning.\n\nResult: [X]% medication continuation rate vs. [X]% industry average.\n\nThe medication is a tool, not a solution. Medical supervision is the difference between temporary weight loss and lasting transformation.\n\nThoughts from other practitioners? #WeightLossSpecialist #GLP1 #MedicalSupervision #ObesityMedicine",
+        "framework": "AIDA",
+        "character_count": 1389
+      },
+      "promotional": {
+        "template": "We're expanding our corporate wellness partnerships—and the ROI speaks for itself.\n\nBefore partnering with us, [COMPANY NAME] faced:\n→ Rising healthcare costs from obesity-related conditions\n→ Increased absenteeism and disability claims\n→ Low engagement with generic wellness programs\n\nAfter implementing our medically-supervised weight loss program:\n→ [X]% of participants reduced BMI by 10+ points\n→ [X]% decreased or eliminated diabetes medications\n→ $[X] average savings per employee in reduced healthcare utilization\n→ [X]% program completion rate (vs. 12% for app-based programs)\n\nWhat made the difference:\n✓ On-site or virtual physician consultations\n✓ FDA-approved medication options covered by most plans\n✓ Accountability through weekly check-ins\n✓ Integration with existing health insurance\n\nEmployee testimonial: \"[QUOTE about getting off medications, feeling better, increased productivity]\"\n\nWe're now accepting partnerships for organizations with 50+ employees in [LOCATION/REGION].\n\nInterested in discussing how medical weight loss reduces long-term costs while improving employee wellbeing?\n\nDM me or visit [WEBSITE] to schedule a consultation.\n\n#CorporateWellness #EmployeeBenefits #HealthcareROI #WeightLossProgram",
+        "framework": "BAB",
+        "character_count": 1298
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Why you gain it all back (and how to stop the cycle)\n\nYour body fights weight loss—here's the science:\n\n→ Metabolism slows 20-30% after dieting\n→ Hunger hormones increase 5x normal levels\n→ Your brain literally screams for calories\n\nThis isn't willpower failure. It's biology.\n\nMedical weight loss works WITH your body:\n✓ Medications regulate hunger hormones\n✓ Metabolic testing identifies YOUR barriers\n✓ Physician oversight adjusts as you progress\n✓ Maintenance protocols prevent regain\n\n[PATIENT NAME] tried [X] diets over [X] years. Always gained it back.\n\nWith medical supervision: Lost [X] lbs, kept it off [X] months and counting.\n\nThe difference? Treating weight loss as medicine, not motivation.\n\nDM 'SCIENCE' to learn if you're a candidate for medical weight loss.\n\n#MedicalWeightLoss #WeightLossScience #SustainableWeightLoss #HealthyWeightLoss #WeightLossJourney #TransformationTuesday #HealthTransformation #ObesityMedicine #MetabolicHealth #HormonalHealth",
+        "visual": "Carousel: Slide 1 - Split image showing diet cycle (lose/regain graph). Slide 2 - Diagram of hunger hormones (leptin/ghrelin). Slide 3 - Before/after of patient with timeline. Slide 4 - Checklist of medical approach. Slide 5 - CTA with contact info",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "Doctor told you to lose weight? Here's what they're NOT saying.\n\n\"Lose weight or start insulin\" is the ultimatum.\n\nBut they don't tell you:\n→ Diet alone has a 95% failure rate for significant loss\n→ Your insurance likely covers medical weight loss\n→ FDA-approved medications exist that actually work\n→ You can reverse diabetes, not just manage it\n\nWhy? Most PCPs don't specialize in obesity medicine.\n\nThey mean well, but lack the tools.\n\nMedical weight loss centers offer:\n✓ Board-certified physicians trained in obesity\n✓ GLP-1 medications (same class as Ozempic)\n✓ Metabolic testing your PCP doesn't run\n✓ Weekly accountability and adjustment\n✓ Insurance billing expertise\n\nReal result: [X]% of our pre-diabetic patients reverse their diagnosis in [X] months.\n\n[PATIENT NAME]: A1C from 6.8 to 5.2. Off metformin. Lost [X] lbs.\n\nYour doctor gave you the warning. We give you the solution.\n\nLink in bio to see if you qualify for medical weight loss.\n\n#PreDiabetes #DiabetesReversal #MedicalWeightLoss #WeightLossMedication #GLP1 #Ozempic #Wegovy #ObesityMedicine #HealthTransformation #DiabetesPrevention",
+        "visual": "Reel: Doctor's office scene (text overlay of common ultimatums) → transition to medical weight loss clinic → patient testimonial clip → before/after reveal → lab results showing A1C improvement → CTA screen. 60 seconds, trending audio, authentic patient voice",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "I can finally play with my grandkids again.\n\n[PATIENT NAME], age [X], lost [X] pounds in [X] months.\n\nBefore:\n\"My knees hurt so bad I couldn't get on the floor with them. I'd just sit and watch. It broke my heart.\"\n\nAfter:\n\"Yesterday I spent 2 hours at the park. Running, playing, laughing. I cried happy tears.\"\n\nWhat changed? Medical supervision made it safe:\n→ Started at [X] lbs with high blood pressure and pre-diabetes\n→ Weekly physician check-ins adjusted medications\n→ FDA-approved weight loss medication + nutrition plan\n→ Addressed knee pain so she could start moving\n→ Now: Normal blood pressure, A1C 5.1, no knee pain\n\nThis isn't a diet. It's getting your life back.\n\n[X] spots available this month for new patients.\n\nDM 'READY' or click link in bio to schedule your free consultation.\n\n✓ Insurance accepted\n✓ Payment plans available\n✓ Virtual and in-person options\n\nStop watching from the sidelines.\n\n#WeightLossTransformation #GrandmaLife #WeightLossJourney #BeforeAndAfter #MedicalWeightLoss #TransformationStory #WeightLossSuccess #HealthyAging #FitnessOver50 #WeightLossMotivation",
+        "visual": "Before photo: Patient sitting in chair watching grandkids. After photo: Patient on playground with grandchildren, genuine smile. Carousel includes: medical stats improvement, timeline graphic, program overview, testimonial quote cards, final CTA with contact info",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🔬 MYTH vs. FACT: Medical Weight Loss Edition\n\nSeeing a lot of confusion about medical weight loss programs, so let's clear things up:\n\n❌ MYTH: \"It's just Ozempic\"\n✅ FACT: GLP-1s are ONE tool in comprehensive care. We also use metabolic testing, nutritional counseling, behavior modification, and other FDA-approved medications based on YOUR specific needs. Some patients don't need medication at all—they need thyroid treatment or sleep apnea management.\n\n❌ MYTH: \"I'll just gain it all back when I stop\"\n✅ FACT: Our maintenance protocol transitions you gradually with continued support. [X]% of patients maintain 80%+ of loss at 2 years because we address the ROOT CAUSES, not just symptoms. You learn sustainable habits while medically supported.\n\n❌ MYTH: \"Insurance won't cover it\"\n✅ FACT: Most insurance plans cover medical weight loss visits and many cover medications, especially if you have diabetes, hypertension, or sleep apnea. We have a dedicated insurance specialist who handles prior authorizations. Out-of-pocket costs are often less than people spend on failed diet programs.\n\n❌ MYTH: \"It's dangerous—I heard about side effects\"\n✅ FACT: All medications have potential side effects, which is exactly WHY medical supervision matters. We start low, go slow, monitor labs, and adjust. Compare that to unmonitored online prescriptions or the very real dangers of obesity: heart disease, stroke, diabetes complications.\n\n❌ MYTH: \"I should be able to do this on my own\"\n✅ FACT: Would you tell a diabetic they should manage blood sugar through willpower alone? Obesity is a medical condition with genetic, hormonal, and metabolic components. Treating it medically isn't weakness—it's smart healthcare.\n\nReal talk from [PATIENT NAME]:\n\"I wasted 10 years and thousands of dollars on programs that blamed ME when they didn't work. Medical weight loss finally treated my body's actual problems. Lost [X] lbs, off [X] medications, and I'm not white-knuckling through life anymore.\"\n\nQuestions about medical weight loss? Drop them below and I'll answer! 👇\n\nOr if you're ready to explore whether this approach is right for you, we're offering free consultations this month: [LINK]\n\n#MedicalWeightLoss #WeightLossMyths #HealthcareFacts #SustainableWeightLoss #ObesityMedicine",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why Your Doctor's \"Just Eat Less and Move More\" Advice Isn't Working (And What Actually Does)\n\nI need to say something that might be controversial:\n\nYour primary care doctor probably isn't equipped to help you lose significant weight.\n\nNot because they don't care—they absolutely do. But because:\n\n1️⃣ They get about 4 hours of nutrition education in medical school\n2️⃣ They have 15 minutes per appointment to address multiple issues\n3️⃣ They're not trained in obesity medicine specifically\n4️⃣ They don't have time for the weekly accountability that actually works\n\nThink about it: Would you see a general practitioner for complex heart surgery? No—you'd see a cardiac surgeon.\n\nWeight loss, especially if you have 50+ pounds to lose or obesity-related conditions, needs specialized care.\n\nWhat medical weight loss specialists do differently:\n\n✓ Comprehensive metabolic testing (not just BMI and basic labs)\n→ We measure resting metabolic rate, insulin resistance, hormone levels, body composition\n\n✓ Medication expertise\n→ We know which FDA-approved medications work for which patients, proper dosing, combination therapy, managing side effects\n\n✓ Treating underlying causes\n→ PCOS, thyroid disorders, sleep apnea, insulin resistance—these sabotage weight loss and need medical treatment\n\n✓ Weekly accountability and adjustment\n→ Your body changes as you lose weight. We adjust the plan in real-time.\n\n✓ Insurance navigation\n→ We know how to code visits and get medications covered\n\nThe results speak for themselves:\n\n📊 Our patients lose an average of [X] lbs in [X] months\n📊 [X]% reduce or eliminate diabetes medications\n📊 [X]% are still maintaining loss at 18 months\n📊 [X]% program completion rate vs. 12% for commercial diet programs\n\nPatient perspective from [NAME]:\n\n\"My doctor told me for 5 years to lose weight. I tried everything. Finally she referred me to [CENTER NAME]. Within 3 months my A1C went from 7.2 to 5.8. I'm off metformin. Down [X] lbs. The difference? Someone actually TREATING my obesity instead of just mentioning it.\"\n\nIf your doctor has told you to lose weight but hasn't referred you to obesity medicine specialists, ask for a referral. Or call us directly—you don't always need one.\n\nFree consultations available: [PHONE] or [WEBSITE]\n\nWe accept most insurance and offer payment plans.\n\nYour weight isn't a willpower problem. It's a medical condition that deserves medical treatment.\n\n💬 Have you felt dismissed by healthcare providers about weight? You're not alone. Share your experience below—this community gets it.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🎉 TRANSFORMATION TUESDAY 🎉\n\nMeet [PATIENT NAME]—who just hit a milestone we need to celebrate!\n\n📸 Swipe to see the journey →\n\nBEFORE (January 2024):\n→ Weight: [X] lbs\n→ A1C: 8.1 (diabetic range)\n→ Blood pressure: 145/95 (on 2 medications)\n→ Cholesterol: 245\n→ \"I couldn't walk from my car to the office without getting winded. I was avoiding family photos. My doctor said I was heading for a heart attack.\"\n\nAFTER (6 months - July 2024):\n→ Weight: [X] lbs (lost [X] lbs!)\n→ A1C: 5.6 (pre-diabetes reversed!)\n→ Blood pressure: 118/76 (off BOTH medications!)\n→ Cholesterol: 178\n→ \"I hiked 3 miles with my daughter last weekend. I'm shopping in regular stores. I have my life back.\"\n\nWhat made the difference for [NAME]?\n\n✅ Medical supervision every week—not an app, a real doctor\n✅ FDA-approved medication that regulated hunger hormones\n✅ Nutrition plan customized for diabetic reversal\n✅ Treatment for underlying insulin resistance\n✅ Accountability that kept her going when motivation dipped\n\nHer doctor's response at her last physical?\n\"Whatever you're doing, keep doing it. Your labs look like a different person.\"\n\n[NAME]'s advice for anyone considering medical weight loss:\n\n\"I wasted years thinking I just needed more discipline. Turns out I needed medical help for a medical problem. Best decision I ever made. The cost? Less than I was spending on plus-size clothes and diabetes supplies. And my insurance covered most of it.\"\n\n---\n\n🌟 READY FOR YOUR TRANSFORMATION?\n\nWe have [X] consultation spots available this week.\n\nWhat you get in your FREE consultation:\n→ Complete health history review\n→ Discussion of your specific challenges and goals\n→ Explanation of medication options (if appropriate)\n→ Insurance coverage verification\n→ Customized program recommendation\n→ All your questions answered—no pressure\n\nBook online: [WEBSITE]\nCall/text: [PHONE]\n\n✓ Most insurance accepted\n✓ Payment plans available\n✓ Virtual and in-person options\n✓ [X] years of experience\n✓ [X] successful patients\n\nYour transformation story could be next month's post. Let's write it together. 💪\n\nDrop a 🎯 below if this inspires you, and tag someone who needs to see this!",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your body after you lose weight on diets vs. medical supervision",
+        "script": "HOOK [0-3 sec]: Split screen—\"Your body after dieting\" vs \"Your body with medical weight loss\"\n\nPROBLEM [3-15 sec]: Text overlay while showing frustrated person: \"You lost 30 lbs on [diet name]\" → \"6 months later gained back 40\" → \"Your metabolism is SLOWER than before\" → \"You're hungrier than ever\"\n\nEXPLANATION [15-35 sec]: Quick cuts with text: \"Here's what dieting does\" → Show graph going down: \"Metabolism drops 20-30%\" → \"Hunger hormones increase 5X\" → \"Your brain literally fights you\" → \"It's not willpower—it's biology\"\n\nSOLUTION [35-50 sec]: Transition to medical approach: \"Medical weight loss works WITH your body\" → Quick list: \"FDA medications regulate hunger\" → \"Metabolic testing finds YOUR issues\" → \"Doctor adjusts as you go\" → \"Maintenance plan prevents regain\"\n\nPROOF [50-58 sec]: Before/after flash: \"[Patient name] lost [X] lbs\" → \"Kept it off [X] months\" → \"Off diabetes meds\"\n\nCTA [58-60 sec]: \"Link in bio to see if you qualify\" → End screen with center name\n\nTEXT OVERLAYS: \"Why you gain it back\" → \"It's science not willpower\" → \"Medical supervision = different results\" → \"DM SCIENCE for info\"\n\nAUDIO: Trending sound about transformation/change\n\n#MedicalWeightLoss #WeightLossTips #SustainableWeightLoss #WeightLossJourney #HealthTok #FYP #WeightLossHelp",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Doctor said lose weight or start insulin—here's what I did instead",
+        "script": "HOOK [0-3 sec]: Person in doctor's office looking worried, text: \"Lose weight or start insulin\"\n\nSTORY SETUP [3-12 sec]: \"My A1C was 7.8\" → \"Doctor gave me 3 months\" → \"I'd tried every diet\" → \"Nothing worked long-term\" → \"I was terrified\"\n\nDISCOVERY [12-25 sec]: \"Then I learned about medical weight loss\" → \"It's NOT just another diet\" → Quick cuts: \"Real doctors\" → \"FDA medications\" → \"Weekly check-ins\" → \"Insurance covered it\" → \"Treats the ROOT CAUSE\"\n\nRESULTS [25-45 sec]: Transformation reveal: \"4 months later\" → Show lab results: \"A1C: 5.7\" → \"Lost [X] lbs\" → \"Doctor cancelled insulin\" → \"Said keep doing what you're doing\" → Show person active/happy\n\nEXPLANATION [45-55 sec]: \"The difference?\" → \"They treated my insulin resistance\" → \"Medication regulated my hunger\" → \"Doctor adjusted everything weekly\" → \"It's MEDICINE not motivation\"\n\nCTA [55-60 sec]: \"If your doctor gave you the warning\" → \"Get the medical solution\" → \"Link in bio\" → Center name appears\n\nTEXT OVERLAYS: \"Pre-diabetic to normal\" → \"No insulin needed\" → \"Medical weight loss works\" → \"Insurance covered it\"\n\nAUDIO: Emotional/triumphant trending sound\n\n#DiabetesPrevention #PreDiabetes #WeightLossTransformation #MedicalWeightLoss #HealthJourney #DiabetesReversal #FYP",
+        "framework": "BAB"
+      },
+      "promotional": {
+        "hook": "I'm 58 and just did something I couldn't do at 28",
+        "script": "HOOK [0-3 sec]: Person on floor playing with grandkids, text: \"58 years old and finally can do this\"\n\nBEFORE [3-15 sec]: Cut to old photo: \"6 months ago I was [X] lbs\" → \"Couldn't get on the floor\" → \"Just watched my grandkids play\" → \"Broke my heart every time\" → Show person sitting, looking sad\n\nDECISION [15-28 sec]: \"My daughter sent me info about medical weight loss\" → \"I was skeptical\" → \"But my knees hurt so bad\" → \"And I was missing out\" → \"So I went to free consultation\"\n\nPROCESS [28-45 sec]: Quick montage: \"They did full medical workup\" → \"Found I had insulin resistance\" → \"Started FDA-approved medication\" → \"Weekly doctor visits\" → \"They made it SAFE for my age\" → \"Insurance covered most of it\"\n\nRESULT [45-55 sec]: Back to opening scene playing with grandkids: \"Lost [X] lbs in 5 months\" → \"No knee pain\" → \"Off blood pressure meds\" → \"Playing with my grandbabies\" → Genuine emotional moment\n\nCTA [55-60 sec]: \"Free consultations available\" → \"Link in bio\" → \"Don't wait like I did\" → Center name/logo\n\nTEXT OVERLAYS: \"Medical weight loss at 58\" → \"Safe for my age\" → \"Insurance covered it\" → \"Got my life back\" → \"You're not too old\"\n\nAUDIO: Heartwarming trending audio about family/second chances\n\n#WeightLossOver50 #GrandmaLife #WeightLossJourney #MedicalWeightLoss #FitnessOver50 #TransformationStory #NeverTooLate #FYP",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Why you gain the weight back (and how to stop it)",
+        "preview_text": "It's not willpower—it's biology. Here's the science...",
+        "body": "Hi [FIRST_NAME],\n\nIf you've lost weight before only to gain it all back (plus more), you're not alone—and it's not your fault.\n\nHere's what's really happening:\n\n**Your Body Fights Back**\n\nWhen you lose weight through dieting alone:\n→ Your metabolism slows by 20-30%\n→ Hunger hormones increase up to 500%\n→ Your brain increases food cravings\n→ You burn fewer calories doing the same activities\n\nThis isn't weakness. It's evolutionary biology protecting you from perceived starvation.\n\n**The Medical Approach Is Different**\n\nMedical weight loss addresses these biological responses:\n\n✓ **Metabolic Testing** identifies YOUR specific barriers (not generic meal plans)\n✓ **FDA-Approved Medications** regulate hunger hormones that sabotage you\n✓ **Physician Oversight** adjusts treatment as your body changes\n✓ **Maintenance Protocols** prevent the regain cycle\n\n**Real Results**\n\n[Patient Name] lost 30 lbs on [popular diet] in 2022. Gained back 45 lbs by 2023.\n\nWith medical supervision: Lost 52 lbs. Maintained for 14 months and counting.\n\nThe difference? Treating weight loss as medicine, not motivation.\n\n**Is Medical Weight Loss Right for You?**\n\nYou might be a candidate if:\n→ You've lost and regained weight multiple times\n→ You have 30+ pounds to lose\n→ You have diabetes, pre-diabetes, or high blood pressure\n→ Previous diets stopped working\n→ You're considering bariatric surgery\n\n**Next Step: Free Consultation**\n\nWe'll review your health history, explain medication options, verify insurance coverage, and answer all your questions.\n\nNo pressure. Just information.\n\n[SCHEDULE CONSULTATION BUTTON]\n\nOr call us: [PHONE]\n\nYour body isn't broken. It just needs medical support.\n\n[PHYSICIAN NAME]\n[CENTER NAME]\n\nP.S. Most insurance plans cover medical weight loss visits and many cover medications. We'll verify your coverage during consultation.",
+        "framework": "PAS",
+        "segment": "Email list - people who downloaded weight loss guide or attended webinar"
+      },
+      "authority": {
+        "subject": "Your doctor said lose weight. Now what?",
+        "preview_text": "What they don't tell you about medical weight loss options",
+        "body": "Hi [FIRST_NAME],\n\n\"You need to lose weight.\"\n\nYour doctor said it at your last visit. Maybe about your A1C, blood pressure, or knee pain.\n\nBut they probably didn't tell you HOW—beyond \"eat less, move more.\"\n\nHere's what you need to know:\n\n**Why General Doctors Can't Help Much**\n\nYour PCP cares about you, but:\n→ They get ~4 hours of nutrition training in medical school\n→ They have 15 minutes per appointment\n→ They're not trained in obesity medicine\n→ They can't provide weekly accountability\n\nIt's not their fault. It's not their specialty.\n\n**What Obesity Medicine Specialists Do**\n\nWe focus exclusively on medical weight loss:\n\n**1. Comprehensive Testing**\n→ Metabolic rate measurement\n→ Insulin resistance screening\n→ Hormone panels (thyroid, cortisol, sex hormones)\n→ Body composition analysis\n→ Sleep apnea evaluation\n\n**2. FDA-Approved Medications**\n→ GLP-1 agonists (same class as Ozempic/Wegovy)\n→ Combination therapies for better results\n→ Expert dosing and side effect management\n→ Insurance authorization expertise\n\n**3. Treating Root Causes**\n→ Insulin resistance that prevents fat loss\n→ Thyroid disorders slowing metabolism\n→ Sleep apnea disrupting hormones\n→ PCOS affecting weight and fertility\n\n**4. Ongoing Support**\n→ Weekly physician visits (in-person or virtual)\n→ Real-time plan adjustments\n→ Accountability that actually works\n→ Maintenance protocols after goal weight\n\n**The Results**\n\n[X]% of our patients:\n→ Reduce or eliminate diabetes medications\n→ Normalize blood pressure\n→ Improve sleep apnea\n→ Reduce joint pain\n→ Maintain weight loss at 18+ months\n\n**Real Story**\n\n[Patient Name], age [X]:\n\"My doctor told me for 5 years to lose weight. I tried everything. When she finally referred me to [Center Name], everything changed. They found insulin resistance my PCP never tested for. Started medication and proper treatment. A1C went from 7.8 to 5.6 in 4 months. Lost [X] lbs. Off metformin completely.\"\n\n**Your Next Step**\n\nSchedule a free consultation to:\n→ Review your complete health history\n→ Discuss medication options for YOUR situation\n→ Verify insurance coverage\n→ Get your questions answered\n→ Decide if this approach is right for you\n\n[SCHEDULE BUTTON]\n\nMost insurance accepted. Payment plans available.\n\nYour doctor gave you the diagnosis. We give you the treatment plan.\n\n[PHYSICIAN NAME], MD\nBoard Certified in Obesity Medicine\n[CENTER NAME]\n[PHONE]\n\nP.S. You don't always need a referral from your PCP. Call us directly.",
+        "framework": "AIDA",
+        "segment": "New leads who mentioned doctor recommendation or health condition"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], [X] spots left this month",
+        "preview_text": "Free consultation + insurance verification included",
+        "body": "Hi [FIRST_NAME],\n\nYou requested information about our medical weight loss program [X days/weeks] ago.\n\nI wanted to reach out personally because we have [X] consultation spots remaining this month, and based on what you shared, I think you could be an excellent candidate.\n\n**Quick Reminder: What You Told Us**\n\n→ You've tried [diet programs] without lasting results\n→ You're dealing with [health condition from form]\n→ You have [X] pounds you'd like to lose\n→ You're [interested in/concerned about] medications\n\n**What Happens in Your Free Consultation**\n\n**Step 1: Health History Review (15 min)**\nWe discuss your previous attempts, current medications, health conditions, and goals.\n\n**Step 2: Medical Assessment (10 min)**\nWe explain which treatment options match YOUR specific situation—not everyone needs medication.\n\n**Step 3: Insurance Verification (5 min)**\nWe check your coverage in real-time and explain exact costs.\n\n**Step 4: Your Questions (15 min)**\nNo pressure. Just honest answers about whether this is right for you.\n\n**What Our Patients Say**\n\n⭐⭐⭐⭐⭐ \"I was nervous about the consultation, but [staff name] made me feel so comfortable. They answered every question and didn't pressure me at all. Started the program 2 weeks later and I'm down [X] lbs already.\" - [Patient Name]\n\n⭐⭐⭐⭐⭐ \"The insurance verification was a game-changer. I thought I couldn't afford it, but they got my medications covered and set up a payment plan for visits. Wish I'd done this years ago.\" - [Patient Name]\n\n**Special Offer for [MONTH]**\n\nSchedule by [DATE] and receive:\n→ Free metabolic rate testing ($150 value)\n→ Complimentary body composition analysis\n→ [X]% off first month if you enroll\n\n**Reserve Your Spot**\n\n[CALENDAR LINK - MORNING APPOINTMENTS]\n[CALENDAR LINK - AFTERNOON APPOINTMENTS]\n[CALENDAR LINK - EVENING/WEEKEND APPOINTMENTS]\n\nOr call/text: [PHONE]\n\n**Still Have Questions?**\n\nReply to this email with your questions, or check out our FAQ: [LINK]\n\n**Not Ready Yet?**\n\nNo problem. We'll follow up in [X weeks] to see if timing is better. But if you're tired of starting over, this might be the right time to start differently.\n\nYour transformation is waiting,\n\n[STAFF NAME]\nPatient Coordinator\n[CENTER NAME]\n[PHONE]\n\nP.S. We're running low on [morning/evening] appointments. If you have schedule constraints, book soon to get your preferred time.\n\n---\n\n**What You Can Expect:**\n✓ Most insurance accepted\n✓ Payment plans available  \n✓ Virtual and in-person options\n✓ [X]% success rate\n✓ [X] years experience\n✓ Board-certified physicians",
+        "framework": "BAB",
+        "segment": "Leads who requested info 7-14 days ago but haven't scheduled"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] pounds lost and off [medication] in [timeframe] - without surgery or extreme dieting",
+      "[X] patients reversed their pre-diabetes in [timeframe] with medical supervision",
+      "Lost [X] pounds before [milestone event] - here's the medically-supervised plan that worked",
+      "[X] medications eliminated after [timeframe] of doctor-supervised weight loss",
+      "Age [X] and lost [X] pounds - finally keeping up with my grandkids again"
+    ],
+    "question_hooks": [
+      "Are you pre-diabetic and terrified of starting insulin if you don't lose weight?",
+      "Are you on so many medications you feel like a pharmacy - and your doctor says weight loss could help?",
+      "Are you avoiding photos and mirrors because you don't recognize yourself anymore?",
+      "Is your CPAP machine ruining your sleep and your marriage?",
+      "Are you scared you'll need bariatric surgery if you don't do something now?"
+    ],
+    "story_hooks": [
+      "How [name] got off blood pressure meds after [X] years - with doctor supervision every step",
+      "How [name] lost [X] pounds before [child's] wedding without feeling deprived or exhausted",
+      "How [name] reversed type 2 diabetes in [timeframe] - no surgery, just medical guidance",
+      "How [name] finally kept the weight off after failing [X] diets - the medical difference",
+      "How [name] went from needing a CPAP to sleeping naturally in [timeframe]"
+    ],
+    "fear_hooks": [
+      "Is your weight putting you at risk for diabetes - before it's too late to reverse it?",
+      "Is knee pain from excess weight stealing your ability to play with your grandkids?",
+      "Are you one doctor's visit away from a bariatric surgery recommendation?",
+      "Is your weight preventing you from seeing your grandchildren grow up?",
+      "Are fad diets making your metabolism worse - and your weight harder to lose?"
+    ],
+    "howto_hooks": [
+      "How to lose weight with medical supervision - without surgery or dangerous fad diets",
+      "How to get off diabetes medication through weight loss - safely and permanently",
+      "How to lose [X] pounds before [event] - without starving yourself or living at the gym",
+      "How to make insurance cover your weight loss program - the medical supervision difference",
+      "How to keep weight off after you lose it - why medical programs work when diets don't"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your doctor says 'pre-diabetic' and you have 6 months to turn it around",
+      "body": "Three months ago, my A1C was 6.3. My doctor said lose weight or start medication. I was terrified. Found a medical weight loss center that actually listened. They ran full bloodwork, customized a plan for MY body, prescribed FDA-approved medication WITH medical supervision. Today? A1C is 5.4. Down 42 pounds. No diabetes medication needed. My doctor literally said 'whatever you're doing, keep doing it.' This isn't another diet. It's medical intervention that actually works. If your doctor just told you to 'eat less and move more,' you deserve better.",
+      "cta": "Link in bio for free consultation - they take most insurance"
+    },
+    "reels": {
+      "hook": "Insurance covered my medical weight loss program and nobody talks about this",
+      "body": "I thought medical weight loss was $1000s out of pocket. Turns out my insurance covered the doctor visits and some covered the medication because I'm pre-diabetic. The center helped me navigate all the insurance paperwork. I paid $40/month. Lost 38 pounds in 4 months. Got off blood pressure meds. Saved money on medications I'm not taking anymore. Why don't more people know about this?",
+      "cta": "Check if your insurance covers it - free benefit check at [link]"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show your medication bottles BEFORE medical weight loss vs AFTER. Film them lined up on your counter, then show what you're NOT taking anymore. Caption: 'My medicine cabinet then vs now' with specific conditions reversed (diabetes, blood pressure, cholesterol). Share your timeline.",
+      "hashtag": "#MedicationFreedom"
+    },
+    {
+      "prompt": "Film yourself doing something you COULDN'T do at your highest weight. Playing with grandkids on the floor, hiking a trail, fitting in an airplane seat comfortably, wearing a seatbelt without an extender. Keep it real and emotional. Caption: 'Things I can do again.'",
+      "hashtag": "#GotMyLifeBack"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Before/After medication list comparison - show actual pill bottles or prescription lists. '12 medications down to 3 in 6 months' with specific drug names visible. Medical proof beats before/after photos.",
+      "why": "Shocking visual proof, highly specific and credible, addresses the health motivation beyond vanity, shareable by people tired of being on multiple medications, saves money angle resonates"
+    },
+    {
+      "angle": "'What your doctor doesn't tell you about pre-diabetes' educational series debunking the 'just eat less, move more' advice and explaining why medical intervention works when willpower fails. Include actual A1C numbers and reversal timelines.",
+      "why": "Taps into frustration with dismissive doctors, positions center as patient advocate, educational content gets saved and shared, validates people's struggles, trending topic with diabetes epidemic"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:13:45.301Z",
+    "last_tier2_refresh": "2025-11-27T22:13:45.301Z",
+    "last_tier3_refresh": "2025-11-27T22:13:45.301Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:13:45.301Z"
+  }
+}

@@ -1,11 +1,17 @@
 /**
- * Trends Dev Page - Dashboard Mirror
+ * Trends Dev Page - Trends 2.0 Implementation
  *
- * Isolated testing page for Trends tab development.
- * Uses manual API fetch - APIs only fire when button is clicked.
- * Shares UVP sidebar design with main dashboard.
+ * Full Trends 2.0 pipeline with:
+ * - UVP-informed query generation
+ * - Category-aware API routing
+ * - Multi-source validation (2+ sources required)
+ * - Brand relevance scoring
+ * - EQ-weighted prioritization
+ * - Lifecycle detection (emerging/peak/stable/declining)
+ * - Triggers integration with content angle generation
  *
  * Created: 2025-11-29
+ * Updated: 2025-11-29 - Full Trends 2.0 implementation
  */
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
@@ -13,21 +19,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { UVPBuildingBlocks } from '@/components/v4/V4PowerModePanel';
 import { useBrand } from '@/hooks/useBrand';
 import { getUVPByBrand } from '@/services/database/marba-uvp.service';
+import { useStreamingTrends } from '@/hooks/useStreamingTrends';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Loader2,
-  RefreshCw,
   Sparkles,
-  Database,
-  Zap,
   Trash2,
   Target,
   TrendingUp,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Heart,
   Award,
   BarChart3,
+  Package,
+  Building2,
   Download,
   ExternalLink,
   Calendar,
@@ -35,208 +42,628 @@ import {
   Youtube,
   MessageSquare,
   Newspaper,
-  Search
+  Search,
+  Zap,
+  CheckCircle2,
+  AlertTriangle,
+  Clock,
+  Flame,
+  TrendingDown,
+  RefreshCcw,
+  Brain,
+  Users,
+  Shield,
+  Lightbulb,
+  ArrowRight,
+  Link as LinkIcon
 } from 'lucide-react';
-import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
-
-// Import APIs for trend data
-import { SerperAPI } from '@/services/intelligence/serper-api';
-import { YouTubeAPI } from '@/services/intelligence/youtube-api';
-import { redditAPI } from '@/services/intelligence/reddit-apify-api';
-import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
-
-// ============================================================================
-// PERSISTENT CACHE - Saves trend data to localStorage
-// ============================================================================
-
-const TRENDS_DEV_CACHE_KEY = 'trendsDevPage_trends_v1';
-const TRENDS_DEV_CONTEXT_KEY = 'trendsDevPage_context_v1';
-
-interface TrendItem {
-  id: string;
-  title: string;
-  description: string;
-  source: 'serper' | 'youtube' | 'reddit' | 'perplexity' | 'news';
-  sourceUrl?: string;
-  relevanceScore: number;
-  growthRate?: number;
-  volume?: number;
-  date?: string;
-  metadata?: Record<string, any>;
-}
-
-interface TrendsCache {
-  trends: TrendItem[];
-  fetchedAt: string;
-  brandName: string;
-  industry?: string;
-}
-
-function loadCachedTrends(): TrendsCache | null {
-  try {
-    const cached = localStorage.getItem(TRENDS_DEV_CACHE_KEY);
-    if (cached) {
-      const parsed = JSON.parse(cached);
-      console.log('[TrendsDevPage] Loaded cached trends:', parsed.trends?.length || 0);
-      return parsed;
-    }
-  } catch (err) {
-    console.warn('[TrendsDevPage] Failed to load cached trends:', err);
-  }
-  return null;
-}
-
-function saveCachedTrends(cache: TrendsCache): void {
-  try {
-    localStorage.setItem(TRENDS_DEV_CACHE_KEY, JSON.stringify(cache));
-    console.log('[TrendsDevPage] Saved trends to cache:', cache.trends.length);
-  } catch (err) {
-    console.error('[TrendsDevPage] Failed to save trends:', err);
-  }
-}
-
-function loadCachedContext(): DeepContext | null {
-  try {
-    const cached = localStorage.getItem(TRENDS_DEV_CONTEXT_KEY);
-    if (cached) {
-      return JSON.parse(cached);
-    }
-  } catch (err) {
-    console.warn('[TrendsDevPage] Failed to load cached context:', err);
-  }
-  return null;
-}
-
-function saveCachedContext(context: DeepContext): void {
-  try {
-    localStorage.setItem(TRENDS_DEV_CONTEXT_KEY, JSON.stringify(context));
-  } catch (err) {
-    console.error('[TrendsDevPage] Failed to save context:', err);
-  }
-}
+import type { TrendWithMatches } from '@/services/trends/triggers-trend-matcher.service';
+import type { LifecycleStage } from '@/services/trends/trend-lifecycle-detector.service';
+import type { PsychologicalTrigger } from '@/services/trends/eq-trend-prioritizer.service';
+import { CATEGORY_CONFIGS, type BusinessCategory } from '@/services/trends/trend-category-router.service';
+import { TrendContentGenerator, type GeneratedTrendContent } from '@/services/trends/trend-content-generator.service';
 
 // ============================================================================
 // FILTER TYPES
 // ============================================================================
 
-type FilterType = 'all' | 'triggers' | 'proof' | 'trends' | 'gaps';
-type TrendSourceFilter = 'all' | 'serper' | 'youtube' | 'reddit' | 'perplexity' | 'news';
+// Phase 9: Simplified main filters - removed Multi-Source and Emerging (now in Type filter)
+type MainFilter = 'all' | 'content_ready';
+type LifecycleFilter = 'all' | LifecycleStage;
+type TriggerFilter = 'all' | PsychologicalTrigger;
+// Phase 10: Added use_case, outcome, persona for diversified trend filtering
+type IntentFilter = 'all' | 'product' | 'industry' | 'pain_point' | 'use_case' | 'outcome' | 'persona';
 
-const FILTER_CONFIG: Record<FilterType, { label: string; icon: React.ElementType; color: string }> = {
-  all: { label: 'All', icon: BarChart3, color: 'purple' },
-  triggers: { label: 'Triggers', icon: Heart, color: 'red' },
-  proof: { label: 'Proof', icon: Award, color: 'blue' },
-  trends: { label: 'Trends', icon: TrendingUp, color: 'green' },
-  gaps: { label: 'Gaps', icon: Target, color: 'orange' }
+const MAIN_FILTER_CONFIG: Record<MainFilter, { label: string; icon: React.ElementType; color: string }> = {
+  all: { label: 'All Trends', icon: BarChart3, color: 'purple' },
+  content_ready: { label: 'Suggested', icon: CheckCircle2, color: 'green' }
 };
 
-const SOURCE_FILTER_CONFIG: Record<TrendSourceFilter, { label: string; icon: React.ElementType }> = {
-  all: { label: 'All Sources', icon: Globe },
-  serper: { label: 'Search Trends', icon: Search },
-  youtube: { label: 'YouTube', icon: Youtube },
-  reddit: { label: 'Reddit', icon: MessageSquare },
-  perplexity: { label: 'AI Insights', icon: Sparkles },
-  news: { label: 'News', icon: Newspaper }
+const INTENT_FILTER_CONFIG: Record<IntentFilter, { label: string; icon: React.ElementType; color: string }> = {
+  all: { label: 'All Types', icon: BarChart3, color: 'gray' },
+  use_case: { label: 'Use Cases', icon: Target, color: 'purple' },  // Phase 10
+  product: { label: 'Product', icon: Package, color: 'green' },
+  industry: { label: 'Industry', icon: Building2, color: 'blue' },
+  outcome: { label: 'Outcomes', icon: TrendingUp, color: 'emerald' },  // Phase 10
+  persona: { label: 'Persona', icon: Users, color: 'pink' },  // Phase 10
+  pain_point: { label: 'Pain Points', icon: AlertTriangle, color: 'orange' }
+};
+
+const LIFECYCLE_ICONS: Record<LifecycleStage, React.ElementType> = {
+  emerging: Flame,
+  peak: TrendingUp,
+  stable: RefreshCcw,
+  declining: TrendingDown
+};
+
+const TRIGGER_ICONS: Record<PsychologicalTrigger, React.ElementType> = {
+  fear: AlertTriangle,
+  desire: Heart,
+  trust: Shield,
+  urgency: Clock,
+  curiosity: Lightbulb,
+  social: Users,
+  practical: Target
 };
 
 // ============================================================================
-// TREND CARD COMPONENT
+// TREND CARD COMPONENT - Expandable with Exec Summary, UVP Correlation, Sources
 // ============================================================================
 
-interface TrendCardProps {
-  trend: TrendItem;
+interface TrendCard2Props {
+  trend: TrendWithMatches;
   isSelected: boolean;
+  isExpanded: boolean;
+  isGenerating?: boolean;
   onToggle: () => void;
+  onToggleExpand: () => void;
+  onGenerateContent: () => void;
 }
 
-function TrendCard({ trend, isSelected, onToggle }: TrendCardProps) {
-  const sourceConfig = SOURCE_FILTER_CONFIG[trend.source] || SOURCE_FILTER_CONFIG.all;
-  const SourceIcon = sourceConfig.icon;
+// Using forwardRef for AnimatePresence popLayout compatibility
+const TrendCard2 = React.forwardRef<HTMLDivElement, TrendCard2Props>(function TrendCard2(
+  { trend, isSelected, isExpanded, isGenerating, onToggle, onToggleExpand, onGenerateContent },
+  ref
+) {
+  const [sourcesExpanded, setSourcesExpanded] = useState(false);
+  const [uvpExpanded, setUvpExpanded] = useState(false);
+  const LifecycleIcon = LIFECYCLE_ICONS[trend.lifecycle.stage];
+  const TriggerIcon = TRIGGER_ICONS[trend.primaryTrigger];
+
+  // Build UVP correlation data
+  const uvpCorrelations = useMemo(() => {
+    const correlations: { component: string; icon: string; color: string; reason: string; score: number }[] = [];
+
+    // Get matched keywords for display
+    const matchedKws = trend.relevance.matchedKeywords || [];
+
+    // Check relevance breakdown (dimensions)
+    if (trend.relevance.breakdown) {
+      const dims = trend.relevance.breakdown;
+      if (dims.industry > 0) {
+        correlations.push({
+          component: 'Industry',
+          icon: '🏢',
+          color: 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Matches your industry',
+          score: dims.industry
+        });
+      }
+      if (dims.painPoints > 0) {
+        correlations.push({
+          component: 'Pain Points',
+          icon: '😣',
+          color: 'bg-orange-50 border-orange-200 text-orange-700 dark:bg-orange-900/30 dark:border-orange-700 dark:text-orange-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Addresses pain points',
+          score: dims.painPoints
+        });
+      }
+      if (dims.differentiators > 0) {
+        correlations.push({
+          component: 'Differentiators',
+          icon: '⭐',
+          color: 'bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-900/30 dark:border-purple-700 dark:text-purple-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Relates to your differentiators',
+          score: dims.differentiators
+        });
+      }
+      if (dims.products > 0) {
+        correlations.push({
+          component: 'Products/Services',
+          icon: '📦',
+          color: 'bg-green-50 border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-700 dark:text-green-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Connected to your products',
+          score: dims.products
+        });
+      }
+      if (dims.customerDescriptors > 0) {
+        correlations.push({
+          component: 'Target Customer',
+          icon: '👤',
+          color: 'bg-pink-50 border-pink-200 text-pink-700 dark:bg-pink-900/30 dark:border-pink-700 dark:text-pink-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Relevant to your target customer',
+          score: dims.customerDescriptors
+        });
+      }
+      if (dims.emotionalDrivers > 0) {
+        correlations.push({
+          component: 'Emotional Drivers',
+          icon: '❤️',
+          color: 'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Connects with emotional drivers',
+          score: dims.emotionalDrivers
+        });
+      }
+    }
+
+    return correlations.filter(c => c.score > 0).sort((a, b) => b.score - a.score);
+  }, [trend.relevance.breakdown, trend.relevance.matchedKeywords]);
+
+  // Generate opportunity statement
+  const opportunityStatement = useMemo(() => {
+    const triggerLabel = trend.primaryTrigger.charAt(0).toUpperCase() + trend.primaryTrigger.slice(1);
+
+    if (trend.lifecycle.stage === 'emerging') {
+      return `Early-mover opportunity: Position your brand as a thought leader on this emerging trend. Use ${triggerLabel.toLowerCase()} messaging to connect with prospects actively exploring this space.`;
+    } else if (trend.lifecycle.stage === 'peak') {
+      return `High-visibility opportunity: This trend is at peak attention. Create timely content to capture traffic and establish authority during this window of maximum engagement.`;
+    } else if (trend.lifecycle.stage === 'stable') {
+      return `Evergreen opportunity: Build foundational content around this stable trend for long-term SEO value and consistent lead generation.`;
+    } else {
+      return `Strategic opportunity: Counter-position against this declining trend by highlighting your differentiated approach and superior alternative.`;
+    }
+  }, [trend.lifecycle.stage, trend.primaryTrigger]);
 
   return (
     <motion.div
+      ref={ref}
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      onClick={onToggle}
-      className={`p-4 rounded-xl border cursor-pointer transition-all ${
+      className={`rounded-xl border-2 overflow-hidden transition-all ${
+        isExpanded ? 'col-span-full' : ''
+      } ${
         isSelected
-          ? 'border-green-500 bg-green-50 dark:bg-green-900/20 shadow-md'
-          : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-green-300 hover:shadow-sm'
+          ? 'border-green-500 bg-green-50 dark:bg-green-900/20 shadow-lg ring-2 ring-green-500/50'
+          : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-green-300 hover:shadow-md'
       }`}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex items-center gap-2">
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-            trend.source === 'youtube' ? 'bg-red-100 text-red-600' :
-            trend.source === 'reddit' ? 'bg-orange-100 text-orange-600' :
-            trend.source === 'perplexity' ? 'bg-purple-100 text-purple-600' :
-            trend.source === 'news' ? 'bg-blue-100 text-blue-600' :
-            'bg-green-100 text-green-600'
-          }`}>
-            <SourceIcon className="w-4 h-4" />
+      {/* Header Row */}
+      <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+        <div className="flex items-center justify-between">
+          {/* Left: Lifecycle + Trigger */}
+          <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium ${
+              trend.lifecycle.stage === 'emerging' ? 'bg-orange-100 text-orange-700' :
+              trend.lifecycle.stage === 'peak' ? 'bg-green-100 text-green-700' :
+              trend.lifecycle.stage === 'stable' ? 'bg-blue-100 text-blue-700' :
+              'bg-gray-100 text-gray-600'
+            }`}>
+              <LifecycleIcon className="w-3 h-3" />
+              {trend.lifecycle.stageLabel}
+              {trend.lifecycle.isFirstMover && (
+                <span className="ml-1 px-1 bg-yellow-200 text-yellow-800 rounded text-[10px]">1st</span>
+              )}
+            </div>
+
+            <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
+              trend.primaryTrigger === 'fear' ? 'bg-red-100 text-red-600' :
+              trend.primaryTrigger === 'desire' ? 'bg-pink-100 text-pink-600' :
+              trend.primaryTrigger === 'trust' ? 'bg-blue-100 text-blue-600' :
+              trend.primaryTrigger === 'urgency' ? 'bg-orange-100 text-orange-600' :
+              trend.primaryTrigger === 'curiosity' ? 'bg-purple-100 text-purple-600' :
+              trend.primaryTrigger === 'social' ? 'bg-green-100 text-green-600' :
+              'bg-gray-100 text-gray-600'
+            }`}>
+              <TriggerIcon className="w-3 h-3" />
+              {trend.primaryTrigger}
+            </div>
           </div>
-          <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-            {sourceConfig.label}
-          </span>
+
+          {/* Right: Expand button only */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggleExpand(); }}
+              className="p-1.5 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-colors"
+            >
+              <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
         </div>
-        {trend.relevanceScore > 0 && (
-          <span className={`px-2 py-0.5 text-xs font-medium rounded ${
-            trend.relevanceScore >= 80 ? 'bg-green-100 text-green-700' :
-            trend.relevanceScore >= 60 ? 'bg-yellow-100 text-yellow-700' :
-            'bg-gray-100 text-gray-600'
-          }`}>
-            {trend.relevanceScore}% relevant
-          </span>
+      </div>
+
+      {/* Collapsed Content - Title and Description */}
+      <div className="p-4 cursor-pointer" onClick={onToggle}>
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+          {trend.title}
+        </h4>
+        {!isExpanded && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+            {trend.description}
+          </p>
         )}
       </div>
 
-      {/* Title */}
-      <h4 className="font-semibold text-gray-900 dark:text-white mb-1 line-clamp-2">
-        {trend.title}
-      </h4>
-
-      {/* Description */}
-      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-3">
-        {trend.description}
-      </p>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between text-xs text-gray-500">
-        <div className="flex items-center gap-3">
-          {trend.growthRate && (
-            <span className="flex items-center gap-1 text-green-600">
-              <TrendingUp className="w-3 h-3" />
-              +{trend.growthRate}%
-            </span>
-          )}
-          {trend.volume && (
-            <span>{trend.volume.toLocaleString()} searches</span>
-          )}
-          {trend.date && (
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {trend.date}
-            </span>
-          )}
-        </div>
-        {trend.sourceUrl && (
-          <a
-            href={trend.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-1 text-blue-500 hover:text-blue-700"
+      {/* Expanded Content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="border-t border-gray-200 dark:border-slate-700"
           >
-            <ExternalLink className="w-3 h-3" />
-            Source
-          </a>
+            <div className="p-4 space-y-4">
+              {/* Executive Summary */}
+              <div className={`p-4 rounded-lg border ${
+                trend.lifecycle.stage === 'emerging' ? 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800' :
+                trend.lifecycle.stage === 'peak' ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' :
+                trend.lifecycle.stage === 'stable' ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' :
+                'bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-800'
+              }`}>
+                <h5 className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  Executive Summary
+                </h5>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                  {trend.description}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                  {trend.whyThisMatters}
+                </p>
+              </div>
+
+              {/* Opportunity */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800">
+                <h5 className="text-xs font-bold text-green-700 dark:text-green-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5" />
+                  Opportunity
+                </h5>
+                <p className="text-sm text-green-800 dark:text-green-200 leading-relaxed">
+                  {opportunityStatement}
+                </p>
+                {trend.bestMatch && (
+                  <div className="mt-3 pt-3 border-t border-green-200 dark:border-green-700">
+                    <p className="text-xs font-medium text-green-600 dark:text-green-400 mb-1">💡 Suggested Hook:</p>
+                    <p className="text-sm font-medium text-green-900 dark:text-green-100 italic">
+                      "{trend.bestMatch.suggestedHook}"
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* UVP Correlation - Collapsible */}
+              <div className="rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setUvpExpanded(!uvpExpanded); }}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                    <Target className="w-4 h-4 text-purple-500" />
+                    UVP Correlation ({uvpCorrelations.length} matches)
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${uvpExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {uvpExpanded && (
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: 'auto' }}
+                      exit={{ height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-3 space-y-2 bg-gray-50 dark:bg-slate-800/30">
+                        {uvpCorrelations.length > 0 ? (
+                          uvpCorrelations.map((corr, idx) => (
+                            <div key={idx} className={`p-3 rounded-lg border ${corr.color}`}>
+                              <div className="flex items-start gap-2">
+                                <span className="text-lg">{corr.icon}</span>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-sm font-semibold">{corr.component}</span>
+                                    <span className="px-2 py-0.5 text-xs bg-white/70 dark:bg-slate-700 rounded-full">
+                                      {corr.score}% match
+                                    </span>
+                                  </div>
+                                  <p className="text-sm opacity-90">{corr.reason}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                            No strong UVP correlations detected. Consider reviewing if this trend is relevant to your brand.
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Sources - Collapsible */}
+              <div className="rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setSourcesExpanded(!sourcesExpanded); }}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                    <LinkIcon className="w-4 h-4 text-blue-500" />
+                    Sources ({trend.sources.length})
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${sourcesExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {sourcesExpanded && (
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: 'auto' }}
+                      exit={{ height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-3 space-y-2 bg-gray-50 dark:bg-slate-800/30">
+                        {trend.sources.map((source, idx) => (
+                          <div key={idx} className="p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
+                            <div className="flex items-start gap-3">
+                              <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                                source.source === 'serper' ? 'bg-green-100 text-green-600' :
+                                source.source === 'youtube' ? 'bg-red-100 text-red-600' :
+                                source.source === 'reddit' ? 'bg-orange-100 text-orange-600' :
+                                source.source === 'perplexity' ? 'bg-purple-100 text-purple-600' :
+                                source.source === 'news' ? 'bg-blue-100 text-blue-600' :
+                                source.source === 'linkedin' ? 'bg-sky-100 text-sky-600' :
+                                'bg-gray-100 text-gray-600'
+                              }`}>
+                                {source.source === 'youtube' ? <Youtube className="w-4 h-4" /> :
+                                 source.source === 'reddit' ? <MessageSquare className="w-4 h-4" /> :
+                                 source.source === 'serper' ? <Search className="w-4 h-4" /> :
+                                 source.source === 'perplexity' ? <Brain className="w-4 h-4" /> :
+                                 <Newspaper className="w-4 h-4" />}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-xs font-medium text-gray-500 uppercase">{source.source}</span>
+                                  {(source as { contribution?: number }).contribution && (
+                                    <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-slate-700 rounded">
+                                      {Math.round((source as { contribution?: number }).contribution! * 100)}% contribution
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
+                                  {source.title || trend.title}
+                                </p>
+                                {source.url && (
+                                  <a
+                                    href={source.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 mt-1"
+                                  >
+                                    <ExternalLink className="w-3 h-3" />
+                                    View Source
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center justify-end gap-2 pt-2">
+                {trend.isContentReady && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onGenerateContent(); }}
+                    disabled={isGenerating}
+                    className={`flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg shadow-sm ${
+                      isGenerating
+                        ? 'bg-gray-400 cursor-wait'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
+                    }`}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-4 h-4" />
+                        Generate Content
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+
+      {/* Collapsed Footer - Only shown when not expanded */}
+      {!isExpanded && (
+        <div className="px-4 py-3 border-t border-gray-100 dark:border-slate-700 bg-gray-50/30 dark:bg-slate-800/30">
+          <div className="flex items-center justify-between">
+            {/* Sources preview */}
+            <div className="flex items-center gap-1">
+              {trend.sources.slice(0, 3).map((source, idx) => (
+                <span
+                  key={idx}
+                  className={`w-6 h-6 rounded flex items-center justify-center text-xs ${
+                    source.source === 'serper' ? 'bg-green-100 text-green-600' :
+                    source.source === 'youtube' ? 'bg-red-100 text-red-600' :
+                    source.source === 'reddit' ? 'bg-orange-100 text-orange-600' :
+                    source.source === 'perplexity' ? 'bg-purple-100 text-purple-600' :
+                    'bg-blue-100 text-blue-600'
+                  }`}
+                  title={source.source}
+                >
+                  {source.source === 'youtube' ? <Youtube className="w-3 h-3" /> :
+                   source.source === 'reddit' ? <MessageSquare className="w-3 h-3" /> :
+                   source.source === 'serper' ? <Search className="w-3 h-3" /> :
+                   source.source === 'perplexity' ? <Brain className="w-3 h-3" /> :
+                   <Newspaper className="w-3 h-3" />}
+                </span>
+              ))}
+              {trend.sources.length > 3 && (
+                <span className="text-xs text-gray-500">+{trend.sources.length - 3}</span>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {trend.isContentReady && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onGenerateContent(); }}
+                  disabled={isGenerating}
+                  className={`flex items-center gap-1 px-3 py-1.5 text-white text-xs font-medium rounded-lg shadow-sm ${
+                    isGenerating
+                      ? 'bg-gray-400 cursor-wait'
+                      : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
+                  }`}
+                >
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-3 h-3" />
+                      Generate
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
+  );
+});
+
+// ============================================================================
+// STATS PANEL COMPONENT
+// ============================================================================
+
+interface StatsPanelProps {
+  stats: ReturnType<typeof useStreamingTrends>['result'] extends { stats: infer S } ? S : never;
+  category: BusinessCategory;
+  apisUsed?: string[];
+}
+
+function StatsPanel({ stats, category, apisUsed = [] }: StatsPanelProps) {
+  if (!stats) return null;
+
+  const categoryConfig = CATEGORY_CONFIGS[category];
+
+  // API source icons/colors
+  const API_DISPLAY: Record<string, { label: string; color: string }> = {
+    serper_search: { label: 'Search', color: 'bg-green-100 text-green-700' },
+    serper_news: { label: 'News', color: 'bg-blue-100 text-blue-700' },
+    serper_autocomplete: { label: 'Related', color: 'bg-cyan-100 text-cyan-700' },
+    serper_places: { label: 'Places', color: 'bg-amber-100 text-amber-700' },
+    serper_shopping: { label: 'Shopping', color: 'bg-pink-100 text-pink-700' },
+    serper_trends: { label: 'Trends', color: 'bg-indigo-100 text-indigo-700' },
+    youtube: { label: 'YouTube', color: 'bg-red-100 text-red-700' },
+    reddit: { label: 'Reddit', color: 'bg-orange-100 text-orange-700' },
+    perplexity: { label: 'AI', color: 'bg-purple-100 text-purple-700' },
+    weather: { label: 'Weather', color: 'bg-sky-100 text-sky-700' },
+    linkedin_search: { label: 'LinkedIn', color: 'bg-blue-100 text-blue-700' },
+    semrush: { label: 'SEO', color: 'bg-emerald-100 text-emerald-700' },
+    mock: { label: 'Mock', color: 'bg-gray-100 text-gray-700' }
+  };
+
+  return (
+    <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Pipeline Stats</h3>
+
+      {/* Category */}
+      <div className="mb-4 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+        <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">Detected Category</p>
+        <p className="text-sm font-semibold text-purple-900 dark:text-purple-100">{categoryConfig.label}</p>
+      </div>
+
+      {/* APIs Used */}
+      {apisUsed.length > 0 && (
+        <div className="mb-4">
+          <p className="text-xs font-medium text-gray-500 mb-2">APIs Called ({apisUsed.length})</p>
+          <div className="flex flex-wrap gap-1">
+            {apisUsed.map((api) => {
+              const display = API_DISPLAY[api] || { label: api, color: 'bg-gray-100 text-gray-700' };
+              return (
+                <span
+                  key={api}
+                  className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${display.color}`}
+                >
+                  {display.label}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Funnel */}
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-500">Raw Fetched</span>
+          <span className="font-medium">{stats.rawCount}</span>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-500">Multi-Source Validated</span>
+          <span className="font-medium text-blue-600">{stats.validatedCount}</span>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-500">Brand Relevant</span>
+          <span className="font-medium text-green-600">{stats.relevantCount}</span>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-500">Content Ready</span>
+          <span className="font-medium text-emerald-600">{stats.contentReadyCount}</span>
+        </div>
+      </div>
+
+      {/* Lifecycle Breakdown */}
+      <div className="mb-4">
+        <p className="text-xs font-medium text-gray-500 mb-2">Lifecycle</p>
+        <div className="grid grid-cols-2 gap-2">
+          {Object.entries(stats.lifecycleBreakdown).map(([stage, count]) => {
+            const Icon = LIFECYCLE_ICONS[stage as LifecycleStage];
+            return (
+              <div key={stage} className="flex items-center gap-1.5 text-xs">
+                <Icon className="w-3 h-3 text-gray-400" />
+                <span className="text-gray-600 capitalize">{stage}</span>
+                <span className="font-medium ml-auto">{count as number}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Scores */}
+      <div className="pt-3 border-t border-gray-100 dark:border-slate-700">
+        <div className="flex items-center justify-between text-sm mb-1">
+          <span className="text-gray-500">Avg Relevance</span>
+          <span className="font-medium">{stats.avgRelevance}%</span>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-500">Avg Validation</span>
+          <span className="font-medium">{stats.avgValidation}%</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -246,21 +673,35 @@ function TrendCard({ trend, isSelected, onToggle }: TrendCardProps) {
 
 export function TrendsDevPage() {
   const { currentBrand } = useBrand();
-  const [selectedTrends, setSelectedTrends] = useState<string[]>([]);
   const [uvp, setUvp] = useState<CompleteUVP | null>(null);
   const [uvpLoading, setUvpLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState<FilterType>('trends');
-  const [sourceFilter, setSourceFilter] = useState<TrendSourceFilter>('all');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [selectedTrends, setSelectedTrends] = useState<string[]>([]);
 
-  // Loading state
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingStatus, setLoadingStatus] = useState('');
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  // Content generation state
+  const [generatingContent, setGeneratingContent] = useState<string | null>(null);
+  const [generatedContent, setGeneratedContent] = useState<GeneratedTrendContent | null>(null);
+  const [showContentModal, setShowContentModal] = useState(false);
 
-  // Cached data
-  const [trendsCache, setTrendsCache] = useState<TrendsCache | null>(() => loadCachedTrends());
-  const [cachedContext, setCachedContext] = useState<DeepContext | null>(() => loadCachedContext());
+  // Expanded trends tracking
+  const [expandedTrends, setExpandedTrends] = useState<Set<string>>(new Set());
+
+  // Filters
+  const [mainFilter, setMainFilter] = useState<MainFilter>('all');
+  const [lifecycleFilter, setLifecycleFilter] = useState<LifecycleFilter>('all');
+  const [intentFilter, setIntentFilter] = useState<IntentFilter>('all');
+
+  // Use Trends 2.0 hook
+  const {
+    state,
+    result,
+    hasCachedData,
+    executePipeline,
+    clearCache,
+    isLoading,
+    isComplete,
+    hasError
+  } = useStreamingTrends(); // Real API calls
 
   // Load UVP from database
   useEffect(() => {
@@ -274,7 +715,13 @@ export function TrendsDevPage() {
         const uvpData = await getUVPByBrand(currentBrand.id);
         if (uvpData) {
           setUvp(uvpData);
-          console.log('[TrendsDevPage] Loaded UVP from database');
+          console.log('[TrendsDevPage] Loaded UVP from database:', {
+            id: uvpData.id,
+            hasProducts: !!uvpData.productsServices?.categories?.length,
+            categories: uvpData.productsServices?.categories?.map(c => c.name) || [],
+            targetCustomerIndustry: uvpData.targetCustomer?.industry,
+            uniqueSolutionStatement: uvpData.uniqueSolution?.statement?.substring(0, 100)
+          });
         }
       } catch (err) {
         console.error('[TrendsDevPage] Failed to load UVP:', err);
@@ -288,227 +735,125 @@ export function TrendsDevPage() {
 
   // Derived state
   const brandName = currentBrand?.name || 'Brand';
-  const industry = uvp?.targetCustomer?.industry || currentBrand?.naicsCode || 'Technology';
-  const hasCachedData = trendsCache && trendsCache.trends.length > 0;
-  const dataStatus = hasCachedData ? 'cached' : 'empty';
 
-  // Filter trends by source
-  const filteredTrends = useMemo(() => {
-    if (!trendsCache?.trends) return [];
-    if (sourceFilter === 'all') return trendsCache.trends;
-    return trendsCache.trends.filter(t => t.source === sourceFilter);
-  }, [trendsCache, sourceFilter]);
+  // Filter trends
+  const filteredTrends = React.useMemo(() => {
+    if (!result?.trends) return [];
 
-  // Source counts
-  const sourceCounts = useMemo(() => {
-    if (!trendsCache?.trends) return { all: 0, serper: 0, youtube: 0, reddit: 0, perplexity: 0, news: 0 };
+    let filtered = [...result.trends];
+
+    // Main filter
+    if (mainFilter === 'content_ready') {
+      filtered = filtered.filter(t => t.isContentReady);
+    }
+
+    // Phase 9: Removed lifecycle filter (stage filters removed from UI)
+
+    // Intent filter (Phase 10: Expanded to include use_case, outcome, persona)
+    if (intentFilter !== 'all') {
+      if (intentFilter === 'industry') {
+        // Industry includes both 'industry' and 'trend' queryIntent
+        filtered = filtered.filter(t => t.queryIntent === 'industry' || t.queryIntent === 'trend');
+      } else {
+        filtered = filtered.filter(t => t.queryIntent === intentFilter);
+      }
+    }
+
+    return filtered;
+  }, [result, mainFilter, intentFilter]);
+
+  // Get intent counts for filter badges (Phase 10: Added use_case, outcome, persona)
+  const intentCounts = React.useMemo(() => {
+    if (!result?.trends) return { all: 0, product: 0, industry: 0, pain_point: 0, use_case: 0, outcome: 0, persona: 0 };
+
     return {
-      all: trendsCache.trends.length,
-      serper: trendsCache.trends.filter(t => t.source === 'serper').length,
-      youtube: trendsCache.trends.filter(t => t.source === 'youtube').length,
-      reddit: trendsCache.trends.filter(t => t.source === 'reddit').length,
-      perplexity: trendsCache.trends.filter(t => t.source === 'perplexity').length,
-      news: trendsCache.trends.filter(t => t.source === 'news').length
+      all: result.trends.length,
+      use_case: result.trends.filter(t => t.queryIntent === 'use_case').length,
+      product: result.trends.filter(t => t.queryIntent === 'product').length,
+      industry: result.trends.filter(t => t.queryIntent === 'industry' || t.queryIntent === 'trend').length, // Include 'trend' as industry
+      outcome: result.trends.filter(t => t.queryIntent === 'outcome').length,
+      persona: result.trends.filter(t => t.queryIntent === 'persona').length,
+      pain_point: result.trends.filter(t => t.queryIntent === 'pain_point').length
     };
-  }, [trendsCache]);
+  }, [result?.trends]);
 
-  // ============================================================================
-  // FETCH TRENDS - Manual API calls
-  // ============================================================================
-
+  // Handlers
   const handleFetchTrends = useCallback(async () => {
-    if (!currentBrand?.id) {
-      alert('No brand selected. Please complete onboarding first.');
+    if (!uvp) {
+      alert('No UVP data available. Please complete onboarding first.');
       return;
     }
 
-    setIsLoading(true);
-    setLoadingProgress(0);
-    const allTrends: TrendItem[] = [];
+    // Debug: Log UVP data being used for the scan
+    console.log('[TrendsDevPage] Starting scan with UVP:', {
+      hasProducts: !!uvp.productsServices?.categories?.length,
+      productCount: uvp.productsServices?.categories?.reduce((acc, cat) => acc + cat.items.length, 0) || 0,
+      hasTargetCustomer: !!uvp.targetCustomer,
+      hasTransformationGoal: !!uvp.transformationGoal,
+      hasUniqueSolution: !!uvp.uniqueSolution,
+      hasKeyBenefit: !!uvp.keyBenefit,
+      valueProposition: uvp.valuePropositionStatement?.substring(0, 100)
+    });
 
-    try {
-      // 1. Serper Search Trends (20%)
-      setLoadingStatus('Fetching search trends...');
-      setLoadingProgress(10);
-      try {
-        const searchQuery = `${industry} trends 2024`;
-        const searchResults = await SerperAPI.searchGoogle(searchQuery);
-
-        if (searchResults && searchResults.length > 0) {
-          const serperTrends: TrendItem[] = searchResults.slice(0, 10).map((result, idx) => ({
-            id: `serper-${Date.now()}-${idx}`,
-            title: result.title || 'Search Trend',
-            description: result.snippet || '',
-            source: 'serper' as const,
-            sourceUrl: result.link,
-            relevanceScore: Math.max(60, 100 - idx * 5),
-            date: new Date().toLocaleDateString()
-          }));
-          allTrends.push(...serperTrends);
-          console.log('[TrendsDevPage] Serper trends:', serperTrends.length);
-        }
-      } catch (err) {
-        console.warn('[TrendsDevPage] Serper search failed:', err);
-      }
-
-      // 2. Serper News (40%)
-      setLoadingStatus('Fetching news trends...');
-      setLoadingProgress(30);
-      try {
-        const newsQuery = `${industry} latest news trends`;
-        const newsResults = await SerperAPI.getNews(newsQuery);
-
-        if (newsResults && newsResults.length > 0) {
-          const newsTrends: TrendItem[] = newsResults.slice(0, 10).map((result, idx) => ({
-            id: `news-${Date.now()}-${idx}`,
-            title: result.title || 'News Trend',
-            description: result.snippet || '',
-            source: 'news' as const,
-            sourceUrl: result.link,
-            relevanceScore: Math.max(65, 100 - idx * 4),
-            date: result.date || new Date().toLocaleDateString()
-          }));
-          allTrends.push(...newsTrends);
-          console.log('[TrendsDevPage] News trends:', newsTrends.length);
-        }
-      } catch (err) {
-        console.warn('[TrendsDevPage] News search failed:', err);
-      }
-
-      // 3. YouTube Video Trends (60%)
-      setLoadingStatus('Fetching YouTube trends...');
-      setLoadingProgress(50);
-      try {
-        const ytQuery = `${industry} trends`;
-        const ytResults = await YouTubeAPI.searchVideos([ytQuery]);
-
-        if (ytResults && ytResults.length > 0) {
-          const ytTrends: TrendItem[] = ytResults.slice(0, 8).map((video, idx) => ({
-            id: `youtube-${Date.now()}-${idx}`,
-            title: video.title || 'YouTube Trend',
-            description: video.description || `Video about ${industry} trends`,
-            source: 'youtube' as const,
-            sourceUrl: `https://youtube.com/watch?v=${video.id}`,
-            relevanceScore: Math.max(60, 95 - idx * 5),
-            volume: video.viewCount,
-            date: video.publishedAt || new Date().toLocaleDateString()
-          }));
-          allTrends.push(...ytTrends);
-          console.log('[TrendsDevPage] YouTube trends:', ytTrends.length);
-        }
-      } catch (err) {
-        console.warn('[TrendsDevPage] YouTube search failed:', err);
-      }
-
-      // 4. Reddit Discussions (80%)
-      setLoadingStatus('Fetching Reddit discussions...');
-      setLoadingProgress(70);
-      try {
-        const redditQuery = `${industry} trends`;
-        const redditResults = await redditAPI.mineIntelligence(redditQuery, { limit: 10 });
-
-        if (redditResults && redditResults.insights && redditResults.insights.length > 0) {
-          const redditTrends: TrendItem[] = redditResults.insights.slice(0, 8).map((insight, idx) => ({
-            id: `reddit-${Date.now()}-${idx}`,
-            title: insight.painPoint || insight.desire || 'Reddit Discussion',
-            description: insight.context?.substring(0, 200) || `Discussion about ${industry}`,
-            source: 'reddit' as const,
-            sourceUrl: insight.url,
-            relevanceScore: Math.max(55, 90 - idx * 5),
-            volume: insight.upvotes,
-            date: new Date().toLocaleDateString()
-          }));
-          allTrends.push(...redditTrends);
-          console.log('[TrendsDevPage] Reddit trends:', redditTrends.length);
-        }
-      } catch (err) {
-        console.warn('[TrendsDevPage] Reddit search failed:', err);
-      }
-
-      // 5. Perplexity AI Insights (100%)
-      setLoadingStatus('Generating AI insights...');
-      setLoadingProgress(85);
-      try {
-        const aiQuery = `What are the top 5 emerging trends in ${industry} that businesses should know about in 2024? Include specific data points.`;
-        const aiResult = await perplexityAPI.getIndustryInsights({
-          query: aiQuery,
-          context: { industry },
-          max_results: 5
-        });
-
-        if (aiResult && aiResult.insights && aiResult.insights.length > 0) {
-          const aiTrends: TrendItem[] = aiResult.insights.slice(0, 5).map((insight, idx) => ({
-            id: `perplexity-${Date.now()}-${idx}`,
-            title: insight.substring(0, 100).replace(/^\d+\.\s*/, '').trim(),
-            description: insight.length > 100 ? insight.substring(100) : `AI-identified trend in ${industry}`,
-            source: 'perplexity' as const,
-            relevanceScore: Math.max(70, 95 - idx * 5),
-            date: new Date().toLocaleDateString()
-          }));
-          allTrends.push(...aiTrends);
-          console.log('[TrendsDevPage] Perplexity trends:', aiTrends.length);
-        }
-      } catch (err) {
-        console.warn('[TrendsDevPage] Perplexity failed:', err);
-      }
-
-      // Sort by relevance
-      allTrends.sort((a, b) => b.relevanceScore - a.relevanceScore);
-
-      // Save to cache
-      const cache: TrendsCache = {
-        trends: allTrends,
-        fetchedAt: new Date().toISOString(),
-        brandName,
-        industry
-      };
-      saveCachedTrends(cache);
-      setTrendsCache(cache);
-
-      setLoadingStatus('Complete!');
-      setLoadingProgress(100);
-      console.log('[TrendsDevPage] Total trends fetched:', allTrends.length);
-
-    } catch (err) {
-      console.error('[TrendsDevPage] Fetch failed:', err);
-      setLoadingStatus('Error fetching trends');
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-        setLoadingStatus('');
-        setLoadingProgress(0);
-      }, 500);
+    // Log product names for debugging
+    if (uvp.productsServices?.categories) {
+      const productNames: string[] = [];
+      uvp.productsServices.categories.forEach(cat => {
+        productNames.push(`[${cat.name}]`);
+        cat.items.forEach(item => productNames.push(item.name));
+      });
+      console.log('[TrendsDevPage] Products in UVP:', productNames);
     }
-  }, [currentBrand, brandName, industry]);
 
-  // ============================================================================
-  // CLEAR CACHE
-  // ============================================================================
+    await executePipeline(uvp);
+  }, [uvp, executePipeline]);
 
-  const handleClearCache = useCallback(() => {
-    console.log('[TrendsDevPage] Clearing cache...');
-    localStorage.removeItem(TRENDS_DEV_CACHE_KEY);
-    localStorage.removeItem(TRENDS_DEV_CONTEXT_KEY);
-    setTrendsCache(null);
-    setCachedContext(null);
-    setSelectedTrends([]);
-    console.log('[TrendsDevPage] Cache cleared');
-  }, []);
-
-  // Toggle trend selection
   const handleToggle = useCallback((id: string) => {
     setSelectedTrends(prev =>
       prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
     );
   }, []);
 
-  // Status config
-  const statusConfig = {
-    loading: { color: 'bg-gray-100 text-gray-700' },
-    cached: { color: 'bg-green-100 text-green-700' },
-    fresh: { color: 'bg-blue-100 text-blue-700' },
-    empty: { color: 'bg-gray-100 text-gray-500' }
-  };
+  const handleToggleExpand = useCallback((id: string) => {
+    setExpandedTrends(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  }, []);
+
+  const handleGenerateContent = useCallback(async (trend: TrendWithMatches) => {
+    if (!uvp) {
+      alert('UVP data required for content generation');
+      return;
+    }
+
+    console.log('[TrendsDevPage] Generate content for:', trend.title);
+    setGeneratingContent(trend.id);
+    setGeneratedContent(null);
+
+    try {
+      const content = await TrendContentGenerator.generate({
+        trend,
+        uvp,
+        platform: 'linkedin', // Default to LinkedIn
+        tone: 'professional'
+      });
+
+      console.log('[TrendsDevPage] Content generated:', content);
+      setGeneratedContent(content);
+      setShowContentModal(true);
+    } catch (err) {
+      console.error('[TrendsDevPage] Content generation failed:', err);
+      alert(`Content generation failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setGeneratingContent(null);
+    }
+  }, [uvp]);
 
   return (
     <div className="h-screen flex flex-col bg-gray-100 dark:bg-slate-900">
@@ -518,22 +863,23 @@ export function TrendsDevPage() {
           {/* Left: Title & Status */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/25">
+                <TrendingUp className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-900 dark:text-white">Trends 2.0</h1>
+                <h1 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  Trends 2.0
+                  <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-green-100 text-green-700 rounded">NEW</span>
+                </h1>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {uvpLoading ? (
-                    <span className="text-yellow-600">Loading UVP...</span>
-                  ) : !uvp ? (
-                    <span className="text-red-600">No UVP found</span>
-                  ) : isLoading ? (
-                    <span className="text-green-600">Loading... {loadingProgress}%</span>
+                  {isLoading ? (
+                    <span className="text-green-600">{state.statusMessage}</span>
                   ) : hasCachedData ? (
-                    <span className="text-green-600">{trendsCache.trends.length} trends loaded</span>
+                    <span className="text-green-600">
+                      {result?.trends.length} trends · {result?.stats.contentReadyCount} content-ready
+                    </span>
                   ) : (
-                    <span>Click "Fetch Trends" to load</span>
+                    <span>UVP-informed trend intelligence</span>
                   )}
                 </p>
               </div>
@@ -544,29 +890,29 @@ export function TrendsDevPage() {
             <div className="flex items-center gap-3 text-sm">
               <span className="text-gray-500">Brand:</span>
               <span className="font-medium text-gray-900 dark:text-white">{brandName}</span>
-              <span className={`px-2 py-0.5 text-xs rounded ${statusConfig[dataStatus].color}`}>
-                {dataStatus === 'cached' ? 'Cached' : 'No Data'}
-              </span>
+              {result?.category && (
+                <span className="px-2 py-0.5 text-xs rounded bg-purple-100 text-purple-700">
+                  {CATEGORY_CONFIGS[result.category].label}
+                </span>
+              )}
             </div>
           </div>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
-            {/* Clear Cache button */}
             {hasCachedData && (
               <button
-                onClick={handleClearCache}
+                onClick={clearCache}
                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-red-100 text-red-700 hover:bg-red-200 rounded-lg font-medium"
               >
                 <Trash2 className="w-4 h-4" />
-                Clear Cache
+                Clear
               </button>
             )}
 
-            {/* Fetch Trends button */}
             <button
               onClick={handleFetchTrends}
-              disabled={isLoading || !currentBrand?.id}
+              disabled={isLoading || !uvp}
               className={`flex items-center gap-1.5 px-4 py-2 text-sm rounded-lg font-semibold transition-all ${
                 isLoading
                   ? 'bg-green-100 text-green-600 cursor-wait'
@@ -576,19 +922,19 @@ export function TrendsDevPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  {loadingStatus}
+                  {state.progress}%
                 </>
               ) : (
                 <>
-                  <Download className="w-4 h-4" />
-                  Fetch Trends
+                  <Sparkles className="w-4 h-4" />
+                  Run Trends 2.0
                 </>
               )}
             </button>
           </div>
         </div>
 
-        {/* Loading Bar */}
+        {/* Progress Bar */}
         {isLoading && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -599,19 +945,19 @@ export function TrendsDevPage() {
               <motion.div
                 className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
                 initial={{ width: 0 }}
-                animate={{ width: `${loadingProgress}%` }}
+                animate={{ width: `${state.progress}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
             <div className="flex items-center justify-between mt-1 text-xs text-gray-500">
-              <span>{loadingStatus}</span>
-              <span>{loadingProgress}%</span>
+              <span>{state.statusMessage}</span>
+              <span>{state.stage}</span>
             </div>
           </motion.div>
         )}
       </div>
 
-      {/* Main Content - Three Column Layout */}
+      {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar - UVP Building Blocks */}
         <AnimatePresence initial={false}>
@@ -628,7 +974,7 @@ export function TrendsDevPage() {
                   {uvp && (
                     <UVPBuildingBlocks
                       uvp={uvp}
-                      deepContext={cachedContext}
+                      deepContext={null}
                       onSelectItem={(item) => {
                         console.log('[TrendsDevPage] UVP item selected:', item);
                       }}
@@ -658,22 +1004,23 @@ export function TrendsDevPage() {
           )}
         </button>
 
-        {/* Middle: Filter Tabs + Content */}
+        {/* Center: Filter Tabs + Trends Grid */}
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          {/* Filter Tabs - Main */}
+          {/* Main Filter Tabs */}
           <div className="flex-shrink-0 px-4 py-3 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
             <div className="flex items-center gap-2">
-              {(Object.keys(FILTER_CONFIG) as FilterType[]).map((filter) => {
-                const config = FILTER_CONFIG[filter];
+              {(Object.keys(MAIN_FILTER_CONFIG) as MainFilter[]).map((filter) => {
+                const config = MAIN_FILTER_CONFIG[filter];
                 const Icon = config.icon;
-                const count = filter === 'trends' ? (trendsCache?.trends.length || 0) : 0;
+                const count = filter === 'all' ? (result?.trends.length || 0) :
+                              filter === 'content_ready' ? (result?.stats.contentReadyCount || 0) : 0;
 
                 return (
                   <button
                     key={filter}
-                    onClick={() => setActiveFilter(filter)}
+                    onClick={() => setMainFilter(filter)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                      activeFilter === filter
+                      mainFilter === filter
                         ? 'bg-green-600 text-white shadow-md'
                         : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-green-100'
                     }`}
@@ -687,26 +1034,33 @@ export function TrendsDevPage() {
             </div>
           </div>
 
-          {/* Source Filter Tabs (when on Trends tab) */}
-          {activeFilter === 'trends' && (
+          {/* Type Filter (Phase 9: Simplified - removed stage filters) */}
+          {result?.trends && result.trends.length > 0 && (
             <div className="flex-shrink-0 px-4 py-2 bg-gray-50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-700">
-              <div className="flex items-center gap-1 overflow-x-auto">
-                {(Object.keys(SOURCE_FILTER_CONFIG) as TrendSourceFilter[]).map((source) => {
-                  const config = SOURCE_FILTER_CONFIG[source];
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-medium text-gray-500 mr-1">Filter by Type:</span>
+                {(Object.keys(INTENT_FILTER_CONFIG) as IntentFilter[]).map((intent) => {
+                  const config = INTENT_FILTER_CONFIG[intent];
                   const Icon = config.icon;
-                  const count = sourceCounts[source];
+                  const count = intentCounts[intent];
 
                   return (
                     <button
-                      key={source}
-                      onClick={() => setSourceFilter(source)}
-                      className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all whitespace-nowrap ${
-                        sourceFilter === source
-                          ? 'bg-green-600 text-white'
-                          : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-green-100'
+                      key={intent}
+                      onClick={() => setIntentFilter(intent)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+                        intentFilter === intent
+                          ? config.color === 'green' ? 'bg-green-600 text-white shadow-md' :
+                            config.color === 'blue' ? 'bg-blue-600 text-white shadow-md' :
+                            config.color === 'orange' ? 'bg-orange-600 text-white shadow-md' :
+                            config.color === 'purple' ? 'bg-purple-600 text-white shadow-md' :
+                            config.color === 'emerald' ? 'bg-emerald-600 text-white shadow-md' :
+                            config.color === 'pink' ? 'bg-pink-600 text-white shadow-md' :
+                            'bg-gray-600 text-white shadow-md'
+                          : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600'
                       }`}
                     >
-                      <Icon className="w-3 h-3" />
+                      <Icon className="w-3.5 h-3.5" />
                       {config.label}
                       <span className="opacity-70">({count})</span>
                     </button>
@@ -718,104 +1072,235 @@ export function TrendsDevPage() {
 
           {/* Content Area */}
           <div className="flex-1 overflow-auto p-4">
-            {activeFilter !== 'trends' ? (
-              <div className="flex flex-col items-center justify-center h-64 bg-white dark:bg-slate-800 rounded-xl">
-                <Zap className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4" />
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {FILTER_CONFIG[activeFilter].label} Tab
-                </h2>
-                <p className="text-sm text-gray-500">
-                  Switch to "Trends" to see Trends 2.0
-                </p>
-              </div>
-            ) : !hasCachedData ? (
+            {!hasCachedData ? (
               <div className="flex flex-col items-center justify-center h-full bg-white dark:bg-slate-800 rounded-xl">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-                  <TrendingUp className="w-8 h-8 text-green-500" />
+                <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-2xl flex items-center justify-center mb-6">
+                  <TrendingUp className="w-10 h-10 text-green-500" />
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  Ready to Load Trends
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  Trends 2.0 Ready
                 </h2>
-                <p className="text-sm text-gray-500 text-center max-w-md mb-4">
-                  Click "Fetch Trends" to load industry trends from search engines, YouTube, Reddit, and AI insights.
+                <p className="text-sm text-gray-500 text-center max-w-md mb-6">
+                  The new UVP-informed pipeline uses your brand data to find highly relevant trends,
+                  validate them across sources, and generate ready-to-use content angles.
                 </p>
+                <div className="flex items-center gap-4 mb-6 text-sm text-gray-500">
+                  <div className="flex items-center gap-1.5">
+                    <Brain className="w-4 h-4" />
+                    UVP-Informed Queries
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Shield className="w-4 h-4" />
+                    Multi-Source Validation
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Zap className="w-4 h-4" />
+                    Content Ready
+                  </div>
+                </div>
                 <button
                   onClick={handleFetchTrends}
-                  disabled={!currentBrand?.id}
-                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 font-medium flex items-center gap-2 shadow-lg"
+                  disabled={!uvp}
+                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 font-semibold flex items-center gap-2 shadow-lg shadow-green-500/25 disabled:opacity-50"
                 >
-                  <Download className="w-5 h-5" />
-                  Fetch Trends
+                  <Sparkles className="w-5 h-5" />
+                  Run Trends 2.0 Pipeline
+                  <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <AnimatePresence mode="popLayout">
                   {filteredTrends.map((trend) => (
-                    <TrendCard
+                    <TrendCard2
                       key={trend.id}
                       trend={trend}
                       isSelected={selectedTrends.includes(trend.id)}
+                      isExpanded={expandedTrends.has(trend.id)}
+                      isGenerating={generatingContent === trend.id}
                       onToggle={() => handleToggle(trend.id)}
+                      onToggleExpand={() => handleToggleExpand(trend.id)}
+                      onGenerateContent={() => handleGenerateContent(trend)}
                     />
                   ))}
                 </AnimatePresence>
+
+                {filteredTrends.length === 0 && (
+                  <div className="col-span-2 flex flex-col items-center justify-center py-12 bg-white dark:bg-slate-800 rounded-xl">
+                    <Target className="w-12 h-12 text-gray-300 mb-4" />
+                    <p className="text-gray-500">No trends match the current filters</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
 
-        {/* Right: Selected Trends Panel */}
-        <div className="w-72 flex-shrink-0 bg-white dark:bg-slate-800 border-l border-gray-200 dark:border-slate-700 p-4 overflow-y-auto">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Selected Trends</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-            Click trends to select for content generation
-          </p>
-
-          {selectedTrends.length === 0 ? (
-            <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-6 text-center">
-              <TrendingUp className="w-8 h-8 text-gray-300 dark:text-gray-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                No trends selected
-              </p>
-            </div>
+        {/* Right: Stats Panel */}
+        <div className="w-72 flex-shrink-0 bg-gray-50 dark:bg-slate-900 border-l border-gray-200 dark:border-slate-700 p-4 overflow-y-auto">
+          {result?.stats ? (
+            <StatsPanel stats={result.stats} category={result.category} apisUsed={result.apisUsed} />
           ) : (
-            <div className="space-y-2">
-              {selectedTrends.map((id) => {
-                const trend = trendsCache?.trends.find(t => t.id === id);
-                return (
-                  <div
-                    key={id}
-                    className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
-                  >
-                    <span className="text-xs text-green-900 dark:text-green-100 truncate flex-1 mr-2">
-                      {trend?.title || id}
-                    </span>
-                    <button
-                      onClick={() => handleToggle(id)}
-                      className="text-green-500 hover:text-green-700 dark:hover:text-green-300"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </button>
-                  </div>
-                );
-              })}
+            <div className="text-center py-12">
+              <BarChart3 className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <p className="text-sm text-gray-500">Run the pipeline to see stats</p>
+            </div>
+          )}
 
-              <button className="w-full mt-4 px-4 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 font-medium transition-all shadow-lg shadow-green-500/25 flex items-center justify-center gap-2">
+          {/* Selected Trends */}
+          {selectedTrends.length > 0 && (
+            <div className="mt-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                Selected ({selectedTrends.length})
+              </h3>
+              <div className="space-y-2 mb-4">
+                {selectedTrends.slice(0, 3).map((id) => {
+                  const trend = result?.trends.find(t => t.id === id);
+                  return (
+                    <div
+                      key={id}
+                      className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg text-xs text-green-800 dark:text-green-200 truncate"
+                    >
+                      {trend?.title || id}
+                    </div>
+                  );
+                })}
+                {selectedTrends.length > 3 && (
+                  <p className="text-xs text-gray-500">+{selectedTrends.length - 3} more</p>
+                )}
+              </div>
+              <button className="w-full px-4 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 font-medium text-sm flex items-center justify-center gap-2">
                 <Zap className="w-4 h-4" />
                 Generate Content
-              </button>
-
-              <button
-                onClick={() => setSelectedTrends([])}
-                className="w-full px-4 py-2 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              >
-                Clear All
               </button>
             </div>
           )}
         </div>
       </div>
+
+      {/* Content Generation Modal */}
+      <AnimatePresence>
+        {showContentModal && generatedContent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+            onClick={() => setShowContentModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden"
+            >
+              {/* Modal Header */}
+              <div className="px-6 py-4 border-b border-gray-200 dark:border-slate-700 bg-gradient-to-r from-green-500 to-emerald-500">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white">Generated Content</h3>
+                      <p className="text-sm text-white/80">{generatedContent.platform} • {generatedContent.contentType}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowContentModal(false)}
+                    className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <ScrollArea className="max-h-[60vh]">
+                <div className="p-6 space-y-4">
+                  {/* Headline */}
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <p className="text-xs font-medium text-green-600 dark:text-green-400 mb-1">Headline</p>
+                    <p className="text-lg font-semibold text-green-900 dark:text-green-100">{generatedContent.headline}</p>
+                  </div>
+
+                  {/* Content */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-500 mb-2">Content</p>
+                    <div className="p-4 bg-gray-50 dark:bg-slate-700 rounded-xl whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200">
+                      {generatedContent.content}
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-500 mb-2">Call to Action</p>
+                    <p className="text-sm font-medium text-blue-600 dark:text-blue-400">{generatedContent.callToAction}</p>
+                  </div>
+
+                  {/* Hashtags */}
+                  {generatedContent.hashtags.length > 0 && (
+                    <div>
+                      <p className="text-xs font-medium text-gray-500 mb-2">Hashtags</p>
+                      <div className="flex flex-wrap gap-1">
+                        {generatedContent.hashtags.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-full"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Source */}
+                  <div className="pt-4 border-t border-gray-200 dark:border-slate-700">
+                    <p className="text-xs text-gray-500">
+                      Based on: {generatedContent.sourceTrend.title} • {generatedContent.sourceTrend.trigger} trigger • {generatedContent.sourceTrend.lifecycle} stage
+                    </p>
+                  </div>
+                </div>
+              </ScrollArea>
+
+              {/* Modal Footer */}
+              <div className="px-6 py-4 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50">
+                <div className="flex items-center justify-between">
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    generatedContent.estimatedEngagement === 'high' ? 'bg-green-100 text-green-700' :
+                    generatedContent.estimatedEngagement === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-gray-100 text-gray-700'
+                  }`}>
+                    Est. engagement: {generatedContent.estimatedEngagement}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `${generatedContent.headline}\n\n${generatedContent.content}\n\n${generatedContent.callToAction}\n\n${generatedContent.hashtags.map(h => `#${h}`).join(' ')}`
+                        );
+                        alert('Content copied to clipboard!');
+                      }}
+                      className="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 font-medium text-sm flex items-center gap-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      Copy
+                    </button>
+                    <button
+                      onClick={() => setShowContentModal(false)}
+                      className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 font-medium text-sm"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

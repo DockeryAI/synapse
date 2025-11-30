@@ -2,11 +2,14 @@
  * Product/Service Type Definitions
  *
  * Defines types for products and services extracted from business websites
+ * Updated: 2025-11-29 - Added BrandProduct for normalized database storage
  */
 
 export type ProductType = 'product' | 'service' | 'hybrid';
 export type ProductTier = 'basic' | 'premium' | 'enterprise' | 'custom';
 export type ProductCategory = 'primary' | 'secondary' | 'addon';
+export type ProductPriority = 'primary' | 'secondary' | 'addon';
+export type ProductSource = 'website' | 'manual' | 'rescan' | 'uvp';
 
 /**
  * Extracted Product/Service
@@ -53,7 +56,7 @@ export interface RawProductExtraction {
 }
 
 /**
- * Database record for business_services table
+ * Database record for business_services table (legacy)
  */
 export interface BusinessService {
   id?: string;
@@ -65,4 +68,50 @@ export interface BusinessService {
   is_featured: boolean;
   created_at?: Date;
   updated_at?: Date;
+}
+
+/**
+ * Brand Product - Normalized database storage
+ * Maps to brand_products table
+ */
+export interface BrandProduct {
+  id: string;
+  brand_id: string;
+  name: string;
+  description?: string;
+  category?: string;
+  product_type?: ProductType;
+  tier?: ProductTier;
+  priority?: ProductPriority;
+  price_range?: string;
+  duration_minutes?: number;
+  features?: string[];
+  source: ProductSource;
+  source_url?: string;
+  source_excerpt?: string;
+  confidence: number;
+  is_confirmed: boolean;
+  created_at: string;
+  updated_at: string;
+  last_scanned_at?: string;
+}
+
+/**
+ * Input for creating/updating a brand product
+ */
+export interface BrandProductInput {
+  name: string;
+  description?: string;
+  category?: string;
+  product_type?: ProductType;
+  tier?: ProductTier;
+  priority?: ProductPriority;
+  price_range?: string;
+  duration_minutes?: number;
+  features?: string[];
+  source?: ProductSource;
+  source_url?: string;
+  source_excerpt?: string;
+  confidence?: number;
+  is_confirmed?: boolean;
 }

@@ -1,0 +1,1680 @@
+{
+  "industry": "Oil Change Service",
+  "industry_name": "Oil Change Service",
+  "naics_code": "811191",
+  "category": "Personal Services",
+  "subcategory": "Automotive Quick Service",
+  "customer_triggers": [
+    {
+      "trigger": "Dashboard oil change indicator illuminates",
+      "urgency": 9,
+      "frequency": "Every 3-6 months"
+    },
+    {
+      "trigger": "Mileage sticker reminder on windshield",
+      "urgency": 7,
+      "frequency": "Every 3,000-7,500 miles"
+    },
+    {
+      "trigger": "Engine making unusual noises",
+      "urgency": 10,
+      "frequency": "Sporadic but critical"
+    },
+    {
+      "trigger": "Planning long road trip",
+      "urgency": 8,
+      "frequency": "2-3 times yearly"
+    },
+    {
+      "trigger": "Vehicle inspection due date approaching",
+      "urgency": 9,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Seasonal maintenance reminder",
+      "urgency": 6,
+      "frequency": "Bi-annual"
+    },
+    {
+      "trigger": "Fleet maintenance schedule",
+      "urgency": 8,
+      "frequency": "Monthly for commercial"
+    },
+    {
+      "trigger": "Manufacturer warranty requirements",
+      "urgency": 10,
+      "frequency": "Per service schedule"
+    },
+    {
+      "trigger": "Oil leak discovered in driveway",
+      "urgency": 10,
+      "frequency": "Emergency basis"
+    },
+    {
+      "trigger": "Pre-purchase inspection for used car",
+      "urgency": 7,
+      "frequency": "Transaction-based"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer notices oil change reminder sticker, dashboard light, or receives manufacturer notification about scheduled maintenance. Research shows 73% of customers become aware through visual cues in their vehicle, while 27% rely on digital reminders or mobile apps. The awareness phase typically lasts 1-2 weeks before action.",
+    "consideration": "Customer evaluates options between dealership service ($89-149), independent shop ($45-75), or quick-lube chain ($35-65). They compare convenience factors like wait time, location proximity within 5 miles, and available appointment slots. Price comparison websites show 68% research online first.",
+    "decision": "Decision hinges on three primary factors: immediate availability (42% same-day service requirement), price point within $20 of expectation (31%), and trust in technician expertise (27%). Customers typically decide within 48 hours of awareness trigger, with 61% choosing based on convenience over price.",
+    "retention": "Successful retention requires consistent service delivery, competitive pricing within 15% of market average, and relationship building through service history tracking. Shops retaining customers for 3+ visits see 47% higher lifetime value. Digital service records and automated reminders increase retention by 34%.",
+    "advocacy": "Customers become advocates after 3-5 positive experiences, particularly when shops catch potential issues early, saving them $500+ in repairs. Word-of-mouth referrals account for 43% of new customers. Online reviews posted within 7 days of service have 3x more impact on local search rankings."
+  },
+  "transformations": [
+    {
+      "from": "Anxious about engine damage",
+      "to": "Confident in vehicle reliability",
+      "emotional_value": "Peace of mind worth $30-50 premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by maintenance complexity",
+      "to": "Empowered with clear service schedule",
+      "emotional_value": "Simplicity and control",
+      "worth_premium": false
+    },
+    {
+      "from": "Worried about being overcharged",
+      "to": "Trusting transparent pricing",
+      "emotional_value": "Financial security",
+      "worth_premium": true
+    },
+    {
+      "from": "Concerned about warranty compliance",
+      "to": "Protected with documented service",
+      "emotional_value": "Legal protection worth $40 extra",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about finding time",
+      "to": "Relaxed with convenient scheduling",
+      "emotional_value": "Time savings worth 25% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain about oil quality",
+      "to": "Assured with premium synthetic options",
+      "emotional_value": "Long-term engine protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Fearful of breakdowns",
+      "to": "Confident in preventive maintenance",
+      "emotional_value": "Reliability assurance",
+      "worth_premium": true
+    },
+    {
+      "from": "Confused by technical jargon",
+      "to": "Informed with clear explanations",
+      "emotional_value": "Educational empowerment",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average ticket increase from $45 to $67",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Customer return rate above 65%",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Service time under 15 minutes",
+      "timeframe": "Per visit",
+      "measurable": true
+    },
+    {
+      "metric": "Upsell conversion rate reaching 42%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Google review rating maintaining 4.6+ stars",
+      "timeframe": "Ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Fleet account acquisition of 3+ vehicles",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Same-day appointment fill rate at 85%",
+      "timeframe": "Daily",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Dashboard warning light creates immediate 24-hour action window with 89% conversion rate",
+    "Pre-trip inspection needs drive same-week bookings with average ticket 40% higher",
+    "Manufacturer warranty compliance deadlines trigger action within 72 hours",
+    "Visible oil leaks or burning smell generate immediate emergency service requests",
+    "State inspection deadlines within 30 days create predictable demand surge of 35%",
+    "Fleet compliance requirements mandate strict adherence to 30-60-90 day intervals",
+    "Seasonal weather changes prompt 28% increase in synthetic oil upgrade requests"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "It's too expensive compared to doing it myself",
+      "response": "DIY costs $35-40 in materials plus 45 minutes of your time, disposal fees, and potential warranty issues. Our $49 service includes 21-point inspection catching issues that save average $780 annually",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I can wait another 1,000 miles",
+      "response": "Modern engines accumulate contaminants that reduce fuel efficiency by 2-4% costing you $8-15 monthly. Delaying increases wear, potentially causing $2,400 in premature engine repairs",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "The dealership says I must use them",
+      "response": "Federal law (Magnuson-Moss Act) prohibits warranty voiding for using certified independent shops. We provide documentation meeting all manufacturer requirements, saving you 45% versus dealership pricing",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "I don't have time to wait",
+      "response": "Our express service completes in 12 minutes, 60% faster than dealerships. Free WiFi, coffee, and workspace means you stay productive. We also offer free local shuttle service",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "How do I know you use quality oil?",
+      "response": "We stock same OEM-specified oils as dealerships, with batch certificates available. Our suppliers include Mobil, Castrol, and Valvoline. Premium synthetic options exceed manufacturer specifications by 20%",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I'm not due for another month",
+      "response": "Schedule now and lock in current pricing before our 8% increase next month. Early service extends engine life by 15-20%, and we'll reset your schedule from today",
+      "effectiveness": 7.4
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or free re-service within 7 days",
+      "Price match guarantee plus 10% difference",
+      "No-leak guarantee for 90 days or free repair",
+      "Free top-offs between changes",
+      "Warranty-compliant service documentation"
+    ],
+    "proof_points": [
+      "ASE certified technicians with 15+ years average experience",
+      "4.7-star average from 2,847 verified reviews",
+      "BBB A+ rating maintained for 12 consecutive years",
+      "Insurance coverage up to $2 million per incident",
+      "OEM-approved parts and fluids exclusively"
+    ],
+    "risk_mitigation": "Multi-point inspection video documentation sent to customer phone, written estimates before any work, no-pressure upsell policy, complimentary second opinions, 24-hour service hotline for concerns"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "overdue",
+      "warning light",
+      "burning smell",
+      "leak",
+      "sluggish",
+      "knocking",
+      "warranty requirement",
+      "failed inspection",
+      "dark oil",
+      "metal shavings"
+    ],
+    "solution_words": [
+      "protection",
+      "peace of mind",
+      "reliable",
+      "certified",
+      "guaranteed",
+      "convenient",
+      "professional",
+      "thorough",
+      "preventive",
+      "trusted"
+    ],
+    "avoid_jargon": [
+      "viscosity index",
+      "tribology",
+      "boundary lubrication",
+      "polyalphaolefin",
+      "zinc dialkyldithiophosphate",
+      "kinematic rating",
+      "pour point depressants",
+      "oxidation inhibitors",
+      "total base number",
+      "NOACK volatility"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "certified",
+    "instant",
+    "professional",
+    "trusted",
+    "expert",
+    "premium",
+    "comprehensive",
+    "authorized",
+    "proven",
+    "exclusive",
+    "priority",
+    "advanced",
+    "genuine",
+    "factory-recommended",
+    "award-winning",
+    "hassle-free",
+    "transparent",
+    "eco-friendly",
+    "high-performance",
+    "military-grade",
+    "laboratory-tested",
+    "warranty-approved",
+    "same-day",
+    "no-appointment",
+    "drive-thru",
+    "express",
+    "complete",
+    "thorough",
+    "preventive"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "basic",
+    "adequate",
+    "sufficient",
+    "generic",
+    "aftermarket",
+    "reconditioned",
+    "used",
+    "experimental",
+    "untested",
+    "risky",
+    "complicated",
+    "time-consuming",
+    "messy",
+    "inconvenient",
+    "questionable",
+    "amateur",
+    "backyard"
+  ],
+  "headline_templates": [
+    {
+      "template": "Warning: Your Oil Change Is [X] Miles Overdue",
+      "expected_ctr": 8.7,
+      "use_case": "Retargeting campaigns"
+    },
+    {
+      "template": "Get $20 Off Synthetic Oil Change - Today Only",
+      "expected_ctr": 7.2,
+      "use_case": "Daily promotions"
+    },
+    {
+      "template": "5-Star Oil Change in 15 Minutes or It's Free",
+      "expected_ctr": 9.1,
+      "use_case": "Service guarantee"
+    },
+    {
+      "template": "Why 73% of [City] Drivers Choose Us Over Dealerships",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Free 27-Point Inspection with Every Oil Change",
+      "expected_ctr": 7.9,
+      "use_case": "Value addition"
+    },
+    {
+      "template": "ASE Certified Technicians | Same Day Service Available",
+      "expected_ctr": 6.3,
+      "use_case": "Credibility"
+    },
+    {
+      "template": "Your Manufacturer Warranty Is Safe With Us",
+      "expected_ctr": 8.4,
+      "use_case": "Objection handling"
+    },
+    {
+      "template": "Oil Change + Tire Rotation: $59 Complete",
+      "expected_ctr": 7.6,
+      "use_case": "Bundle offer"
+    },
+    {
+      "template": "Fleet Pricing: Save 30% on Multiple Vehicles",
+      "expected_ctr": 5.9,
+      "use_case": "B2B targeting"
+    },
+    {
+      "template": "Open Sundays | No Appointment Needed",
+      "expected_ctr": 8.2,
+      "use_case": "Convenience messaging"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your 15-Minute Oil Change Now",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Get Instant $20 Off Coupon",
+      "conversion_rate": 14.7,
+      "placement": "Pop-up"
+    },
+    {
+      "template": "Check Your Service History",
+      "conversion_rate": 8.9,
+      "placement": "Customer portal"
+    },
+    {
+      "template": "Schedule Free Inspection Today",
+      "conversion_rate": 10.2,
+      "placement": "Service page"
+    },
+    {
+      "template": "Join VIP Service Club - Save 25%",
+      "conversion_rate": 7.8,
+      "placement": "Checkout"
+    },
+    {
+      "template": "Text 'OIL' to 55555 for Express Service",
+      "conversion_rate": 11.4,
+      "placement": "Billboard"
+    },
+    {
+      "template": "Reserve Your Spot - 3 Bays Available",
+      "conversion_rate": 13.6,
+      "placement": "Urgency banner"
+    },
+    {
+      "template": "Download $15 Mobile Coupon",
+      "conversion_rate": 15.2,
+      "placement": "Mobile site"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Is your oil change overdue? 3 signs you can't ignore: [visual checklist]. Book your appointment in comments for $10 off!",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before/After: This engine had 15,000 miles on the same oil 😱 Don't let this be you! Swipe for our express service menu →",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "FLASH SALE: Next 10 customers get synthetic upgrade for conventional price! No appointment needed. RT to save a friend 🚗",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a technician finding metal shavings in someone's oil 😬 #CarMaintenance #OilChange #MechanicLife",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Fleet managers: Reduce maintenance costs by 32% with our commercial service program. 50+ company case study in comments.",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "YouTube",
+      "template": "5-Minute Guide: Choosing the Right Oil for Your Vehicle | Plus exclusive subscriber discount code",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors! Saturday special: Free tire rotation with oil change. Supporting [Local School] with $5 from every service 🏫",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Google My Business",
+      "template": "📍 Now Open Sundays! Walk-ins welcome. Fresh coffee while you wait ☕ See what customers say about our 12-minute service →",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "Yelp",
+      "template": "Thank you for 1,000 5-star reviews! Celebrating with 50% off second vehicle oil changes all week. Mention 'YELP1000' when booking.",
+      "engagement_rate": 4.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "12-minute drive-thru oil change with no appointment needed",
+      "rank": 1,
+      "differentiator": "Fastest service time in market by 8 minutes"
+    },
+    {
+      "prop": "Free 27-point digital inspection report sent to your phone",
+      "rank": 2,
+      "differentiator": "Only shop with video documentation"
+    },
+    {
+      "prop": "Lifetime service history tracking with predictive maintenance alerts",
+      "rank": 3,
+      "differentiator": "Proprietary customer portal technology"
+    },
+    {
+      "prop": "100% warranty compliance guarantee with manufacturer documentation",
+      "rank": 4,
+      "differentiator": "Legal protection other shops don't offer"
+    },
+    {
+      "prop": "Same price guarantee for 12 months with membership",
+      "rank": 5,
+      "differentiator": "Price stability in volatile market"
+    },
+    {
+      "prop": "Free local pickup and delivery for fleet accounts",
+      "rank": 6,
+      "differentiator": "Only full-service mobile option"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your vehicle deserves factory-grade protection with our certified technicians and OEM-specified synthetic oils. Our comprehensive service includes digital inspection technology, lifetime service records, and exclusive member benefits that protect your investment while maintaining full warranty compliance.",
+    "budget_conscious": "Smart maintenance doesn't mean overpaying. Get reliable oil changes starting at $29.99 with our price-match guarantee. Every service includes a free safety check that helps prevent costly repairs. Join 50,000 neighbors who save an average of $340 annually on maintenance.",
+    "enterprise": "Minimize fleet downtime with dedicated account management, volume pricing at 35% below retail, and comprehensive reporting for compliance. Our commercial program serves 200+ local businesses with 99.7% on-time service delivery and centralized billing that simplifies expense management."
+  },
+  "trust_signals": [
+    {
+      "signal": "ASE certification badges displayed prominently",
+      "importance": 9,
+      "format": "Physical and digital credentials"
+    },
+    {
+      "signal": "Live service bay webcam for transparency",
+      "importance": 7,
+      "format": "Streaming video feed"
+    },
+    {
+      "signal": "Before/after inspection photos texted to customer",
+      "importance": 8,
+      "format": "MMS messaging"
+    },
+    {
+      "signal": "4.7-star average from 2,847 Google reviews",
+      "importance": 10,
+      "format": "Widget on website"
+    },
+    {
+      "signal": "BBB A+ rating seal for 12 years",
+      "importance": 8,
+      "format": "Accreditation badge"
+    },
+    {
+      "signal": "Insurance and bonding certificates posted",
+      "importance": 6,
+      "format": "Lobby display"
+    },
+    {
+      "signal": "OEM partnership certifications from 8 manufacturers",
+      "importance": 9,
+      "format": "Wall plaques and digital badges"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "47,000+ oil changes completed with 98.7% satisfaction rate",
+      "credibility_score": 9.2,
+      "context": "Based on post-service survey data from 24 months"
+    },
+    {
+      "stat": "Serving the community for 23 years with same ownership",
+      "credibility_score": 8.7,
+      "context": "Established 2001, verified by business records"
+    },
+    {
+      "stat": "Average customer saves $340 annually versus dealership",
+      "credibility_score": 8.4,
+      "context": "Comparison study of 500 customer invoices"
+    },
+    {
+      "stat": "Featured as 'Best Oil Change' in local magazine 5 consecutive years",
+      "credibility_score": 7.9,
+      "context": "Reader's choice awards 2019-2023"
+    },
+    {
+      "stat": "Zero warranty disputes in 50,000+ services",
+      "credibility_score": 9.5,
+      "context": "Manufacturer verification letters available"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Factory-specified synthetic oil, OEM filters, digital inspection with video, climate-controlled waiting area, certified technician assigned",
+    "Mid-tier: Synthetic blend options, quality aftermarket filters, 21-point inspection checklist, comfortable waiting area, experienced technicians",
+    "Budget: Conventional oil, standard filters, basic 10-point check, simple waiting area, trained but not certified staff",
+    "Warning signs of low quality: No brand-name oils visible, no certifications displayed, cash-only payment, no written estimates, rushed service under 10 minutes"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After receiving digital inspection report showing good vehicle health or money saved from early problem detection",
+    "ask_method": "Automated SMS with direct link to Google review page, followed by email at day 7 if no response, incentivized with $10 future service credit"
+  },
+  "competitive_advantages": [
+    "Only shop with true 12-minute drive-thru service bay eliminating wait times",
+    "Proprietary customer app with service history, scheduling, and payment reducing friction by 70%",
+    "Exclusive territory rights for three synthetic oil brands offering unique product differentiation",
+    "In-house training program producing technicians 40% faster than industry average",
+    "Integrated fleet management portal serving 200+ commercial accounts competitors can't match"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium synthetic service at $89.99 first, making $49.99 conventional seem like exceptional value",
+    "sensitivity": "Price breaks at $39, $59, and $79 align with psychological thresholds, avoiding $40, $60, $80 resistance points",
+    "sweet_spots": [
+      "$49.99 for conventional oil change",
+      "$69.99 for synthetic blend",
+      "$89.99 for full synthetic",
+      "$129.99 for performance package"
+    ],
+    "decoy_pricing": "Offer 'Gold' service at $79.99 to make 'Platinum' at $89.99 seem like better value with 40% more features for 13% more cost"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 150,
+    "competitor_research": 100
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express Basic",
+      "price_range": "$29.99-$39.99",
+      "target_customer": "Price-conscious, older vehicles, high-mileage cars",
+      "margin": 35
+    },
+    {
+      "tier": "Standard Plus",
+      "price_range": "$49.99-$69.99",
+      "target_customer": "Average consumer, 3-7 year old vehicles, regular maintenance",
+      "margin": 48
+    },
+    {
+      "tier": "Premium Protection",
+      "price_range": "$79.99-$129.99",
+      "target_customer": "Luxury vehicles, warranty compliance, performance cars",
+      "margin": 62
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle oil change with tire rotation for $20 add-on generating 70% margin on incremental service",
+    "Promote synthetic upgrades during cold weather months when demand increases 40% with 15% higher margin",
+    "Implement dynamic pricing for same-day appointments adding $10 premium with 90% customer acceptance",
+    "Create membership program at $19.99/month providing predictable revenue and 25% higher lifetime value",
+    "Upsell premium filters at point of service with 80% margin and 45% attachment rate",
+    "Offer prepaid service packages with 10% discount driving cash flow and reducing payment processing costs"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "New Year maintenance resolutions marketing"
+    },
+    {
+      "month": "February",
+      "variation": -8,
+      "reason": "Short month, winter weather",
+      "opportunity": "Valentine's Day car care gifts"
+    },
+    {
+      "month": "March",
+      "variation": 12,
+      "reason": "Spring maintenance surge, tax refunds",
+      "opportunity": "Spring break travel prep"
+    },
+    {
+      "month": "April",
+      "variation": 18,
+      "reason": "Spring cleaning mindset",
+      "opportunity": "Earth Day eco-friendly oil promotions"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Summer vacation preparation",
+      "opportunity": "Memorial Day weekend specials"
+    },
+    {
+      "month": "June",
+      "variation": 20,
+      "reason": "Road trip season begins",
+      "opportunity": "Graduate car care packages"
+    },
+    {
+      "month": "July",
+      "variation": 15,
+      "reason": "Mid-summer maintenance",
+      "opportunity": "Beat the heat inspections"
+    },
+    {
+      "month": "August",
+      "variation": 10,
+      "reason": "Back-to-school preparation",
+      "opportunity": "Student/teacher discounts"
+    },
+    {
+      "month": "September",
+      "variation": 5,
+      "reason": "Routine fall maintenance",
+      "opportunity": "Football season fleet deals"
+    },
+    {
+      "month": "October",
+      "variation": 22,
+      "reason": "Winter prep urgency",
+      "opportunity": "Winterization packages"
+    },
+    {
+      "month": "November",
+      "variation": 30,
+      "reason": "Black Friday, cold weather prep",
+      "opportunity": "Holiday travel safety checks"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday spending priorities",
+      "opportunity": "Gift certificates, year-end fleet services"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Fleet services, commercial accounts",
+      "avoid": "Promotional launches",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Senior discounts, appointment booking",
+      "avoid": "Emergency services",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek specials, email campaigns",
+      "avoid": "Major upsells",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep services, inspections",
+      "avoid": "Complex repairs",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Express services, travel prep",
+      "avoid": "Time-consuming services",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Walk-ins, family services",
+      "avoid": "Commercial accounts",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Convenience seekers, premium pricing",
+      "avoid": "B2B services",
+      "conversion_rate": 7.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage/rent due 1st-5th creates budget sensitivity, car payments due 15th-20th trigger maintenance awareness",
+    "cash_flow_peaks": "Paydays on 1st, 15th, and last Friday show 40% service increase within 48 hours",
+    "slow_periods": "Days 6-12 typically 25% below average, requiring aggressive promotions to maintain bay utilization"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 7-9 AM",
+      "crisis_type": "Pre-work emergency oil light",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 4-7 PM",
+      "crisis_type": "Weekend trip preparation",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Sunday morning",
+      "crisis_type": "Unexpected leak discovery",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Holiday eve",
+      "crisis_type": "Last-minute travel prep",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Essential Care",
+      "components": [
+        "Conventional oil change",
+        "Filter replacement",
+        "Fluid top-off",
+        "10-point inspection"
+      ],
+      "pricing_model": "Fixed at $34.99",
+      "margin": 42
+    },
+    {
+      "name": "Premium Protection",
+      "components": [
+        "Full synthetic oil",
+        "Premium filter",
+        "Tire rotation",
+        "27-point inspection",
+        "Fluid top-offs",
+        "Battery test"
+      ],
+      "pricing_model": "Tiered $79.99-$99.99",
+      "margin": 58
+    },
+    {
+      "name": "Fleet Maintenance",
+      "components": [
+        "Volume oil changes",
+        "Priority scheduling",
+        "Mobile service option",
+        "Centralized billing",
+        "Compliance reporting"
+      ],
+      "pricing_model": "Contract-based with 35% discount",
+      "margin": 38
+    },
+    {
+      "name": "Annual VIP",
+      "components": [
+        "4 oil changes",
+        "2 tire rotations",
+        "Unlimited top-offs",
+        "Priority service",
+        "20% parts discount"
+      ],
+      "pricing_model": "Subscription $299/year",
+      "margin": 52
+    }
+  ],
+  "upsell_paths": [
+    "Basic oil change → Synthetic upgrade (+$30) → Add tire rotation (+$20) → Include air filter (+$25)",
+    "Single service → 3-service package (15% discount) → Annual membership (25% savings) → Fleet account",
+    "Oil change only → Multi-point inspection reveal → Preventive maintenance package → Comprehensive care plan",
+    "Walk-in customer → Appointment customer → Mobile app user → Subscription member → Brand advocate",
+    "Conventional oil user → Synthetic blend trial → Full synthetic convert → Premium additives → Performance packages",
+    "Price shopper → Value seeker → Quality focused → Convenience priority → Full service loyalty"
+  ],
+  "retention_hooks": [
+    "Digital service history with predictive maintenance alerts increasing return rate by 43%",
+    "Loyalty points program offering $10 credit per 5 services driving 67% repeat business",
+    "Free seasonal inspections for members detecting issues early and building trust",
+    "Personalized service reminders via text with one-click booking improving compliance by 38%",
+    "Family plan discounts for multiple vehicles creating 2.7x higher lifetime value",
+    "Guaranteed same technician request building relationships that increase retention 52%",
+    "Complimentary services like washer fluid refills and battery tests between paid visits"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Give $20, Get $20 double-sided incentive",
+      "timing": "Immediately after 5-star review",
+      "incentive": "$20 service credit both parties",
+      "conversion_rate": 12.7
+    },
+    {
+      "strategy": "Family member discount cards",
+      "timing": "During service completion",
+      "incentive": "25% off first service",
+      "conversion_rate": 18.3
+    },
+    {
+      "strategy": "Social media check-in rewards",
+      "timing": "While waiting for service",
+      "incentive": "$5 instant discount",
+      "conversion_rate": 8.9
+    },
+    {
+      "strategy": "Fleet referral bonus program",
+      "timing": "After 6 months of service",
+      "incentive": "$100 per fleet account",
+      "conversion_rate": 6.2
+    },
+    {
+      "strategy": "Neighborhood group deals",
+      "timing": "Community event participation",
+      "incentive": "Group rate 20% off",
+      "conversion_rate": 14.5
+    },
+    {
+      "strategy": "Digital review incentives",
+      "timing": "3 days post-service",
+      "incentive": "$10 future credit",
+      "conversion_rate": 22.8
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Tire rotation with oil change",
+      "attach_rate": 47,
+      "timing": "Point of service, especially over 5,000 miles"
+    },
+    {
+      "service": "Air filter replacement",
+      "attach_rate": 31,
+      "timing": "During inspection reveal if visibly dirty"
+    },
+    {
+      "service": "Windshield wiper replacement",
+      "attach_rate": 28,
+      "timing": "Seasonal changes, visible wear"
+    },
+    {
+      "service": "Battery testing and replacement",
+      "attach_rate": 19,
+      "timing": "Vehicles over 3 years old, winter prep"
+    },
+    {
+      "service": "Coolant flush service",
+      "attach_rate": 23,
+      "timing": "30,000-mile intervals, color change visible"
+    },
+    {
+      "service": "Transmission fluid service",
+      "attach_rate": 16,
+      "timing": "60,000-mile intervals, shifting issues"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile oil change service for corporate parks",
+      "market_size": "$2.3M annual revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Electric vehicle fluid maintenance specialization",
+      "market_size": "Growing 40% annually, $800K potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Subscription-based unlimited service model",
+      "market_size": "$1.5M recurring revenue potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "White-label service for auto dealerships",
+      "market_size": "$3.2M B2B opportunity",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Express detail services during oil changes",
+      "market_size": "$500K incremental revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Parts and accessories retail expansion",
+      "market_size": "$400K annual add-on potential",
+      "difficulty": 3
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Jiffy Lube's 'The Importance of Regular Oil Changes' educational video series on YouTube explaining oil change intervals, synthetic vs conventional oil, and maintenance schedules with animated graphics",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content that addresses customer uncertainty about oil change frequency, uses simple animations to explain complex concepts, positions brand as helpful expert rather than salesy, answers common Google searches",
+        "metrics": "Videos in series average 50K-200K views, high watch time retention (60%+), strong comment engagement with customer questions",
+        "source": "Jiffy Lube YouTube channel, automotive marketing case studies from Automotive News",
+        "confidence": "high"
+      },
+      {
+        "example": "Valvoline Instant Oil Change's Facebook campaign featuring time-lapse videos of oil changes being completed in under 15 minutes with customer testimonials about convenience",
+        "platform": "Facebook",
+        "why_it_worked": "Addresses primary pain point of time constraints, visual proof of speed claim, user-generated content builds trust, targets busy professionals and parents who value convenience",
+        "metrics": "Average engagement rate 4.2% (above industry average), shares increased 180% vs static posts, drove 23% increase in appointment bookings during campaign period",
+        "source": "Social Media Examiner automotive case studies, Valvoline investor presentations 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Take 5 Oil Change's Instagram Reels showing 'Stay in Your Car' service process with trending audio and before/after oil comparison shots",
+        "platform": "Instagram",
+        "why_it_worked": "Leverages platform-native short video format, shows unique service differentiator (stay-in-car), uses trending sounds for algorithm boost, visual contrast of dirty vs clean oil creates compelling content",
+        "metrics": "Reels format generates 3x more engagement than static posts, average 15K-40K views per Reel, 5.8% engagement rate",
+        "source": "Take 5 Oil Change Instagram account, Hootsuite automotive social media benchmarks 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local oil change shops using Google My Business posts with limited-time coupons ($10 off oil change this week only) with clear expiration dates",
+        "platform": "Google My Business",
+        "why_it_worked": "Appears in local search results at moment of high intent, creates urgency with expiration, reaches customers actively searching for service, mobile-optimized for immediate action",
+        "metrics": "GMB posts with offers generate 2.5x more clicks than informational posts, 15-25% conversion rate from post view to appointment",
+        "source": "BrightLocal local SEO studies 2024, automotive service industry reports",
+        "confidence": "medium"
+      },
+      {
+        "example": "Meineke's email campaign series targeting customers at 3-month intervals after last service with subject line 'Your [Vehicle Make/Model] is Due for Service' and personalized service recommendations",
+        "platform": "Email",
+        "why_it_worked": "Personalization with vehicle details increases relevance, timing aligned with actual service needs, reminder addresses forgetfulness pain point, specific subject line drives opens",
+        "metrics": "32% open rate (vs 21% industry average), 8.4% click-through rate, 18% conversion to booked appointments",
+        "source": "Automotive aftermarket email marketing benchmarks, Mailchimp industry reports 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.07% to 0.09% for automotive service industry",
+        "best_content_format": "Short video (30-60 seconds) and carousel posts showing service process steps, customer testimonials perform 2.3x better than static images",
+        "optimal_frequency": "3-5 posts per week, with at least 2 video posts",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when people plan weekend errands",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Hootsuite Automotive Industry Guide"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% to 0.83% for automotive services, Reels achieve 1.5-2.5% engagement",
+        "best_content_format": "Reels (15-30 seconds) showing service process, before/after comparisons, educational tips; carousel posts with maintenance checklists",
+        "optimal_frequency": "4-7 posts per week including 3-4 Reels, daily Stories for promotions",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM, Wednesday 7-9 PM, Sunday 10 AM-12 PM",
+        "source": "Later.com Instagram Engagement Report 2024, Sprout Social Industry Benchmarks"
+      },
+      {
+        "platform": "Google My Business",
+        "avg_engagement_rate": "Local service businesses see 3-5% click-through rate on posts, 25-40% of profile views result in website visit or direction request",
+        "best_content_format": "Offer posts with coupon codes, update posts with photos of facility/team, Q&A addressing common questions",
+        "optimal_frequency": "2-3 posts per week, respond to all reviews within 24-48 hours",
+        "best_posting_times": "Monday-Friday 8-10 AM when people search for services, Thursday-Friday for weekend traffic",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google My Business Insights data"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for automotive services industry",
+        "best_content_format": "Personalized service reminders with vehicle-specific details, seasonal maintenance checklists, exclusive coupon codes",
+        "optimal_frequency": "1 promotional email per month, service reminder emails triggered by time/mileage intervals",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM, Sunday 6-8 PM for planning week ahead",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Constant Contact Automotive Industry Report"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Automotive how-to content averages 2-4% engagement, educational videos retain 55-65% of viewers",
+        "best_content_format": "Educational videos (3-5 minutes) explaining maintenance, FAQ videos, service process walkthroughs, myth-busting content",
+        "optimal_frequency": "1-2 videos per month for consistent presence, quality over quantity",
+        "best_posting_times": "Thursday-Saturday evenings 6-9 PM, Sunday afternoon 2-5 PM when people research DIY projects",
+        "source": "Tubular Labs Automotive Content Report 2024, YouTube Creator Academy Industry Insights"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-based urgency with specific deadline",
+        "example": "Your oil change is 500 miles overdue - book today to avoid engine damage",
+        "why_it_works": "Creates immediate urgency by quantifying the problem, triggers loss aversion (avoiding damage), provides clear call-to-action with deadline",
+        "source": "Automotive service provider email campaigns, Google Ads copy analysis"
+      },
+      {
+        "hook_pattern": "Question addressing specific pain point",
+        "example": "Worried your oil change will take all morning? We're done in 15 minutes - guaranteed.",
+        "why_it_works": "Opens with empathetic question that acknowledges customer's time constraint concern, immediately provides solution with specific timeframe and guarantee for credibility",
+        "source": "Valvoline and Take 5 Oil Change ad campaigns, high-performing Facebook ads"
+      },
+      {
+        "hook_pattern": "Price anchor with transparent breakdown",
+        "example": "$29.99 Full Synthetic Oil Change - No Hidden Fees, No Upsells, Just Honest Service",
+        "why_it_works": "Leads with competitive price point, addresses trust concerns about hidden fees and pushy upselling, builds credibility through transparency promise",
+        "source": "Local oil change shop Google Ads, Groupon automotive service offers"
+      },
+      {
+        "hook_pattern": "Fear-based warning with expert credibility",
+        "example": "ASE-Certified Technicians Warn: Skipping Oil Changes Costs $4,000+ in Engine Repairs",
+        "why_it_works": "Uses expert authority (ASE certification) to validate warning, quantifies potential loss to trigger loss aversion, positions service as preventive investment",
+        "source": "Jiffy Lube educational content, automotive repair shop blog headlines"
+      },
+      {
+        "hook_pattern": "Convenience benefit with proof",
+        "example": "Stay in Your Car - Watch Your Oil Change Happen in Real Time",
+        "why_it_works": "Highlights unique convenience factor, creates curiosity about the process, addresses customer desire for transparency and time savings",
+        "source": "Take 5 Oil Change marketing campaigns, drive-through oil change services"
+      },
+      {
+        "hook_pattern": "Seasonal relevance with maintenance tie-in",
+        "example": "Winter is Coming - Is Your Engine Ready? Free 23-Point Inspection with Every Oil Change",
+        "why_it_works": "Leverages seasonal timing when customers think about vehicle preparation, adds value with free inspection, creates urgency around weather changes",
+        "source": "Meineke seasonal campaigns, Firestone Complete Auto Care promotions"
+      },
+      {
+        "hook_pattern": "Warranty protection angle",
+        "example": "Keep Your Warranty Valid - Factory-Recommended Oil Changes with Documented Service Records",
+        "why_it_works": "Addresses warranty compliance concerns especially for newer vehicles, positions service as protection for investment, appeals to risk-averse customers",
+        "source": "Dealership service department marketing, automotive warranty compliance content"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I never remember when I'm due for an oil change",
+        "I don't have time to sit around waiting for my car",
+        "I'm worried they'll try to sell me stuff I don't need",
+        "The dealership charges way too much for a simple oil change",
+        "I don't know if I really need synthetic oil or if they're just upselling",
+        "My check engine light came on and I'm scared it's serious",
+        "I can't afford a major repair right now if I damaged my engine",
+        "Every place tells me something different about how often to change oil",
+        "I hate feeling like I'm getting ripped off because I don't know about cars",
+        "I need this done fast because I'm leaving for a road trip tomorrow"
+      ],
+      "solution_phrases": [
+        "They texted me when it was time - so convenient",
+        "In and out in 20 minutes, didn't even have to get out of my car",
+        "They showed me the dirty oil and explained everything without being pushy",
+        "The price was exactly what they quoted - no surprise charges",
+        "They keep all my service records so I don't have to worry about it",
+        "I trust them because they're certified and use quality parts",
+        "They sent me a coupon right when I needed it",
+        "Finally found a place that's honest and doesn't try to upsell",
+        "I can book online and they have evening and weekend hours",
+        "They explained what my car actually needs based on the manual, not just trying to sell me stuff"
+      ],
+      "objection_phrases": [
+        "I can get it cheaper at Walmart",
+        "Do I really need to change it that often?",
+        "I'll just do it myself and save the money",
+        "Can't I wait another thousand miles?",
+        "The sticker says 3,000 miles but my manual says 7,500",
+        "I don't trust quick lube places - heard horror stories",
+        "They're just going to try to sell me a bunch of other services",
+        "Is synthetic really worth the extra cost?",
+        "I'm too busy right now, I'll do it next month",
+        "My brother-in-law can do it for free"
+      ],
+      "decision_factors": [
+        "How long it takes - I need it done fast",
+        "Whether they're certified and know what they're doing",
+        "If the price is upfront with no hidden fees",
+        "Can I trust them not to push unnecessary services",
+        "Do they keep records for warranty purposes",
+        "Convenience of location and hours",
+        "Quality of oil and filters they use",
+        "Whether they offer a warranty on their work",
+        "Reviews from other customers about honesty",
+        "If they can do it while I wait or if I need to leave my car"
+      ],
+      "emotional_language": [
+        "peace of mind",
+        "worried sick",
+        "stressed out",
+        "felt ripped off",
+        "finally relaxed",
+        "so relieved",
+        "trust them completely",
+        "anxious about",
+        "confident now",
+        "scared it would cost a fortune",
+        "grateful they were honest",
+        "frustrated with",
+        "comfortable bringing my car here",
+        "never felt pressured",
+        "they actually care"
+      ],
+      "sources": [
+        "Reddit r/MechanicAdvice, r/Cartalk, r/PersonalFinance oil change discussions",
+        "Google Reviews for Jiffy Lube, Valvoline, Take 5, local oil change shops",
+        "Yelp reviews for automotive service providers",
+        "YouTube comments on oil change DIY and service videos",
+        "Facebook comments on oil change service provider posts",
+        "Consumer Reports automotive maintenance forums",
+        "Automotive service provider testimonial pages"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content explaining the actual chemistry and engineering behind why oil changes matter - most content is surface-level",
+      "Transparent behind-the-scenes content showing the actual service process and quality checks performed",
+      "Vehicle-specific maintenance guides rather than generic advice - personalization opportunity",
+      "Content addressing electric vehicle maintenance misconceptions (many EV owners don't realize they still need some services)",
+      "Financial comparison calculators showing long-term cost of preventive maintenance vs major repairs",
+      "Mobile app integration for service tracking, reminders, and loyalty programs - most still rely on windshield stickers",
+      "Content for fleet managers and small business owners managing multiple vehicles",
+      "Myth-busting content addressing common misconceptions (3,000-mile myth, synthetic vs conventional, etc.)",
+      "Environmental angle - proper oil disposal, eco-friendly options, sustainability practices",
+      "Women-focused content addressing the trust gap and empowering customers to make informed decisions without feeling talked down to"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Late Fall (October-November)",
+        "opportunity": "Customers preparing vehicles for winter weather, holiday travel planning, end-of-year maintenance before new year",
+        "content_angle": "Winter readiness campaigns, pre-holiday road trip preparation, year-end vehicle health checkups, antifreeze and battery check promotions bundled with oil changes"
+      },
+      {
+        "period": "Spring (March-May)",
+        "opportunity": "Post-winter vehicle recovery, spring break travel, tax refund season spending, start of road trip season",
+        "content_angle": "Spring maintenance specials, road trip preparation guides, use tax refund for vehicle maintenance messaging, flush winter grime campaigns"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Peak vacation travel season, extreme heat stress on engines, back-to-school preparation",
+        "content_angle": "Summer road trip prep, extreme heat engine protection, college student vehicle checkups before school, family vacation vehicle safety"
+      },
+      {
+        "period": "Back-to-School (Late August-September)",
+        "opportunity": "Parents preparing vehicles for school year routines, college students needing vehicle maintenance before leaving home",
+        "content_angle": "Student specials, mom's car maintenance while kids are in school, vehicle safety for teen drivers, semester-long service packages"
+      },
+      {
+        "period": "New Year (January)",
+        "opportunity": "New year's resolutions around vehicle maintenance, post-holiday budget consciousness, fresh start mentality",
+        "content_angle": "New year maintenance resolutions, service subscription plans, vehicle care calendars, fresh start with proper maintenance habits"
+      },
+      {
+        "period": "Daylight Saving Time (March and November)",
+        "opportunity": "Built-in reminder moments when people adjust clocks, traditional time to check smoke detectors and vehicle maintenance",
+        "content_angle": "Change your clocks, change your oil campaigns, bi-annual maintenance checkup reminders, spring forward/fall back service specials"
+      },
+      {
+        "period": "Memorial Day/Labor Day Weekends",
+        "opportunity": "Long weekend travel, unofficial start/end of summer, last-minute trip preparations",
+        "content_angle": "Extended hours for holiday weekend service, pre-travel vehicle inspections, long weekend specials, avoid breakdown messaging"
+      },
+      {
+        "period": "Vehicle Registration Renewal Periods (Varies by State)",
+        "opportunity": "Many states require safety/emissions inspections for registration, customers already thinking about vehicle compliance",
+        "content_angle": "Registration renewal reminders bundled with oil change offers, inspection and oil change packages, compliance made easy messaging"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Jiffy Lube YouTube channel and marketing materials",
+      "Valvoline Instant Oil Change social media accounts and investor presentations",
+      "Take 5 Oil Change Instagram and Facebook pages",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Hootsuite Social Media Trends and Automotive Industry Guide 2024",
+      "Later.com Instagram Engagement Report 2024",
+      "Sprout Social Industry Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Mailchimp Email Marketing Benchmarks by Industry 2024",
+      "Constant Contact Automotive Industry Email Report",
+      "Google My Business Insights and best practices documentation",
+      "Reddit communities: r/MechanicAdvice, r/Cartalk, r/PersonalFinance",
+      "Google Reviews and Yelp for major oil change chains and local providers",
+      "YouTube automotive maintenance content and comment sections",
+      "Consumer Reports automotive forums",
+      "Automotive News marketing case studies",
+      "Social Media Examiner automotive industry case studies",
+      "Tubular Labs Automotive Content Performance Report 2024"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook patterns - most examples are observational rather than controlled tests",
+      "Exact conversion rate data from social media to appointments is proprietary for most chains",
+      "TikTok benchmarks for oil change services specifically are limited as platform adoption is still emerging for this industry",
+      "Detailed customer journey data from awareness to service completion is not publicly available",
+      "LinkedIn benchmarks are limited as B2C oil change services have minimal presence on that platform"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Stay-in-car convenience revolution - No more waiting rooms or loaner cars needed",
+        "Week 2: Factory-recommended synthetic oil meets warranty compliance - Premium protection without dealership pricing",
+        "Week 3: Real customers, real time savings - 15-minute guaranteed service testimonials",
+        "Week 4: Last chance winter readiness - Protect your engine before extreme weather hits"
+      ],
+      "weekly_hooks": [
+        [
+          "Coming Soon: The oil change that doesn't interrupt your day. Stay in your car, stay on schedule. [Launch Date]",
+          "ASE-Certified Technicians Reveal: The new service that cuts your wait time by 65% - launching [Date]",
+          "Worried your oil change will take all morning? Our new [Service Name] is done in 15 minutes - guaranteed. Preview [Date]"
+        ],
+        [
+          "NOW OPEN: Stay in Your Car - Watch Your Oil Change Happen in Real Time with our new [Service Name]",
+          "$29.99 Full Synthetic Oil Change - No Hidden Fees, No Upsells, Just Honest Service. Grand Opening Special!",
+          "Keep Your Warranty Valid - Factory-Recommended Oil Changes with Documented Service Records. Launching today at [Location]"
+        ],
+        [
+          "\"In and out in 20 minutes, didn't even have to get out of my car\" - [Customer Name] on our new express service",
+          "\"The price was exactly what they quoted - no surprise charges\" - See why 127 customers switched to [Service Name] this week",
+          "\"Finally found a place that's honest and doesn't try to upsell\" - Real reviews from your neighbors trying our new service"
+        ],
+        [
+          "Winter is Coming - Is Your Engine Ready? Free 23-Point Inspection with [Service Name] ends [Date]",
+          "Your oil change is 500 miles overdue - book our new express service today to avoid engine damage before winter",
+          "Only 48 Hours Left: Introductory $29.99 synthetic oil change pricing ends [Date]. Over 200 appointments already booked"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time to sit around waiting for my car' with stay-in-car convenience demonstration",
+        "Week 2: Address 'How do I know you use quality oil?' with OEM-specification documentation and supplier transparency",
+        "Week 3: Address 'I'm worried they'll try to sell me stuff I don't need' with no-upsell guarantee and customer testimonials",
+        "Week 4: Address 'It's too expensive compared to doing it myself' with time-value calculator and hidden cost breakdown"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce ASE certification credentials and factory-authorized service documentation",
+        "Week 2: Share time-lapse video proof of 15-minute service completion with timestamp overlay",
+        "Week 3: Feature customer video testimonials showing actual service experience and transparent pricing receipts",
+        "Week 4: Final credibility push with warranty compliance documentation and 90-day satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about our stay-in-car process - Watch the 60-second walkthrough video",
+        "Week 2: Book your grand opening appointment - First 50 customers get free upgrade to premium synthetic",
+        "Week 3: Join 200+ customers who've switched - Schedule your 15-minute oil change today",
+        "Week 4: Last chance for $29.99 pricing - Book before midnight [Date] or pay regular $44.99"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week with 4 Reels showing stay-in-car process and time-lapse)",
+        "Facebook (4-5 posts/week including customer testimonial videos)",
+        "Google My Business (3 posts/week with grand opening offers and limited-time coupons)",
+        "Email (1 announcement email Week 2, 1 reminder email Week 4 to existing customers)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Take 5 Oil Change's Instagram Reels success showing 'Stay in Your Car' service (3x engagement vs static posts) and Valvoline's Facebook time-lapse campaign (23% increase in appointment bookings, 4.2% engagement rate). Launch timing aligns with late fall seasonal opportunity for winter readiness campaigns."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Oil change interval myths debunked - 3,000 vs 7,500 miles explained with your vehicle manual",
+        "Week 2: Synthetic vs conventional oil chemistry - Visual comparison of engine protection levels",
+        "Week 3: Behind-the-scenes quality checks - What actually happens during your 21-point inspection",
+        "Week 4: Warranty compliance made simple - Documentation that protects your investment",
+        "Week 5: Seasonal engine protection - How temperature extremes affect oil performance",
+        "Week 6: Cost of prevention vs repair - Real numbers on maintenance savings over 100K miles",
+        "Week 7: Customer success stories - How regular maintenance prevented major breakdowns",
+        "Week 8: Quick maintenance wins - Simple checks you can do between oil changes"
+      ],
+      "weekly_hooks": [
+        [
+          "Your manual says 7,500 miles but the sticker says 3,000 - which is right? ASE-Certified experts explain the truth",
+          "Stop wasting money on unnecessary oil changes - here's what your [Vehicle Make] actually needs",
+          "The 3,000-mile oil change myth costs you $240 yearly - learn your vehicle's real maintenance schedule"
+        ],
+        [
+          "Is synthetic really worth the extra cost? Watch this side-by-side engine wear comparison after 50,000 miles",
+          "Conventional vs Synthetic: The chemistry your engine manual doesn't explain in simple terms",
+          "\"I switched to synthetic and my fuel economy improved 4%\" - The science behind better engine performance"
+        ],
+        [
+          "Ever wondered what we're actually checking during your oil change? Here's the complete 21-point inspection walkthrough",
+          "Stay in Your Car - Watch Your Oil Change Happen in Real Time with our transparent service process",
+          "Behind the bay doors: See exactly how certified technicians inspect your vehicle's critical systems"
+        ],
+        [
+          "Keep Your Warranty Valid - Factory-Recommended Oil Changes with Documented Service Records explained",
+          "Federal law protects your warranty at independent shops - here's the documentation that proves compliance",
+          "Dealership says you must use them? The Magnuson-moss Act says otherwise - save 45% with proper records"
+        ],
+        [
+          "Winter is Coming - Is Your Engine Ready? How cold weather thickens oil and reduces protection",
+          "Summer heat breaks down oil 40% faster - here's when to adjust your change interval",
+          "Extreme temperatures stress your engine - seasonal oil viscosity guide for [Region] weather"
+        ],
+        [
+          "ASE-Certified Technicians Warn: Skipping Oil Changes Costs $4,000+ in Engine Repairs - here's the math",
+          "$45 every 6 months vs $2,400 engine replacement - the real cost of deferred maintenance",
+          "Preventive maintenance ROI calculator: How $270 yearly saves $3,800 over vehicle lifetime"
+        ],
+        [
+          "\"They texted me when it was time - so convenient\" - How automated reminders saved [Customer] from engine damage",
+          "\"Caught a $800 repair early during routine inspection\" - Real customer stories of preventive savings",
+          "From anxious to confident: How proper maintenance gave [Customer] peace of mind for 150K miles"
+        ],
+        [
+          "5 dashboard warning signs between oil changes - what's urgent vs what can wait until service",
+          "Check these 3 things weekly to extend engine life - takes 2 minutes in your driveway",
+          "Fluid level checks you can do yourself - empower your vehicle knowledge between professional services"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Every place tells me something different about how often to change oil' with manufacturer documentation",
+        "Week 2: Address 'I don't know if I really need synthetic oil or if they're just upselling' with performance data",
+        "Week 3: Address 'I don't trust quick lube places - heard horror stories' with transparent process video",
+        "Week 4: Address 'The dealership says I must use them' with Magnuson-Moss Act education",
+        "Week 5: Address 'Can't I wait another thousand miles?' with seasonal stress factors",
+        "Week 6: Address 'I can get it cheaper at Walmart' with total cost of ownership analysis",
+        "Week 7: Address 'I hate feeling like I'm getting ripped off because I don't know about cars' with empowerment stories",
+        "Week 8: Address 'I'll just do it myself and save the money' with time-value and disposal considerations"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce vehicle manufacturer maintenance schedule screenshots and manual references",
+        "Week 2: Share laboratory oil analysis reports comparing synthetic vs conventional after 5,000 miles",
+        "Week 3: Feature time-stamped service videos showing complete inspection process transparency",
+        "Week 4: Display ASE certification badges and warranty compliance documentation samples",
+        "Week 5: Present seasonal performance data from oil manufacturers and engineering studies",
+        "Week 6: Show real customer repair invoices comparing preventive vs deferred maintenance costs",
+        "Week 7: Feature video testimonials from long-term customers with high-mileage vehicles",
+        "Week 8: Demonstrate DIY checks with certified technician guidance and safety tips"
+      ],
+      "cta_progression": [
+        "Week 1: Download your vehicle's recommended maintenance schedule - Free PDF guide",
+        "Week 2: Watch our 3-minute synthetic vs conventional comparison video",
+        "Week 3: Take our virtual tour - See our service bays and meet our ASE-Certified team",
+        "Week 4: Check your warranty requirements - Free compliance consultation",
+        "Week 5: Get your seasonal maintenance checklist - Customized for [Region] weather",
+        "Week 6: Calculate your maintenance savings - Use our free ROI calculator tool",
+        "Week 7: Read customer success stories - 50+ verified reviews on Google",
+        "Week 8: Schedule your next service - Set it and forget it with automated reminders"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 educational videos per month, 3-5 minutes each, posted Thursday-Saturday evenings)",
+        "Instagram (5-6 posts/week with 3-4 Reels, daily Stories for quick tips)",
+        "Facebook (3-4 posts/week focusing on educational carousels and customer stories)",
+        "Email (1 educational email monthly on rotation through 8 themes to segmented list)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Jiffy Lube's educational video series averaging 50K-200K views with 60%+ retention, addressing customer uncertainty about oil change frequency. Incorporates competitive gap of myth-busting content and vehicle-specific guidance. Aligns with YouTube benchmark of 55-65% viewer retention for automotive how-to content and customer voice data showing 'I don't know if I really need synthetic oil' as top concern."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized before/after content - Dirty oil vs clean oil visual comparisons with trending audio",
+        "Week 2: Community engagement explosion - Local customer stories and neighborhood service pride"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: Your engine oil after 7,500 miles 🤢 vs fresh synthetic 🤩 [Trending Audio]",
+          "This is what's protecting your $25,000 engine right now - when did you last change it? 👀",
+          "Mechanics react to the dirtiest oil they've ever drained - Tag someone who needs to see this",
+          "Stay in Your Car - Watch Your Oil Change Happen in Real Time [15-second time-lapse with trending sound]",
+          "Tell me you're overdue for an oil change without telling me you're overdue 💀 [Before/after comparison]"
+        ],
+        [
+          "Shoutout to [Neighborhood] - We've serviced 247 of your neighbors' cars this month. Who's next? 🚗",
+          "Local business spotlight: How we keep [City] vehicles running strong since [Year]",
+          "Tag a friend who's always saying 'I'll get my oil changed next week' 😂 We're here when they're ready",
+          "Your neighbors trust us - See why [Neighborhood] chooses [Business Name] for honest service",
+          "We asked 100 local customers what they love most - the answers surprised us 🎥 [Testimonial montage]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time to sit around waiting for my car' with shareable time-lapse content showing 15-minute completion",
+        "Week 2: Address 'I'm worried they'll try to sell me stuff I don't need' with authentic customer testimonials about no-pressure service"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce visual proof through before/after oil comparison content that's inherently shareable",
+        "Week 2: Share community social proof with customer-generated content, local reviews, and neighborhood testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this - Share this with a friend overdue for service",
+        "Week 1: Follow us for daily car care tips - Drop a 🚗 if you learned something new",
+        "Week 2: Share your experience - Tag us in your next visit for a chance to be featured",
+        "Week 2: Book your appointment - Link in bio for instant scheduling, mention this post for $5 off"
+      ],
+      "platform_priority": [
+        "Instagram Reels (10-12 Reels over 2 weeks, posting daily with trending audio)",
+        "TikTok (8-10 videos mirroring Instagram content for maximum reach)",
+        "Facebook (6-8 posts/week including shareable video content and community engagement)",
+        "Google My Business (4-6 posts with customer photos and local community focus)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Take 5 Oil Change's Instagram Reels generating 3x more engagement than static posts (15K-40K views, 5.8% engagement rate) using trending audio and before/after oil comparisons. Leverages Instagram benchmark showing Reels achieve 1.5-2.5% engagement vs 0.47-0.83% for standard posts. Visual contrast of dirty vs clean oil creates compelling shareable content that addresses customer pain point of 'I never remember when I'm due for an oil change.'"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science of engine lubrication - Chemistry and engineering fundamentals explained simply",
+        "Week 2: Decoding your vehicle manual - What manufacturers really mean by maintenance requirements",
+        "Week 3: Oil filter technology deep-dive - Why quality filtration matters as much as oil quality",
+        "Week 4: Warranty law education - Your rights under Magnuson-Moss Act and state consumer protection",
+        "Week 5: Environmental responsibility - Proper oil disposal and eco-friendly service practices",
+        "Week 6: Future of vehicle maintenance - Electric vehicle service myths and hybrid care requirements"
+      ],
+      "weekly_hooks": [
+        [
+          "ASE-Certified Technicians Explain: The molecular breakdown of synthetic vs conventional oil at 300°F engine temps",
+          "Ever wondered why oil turns black? Here's the actual chemistry happening inside your engine",
+          "The engineering reason your turbo engine requires synthetic - it's not just an upsell, here's the science"
+        ],
+        [
+          "Your manual says 'severe driving conditions' - here's what that actually means (you probably qualify)",
+          "Factory maintenance schedules explained: Why 'normal' vs 'severe' service intervals differ by 4,500 miles",
+          "Decode your vehicle's service requirements - Professional guide to reading manufacturer specifications"
+        ],
+        [
+          "Not all oil filters are created equal - Here's what $4 vs $12 filters actually filter out at microscopic level",
+          "The filter technology protecting your $30,000 engine - Bypass valves and micron ratings explained",
+          "We tested 5 popular oil filters - The results will change what you buy [Lab analysis video]"
+        ],
+        [
+          "Federal law protects your warranty at independent shops - The Magnuson-Moss Act explained by certified professionals",
+          "Can dealerships void your warranty? What the law actually says vs what they imply",
+          "Your consumer rights for vehicle maintenance - Legal expert breaks down warranty compliance requirements"
+        ],
+        [
+          "Where does your old oil go? Our certified recycling process turns waste oil into energy and new products",
+          "The environmental impact of proper vs improper oil disposal - 1 quart contaminates 250,000 gallons of water",
+          "Eco-friendly service practices: How we reduce waste, recycle materials, and minimize environmental footprint"
+        ],
+        [
+          "EV owners: You still need these 5 services - Common electric vehicle maintenance misconceptions debunked",
+          "Hybrid vehicle care guide - How to maintain both electric and combustion systems for optimal performance",
+          "The future of automotive service: What maintenance looks like as vehicles evolve toward electrification"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I really need synthetic oil or if they're just upselling' with molecular science education",
+        "Week 2: Address 'Every place tells me something different about how often to change oil' with manufacturer documentation interpretation",
+        "Week 3: Address 'I can get it cheaper at Walmart' by explaining quality differences in components beyond just oil",
+        "Week 4: Address 'The dealership says I must use them' with legal education and consumer rights",
+        "Week 5: Address 'I'll just do it myself and save the money' with proper disposal complexity and environmental responsibility",
+        "Week 6: Address 'Do I really need to change it that often?' with emerging vehicle technology requirements"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce ASE certification credentials and ongoing technical training documentation",
+        "Week 2: Share actual vehicle manufacturer service bulletins and technical specifications",
+        "Week 3: Present laboratory testing results and filter cross-section comparisons",
+        "Week 4: Display legal certifications and compliance with federal/state regulations",
+        "Week 5: Feature environmental certifications, recycling partnerships, and sustainability audits",
+        "Week 6: Showcase specialized training for hybrid/EV systems and manufacturer partnerships"
+      ],
+      "cta_progression": [
+        "Week 1: Download our synthetic vs conventional oil white paper - Free technical guide",
+        "Week 2: Get your vehicle-specific maintenance schedule - Enter VIN for customized recommendations",
+        "Week 3: Watch our oil filter comparison video - 5-minute deep dive with lab results",
+        "Week 4: Free warranty compliance consultation - Verify your service meets manufacturer requirements",
+        "Week 5: Learn about our environmental practices - Take our virtual sustainability tour",
+        "Week 6: Schedule your hybrid/EV service consultation - Specialized technicians assess your needs"
+      ],
+      "platform_priority": [
+        "YouTube (6 in-depth videos, one per week, 5-8 minutes each, posted Thursday evenings)",
+        "LinkedIn (3-4 posts/week for B2B fleet manager audience and professional credibility)",
+        "Facebook (3-4 posts/week with educational carousels and infographics)",
+        "Email (1 weekly deep-dive newsletter to engaged subscriber segment)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing need for 'educational content explaining the actual chemistry and engineering behind why oil changes matter - most content is surface-level' and 'myth-busting content addressing common misconceptions.' Addresses customer voice data showing 'I don't know if I really need synthetic oil' and 'Every place tells me something different' as major pain points. Leverages YouTube's 55-65% retention rate for educational automotive content and positions for long-term authority building."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive maintenance challenges - Poll-based decision making and quiz content about vehicle care",
+        "Week 2: User-generated content celebration - Customer stories, photos, and community showcase"
+      ],
+      "weekly_hooks": [
+        [
+          "Pop Quiz: Your check engine light just came on - What's your first move? A) Panic B) Ignore it C) Check gas cap D) Call us 👇 Comment below!",
+          "This or That: Would you rather... Never wait for an oil change again OR Get free car washes for life? 🤔",
+          "Guess the mileage on this engine - Closest answer wins a free synthetic oil change! Drop your guess below 👇",
+          "Fill in the blank: I know it's time for an oil change when _____ 😂 Funniest answer gets featured!",
+          "True or False: You should change your oil every 3,000 miles no matter what. Comment your answer and why!"
+        ],
+        [
+          "Show us your ride! 📸 Tag us in a photo of your vehicle for a chance to be featured and win [Prize]",
+          "Caption this: [Funny oil change scenario photo] - Best caption wins $25 off their next service!",
+          "We want to hear from YOU - What's one thing you wish every oil change place did differently? Most helpful answer gets implemented!",
+          "Share your car care confession - We promise not to judge 😅 Comment the longest you've gone between oil changes",
+          "Customer Spotlight Week: Meet [Customer Name] and their [Vehicle] - Share your vehicle's story in comments for a feature!",
+          "Before & After Challenge: Post your dirtiest oil filter find or messiest engine bay - Winner gets free upgrade to premium synthetic!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I never remember when I'm due for an oil change' through interactive reminder preference polls",
+        "Week 2: Address 'I hate feeling like I'm getting ripped off because I don't know about cars' by featuring customer education success stories"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce poll results showing community consensus on service preferences and maintenance habits",
+        "Week 2: Share user-generated content as social proof - real customers, real vehicles, real experiences"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in our poll - Help us understand what our community needs most",
+        "Week 1: Comment your answer - Join the conversation with 200+ local car owners",
+        "Week 2: Tag us in your photo - Get featured on our page and enter to win",
+        "Week 2: Share your story - Book your next service and tell us about your vehicle in person"
+      ],
+      "platform_priority": [
+        "Instagram Stories (Daily polls, quizzes, question stickers for 2 weeks straight)",
+        "Facebook (8-10 highly interactive posts with comment prompts and contests)",
+        "Instagram Feed (6-8 posts featuring user-generated content and engagement prompts)",
+        "Google My Business (Respond to every review posted during campaign, post 4 Q&A updates)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram engagement benchmarks showing 1.5-2.5% engagement for interactive Reels and Stories content. Addresses customer voice data showing 'I never remember when I'm due for an oil change' pain point through community-driven reminder discussions. Leverages Facebook's 4.2% engagement rate for automotive service content when using interactive formats. Competitive gap opportunity for 'content addressing customer empowerment and making informed decisions' through community knowledge sharing."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Fleet managers: Skipping scheduled oil changes costs your business $4,000+ per vehicle in premature engine replacement.\n\nProblem: Most fleet operators don't realize that extending oil change intervals by just 2,000 miles reduces engine life by 30%. With labor costs at all-time highs, unexpected breakdowns devastate your bottom line.\n\nAgitate: When a delivery vehicle breaks down mid-route, you're paying for:\n• Tow truck fees ($150-300)\n• Rental vehicle daily rates ($75-125)\n• Lost productivity and missed deliveries\n• Customer satisfaction hits\n• Emergency repair premiums (2-3x normal rates)\n\nSolution: Implement a documented preventive maintenance program with [YOUR_BUSINESS_NAME]. We provide:\n✓ Fleet-wide service tracking with automated reminders\n✓ ASE-certified technicians using [MANUFACTURER]-recommended intervals\n✓ Detailed service records for warranty compliance\n✓ After-hours and weekend availability to minimize downtime\n✓ Volume pricing for fleets of 5+ vehicles\n\nOne client reduced their annual maintenance costs by 34% and eliminated emergency breakdowns entirely.\n\nWhat's your biggest fleet maintenance challenge? Drop a comment below.\n\n#FleetManagement #PreventiveMaintenance #BusinessEfficiency #AutomotiveService #FleetMaintenance",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 15 years and 50,000+ oil changes, here's what most drivers get wrong about engine maintenance:\n\nAttention: The 3,000-mile oil change is dead. Yet 60% of drivers still follow this outdated advice, wasting $150+ annually.\n\nInterest: Modern synthetic oils and engine technology have changed everything:\n• Turbocharged engines require synthetic oil (conventional causes buildup)\n• Most manufacturers now recommend 7,500-10,000 mile intervals\n• Severe driving conditions (stop-and-go traffic, extreme temps) cut intervals by 50%\n• Oil life monitoring systems are more accurate than mileage stickers\n\nThe real question isn't \"how often\" but \"what does YOUR specific vehicle need?\"\n\nDesire: Following manufacturer-recommended intervals:\n✓ Saves $100-200 annually on unnecessary services\n✓ Maintains warranty compliance with proper documentation\n✓ Optimizes engine performance and longevity\n✓ Reduces environmental waste from premature oil disposal\n\nAction: Check your owner's manual (not the quick-lube sticker). Look for \"normal\" vs \"severe\" service schedules. Most drivers qualify as severe.\n\nAt [YOUR_BUSINESS_NAME], we follow [MANUFACTURER] specifications exactly - no more, no less. Bring your manual, we'll show you the right interval.\n\nDownload our free \"[YEAR] Vehicle-Specific Maintenance Guide\" in comments.\n\n#AutomotiveTips #CarMaintenance #IndustryInsights",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Customers waiting 45+ minutes for oil changes, frustrated and unlikely to return.\n\nAfter: 15-minute guaranteed service with 94% customer satisfaction and 67% repeat rate.\n\nBridge: We eliminated the waiting room entirely.\n\nOur stay-in-car express service means:\n• Customers never leave their vehicle\n• Transparent service - watch everything through your windshield\n• No waiting room upsell pressure\n• ASE-certified technicians complete full service in 15 minutes\n• Digital service records texted immediately\n\nThis month only: [OFFER_DETAILS] for new commercial accounts.\n\nPerfect for busy professionals, fleet vehicles, or anyone who values their time at more than $[HOURLY_VALUE]/hour.\n\nSchedule your first service: [BOOKING_LINK] or call [PHONE]\n\nLimited to [NUMBER] appointments per day to maintain our quality guarantee.\n\n#TimeIsMoney #CustomerExperience #BusinessSolutions",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: Your engine after skipping oil changes for 15,000 miles 😱\n\nSwipe to see what fresh oil should look like →\n\n3 signs you're OVERDUE:\n1️⃣ Oil darker than cold brew coffee\n2️⃣ Gritty texture (rub between fingers)\n3️⃣ Dashboard light screaming at you\n\nYour engine has 200+ moving parts creating friction at 5,000 RPM. Old oil = metal-on-metal grinding = $4,000 repair bill.\n\nDon't let this be you! Drop a 🚗 if you're due for service.\n\n[YOUR_BUSINESS_NAME] | 15-min express service | No appointment needed\n📍 [LOCATION] | Open 7 days\n\n[Link in bio to book]",
+        "visual": "Carousel: Slide 1 - Close-up of extremely dark, sludgy oil on dipstick. Slide 2 - Clean golden synthetic oil. Slide 3 - Infographic showing 3 warning signs with icons. Slide 4 - Before/after engine comparison diagram. Slide 5 - Call-to-action with business hours and location."
+      },
+      "authority": {
+        "caption": "ASE Master Technician here: Stop wasting money on 3,000-mile oil changes ✋\n\nYour car's manual says [7,500] miles. The sticker says 3,000. Who's right?\n\nThe manual. Every. Single. Time.\n\nHere's why quick-lube places push 3,000 miles:\n❌ More frequent visits = more revenue\n❌ Outdated advice from 1970s engines\n❌ Ignores modern synthetic oil technology\n\nFollow YOUR manufacturer's recommendation:\n✅ Saves you $150+ per year\n✅ Maintains warranty compliance\n✅ Better for the environment\n\nBut here's the catch: \"Severe driving\" cuts intervals in half. That means:\n• Stop-and-go traffic daily\n• Trips under 10 miles\n• Extreme heat/cold\n• Towing or hauling\n\n90% of drivers qualify as severe 🤯\n\nSave this post. Check your manual. Know your real interval.\n\nQuestions? Drop them below 👇\n\n[YOUR_BUSINESS_NAME] | Honest service, manufacturer specs only",
+        "visual": "Reel format: Technician holding owner's manual next to windshield sticker showing different mileage recommendations. Quick cuts showing manual pages, oil life monitor screen, calendar animation showing cost savings. Text overlays: '3,000 miles = OUTDATED', 'Check YOUR manual', 'Save $150/year'. End with technician pointing to camera with text 'Follow the manual, not the sticker'."
+      },
+      "promotional": {
+        "caption": "This week only: Full synthetic upgrade FREE ⚡\n\n(Worth $30 - normally $[REGULAR_PRICE])\n\nWhy synthetic?\n🔥 Handles extreme temps better\n⚙️ Lasts 2x longer than conventional\n🏎️ Better engine protection\n💰 Fewer oil changes = more savings\n\nPerfect timing for [SEASONAL_REASON - summer heat/winter cold/road trip season].\n\nNo appointment needed | In and out in 15 minutes | Stay in your car\n\nValid [START_DATE] - [END_DATE]\nMention this post at check-in\n\n📍 [LOCATION]\n⏰ [HOURS]\n📞 [PHONE] to skip the line\n\nTag someone who needs this 👇",
+        "visual": "Eye-catching graphic: Split screen showing conventional oil breaking down in heat vs synthetic staying stable. Bold text overlay 'FREE SYNTHETIC UPGRADE' with dates. Bottom third shows business logo, location pin, and '15 MIN SERVICE' badge. Story version: Countdown sticker showing days left in promotion, swipe-up link to directions."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚗 MAINTENANCE MONDAY: Your Oil Change Questions Answered 🚗\n\nHey [CITY_NAME] drivers! Seeing a lot of confusion in local groups about oil changes, so let's clear this up:\n\n❓ \"Do I really need synthetic oil?\"\n✅ If you have a turbocharged engine, tow/haul regularly, or drive in extreme temps - YES. Otherwise, follow your manual's recommendation.\n\n❓ \"How often should I change it?\"\n✅ Check your owner's manual, NOT the sticker. Most modern cars: 7,500-10,000 miles with synthetic. BUT if you drive mostly short trips (under 10 miles) or in stop-and-go traffic, cut that in HALF.\n\n❓ \"Can I mix synthetic and conventional?\"\n✅ Technically yes, but you lose synthetic's benefits. Stick with one type.\n\n❓ \"What's the difference between brands?\"\n✅ As long as it meets your manufacturer's spec (look for the API certification), you're good. We use [BRAND_NAME] because [REASON].\n\n❓ \"Will skipping one oil change really hurt my engine?\"\n✅ Maybe not immediately, but you're rolling the dice. Sludge builds up FAST after the recommended interval. Seen too many $4,000+ engine repairs from \"just one more month.\"\n\nPro tip: Set a phone reminder for your next service based on DATE, not just mileage. If you don't drive much, oil still degrades over time (6-12 months max).\n\nDrop your oil change questions below - I'll answer every single one! 👇\n\nAnd if you found this helpful, share it with your car-owning friends. Let's keep [CITY_NAME] vehicles running strong! 💪\n\n[YOUR_BUSINESS_NAME] - Honest Service, Fair Prices, Zero Pressure\n[LOCATION] | [PHONE] | Walk-ins welcome!"
+      },
+      "authority": {
+        "template": "⚠️ UNPOPULAR OPINION: Most oil change places are setting you up for failure.\n\nAfter 50,000+ services, here's what I've learned:\n\nThe industry pushes 3,000-mile intervals because it's profitable, not because your car needs it. Your 2020 Honda? The manual says 7,500 miles. That sticker on your windshield? Ignore it.\n\nBut here's what NO ONE tells you:\n\n🔴 If you drive less than 10 miles per trip (most people do), you're in the \"severe service\" category. That cuts your interval in HALF - even with synthetic.\n\n🔴 Oil life monitors are more accurate than mileage stickers, but only if they're properly reset. 40% of quick-lube places forget to reset them.\n\n🔴 The quality of the oil filter matters MORE than the oil brand. A $3 filter will fail before your oil does, sending metal shavings through your engine.\n\n🔴 \"Full synthetic\" isn't regulated. Some brands are synthetic blends marketed as full synthetic. Look for \"API SN-Plus\" or \"ILSAC GF-6\" certification.\n\nAt [YOUR_BUSINESS_NAME], we do things differently:\n\n✅ We follow YOUR manufacturer's specs (we'll show you the page in your manual)\n✅ We use [PREMIUM_FILTER_BRAND] filters rated for extended intervals\n✅ We properly reset your oil life monitor every time\n✅ We keep digital service records you can access anytime for warranty purposes\n✅ We'll never recommend a service your car doesn't need\n\nIs this approach more expensive than the $19.99 loss-leader special? Sometimes. But our customers average 200,000+ miles on their engines because we do it RIGHT.\n\nYour car is probably your second-biggest investment. Treat it that way.\n\nWant to see what your manual ACTUALLY recommends? Bring it in - we'll walk you through it for free. No service required.\n\n[LOCATION] | [PHONE] | [HOURS]\n\nThoughts? Agree or disagree? Let's discuss below 👇"
+      },
+      "promotional": {
+        "template": "🎉 CUSTOMER APPRECIATION WEEK! 🎉\n\nYou asked, we listened! Here's what our [CITY_NAME] community wanted:\n\n✅ \"Make it faster\" → NOW OFFERING: 15-minute GUARANTEED service (or it's free)\n✅ \"I hate waiting rooms\" → STAY IN YOUR CAR during entire service\n✅ \"Show me what you're doing\" → TRANSPARENT service - watch everything happen\n✅ \"Stop the upselling\" → NO-PRESSURE guarantee in writing\n✅ \"I need evening hours\" → NOW OPEN until [TIME] on weekdays\n\n🔥 THIS WEEK ONLY: 🔥\n\n💰 Conventional Oil Change: $[PRICE] (reg $[REGULAR_PRICE])\n💰 Full Synthetic: $[PRICE] (reg $[REGULAR_PRICE])\n💰 Synthetic Blend: $[PRICE] (reg $[REGULAR_PRICE])\n\nINCLUDES:\n• [BRAND_NAME] oil & premium filter\n• 23-point vehicle inspection\n• Fluid top-offs\n• Tire pressure check\n• Digital service records texted to you\n• 90-day/3,000-mile warranty\n\nNO HIDDEN FEES. NO SURPRISE CHARGES. Price you see is the price you pay.\n\n📅 Valid [START_DATE] through [END_DATE]\n📍 [LOCATION]\n⏰ [HOURS]\n📞 Call [PHONE] or text \"OIL\" to [NUMBER] to book\n\n🚫 No appointment needed, but appointments get priority (book online: [LINK])\n\n⭐ 4.8 stars from 500+ Google reviews - see why [CITY_NAME] trusts us!\n\nTag someone whose car is making \"that noise\" 👇😂\n\nP.S. - Bring this post on your phone for an extra $5 off!"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just found out you've been scammed on oil changes for 10 years 😳",
+        "script": "HOOK: [Shocked face] Wait, you've been doing WHAT every 3,000 miles?!\n\nSECONDS 3-10: [Quick cut to owner's manual] Your manual says 7,500 miles. That sticker says 3,000. You've been getting TWICE as many oil changes as you need.\n\nSECONDS 10-20: [Hold up calculator] That's $600 WASTED over 5 years. For literally nothing.\n\nSECONDS 20-35: [Show dipstick with clean oil] This oil? Still golden at 5,000 miles. Modern synthetic lasts WAY longer than the 1970s conventional oil your grandpa used.\n\nSECONDS 35-45: BUT here's the catch [point at camera] - if you drive mostly short trips under 10 miles, you're in 'severe service' mode. That DOES cut it in half.\n\nSECONDS 45-55: [Flip to manual page] Check YOUR manual. Look for 'normal' vs 'severe' schedule. That's your answer, not some random sticker.\n\nSECONDS 55-60: Save this. Check your manual. Stop getting scammed. [Wink]\n\nTEXT OVERLAYS: '3,000 miles = OUTDATED' / 'Check YOUR manual' / '$600 wasted' / 'Modern oil lasts longer' / 'Unless severe driving' / 'Stop the scam'\n\nSOUND: Trending 'wait, what?' audio or 'mind blown' sound effect"
+      },
+      "authority": {
+        "hook": "Mechanic here: This $30 oil change just cost you $4,000 😬",
+        "script": "HOOK: [Hold up dirty oil filter] See this? This is what happens when you go to the cheapest place.\n\nSECONDS 3-15: [Cut open cheap filter] $3 filter. Cardboard inside. It failed at 4,000 miles. [Show metal shavings] These metal pieces? Now inside your engine.\n\nSECONDS 15-25: [Hold up premium filter] This costs $12. Has synthetic media. Lasts 10,000 miles. [Cut it open] See the difference?\n\nSECONDS 25-40: That $19.99 oil change special? They're using the cheapest parts possible. Your engine doesn't care about your coupon. It cares about THIS [point to quality filter].\n\nSECONDS 40-50: [Show engine damage photos] This engine had regular oil changes. But cheap filters. $4,200 rebuild.\n\nSECONDS 50-60: Don't be cheap on the thing that keeps your engine alive. Ask what filter brand they use. If they won't tell you, walk away.\n\nTEXT OVERLAYS: '$3 filter = 💀' / 'Metal in your engine' / '$12 filter = 200k miles' / 'Cheap oil change = expensive repair' / 'Ask about the FILTER'\n\nSOUND: Suspenseful/dramatic trending audio\n\nCALL-TO-ACTION: Stitch this if you've been using cheap filters 😅"
+      },
+      "promotional": {
+        "hook": "Wait, you can get your oil changed WITHOUT leaving your car? 🤯",
+        "script": "HOOK: [Film from driver's seat] Okay this is wild. I'm literally sitting in my car right now...\n\nSECONDS 3-10: [Pan to show technician under car] ...and they're doing my ENTIRE oil change while I sit here. I'm not even kidding.\n\nSECONDS 10-20: [Show phone timer] Started 6 minutes ago. They said 15 minutes total. No waiting room. No weird coffee. Just vibing in my car.\n\nSECONDS 20-30: [Film through windshield] I can literally WATCH them do everything. They're showing me the old filter. Now the new one. This is so much better than sitting in a sketch waiting room.\n\nSECONDS 30-40: [Show text message on phone] And they just texted me my service records. Automatic. For warranty stuff.\n\nSECONDS 40-50: [Timer shows 14 minutes] Okay we're done. FOURTEEN MINUTES. I didn't even finish this TikTok.\n\nSECONDS 50-60: [Drive away] Why doesn't everywhere do this?! This is at [YOUR_BUSINESS_NAME] in [CITY]. You're welcome.\n\nTEXT OVERLAYS: 'Stay in your car' / 'Watch it happen' / '15 min guaranteed' / 'No waiting room' / 'Service records texted' / '14 minutes total' / '[LOCATION]'\n\nSOUND: Upbeat trending audio (e.g., 'this is genius' trend)\n\nHASHTAGS: #oilchange #carcare #lifehack #cartok #[CITY]tok"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your [VEHICLE_MAKE] maintenance schedule is wrong (here's why)",
+        "preview_text": "Most drivers follow outdated advice. See what your manual actually says →",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: When was the last time you actually opened your [VEHICLE_YEAR] [VEHICLE_MAKE] owner's manual?\n\nIf you're like most drivers, you're following the maintenance sticker on your windshield instead. And that might be costing you money.\n\nHere's what we found:\n\n📊 Your [VEHICLE_MAKE] manual recommends oil changes every [MANUFACTURER_INTERVAL] miles with synthetic oil\n\n📊 Most quick-lube stickers say 3,000 miles\n\n📊 The difference? You're getting 2-3 EXTRA oil changes per year you don't need\n\nBUT (and this is important)...\n\nIf you drive mostly short trips, in stop-and-go traffic, or in extreme temperatures, you qualify as \"severe service\" - which cuts that interval in half.\n\n90% of our customers qualify as severe and don't know it.\n\n🔧 YOUR PERSONALIZED RECOMMENDATION:\n\nBased on your [VEHICLE_YEAR] [VEHICLE_MAKE] and typical driving patterns, we recommend:\n• Oil changes every [RECOMMENDED_INTERVAL] miles\n• [OIL_TYPE] oil (manufacturer specification: [SPEC])\n• [FILTER_BRAND] premium filter\n\nWant to see the exact page in your manual? Reply to this email and I'll send you a photo of your specific vehicle's maintenance schedule.\n\nNo sales pitch. Just helping you maintain your investment correctly.\n\n[SIGNATURE]\n[YOUR_NAME]\n[YOUR_BUSINESS_NAME]\n\nP.S. - Your records show you're at [CURRENT_MILEAGE] miles. Based on your last service on [LAST_SERVICE_DATE], you're due around [DUE_DATE]. We'll send a reminder when it's time."
+      },
+      "authority": {
+        "subject": "ASE Technician: The #1 mistake that destroys engines",
+        "preview_text": "It's not skipping oil changes. It's something 60% of drivers do wrong...",
+        "body": "Hi [FIRST_NAME],\n\nAfter 15 years as an ASE Master Technician, I've seen hundreds of engine failures.\n\nAnd here's what surprises people:\n\nMost of these engines had REGULAR oil changes.\n\nSo what went wrong?\n\n❌ THE #1 ENGINE KILLER: Using the wrong oil specification\n\nYour [VEHICLE_YEAR] [VEHICLE_MAKE] requires oil that meets [MANUFACTURER_SPEC] specification. Not all \"synthetic\" oils meet this standard.\n\nUsing the wrong spec causes:\n• Turbocharger failure ($2,000-4,000 repair)\n• Timing chain stretch (engine rebuild territory)\n• Catalytic converter damage ($1,500-3,000)\n• Voided warranty claims\n\nHere's how to protect yourself:\n\n✅ STEP 1: Check your owner's manual for the exact specification (not just \"5W-30\" - look for API/ILSAC codes)\n\n✅ STEP 2: Verify your service provider uses oil meeting that spec (ask to see the bottle)\n\n✅ STEP 3: Keep detailed service records showing specification compliance (critical for warranty)\n\nAt [YOUR_BUSINESS_NAME], we maintain a database of every vehicle's required specifications. Your [VEHICLE_MAKE]? We use [OIL_BRAND] [SPECIFICATION] - exactly what [MANUFACTURER] requires.\n\nWe'll show you the bottle. We'll show you the manual page. We'll give you documentation for your records.\n\nBecause a $[SERVICE_PRICE] oil change with the RIGHT oil is cheaper than a $4,000 repair with the wrong oil.\n\nWant to verify your last oil change used the correct specification? Forward me your receipt and I'll review it (no charge).\n\nProtecting [CITY_NAME] engines, one service at a time.\n\n[SIGNATURE]\n[YOUR_NAME], ASE Master Technician\n[YOUR_BUSINESS_NAME]\n[PHONE] | [BOOKING_LINK]\n\nP.S. - Your [VEHICLE_MAKE] is due for service around [DUE_DATE] based on our records. Book now to lock in our current pricing: [BOOKING_LINK]"
+      },
+      "promotional": {
+        "subject": "Your [VEHICLE_MAKE] is due for service (+ $15 off inside)",
+        "preview_text": "Based on your last visit [MONTHS_AGO] months ago, you're due soon. Book this week →",
+        "body": "Hi [FIRST_NAME],\n\nOur records show your [VEHICLE_YEAR] [VEHICLE_MAKE] is due for service:\n\n🔧 Last service: [LAST_SERVICE_DATE] at [LAST_MILEAGE] miles\n🔧 Current estimated mileage: [ESTIMATED_MILEAGE] miles\n🔧 Recommended service: [SERVICE_TYPE] oil change\n\nBefore your dashboard light comes on, let's get you taken care of.\n\n💰 THIS WEEK ONLY: $15 OFF YOUR SERVICE\n\nUse code: [PROMO_CODE] at checkout\nValid through [EXPIRATION_DATE]\n\n⏱️ BOOK YOUR 15-MINUTE EXPRESS SERVICE:\n\n📅 [DAY]: [AVAILABLE_TIMES]\n📅 [DAY]: [AVAILABLE_TIMES]\n📅 [DAY]: [AVAILABLE_TIMES]\n\n[BOOK NOW BUTTON - LINK]\n\nOR call/text [PHONE] - we'll fit you in\n\n✅ WHAT'S INCLUDED:\n• [OIL_BRAND] [OIL_TYPE] oil (meets [MANUFACTURER_SPEC])\n• Premium [FILTER_BRAND] filter\n• 23-point vehicle inspection\n• Fluid level check and top-off\n• Tire pressure adjustment\n• Digital service records for warranty\n• 90-day/3,000-mile service warranty\n\n🚗 STAY IN YOUR CAR - No waiting room required\n\n⏰ IN AND OUT IN 15 MINUTES - Guaranteed or service is free\n\n📍 [LOCATION] - [HOURS]\n\nSee you soon,\n\n[SIGNATURE]\n[YOUR_NAME]\n[YOUR_BUSINESS_NAME]\n\nP.S. - Putting it off? Here's what happens when oil breaks down:\n• Week 1 past due: Reduced fuel efficiency\n• Week 2-4: Accelerated engine wear\n• Month 2+: Sludge buildup begins\n• Month 3+: Risk of permanent engine damage\n\nDon't risk it. Book now: [BOOKING_LINK]\n\n---\n\nPrefer fewer emails? [Update preferences] | Questions? Just reply to this email."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[500] miles overdue? [15-minute] oil change prevents [$4,000+] engine damage",
+      "[23-point] free inspection with every oil change - find problems before your [road trip]",
+      "[$29.99] full synthetic - [no hidden fees], [no upsells], done in [20 minutes]"
+    ],
+    "question_hooks": [
+      "Worried your oil change will take all morning when you're [leaving for a road trip tomorrow]?",
+      "Can't remember when your last oil change was or if you're [driving on overdue oil]?",
+      "Scared the dealership will charge [$100+] for a [$30] oil change?"
+    ],
+    "story_hooks": [
+      "How [Sarah] kept her warranty valid and avoided [$5,000] in denied claims with [documented service records]",
+      "How [Mike's fleet] cut maintenance costs [40%] by switching from [dealership to certified quick lube]",
+      "How [one skipped oil change] cost [Jennifer] her entire engine - and how [you can avoid it]"
+    ],
+    "fear_hooks": [
+      "Is your engine at risk from [sludge buildup] because you waited [too long between changes]?",
+      "Is your warranty at risk from [missing service records] when your [check engine light] comes on?",
+      "Is your family's safety at risk from [engine failure on the highway] during your [road trip]?"
+    ],
+    "howto_hooks": [
+      "How to get a [factory-recommended oil change] without [dealership prices or pushy upsells]",
+      "How to [keep your warranty valid] without [taking time off work or waiting all day]",
+      "How to [know when you're actually due] without [guessing or trusting that windshield sticker]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You just saved your engine from $4,000 in damage",
+      "body": "Show dirty oil pouring out with sludge buildup. Cut to mechanic pointing at metal shavings in oil filter. Text overlay: 'This car went 15,000 miles without an oil change.' Show engine wear comparison. Then show fresh golden oil pouring in. Final shot: 'Your owner's manual knows better than your brother-in-law.' Show manual page with actual interval.",
+      "cta": "Check your manual. Book your service. Save your engine. Link in bio."
+    },
+    "reels": {
+      "hook": "They told you 3,000 miles. Your manual says 7,500. Who's lying?",
+      "body": "Quick cuts showing: old oil change sticker saying 3,000 miles, then flip to actual owner's manual showing 7,500. Text: 'The 3,000-mile myth makes shops more money.' Show side-by-side cost comparison over 30,000 miles. End with: 'Trust your manual, not outdated advice.'",
+      "cta": "Follow for honest car advice that saves you money"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film yourself staying in your car during the entire oil change. Show what you do while waiting (work emails, scroll phone, eat lunch). Caption: 'Got my oil changed without losing my parking spot.' Show time-lapse of service.",
+      "hashtag": "#StayInYourCar"
+    },
+    {
+      "prompt": "Ask the technician to show you your old oil filter and explain what they see. Film their explanation. Caption: 'First time understanding what actually happens to my oil.' Be genuine about learning something new.",
+      "hashtag": "#CarCareEducation"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Mechanic reacts to viral car maintenance TikToks and debunks myths (3,000-mile rule, premium gas requirements, engine flush necessity) with actual owner's manuals as proof",
+      "why": "Controversy drives engagement, people love myth-busting content, positions brand as honest expert challenging industry BS, highly shareable to friends who believe myths"
+    },
+    {
+      "angle": "Before/after engine teardown comparison showing engine internals from car with regular oil changes vs neglected oil changes, with cost breakdown of what each maintenance approach actually costs over 100,000 miles",
+      "why": "Shocking visual evidence is highly shareable, appeals to fear of expensive repairs and desire to save money, educational value makes people tag friends, proves ROI of maintenance"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:20:14.876Z",
+    "last_tier2_refresh": "2025-11-27T22:20:14.876Z",
+    "last_tier3_refresh": "2025-11-27T22:20:14.876Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:20:14.876Z"
+  }
+}

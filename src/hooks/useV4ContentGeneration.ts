@@ -31,6 +31,7 @@ import {
   intelligencePopulator,
   type IntelligenceContext
 } from '@/services/v4';
+import type { SelectedInsight } from '@/services/v4/types';
 
 // ============================================================================
 // TYPES
@@ -55,6 +56,31 @@ export interface PowerModeOptions {
   mixCategory?: ContentMixCategory;
   platform?: 'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'tiktok';
   tone?: 'professional' | 'casual' | 'authoritative' | 'friendly';
+  /** Selected insights from user to incorporate into content */
+  selectedInsights?: SelectedInsight[];
+  /** Industry Profile 2.0 - Enhanced industry data for content generation */
+  enhancedIndustryProfile?: {
+    industry_name: string;
+    hook_library: {
+      number_hooks?: string[];
+      question_hooks?: string[];
+      story_hooks?: string[];
+      fear_hooks?: string[];
+      howto_hooks?: string[];
+    };
+    power_words: string[];
+    avoid_words: string[];
+    headline_templates: { template: string; context: string }[];
+    customer_triggers: { trigger: string; urgency: number }[];
+    transformations: { from: string; to: string; emotional_value: string }[];
+    content_templates?: {
+      linkedin?: {
+        educational?: { hook: string; body: string; cta: string };
+        authority?: { hook: string; body: string; cta: string };
+        case_study?: { hook: string; body: string; cta: string };
+      };
+    };
+  };
 }
 
 export interface CampaignResult {

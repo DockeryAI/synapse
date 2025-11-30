@@ -1,0 +1,1725 @@
+{
+  "industry": "Flooring Contractor",
+  "industry_name": "Flooring Contractor",
+  "naics_code": "238330",
+  "category": "Construction",
+  "subcategory": "Specialty Trade Contractors",
+  "customer_triggers": [
+    {
+      "trigger": "Water damage from burst pipes or flooding",
+      "urgency": 10,
+      "frequency": "Monthly occurrence"
+    },
+    {
+      "trigger": "Home sale preparation needing updated floors",
+      "urgency": 9,
+      "frequency": "Weekly inquiries"
+    },
+    {
+      "trigger": "Pet accidents causing permanent odor/stains",
+      "urgency": 8,
+      "frequency": "Daily calls"
+    },
+    {
+      "trigger": "Worn carpets showing traffic patterns",
+      "urgency": 6,
+      "frequency": "Seasonal peaks"
+    },
+    {
+      "trigger": "Allergies worsening from old carpet dust mites",
+      "urgency": 7,
+      "frequency": "Spring/Fall surge"
+    },
+    {
+      "trigger": "Tripping hazards from loose tiles or planks",
+      "urgency": 9,
+      "frequency": "Weekly emergency calls"
+    },
+    {
+      "trigger": "Kitchen/bathroom renovation requiring new floors",
+      "urgency": 5,
+      "frequency": "Quarterly projects"
+    },
+    {
+      "trigger": "Commercial lease requiring flooring updates",
+      "urgency": 8,
+      "frequency": "Monthly contracts"
+    },
+    {
+      "trigger": "Insurance claim approval for floor replacement",
+      "urgency": 10,
+      "frequency": "Weekly processing"
+    },
+    {
+      "trigger": "New baby arriving wanting safer flooring",
+      "urgency": 7,
+      "frequency": "Monthly inquiries"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Homeowner notices squeaky floors, visible wear patterns, or water damage spots - typically triggered by embarrassment when guests visit or realtor walkthrough suggesting updates needed for sale",
+    "consideration": "Researches flooring options online for 2-3 weeks, visits 3-4 showrooms, collects 4-6 contractor quotes, reads 20+ reviews, checks BBB ratings, asks neighbors for recommendations, compares warranty terms",
+    "decision": "Chooses contractor based on 40% price, 30% reviews/reputation, 20% material quality samples, 10% scheduling availability - average decision time is 14-21 days from first quote",
+    "retention": "Post-installation follow-up at 30/60/90 days, annual maintenance reminders, exclusive discounts on future rooms, priority scheduling for repairs, lifetime warranty registration benefits",
+    "advocacy": "Shares before/after photos on social media within 48 hours, leaves reviews after 2 weeks when fully settled, refers average of 2.3 neighbors within first year, becomes brand ambassador for 15% discount on next project"
+  },
+  "transformations": [
+    {
+      "from": "Embarrassing stained carpets",
+      "to": "Pristine showroom-quality floors",
+      "emotional_value": "Pride in home ownership",
+      "worth_premium": true
+    },
+    {
+      "from": "Dangerous tripping hazards",
+      "to": "Safe level surfaces",
+      "emotional_value": "Peace of mind for family safety",
+      "worth_premium": true
+    },
+    {
+      "from": "Allergy-triggering old carpets",
+      "to": "Hypoallergenic hard surfaces",
+      "emotional_value": "Health improvement relief",
+      "worth_premium": true
+    },
+    {
+      "from": "Dated 1990s linoleum",
+      "to": "Modern luxury vinyl planks",
+      "emotional_value": "Contemporary lifestyle upgrade",
+      "worth_premium": false
+    },
+    {
+      "from": "Cold concrete basement",
+      "to": "Warm carpeted family room",
+      "emotional_value": "Cozy gathering space",
+      "worth_premium": true
+    },
+    {
+      "from": "Noisy apartment floors",
+      "to": "Sound-dampened surfaces",
+      "emotional_value": "Peaceful living environment",
+      "worth_premium": true
+    },
+    {
+      "from": "High-maintenance hardwood",
+      "to": "Easy-clean waterproof flooring",
+      "emotional_value": "Time-saving convenience",
+      "worth_premium": false
+    },
+    {
+      "from": "Mismatched room transitions",
+      "to": "Cohesive whole-home flow",
+      "emotional_value": "Design satisfaction",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Zero visible seams or gaps after 6 months",
+      "timeframe": "6-month inspection",
+      "measurable": true
+    },
+    {
+      "metric": "95% customer satisfaction score",
+      "timeframe": "30-day post-install survey",
+      "measurable": true
+    },
+    {
+      "metric": "Less than 2% callback rate for repairs",
+      "timeframe": "Annual measurement",
+      "measurable": true
+    },
+    {
+      "metric": "Project completed within promised timeframe",
+      "timeframe": "Per project tracking",
+      "measurable": true
+    },
+    {
+      "metric": "No subfloor damage discovered during installation",
+      "timeframe": "Installation day",
+      "measurable": true
+    },
+    {
+      "metric": "Warranty claims under 0.5% of installations",
+      "timeframe": "5-year tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Customer referral rate above 40%",
+      "timeframe": "Quarterly assessment",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Water actively spreading under current flooring causing mold growth risk within 48-72 hours",
+    "Home showing scheduled in 2 weeks requiring completed flooring installation",
+    "Insurance claim expires in 30 days if work not started",
+    "Moving truck arrives next Friday needing floors done before furniture placement",
+    "Baby due in 6 weeks wanting nursery flooring VOC-free and cured",
+    "Commercial tenant move-in date contractually locked with daily penalties for delays",
+    "Special financing offer expires end of month saving $800-1,200 in interest"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price is 30% higher than online calculator",
+      "response": "Online prices exclude subfloor prep in 87% of homes, moisture barriers, transitions, and disposal fees totaling $2,400-3,200",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Can't move furniture out for 3 days",
+      "response": "Our crew moves furniture room-by-room for $200-300, completing sections while you live normally",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Worried about dust and mess",
+      "response": "HEPA filtration systems capture 99.97% of particles, plastic barriers seal rooms, daily cleanup included",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "Bad experience with last contractor",
+      "response": "Review our 500+ verified testimonials, observe current job site, 100% money-back guarantee if unsatisfied",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Spouse needs to approve first",
+      "response": "Schedule evening consultation with both decision-makers, provide 48-hour price lock, include design visualization",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Waiting for insurance check",
+      "response": "We offer direct insurance billing, start work immediately, handle all claim paperwork",
+      "effectiveness": 9.5
+    },
+    {
+      "objection": "Cheaper quote from competitor",
+      "response": "Compare warranties, insurance coverage, included services - our package saves $1,800 over 10 years",
+      "effectiveness": 7.6
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Lifetime installation warranty on labor",
+      "30-day satisfaction guarantee with free reinstallation",
+      "Price match plus 10% if identical quote found",
+      "No hidden fees guarantee in writing"
+    ],
+    "proof_points": [
+      "Licensed and bonded for $2 million",
+      "A+ BBB rating for 15 consecutive years",
+      "Certified installer for top 10 manufacturers",
+      "3,500+ completed projects in local area",
+      "Average 4.8 star rating across 500+ reviews"
+    ],
+    "risk_mitigation": "Free moisture testing prevents 95% of future problems, detailed contract specifies every charge, progress photos sent daily, payment only after passing inspection"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "buckled",
+      "squeaky",
+      "worn out",
+      "dated",
+      "stained",
+      "peeling",
+      "gaps",
+      "uneven",
+      "faded",
+      "scratched",
+      "water damage",
+      "pet odor"
+    ],
+    "solution_words": [
+      "waterproof",
+      "durable",
+      "warranty",
+      "professional",
+      "seamless",
+      "level",
+      "modern",
+      "easy-clean",
+      "allergen-free",
+      "quiet",
+      "beautiful",
+      "lasting"
+    ],
+    "avoid_jargon": [
+      "substrate",
+      "mil wear layer",
+      "IIC rating",
+      "dimensional stability",
+      "hydrostatic pressure",
+      "calcium chloride test",
+      "relative humidity",
+      "telegraphing"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "waterproof",
+    "lifetime",
+    "professional",
+    "certified",
+    "trusted",
+    "seamless",
+    "beautiful",
+    "durable",
+    "warranty",
+    "transform",
+    "expert",
+    "quality",
+    "reliable",
+    "licensed",
+    "insured",
+    "experienced",
+    "local",
+    "affordable",
+    "premium",
+    "luxury",
+    "modern",
+    "stunning",
+    "flawless",
+    "precision",
+    "craftsmanship",
+    "satisfaction",
+    "value",
+    "upgrade",
+    "investment"
+  ],
+  "avoid_words": [
+    "cheap",
+    "budget",
+    "economy",
+    "basic",
+    "standard",
+    "adequate",
+    "sufficient",
+    "acceptable",
+    "temporary",
+    "quick-fix",
+    "patch",
+    "cover-up",
+    "hide",
+    "mask",
+    "tolerable",
+    "subcontractor",
+    "day-laborer",
+    "apprentice",
+    "learning",
+    "trying"
+  ],
+  "headline_templates": [
+    {
+      "template": "Water Damage? Emergency Flooring Replacement in 48 Hours",
+      "expected_ctr": 8.7,
+      "use_case": "Emergency services"
+    },
+    {
+      "template": "See Why 2,000+ [City] Homeowners Trust Us With Their Floors",
+      "expected_ctr": 6.3,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Get $500 Off Whole-Home Flooring This Month Only",
+      "expected_ctr": 9.2,
+      "use_case": "Promotional offer"
+    },
+    {
+      "template": "From Damaged to Stunning: Your Floor Transformation Starts Today",
+      "expected_ctr": 7.1,
+      "use_case": "Transformation focus"
+    },
+    {
+      "template": "Professional Flooring Installation - Lifetime Warranty Included",
+      "expected_ctr": 5.8,
+      "use_case": "Quality emphasis"
+    },
+    {
+      "template": "Why [Neighborhood] Chooses Us: 500+ Five-Star Reviews",
+      "expected_ctr": 7.9,
+      "use_case": "Local social proof"
+    },
+    {
+      "template": "Waterproof Flooring: Perfect for Pets, Kids, and Real Life",
+      "expected_ctr": 8.4,
+      "use_case": "Problem-solution"
+    },
+    {
+      "template": "Warning: Don't Install Flooring Until You Read This",
+      "expected_ctr": 6.6,
+      "use_case": "Educational hook"
+    },
+    {
+      "template": "Free Flooring Consultation: Get Your Quote in 24 Hours",
+      "expected_ctr": 7.3,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "Insurance Claim? We Handle Everything - You Pay Nothing Upfront",
+      "expected_ctr": 9.8,
+      "use_case": "Insurance claims"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Your Free Estimate Today →",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Schedule Your Consultation Now",
+      "conversion_rate": 10.8,
+      "placement": "After benefits list"
+    },
+    {
+      "template": "See Our Work - View Gallery",
+      "conversion_rate": 8.9,
+      "placement": "Mid-page"
+    },
+    {
+      "template": "Claim Your $500 Discount",
+      "conversion_rate": 15.7,
+      "placement": "Pop-up at 30 seconds"
+    },
+    {
+      "template": "Chat With a Flooring Expert",
+      "conversion_rate": 9.4,
+      "placement": "Bottom right sticky"
+    },
+    {
+      "template": "Download Free Flooring Guide",
+      "conversion_rate": 11.2,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Get Started - It's Free",
+      "conversion_rate": 13.6,
+      "placement": "Landing page"
+    },
+    {
+      "template": "Call Now: [Phone Number]",
+      "conversion_rate": 7.8,
+      "placement": "Mobile sticky header"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Before & After: This [City] family's living room transformation is incredible! 😍 What room would you renovate first?",
+      "engagement_rate": 8.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe to see the magic ➡️ From water-damaged to waterproof luxury in just 2 days! #FlooringTransformation #[City]Homes",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "Google Business",
+      "template": "Thank you [Customer Name] for trusting us with your beautiful new hardwood floors! Another happy family in [Neighborhood] 🏠",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Offering 15% off for [Neighborhood] residents this month. We've done 50+ homes in our community!",
+      "engagement_rate": 14.3
+    },
+    {
+      "platform": "YouTube",
+      "template": "Watch: Complete Kitchen Floor Installation Time-lapse - Tile to Luxury Vinyl in 8 Hours",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Flooring Trends for 2024: Which style matches your home? Save for inspiration!",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Completed another 10,000 sq ft commercial flooring project on time and under budget. Proud to serve [City] businesses for 20 years.",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a flooring installer and the client says 'just lay it over the old floor' 😱 #FlooringFails #DoItRight",
+      "engagement_rate": 18.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: That 'small' water spot could mean major subfloor damage. Free moisture testing this week for [City] homeowners. DM us!",
+      "engagement_rate": 5.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Lifetime installation warranty vs competitor's 1-year",
+      "rank": 1,
+      "differentiator": "Unmatched confidence in craftsmanship"
+    },
+    {
+      "prop": "Complete job in 2 days vs industry average of 5 days",
+      "rank": 2,
+      "differentiator": "Larger crew and efficient process"
+    },
+    {
+      "prop": "Direct insurance billing saving you $2,000+ in upfront costs",
+      "rank": 3,
+      "differentiator": "Established insurer relationships"
+    },
+    {
+      "prop": "Free furniture moving valued at $300-500",
+      "rank": 4,
+      "differentiator": "Full-service convenience"
+    },
+    {
+      "prop": "Certified installers for warranty protection",
+      "rank": 5,
+      "differentiator": "Manufacturer-trained professionals"
+    },
+    {
+      "prop": "24/7 emergency water damage response",
+      "rank": 6,
+      "differentiator": "Round-the-clock availability"
+    },
+    {
+      "prop": "Price match plus 10% difference",
+      "rank": 7,
+      "differentiator": "Confidence in competitive pricing"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your home with museum-quality flooring installations. Our master craftsmen, with combined 150+ years experience, deliver flawless results using premium materials. White-glove service includes furniture handling, daily cleanup, and concierge-level project management. Investment in excellence that appreciates with your home value.",
+    "budget_conscious": "Get beautiful new floors without breaking the bank. We offer flexible payment plans, manufacturer direct pricing, and efficient installation that saves on labor costs. Quality doesn't mean expensive - our value packages deliver lasting beauty at 30-40% less than premium options. Same lifetime warranty, smarter investment.",
+    "enterprise": "Minimize business disruption with our commercial flooring solutions. We work nights and weekends, complete 10,000+ sq ft in 48 hours, and coordinate with your facilities team. Slip-resistant, ADA-compliant options with 10-year commercial warranties. Trusted by Fortune 500 companies and local businesses for 20+ years."
+  },
+  "trust_signals": [
+    {
+      "signal": "Before/after photo gallery with 500+ projects",
+      "importance": 9,
+      "format": "Visual portfolio"
+    },
+    {
+      "signal": "BBB A+ rating seal prominently displayed",
+      "importance": 8,
+      "format": "Third-party badge"
+    },
+    {
+      "signal": "Manufacturer certification logos",
+      "importance": 7,
+      "format": "Brand authorization"
+    },
+    {
+      "signal": "Insurance and licensing numbers visible",
+      "importance": 10,
+      "format": "Legal credentials"
+    },
+    {
+      "signal": "Local address and years in business",
+      "importance": 8,
+      "format": "Established presence"
+    },
+    {
+      "signal": "Real customer video testimonials",
+      "importance": 9,
+      "format": "Authentic reviews"
+    },
+    {
+      "signal": "Industry association memberships",
+      "importance": 6,
+      "format": "Professional affiliations"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "3,500+ floors installed in [County] since 2004",
+      "credibility_score": 9.2,
+      "context": "Local market dominance"
+    },
+    {
+      "stat": "97% of customers would recommend us",
+      "credibility_score": 8.7,
+      "context": "Post-project survey results"
+    },
+    {
+      "stat": "Average 4.8 stars from 500+ verified reviews",
+      "credibility_score": 9.5,
+      "context": "Aggregate rating proof"
+    },
+    {
+      "stat": "Zero BBB complaints in past 5 years",
+      "credibility_score": 8.9,
+      "context": "Dispute resolution excellence"
+    },
+    {
+      "stat": "15 industry awards for installation excellence",
+      "credibility_score": 7.8,
+      "context": "Peer recognition"
+    },
+    {
+      "stat": "Featured in 3 home improvement TV shows",
+      "credibility_score": 8.3,
+      "context": "Media validation"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Custom inlays, exotic hardwoods, hand-scraped finishes, lifetime warranties",
+    "Mid-range: Brand name materials, certified installation, 10-25 year warranties",
+    "Budget: Builder-grade materials, basic installation, 5-year warranties",
+    "Premium uses moisture meters and laser levels vs budget using basic tools",
+    "Premium includes subfloor inspection and prep vs budget laying over existing",
+    "Premium offers white-glove furniture service vs budget requiring DIY moving"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "After first weekend enjoying new floors when emotional high peaks",
+    "ask_method": "Text message with direct link to review platform, followed by email with photo request, offering $50 future discount for video testimonial"
+  },
+  "competitive_advantages": [
+    "Only local installer with 24/7 emergency response team for water damage",
+    "Exclusive distributor for premium European flooring brands in region",
+    "Proprietary dust-free installation system reducing cleanup by 90%",
+    "In-house financing approval in 60 seconds with 0% for 18 months",
+    "Company-owned warehouse eliminating 2-week special order delays"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show premium $25/sq ft option first, making $12/sq ft seem reasonable, then offer 'smart choice' at $8/sq ft",
+    "sensitivity": "Price breaks at $5,000, $10,000, and $15,000 trigger different decision-making processes and approval requirements",
+    "sweet_spots": [
+      "$7,500-9,500 for 1,000 sq ft homes",
+      "$12,000-15,000 for main level renovation",
+      "$3,500-4,500 per room"
+    ],
+    "decoy_pricing": "Offer 'contractor grade' at $4/sq ft to make 'professional grade' at $6/sq ft appear as best value with only 50% more cost but 200% better quality"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 2500,
+    "approval_required": 5000,
+    "competitor_research": 3500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.35,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$4-6/sq ft",
+      "target_customer": "Rental property owners and budget-conscious homeowners",
+      "margin": 22
+    },
+    {
+      "tier": "Professional",
+      "price_range": "$8-12/sq ft",
+      "target_customer": "Middle-income families wanting quality and warranty",
+      "margin": 35
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$15-30/sq ft",
+      "target_customer": "High-end homes and commercial showrooms",
+      "margin": 45
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle room transitions and moldings for 60% markup vs 25% on flooring",
+    "Upsell moisture barriers and premium underlayment adding $800-1,200 profit per job",
+    "Offer maintenance packages at $299/year with 80% margin",
+    "Source remnants for small rooms generating 50-70% margins",
+    "Partner with manufacturers for volume rebates adding 8-12% to bottom line",
+    "Charge disposal fees of $200-400 with actual cost of $50-100"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -20,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "New Year renovation resolutions marketing"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Tax refund anticipation",
+      "opportunity": "Pre-approval for tax refund financing"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Spring renovation season begins",
+      "opportunity": "Spring cleaning floor refresh campaigns"
+    },
+    {
+      "month": "April",
+      "variation": 35,
+      "reason": "Tax refunds arrive",
+      "opportunity": "Tax refund special pricing"
+    },
+    {
+      "month": "May",
+      "variation": 40,
+      "reason": "Pre-summer home improvements",
+      "opportunity": "Memorial Day sales events"
+    },
+    {
+      "month": "June",
+      "variation": 30,
+      "reason": "Summer project season",
+      "opportunity": "Graduation party prep marketing"
+    },
+    {
+      "month": "July",
+      "variation": 20,
+      "reason": "Vacation season slowdown",
+      "opportunity": "Commercial project focus"
+    },
+    {
+      "month": "August",
+      "variation": 15,
+      "reason": "Back-to-school expenses",
+      "opportunity": "Teacher and student discounts"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Fall renovation surge",
+      "opportunity": "Pre-holiday installation push"
+    },
+    {
+      "month": "October",
+      "variation": 45,
+      "reason": "Pre-holiday preparations",
+      "opportunity": "Holiday hosting readiness"
+    },
+    {
+      "month": "November",
+      "variation": 10,
+      "reason": "Thanksgiving disruption",
+      "opportunity": "Black Friday flooring deals"
+    },
+    {
+      "month": "December",
+      "variation": -30,
+      "reason": "Holiday spending priorities",
+      "opportunity": "New Year installation booking"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling consultations after weekend research",
+      "avoid": "Cold calling during work catch-up",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Following up on Monday inquiries",
+      "avoid": "Major promotional launches",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week installation starts",
+      "avoid": "Evening consultations (low show rate)",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Closing deals before weekend",
+      "avoid": "Price increase announcements",
+      "conversion_rate": 9.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency service calls",
+      "avoid": "Complex consultations",
+      "conversion_rate": 6.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Showroom visits and consultations",
+      "avoid": "B2B outreach",
+      "conversion_rate": 11.3
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Online quote requests and research",
+      "avoid": "Phone calls before noon",
+      "conversion_rate": 8.7
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage due 1st, credit cards due 15th-20th, optimal quote delivery 5th-10th or 21st-25th",
+    "cash_flow_peaks": "Paychecks arrive 1st and 15th for 65% of customers, commission checks end of month",
+    "slow_periods": "7th-12th of month lowest conversion, 23rd-27th second slowest, use for installation scheduling"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 5 PM - Sunday 10 PM",
+      "crisis_type": "Water leak discovery",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "December 20-26",
+      "crisis_type": "Holiday guest preparation",
+      "premium_multiplier": 2.25
+    },
+    {
+      "time": "48 hours before home listing",
+      "crisis_type": "Real estate emergency",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Hurricane season June-November",
+      "crisis_type": "Storm damage",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Room Refresh",
+      "components": [
+        "Single room up to 200 sq ft",
+        "Basic prep",
+        "Standard installation",
+        "Haul away"
+      ],
+      "pricing_model": "Flat rate $1,499-2,499",
+      "margin": 28
+    },
+    {
+      "name": "Whole Home Harmony",
+      "components": [
+        "Up to 2,000 sq ft",
+        "Full prep and level",
+        "Premium installation",
+        "All transitions",
+        "Furniture moving"
+      ],
+      "pricing_model": "Per sq ft $7-10",
+      "margin": 38
+    },
+    {
+      "name": "Commercial Complete",
+      "components": [
+        "Minimum 5,000 sq ft",
+        "Night/weekend work",
+        "Phased installation",
+        "Maintenance plan"
+      ],
+      "pricing_model": "Volume discount 20-30%",
+      "margin": 32
+    },
+    {
+      "name": "Insurance Restoration",
+      "components": [
+        "Emergency response",
+        "Full documentation",
+        "Direct billing",
+        "Guaranteed approval"
+      ],
+      "pricing_model": "Insurance rates plus 15%",
+      "margin": 42
+    }
+  ],
+  "upsell_paths": [
+    "Basic vinyl → Waterproof luxury vinyl (+$2/sq ft)",
+    "Standard pad → Memory foam padding (+$0.75/sq ft)",
+    "Basic install → Lifetime warranty install (+$1.50/sq ft)",
+    "Single room → Adjoining hallway bundle (+$400-600)",
+    "Flooring only → Baseboard and trim package (+$800-1,200)",
+    "One-time service → Annual maintenance plan (+$299/year)"
+  ],
+  "retention_hooks": [
+    "Annual professional cleaning service included first year",
+    "Loyalty program: 10% off additional rooms within 2 years",
+    "Exclusive access to new product launches and sales",
+    "Priority emergency response for existing customers",
+    "Referral rewards: $200 for each successful referral",
+    "Free repair kit and lifetime phone support",
+    "Birthday month discount for family members"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Neighbor discount cards at completion",
+      "timing": "Day of completion while excited",
+      "incentive": "$200 off for neighbor, $200 credit for referrer",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social media photo contest",
+      "timing": "1 week post-install",
+      "incentive": "Monthly $500 winner",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Contractor partnership program",
+      "timing": "Ongoing relationship building",
+      "incentive": "10% commission on referrals",
+      "conversion_rate": 22.4
+    },
+    {
+      "strategy": "Realtor rewards program",
+      "timing": "After successful home sale",
+      "incentive": "$300 per closed referral",
+      "conversion_rate": 18.9
+    },
+    {
+      "strategy": "Customer appreciation events",
+      "timing": "Quarterly gatherings",
+      "incentive": "Exclusive pricing for attendees",
+      "conversion_rate": 15.6
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Baseboard and trim installation",
+      "attach_rate": 0.45,
+      "timing": "During flooring consultation"
+    },
+    {
+      "service": "Furniture assembly after moving",
+      "attach_rate": 0.12,
+      "timing": "Day of installation"
+    },
+    {
+      "service": "Area rug and runner sales",
+      "attach_rate": 0.23,
+      "timing": "2 weeks post-install"
+    },
+    {
+      "service": "Annual maintenance package",
+      "attach_rate": 0.34,
+      "timing": "At final walkthrough"
+    },
+    {
+      "service": "Garage floor epoxy coating",
+      "attach_rate": 0.18,
+      "timing": "3 months follow-up"
+    },
+    {
+      "service": "Staircase refinishing",
+      "attach_rate": 0.28,
+      "timing": "During main floor project"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Water damage restoration services",
+      "market_size": "$2.3M annual in service area",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Tile and backsplash installation",
+      "market_size": "$1.8M annual in service area",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Commercial maintenance contracts",
+      "market_size": "$4.5M annual in service area",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Online flooring consultation platform",
+      "market_size": "$500K annual nationwide",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Cabinet refacing services",
+      "market_size": "$3.2M annual in service area",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Property management partnerships",
+      "market_size": "$1.5M annual in service area",
+      "difficulty": 3
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Empire Today's before/after transformation videos showing flooring installations completed in one day, featuring real customer homes with dramatic visual improvements",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Visual transformation content triggers emotional response, one-day installation addresses speed concern, real homes build trust. Short-form video format (15-30 seconds) maximizes engagement",
+        "metrics": "Average engagement rate 4.2% on Instagram (industry average 1.9%), video completion rate 68%",
+        "source": "Social Media Examiner 2024 Home Improvement Marketing Report",
+        "confidence": "high"
+      },
+      {
+        "example": "Floor & Decor's educational YouTube series 'Flooring 101' covering installation tips, material comparisons, and DIY guidance with professional installers",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content builds authority, addresses research phase of buyer journey, SEO-optimized titles capture search traffic, professional production quality establishes credibility",
+        "metrics": "Average 45,000 views per video, 12-minute average watch time, 3.8% click-through to product pages",
+        "source": "Floor & Decor YouTube channel analytics reported in Remodeling Magazine Q2 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local flooring contractor 'Floors by Tomorrow' viral TikTok showing water being poured on luxury vinyl plank with text overlay 'POV: Your toddler spills juice for the 47th time today' demonstrating waterproof features",
+        "platform": "TikTok",
+        "why_it_worked": "Relatable parent pain point, product demonstration, humor, trending POV format, addresses specific customer trigger (spills/stains)",
+        "metrics": "2.3M views, 187K likes, 4,200 shares, 892 comments asking for quotes",
+        "source": "TikTok viral flooring content case study, Contractor Marketing Institute 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Lumber Liquidators email campaign 'Your Floors Are Making You Sick' focused on allergen reduction with hard surface flooring, sent during spring allergy season",
+        "platform": "Email",
+        "why_it_worked": "Seasonal timing aligned with allergy sufferers' pain, fear-based hook drives opens, health angle provides emotional motivation, clear CTA for free consultation",
+        "metrics": "42% open rate (industry average 21%), 8.7% click-through rate, 12% consultation booking rate",
+        "source": "Email Marketing Benchmarks for Home Services 2024, Constant Contact",
+        "confidence": "medium"
+      },
+      {
+        "example": "50 Floor's Facebook carousel ads showing room-by-room transformations with price transparency ($3-$8 per sq ft) and financing options prominently displayed",
+        "platform": "Facebook",
+        "why_it_worked": "Price transparency reduces friction, carousel format shows multiple room types, financing addresses affordability objection, visual proof of transformation",
+        "metrics": "3.1% conversion rate (2.3x industry average), $42 cost per lead, 23% consultation-to-sale rate",
+        "source": "Home Improvement Advertising Benchmarks 2024, WordStream",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-1.8% for home improvement industry",
+        "best_content_format": "Video (especially before/after transformations) and carousel ads showing multiple room examples",
+        "optimal_frequency": "4-6 posts per week, with 2-3 being organic content and 2-3 being boosted/paid",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm, Saturday 9am-12pm (when homeowners research projects)",
+        "source": "Hootsuite Social Media Benchmarks 2024, Home Services vertical"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.9-2.4% for flooring/home improvement contractors",
+        "best_content_format": "Reels showing installation time-lapses (60-90 seconds), before/after carousels, Stories with polls asking followers to vote on flooring choices",
+        "optimal_frequency": "5-7 posts per week (3-4 feed posts, 2-3 Reels, daily Stories)",
+        "best_posting_times": "Monday, Wednesday, Friday 11am-1pm and 7pm-9pm",
+        "source": "Later.com 2024 Instagram Engagement Report, Construction & Home Improvement segment"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.8-3.5% (likes/comments relative to views) for home improvement how-to content",
+        "best_content_format": "Educational videos 8-15 minutes (installation guides, material comparisons, maintenance tips), customer testimonial videos 2-3 minutes",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month to maintain channel",
+        "best_posting_times": "Thursday-Saturday mornings 8am-11am (weekend project planners)",
+        "source": "TubeBuddy Home Improvement Channel Analytics 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.2-7.8% for home renovation content (significantly higher than other platforms)",
+        "best_content_format": "15-30 second time-lapse installations, satisfying cleaning/transformation videos, trending audio with flooring twist, POV relatable homeowner scenarios",
+        "optimal_frequency": "1-2 posts daily for algorithm favor, minimum 4-5 per week",
+        "best_posting_times": "Tuesday, Thursday, Friday 6am-9am and 7pm-10pm EST",
+        "source": "Influencer Marketing Hub TikTok Engagement Study 2024, Home & Garden category"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for home improvement services",
+        "best_content_format": "Before/after image galleries, seasonal promotions with urgency, educational content about flooring options, customer success stories",
+        "optimal_frequency": "2-4 emails per month (bi-weekly to weekly), with seasonal campaigns adding 2-3 additional touches",
+        "best_posting_times": "Tuesday-Thursday 10am-11am (highest open rates for B2C home services)",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Construction industry vertical"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "3.2% click-through rate from profile views to website",
+        "best_content_format": "Weekly photo posts of completed projects, Google Posts announcing promotions, Q&A responses, review responses within 24 hours",
+        "optimal_frequency": "3-5 posts per week, daily review monitoring and response",
+        "best_posting_times": "Monday, Wednesday, Friday mornings 9am-11am local time",
+        "source": "BrightLocal Local SEO Industry Survey 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-based urgency + specific problem",
+        "example": "Your floors have 48 hours before the water damage becomes permanent",
+        "why_it_works": "Creates immediate urgency around water damage trigger, specific timeframe increases credibility, fear of permanent damage motivates action",
+        "source": "High-converting flooring contractor ad copy examples, LocaliQ 2024"
+      },
+      {
+        "hook_pattern": "Question hook addressing hidden cost",
+        "example": "Why are you vacuuming allergens that your carpet is trapping?",
+        "why_it_works": "Reframes routine activity (vacuuming) as futile, highlights health trigger, creates cognitive dissonance that demands resolution",
+        "source": "Flooring industry email subject line A/B tests, Emma Email Marketing 2024"
+      },
+      {
+        "hook_pattern": "Social proof + transformation promise",
+        "example": "How 847 Charlotte homeowners transformed their homes in just one day",
+        "why_it_works": "Specific number builds credibility, local geographic reference increases relevance, one-day timeframe addresses speed concern",
+        "source": "Empire Today marketing materials analysis, Remodeling Magazine 2024"
+      },
+      {
+        "hook_pattern": "Before/after contrast statement",
+        "example": "From embarrassing pet stains to showroom-worthy floors",
+        "why_it_works": "Directly addresses emotional pain (embarrassment), creates vivid mental contrast, aspirational end state, uses customer language",
+        "source": "50 Floor Facebook ad creative testing results, WordStream Case Studies 2024"
+      },
+      {
+        "hook_pattern": "Permission-based reassurance",
+        "example": "You don't have to live with floors you hate just because you're worried about the mess",
+        "why_it_works": "Acknowledges common objection (installation mess), gives permission to prioritize desire over concern, empathetic tone",
+        "source": "Flooring contractor consultation call analysis, CallRail Marketing Intelligence 2024"
+      },
+      {
+        "hook_pattern": "Myth-busting education",
+        "example": "Luxury vinyl isn't cheap vinyl—here's what changed",
+        "why_it_works": "Addresses common misconception preventing sales, educational angle builds authority, creates curiosity gap",
+        "source": "Floor & Decor content marketing strategy, Content Marketing Institute 2024"
+      },
+      {
+        "hook_pattern": "Seasonal relevance + pain point",
+        "example": "Spring cleaning won't fix what's living in your 10-year-old carpet",
+        "why_it_works": "Ties to seasonal behavior, implies hidden health threat, positions replacement as real solution vs. temporary fix",
+        "source": "Lumber Liquidators seasonal campaign analysis, Marketing Sherpa 2024"
+      },
+      {
+        "hook_pattern": "Financial justification",
+        "example": "This $4,500 flooring upgrade added $12,000 to their home value",
+        "why_it_works": "Specific ROI numbers, positions expense as investment, particularly effective for home sale preparation trigger",
+        "source": "Realtor testimonials and flooring ROI studies, Remodeling Impact Report 2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "Our carpet smells like dog no matter how many times we clean it",
+        "I'm embarrassed to have people over because of these floors",
+        "The grout is black and I can't get it clean anymore",
+        "We have to keep rugs everywhere to cover the stains",
+        "My allergies are so much worse in the house than outside",
+        "The linoleum is curling up at the edges and someone's going to trip",
+        "Our realtor said the floors are holding back offers",
+        "I can see the traffic patterns worn into the carpet",
+        "The water damage left dark spots that won't go away",
+        "My toddler is crawling on floors I know are gross underneath"
+      ],
+      "solution_phrases": [
+        "I want floors I can just wipe clean when the dog has an accident",
+        "Something that looks expensive but won't break the bank",
+        "We need it done before the holidays when family visits",
+        "Floors that will last until the kids are grown",
+        "I want to walk barefoot without worrying what I'm stepping in",
+        "Something waterproof for the kitchen and bathrooms",
+        "Floors that look like hardwood but are actually durable",
+        "We want the house to feel updated and modern",
+        "I need floors I won't have to replace again in 5 years",
+        "Something that will help us sell the house faster"
+      ],
+      "objection_phrases": [
+        "I'm worried about how long the installation will take",
+        "We can't move out while you do the work",
+        "I don't know if we can afford it right now",
+        "What if we pick the wrong color or style",
+        "I've heard horror stories about installation damage",
+        "Will it really look like the samples in my house",
+        "How do I know this won't go out of style",
+        "My spouse isn't convinced we need to do this yet",
+        "I'm scared of making such a permanent decision",
+        "What if there's damage underneath when you pull up the old floor"
+      ],
+      "decision_factors": [
+        "How quickly can you get it done",
+        "What's included in the price—removal, disposal, furniture moving",
+        "Do you guarantee your work and for how long",
+        "Can I see examples of your work in homes like mine",
+        "Are you licensed and insured",
+        "What financing options do you have",
+        "How long has your installation team been doing this",
+        "Will you move furniture or do we have to",
+        "What happens if we find water damage or subfloor issues",
+        "Can you match or beat competitors' quotes",
+        "Do you have references from neighbors or local customers",
+        "How disruptive will this be to our daily life"
+      ],
+      "emotional_language": [
+        "Finally proud of our home again",
+        "Such a relief not to worry about",
+        "I can't believe the transformation",
+        "Feels like a brand new house",
+        "So much cleaner and healthier",
+        "Worth every penny for the peace of mind",
+        "Wish we had done this years ago",
+        "My friends can't stop commenting",
+        "The house feels so much brighter",
+        "I actually enjoy being home now",
+        "No more embarrassment",
+        "Safe for the kids to play on"
+      ],
+      "sources": [
+        "HomeAdvisor flooring contractor reviews 2024",
+        "Reddit r/HomeImprovement flooring discussion threads 2023-2024",
+        "Angie's List flooring project reviews",
+        "Houzz flooring contractor Q&A forums",
+        "Google Business Profile reviews for top 50 flooring contractors",
+        "Yelp flooring contractor reviews in top 10 metro areas",
+        "Facebook comments on flooring contractor business pages"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing information—most competitors hide pricing until consultation, creating opportunity for those who provide ranges",
+      "Subfloor problem education—customers fear hidden costs but few contractors proactively educate about what to expect",
+      "Pet owner specific content—huge market segment but most content is generic, opportunity for pet-focused messaging and guarantees",
+      "Post-installation care—competitors focus on sale but neglect maintenance education, creating retention opportunity",
+      "Financing process transparency—many offer financing but don't explain approval process, creating anxiety",
+      "Virtual consultations—post-COVID opportunity many local contractors haven't adopted",
+      "Sustainability and eco-friendly options—growing concern but minimal content addressing it",
+      "Commercial vs residential content separation—most mix both, confusing messaging",
+      "Rental property owner content—underserved segment with specific needs (durability, cost, tenant-proof)",
+      "Accessibility-focused flooring—aging population needs but rarely addressed in marketing"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "Tax refund season, post-holiday home improvement planning, New Year home refresh motivation",
+        "content_angle": "New Year, New Floors campaigns, tax refund investment messaging, winter indoor project focus"
+      },
+      {
+        "period": "March-May (Spring)",
+        "opportunity": "Peak allergy season, spring cleaning mindset, home selling season begins, pre-summer preparation",
+        "content_angle": "Allergy relief messaging, spring refresh transformations, selling season floor updates, Mother's Day gift angle (floor upgrade for mom)"
+      },
+      {
+        "period": "June-August (Summer)",
+        "opportunity": "Kids out of school (easier installation scheduling), vacation time off work, outdoor entertaining season prep",
+        "content_angle": "Summer installation convenience, entertaining-ready floors, school's out scheduling advantage, outdoor-to-indoor flow emphasis"
+      },
+      {
+        "period": "September-October (Fall)",
+        "opportunity": "Back-to-school fresh start, pre-holiday preparation, second home selling season, nesting season",
+        "content_angle": "Holiday-ready home messaging, before guests arrive urgency, fall refresh content, Thanksgiving preparation"
+      },
+      {
+        "period": "November-December (Holiday)",
+        "opportunity": "Holiday hosting preparation, end-of-year tax deductions, gift to family/self, New Year deadline urgency",
+        "content_angle": "Holiday hosting floors, year-end tax benefits, gift yourself messaging, New Year's deadline urgency, Christmas transformation reveals"
+      },
+      {
+        "period": "Water Damage Season (varies by region)",
+        "opportunity": "Pipe freezing season (winter), hurricane season (coastal), flood season (spring), storm damage",
+        "content_angle": "Emergency response messaging, insurance claim assistance, water damage prevention education, waterproof flooring emphasis"
+      },
+      {
+        "period": "Home Show Season (Spring/Fall locally)",
+        "opportunity": "Local home shows drive project inspiration and contractor shopping behavior",
+        "content_angle": "Home show special pricing, show attendance promotion, post-show follow-up campaigns, inspiration from show trends"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Social Media Examiner 2024 Home Improvement Marketing Report",
+      "Remodeling Magazine Q2 2024",
+      "Contractor Marketing Institute 2024",
+      "Email Marketing Benchmarks for Home Services 2024, Constant Contact",
+      "Home Improvement Advertising Benchmarks 2024, WordStream",
+      "Hootsuite Social Media Benchmarks 2024",
+      "Later.com 2024 Instagram Engagement Report",
+      "TubeBuddy Home Improvement Channel Analytics 2024",
+      "Influencer Marketing Hub TikTok Engagement Study 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local SEO Industry Survey 2024",
+      "LocaliQ 2024 contractor advertising research",
+      "Emma Email Marketing 2024",
+      "CallRail Marketing Intelligence 2024",
+      "Content Marketing Institute 2024",
+      "Marketing Sherpa 2024",
+      "Remodeling Impact Report 2024",
+      "HomeAdvisor flooring contractor reviews",
+      "Reddit r/HomeImprovement",
+      "Angie's List reviews",
+      "Houzz forums",
+      "Google Business Profile reviews",
+      "Yelp flooring reviews",
+      "Facebook business page analysis"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited A/B testing data publicly available for flooring-specific campaigns",
+      "TikTok benchmarks are newer and less established for this industry vertical",
+      "Commercial flooring contractor data often mixed with residential, making segmentation difficult",
+      "Regional variation in seasonal patterns not fully captured in national data",
+      "Luxury vs. budget flooring segment performance data limited"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new waterproof flooring products or installation services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Waterproof flooring technology breakthrough - addressing pet accidents and spill anxiety",
+        "Week 2: One-day installation transformation - solving the disruption objection",
+        "Week 3: Real customer homes transformed - local social proof and neighborhood credibility",
+        "Week 4: Limited-time pricing lock - creating urgency before holiday hosting season"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: Your toddler spills juice for the 47th time today—but your floors don't care anymore",
+          "What if your dog's accidents never left a stain or smell again? [New waterproof technology] makes it possible",
+          "This isn't your grandma's vinyl—here's what changed in waterproof flooring"
+        ],
+        [
+          "How [247] local homeowners transformed their floors in just one day without moving out",
+          "You don't have to live with floors you hate just because you're worried about the installation mess",
+          "From demolition to dinner party ready in 8 hours—here's the one-day installation process"
+        ],
+        [
+          "From embarrassing pet stains to showroom-worthy floors—[Customer name]'s transformation story",
+          "[Neighborhood] homeowners are upgrading to waterproof luxury vinyl—here's why",
+          "This $4,800 waterproof flooring upgrade added $11,500 to their home value before listing"
+        ],
+        [
+          "Your floors have 48 hours to lock in this price before [holiday] guest arrivals",
+          "Only [12] installation slots left before Thanksgiving—waterproof floors ready for family gatherings",
+          "Why [438] homeowners chose waterproof flooring this month (and you should too)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address product skepticism - 'Luxury vinyl isn't cheap vinyl' myth-busting with technology education",
+        "Week 2: Address installation disruption - 'Can't move out while you work' solved with room-by-room process",
+        "Week 3: Address decision anxiety - 'Worried about picking wrong style' with customer success stories showing variety",
+        "Week 4: Address price hesitation - 'Can't afford it right now' with financing transparency and ROI data"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce manufacturer certifications and waterproof technology lab tests (pour water demonstrations)",
+        "Week 2: Share installation crew experience metrics (years in business, certified installers, before/after time-lapses)",
+        "Week 3: Feature 5-8 customer video testimonials from local neighborhoods with specific problem-solution stories",
+        "Week 4: Final credibility push with warranty details, 500+ review compilation, and licensed/insured documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Waterproof Flooring Comparison Guide - which material is right for your lifestyle?",
+        "Week 2: Watch our 60-second installation time-lapse video and comment which room you'd transform first",
+        "Week 3: Schedule your free in-home consultation and see samples in your actual lighting",
+        "Week 4: Call now to reserve your pre-holiday installation slot - only [X] spots remaining this month"
+      ],
+      "platform_priority": [
+        "TikTok (2 posts daily) - waterproof demonstration videos and POV relatable scenarios for viral reach",
+        "Instagram (5-7 posts weekly) - Reels of transformations, Stories with polls, before/after carousels",
+        "Facebook (4-6 posts weekly) - carousel ads with pricing transparency, longer customer story videos",
+        "Email (3 campaign sends) - week 1 teaser, week 3 social proof compilation, week 4 urgency reminder"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Floors by Tomorrow viral TikTok waterproof demonstration (2.3M views) and 50 Floor Facebook carousel ads with price transparency achieving 3.1% conversion rate. Launch timing aligns with holiday hosting seasonal opportunity (Nov-Dec research). One-day installation messaging proven by Empire Today's 4.2% engagement rate."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent lead generation",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Pet owner flooring solutions - stain resistance, odor elimination, scratch durability",
+        "Week 2: Allergy relief through flooring - dust mite elimination, hard surface health benefits",
+        "Week 3: Home value ROI - selling season preparation, realtor recommendations, appraisal impact",
+        "Week 4: Subfloor secrets - educating about hidden damage, moisture barriers, preparation costs",
+        "Week 5: Material comparison education - hardwood vs LVP vs tile, honest pros and cons",
+        "Week 6: Installation process transparency - what to expect day-by-day, mess management",
+        "Week 7: Maintenance and longevity - care tips that extend floor life, warranty protection",
+        "Week 8: Customer transformation stories - real homes, real problems solved, emotional outcomes"
+      ],
+      "weekly_hooks": [
+        [
+          "Our carpet smells like dog no matter how many times we clean it—sound familiar?",
+          "Why are you replacing carpet pads when you should replace the carpet trapping pet odors?",
+          "This flooring survived [3 dogs, 2 cats, and 4 years] without a single stain—here's what it is"
+        ],
+        [
+          "Spring cleaning won't fix what's living in your 10-year-old carpet",
+          "Why are you vacuuming allergens that your carpet is trapping and releasing?",
+          "My allergies are so much worse in the house than outside—your flooring might be why"
+        ],
+        [
+          "Our realtor said the floors are holding back offers—here's what we did",
+          "This $5,200 flooring upgrade added $13,000 to their home value in [neighborhood]",
+          "Home buyers walk away from outdated floors—sellers gain equity with modern upgrades"
+        ],
+        [
+          "What if there's damage underneath when you pull up the old floor? Here's the truth",
+          "The hidden costs nobody tells you about—subfloor prep in 87% of homes",
+          "Online calculators miss $2,400 in costs—here's what's really included in professional installation"
+        ],
+        [
+          "Luxury vinyl isn't cheap vinyl—here's what changed in the last 5 years",
+          "Hardwood looks beautiful but is it right for your lifestyle? Honest comparison",
+          "Which flooring lasts longest with kids and pets? The surprising answer"
+        ],
+        [
+          "You don't have to move out during installation—here's our room-by-room process",
+          "What installation really looks like: Day 1 demolition to Day 2 dinner party ready",
+          "I'm worried about how long installation will take—here's the actual timeline"
+        ],
+        [
+          "The one cleaning mistake that voids your flooring warranty",
+          "How to make your floors last until the kids are grown—maintenance secrets",
+          "This simple weekly routine keeps luxury vinyl looking showroom-new for years"
+        ],
+        [
+          "From embarrassing stains to finally proud of our home again—[Customer]'s story",
+          "I can't believe the transformation—see this [1960s ranch] updated with modern flooring",
+          "Such a relief not to worry about spills anymore—waterproof floors changed everything"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Not addressed - focus on problem awareness only",
+        "Week 2: Not addressed - health education builds motivation",
+        "Week 3: Address 'too expensive' with ROI and investment framing",
+        "Week 4: Address 'hidden cost fears' with transparent subfloor education",
+        "Week 5: Address 'decision paralysis' with clear material guidance",
+        "Week 6: Address 'installation disruption' with process transparency",
+        "Week 7: Address 'durability concerns' with maintenance proof",
+        "Week 8: Address 'spouse approval needed' with emotional transformation stories"
+      ],
+      "proof_timing": [
+        "Week 1: Share pet owner testimonials and product demonstration videos",
+        "Week 2: Introduce health professional endorsements and allergy reduction data",
+        "Week 3: Feature realtor partnerships and appraisal value increase documentation",
+        "Week 4: Show subfloor discovery photos with honest before/after of hidden issues",
+        "Week 5: Present manufacturer comparisons with unbiased testing results",
+        "Week 6: Time-lapse installation videos showing actual crew and timeline",
+        "Week 7: Long-term customer check-ins (2-5 years post-installation condition)",
+        "Week 8: Comprehensive video testimonials with home tours and emotional interviews"
+      ],
+      "cta_progression": [
+        "Week 1: Download Pet Owner's Flooring Guide - which materials survive accidents",
+        "Week 2: Take our Allergy Assessment Quiz - is your flooring making you sick?",
+        "Week 3: Get your Free Home Value Flooring Analysis - ROI estimate for your home",
+        "Week 4: Read our Subfloor Preparation Guide - what to expect and budget for",
+        "Week 5: Use our Interactive Flooring Comparison Tool - find your perfect match",
+        "Week 6: Watch our Installation Process Video - see exactly what happens each day",
+        "Week 7: Download our Flooring Care Calendar - maintenance schedule by material type",
+        "Week 8: Schedule your Free In-Home Consultation - see samples in your space"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos weekly) - educational content for SEO and research phase buyers, 8-15 minute deep dives",
+        "Instagram (5-7 posts weekly) - Reels, Stories with polls, before/after carousels for engagement",
+        "Facebook (4-6 posts weekly) - longer educational posts, customer stories, community building",
+        "Email (2 sends monthly) - educational content digest and customer success story features",
+        "Google Business Profile (3-5 posts weekly) - project photos, Q&A responses, review engagement"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Floor & Decor's 'Flooring 101' YouTube series achieving 45K average views with educational content. Addresses competitive gaps in pet owner content, subfloor education, and post-installation care. Weekly themes align with customer voice problem phrases and decision factors. Cycle designed to nurture leads through research phase per platform benchmark data showing Tuesday-Thursday optimal posting."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign maximizing viral potential and reach",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Satisfying transformation content - time-lapse installations, dramatic before/afters, mess-to-beautiful reveals",
+        "Week 2: Relatable homeowner pain points - POV scenarios, trending audio flooring twists, shareable humor"
+      ],
+      "weekly_hooks": [
+        [
+          "Watch 400 sq ft of damaged flooring disappear in 60 seconds—this transformation is satisfying",
+          "From this disaster to move-in ready in 8 hours—the time-lapse will shock you",
+          "The most dramatic flooring transformation we've ever done—[neighborhood] homeowners were speechless",
+          "POV: You're watching your embarrassing floors get ripped out and replaced in real-time",
+          "This before/after made our installer crew stop and stare—wait for the reveal"
+        ],
+        [
+          "POV: Your toddler spills juice for the 47th time but you just smile and wipe it up",
+          "Tell me you have pets without telling me you have pets—oh wait, you can't see evidence on these floors",
+          "When guests ask 'are those real hardwood?' and you get to say 'nope, even better'",
+          "The face you make when the installer says 'you can walk on it tonight'",
+          "Using [trending audio] to show what 20-year-old carpet really looks like underneath—warning: gross"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Not addressed - pure visual impact and transformation focus",
+        "Week 2: Address 'installation time concerns' through speed demonstrations and same-day walkability"
+      ],
+      "proof_timing": [
+        "Week 1: Show dramatic visual proof through before/after content, no testimonials needed yet",
+        "Week 2: Introduce quick customer reaction videos (15-30 seconds) captured immediately post-installation"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this transformation, Share this if your floors need help",
+        "Week 1: Comment which room in your house needs this makeover first, Follow for daily transformations",
+        "Week 2: DM us for a quote on your transformation, Click link in bio to see if we serve your area",
+        "Week 2: Tap the link to schedule your free consultation—let's create your before/after story"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts daily) - primary platform for viral potential, 15-30 second transformations with trending audio",
+        "Instagram Reels (2 posts daily) - cross-post TikTok content plus Stories with behind-scenes",
+        "Facebook (1-2 posts daily) - share viral content to older demographic, boost top performers",
+        "YouTube Shorts (1 post daily) - repurpose best TikTok content for additional reach"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Floors by Tomorrow viral TikTok POV format achieving 2.3M views and 187K likes. Leverages TikTok's 5.2-7.8% engagement rate (highest of all platforms per research) and optimal posting times of 6-9am and 7-10pm EST. Empire Today's transformation video format proven with 4.2% engagement rate and 68% video completion. High-frequency posting (1-2 daily) optimizes for TikTok algorithm favor per platform benchmarks."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Flooring material science - waterproof technology, wear layer thickness, construction quality education",
+        "Week 2: Subfloor preparation mastery - moisture testing, leveling requirements, common hidden issues",
+        "Week 3: Installation technique expertise - proper acclimation, expansion gaps, transition details",
+        "Week 4: Long-term performance factors - warranty comparisons, realistic lifespan expectations, maintenance requirements",
+        "Week 5: Problem diagnosis skills - water damage assessment, when to repair vs replace, structural concerns",
+        "Week 6: Industry insider knowledge - markup transparency, when sales happen, how to evaluate contractors"
+      ],
+      "weekly_hooks": [
+        [
+          "Luxury vinyl isn't cheap vinyl—here's what changed in waterproof flooring technology",
+          "The wear layer thickness that separates 5-year floors from 20-year floors—what to ask for",
+          "Why some waterproof flooring fails the water test—the construction detail manufacturers hide"
+        ],
+        [
+          "What if there's damage underneath when you pull up the old floor? Here's what we find in 87% of homes",
+          "The subfloor moisture test that prevents $8,000 flooring failures—why we never skip it",
+          "Online calculators miss this $2,400 cost—the subfloor preparation nobody tells you about"
+        ],
+        [
+          "The installation mistake that voids warranties—we see competitors do this weekly",
+          "Why your beautiful floors are buckling—the acclimation step rushed installers skip",
+          "This transition detail separates professional installation from DIY disasters"
+        ],
+        [
+          "Lifetime warranty doesn't mean what you think—here's what's actually covered",
+          "How to make floors last until the kids are grown—the maintenance secrets installers know",
+          "The honest lifespan of every flooring type with kids and pets—no sales pitch"
+        ],
+        [
+          "Your floors have 48 hours before water damage becomes permanent—here's how to tell",
+          "When to repair vs replace water-damaged floors—the $3,000 decision explained",
+          "The subfloor warning signs that mean you need more than new flooring"
+        ],
+        [
+          "When flooring really goes on sale (hint: not when they advertise it)—industry insider secrets",
+          "How to evaluate flooring contractors—the 12 questions that reveal quality vs cheap",
+          "The markup on materials vs labor—transparent pricing breakdown from a licensed contractor"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'product quality concerns' with technical education proving premium value",
+        "Week 2: Address 'hidden cost fears' with transparent subfloor reality education",
+        "Week 3: Address 'bad contractor experiences' by showing professional standards vs shortcuts",
+        "Week 4: Address 'durability skepticism' with honest performance expectations and care requirements",
+        "Week 5: Address 'decision timing paralysis' by teaching when immediate action is necessary",
+        "Week 6: Address 'price shopping confusion' with industry transparency and evaluation criteria"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce manufacturer certifications, training credentials, product testing lab results",
+        "Week 2: Share moisture meter readings, subfloor inspection photos, preparation process documentation",
+        "Week 3: Feature installation crew credentials, years of experience, certification programs completed",
+        "Week 4: Present long-term customer check-ins (3-10 years post), condition assessments, warranty claim data",
+        "Week 5: Show diagnostic expertise with problem assessment videos, structural evaluation credentials",
+        "Week 6: Reveal business transparency—licensing, insurance, BBB rating, industry association memberships"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Flooring Material Comparison Guide—technical specs explained in plain English",
+        "Week 2: Request our Subfloor Inspection Checklist—what we check in every home before quoting",
+        "Week 3: Watch our Installation Standards Video—see the difference professional technique makes",
+        "Week 4: Get our Flooring Longevity Calculator—estimate lifespan based on your household",
+        "Week 5: Schedule a Free Damage Assessment—we'll diagnose the problem with no obligation",
+        "Week 6: Book your Expert Consultation—ask the questions other contractors won't answer honestly"
+      ],
+      "platform_priority": [
+        "YouTube (2 videos weekly) - long-form educational content 8-15 minutes, SEO optimized for research queries",
+        "Facebook (5-6 posts weekly) - detailed educational posts for homeowner demographic, longer read times",
+        "Email (1 weekly educational newsletter) - deep-dive content for engaged subscriber list",
+        "Google Business Profile (4-5 posts weekly) - Q&A responses demonstrating expertise, educational snippets",
+        "Instagram (3-4 posts weekly) - educational carousel posts, infographic-style content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Floor & Decor 'Flooring 101' YouTube series achieving 45K views and 12-minute watch times with educational authority content. Addresses competitive gaps in subfloor education, transparent pricing, and sustainability information. Themes directly answer customer decision factors from voice data: 'How do I know,' 'What's included,' 'Do you guarantee.' Positions contractor as trusted advisor per research showing educational content builds authority in research phase."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive decision-making content - polls, this-or-that choices, crowd-sourced opinions on flooring styles",
+        "Week 2: User-generated content and community stories - customer photo shares, transformation reveals, neighborhood pride"
+      ],
+      "weekly_hooks": [
+        [
+          "Vote in comments: Light oak or dark walnut for this living room? Help this homeowner decide",
+          "This or that: Luxury vinyl plank or porcelain tile for a kitchen with 3 kids and a dog?",
+          "Poll: Which room in your house would you transform first? Comment: Kitchen, Bathroom, Bedroom, or Living Room",
+          "Controversial opinion: Carpet in bedrooms is still the best choice—agree or disagree in comments?",
+          "Help us settle this debate: Should flooring match throughout the whole house or vary by room?"
+        ],
+        [
+          "Tag a [neighborhood] neighbor who just got beautiful new floors—let's celebrate local transformations",
+          "Share your before/after flooring photos in comments—we'll feature the best transformation next week",
+          "Homeowners: What's the weirdest thing you found under your old flooring? Comments are wild on these posts",
+          "Tell us your flooring horror story—worst stain, biggest damage, funniest accident (we've heard it all)",
+          "Show us your floors: Comment with a photo and we'll give you free maintenance tips for your specific material"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'decision paralysis' by crowdsourcing opinions and normalizing the difficulty of choosing",
+        "Week 2: Address 'fear of commitment' by showing variety of successful choices in real customer homes"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce community consensus and crowd wisdom as social proof for decision validation",
+        "Week 2: Feature user-generated content as authentic social proof from real local customers"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in the poll, Comment your opinion, Tag someone who needs to weigh in on this",
+        "Week 1: Share this to your Stories and see what your friends think, DM us your own 'this or that' question",
+        "Week 2: Post your transformation with #[CompanyName]Floors for a chance to be featured",
+        "Week 2: Share your flooring story in comments and get a free consultation to solve your current floor problem"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 stories daily) - polls, question stickers, this-or-that sliders for maximum interaction",
+        "Facebook (2-3 posts daily) - community discussion posts, photo sharing prompts, neighborhood-specific content",
+        "TikTok (1-2 posts daily) - duet-friendly content, stitch-worthy opinions, comment-bait questions",
+        "Instagram Feed (1-2 posts daily) - carousel posts asking for votes in comments, UGC compilation posts"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram platform benchmarks showing Stories with polls and question stickers drive highest engagement rates (1.9-2.4% for home improvement). Leverages Facebook's community-building strength for homeowner demographic and TikTok's comment culture (892 comments on viral flooring post per research). UGC approach mirrors successful transformation content patterns from Empire Today (4.2% engagement) while adding participatory element to boost algorithm favor."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "3 flooring mistakes that cost homeowners thousands in resale value:\n\n❌ MISTAKE #1: Mixing too many flooring types\nOpen floor plans need visual flow. We see homes with 4+ different floors creating a choppy, dated feel.\n\n❌ MISTAKE #2: Choosing trendy over timeless\nThat gray wood everyone wanted in 2019? Already dating homes. Classic tones hold value longer.\n\n❌ MISTAKE #3: DIY on high-visibility areas\nWe've repaired countless entryways and kitchens where improper installation created safety hazards and voided warranties.\n\n💡 The fix? Work with certified installers who understand resale ROI. Our [CITY] clients see average $[AMOUNT] value increases with professional installations.\n\nWhat flooring questions do you have before your next project?\n\n#FlooringContractor #HomeValue #RealEstateTips #[CITY]Business #HomeImprovement",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [NUMBER] years installing floors in [CITY], I've noticed something:\n\nHomeowners don't want floors. They want solutions.\n\n→ The young family wants \"no more worrying about spills\"\n→ The empty nester wants \"something that shows we've made it\"\n→ The seller wants \"whatever gets us top dollar fast\"\n\nYet most contractors still lead with product specs.\n\nHere's what changed our business: We stopped selling luxury vinyl plank and started selling \"floors your toddler can't destroy.\" We stopped pushing hardwood and started offering \"the upgrade that makes buyers compete for your home.\"\n\nResult? Our consultation-to-close rate jumped from 31% to 67% in 18 months.\n\nThe technical expertise matters—waterproof cores, wear layers, proper subfloor prep. But leading with the transformation? That's what builds a referral-based business.\n\nWhat transformation are your customers really buying?\n\n#ContractorBusiness #CustomerExperience #HomeServices #BusinessGrowth",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Water-damaged subfloor, pet odors, embarrassed homeowners\nAFTER: Waterproof luxury vinyl, fresh air, proud to host Thanksgiving\n\nThis [NEIGHBORHOOD] family thought they'd need to live with their flooring nightmare until they could afford a full renovation.\n\nThen they discovered our [FINANCING OPTION] program.\n\n✓ Professional removal & disposal\n✓ Subfloor repair included\n✓ Certified installation team\n✓ [WARRANTY LENGTH] warranty\n✓ Completed in [TIMEFRAME]\n\nInvestment: $[PRICE RANGE] (added $[VALUE] to home value per their realtor)\n\nWe have [NUMBER] slots available for [MONTH] installations. Free consultations include material samples you can take home and test in your lighting.\n\nDM me or comment \"QUOTE\" for details.\n\n#FlooringInstallation #[CITY]Homes #HomeRenovation #FlooringContractor",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: You're choosing flooring and have NO idea where to start 😅\n\nSave this for later! 👆\n\n🏠 KITCHEN/BATHROOM: Waterproof luxury vinyl plank (looks like wood, handles spills like a champ)\n\n🛋️ LIVING AREAS: Engineered hardwood if you want that real wood feel, LVP if you have pets/kids\n\n🛏️ BEDROOMS: Carpet for cozy, hardwood for resale value\n\n🏃 HIGH TRAFFIC: Skip solid hardwood, go engineered or LVP—they're tougher\n\n💰 BUDGET HACK: Splurge on main areas guests see, save on bedrooms\n\nDrop a 🏡 if this helped! Questions? Comment below—I read every single one.\n\n#FlooringTips #HomeRenovation #InteriorDesign #[CITY]Homes #FlooringIdeas #HomeImprovement #LVP #Hardwood",
+        "visual": "Carousel: Slide 1 - Split image showing different rooms; Slides 2-6 - Each room type with recommended flooring close-up; Slide 7 - Budget allocation pie chart; Slide 8 - 'Save this post' reminder graphic",
+        "framework": "Educational value-first"
+      },
+      "authority": {
+        "caption": "Why your floors failed after 5 years (and ours last 20+) 🧵\n\nIt's not the product. It's the prep.\n\n❌ Most installers skip moisture testing\n❌ They don't acclimate materials 48hrs\n❌ Subfloor isn't level within 3/16\"\n❌ Wrong adhesive for your climate\n\n✅ We test. We wait. We level. We warranty.\n\nThat's the difference between a \"good deal\" and floors your grandkids inherit.\n\n[NUMBER] [CITY] families trusted us this year. See why in our highlights.\n\nReady for floors done right? Link in bio for free consultation.\n\n#FlooringContractor #QualityMatters #[CITY]Business #HomeRenovation #FlooringInstallation #CertifiedInstaller",
+        "visual": "Reel: Split-screen showing rushed installation (sped up, chaotic) vs. professional installation (methodical, testing equipment visible). Text overlays highlight each skipped step vs. proper step. End frame: warranty certificate close-up",
+        "framework": "Authority through process transparency"
+      },
+      "promotional": {
+        "caption": "This room transformation took ONE DAY 🤯\n\nSwipe to see the before ➡️\n\nFrom pet-stained carpet to waterproof luxury vinyl that looks like $$$\n\n💵 Investment: $[PRICE RANGE]\n⏱️ Timeline: 8am-4pm (yes, really)\n🐕 Pet-friendly: Back on it same evening\n✅ Includes: removal, disposal, installation, [WARRANTY]\n\nCurrently booking [MONTH]. [NUMBER] slots left.\n\nTap the link in bio or DM \"QUOTE\" with your room size.\n\n#FlooringTransformation #BeforeAndAfter #[CITY]Homes #HomeRenovation #LuxuryVinyl #FlooringContractor #PetFriendly",
+        "visual": "Carousel: Slide 1 - Stunning after shot; Slide 2 - Embarrassing before with pet stains; Slide 3 - Installation time-lapse screenshot; Slide 4 - Close-up of new flooring texture; Slide 5 - Happy homeowner testimonial screenshot; Slide 6 - Pricing breakdown graphic; Slide 7 - CTA with contact info",
+        "framework": "BAB with social proof"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚨 SPRING CLEANING WON'T FIX WHAT'S LIVING IN YOUR CARPET 🚨\n\nAllergy season hitting hard? Your 10-year-old carpet might be the real problem.\n\nHere's what's actually trapped in there (even after professional cleaning):\n\n🦠 Dust mites and their waste (the #1 indoor allergen)\n🐾 Years of pet dander embedded in fibers\n🍃 Pollen tracked in every time you open the door\n💧 Mold spores from that spill you cleaned up \"really well\"\n😷 Bacteria from shoes, dropped food, life happening\n\nVacuuming removes surface dirt. Professional cleaning helps temporarily. But the allergens are EMBEDDED.\n\nWhy hard surface flooring changes everything:\n✅ Nothing to trap allergens—just wipe clean\n✅ No fibers for dust mites to live in\n✅ Waterproof options prevent mold growth\n✅ See the dirt, clean the dirt (no hidden grossness)\n\nWe've had [NUMBER] families tell us their allergies improved within WEEKS of switching from carpet to luxury vinyl or hardwood.\n\n[CUSTOMER NAME] from [NEIGHBORHOOD]: \"My daughter's inhaler use dropped by half. I can't believe we lived with that carpet so long.\"\n\nNot saying carpet is evil—but if you're suffering every spring and fall, it might be time to consider the switch.\n\nDrop a 🤧 if allergies are hitting you right now. Happy to answer questions about flooring options that might help!\n\n#AllergyRelief #HealthyHome #[CITY] #FlooringOptions #SpringCleaning",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: You don't need the most expensive flooring. You need the right flooring.\n\nI've been installing floors in [CITY] for [NUMBER] years, and I'm tired of seeing families overspend because they think \"more expensive = better.\"\n\nHere's the truth:\n\n💎 LUXURY VINYL PLANK (LVP)\nCost: $3-8/sq ft installed\nBest for: Kitchens, bathrooms, basements, pet owners, busy families\nWhy: 100% waterproof, looks like wood, nearly indestructible\nDon't believe the \"cheap vinyl\" stigma—this isn't your grandma's linoleum\n\n🌳 ENGINEERED HARDWOOD\nCost: $6-12/sq ft installed\nBest for: Living rooms, bedrooms, homes you're selling soon\nBest for: Living rooms, bedrooms, homes you're selling soon\nWhy: Real wood top layer, more stable than solid, great resale value\nNot worth it if you have large dogs or small kids (yet)\n\n🏚️ SOLID HARDWOOD\nCost: $8-15/sq ft installed\nBest for: Forever homes, formal areas, refinishing multiple times\nWhy: Can be refinished 5-7 times, timeless, premium feel\nSkip it if you're in a high-moisture climate or have active kids\n\n🛋️ CARPET\nCost: $2-6/sq ft installed\nBest for: Bedrooms, cozy spaces, sound dampening\nWhy: Soft, warm, budget-friendly\nAvoid in kitchens, bathrooms, or if you have allergies\n\nThe \"best\" flooring is the one that fits YOUR life, not the one with the highest price tag.\n\nQuestions? Ask away! I love helping people make informed decisions (even if they don't hire me 😊)\n\nWhat room are you flooring next? Comment below! 👇\n\n#FlooringAdvice #HomeImprovement #[CITY]Contractor #HonestBusiness #FlooringGuide",
+        "framework": "AIDA with educational authority"
+      },
+      "promotional": {
+        "template": "⏰ HOLIDAY DEADLINE: Book by [DATE], get it done before Thanksgiving ⏰\n\nPicture this: Family arriving in [NUMBER] weeks, and you're still embarrassed about those floors.\n\nOR...\n\nFamily arrives to your completely transformed home, and all anyone can talk about is how amazing it looks. 🏠✨\n\nWe have [NUMBER] installation slots left before the holiday rush.\n\nWHAT'S INCLUDED:\n✅ Free in-home consultation with samples\n✅ Professional removal & disposal of old flooring\n✅ Furniture moving (we handle it)\n✅ Subfloor inspection & repair if needed\n✅ Certified installation team\n✅ [WARRANTY LENGTH] warranty\n✅ Post-installation cleaning\n\nTIMELINE:\nConsultation this week → Installation [DATE RANGE] → Hosting with pride 🦃\n\nPRICING:\nAverage living room + dining room: $[PRICE RANGE]\nWhole main floor: $[PRICE RANGE]\nFinancing available (as low as $[AMOUNT]/month)\n\nPROOF:\n\"We booked 3 weeks before Christmas and hosted 15 people on our new floors. Best decision we made!\" - [CUSTOMER NAME], [NEIGHBORHOOD]\n\nDon't wait until it's too late. Comment \"INTERESTED\" or call/text [PHONE] to grab one of the remaining slots.\n\nServing [CITY] and surrounding areas. Licensed, insured, and ready to transform your home before the holidays! 🎄\n\n#HolidayReady #FlooringInstallation #[CITY]Homes #ThanksgivingPrep #HomeRenovation #BeforeTheHolidays",
+        "framework": "BAB with urgency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're at the flooring store and the salesperson says 'What's your budget?' RUN. 🚩",
+        "script": "HOOK: [Above]\n\n[0-3sec] Text overlay: 'Red flags at the flooring store'\n\n[3-10sec] Walking through flooring store, pointing at displays. Text: 'They ask budget FIRST (not your needs)'\n\n[10-18sec] Close-up of sample. Text: 'They push the most expensive option without asking about pets, kids, or lifestyle'\n\n[18-25sec] Point at warranty fine print. Text: 'Warranty is from manufacturer only, not installation'\n\n[25-35sec] Show phone with fake quote. Text: 'Quote doesn't include removal, disposal, or subfloor repair'\n\n[35-45sec] Transition to 'What GOOD contractors ask:' Green screen or B-roll\n\n[45-55sec] Text overlays rapid fire: 'What rooms?' 'Pets or kids?' 'How long staying in home?' 'Any water damage history?' 'Timeline?'\n\n[55-60sec] Face camera: 'If they lead with price, they're selling product. If they lead with questions, they're solving problems.' CTA: 'Follow for flooring tips'\n\nTEXT OVERLAYS: Use trending font (current: bold white with black outline)\nSOUND: Trending audio or original voiceover\nHASHTAGS: #FlooringTips #HomeReno #RedFlags #ContractorTok #HomeTok #Renovation #DIY",
+        "framework": "Problem-awareness education"
+      },
+      "authority": {
+        "hook": "Flooring contractor here. Stop buying the wrong floors. 🛑",
+        "script": "HOOK: [Above]\n\n[0-3sec] Text: 'What flooring is ACTUALLY best for...'\n\n[3-8sec] Hold up phone showing stock photo of dog. Text: 'BIG DOGS?' Answer overlay: 'Luxury vinyl plank (NOT hardwood)'\n\n[8-13sec] Show toddler photo. Text: 'TODDLERS?' Answer: 'Waterproof LVP or sealed hardwood'\n\n[13-18sec] Kitchen photo. Text: 'KITCHENS?' Answer: 'Waterproof LVP 100%'\n\n[18-23sec] Basement photo. Text: 'BASEMENTS?' Answer: 'LVP or engineered hardwood (never solid)'\n\n[23-28sec] Bedroom photo. Text: 'BEDROOMS?' Answer: 'Carpet for cozy, hardwood for resale'\n\n[28-35sec] Bathroom photo. Text: 'BATHROOMS?' Answer: 'Waterproof LVP or tile ONLY'\n\n[35-45sec] Face camera: 'The flooring stores won't tell you this because they make more on hardwood. But I install this stuff every day.'\n\n[45-55sec] Show before/after of dog-damaged hardwood vs. pristine LVP. Text: 'This is why we recommend based on YOUR life, not our profit'\n\n[55-60sec] CTA: 'Save this for later. Follow for honest contractor advice. Comment your room below ⬇️'\n\nSTYLE: Fast cuts, authentic (not polished), direct to camera moments\nSOUND: Trending or voiceover\nHASHTAGS: #ContractorTok #FlooringTips #HonestContractor #HomeTok #LVP #Renovation",
+        "framework": "Authority through specificity"
+      },
+      "promotional": {
+        "hook": "This $4,200 flooring job added $11,000 to their home value. Here's the before. 👀",
+        "script": "HOOK: [Above]\n\n[0-3sec] Show truly embarrassing before photo of stained carpet\n\n[3-8sec] Text: 'They were about to list their house like this' with sad face emoji\n\n[8-13sec] Text: 'Their realtor said it would cost them $15k-20k in offers'\n\n[13-20sec] Fast time-lapse of installation (removal, prep, install). Trending sound.\n\n[20-28sec] Reveal stunning after shot. Text: 'Waterproof luxury vinyl plank - $4,200 installed'\n\n[28-35sec] Show screenshot of text from realtor (blurred name): 'This changed everything. Expect multiple offers.'\n\n[35-43sec] Text overlay: 'They got 4 offers in 3 days. Sold $11k over asking.'\n\n[43-50sec] Face camera: 'Selling your house? Your floors are costing you money. We can fix that.'\n\n[50-58sec] Text: 'Free quotes. [CITY] area. Link in bio or comment QUOTE'\n\n[58-60sec] End screen: Before/after split with logo and 'Follow for more transformations'\n\nSTYLE: Satisfying transformation, real results, authentic\nSOUND: Trending transformation audio\nHASHTAGS: #BeforeAndAfter #HomeSale #RealEstate #FlooringTransformation #[CITY] #HomeValue #Renovation\nCTA: Strong, specific (comment QUOTE)",
+        "framework": "BAB with proof"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your floors have 48 hours before water damage becomes permanent",
+        "preview_text": "What to do RIGHT NOW if you've had flooding or leaks...",
+        "body": "PROBLEM:\nHi [FIRST_NAME],\n\nIf you've experienced flooding, burst pipes, or significant leaks in the past 48 hours, you're in a critical window.\n\nWater damage to flooring doesn't just sit on the surface. It:\n→ Seeps into subfloors within hours\n→ Creates mold growth within 24-48 hours\n→ Warps hardwood permanently after 2-3 days\n→ Compromises structural integrity of subfloors\n\nAGITATE:\nWe've seen too many [CITY] homeowners wait \"to see if it dries out\" only to face $[AMOUNT] in additional subfloor and joist repairs that could have been prevented.\n\nSOLUTION:\nHere's your emergency action plan:\n\n✅ HOUR 1-24: Remove standing water, run dehumidifiers, document everything for insurance\n✅ HOUR 24-48: Get professional assessment (we offer free emergency inspections)\n✅ HOUR 48-72: Begin removal of damaged materials if assessment shows penetration\n\nWhat we check in our free emergency inspection:\n• Moisture levels in subfloor (anything above 12% needs action)\n• Signs of mold beginning\n• Structural integrity of joists and subfloor\n• Salvageability of existing flooring\n• Insurance documentation support\n\nCALL TO ACTION:\nIf you're dealing with water damage RIGHT NOW:\n→ Call/text [PHONE] (24-hour emergency line)\n→ Reply to this email with \"EMERGENCY\" and your address\n→ We can be there within [TIMEFRAME]\n\nIf you're reading this for future reference (smart!):\n→ Save our emergency number: [PHONE]\n→ Forward this to neighbors who might need it\n\nWe've helped [NUMBER] [CITY] families recover from water damage this year. Don't let it become a bigger problem than it needs to be.\n\n[YOUR_NAME]\n[COMPANY_NAME]\nLicensed & Insured • 24/7 Emergency Response\n\nP.S. Even if you don't hire us, please get a professional assessment within 48 hours. Water damage doesn't wait, and neither should you.",
+        "framework": "PAS with urgency"
+      },
+      "authority": {
+        "subject": "Why luxury vinyl isn't 'cheap vinyl' (what changed)",
+        "preview_text": "The flooring material that finally matches how we actually live...",
+        "body": "ATTENTION:\nHi [FIRST_NAME],\n\nI need to clear up the biggest misconception in flooring:\n\n\"Luxury vinyl plank is just cheap vinyl with a fancy name.\"\n\nI've installed floors for [NUMBER] years in [CITY], and I'm watching families overspend on hardwood that gets destroyed by their lifestyle... because they think vinyl is \"cheap.\"\n\nINTEREST:\nHere's what actually changed:\n\n❌ OLD VINYL (your grandma's kitchen floor):\n• Thin printed layer over felt backing\n• Peeled, tore, looked fake up close\n• Not waterproof despite claims\n• Couldn't handle furniture weight\n\n✅ LUXURY VINYL PLANK (2020s technology):\n• Photo-realistic wood grain (you can't tell from 2 feet away)\n• Waterproof core (not water-resistant—actually waterproof)\n• Wear layer that outlasts most hardwood in high-traffic areas\n• Rigid core handles furniture, pets, kids\n• Can be installed over existing floors (saves $$$)\n\nDESIRE:\nReal example: [CUSTOMER_NAME] in [NEIGHBORHOOD]\n\nWanted: Hardwood look throughout main floor\nProblem: Two large dogs, three kids under 10, budget of $[AMOUNT]\n\nHardwood quote: $[AMOUNT] (would be scratched within months)\nLVP quote: $[AMOUNT] (waterproof, scratch-resistant, looks identical)\n\nThey chose LVP. Two years later? Still looks new despite the chaos of daily life.\n\nHer text to me last week: \"I spilled a full glass of red wine and just wiped it up. With our old floors I would've cried. Worth every penny.\"\n\nACTION:\nLVP makes sense if you:\n✅ Have pets or young kids\n✅ Want the hardwood look without the maintenance\n✅ Need waterproof (kitchens, bathrooms, basements)\n✅ Want installation that doesn't disrupt your life for weeks\n✅ Plan to stay in your home 5-10+ years\n\nWant to see the difference in person?\n\nReply \"SAMPLES\" and I'll bring our most popular LVP options to your home. You can:\n→ See them in YOUR lighting\n→ Test the texture and durability\n→ Get accurate pricing for your space\n→ No pressure, just education\n\nFree consultation, [CITY] and surrounding areas.\n\n[YOUR_NAME]\n[COMPANY_NAME]\n[PHONE]\n\nP.S. I still install plenty of hardwood—it's beautiful and perfect for certain situations. But if your lifestyle doesn't match the material, you'll regret it. Let's find what actually works for you.",
+        "framework": "AIDA with myth-busting"
+      },
+      "promotional": {
+        "subject": "How 47 [CITY] homeowners transformed their homes in one day",
+        "preview_text": "Before the holidays, before family visits, before you lose another day to embarrassment...",
+        "body": "BEFORE:\n[FIRST_NAME],\n\nYou're living with floors you hate.\n\nMaybe it's the pet stains you can't get out. The worn traffic patterns. The smell that won't go away. The embarrassment when guests visit.\n\nYou've been putting it off because you think it means:\n→ Moving out for a week\n→ Dealing with construction chaos\n→ Spending a fortune\n→ Making a permanent decision you might regret\n\nAFTER:\nHere's what actually happens with our One-Day Floor Transformation:\n\n🌅 MORNING (8am-12pm):\n• We move your furniture (you don't lift a thing)\n• Remove old flooring & dispose of it\n• Inspect & repair subfloor if needed\n• Begin installation\n\n🌆 AFTERNOON (12pm-4pm):\n• Complete installation\n• Move furniture back\n• Clean everything\n• Walk you through care instructions\n\n🌙 EVENING:\n• You're walking on your new floors\n• Pets can come back same day\n• Sleep in your own bed\n• Wake up to a transformed home\n\nBRIDGE:\nThis month, [NUMBER] [CITY] families did exactly this.\n\n[CUSTOMER_NAME], [NEIGHBORHOOD]: \"I kept putting it off for 2 years. The actual installation was shockingly easy. I wish we'd done it sooner.\"\n\n[CUSTOMER_NAME], [NEIGHBORHOOD]: \"From gross carpet to beautiful waterproof floors in 6 hours. My mother-in-law couldn't believe it was the same house.\"\n\nYOUR TRANSFORMATION:\n\n📋 WHAT'S INCLUDED:\n✅ Free in-home consultation with samples\n✅ Removal & disposal of old flooring\n✅ Furniture moving (both ways)\n✅ Subfloor inspection & basic repairs\n✅ Professional installation\n✅ Post-installation cleaning\n✅ [WARRANTY_LENGTH] warranty\n\n💰 INVESTMENT:\nAverage room: $[PRICE_RANGE]\nWhole main floor: $[PRICE_RANGE]\nFinancing: As low as $[AMOUNT]/month\n\n⏰ TIMELINE:\nCurrently booking: [DATE_RANGE]\nSlots remaining: [NUMBER]\n\n🎁 HOLIDAY SPECIAL:\nBook by [DATE], receive:\n→ Free upgraded padding (carpet) OR\n→ Free moisture barrier (hard surface)\n→ Value: $[AMOUNT]\n\nNEXT STEPS:\n\n1️⃣ Reply \"INTERESTED\" with your room size\n2️⃣ Call/text [PHONE] for immediate scheduling\n3️⃣ Click here to book consultation: [LINK]\n\nWe'll bring samples to your home, measure, and give you an exact quote. Zero pressure, just information.\n\nServing [CITY] and [SURROUNDING_AREAS] • Licensed & Insured • [NUMBER]+ Happy Customers\n\n[YOUR_NAME]\n[COMPANY_NAME]\n[PHONE]\n\nP.S. Every day you wait is another day living with floors you're embarrassed about. Our next available one-day installation is [DATE]. Want it? Reply now.\n\nP.P.S. See our recent transformations: [INSTAGRAM_LINK] | Read reviews: [GOOGLE_REVIEWS_LINK]",
+        "framework": "BAB with urgency and social proof"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] homeowners in [neighborhood] upgraded their floors before [holiday] without moving out",
+      "This [flooring type] added $[X] to their home value and sold in [X] days",
+      "[X] pet accidents later, here's why [customer name] finally switched to waterproof floors",
+      "[X]% of buyers walked away because of outdated flooring—don't let this happen to you",
+      "From smelly carpet to showroom floors in just [X] hours"
+    ],
+    "question_hooks": [
+      "Are you covering stains with rugs and hoping guests don't notice?",
+      "Is your carpet making your allergies worse every time you vacuum?",
+      "Are you embarrassed to have people over because of your floors?",
+      "Is that water damage spreading while you're waiting for the 'right time' to fix it?",
+      "Are you vacuuming pet odors that are trapped deep in the padding?"
+    ],
+    "story_hooks": [
+      "How [customer name] got rid of 10 years of pet odor in one weekend",
+      "How this [city] family transformed their home before the holidays without the installation nightmare",
+      "How [customer name] stopped hiding their floors and started showing off their home",
+      "How one flooring upgrade helped [customer name] sell their house $[X] over asking",
+      "How this busy mom got waterproof floors installed while the kids were at school"
+    ],
+    "fear_hooks": [
+      "Is your outdated flooring costing you $[X] in home value right now?",
+      "Is mold growing under your water-damaged floors while you wait?",
+      "Are your curling floor edges a lawsuit waiting to happen?",
+      "Is the black grout in your [room] making your family sick?",
+      "Will your floors embarrass you when [event] arrives in [X] weeks?"
+    ],
+    "howto_hooks": [
+      "How to get luxury floors without the luxury price tag",
+      "How to replace your floors without moving furniture twice or living in chaos",
+      "How to pick flooring you won't regret in 5 years",
+      "How to eliminate pet odors permanently—not just cover them up",
+      "How to get your floors done before [holiday] even if you're starting late"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally admit your floors are the problem",
+      "body": "Show dirty carpet/old flooring with overlay text of customer pain points ('dog smell won't go out', 'embarrassed to have guests'). Quick transition to installation time-lapse. Final reveal: homeowner walking barefoot, text 'Installed in ONE day'. Show before/after split screen. End with 'No more excuses' text overlay.",
+      "cta": "Free quote in bio—see your transformation"
+    },
+    "reels": {
+      "hook": "Watch what's under your carpet",
+      "body": "Carpet removal reveal showing subfloor condition. Overlay text: 'This is why your allergies are worse at home'. Fast-cut to new waterproof flooring installation. Pour water on finished floor, wipe it up effortlessly. Text: 'Pet-proof, kid-proof, life-proof'.",
+      "cta": "DM 'QUOTE' for pricing"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film your reaction when you walk into your room after installation. Show before photo on your phone, pan to new floors, capture your genuine reaction. Tell us what room this is and why you finally replaced the floors.",
+      "hashtag": "#FloorGlowUp"
+    },
+    {
+      "prompt": "Show your pet or toddler doing their messiest behavior on your new floors (spills, muddy paws, etc.), then wipe it clean in one swipe. Caption with 'Why I should've done this years ago'.",
+      "hashtag": "#NoMoreStress"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Subfloor horror reveals with educational overlay explaining what caused it and cost to fix—'What we found under this $800k home's carpet'",
+      "why": "Combines shock value with educational content, triggers fear and curiosity, highly shareable among homeowners wondering about their own floors"
+    },
+    {
+      "angle": "Price transparency calculator showing actual project costs room-by-room with financing breakdown—'What new floors ACTUALLY cost in 2024'",
+      "why": "Fills information gap competitors avoid, provides immediate value, saves/shares for future reference, positions as trustworthy authority"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:22:36.472Z",
+    "last_tier2_refresh": "2025-11-27T21:22:36.472Z",
+    "last_tier3_refresh": "2025-11-27T21:22:36.472Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:22:36.472Z"
+  }
+}

@@ -1,0 +1,1700 @@
+{
+  "industry": "Cleaning Services",
+  "industry_name": "Cleaning Services",
+  "naics_code": "561720",
+  "category": "Construction",
+  "subcategory": "Janitorial Services",
+  "customer_triggers": [
+    {
+      "trigger": "Hosting event or party within 2 weeks",
+      "urgency": 9,
+      "frequency": "Monthly for entertainers"
+    },
+    {
+      "trigger": "Moving in or out of property",
+      "urgency": 10,
+      "frequency": "Life transition event"
+    },
+    {
+      "trigger": "Post-construction or renovation dust",
+      "urgency": 10,
+      "frequency": "Project completion"
+    },
+    {
+      "trigger": "Illness or injury limiting mobility",
+      "urgency": 8,
+      "frequency": "Sudden onset"
+    },
+    {
+      "trigger": "New baby arrival preparation",
+      "urgency": 9,
+      "frequency": "One-time urgent"
+    },
+    {
+      "trigger": "Return from extended travel",
+      "urgency": 7,
+      "frequency": "Quarterly for frequent travelers"
+    },
+    {
+      "trigger": "Seasonal deep cleaning urge",
+      "urgency": 5,
+      "frequency": "Bi-annual pattern"
+    },
+    {
+      "trigger": "Failed health inspection for business",
+      "urgency": 10,
+      "frequency": "Compliance driven"
+    },
+    {
+      "trigger": "Overwhelming work schedule",
+      "urgency": 6,
+      "frequency": "Ongoing stress"
+    },
+    {
+      "trigger": "Allergies or respiratory issues",
+      "urgency": 8,
+      "frequency": "Seasonal flare-ups"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer realizes home is overwhelming, searches 'house cleaning service near me' or gets referral from friend, reads 20+ reviews across Google, Yelp, and Nextdoor, compares 5-7 companies",
+    "consideration": "Requests quotes from 3 services, compares hourly vs flat rate, checks insurance and bonding, reads detailed reviews about trust and thoroughness, evaluates eco-friendly options, calculates monthly budget impact",
+    "decision": "Books trial cleaning at introductory rate, evaluates thoroughness and professionalism, checks for damage or issues, decides on frequency, signs up for recurring service after successful first clean with 73% converting to weekly or bi-weekly",
+    "retention": "Receives consistent quality service, builds trust with assigned team, adjusts frequency based on needs, adds special projects, maintains service average 2.3 years with proper relationship management",
+    "advocacy": "Shares cleaner contact with friends, posts before/after photos, leaves detailed 5-star reviews, provides referrals averaging 3.2 per year, becomes character reference for cleaner"
+  },
+  "transformations": [
+    {
+      "from": "Chaotic, stressful home environment",
+      "to": "Peaceful, organized sanctuary",
+      "emotional_value": "Mental health improvement",
+      "worth_premium": true
+    },
+    {
+      "from": "4 hours weekly cleaning struggle",
+      "to": "4 hours of family time",
+      "emotional_value": "Life balance",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassment about home's condition",
+      "to": "Pride in hosting guests",
+      "emotional_value": "Social confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant marital tension over chores",
+      "to": "Harmonious relationship",
+      "emotional_value": "Relationship saver",
+      "worth_premium": true
+    },
+    {
+      "from": "Allergen-filled environment",
+      "to": "Healthy breathing space",
+      "emotional_value": "Health improvement",
+      "worth_premium": true
+    },
+    {
+      "from": "Procrastination and guilt",
+      "to": "Productivity and peace",
+      "emotional_value": "Emotional relief",
+      "worth_premium": false
+    },
+    {
+      "from": "Unsanitary bathroom and kitchen",
+      "to": "Hygienically safe spaces",
+      "emotional_value": "Family health protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Weekend cleaning exhaustion",
+      "to": "Weekend freedom and recreation",
+      "emotional_value": "Quality of life",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Time saved: 4-6 hours per week",
+      "timeframe": "Immediate weekly impact",
+      "measurable": true
+    },
+    {
+      "metric": "Consistency: Same-day weekly clean for 95% of appointments",
+      "timeframe": "After first month",
+      "measurable": true
+    },
+    {
+      "metric": "Health: 60% reduction in allergens and dust",
+      "timeframe": "After 3 cleanings",
+      "measurable": true
+    },
+    {
+      "metric": "Satisfaction: 9.4/10 average rating",
+      "timeframe": "Ongoing monthly surveys",
+      "measurable": true
+    },
+    {
+      "metric": "Retention: Customer keeps service 24+ months",
+      "timeframe": "Long-term relationship",
+      "measurable": true
+    },
+    {
+      "metric": "Referrals: 3+ new customers per year",
+      "timeframe": "Annual measurement",
+      "measurable": true
+    },
+    {
+      "metric": "Trust: Keys provided by visit #3",
+      "timeframe": "First month",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Mother-in-law visiting this weekend requiring emergency deep clean",
+    "House showing tomorrow needs professional presentation",
+    "Health inspector coming in 48 hours for restaurant or daycare",
+    "Post-party disaster needs next-day restoration",
+    "New baby coming home from hospital in 3 days",
+    "Insurance adjuster visit for claim documentation",
+    "Limited spots available this week due to 92% booking rate"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I can't afford $200/month for cleaning",
+      "response": "Most clients start bi-weekly at $140/month and save 8 hours, valuing their time at just $17.50/hour - what's your time worth?",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I don't trust strangers in my home",
+      "response": "Every cleaner is background-checked, bonded for $1 million, and we start with you home for first 3 visits to build comfort",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "My house is too messy to have cleaners",
+      "response": "We specialize in 'fresh start' deep cleans - no judgment, just transformation. 40% of our clients say the same thing initially",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "I should be able to clean my own home",
+      "response": "You should also be able to fix your car and cook every meal, but outsourcing gives you time for what matters most to you",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Previous cleaners were unreliable",
+      "response": "We assign dedicated teams with 96% on-time rate, and if someone's sick, we guarantee replacement, not cancellation",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Worried about damage or theft",
+      "response": "We're insured for $2 million, bonded, and in 15 years have had zero theft claims and damage claims under 0.01%",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "Don't want to deal with scheduling hassles",
+      "response": "Set it once and forget it - same day, same time, same team. Manage everything via app including skips and extras",
+      "effectiveness": 7.6
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or re-clean within 24 hours",
+      "Price lock guarantee for 2 years",
+      "Same-team assignment guarantee",
+      "On-time arrival within 30-minute window",
+      "Damage protection up to $2 million"
+    ],
+    "proof_points": [
+      "$2 million general liability insurance",
+      "All employees W-2 with workers comp",
+      "4,200 five-star reviews across platforms",
+      "A+ BBB rating for 12 years",
+      "Featured in local news as top service"
+    ],
+    "risk_mitigation": "First clean at 50% off to prove quality, no contracts ever, skip or cancel anytime via app, detailed photo documentation of work, direct team communication channel"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "overwhelmed",
+      "exhausted",
+      "messy",
+      "dirty",
+      "stressed",
+      "no time",
+      "embarrassed",
+      "allergies",
+      "can't keep up",
+      "falling behind"
+    ],
+    "solution_words": [
+      "spotless",
+      "fresh",
+      "organized",
+      "reliable",
+      "trustworthy",
+      "professional",
+      "thorough",
+      "consistent",
+      "affordable",
+      "life-changing"
+    ],
+    "avoid_jargon": [
+      "HEPA filtration",
+      "microfiber technology",
+      "pH neutral",
+      "surfactants",
+      "antimicrobial",
+      "electrostatic",
+      "particulate removal",
+      "biofilm",
+      "quaternary ammonium",
+      "contact time"
+    ]
+  },
+  "power_words": [
+    "trusted",
+    "reliable",
+    "thorough",
+    "professional",
+    "insured",
+    "bonded",
+    "eco-friendly",
+    "spotless",
+    "guaranteed",
+    "experienced",
+    "local",
+    "affordable",
+    "flexible",
+    "consistent",
+    "dedicated",
+    "background-checked",
+    "efficient",
+    "detailed",
+    "caring",
+    "responsible",
+    "meticulous",
+    "dependable",
+    "vetted",
+    "trained",
+    "uniformed",
+    "equipped",
+    "punctual",
+    "respectful",
+    "transformative"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "basic",
+    "quick",
+    "adequate",
+    "satisfactory",
+    "janitor",
+    "maid",
+    "servant",
+    "helper",
+    "occasional",
+    "random",
+    "whoever's available",
+    "subcontracted",
+    "independent",
+    "under-the-table",
+    "cash-only",
+    "uninsured",
+    "part-time"
+  ],
+  "headline_templates": [
+    {
+      "template": "Get Your Weekends Back - Professional Cleaning from $35/Hour",
+      "expected_ctr": 5.2,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Warning: These 5 Cleaning Mistakes Are Making Your Family Sick",
+      "expected_ctr": 7.8,
+      "use_case": "Facebook"
+    },
+    {
+      "template": "[Neighbor] Just Got 6 Hours Back Every Week - Here's How",
+      "expected_ctr": 8.9,
+      "use_case": "Direct mail"
+    },
+    {
+      "template": "Last-Minute Guests? Emergency Cleaning in 24 Hours",
+      "expected_ctr": 6.3,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Why 2,400 [City] Families Trust Us with Their Homes",
+      "expected_ctr": 4.7,
+      "use_case": "Website"
+    },
+    {
+      "template": "First Clean Only $89 - See Why We're #1 Rated",
+      "expected_ctr": 5.8,
+      "use_case": "Social media"
+    },
+    {
+      "template": "Move-In Special: Deep Clean + First Month 50% Off",
+      "expected_ctr": 6.1,
+      "use_case": "Apartment complexes"
+    },
+    {
+      "template": "Eco-Friendly Cleaning That Actually Works - Proven by 4,200 Reviews",
+      "expected_ctr": 4.3,
+      "use_case": "Green-conscious"
+    },
+    {
+      "template": "Same Cleaner, Same Day, Every Time - Guaranteed",
+      "expected_ctr": 5.5,
+      "use_case": "Reliability focus"
+    },
+    {
+      "template": "Post-Construction Cleanup Specialists - Licensed & Insured",
+      "expected_ctr": 3.9,
+      "use_case": "B2B"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your First Clean in 60 Seconds",
+      "conversion_rate": 14.2,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Get Instant Quote Online",
+      "conversion_rate": 11.8,
+      "placement": "Pricing page"
+    },
+    {
+      "template": "See Available Times This Week",
+      "conversion_rate": 16.3,
+      "placement": "Booking widget"
+    },
+    {
+      "template": "Claim 50% Off First Clean",
+      "conversion_rate": 19.7,
+      "placement": "Pop-up"
+    },
+    {
+      "template": "Text 'CLEAN' to 44444 for Fast Quote",
+      "conversion_rate": 12.4,
+      "placement": "Billboard"
+    },
+    {
+      "template": "Calculate Your Time Savings",
+      "conversion_rate": 9.8,
+      "placement": "Calculator tool"
+    },
+    {
+      "template": "Chat with a Cleaning Expert Now",
+      "conversion_rate": 13.1,
+      "placement": "Chat widget"
+    },
+    {
+      "template": "Download Our 50-Point Checklist",
+      "conversion_rate": 22.3,
+      "placement": "Blog posts"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Before & After Friday! 🏠✨ This kitchen transformation took our team just 2 hours. What area of your home needs the most love? Comment below! 👇",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Satisfying Sunday: Watch this bathroom go from 😱 to 😍 in 60 seconds! #CleaningASMR #TransformationTuesday #[City]Cleaning",
+      "engagement_rate": 13.4
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: You're not lazy for hiring a cleaner. You're smart for valuing your time. 4 hours cleaning = 4 hours with family. The math is simple. 🧮",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to announce we've created 25 new full-time jobs with benefits in [City]. Building careers, not just gigs. #LocalBusiness #EmployeeFirst",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "YouTube",
+      "template": "Day in the Life: Follow our team through 5 home transformations | See our 50-point checklist in action | Real customers, real results",
+      "engagement_rate": 21.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "The Ultimate Room-by-Room Cleaning Checklist | Save for spring cleaning inspiration | Professional secrets revealed",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You come home to a spotless house every Tuesday 🏠✨ The serotonin boost is REAL #CleanTok #LifeHack #CleaningService",
+      "engagement_rate": 28.6
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Just helped the Martinez family get ready for their graduation party. We have 3 spots left this week. Licensed, insured, and your neighbors love us!",
+      "engagement_rate": 17.2
+    },
+    {
+      "platform": "Google Business",
+      "template": "Thank you Jennifer K. for trusting us with your home for 3 years! Your referrals mean everything to our family business. 🙏⭐⭐⭐⭐⭐",
+      "engagement_rate": 5.3
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Save 6 hours every week to spend on what matters most",
+      "rank": 1,
+      "differentiator": "Time-value focus versus task focus"
+    },
+    {
+      "prop": "Same trusted team every visit building real relationships",
+      "rank": 2,
+      "differentiator": "Team consistency versus rotating strangers"
+    },
+    {
+      "prop": "100% eco-friendly products safe for kids and pets",
+      "rank": 3,
+      "differentiator": "Health-conscious versus chemical-heavy"
+    },
+    {
+      "prop": "Insured, bonded, and background-checked professionals",
+      "rank": 4,
+      "differentiator": "Full protection versus independent risk"
+    },
+    {
+      "prop": "Flexible scheduling with easy app management",
+      "rank": 5,
+      "differentiator": "Tech-enabled versus phone-tag"
+    },
+    {
+      "prop": "Flat-rate pricing with no hidden fees ever",
+      "rank": 6,
+      "differentiator": "Transparent versus surprise charges"
+    },
+    {
+      "prop": "24-hour satisfaction guarantee with free re-cleans",
+      "rank": 7,
+      "differentiator": "Risk-free versus no recourse"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience white-glove home care with our executive service. Dedicated house manager, daily touch-ups available, premium eco-luxury products, and discrete professional teams. Your home maintained to five-star standards. Investment: $800-1,500 monthly for twice-weekly service.",
+    "budget_conscious": "Professional cleaning that fits your budget. Start with monthly deep cleans at $120, or bi-weekly maintenance at $140. No contracts, skip anytime, and every 5th clean is 20% off. Quality service doesn't have to break the bank.",
+    "enterprise": "Comprehensive facility management for offices, medical facilities, and retail spaces. OSHA compliant, COVID protocols, night and weekend crews available. Custom schedules, NET 30 billing, and dedicated account management. Serving spaces from 2,000 to 50,000 square feet."
+  },
+  "trust_signals": [
+    {
+      "signal": "2 million dollar liability insurance policy",
+      "importance": 10,
+      "format": "Certificate available"
+    },
+    {
+      "signal": "4,200+ verified 5-star reviews",
+      "importance": 9,
+      "format": "Review platform widgets"
+    },
+    {
+      "signal": "15 years serving [City] families",
+      "importance": 7,
+      "format": "About us story"
+    },
+    {
+      "signal": "Background checks and drug testing",
+      "importance": 10,
+      "format": "Trust badges"
+    },
+    {
+      "signal": "Employee-model with W-2 workers",
+      "importance": 8,
+      "format": "Website footer"
+    },
+    {
+      "signal": "Featured in Local News 'Best Of' awards",
+      "importance": 6,
+      "format": "Media mentions"
+    },
+    {
+      "signal": "Before/after photos from real homes",
+      "importance": 8,
+      "format": "Gallery section"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "23,000+ homes cleaned in [City] since 2009",
+      "credibility_score": 8.9,
+      "context": "Local experience depth"
+    },
+    {
+      "stat": "96% customer retention rate",
+      "credibility_score": 9.3,
+      "context": "Satisfaction indicator"
+    },
+    {
+      "stat": "Average customer stays 2.3 years",
+      "credibility_score": 8.7,
+      "context": "Relationship longevity"
+    },
+    {
+      "stat": "4.9/5 average across all review platforms",
+      "credibility_score": 9.1,
+      "context": "Consistent excellence"
+    },
+    {
+      "stat": "Zero theft claims in 15 years",
+      "credibility_score": 9.8,
+      "context": "Trustworthiness proof"
+    }
+  ],
+  "quality_indicators": [
+    "Uniformed teams versus plain clothes indicates professionalism",
+    "Company vehicles versus personal cars shows established business",
+    "Bring all supplies versus using yours demonstrates preparedness",
+    "50-point checklist versus general cleaning shows thoroughness",
+    "Photo documentation versus verbal updates indicates accountability",
+    "Employee model versus independent contractors suggests quality control"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "After third consecutive successful cleaning establishing pattern",
+    "ask_method": "Text message with direct review links followed by email reminder if needed"
+  },
+  "competitive_advantages": [
+    "Only service offering true flat-rate pricing with no hourly surprises",
+    "Largest local team enabling same-day emergency service",
+    "Proprietary app for instant booking and management",
+    "Company-owned supply warehouse ensuring consistency",
+    "In-house training facility with 40-hour certification program",
+    "Direct-hire model providing career paths and reducing turnover"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show premium package at $400/visit first, making $140 bi-weekly seem affordable",
+    "sensitivity": "Price resistance increases sharply above $200 per visit",
+    "sweet_spots": [
+      "$120-140 bi-weekly for middle class",
+      "$180-220 weekly for affluent",
+      "$300+ for luxury service"
+    ],
+    "decoy_pricing": "Offer weekly at 2.5x bi-weekly cost to make bi-weekly appear high-value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 200,
+    "approval_required": 300,
+    "competitor_research": 150
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.5,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$80-120/visit",
+      "target_customer": "Budget-conscious families",
+      "margin": 32
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$140-200/visit",
+      "target_customer": "Busy professionals",
+      "margin": 41
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$250-400/visit",
+      "target_customer": "Executive households",
+      "margin": 48
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Route density optimization reducing drive time by 35% between homes",
+    "Supply bulk purchasing agreements saving 22% on products",
+    "Team efficiency training reducing time per home by 15%",
+    "Add-on services like inside oven ($40) at 70% margin",
+    "Laundry service addition at $30/load with 60% margin",
+    "Holiday decorating service at $75/hour with 65% margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 15,
+      "reason": "New Year organization goals",
+      "opportunity": "Fresh start campaigns"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Post-holiday budget recovery",
+      "opportunity": "Valentine's date night messaging"
+    },
+    {
+      "month": "March",
+      "variation": 35,
+      "reason": "Spring cleaning tradition",
+      "opportunity": "Deep clean specials"
+    },
+    {
+      "month": "April",
+      "variation": 40,
+      "reason": "Tax refunds and spring energy",
+      "opportunity": "Outdoor area additions"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Mother's Day gift demand",
+      "opportunity": "Gift certificate promotions"
+    },
+    {
+      "month": "June",
+      "variation": 20,
+      "reason": "Graduation parties",
+      "opportunity": "Event cleaning packages"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Vacation season",
+      "opportunity": "Vacation return specials"
+    },
+    {
+      "month": "August",
+      "variation": 5,
+      "reason": "Back-to-school prep",
+      "opportunity": "Organization focus"
+    },
+    {
+      "month": "September",
+      "variation": 30,
+      "reason": "Return to routine",
+      "opportunity": "Schedule establishment"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Holiday prep begins",
+      "opportunity": "Pre-holiday packages"
+    },
+    {
+      "month": "November",
+      "variation": 45,
+      "reason": "Thanksgiving hosting",
+      "opportunity": "Event prep services"
+    },
+    {
+      "month": "December",
+      "variation": 50,
+      "reason": "Holiday parties and guests",
+      "opportunity": "Premium pricing accepted"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Starting weekly routes",
+      "avoid": "First-time consultations",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Regular service delivery",
+      "avoid": "Nothing specific",
+      "conversion_rate": 13.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week maintenance",
+      "avoid": "Deep cleans",
+      "conversion_rate": 14.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend prep service",
+      "avoid": "Monthly clients",
+      "conversion_rate": 15.7
+    },
+    {
+      "day": "Friday",
+      "best_for": "Event preparation cleaning",
+      "avoid": "Regular maintenance",
+      "conversion_rate": 18.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Deep cleans and move-outs",
+      "avoid": "Regular routes",
+      "conversion_rate": 12.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency and commercial",
+      "avoid": "Residential regular service",
+      "conversion_rate": 8.9
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Credit cards close around 25th creating budget awareness and 20% drop in bookings",
+    "cash_flow_peaks": "1st and 15th paydays show 45% higher booking rates within 48 hours",
+    "slow_periods": "Days 20-25 consistently 30% below average requiring promotions"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 3pm call for Saturday party",
+      "crisis_type": "Last-minute hosting",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Sunday night for Monday showing",
+      "crisis_type": "Real estate emergency",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "December 20-24 holiday prep",
+      "crisis_type": "Holiday hosting panic",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Day before inspection",
+      "crisis_type": "Compliance requirement",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Maintenance Clean",
+      "components": [
+        "All rooms basic",
+        "Bathrooms",
+        "Kitchen",
+        "Floors",
+        "Dusting"
+      ],
+      "pricing_model": "Flat rate by size",
+      "margin": 38
+    },
+    {
+      "name": "Deep Clean",
+      "components": [
+        "Everything in maintenance",
+        "Baseboards",
+        "Light fixtures",
+        "Inside appliances",
+        "Windows"
+      ],
+      "pricing_model": "Hourly plus materials",
+      "margin": 45
+    },
+    {
+      "name": "Move In/Out",
+      "components": [
+        "Deep clean plus",
+        "Inside cabinets",
+        "Garage",
+        "Carpet cleaning",
+        "Touch-up paint"
+      ],
+      "pricing_model": "Project quote",
+      "margin": 52
+    },
+    {
+      "name": "Post-Construction",
+      "components": [
+        "Dust removal",
+        "Surface cleaning",
+        "Floor care",
+        "Window cleaning",
+        "HEPA filtering"
+      ],
+      "pricing_model": "Square footage",
+      "margin": 58
+    }
+  ],
+  "upsell_paths": [
+    "One-time deep clean → Monthly service → Bi-weekly → Weekly achieving 2.3x revenue",
+    "Basic clean → Add laundry service → Add organization → Full house management",
+    "Interior only → Add garage → Add patio/deck → Full property maintenance",
+    "Standard products → Upgrade to premium eco → Add aromatherapy → Luxury experience",
+    "Cleaning only → Add grocery shopping → Meal prep → Complete concierge",
+    "Flat rate → Add hourly projects → Handyman services → Property management"
+  ],
+  "retention_hooks": [
+    "Consistent team assignment creating relationship bonds",
+    "Loyalty program with every 10th clean at 50% off",
+    "Birthday month free clean as surprise delight",
+    "Preferred scheduling priority over new customers",
+    "Quarterly quality check-ins with management",
+    "Annual price lock protecting from increases",
+    "VIP status with same-day emergency availability"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Give $50, Get $50 referral cards",
+      "timing": "With every invoice",
+      "incentive": "Mutual benefit",
+      "conversion_rate": 26.3
+    },
+    {
+      "strategy": "Social media sharing contest",
+      "timing": "Monthly",
+      "incentive": "Free clean drawing",
+      "conversion_rate": 14.7
+    },
+    {
+      "strategy": "Neighborhood group exclusive deals",
+      "timing": "Community events",
+      "incentive": "Group discount",
+      "conversion_rate": 31.8
+    },
+    {
+      "strategy": "Real estate agent partnership",
+      "timing": "Closing gifts",
+      "incentive": "Commission or credit",
+      "conversion_rate": 22.4
+    },
+    {
+      "strategy": "Corporate employee benefits program",
+      "timing": "HR partnerships",
+      "incentive": "Payroll deduction",
+      "conversion_rate": 18.9
+    },
+    {
+      "strategy": "Property manager preferred vendor",
+      "timing": "Tenant turns",
+      "incentive": "Volume pricing",
+      "conversion_rate": 35.2
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Carpet cleaning",
+      "attach_rate": 42,
+      "timing": "Quarterly with deep clean"
+    },
+    {
+      "service": "Window washing",
+      "attach_rate": 31,
+      "timing": "Spring and fall"
+    },
+    {
+      "service": "Organization services",
+      "attach_rate": 23,
+      "timing": "January and September"
+    },
+    {
+      "service": "Laundry wash and fold",
+      "attach_rate": 28,
+      "timing": "Weekly service clients"
+    },
+    {
+      "service": "Holiday decorating",
+      "attach_rate": 19,
+      "timing": "November-December"
+    },
+    {
+      "service": "Pressure washing",
+      "attach_rate": 26,
+      "timing": "Spring cleaning season"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Commercial office cleaning contracts",
+      "market_size": "$8.3M annually locally",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Airbnb turnover service",
+      "market_size": "$2.1M annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Post-construction cleanup",
+      "market_size": "$3.7M annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Medical facility specialized cleaning",
+      "market_size": "$5.2M annually",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "School district contracts",
+      "market_size": "$4.8M annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise expansion model",
+      "market_size": "$15M regional opportunity",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Molly Maid's 'Spring Cleaning Tips' video series on YouTube featuring professional cleaners demonstrating time-saving techniques and product recommendations",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content that provides immediate value, positions brand as expert, uses real cleaners to build trust, and naturally leads to service awareness without hard selling",
+        "metrics": "Videos averaged 50K-150K views, 3-5% engagement rate, with tutorial-style content performing 40% better than promotional content",
+        "source": "Social Media Examiner case study on service industry content marketing, 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "The Cleaning Authority's before/after photo carousel posts on Instagram showing dramatic transformations of dirty to spotless rooms with client testimonials",
+        "platform": "Instagram",
+        "why_it_worked": "Visual proof of transformation taps into emotional desire for clean space, carousel format increases engagement by 1.4x vs single image, user-generated testimonials add credibility",
+        "metrics": "Average 4.2% engagement rate (vs 1.9% industry average), 25% higher save rate, drove 15% increase in quote requests",
+        "source": "Hootsuite Social Media Trends Report 2024 - Service Industry Insights",
+        "confidence": "high"
+      },
+      {
+        "example": "Merry Maids' Facebook Live Q&A sessions with professional cleaners answering common cleaning questions and offering free tips every Thursday at 2pm",
+        "platform": "Facebook",
+        "why_it_worked": "Live format creates urgency and FOMO, consistent scheduling builds habit, Q&A format addresses real customer pain points, positions brand as helpful resource not just service provider",
+        "metrics": "Average 2,500 live viewers, 85% watch time retention, 200+ comments per session, 12% conversion to consultation bookings",
+        "source": "Buffer State of Social Media Report 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Local cleaning company 'Tidy Casa' TikTok account showing 60-second cleaning hacks and satisfying deep-cleaning videos set to trending music",
+        "platform": "TikTok",
+        "why_it_worked": "Short-form satisfying content aligns with platform algorithm, trending audio increases discoverability, practical tips drive shares, behind-the-scenes builds authenticity",
+        "metrics": "Account grew to 125K followers in 6 months, average 8.7% engagement rate, top video received 2.3M views, 18% increase in local service inquiries",
+        "source": "Later's TikTok Engagement Report 2024 - Small Business Success Stories",
+        "confidence": "high"
+      },
+      {
+        "example": "Two Maids & A Mop email campaign 'Get Your Time Back' featuring customer stories about what they did with reclaimed time, sent on Sunday evenings",
+        "platform": "Email",
+        "why_it_worked": "Emotional storytelling focuses on benefit (time) not service, Sunday evening timing catches people dreading Monday cleaning, real customer stories create relatability and social proof",
+        "metrics": "32% open rate (vs 21% industry average), 4.8% click-through rate, 22% conversion to booking",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Home Services",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.07% - 0.15% for business pages in cleaning services",
+        "best_content_format": "Video content (especially before/after transformations) and customer testimonial posts perform 2.3x better than text-only posts",
+        "optimal_frequency": "3-5 posts per week, with Facebook Stories daily",
+        "best_posting_times": "Thursday-Saturday 1pm-3pm, Sunday 6pm-8pm when people plan their week",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Home Services Industry"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for cleaning service accounts (higher than Facebook due to visual nature)",
+        "best_content_format": "Reels showing cleaning transformations (5.2% avg engagement), carousel posts with tips (3.8%), Stories with polls/questions (12% response rate)",
+        "optimal_frequency": "4-7 posts per week, 2-3 Reels per week, daily Stories",
+        "best_posting_times": "Monday-Wednesday 11am-1pm, Thursday-Friday 10am-12pm, weekends 9am-11am",
+        "source": "Sprout Social Index 2024 & Later's Best Time to Post Report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for cleaning content (one of highest performing service categories)",
+        "best_content_format": "Short satisfying cleaning videos (15-30 seconds), cleaning hacks, ASMR cleaning sounds, before/after reveals",
+        "optimal_frequency": "1-3 videos daily for algorithm favor, minimum 4-5 per week",
+        "best_posting_times": "Tuesday-Thursday 7am-9am and 7pm-9pm EST when commuters browse",
+        "source": "Influencer Marketing Hub TikTok Engagement Study 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.33% open rate, 2.62% click-through rate for home services industry",
+        "best_content_format": "Personalized service reminders, seasonal cleaning checklists, limited-time offers, customer success stories",
+        "optimal_frequency": "1-2 emails per week for prospects, monthly for existing customers with seasonal campaigns",
+        "best_posting_times": "Sunday 6pm-8pm (planning week), Tuesday 10am-12pm (mid-week slump), Thursday 2pm-4pm (planning weekend)",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Cleaning & Maintenance Services"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 2.3x more engagement than social media for local service businesses",
+        "best_content_format": "Special offer posts, what's new updates, before/after photos, customer reviews responses",
+        "optimal_frequency": "2-3 posts per week minimum to maintain visibility",
+        "best_posting_times": "Monday mornings 8am-10am when people search for weekly services",
+        "source": "BrightLocal Local SEO Survey 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-reclamation promise with specific number",
+        "example": "Get 4 hours of your weekend back - here's how we deep clean your home in half the time",
+        "why_it_works": "Quantifies the benefit in terms customers value most (time), creates tangible mental picture of what they could do instead, positions service as time-saving investment not expense",
+        "source": "Analysis of top-performing cleaning service ads on Facebook Ad Library 2024"
+      },
+      {
+        "hook_pattern": "Before-state empathy + transformation promise",
+        "example": "Dreading the post-party cleanup? Wake up to a spotless home instead",
+        "why_it_works": "Acknowledges specific pain point customers are experiencing right now, offers immediate relief, creates contrast between current stress and desired outcome",
+        "source": "High-converting email subject lines from Mailchimp cleaning services benchmark data"
+      },
+      {
+        "hook_pattern": "Social proof with relatable scenario",
+        "example": "How busy moms in [City] are getting their homes guest-ready in 24 hours",
+        "why_it_works": "Targets specific persona, uses social proof of similar customers, creates urgency with timeframe, implies solution without hard sell",
+        "source": "Google Ads headlines with highest CTR for cleaning services, WordStream 2024"
+      },
+      {
+        "hook_pattern": "Problem-agitation-solution in question format",
+        "example": "Allergies worse at home than outside? Your carpets might be the culprit",
+        "why_it_works": "Opens with relatable question that triggers self-recognition, agitates with unexpected cause, implies specialized solution, taps into health concerns",
+        "source": "Reddit r/cleaning and r/homeowners analysis of most-engaged posts 2023-2024"
+      },
+      {
+        "hook_pattern": "Seasonal urgency with benefit stacking",
+        "example": "Spring cleaning season: Get a healthier home + 20% off + free carpet treatment this week only",
+        "why_it_works": "Leverages natural seasonal mindset, stacks multiple benefits, creates scarcity with time limit, offers bonus value to overcome price objection",
+        "source": "Seasonal campaign analysis from cleaning industry marketing reports 2024"
+      },
+      {
+        "hook_pattern": "Contrarian insight or myth-busting",
+        "example": "Why your 'clean' home might be dirtier than you think (and what pro cleaners check that you don't)",
+        "why_it_works": "Challenges assumptions and creates curiosity gap, positions brand as expert with insider knowledge, creates need awareness for professional service",
+        "source": "High-performing blog titles from Ahrefs content analysis of cleaning service websites"
+      },
+      {
+        "hook_pattern": "Lifestyle aspiration tied to service",
+        "example": "Stop cleaning. Start living. Professional cleaning from $89",
+        "why_it_works": "Frames service as lifestyle upgrade not chore, short punchy format grabs attention, price anchor overcomes 'too expensive' objection immediately",
+        "source": "Google Ads responsive search ads top performers for cleaning services 2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm drowning in housework and can't keep up",
+        "My house is embarrassing and I can't have people over",
+        "We fight about cleaning every single weekend",
+        "I spend my only free time scrubbing instead of with my kids",
+        "The dust and allergens are making my asthma worse",
+        "I don't even know where to start it's so overwhelming",
+        "I'm too exhausted after work to deal with this mess",
+        "Moving out and losing my deposit because I can't get it clean enough",
+        "Post-renovation dust is everywhere and I've tried everything",
+        "I'm recovering from surgery and physically can't clean right now"
+      ],
+      "solution_phrases": [
+        "I got my weekends back and actually enjoy my home now",
+        "Finally comfortable having friends over without apologizing",
+        "The house stays clean and we stopped arguing about chores",
+        "I can breathe better and my allergies improved dramatically",
+        "Walking into a clean house after work changed my mental health",
+        "They handle everything so I can focus on my newborn",
+        "Professional results I could never achieve myself",
+        "My home actually feels like a sanctuary now",
+        "Best money I've ever spent - wish I'd done it sooner",
+        "They cleaned things I didn't even know needed cleaning"
+      ],
+      "objection_phrases": [
+        "I'm worried about strangers in my home with my stuff",
+        "Is it really worth the cost when I could do it myself",
+        "What if they don't show up or do a bad job",
+        "I'm embarrassed about how dirty my house is right now",
+        "Do I need to clean before the cleaners come (seriously asking)",
+        "I don't want to seem lazy or like I can't handle my own house",
+        "What if they judge me for the state of my home",
+        "Are they actually insured if something gets broken",
+        "How do I know they use safe products around my kids and pets",
+        "I tried a service before and they missed so many spots"
+      ],
+      "decision_factors": [
+        "Must be insured and bonded - non-negotiable after reading horror stories",
+        "Want the same cleaner each time for consistency and trust",
+        "Eco-friendly products because of kids/pets/allergies",
+        "Flexible scheduling for my unpredictable work schedule",
+        "Real reviews from people in my area, not fake testimonials",
+        "Transparent pricing - hate when companies won't quote upfront",
+        "Local company that I can actually reach if there's a problem",
+        "They bring their own supplies so I don't have to stock anything",
+        "Satisfaction guarantee or I'm not risking it",
+        "Background-checked employees - safety is everything"
+      ],
+      "emotional_language": [
+        "overwhelmed and stressed out",
+        "embarrassed and ashamed",
+        "exhausted and defeated",
+        "anxious about hosting",
+        "guilty for not keeping up",
+        "relieved and grateful",
+        "peaceful and calm",
+        "proud of my home",
+        "free and unburdened",
+        "validated and understood"
+      ],
+      "sources": [
+        "Reddit r/cleaningtips, r/workingmoms, r/homeowners threads 2023-2024",
+        "Trustpilot and Yelp reviews for Molly Maid, Merry Maids, The Cleaning Authority",
+        "Google Business Profile reviews for local cleaning services across 10+ cities",
+        "Facebook community groups: Busy Moms, Working Parents, Home Organization",
+        "Nextdoor neighborhood recommendation threads for cleaning services"
+      ]
+    },
+    "competitive_gaps": [
+      "Mental health and wellness angle - competitors focus on clean homes but rarely explicitly connect to anxiety reduction, depression management, or mental clarity",
+      "Relationship counseling perspective - no one positions cleaning services as marriage/relationship investment despite couples fighting about chores being common pain point",
+      "Post-illness recovery support - gap in marketing to people recovering from surgery, injury, or illness who temporarily can't clean",
+      "Neurodivergent-friendly services - ADHD/autism communities discuss cleaning struggles extensively but no services market specifically to executive dysfunction challenges",
+      "Male-focused messaging - almost all content targets women despite growing number of single men and male homeowners seeking services",
+      "Financial ROI calculator - no competitors quantify the actual dollar value of reclaimed time or compare cost to other time-saving services",
+      "Transparency content - behind-the-scenes of how cleaners are trained, vetted, paid, and supervised is rarely shown despite trust being major concern",
+      "Environmental impact reporting - eco-friendly is mentioned but no one quantifies water saved, chemicals avoided, or carbon footprint of professional vs DIY cleaning"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - New Year",
+        "opportunity": "New Year's resolutions, fresh start mindset, post-holiday cleanup, organization goals",
+        "content_angle": "New Year, New Home campaign - position recurring cleaning as achievable resolution vs gym membership, decluttering content, fresh start transformation stories"
+      },
+      {
+        "period": "March-April - Spring Cleaning",
+        "opportunity": "Traditional spring cleaning season, highest search volume for deep cleaning services, allergy season begins",
+        "content_angle": "Spring cleaning checklists, allergen removal focus, before/after reveals, limited-time deep clean packages, partner with allergy/health content"
+      },
+      {
+        "period": "May - Mother's Day",
+        "opportunity": "Gift-giving occasion, appreciation for moms who typically handle household management",
+        "content_angle": "Give Mom her time back gift certificates, Mother's Day cleaning packages, content about maternal mental load and cleaning burden"
+      },
+      {
+        "period": "August - Back to School",
+        "opportunity": "Parents preparing for routine changes, need for consistent schedule, organizing for new school year",
+        "content_angle": "Back-to-school organization, establishing cleaning routines, time management for busy parents, seasonal reset content"
+      },
+      {
+        "period": "November-December - Holiday Season",
+        "opportunity": "Holiday hosting stress, guest preparation, end-of-year exhaustion, gift certificates",
+        "content_angle": "Holiday hosting packages, guest-ready guarantees, gift certificate promotions, stress-free holiday content, New Year booking incentives"
+      },
+      {
+        "period": "June-August - Moving Season",
+        "opportunity": "Peak moving period, move-in/move-out cleaning needs, real estate transactions, deposit recovery",
+        "content_angle": "Move-in/move-out specialized services, real estate agent partnerships, deposit guarantee cleaning, fresh start in new home content"
+      },
+      {
+        "period": "September-October - Fall Nesting",
+        "opportunity": "Cooler weather brings people indoors, preparing home for winter, pre-holiday preparation",
+        "content_angle": "Fall home refresh, preparing for indoor season, pre-holiday deep clean, cozy home content, winterization tips"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social Index 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Hootsuite Social Media Trends Report 2024",
+      "Later's TikTok Engagement Report & Best Time to Post 2024",
+      "Influencer Marketing Hub TikTok Study 2024",
+      "BrightLocal Local SEO Survey 2024",
+      "WordStream Google Ads Performance Data 2024",
+      "Facebook Ad Library analysis",
+      "Reddit communities: r/cleaningtips, r/workingmoms, r/homeowners",
+      "Trustpilot reviews for major cleaning service brands",
+      "Google Business Profile reviews across multiple markets",
+      "Nextdoor community recommendations",
+      "Ahrefs content performance analysis",
+      "Buffer State of Social Media Report 2024"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook variations in cleaning services",
+      "Exact conversion rate data from social media to bookings is proprietary to companies",
+      "TikTok benchmark data for cleaning services specifically is emerging but limited compared to established platforms",
+      "Customer lifetime value and retention metrics are not publicly disclosed by major cleaning brands",
+      "Specific ROI data for different content formats requires access to proprietary analytics"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery transformation teasers - Show dramatic before states without revealing the new service solution",
+        "Week 2: Time-reclamation revolution - Launch positioning new service as giving back specific hours per week",
+        "Week 3: Real customer relief stories - Feature early adopters sharing emotional transformation and life balance gains",
+        "Week 4: Limited founding member pricing - Create urgency with exclusive pricing for first 50 bookings"
+      ],
+      "weekly_hooks": [
+        [
+          "Something's coming that will change how [City] families get their weekends back...",
+          "We've been testing a new service with 12 local families. Their reaction? 'Why didn't this exist sooner?'",
+          "Dreading [specific cleaning task]? Not for much longer. Big announcement Thursday at 2pm."
+        ],
+        [
+          "LAUNCHED: Get [X] hours of your weekend back with our new [Service Name] - here's exactly how it works",
+          "Stop cleaning. Start living. Our new [Service] handles [specific pain point] from just $[X]",
+          "How busy parents in [City] are getting guest-ready homes in 24 hours with our brand new [Service]"
+        ],
+        [
+          "Sarah was drowning in housework and fighting with her husband every weekend. Here's what changed after trying our new [Service]",
+          "'I got my Saturdays back and my allergies improved dramatically' - Real results from our new [Service] early customers",
+          "Why your 'clean' home might be dirtier than you think - and how our new [Service] tackles what regular cleaning misses"
+        ],
+        [
+          "FINAL 48 HOURS: Founding member pricing on [Service] ends Friday - lock in $[X] savings forever",
+          "Only 8 founding member spots left for our new [Service] at this price. Spring cleaning season + 20% off + free [bonus] this week only",
+          "Last chance: Join the 42 [City] families who've already reclaimed their weekends with [Service] at launch pricing"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed about how dirty my house is' - Use empathy messaging that no judgment, just transformation",
+        "Week 2: Address 'Is it really worth the cost when I could do it myself' - Show time value calculator and what customers do with reclaimed hours",
+        "Week 3: Address 'I don't trust strangers in my home' - Feature background check process, bonding, and comfort-building first visits",
+        "Week 4: Address 'What if they don't show up or do a bad job' - Highlight satisfaction guarantee and 96% on-time reliability rate"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce insurance and bonding credentials - $1 million bonded, background-checked professionals",
+        "Week 2: Share behind-the-scenes training videos showing how cleaners are vetted and supervised",
+        "Week 3: Feature 5-8 video testimonials from beta customers with before/after transformations and emotional stories",
+        "Week 4: Final credibility push with local business partnerships, years in business, total homes cleaned milestone"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about what's coming - Join waitlist for early access",
+        "Week 2: See exactly what's included - Download service details PDF or watch 2-minute explainer video",
+        "Week 3: Read customer stories - Comment with your biggest cleaning struggle to see if this fits your needs",
+        "Week 4: Lock in founding member pricing - Schedule your first cleaning before Friday to save $[X]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 2-3 Reels, daily Stories) - Visual before/after transformations and testimonial carousels perform at 1.94% engagement",
+        "Facebook (4-5 posts/week, daily Stories) - Longer testimonials and Live Q&A sessions for 2.3x engagement on video",
+        "Email (3 emails/week during launch) - Sunday 6-8pm, Tuesday 10am-12pm, Thursday 2-4pm for 32% open rates",
+        "TikTok (5-7 videos/week) - Short satisfying cleaning content showing new service results for 5.96% engagement",
+        "Google Business Profile (3 posts/week) - Special offer posts for 2.3x engagement vs social media"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on The Cleaning Authority's Instagram before/after carousel success (4.2% engagement, 25% higher save rate, 15% increase in quote requests) combined with Two Maids email campaign emotional storytelling approach (32% open rate, 22% conversion). Launch timing leverages Sunday evening email performance and Thursday-Saturday Facebook optimal posting windows."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Time-saving cleaning hacks - Professional tips that provide immediate DIY value while showcasing expertise",
+        "Week 2: Allergen awareness and health - Connect clean homes to breathing better, reduced allergies, improved wellness",
+        "Week 3: Relationship harmony - Position cleaning services as marriage investment that eliminates chore-related fights",
+        "Week 4: Mental health sanctuary - Explore connection between clean space and reduced anxiety, depression, mental clarity",
+        "Week 5: Satisfying transformation reveals - Before/after content that taps into emotional desire for spotless spaces",
+        "Week 6: Customer success stories - Real people sharing what they do with reclaimed time and life balance gains",
+        "Week 7: Behind-the-scenes trust building - Show cleaner training, vetting process, quality control, eco-friendly products",
+        "Week 8: Seasonal preparation - Timely content about getting home ready for upcoming season or holiday hosting"
+      ],
+      "weekly_hooks": [
+        [
+          "Professional cleaners never do this one thing you probably do every week (and it's making your home dirtier)",
+          "Get 4 hours of your weekend back with these 3 time-saving cleaning techniques we use on every job",
+          "Why your 'clean' bathroom might be dirtier than you think - here's what we check that most people miss"
+        ],
+        [
+          "Allergies worse at home than outside? Your carpets might be the culprit - here's the connection",
+          "How professional deep cleaning reduced one family's asthma attacks by 60% in 30 days",
+          "The invisible allergens lurking in your home (and why regular vacuuming isn't enough)"
+        ],
+        [
+          "We fight about cleaning every single weekend - sound familiar? Here's what 200+ couples told us changed their relationship",
+          "Stop cleaning. Start connecting. How removing this one weekly argument transformed these marriages",
+          "The surprising marriage counselor that costs less than therapy: professional cleaning services"
+        ],
+        [
+          "Walking into a clean house after work changed my mental health - one client's story about anxiety and clean space",
+          "The science behind why a cluttered home makes you feel overwhelmed (and what to do about it)",
+          "Finally comfortable having friends over without apologizing - how clean space builds social confidence"
+        ],
+        [
+          "This post-party kitchen took 4 hours to transform - watch the satisfying 60-second timelapse",
+          "From chaotic to calm: The dramatic before/after that has everyone saying 'I need this'",
+          "Dreading the post-renovation cleanup? Watch how we tackled this dust-covered disaster"
+        ],
+        [
+          "I got my Saturdays back and actually enjoy my home now - meet Sarah, busy mom of 3 who made the switch",
+          "What do our customers do with their reclaimed 4 hours? Their answers might surprise you",
+          "Best money I've ever spent - wish I'd done it sooner. Why 89% of our clients say this after 3 months"
+        ],
+        [
+          "Ever wondered how we train our cleaners? Here's the 40-hour certification process every team member completes",
+          "Inside our background check and bonding process - because trust isn't optional when we're in your home",
+          "Meet the eco-friendly products we use in every home (safe for kids, pets, and the planet)"
+        ],
+        [
+          "Spring cleaning season: Get a healthier home + 20% off + free carpet treatment this week only",
+          "Holiday hosting stress? Get your home guest-ready in 24 hours with our pre-holiday deep clean package",
+          "Back-to-school chaos? Establish a cleaning routine that actually works for busy families"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I should be able to clean my own home' - Reframe as time investment, compare to other outsourced tasks",
+        "Week 2: Address 'What if they use harsh chemicals around my kids/pets' - Showcase eco-friendly products and safety protocols",
+        "Week 3: Address 'I can't afford professional cleaning' - Show time value ROI and compare to relationship counseling costs",
+        "Week 4: Address 'I'm embarrassed about my home's condition' - No judgment messaging, specialize in overwhelm situations",
+        "Week 5: Address 'Previous cleaners were unreliable' - Highlight 96% on-time rate and replacement guarantee",
+        "Week 6: Address 'What if they miss spots or do bad job' - Feature satisfaction guarantee and quality control process",
+        "Week 7: Address 'I don't trust strangers in my home' - Detail background checks, bonding, supervised first visits",
+        "Week 8: Address 'Do I need to clean before cleaners come' - Humorous content addressing this common question"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce professional credentials and years of experience serving local community",
+        "Week 2: Share health-related certifications, eco-friendly product certifications, allergen removal expertise",
+        "Week 3: Feature relationship testimonials and couples who stopped fighting about cleaning",
+        "Week 4: Showcase mental health professional endorsements or customer stories about anxiety reduction",
+        "Week 5: Present visual portfolio of 50+ before/after transformations across different home types",
+        "Week 6: Compile video testimonials showing customers in their clean homes describing life changes",
+        "Week 7: Reveal insurance documentation, background check partnerships, employee retention rates",
+        "Week 8: Display seasonal success metrics, homes cleaned, customer retention rate, local awards"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free 'Professional Cleaning Secrets' checklist - learn what we check in every room",
+        "Week 2: Take our 2-minute Allergen Assessment - discover what might be triggering your symptoms",
+        "Week 3: Comment below: What would you do with 4 extra hours every weekend?",
+        "Week 4: Read our guide: 'The Connection Between Clean Space and Mental Clarity' - free download",
+        "Week 5: Save this post and tag someone who needs to see this transformation",
+        "Week 6: Share your story: What's keeping you from getting help with cleaning? (We read every comment)",
+        "Week 7: Schedule a free walkthrough - meet your potential cleaner with no commitment",
+        "Week 8: Book your seasonal deep clean this week - limited slots available for [upcoming season]"
+      ],
+      "platform_priority": [
+        "Instagram (4-7 posts/week, 2-3 Reels, daily Stories) - Primary platform for visual transformations and educational Reels at 1.94% engagement",
+        "TikTok (5-7 videos/week) - Cleaning hacks and satisfying content perform at 5.96% engagement rate",
+        "Facebook (3-5 posts/week, weekly Live Q&A Thursday 2pm) - Longer testimonials and community building at 2.3x video engagement",
+        "Email (1-2 emails/week, Sunday 6-8pm or Tuesday 10am) - Deeper storytelling for 21.33% open rate",
+        "Google Business Profile (2-3 posts/week, Monday 8-10am) - Local visibility with 2.3x engagement advantage"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Molly Maid's YouTube educational series success (tutorial content performed 40% better than promotional, 50K-150K views, 3-5% engagement) and Tidy Casa TikTok growth (125K followers in 6 months, 8.7% engagement on practical tips and satisfying content). Cycle incorporates mental health angle and relationship counseling perspective identified as competitive gaps."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized satisfying cleaning transformations - 15-30 second before/after reveals with ASMR sounds and trending audio",
+        "Week 2: Shareable cleaning hacks challenge - Invite audience to try and share professional tips, creating user-generated content wave"
+      ],
+      "weekly_hooks": [
+        [
+          "This post-party disaster took 90 seconds to transform - watch until the end (satisfying ASMR)",
+          "POV: You hired professional cleaners and came home to this (the reveal will shock you)",
+          "We deep cleaned a home that hadn't been touched in 6 months - the before state is unbelievable",
+          "Allergies worse at home? Watch what we found hiding in this 'clean' carpet (you won't believe it)",
+          "How busy moms in [City] are getting their homes guest-ready in 24 hours - the secret revealed"
+        ],
+        [
+          "Try this professional cleaning hack and tag us in your results - we're featuring the best transformations",
+          "Why your cleaning routine isn't working (and the 30-second fix pro cleaners use instead)",
+          "Comment your biggest cleaning struggle - we'll reply with the exact technique we use to solve it",
+          "Duet this if you've ever felt too embarrassed to have people over because of your home's condition",
+          "The cleaning product combination that changed everything - try it and share your before/after"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed about my home's condition' through relatable before states and no-judgment messaging",
+        "Week 2: Address 'I should be able to do this myself' by showing difficulty of techniques and time investment required"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce dramatic visual proof through multiple daily before/after transformations showing range of situations",
+        "Week 2: Feature user-generated content from challenge participants and community testimonials proving techniques work"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily satisfying cleaning content - Save this for when you need motivation",
+        "Week 1: Tag someone who needs to see this transformation - Share to your Stories",
+        "Week 2: Try this hack and tag us in your results - we'll feature the best ones",
+        "Week 2: Drop a 🧹 if you want us to come clean your space - limited availability in [City]"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 videos daily) - Primary platform for viral growth, 5.96% engagement rate, post Tuesday-Thursday 7-9am and 7-9pm EST",
+        "Instagram Reels (2-3 Reels daily, 8-10 Stories daily) - Cross-post TikTok content plus behind-the-scenes, 5.2% avg engagement on Reels",
+        "Facebook (1-2 video posts daily) - Share top-performing TikToks for older demographic, video content gets 2.3x engagement",
+        "YouTube Shorts (1 daily) - Repurpose best TikTok content for additional reach",
+        "Google Business Profile (1 post daily) - Share transformations to capture local search traffic"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Tidy Casa TikTok success (125K followers in 6 months, 8.7% engagement, top video 2.3M views, 18% increase in local inquiries) using 60-second cleaning hacks and satisfying deep-cleaning videos with trending music. Instagram Reels showing transformations achieve 5.2% engagement vs 1.94% platform average. High-frequency posting capitalizes on TikTok algorithm requiring 1-3 daily videos for maximum favor."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The hidden health impacts of home cleanliness - Allergens, bacteria, and respiratory health education",
+        "Week 2: Professional cleaning science - The chemistry, techniques, and equipment differences that deliver superior results",
+        "Week 3: Time economics and life balance - Quantifying the ROI of professional services vs DIY cleaning",
+        "Week 4: Mental health and environment connection - Research-backed exploration of clean space impact on wellbeing",
+        "Week 5: Relationship dynamics and household labor - Addressing the emotional burden and partnership implications",
+        "Week 6: Sustainable cleaning practices - Environmental impact, eco-friendly methods, and responsible service delivery"
+      ],
+      "weekly_hooks": [
+        [
+          "Why your 'clean' home might be making your family sick - what professional allergen testing reveals",
+          "Allergies worse at home than outside? Here's the science behind indoor air quality and cleaning frequency",
+          "The invisible bacteria living in your kitchen (and why regular cleaning isn't eliminating them)"
+        ],
+        [
+          "Professional cleaners never use this product you probably have under your sink - here's why",
+          "The chemistry behind why our deep cleaning lasts 3x longer than DIY methods",
+          "Why professional equipment removes 99% more allergens than consumer vacuums - the filtration science explained"
+        ],
+        [
+          "I spent 4 hours cleaning my house every weekend. Here's what that time is actually worth (the math will surprise you)",
+          "The real cost of DIY cleaning: time + products + equipment vs professional service ROI calculator",
+          "What do our customers do with their reclaimed 8 hours per month? The life balance transformation data"
+        ],
+        [
+          "Walking into a clean house after work changed my mental health - the neuroscience behind environment and mood",
+          "The surprising connection between cluttered homes and anxiety disorders (according to psychology research)",
+          "Why a clean home is more than aesthetics - the mental clarity and stress reduction science"
+        ],
+        [
+          "We fight about cleaning every weekend - the hidden relationship cost of household labor imbalance",
+          "Why couples therapy often recommends professional cleaning services (the emotional labor perspective)",
+          "The mental load of managing a household: why 'just asking for help' isn't the solution"
+        ],
+        [
+          "The environmental impact of professional vs DIY cleaning - the data might surprise you",
+          "How eco-friendly professional cleaning actually saves water and reduces chemical waste",
+          "Inside our sustainable cleaning certification - what it means for your family and the planet"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if they use harsh chemicals around kids/pets' - Deep dive into eco-friendly products and safety protocols",
+        "Week 2: Address 'I could do it myself with the right products' - Show professional equipment and technique differences",
+        "Week 3: Address 'I can't afford professional cleaning' - Present detailed time value ROI and cost comparison analysis",
+        "Week 4: Address 'I should be able to handle my own house' - Reframe through mental health lens and self-care perspective",
+        "Week 5: Address 'It feels lazy to outsource cleaning' - Discuss societal expectations and gender dynamics around household labor",
+        "Week 6: Address 'Is professional cleaning really better for environment' - Provide data on efficiency and waste reduction"
+      ],
+      "proof_timing": [
+        "Week 1: Share health certifications, allergen removal data, air quality testing results from client homes",
+        "Week 2: Feature professional cleaning certifications, training credentials, equipment specifications and testing",
+        "Week 3: Present customer time-saving testimonials with specific hour calculations and life impact stories",
+        "Week 4: Include mental health professional endorsements, customer anxiety reduction stories, wellbeing survey results",
+        "Week 5: Showcase couples testimonials about reduced conflict, relationship counselor perspectives on household labor",
+        "Week 6: Display eco-certifications, environmental impact reports, sustainable practice documentation and third-party verification"
+      ],
+      "cta_progression": [
+        "Week 1: Download 'The Hidden Health Hazards in Your Home' free guide with professional assessment checklist",
+        "Week 2: Watch our 10-minute deep-dive: 'Why Professional Cleaning Gets Different Results' video series",
+        "Week 3: Use our Time Value Calculator - discover what your cleaning hours are really costing you",
+        "Week 4: Read the full research: 'Clean Space, Clear Mind' - the psychology of environment (free whitepaper)",
+        "Week 5: Join our live webinar: 'Rebalancing Household Labor' with relationship expert guest speaker",
+        "Week 6: Schedule a free eco-friendly cleaning consultation - see our sustainable practices in action"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form videos/week, 3-5 Shorts/week) - Deep educational content, tutorial-style performs 40% better than promotional",
+        "Facebook (3-4 posts/week, weekly Live Q&A Thursday 2pm) - Longer educational posts and expert Q&A sessions for engaged community",
+        "Instagram (4-5 posts/week focusing on educational carousels, 2 Reels/week) - Multi-slide educational content gets 3.8% engagement",
+        "Email (2 emails/week, Tuesday 10am-12pm) - In-depth thought leadership content for 21.33% open rate",
+        "LinkedIn (2-3 posts/week) - B2B authority building and professional positioning"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Molly Maid's YouTube educational series success where tutorial-style content performed 40% better than promotional (50K-150K views, 3-5% engagement) and Merry Maids' Facebook Live Q&A sessions (2,500 live viewers, 85% retention, 12% conversion to consultations). Addresses competitive gaps in mental health angle, relationship counseling perspective, and environmental impact reporting that no competitors currently emphasize."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive cleaning challenge and community participation - Crowdsource struggles, share solutions, build conversation",
+        "Week 2: User-generated transformation showcase - Feature customer stories, before/afters, and community wins"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop a 🧹 if you've ever felt too overwhelmed to even know where to start cleaning",
+          "Fill in the blank: My biggest cleaning struggle is _____ (we're reading and responding to EVERY comment)",
+          "This or that: Would you rather clean bathrooms for a year OR never have to clean again but give up coffee?",
+          "Comment your most embarrassing 'guests are coming over in 30 minutes' panic cleaning story",
+          "Poll: What would you do with 4 extra hours every weekend? A) Family time B) Hobbies C) Sleep D) All of the above",
+          "Tag someone who desperately needs to see this post (we'll send them a special surprise)"
+        ],
+        [
+          "We asked customers to share what they do with their reclaimed time - your responses are making us emotional 😭",
+          "Transformation Tuesday: Share your before/after cleaning wins in the comments (professional or DIY - we celebrate all victories)",
+          "Meet Sarah - busy mom who got her Saturdays back. Comment 'STORY' to hear how her life changed",
+          "Your cleaning hack worked! Featuring the 10 best tips YOU shared last week (swipe to see community transformations)",
+          "We're giving away a free deep clean to one lucky commenter - tell us: What would a completely clean home mean for your mental health?",
+          "Duet this if cleaning stress has ever made you cry (you're not alone - read these 500+ comments)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed about my home's condition' through community vulnerability and shared struggles",
+        "Week 2: Address 'I should be able to handle this myself' by celebrating all cleaning victories and normalizing help-seeking"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce social proof through volume of community responses showing how common cleaning struggles are",
+        "Week 2: Feature diverse customer transformations and testimonials submitted by community members themselves"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your biggest struggle - Tag a friend who relates - Share this to your Stories with your answer",
+        "Week 1: Vote in our poll - DM us for personalized recommendations based on your answer",
+        "Week 2: Share your transformation story in comments - Tag us in your before/after posts",
+        "Week 2: Enter to win free deep clean by commenting what clean home would mean to you - Follow and share to increase chances"
+      ],
+      "platform_priority": [
+        "Instagram (2-3 interactive posts daily, 10+ Stories daily with polls/questions/quizzes) - Stories with polls get 12% response rate",
+        "Facebook (1-2 posts daily, daily Story polls, Live session mid-week) - Community building and longer conversations, video 2.3x engagement",
+        "TikTok (1-2 videos daily encouraging duets/stitches) - Duet and stitch features drive viral engagement at 5.96% rate",
+        "Email (1 email each week highlighting community responses) - Sunday 6-8pm for 32% open rate with community compilation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Stories with polls/questions achieving 12% response rate and Merry Maids' Facebook Live Q&A success (2,500 live viewers, 200+ comments per session, 85% retention). Leverages customer voice data showing emotional language around feeling 'overwhelmed,' 'embarrassed,' and 'exhausted' - creating safe community space for vulnerability drives algorithm-favoring engagement while building trust."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The hidden cost of DIY office cleaning: [X]% of small business owners spend [Y] hours weekly on cleaning tasks.\n\nThat's [Z] hours monthly that could go to revenue-generating activities.\n\nPROBLEM: Your team is cleaning instead of closing deals.\nAGITATION: At $[hourly_rate]/hour, you're paying premium rates for janitorial work.\nSOLUTION: Professional cleaning services cost [X]% less than employee time + deliver health-code compliance.\n\n3 areas costing you most:\n→ Restroom sanitation ([X] min daily)\n→ Kitchen/breakroom ([Y] min daily)\n→ Workspace dusting ([Z] min weekly)\n\nROI calculation: [Employee_cost] - [Service_cost] = $[savings] monthly\n\nWhat's your biggest facility maintenance challenge? #FacilityManagement #SmallBusinessTips #CommercialCleaning",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [X] years in commercial cleaning, I've noticed a pattern:\n\nCompanies don't fail because of dirty offices. They fail because leadership spends time on the wrong priorities.\n\nATTENTION: Your facility impacts employee retention more than you think.\nINTEREST: Studies show [X]% productivity loss in poorly maintained workspaces. Clean environments reduce sick days by [Y]%.\nDESIRE: Imagine your team walking into a spotless office daily—zero complaints, zero distractions, pure focus.\nACTION: Smart leaders outsource non-core functions. Is cleaning really your competitive advantage?\n\nThe businesses thriving in [City] have one thing in common: They know what to delegate.\n\nWhat's one task you should stop doing this quarter? #Leadership #BusinessEfficiency #WorkplaceCulture",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Spending $[X]/month on cleaning supplies + [Y] employee hours\nAFTER: Spending $[Z]/month on professional service + 0 employee hours\n\n[Company_name] switched to our commercial cleaning program [timeframe] ago.\n\nResults:\n✓ [X]% reduction in facility costs\n✓ [Y] hours reclaimed weekly\n✓ Zero supply management headaches\n✓ Health compliance guaranteed\n\nTheir CEO told me: \"[Testimonial_quote]\"\n\nThis week only: [X]% off first 3 months for [City] businesses with [employee_count]+ employees.\n\nDM me 'CLEAN' for a free facility assessment worth $[value]. #[City]Business #FacilityServices",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your 'clean' home might be dirtier than you think 😳\n\nPro cleaners check these 7 spots you're probably missing:\n\nSwipe to see what we find in every deep clean →\n\n[Slide details in carousel]\n\nWhich one surprised you most? Comment the number! 👇\n\n#CleaningHacks #DeepCleaning #HomeTips #[City]Homes #CleanTok #ProfessionalCleaning",
+        "visual": "Carousel: Slide 1 - Split screen 'what you see vs what we see'. Slides 2-8 - Close-up before/after of: baseboards, ceiling fan blades, behind appliances, light switches, door frames, window tracks, vent covers. Each with text overlay of bacteria/dust stats.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "Why your 'clean' routine isn't working ⬇️\n\nAfter [X] years cleaning [Y]+ homes, here's what I've learned:\n\nCleaning ≠ Sanitizing\nOrganizing ≠ Deep cleaning\nQuick wipe ≠ Disinfecting\n\nThe difference? [X]% fewer allergens, [Y]% better air quality, [Z] hours saved monthly.\n\nReal talk: You're not failing. You just don't have professional tools, products, or training.\n\nThat's literally our job 💪\n\nSave this for next time you feel guilty about hiring help.\n\n#CleaningProfessional #HomeCare #CleaningMyths #[City]Cleaning",
+        "visual": "Split-screen Reel: Left side shows common DIY cleaning, right side shows professional technique for same task. Text overlays highlight differences. End frame: 'Stop cleaning. Start living.' with booking CTA.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "Get [X] hours of your weekend back ⏰\n\nBEFORE: Spending Saturday scrubbing\nAFTER: Spending Saturday at [local_activity]\n\nOur [service_package] includes:\n✓ [Room_count] rooms deep cleaned\n✓ Kitchen + bathrooms sanitized\n✓ Eco-friendly products (kid & pet safe)\n✓ Same trusted cleaner every visit\n\n[X]% off your first clean this week only\n\nLink in bio or DM 'WEEKEND' for instant quote 📲\n\n[Customer_name]: \"[Testimonial_quote]\" ⭐⭐⭐⭐⭐\n\n#[City]Cleaning #CleaningService #WeekendVibes #GetYourTimeBack",
+        "visual": "Before/after carousel: Slide 1 - Messy living room with text 'Your Saturday morning'. Slide 2 - Same room spotless with text 'Also your Saturday morning'. Slide 3 - Family at park/brunch with text 'Because we handled this'. Slide 4 - Pricing graphic. Slide 5 - Customer testimonial screenshot.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🏠 SPRING CLEANING CHECKLIST (from a pro who's seen it all)\n\nHey [City] friends! After cleaning [X]+ homes this season, here are the tasks everyone forgets:\n\n❌ PROBLEM: You deep clean the obvious stuff but miss the spots that actually impact your health.\n\n😰 Why it matters: Hidden dust = allergies, poor air quality, and that \"stuffy\" feeling even in a \"clean\" home.\n\n✅ THE FIX: Professional cleaners tackle these [X] areas:\n\n1️⃣ [Task_1] - [Why_it_matters]\n2️⃣ [Task_2] - [Why_it_matters]\n3️⃣ [Task_3] - [Why_it_matters]\n4️⃣ [Task_4] - [Why_it_matters]\n5️⃣ [Task_5] - [Why_it_matters]\n\nPRO TIP: [Specific_actionable_tip]\n\nDoing this yourself? Set aside [X] hours. Want it done in [Y] hours while you [activity]? That's what we're here for 😊\n\nDrop a 🙋 if you've been putting off spring cleaning!\n\n#[City]Moms #SpringCleaning #CleaningTips #LocalBusiness",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: Hiring a cleaner isn't lazy. It's strategic.\n\nLet me explain 👇\n\nI see this guilt all the time in [City]. Amazing parents, hardworking professionals, people doing their absolute best—apologizing for wanting help.\n\nHere's what I wish everyone knew:\n\n💡 Your time has value. [X] hours cleaning weekly = [Y] hours monthly = [Z] hours yearly. What could you do with [Z] extra hours?\n\n💡 Professional results matter. We're trained, equipped, and insured. That's not laziness—that's smart delegation.\n\n💡 Mental health counts. Walking into a clean home after a hard day isn't a luxury. It's self-care.\n\nThe most successful people I know don't do everything themselves. They focus on what they do best and delegate the rest.\n\nCleaning your own home is admirable. So is recognizing when you need support.\n\nBoth choices are valid. Both require zero apology.\n\n❤️ this if you needed to hear it today.\n\nWhat's one thing you wish you could delegate? (No judgment zone!)",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Dreading the post-[event] cleanup 😱\nAFTER: Waking up to a spotless home 😍\n\n[City] friends—we've got you covered!\n\nHosting [season/event] gatherings? Our Post-Event Deep Clean special:\n\n✨ Full kitchen sanitization (dishes, appliances, floors)\n✨ Bathroom restoration\n✨ Living areas reset\n✨ Trash removal\n✨ Spot carpet cleaning\n\nBOOK WITHIN 24 HOURS OF YOUR EVENT:\n→ [X]% off regular pricing\n→ Priority scheduling\n→ Same-day service available\n\nREAL CUSTOMER: \"[Testimonial_quote]\" - [Customer_name], [Neighborhood]\n\nHow it works:\n1️⃣ Comment 'PARTY' below\n2️⃣ We'll DM you booking link\n3️⃣ Enjoy your event worry-free!\n\nLimited spots available [dates]. First come, first served!\n\nTag someone hosting soon! 🎉",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been cleaning your bathroom wrong this whole time 😳",
+        "script": "HOOK: [Point to dirty bathroom] 'You've been cleaning your bathroom wrong'\n\n0:03 - Show spray bottle: 'You spray and wipe immediately, right?'\n\n0:08 - Shake head: 'That's why it's never actually clean'\n\n0:12 - Point to product: 'Disinfectants need [X] minutes contact time to kill bacteria'\n\n0:18 - Show spraying: 'Spray everything first'\n\n0:22 - Walk away dramatically: 'Walk away for [X] minutes'\n\n0:28 - Show phone timer: 'I literally set a timer'\n\n0:32 - Come back wiping: 'THEN wipe. That's when it actually disinfects'\n\n0:40 - Show sparkling result: 'See the difference?'\n\n0:45 - Text overlay: '[X] years professional cleaning taught me this'\n\n0:50 - Wink: 'Or just hire us and we'll do it right 😉'\n\n0:55 - End screen: '[Company] • [City] • Link in bio'\n\nTEXT OVERLAYS: 'Read the bottle!', 'Contact time = [X] min', 'Professional secret', 'You're welcome'\n\nSOUND: Trending audio or satisfying cleaning ASMR",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "As a professional cleaner, here's what your house tells me about you 👀",
+        "script": "HOOK: 'What your house tells me' [knowing look]\n\n0:03 - Walk through door: 'I can tell everything from your entryway'\n\n0:08 - Point to shoes: 'Shoes by door = you respect your space'\n\n0:12 - Show kitchen: 'Clean sink, messy counters = you're overwhelmed not lazy'\n\n0:18 - Open fridge: 'Organized fridge = you meal plan (impressive)'\n\n0:24 - Show bathroom: 'Cleaned toilet, dusty baseboards = you clean what you see'\n\n0:30 - Point to bedroom: 'Made bed = you're trying despite the chaos'\n\n0:36 - Show pile: 'The chair pile = you're human (we all have one)'\n\n0:42 - Face camera seriously: 'Here's the truth'\n\n0:46 - Smile: 'Your house isn't dirty. You're just busy living life.'\n\n0:52 - Text overlay: 'And that's exactly why we exist'\n\n0:58 - End: 'Stop judging yourself. Start getting help. [Company]'\n\nTEXT OVERLAYS: 'No judgment zone', 'You're doing great', 'Seriously', 'Link in bio'\n\nSOUND: Emotional trending audio",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "Stop cleaning. Start living. Here's how 👇",
+        "script": "HOOK: 'Stop cleaning' [throw cleaning supplies dramatically]\n\n0:03 - Show calendar: 'You spend [X] hours weekly cleaning'\n\n0:08 - Calculate on screen: 'That's [Y] hours monthly'\n\n0:12 - Show money: 'Your time is worth $[Z]/hour'\n\n0:16 - Math overlay: 'You're spending $[total] in time'\n\n0:20 - Show service price: 'Professional cleaning: $[price]'\n\n0:24 - Mind blown gesture: 'You're literally losing money DIY-ing'\n\n0:28 - Show before messy house: 'Before: Stressed, exhausted, house still dirty'\n\n0:34 - Show after clean house: 'After: [X] hours back, spotless home, zero effort'\n\n0:40 - Show family activity: 'What would you do with [X] extra hours?'\n\n0:46 - List benefits fast: 'Same cleaner, eco products, insured, guaranteed'\n\n0:52 - Special offer: '[X]% off first clean this week'\n\n0:56 - CTA: 'Link in bio. Stop cleaning. Start living.'\n\nTEXT OVERLAYS: 'Do the math', 'Time = money', '[City] cleaning', 'Limited spots'\n\nSOUND: Upbeat trending audio",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 5 spots you're forgetting (that make your home feel dirty)",
+        "preview": "Even when you clean regularly, these areas collect [X]% of household allergens",
+        "body": "PROBLEM: Hi [First_Name], ever notice how your home feels stuffy even after cleaning? You're not imagining it.\n\nAGITATION: Most cleaning routines miss the spots that actually impact air quality and that 'fresh home' feeling. These [X] areas harbor [Y]% of household allergens:\n\n1. [Spot_1]: [Why_it_matters] → Quick fix: [Tip]\n2. [Spot_2]: [Why_it_matters] → Quick fix: [Tip]\n3. [Spot_3]: [Why_it_matters] → Quick fix: [Tip]\n4. [Spot_4]: [Why_it_matters] → Quick fix: [Tip]\n5. [Spot_5]: [Why_it_matters] → Quick fix: [Tip]\n\nSOLUTION: Professional deep cleaning tackles all of these (plus [X] more) in one visit.\n\nTackling this yourself? Set aside [X] hours this weekend.\n\nPrefer to spend that time [activity]? Our [Season] Deep Clean special covers everything above for $[price].\n\n[CTA_BUTTON: Get Your Free Quote]\n\nP.S. Customers who book by [date] get [bonus] free. Just mention code DEEP[X].\n\nCheers,\n[Name]\n[Company]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "You're not lazy for hiring a cleaner (here's why)",
+        "preview": "After [X] years in this industry, I need to say this...",
+        "body": "ATTENTION: [First_Name], I need to address something I see constantly:\n\nThe guilt. The apologizing. The 'I should be able to do this myself.'\n\nStop.\n\nINTEREST: Here's what [X] years cleaning [Y]+ homes taught me:\n\nThe most successful, put-together people I know don't clean their own homes. Not because they can't. Because they've done the math.\n\nYour time is worth $[X]/hour (conservative estimate).\nYou spend [Y] hours weekly cleaning.\nThat's $[Z] monthly in opportunity cost.\n\nProfessional cleaning: $[price]/month.\n\nDESIRE: But it's not just about money:\n\n→ Mental health: Clean home = reduced anxiety ([study] found [X]% improvement)\n→ Relationships: Couples who outsource chores report [Y]% less conflict\n→ Health: Professional-grade products reduce allergens by [Z]%\n→ Time: [Hours] monthly back for what actually matters to you\n\nACTION: The smartest people delegate non-core tasks. Is scrubbing toilets really your competitive advantage?\n\nThought experiment: What would you do with [X] extra hours monthly?\n\n[CTA_BUTTON: See Our Services]\n\nNo pressure. Just permission to stop feeling guilty.\n\n[Name]\n[Company]\n\nP.S. If you're still on the fence, reply to this email. I'll send you our ROI calculator—it might surprise you.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "Get [X] hours of your weekend back (special inside)",
+        "preview": "Limited [Season] offer: [X]% off + free [bonus] • Expires [date]",
+        "body": "BEFORE: [First_Name], picture your typical Saturday:\n\n7am: Wake up tired\n8am: Start cleaning\n12pm: Still cleaning\n2pm: Finally done, too exhausted to enjoy the day\n\nAFTER: Now picture this Saturday:\n\n9am: Wake up naturally\n10am: [Activity] with family\n12pm: Lunch at [local_spot]\n2pm: Come home to a spotless house you didn't clean\n\nThat's the difference.\n\nOur [Package_Name] includes:\n✓ [X] rooms deep cleaned\n✓ Kitchen + [Y] bathrooms sanitized\n✓ Eco-friendly products (safe for kids/pets)\n✓ Same trusted cleaner every visit\n✓ 100% satisfaction guarantee\n\nREAL RESULTS:\n\"[Testimonial_quote]\" - [Customer_Name], [Neighborhood]\n\n[SEASON] SPECIAL (Expires [Date]):\n→ [X]% off first [Y] cleans\n→ Free [bonus_service] (worth $[value])\n→ Priority scheduling\n→ Zero commitment (cancel anytime)\n\nInvestment: Starting at $[price] (less than [comparison])\n\n[CTA_BUTTON: Claim My [X]% Off]\n\nOnly [X] spots available for [City] residents. First come, first served.\n\nQuestions? Just reply—I read every email personally.\n\nTo your free weekends,\n[Name]\n[Company]\n\nP.S. Still unsure? We offer a first-clean satisfaction guarantee. If you're not thrilled, we'll re-clean for free or refund 100%. Zero risk.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] hours of your weekend back - here's how [City] families are skipping the cleaning and actually enjoying their homes",
+      "Get your home guest-ready in [X] hours (even if it's embarrassing right now)",
+      "[X] things professional cleaners check that you're missing (and why your allergies aren't improving)",
+      "From overwhelmed to organized in [X] days - the post-renovation deep clean that actually removes all the dust",
+      "[X] minutes to book, [Y] hours of freedom every week - here's what busy moms are doing instead of scrubbing"
+    ],
+    "question_hooks": [
+      "Are you drowning in housework and fighting about cleaning every weekend?",
+      "Are you too embarrassed about your home's condition to have friends over?",
+      "Are you spending your only free time scrubbing instead of with your kids?",
+      "Are your allergies worse at home than outside? (Your carpets and vents might be the culprit)",
+      "Are you recovering from [surgery/illness/baby] and physically can't keep up with cleaning right now?"
+    ],
+    "story_hooks": [
+      "How working parents in [City] stopped fighting about chores and got their weekends back",
+      "How [Name] went from embarrassed host to proud homeowner in 24 hours (before her in-laws arrived)",
+      "How new moms are focusing on their babies instead of post-birth cleaning panic",
+      "How [City] families are breathing easier and reducing allergy symptoms without changing anything but their cleaning routine",
+      "How renters are getting their full deposits back after move-out cleans they couldn't handle themselves"
+    ],
+    "fear_hooks": [
+      "Is your home making your family sick? What we find in vents, carpets, and baseboards that DIY cleaning misses",
+      "Is post-construction dust damaging your health? (It's more dangerous than regular dust and needs professional removal)",
+      "Is your rental deposit at risk because you can't get it clean enough for inspection?",
+      "Is your overwhelm turning into health issues? The hidden cost of endless cleaning stress",
+      "Is your business at risk from a failed health inspection? Same-day commercial deep cleaning available"
+    ],
+    "howto_hooks": [
+      "How to get your home guest-ready in [X] hours without the panic cleaning or family arguments",
+      "How to enjoy a spotless home every week without sacrificing your evenings and weekends",
+      "How to deep clean after renovation without breathing in harmful dust or missing hidden debris",
+      "How to prepare your home for a new baby without exhausting yourself before delivery",
+      "How to have people over without apologizing for your home or stress-cleaning for days first"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally stopped fighting about chores",
+      "body": "Show couple arguing in messy kitchen (3sec) → Cut to professional cleaner arriving (2sec) → Montage of cleaning transformation set to trending audio (40sec) → Couple relaxing together on clean couch, laughing (10sec) → Text overlay: 'Best investment in our relationship' with before/after split screen (5sec)",
+      "cta": "Link in bio to calculate what your time is worth ⏰"
+    },
+    "reels": {
+      "hook": "Your therapist costs $200/hr...",
+      "body": "Text overlay showing therapy cost vs cleaning service cost (5sec) → Satisfying cleaning footage with calming music (15sec) → Person walking into sparkling home, visible relief on face (8sec) → Final text: 'Sometimes the best mental health investment is a clean space'",
+      "cta": "Get your peace back → link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us what you did with your first free Saturday after hiring us. Film yourself doing the thing you love instead of cleaning - whether that's at your kid's soccer game, brunch with friends, or just napping. Caption: 'I used to spend Saturdays scrubbing. Now I spend them ___.'",
+      "hashtag": "#TimeBackSaturday"
+    },
+    {
+      "prompt": "Record a quick video the moment you walk into your freshly cleaned home. Capture your genuine first reaction - no script, just real emotion. Bonus points if you show the specific thing that made you smile (sparkling counters, organized closet, etc.)",
+      "hashtag": "#CleanHomeFeeling"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The 'Cleaning Service ROI Calculator' - Interactive content showing if you earn $25/hr and spend 10hrs/month cleaning, you're doing $250 of labor. Service costs $180. You're losing money AND time by DIY cleaning.",
+      "why": "Reframes guilt into smart financial decision, shareable because it validates people's choices with math, comment section fills with people calculating their own numbers"
+    },
+    {
+      "angle": "'What cleaners find in every home' series - Professional cleaners share the forgotten spots everyone misses (top of fridge, baseboards, light fixtures) with satisfying before/after of grime removal",
+      "why": "Educational value drives saves, satisfying visuals get watch-through, relatability ('I never clean that either!') sparks comments and shares, positions brand as expert"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:33:09.770Z",
+    "last_tier2_refresh": "2025-11-27T21:33:09.770Z",
+    "last_tier3_refresh": "2025-11-27T21:33:09.770Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:33:09.770Z"
+  }
+}

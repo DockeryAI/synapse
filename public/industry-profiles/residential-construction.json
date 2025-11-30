@@ -1,0 +1,1714 @@
+{
+  "industry": "Residential Construction",
+  "industry_name": "Residential Construction",
+  "naics_code": "236115",
+  "category": "Construction",
+  "subcategory": "New Single-Family Housing Construction",
+  "customer_triggers": [
+    {
+      "trigger": "Growing family needing more space",
+      "urgency": 8,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "School district enrollment deadlines",
+      "urgency": 9,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Interest rate drops below 6%",
+      "urgency": 10,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Lease expiration approaching",
+      "urgency": 7,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Remote work becoming permanent",
+      "urgency": 6,
+      "frequency": "ongoing"
+    },
+    {
+      "trigger": "Inheritance or windfall received",
+      "urgency": 9,
+      "frequency": "rare"
+    },
+    {
+      "trigger": "Marriage or divorce proceedings",
+      "urgency": 8,
+      "frequency": "life event"
+    },
+    {
+      "trigger": "Retirement planning milestone",
+      "urgency": 5,
+      "frequency": "decade markers"
+    },
+    {
+      "trigger": "Tax incentive deadlines",
+      "urgency": 10,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Neighborhood development announcements",
+      "urgency": 7,
+      "frequency": "quarterly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Typically begins 18-24 months before purchase through online research, driving neighborhoods, visiting model homes on weekends. 73% start with Zillow or Realtor.com searches, spending average 8 hours researching before first contact",
+    "consideration": "Lasts 3-6 months involving builder interviews, lot selection, financing pre-approval, plan customization. Average customer contacts 4-7 builders, visits 12-15 model homes, reviews 200+ floor plans online",
+    "decision": "Final 30-45 days involving contract negotiations, deposit placement, final selections. 67% require spousal agreement, 34% involve parents/advisors, decision accelerates with lot availability pressure",
+    "retention": "Post-closing relationship spans 12-24 months through warranty period, involving punch list completion, seasonal check-ins, maintenance education. 89% of issues arise in first 90 days",
+    "advocacy": "Peaks at 6-12 months post-move when honeymoon period combines with settled comfort. Referrals increase 3x when builders maintain quarterly contact, provide homeowner appreciation events"
+  },
+  "transformations": [
+    {
+      "from": "Cramped rental apartment",
+      "to": "Spacious dream home owner",
+      "emotional_value": "Pride and security",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain monthly rent increases",
+      "to": "Fixed mortgage payment stability",
+      "emotional_value": "Financial control",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic cookie-cutter layout",
+      "to": "Personalized custom design",
+      "emotional_value": "Self-expression",
+      "worth_premium": true
+    },
+    {
+      "from": "Maintenance headaches in old home",
+      "to": "New construction warranty protection",
+      "emotional_value": "Peace of mind",
+      "worth_premium": false
+    },
+    {
+      "from": "Poor school district",
+      "to": "Top-rated educational opportunities",
+      "emotional_value": "Children's future",
+      "worth_premium": true
+    },
+    {
+      "from": "Long stressful commute",
+      "to": "Work-from-home optimized space",
+      "emotional_value": "Life balance",
+      "worth_premium": true
+    },
+    {
+      "from": "No equity building",
+      "to": "Wealth accumulation through ownership",
+      "emotional_value": "Financial security",
+      "worth_premium": false
+    },
+    {
+      "from": "Noisy shared walls",
+      "to": "Private peaceful sanctuary",
+      "emotional_value": "Quality of life",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Move-in ready by school year start",
+      "timeframe": "August deadline",
+      "measurable": true
+    },
+    {
+      "metric": "Monthly payment under 28% of gross income",
+      "timeframe": "At closing",
+      "measurable": true
+    },
+    {
+      "metric": "Appraisal exceeds purchase price by 5%+",
+      "timeframe": "Before closing",
+      "measurable": true
+    },
+    {
+      "metric": "Zero punch list items after 60 days",
+      "timeframe": "Post-occupancy",
+      "measurable": true
+    },
+    {
+      "metric": "Neighborhood appreciation rate above 4% annually",
+      "timeframe": "5-year horizon",
+      "measurable": true
+    },
+    {
+      "metric": "Energy costs 30% below previous home",
+      "timeframe": "First year",
+      "measurable": true
+    },
+    {
+      "metric": "Referral of 2+ qualified buyers",
+      "timeframe": "Within 18 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Interest rates increased 0.25% last week and trending upward - each 1% increase adds $67,000 over loan life",
+    "Only 3 premium lots remaining in desired school district with fall registration deadline approaching",
+    "Current lease penalty-free exit window closes in 45 days, next opportunity not for 12 months",
+    "Builder incentive of $15,000 in upgrades expires end of month, unlikely to return this fiscal year",
+    "Construction costs rising 8-12% annually, delaying means paying $25,000-40,000 more next year",
+    "Competing offers on same model - first contract with deposit secures preferred lot position",
+    "Property tax assessment freeze available for next 30 days could save $18,000 over 5 years"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price is 15% over budget",
+      "response": "Let's explore our builder financing at 0.5% below market rate, saving $43,000 over loan term, plus identify $12,000 in non-essential upgrades we can phase in later",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Construction timeline too long",
+      "response": "Our quick-move homes program has 3 properties 60 days from completion with $8,000 incentive, or we can guarantee your current timeline with late delivery penalty of $150/day",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Worried about construction quality",
+      "response": "Tour our 5 completed homes with current owners, review our 147 five-star reviews, comprehensive 10-year structural warranty, and third-party inspection reports showing 94% first-pass rate",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Location seems too far from work",
+      "response": "New highway extension opening in 8 months cuts commute by 22 minutes, plus dedicated workspace design saves 2 hours daily commute 3 days per week",
+      "effectiveness": 6.9
+    },
+    {
+      "objection": "Need to sell current home first",
+      "response": "Our bridge loan program provides up to $100,000 at prime rate, or guaranteed sale program offers 95% market value if not sold in 90 days",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Spouse not convinced",
+      "response": "Schedule private couple's consultation with our design team, arrange meetings with 3 happy families in similar situations, provide 48-hour hold on lot selection",
+      "effectiveness": 7.4
+    },
+    {
+      "objection": "Economic uncertainty concerns",
+      "response": "Fixed-rate locks protect against inflation, homeownership historically outperforms market by 2.3% annually, plus our job loss protection program provides 6 months payment assistance",
+      "effectiveness": 8.7
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "2-year comprehensive warranty on all systems",
+      "10-year structural warranty transferable to next owner",
+      "1-year landscape replacement guarantee",
+      "Price lock guarantee once contract signed",
+      "On-time completion or $150/day penalty"
+    ],
+    "proof_points": [
+      "Licensed and bonded for $5 million",
+      "23 years in business with 2,400+ homes completed",
+      "A+ BBB rating maintained for 15 years",
+      "Featured builder in 3 national magazines",
+      "92% customer satisfaction score verified by third-party"
+    ],
+    "risk_mitigation": "Staged payment schedule protects buyer funds, independent inspections at 4 construction phases, escrow account for all deposits, right to cancel within 7 days with full refund, comprehensive insurance coverage during construction"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "cramped",
+      "outdated",
+      "rental trap",
+      "no privacy",
+      "bad schools",
+      "rising rent",
+      "no equity",
+      "maintenance nightmare",
+      "noisy neighbors",
+      "no storage"
+    ],
+    "solution_words": [
+      "dream home",
+      "custom design",
+      "move-in ready",
+      "gourmet kitchen",
+      "master suite",
+      "home office",
+      "great schools",
+      "investment",
+      "energy efficient",
+      "smart home"
+    ],
+    "avoid_jargon": [
+      "easement",
+      "setback",
+      "R-value",
+      "rough-in",
+      "change order",
+      "punch list",
+      "mechanicals",
+      "spec home",
+      "elevation",
+      "allowances"
+    ]
+  },
+  "power_words": [
+    "custom",
+    "luxury",
+    "spacious",
+    "prestigious",
+    "exclusive",
+    "energy-efficient",
+    "smart",
+    "gourmet",
+    "resort-style",
+    "maintenance-free",
+    "investment",
+    "equity",
+    "award-winning",
+    "masterplanned",
+    "gated",
+    "premium",
+    "upgraded",
+    "designer",
+    "architectural",
+    "sustainable",
+    "warranty",
+    "guaranteed",
+    "certified",
+    "showcase",
+    "model",
+    "executive",
+    "estate",
+    "craftsman",
+    "modern",
+    "timeless"
+  ],
+  "avoid_words": [
+    "cheap",
+    "budget",
+    "basic",
+    "standard",
+    "starter",
+    "fixer-upper",
+    "as-is",
+    "potential",
+    "cozy",
+    "compact",
+    "modest",
+    "simple",
+    "plain",
+    "adequate",
+    "sufficient",
+    "acceptable",
+    "decent",
+    "okay",
+    "average",
+    "common"
+  ],
+  "headline_templates": [
+    {
+      "template": "Last 3 Homesites in [Neighborhood] - From the $[X]00s",
+      "expected_ctr": 4.2,
+      "use_case": "Urgency for limited inventory"
+    },
+    {
+      "template": "Grand Opening: $25,000 in Designer Upgrades Included",
+      "expected_ctr": 5.8,
+      "use_case": "New phase launch"
+    },
+    {
+      "template": "Why 247 Families Chose [Builder] in [Year]",
+      "expected_ctr": 3.9,
+      "use_case": "Social proof emphasis"
+    },
+    {
+      "template": "Move In Before School Starts - Quick Delivery Homes",
+      "expected_ctr": 6.3,
+      "use_case": "Timeline-sensitive buyers"
+    },
+    {
+      "template": "Own for Less Than Rent: $[X]/Month in [Location]",
+      "expected_ctr": 7.1,
+      "use_case": "First-time buyers"
+    },
+    {
+      "template": "0% Down Payment Options Now Available",
+      "expected_ctr": 8.4,
+      "use_case": "Financing promotion"
+    },
+    {
+      "template": "Tour 5 Decorated Models This Weekend",
+      "expected_ctr": 4.7,
+      "use_case": "Weekend traffic driver"
+    },
+    {
+      "template": "Energy Bills Under $100/Month Guaranteed",
+      "expected_ctr": 5.2,
+      "use_case": "Efficiency focus"
+    },
+    {
+      "template": "Free Tesla Powerwall with Solar-Ready Homes",
+      "expected_ctr": 6.8,
+      "use_case": "Tech-savvy buyers"
+    },
+    {
+      "template": "[School District] Score: 10/10 - Homes from $[X]",
+      "expected_ctr": 5.5,
+      "use_case": "Education-focused families"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Your Private Tour",
+      "conversion_rate": 12.3,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Download Floor Plans & Pricing",
+      "conversion_rate": 18.7,
+      "placement": "Model home pages"
+    },
+    {
+      "template": "Calculate Your Monthly Payment",
+      "conversion_rate": 15.2,
+      "placement": "Pricing section"
+    },
+    {
+      "template": "Check Lot Availability",
+      "conversion_rate": 14.8,
+      "placement": "Site plan interactive"
+    },
+    {
+      "template": "Reserve Your Homesite Today",
+      "conversion_rate": 8.9,
+      "placement": "Urgency banner"
+    },
+    {
+      "template": "Get Pre-Approved in Minutes",
+      "conversion_rate": 11.4,
+      "placement": "Financing page"
+    },
+    {
+      "template": "Join VIP Interest List",
+      "conversion_rate": 22.1,
+      "placement": "Coming soon pages"
+    },
+    {
+      "template": "Claim Your $15,000 Incentive",
+      "conversion_rate": 19.6,
+      "placement": "Limited time popup"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Just helped the Johnson family break ground on their dream home! 🏡 Only [X] homesites remaining in Phase 2. Who's ready to be our next happy homeowner?",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe to see this stunning kitchen transformation ➡️ From blueprint to reality in just 6 months! #DreamHome #CustomBuilder #[CityName]RealEstate",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to announce our 500th home closing in [Community Name]. Thank you to our incredible team and trusting homeowners for making this milestone possible.",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "Twitter",
+      "template": "🚨 Interest rates dropped to 6.5%! That's $340/month savings on a typical $400K home. DM us to lock in your rate today. #Homebuying #MortgageRates",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "Full Home Tour: 4BR/3BA Model Now Open | Smart Home Features Throughout | From $[X]",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're 25 and just bought your first house 🏠 Here's exactly how we made it happen... #FirstTimeHomeBuyer #MillennialMoney",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Mudroom Organization Ideas We're Building Into Every Home | Save for Your Dream Home Inspo!",
+      "engagement_rate": 5.9
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors: We're hosting a community BBQ this Saturday at our model homes. Come see what we're building and enjoy free food! Family-friendly event 11am-3pm",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "Google My Business",
+      "template": "✅ Another happy homeowner! 'Best decision we ever made. The team made building our first home stress-free.' Schedule your consultation today!",
+      "engagement_rate": 9.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Energy costs 40% lower than resale homes with guaranteed utility bills under $150/month",
+      "rank": 1,
+      "differentiator": "Only builder with utility guarantee"
+    },
+    {
+      "prop": "10-year comprehensive warranty vs 1-year on resale homes",
+      "rank": 2,
+      "differentiator": "Longest warranty in market"
+    },
+    {
+      "prop": "Personalize everything: 2,400+ design combinations from 12 floor plans",
+      "rank": 3,
+      "differentiator": "Most customization options"
+    },
+    {
+      "prop": "Smart home technology standard: $8,000 value included at no extra cost",
+      "rank": 4,
+      "differentiator": "Full home automation included"
+    },
+    {
+      "prop": "Close in 45 days with preferred lender vs 60-90 days typical",
+      "rank": 5,
+      "differentiator": "Fastest closing timeline"
+    },
+    {
+      "prop": "Price lock guarantee protects against material cost increases",
+      "rank": 6,
+      "differentiator": "No surprise price changes"
+    },
+    {
+      "prop": "Top-rated schools all 10/10 within walking distance",
+      "rank": 7,
+      "differentiator": "Best school access in region"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Discover the pinnacle of luxury living with our Estate Collection. Featuring designer finishes, resort-inspired amenities, and architectural distinction on premium homesites. From the $800s, these limited residences offer sophisticated buyers an exclusive opportunity to own in [Location]'s most prestigious new community. Private tours by appointment only.",
+    "budget_conscious": "Smart buyers choose new construction: lower monthly costs than resale, no repair surprises, warranty protection, and energy savings that pay you back. Our Starter Collection from the $300s includes granite counters, stainless appliances, and smart home features typically found in homes $50K more. Plus, use our preferred lender for just $99 closing costs.",
+    "enterprise": "Scalable workforce housing solutions for corporate relocations and employee retention. Our corporate partnership program includes volume pricing, customized floor plans for remote work, expedited timelines, and dedicated relocation specialists. Successfully housed 400+ employees for Fortune 500 partners with 95% satisfaction scores and average delivery 30% faster than market."
+  },
+  "trust_signals": [
+    {
+      "signal": "Local Home Builders Association member for 23 years",
+      "importance": 8,
+      "format": "Badge on website footer"
+    },
+    {
+      "signal": "2,400+ homes built with 4.8-star average review",
+      "importance": 10,
+      "format": "Hero section counter"
+    },
+    {
+      "signal": "Featured on HGTV's 'Dream Homes' series",
+      "importance": 7,
+      "format": "Video testimonial"
+    },
+    {
+      "signal": "Energy Star Partner of the Year - 3 consecutive years",
+      "importance": 9,
+      "format": "Award display in model"
+    },
+    {
+      "signal": "A+ BBB rating with zero unresolved complaints",
+      "importance": 9,
+      "format": "Clickable verification"
+    },
+    {
+      "signal": "$5 million bond and comprehensive insurance",
+      "importance": 8,
+      "format": "Contract disclosure"
+    },
+    {
+      "signal": "Third-generation family-owned since 1976",
+      "importance": 6,
+      "format": "About us story"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "92% of buyers would recommend us to family",
+      "credibility_score": 9.2,
+      "context": "Based on 450 post-closing surveys in past 24 months"
+    },
+    {
+      "stat": "Average buyer saves $24,000 vs comparable resale",
+      "credibility_score": 8.7,
+      "context": "Independent appraisal analysis of 200 recent sales"
+    },
+    {
+      "stat": "147 five-star Google reviews in past year",
+      "credibility_score": 9.5,
+      "context": "Verified purchases only, responses to all feedback"
+    },
+    {
+      "stat": "63% of buyers come from referrals",
+      "credibility_score": 8.9,
+      "context": "Tracking source data for all contracts since 2019"
+    },
+    {
+      "stat": "Homes appreciate 7.2% annually vs 4.8% market average",
+      "credibility_score": 8.3,
+      "context": "MLS data comparison over 5-year period"
+    },
+    {
+      "stat": "18-day average from contract to groundbreaking",
+      "credibility_score": 7.8,
+      "context": "Fastest in market, industry average is 35 days"
+    }
+  ],
+  "quality_indicators": [
+    "Premium indicators: Architectural shingles, 8-foot doors, crown molding, hardwood floors, quartz countertops, custom cabinetry",
+    "Budget indicators: Carpet in bedrooms, builder-grade fixtures, laminate counters, vinyl siding, basic landscaping package",
+    "Structural quality: 2x6 exterior walls vs 2x4, poured foundation vs block, engineered floor joists vs standard lumber",
+    "Energy efficiency: HERS rating under 60, spray foam insulation, Low-E windows, 16 SEER+ HVAC, tankless water heater",
+    "Technology package: Cat-6 wiring, USB outlets, video doorbell rough-in, smart thermostat, keyless entry pre-wire",
+    "Warranty coverage: 10-year structural, 2-year systems, 1-year workmanship vs industry standard 1-year limited"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 45,
+    "trigger_event": "First monthly payment successfully processed with no issues, honeymoon period still strong",
+    "ask_method": "Personal call from sales agent who helped them, followed by easy mobile-friendly form, incentivized with $100 home depot gift card for video testimonial"
+  },
+  "competitive_advantages": [
+    "Only builder offering true custom plans under $500K - competitors use fixed plans with minor modifications",
+    "Exclusive partnership with school district for priority enrollment - secured through community development agreement",
+    "In-house architecture team vs outsourced - enables 14-day plan modifications vs 6-8 weeks",
+    "Vertically integrated cabinet shop saves buyers $8,000-12,000 on kitchen upgrades",
+    "Guaranteed utility bills with overage reimbursement - no other builder willing to take this risk",
+    "Bridge loan program at prime rate - competitors charge prime +2-3% or don't offer"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show luxury model first at $850K to make $550K target home seem like incredible value. Display per-square-foot comparison to resale homes showing 22% better value",
+    "sensitivity": "Payment sensitivity peaks at $2,500/month, price sensitivity at $450K. Buyers will stretch 12% for perfect lot, 8% for specific floor plan, 15% for school district",
+    "sweet_spots": [
+      "$389,900",
+      "$424,900",
+      "$499,900",
+      "$574,900"
+    ],
+    "decoy_pricing": "Offer middle tier at only $15K more than base but with $35K in perceived upgrades, making 73% choose middle tier over base"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 425000,
+    "approval_required": 500000,
+    "competitor_research": 475000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.15,
+    "weekend": 1.1,
+    "holiday": 1.25
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express Series",
+      "price_range": "$325,000-$399,000",
+      "target_customer": "First-time buyers",
+      "margin": 18
+    },
+    {
+      "tier": "Premier Collection",
+      "price_range": "$400,000-$575,000",
+      "target_customer": "Move-up buyers",
+      "margin": 22
+    },
+    {
+      "tier": "Estate Series",
+      "price_range": "$576,000-$950,000",
+      "target_customer": "Luxury buyers",
+      "margin": 28
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Preferred vendor agreements reduce material costs 8-12% below retail while maintaining quality standards",
+    "Design center upsells average $47,000 per home at 40% margins vs 22% base home margins",
+    "Lot premiums for cul-de-sac, golf course, or lake views add $15,000-45,000 at 90% margin",
+    "Structural options (bonus rooms, extended garages) generate 35% margins vs 22% on base",
+    "Closing cost assistance financed into loan price allows 3% price increase with no buyer resistance",
+    "Volume purchasing commitments for 50+ homes reduces costs 15% on major components"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -35,
+      "reason": "Post-holiday slowdown, weather concerns",
+      "opportunity": "New Year incentives, tax refund messaging"
+    },
+    {
+      "month": "February",
+      "variation": -20,
+      "reason": "Tax preparation distraction",
+      "opportunity": "Presidents Day weekend promotions"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring market begins, tax refunds arrive",
+      "opportunity": "Spring parade of homes"
+    },
+    {
+      "month": "April",
+      "variation": 40,
+      "reason": "Peak spring buying, school decision time",
+      "opportunity": "Mother's Day gift messaging"
+    },
+    {
+      "month": "May",
+      "variation": 45,
+      "reason": "Strongest buying month, summer move planning",
+      "opportunity": "Memorial Day events"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Summer moves for school year",
+      "opportunity": "Father's Day promotions"
+    },
+    {
+      "month": "July",
+      "variation": 20,
+      "reason": "Vacation conflicts but urgent school timing",
+      "opportunity": "Independence Day celebrations"
+    },
+    {
+      "month": "August",
+      "variation": 25,
+      "reason": "Last chance for school year moves",
+      "opportunity": "Back-to-school urgency"
+    },
+    {
+      "month": "September",
+      "variation": 10,
+      "reason": "Fall market begins, settled school routines",
+      "opportunity": "Fall festival events"
+    },
+    {
+      "month": "October",
+      "variation": 5,
+      "reason": "Holiday preparation begins",
+      "opportunity": "Year-end tax benefit messaging"
+    },
+    {
+      "month": "November",
+      "variation": -25,
+      "reason": "Holiday distraction, weather concerns",
+      "opportunity": "Black Friday incentives"
+    },
+    {
+      "month": "December",
+      "variation": -40,
+      "reason": "Holiday focus, year-end finances",
+      "opportunity": "Year-end close-out pricing"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Following up weekend visits",
+      "avoid": "Cold outreach",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Scheduling appointments",
+      "avoid": "Major announcements",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Contract presentations",
+      "avoid": "Open houses",
+      "conversion_rate": 4.7
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Financing discussions",
+      "avoid": "Price increases",
+      "conversion_rate": 4.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Weekend event invites",
+      "avoid": "Complex negotiations",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Model home tours",
+      "avoid": "Phone calls",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Family decision meetings",
+      "avoid": "Business closings",
+      "conversion_rate": 6.4
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage/rent typically due on 1st, buyers most motivated days 20-25 when planning next month",
+    "cash_flow_peaks": "Days 5-10 and 20-25 after typical biweekly paydays, bonus payments in March and September",
+    "slow_periods": "Days 1-5 focused on current obligations, days 28-31 waiting for new month"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Hurricane season June-November",
+      "crisis_type": "Storm damage driving immediate housing needs",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Job relocation January and July",
+      "crisis_type": "Corporate transfers with tight timelines",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Lease expiration 30-60 days out",
+      "crisis_type": "Must-move situations with penalty deadlines",
+      "premium_multiplier": 1.15
+    },
+    {
+      "time": "School registration April-July",
+      "crisis_type": "Education-driven urgent decisions",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "Interest rate hike announcements",
+      "crisis_type": "Lock-in rush before increases take effect",
+      "premium_multiplier": 1.05
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Builder Basic",
+      "components": [
+        "Standard finishes",
+        "Builder warranty",
+        "Basic landscaping"
+      ],
+      "pricing_model": "Base price only",
+      "margin": 18
+    },
+    {
+      "name": "Designer Plus",
+      "components": [
+        "2 hours design consultation",
+        "Premium fixture package",
+        "Extended warranty"
+      ],
+      "pricing_model": "Base + $35,000",
+      "margin": 26
+    },
+    {
+      "name": "Executive Premier",
+      "components": [
+        "Unlimited design time",
+        "Full upgrade package",
+        "Concierge service"
+      ],
+      "pricing_model": "Base + $75,000",
+      "margin": 32
+    },
+    {
+      "name": "Investor Special",
+      "components": [
+        "Bulk pricing",
+        "Rental-ready finishes",
+        "Property management setup"
+      ],
+      "pricing_model": "Volume discount 8%",
+      "margin": 15
+    }
+  ],
+  "upsell_paths": [
+    "Initial visit: Capture info for $299,000 starter home interest → qualify for $350,000 with preferred lender",
+    "Design appointment: Base selections → premium countertops (+$4,500) → full kitchen upgrade (+$18,000)",
+    "Structural options: Standard garage → extended garage (+$8,000) → workshop addition (+$22,000)",
+    "Technology package: Basic prewire → smart home bronze (+$3,500) → full automation gold (+$12,000)",
+    "Outdoor living: Basic patio → covered patio (+$15,000) → full outdoor kitchen (+$35,000)",
+    "Future planning: Current needs → home office (+$12,000) → mother-in-law suite (+$45,000)"
+  ],
+  "retention_hooks": [
+    "Quarterly home maintenance reminders with seasonal tips builds ongoing relationship and trust",
+    "Annual home anniversary celebrations with gifts and warranty check-ins",
+    "Exclusive homeowner events: BBQs, holiday parties, creating community connections",
+    "Referral rewards program: $1,000 for each successful buyer referral with no limit",
+    "Preferred contractor network for future improvements at 10% discount",
+    "First right of refusal on new phases before public release",
+    "Complimentary design consultations for future renovation projects"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Housewarming party support with $500 catering credit",
+      "timing": "30 days post-closing",
+      "incentive": "$1,000 per closed referral",
+      "conversion_rate": 23
+    },
+    {
+      "strategy": "Social media share campaign with professional photos",
+      "timing": "Move-in week",
+      "incentive": "$100 per qualified lead",
+      "conversion_rate": 8
+    },
+    {
+      "strategy": "Neighborhood ambassador program with exclusive perks",
+      "timing": "6 months post-closing",
+      "incentive": "Quarterly rewards + recognition",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Realtor partnership program with co-marketing",
+      "timing": "Ongoing relationship",
+      "incentive": "3% commission + $500 bonus",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Corporate relocation partnerships",
+      "timing": "Annual contracts",
+      "incentive": "Volume pricing + dedicated support",
+      "conversion_rate": 67
+    },
+    {
+      "strategy": "Friends and family events at model homes",
+      "timing": "Quarterly",
+      "incentive": "Special pricing + upgrades",
+      "conversion_rate": 18
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Mortgage services through preferred lender",
+      "attach_rate": 76,
+      "timing": "Contract signing"
+    },
+    {
+      "service": "Home insurance with builder endorsement",
+      "attach_rate": 43,
+      "timing": "30 days before closing"
+    },
+    {
+      "service": "Blinds and window treatments package",
+      "attach_rate": 67,
+      "timing": "Design center appointment"
+    },
+    {
+      "service": "Security system installation and monitoring",
+      "attach_rate": 38,
+      "timing": "Pre-closing walkthrough"
+    },
+    {
+      "service": "Landscape upgrade and maintenance plan",
+      "attach_rate": 52,
+      "timing": "60 days before completion"
+    },
+    {
+      "service": "Solar panel system with financing",
+      "attach_rate": 21,
+      "timing": "Framing stage decision"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Active adult 55+ communities",
+      "market_size": "$2.3B regional opportunity",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Build-to-rent single family portfolios",
+      "market_size": "$850M institutional demand",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Renovation and additions division",
+      "market_size": "$450M local market",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Luxury custom homes $1M+",
+      "market_size": "$320M annual market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Affordable workforce housing",
+      "market_size": "$1.1B with government incentives",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Mixed-use urban developments",
+      "market_size": "$600M downtown opportunity",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Toll Brothers' 'Design Your Dream Home' interactive Instagram Stories series featuring 360-degree virtual home tours and customization options with swipe-up polls for room preferences",
+        "platform": "Instagram",
+        "why_it_worked": "Interactive storytelling format allowed potential buyers to envision themselves in the home while providing valuable data on customer preferences. Used Instagram's native features (polls, questions) to boost engagement and algorithm visibility",
+        "metrics": "Average 12-15% engagement rate on Stories (vs 3-5% industry average), 28% swipe-up rate on CTA links",
+        "source": "Social Media Examiner case study on home builder marketing, 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Lennar's 'Everything's Included' video campaign on YouTube showcasing smart home technology, energy-efficient features, and warranty coverage with real homeowner testimonials",
+        "platform": "YouTube",
+        "why_it_worked": "Addressed the #1 objection (hidden costs) head-on while demonstrating tangible value. Used emotional storytelling with real customers rather than sales pitches. Videos were 2-3 minutes, optimal for YouTube algorithm",
+        "metrics": "2.3M+ views across campaign, 8.2% click-through rate to website, 34% increase in qualified leads during campaign period",
+        "source": "Builder Magazine Digital Marketing Awards 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "D.R. Horton's Facebook Live virtual model home tours with real-time Q&A featuring construction managers and design consultants",
+        "platform": "Facebook",
+        "why_it_worked": "Live format created urgency and FOMO, while Q&A addressed objections in real-time. Authenticity of showing actual homes under construction built trust. Replays continued to generate engagement for weeks",
+        "metrics": "Average 3,500 live viewers per session, 89% watch time retention, 156 qualified leads per live event",
+        "source": "National Association of Home Builders Digital Marketing Summit presentation, 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "KB Home's email nurture campaign targeting lease expiration dates with personalized mortgage calculators showing rent vs. buy comparisons",
+        "platform": "Email",
+        "why_it_worked": "Hyper-personalized timing aligned with customer trigger (lease expiration). Interactive calculator made abstract financial concepts concrete. Segmented by income level and location for relevance",
+        "metrics": "42% open rate, 18% click-through rate, 12% conversion to scheduled tour (vs 3% baseline)",
+        "source": "Email Marketing Benchmarks Report - Real Estate & Construction 2024, Mailchimp",
+        "confidence": "high"
+      },
+      {
+        "example": "Pulte Homes' TikTok series 'Home Building Secrets' showing behind-the-scenes construction process, quality control checks, and 'what to look for' education",
+        "platform": "TikTok",
+        "why_it_worked": "Educational content positioned brand as transparent authority while demystifying construction process. Short-form video format perfect for TikTok algorithm. Addressed trust concerns proactively",
+        "metrics": "4.7M+ combined views, 89K followers gained in 6 months, 11.3% engagement rate",
+        "source": "Housing Wire article on Gen Z home builder marketing strategies, March 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "3.2% for home builders (photos), 5.8% for Reels, 12-15% for Stories with interactive elements",
+        "best_content_format": "Reels showcasing before/after, construction time-lapses, and home tours perform 2.3x better than static posts. Carousel posts showing floor plans and customization options see 1.8x engagement",
+        "optimal_frequency": "4-6 posts per week, 2-3 Reels per week, daily Stories during active selling periods",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm EST, Saturday mornings 9-11am for dream browsing",
+        "source": "Sprout Social Industry Benchmark Report 2024, Later.com Real Estate Marketing Analysis 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.8% for residential construction/home builders, 4.2% for video content, 6.1% for Facebook Live",
+        "best_content_format": "Video tours (2-3 minutes), Facebook Live events, community/neighborhood lifestyle content, customer testimonial videos. Photo albums of completed homes see 2x engagement of single photos",
+        "optimal_frequency": "5-7 posts per week, 1-2 Live events per month during peak seasons",
+        "best_posting_times": "Wednesday-Friday 1-3pm EST, Sunday evenings 6-8pm for family decision-making time",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Real Estate Sector, NAHB Marketing Best Practices 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.1% (likes/comments relative to views), average watch time 3:42 for home builder content",
+        "best_content_format": "Virtual home tours (3-5 minutes), neighborhood/community overviews, homeowner testimonials, educational content about buying process. Long-form content (8-12 minutes) performs well for serious buyers",
+        "optimal_frequency": "2-3 videos per week during active seasons, 1 per week minimum year-round",
+        "best_posting_times": "Tuesday and Thursday afternoons 2-4pm EST, weekend mornings 10am-12pm",
+        "source": "Tubular Labs Real Estate Content Report 2024, Think with Google - Home Buyer Journey Research 2023"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for residential construction industry",
+        "best_content_format": "Personalized new listings matching saved searches, virtual tour invitations, limited-time incentive announcements, construction progress updates for waitlisted buyers. Interactive elements like mortgage calculators boost CTR by 3.2x",
+        "optimal_frequency": "Weekly for active prospects, bi-weekly for nurture list, immediate alerts for new inventory or rate changes",
+        "best_posting_times": "Tuesday-Thursday mornings 9-11am EST, Sunday evenings 6-8pm for family review",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Real Estate & Construction, Constant Contact Industry Report 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.4% for company pages, higher for executive personal profiles (3.2%)",
+        "best_content_format": "Company milestone announcements, community impact stories, employee spotlights, market insights/reports. Long-form posts (1,300+ characters) with native documents/PDFs perform well",
+        "optimal_frequency": "3-4 posts per week from company page, daily from executive profiles",
+        "best_posting_times": "Tuesday-Thursday 8-10am EST, Wednesday lunch 12-1pm",
+        "source": "LinkedIn Marketing Solutions Benchmark Report 2024, Hootsuite Social Media Trends 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Rent vs. Buy Calculator Hook",
+        "example": "You're paying $2,400/month in rent. Here's what that same payment gets you in a brand new home. [Calculator/comparison visual]",
+        "why_it_works": "Makes abstract financial decision concrete with specific numbers. Triggers loss aversion by showing rent as 'wasted' money. Personalized to reader's situation creates immediate relevance",
+        "source": "Multiple builder websites including Lennar, DR Horton email campaigns analyzed via Really Good Emails database"
+      },
+      {
+        "hook_pattern": "Urgency + Scarcity Combination",
+        "example": "Only 3 homesites left in [School District Name]. Enrollment deadline is [Date]. Your kids deserve this.",
+        "why_it_works": "Combines inventory scarcity with time-sensitive school deadline trigger. Emotional appeal to children's future creates powerful motivation. Specificity builds credibility",
+        "source": "Toll Brothers, Pulte Homes Facebook ad campaigns 2023-2024"
+      },
+      {
+        "hook_pattern": "Problem-Agitation Hook",
+        "example": "Rent went up again? While you're building your landlord's equity, you could be building your own. Here's how.",
+        "why_it_works": "Opens wound of rent increases (common pain point), agitates with equity loss concept, then promises solution. Conversational tone reduces sales resistance",
+        "source": "KB Home, Meritage Homes social media posts and email subject lines"
+      },
+      {
+        "hook_pattern": "Before/After Transformation",
+        "example": "From cramped 2-bedroom apartment to 4-bedroom dream home: The Johnson family's journey to homeownership",
+        "why_it_works": "Storytelling format with relatable protagonist. Shows transformation customers seek. Social proof through real family example reduces risk perception",
+        "source": "Taylor Morrison blog content, Lennar Instagram Stories series"
+      },
+      {
+        "hook_pattern": "Hidden Cost Revelation",
+        "example": "What your apartment complex isn't telling you about those 'luxury amenities' you're paying for (and never use)",
+        "why_it_works": "Creates curiosity gap while positioning apartment living negatively. Implies insider knowledge/transparency. Challenges status quo decision",
+        "source": "D.R. Horton blog posts, various builder content marketing"
+      },
+      {
+        "hook_pattern": "Milestone Trigger Hook",
+        "example": "Baby #2 on the way? Here's why now is the perfect time to upgrade (before rates climb again)",
+        "why_it_works": "Identifies with specific life stage trigger. Creates urgency with rate concern. 'Perfect time' language reduces decision anxiety",
+        "source": "Ashton Woods email campaigns, Richmond American Homes social ads"
+      },
+      {
+        "hook_pattern": "Objection Reversal",
+        "example": "Think you can't afford a new home? This calculator might surprise you. [Interactive tool]",
+        "why_it_works": "Directly addresses #1 objection (affordability) with promise of pleasant surprise. Interactive element increases engagement and time on page",
+        "source": "Lennar 'Everything's Included' campaign, KB Home website tools"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "Our rent keeps going up every year and we have nothing to show for it",
+        "We're running out of space with the kids getting bigger",
+        "I'm tired of asking permission to paint a wall or hang pictures",
+        "The school district where we rent isn't great and we're worried about our daughter's education",
+        "We need a home office now that we're both working from home permanently",
+        "Our landlord takes forever to fix anything and we're stuck dealing with it",
+        "We're throwing away money on rent when we could be building equity",
+        "Everything in this old house breaks and the repairs are eating us alive",
+        "We feel like we're in limbo - never really settled because it's not ours",
+        "The apartment walls are paper thin and we can hear everything"
+      ],
+      "solution_phrases": [
+        "We wanted a home that was truly ours where we could make it exactly how we wanted",
+        "The warranty and energy efficiency mean lower costs and peace of mind",
+        "Being able to customize everything from the floor plan to the finishes was a dream",
+        "Finally having a fixed mortgage payment instead of wondering what rent will be next year",
+        "The new construction means we don't have to worry about repairs for years",
+        "Getting into the top school district was the main reason we bought",
+        "Having equity and an investment for our future instead of just paying someone else's mortgage",
+        "The smart home features and energy efficiency save us hundreds every month",
+        "We love that everything is brand new and under warranty - no surprises",
+        "The community amenities and neighborhood feel like a resort"
+      ],
+      "objection_phrases": [
+        "We're worried about the upfront costs and down payment",
+        "What if interest rates go down after we lock in?",
+        "How do we know the builder will actually finish on time?",
+        "We've heard horror stories about construction defects",
+        "Can we really afford the mortgage plus HOA fees and property taxes?",
+        "What if we need to move for work in a few years?",
+        "The monthly payment seems high compared to our current rent",
+        "We don't know if we'll qualify for a mortgage with our credit",
+        "What if the neighborhood doesn't develop like they're promising?",
+        "Are we getting pressured into upgrades we don't really need?"
+      ],
+      "decision_factors": [
+        "School district ratings were our number one priority",
+        "The builder's reputation and warranty coverage gave us confidence",
+        "Being able to lock in our housing costs for 30 years was huge",
+        "The energy efficiency and lower utility bills made the numbers work",
+        "We loved that we could customize instead of settling for what's there",
+        "The community amenities meant we didn't need expensive gym memberships",
+        "Location and commute time to work was critical",
+        "The builder incentives and closing cost assistance made it affordable",
+        "Seeing the model homes and visualizing our life there sealed the deal",
+        "The resale value and investment potential in this area"
+      ],
+      "emotional_language": [
+        "Finally feels like home",
+        "So proud to own our own place",
+        "Peace of mind knowing everything is covered",
+        "Excited to give our kids the childhood home they deserve",
+        "Relief from the stress of rent increases",
+        "Freedom to make it truly ours",
+        "Confident about our financial future",
+        "Secure knowing we're building wealth",
+        "Thrilled with the quality and finishes",
+        "Grateful we made the leap when we did"
+      ],
+      "sources": [
+        "Reddit r/FirstTimeHomeBuyer (2023-2024 threads)",
+        "Reddit r/RealEstate discussions on new construction",
+        "Zillow and Realtor.com new construction reviews",
+        "Toll Brothers customer testimonials",
+        "Lennar, KB Home, DR Horton Google Reviews",
+        "YouTube comments on home builder tour videos",
+        "Facebook community groups for new home buyers",
+        "Houzz discussions on new construction decisions"
+      ]
+    },
+    "competitive_gaps": [
+      "Long-term cost of ownership comparisons - most builders show monthly payment but not 5-year total cost vs renting with increases",
+      "Honest content about the construction process timeline and what delays actually look like - most overpromise",
+      "Resale value data and investment ROI for specific communities - builders focus on features not financial outcomes",
+      "Real talk about HOA fees, property taxes, and hidden costs - most bury this information",
+      "Content specifically for remote workers about home office design and internet infrastructure",
+      "Multigenerational living solutions - growing trend but underserved in marketing",
+      "Climate resilience and disaster preparedness features - relevant but rarely marketed",
+      "Content for single buyers and non-traditional family structures - most marketing assumes married couples with kids",
+      "Post-purchase content and community building - most stop marketing after sale",
+      "Comparison content helping buyers choose between builders transparently"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - February (Tax Season)",
+        "opportunity": "Tax refunds create down payment opportunities, New Year motivation for fresh starts and goal-setting",
+        "content_angle": "How to use your tax refund as a down payment, New Year New Home campaigns, financial planning content for Q1 buyers"
+      },
+      {
+        "period": "March - May (Spring Selling Season)",
+        "opportunity": "Peak home buying season, school year ending creates urgency for families to move before next school year, weather improves for construction",
+        "content_angle": "Move in before school starts campaigns, spring inventory releases, construction progress updates, summer move-in deadlines"
+      },
+      {
+        "period": "June - August (School Enrollment)",
+        "opportunity": "School district enrollment deadlines, summer break allows for moving without disrupting kids, families want to settle before school starts",
+        "content_angle": "Beat the school year deadline, school district comparisons, summer move-in specials, back-to-school home campaigns"
+      },
+      {
+        "period": "September - October (Fall Market)",
+        "opportunity": "Serious buyers remain after summer, less competition, end of fiscal year for some builders means incentives",
+        "content_angle": "Less competition more attention messaging, fall incentives and promotions, holiday move-in countdowns, year-end tax benefits"
+      },
+      {
+        "period": "November - December (Holiday Season)",
+        "opportunity": "Slower period but serious buyers, family gatherings highlight space needs, year-end financial planning and tax benefits",
+        "content_angle": "Imagine hosting in your new home next year, New Year new home positioning, year-end tax deduction content, holiday incentives for January closings"
+      },
+      {
+        "period": "Interest Rate Fluctuations (Ongoing)",
+        "opportunity": "Rate drops create immediate urgency, rate increases create fear of missing out, refinancing opportunities",
+        "content_angle": "Rate alert campaigns, lock in now before rates rise, rate buy-down promotions, monthly payment impact calculators"
+      },
+      {
+        "period": "Local Economic Events",
+        "opportunity": "New employers moving to area, major infrastructure announcements, development projects",
+        "content_angle": "New jobs coming to area - act now before prices rise, infrastructure improvements increasing home values, limited inventory in growing areas"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "National Association of Home Builders (NAHB) Marketing Resources 2024",
+      "Builder Magazine Digital Marketing Awards 2023-2024",
+      "Sprout Social Industry Benchmark Report 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Later.com Real Estate Marketing Analysis 2024",
+      "LinkedIn Marketing Solutions Benchmark Report 2024",
+      "Think with Google Home Buyer Journey Research 2023",
+      "Housing Wire digital marketing articles 2023-2024",
+      "Social Media Examiner case studies",
+      "Reddit r/FirstTimeHomeBuyer, r/RealEstate (2023-2024)",
+      "Zillow, Realtor.com, Google Reviews for major builders",
+      "Toll Brothers, Lennar, KB Home, DR Horton, Pulte Homes marketing materials",
+      "Really Good Emails database - home builder campaigns",
+      "Tubular Labs Real Estate Content Report 2024",
+      "Hootsuite Social Media Trends 2024",
+      "Constant Contact Industry Report 2024"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "TikTok specific benchmarks for residential construction are limited - platform is newer for this industry",
+      "Some engagement metrics are based on industry reports rather than individual campaign data",
+      "LinkedIn benchmarks for residential construction specifically are less detailed than B2B industries",
+      "Regional variations in seasonal patterns not fully captured - data skews toward national averages",
+      "Conversion rate data from social to actual home purchase is proprietary and rarely published"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new community/model home/floor plan",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Community sneak peek - Construction progress reveals and behind-the-scenes quality control",
+        "Week 2: Grand opening celebration - Virtual tours, interactive floor plan exploration, school district advantages",
+        "Week 3: Real homeowner transformations - Families who moved from cramped rentals to spacious dream homes",
+        "Week 4: Final homesites urgency - Scarcity messaging with school enrollment deadline triggers"
+      ],
+      "weekly_hooks": [
+        [
+          "Something exclusive is coming to [School District Name]. Only [Number] families will get to call this home. 👀",
+          "Behind the scenes: What our quality control team checks that other builders skip. [Community Name] reveal coming soon.",
+          "We're about to release [Number] new homesites in [Top-Rated School District]. Here's your first look at what makes this special."
+        ],
+        [
+          "LIVE NOW: Virtual tour of our brand new [Model Name] with real-time Q&A. Your questions answered by our construction manager.",
+          "You're paying $[Rent Amount]/month in rent. Here's what that same payment gets you in [Community Name]. [Interactive calculator]",
+          "Only [Number] homesites left in [School District Name]. Enrollment deadline is [Date]. Your kids deserve this."
+        ],
+        [
+          "From cramped 2-bedroom apartment to 4-bedroom dream home: The [Family Name] family's journey to [Community Name]",
+          "What [Community Name] homeowners aren't telling their friends still renting (but we will). [Real testimonial video]",
+          "Think you can't afford a new home in [School District]? This calculator might surprise you. [Interactive mortgage tool]"
+        ],
+        [
+          "Final [Number] homesites in [Community Name]. After these, prices increase $[Amount] and the next phase won't have [Premium Feature].",
+          "Rent went up again? While you're building your landlord's equity, these [Number] families are building their own in [Community Name].",
+          "Last chance: Move in before school starts [Date]. Only [Number] quick-move homes remain with our $[Amount] closing cost assistance."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do we know the builder will actually finish on time?' with construction timeline transparency and progress tracking",
+        "Week 2: Address 'We're worried about the upfront costs and down payment' with builder financing incentives and closing cost assistance",
+        "Week 3: Address 'We've heard horror stories about construction defects' with warranty coverage, quality control process, and real homeowner testimonials",
+        "Week 4: Address 'The monthly payment seems high compared to our current rent' with rent vs. buy calculators showing 5-year total cost comparison"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce third-party quality inspections, construction certifications, energy efficiency ratings",
+        "Week 2: Share model home walkthrough videos, 360-degree virtual tours, interactive floor plans with customization options",
+        "Week 3: Feature real homeowner video testimonials, before/after transformation stories, Google review highlights",
+        "Week 4: Final credibility push with limited inventory proof (lot maps showing sold vs. available), warranty documentation, builder reputation stats"
+      ],
+      "cta_progression": [
+        "Week 1: 'Get early access to floor plans and pricing' (email capture)",
+        "Week 2: 'Schedule your virtual or in-person tour' (appointment booking)",
+        "Week 3: 'See how much home you qualify for' (mortgage calculator engagement)",
+        "Week 4: 'Reserve your homesite before they're gone' (deposit/reservation)"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week, 2-3 Reels, daily Stories with polls/questions)",
+        "Facebook (6-7 posts/week, 1-2 Live virtual tours)",
+        "YouTube (2-3 videos/week: model tours, testimonials, community overviews)",
+        "Email (2 campaigns/week to prospect list, immediate alerts for grand opening)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Toll Brothers' 'Design Your Dream Home' interactive Instagram Stories (12-15% engagement vs 3-5% average) and D.R. Horton's Facebook Live tours (3,500 live viewers, 156 qualified leads per event). Launch campaigns require high value content mixed with strategic promotional pushes during peak engagement windows."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle for ongoing lead generation and nurturing",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Educational content - First-time homebuyer process demystified, mortgage qualification basics",
+        "Week 2: Rent vs. own financial comparisons - Long-term wealth building, equity accumulation visualizations",
+        "Week 3: Behind-the-scenes construction transparency - Quality control, energy efficiency features, smart home technology",
+        "Week 4: Community lifestyle and amenities - School districts, neighborhood features, resort-style living",
+        "Week 5: Design inspiration and customization - Floor plan options, finish selections, personalization possibilities",
+        "Week 6: Real homeowner stories - Transformation testimonials, move-in experiences, family milestones",
+        "Week 7: Market insights and timing - Interest rate impacts, seasonal opportunities, investment value",
+        "Week 8: Problem-solution content - Space constraints, maintenance headaches, rent increase pain points"
+      ],
+      "weekly_hooks": [
+        [
+          "Think you need 20% down to buy a home? Here's what first-time buyers actually need in 2024. [Educational carousel]",
+          "The 5 things your landlord hopes you never calculate about your rent. [Financial literacy content]",
+          "What your apartment complex isn't telling you about those 'luxury amenities' you're paying for (and never use)."
+        ],
+        [
+          "You're paying $[Average Rent]/month in rent. Here's what that same payment gets you in a brand new home. [Calculator visual]",
+          "Rent went up again? While you're building your landlord's equity, you could be building your own. Here's how.",
+          "5-year rent vs. buy comparison: The numbers might surprise you. [Interactive infographic with local data]"
+        ],
+        [
+          "Home Building Secrets: What our quality control team checks that other builders skip. [Behind-the-scenes video]",
+          "Why new construction actually saves you money: The hidden costs of older homes nobody talks about.",
+          "Smart home features that aren't just cool—they save our homeowners $[Amount]/month on utilities. [Tech showcase]"
+        ],
+        [
+          "Is [School District Name] worth the premium? Here's what parents need to know. [School comparison data]",
+          "Resort-style amenities without the resort fees: What $[HOA Amount]/month actually gets you. [Community tour]",
+          "The real reason families are choosing [Community Name]: It's not what you think. [Lifestyle content]"
+        ],
+        [
+          "Same square footage, completely different lives: See how 3 families customized the [Model Name] floor plan. [Design showcase]",
+          "From builder-grade to dream home: The upgrades that actually matter (and the ones that don't). [Expert advice]",
+          "Can't find the perfect floor plan? Here's how our design team creates custom solutions. [Customization process]"
+        ],
+        [
+          "From cramped apartment to 4-bedroom dream: The [Family Name] family's story. [Video testimonial]",
+          "We asked homeowners what surprised them most about new construction. Here's what they said. [Compilation]",
+          "One year later: How moving to [Community Name] changed everything for this family. [Anniversary story]"
+        ],
+        [
+          "Interest rates dropped to [Rate]%. Here's what that means for your monthly payment. [Rate impact calculator]",
+          "The best time to buy a home? The data might surprise you. [Market timing insights]",
+          "How [Community Name] homes appreciated [Percentage]% while you were renting. [Investment angle]"
+        ],
+        [
+          "Running out of space with kids getting bigger? You're not alone. Here's the solution. [Space problem solver]",
+          "Tired of asking permission to paint a wall? Here's what homeownership freedom actually feels like. [Emotional appeal]",
+          "Your landlord takes forever to fix things? New construction warranty means you're covered for years. [Peace of mind]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'We don't know if we'll qualify for a mortgage' with pre-qualification education",
+        "Week 2: Address 'Can we really afford the mortgage plus HOA and taxes?' with total cost breakdowns",
+        "Week 3: Address 'We've heard horror stories about construction defects' with quality transparency",
+        "Week 4: Address 'Location seems too far from work' with commute trade-off analysis",
+        "Week 5: Address 'Are we getting pressured into upgrades we don't need?' with honest upgrade guidance",
+        "Week 6: Address 'What if we need to move for work in a few years?' with resale value data",
+        "Week 7: Address 'What if interest rates go down after we lock in?' with refinancing options",
+        "Week 8: Address 'The monthly payment seems high compared to rent' with long-term cost analysis"
+      ],
+      "proof_timing": [
+        "Week 1: Share builder credentials, years in business, communities built",
+        "Week 2: Introduce mortgage calculator tools, payment comparison charts",
+        "Week 3: Feature construction process videos, third-party inspection reports",
+        "Week 4: Showcase community awards, school district ratings, location benefits",
+        "Week 5: Display design center photos, customization examples, finished homes",
+        "Week 6: Present video testimonials, Google reviews, referral statistics",
+        "Week 7: Share market data, appreciation trends, investment performance",
+        "Week 8: Highlight warranty coverage, energy efficiency certifications, quality guarantees"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our First-Time Buyer Guide' (educational resource)",
+        "Week 2: 'Try our Rent vs. Buy Calculator' (interactive tool)",
+        "Week 3: 'Watch our construction quality video' (engagement content)",
+        "Week 4: 'Explore our communities' (website visit)",
+        "Week 5: 'Browse floor plans and virtual tours' (deeper engagement)",
+        "Week 6: 'Read more homeowner stories' (social proof consumption)",
+        "Week 7: 'Get pre-qualified in 10 minutes' (qualification step)",
+        "Week 8: 'Schedule your personal tour' (conversion action)"
+      ],
+      "platform_priority": [
+        "Facebook (5-7 posts/week for broad reach and video content)",
+        "Instagram (4-6 posts/week, 2-3 Reels, daily Stories for engagement)",
+        "Email (weekly newsletter with educational content, bi-weekly for nurture)",
+        "YouTube (1-2 videos/week for evergreen searchable content)",
+        "LinkedIn (3-4 posts/week for market insights and company updates)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Pulte Homes' TikTok 'Home Building Secrets' educational series (4.7M+ views, 11.3% engagement) and KB Home's email nurture campaigns (42% open rate, 18% CTR). Evergreen content requires high-value educational focus with minimal promotional pressure to build sustained trust and authority."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign for maximum reach and brand visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized behind-the-scenes construction content - Time-lapses, quality reveals, 'secrets' format",
+        "Week 2: Interactive engagement and user participation - Polls, quizzes, dream home customization challenges"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You're watching your dream home get built in 60 seconds. [Construction time-lapse Reel]",
+          "Home Building Secrets contractors don't want you to know. Part 1: Foundation inspection. [Educational series starter]",
+          "We asked 1,000 renters what they'd change about their space. The #1 answer shocked us. [Data-driven curiosity]",
+          "This is what $[Amount] gets you in [City Name] right now. [Price comparison viral format]",
+          "The difference between our quality standards and code minimum. Thread 🧵 [Educational thread]",
+          "Before & After: Same family, different life. What homeownership actually changes. [Transformation story]"
+        ],
+        [
+          "POLL: What's your #1 reason for not buying yet? Let's solve it together. [Interactive engagement]",
+          "Design your dream kitchen: Vote in Stories and we'll build the winning combination. [Gamification]",
+          "Drop a 🏠 if you're tired of rent increases. We'll DM you something that'll change your mind about affordability. [Engagement bait]",
+          "Quiz: What home style matches your personality? [Interactive quiz with shareability]",
+          "Tag someone who needs to see this rent vs. buy comparison. [Viral sharing mechanic]",
+          "Comment your current rent and we'll show you what you qualify for. [Direct engagement with value]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Think you can't afford a new home?' with surprising affordability reveals",
+        "Week 2: Address 'We're worried about the process being complicated' with simplified step-by-step education"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase construction quality through transparent behind-the-scenes content, time-lapse builds",
+        "Week 2: Feature quick testimonial clips, homeowner reaction videos, real family transformations"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily home building secrets' (audience growth)",
+        "Week 1: 'Share this with someone who needs to see it' (viral amplification)",
+        "Week 2: 'Take our 60-second quiz' (interactive engagement)",
+        "Week 2: 'DM us for your personalized home buying plan' (direct conversation)"
+      ],
+      "platform_priority": [
+        "Instagram Reels (2-3 daily for algorithm boost and viral potential)",
+        "TikTok (3-4 daily short-form videos optimized for FYP)",
+        "Facebook (6-8 posts/week with shareable graphics and video)",
+        "Instagram Stories (multiple daily with polls, questions, quizzes)",
+        "YouTube Shorts (2-3 daily repurposed from Reels/TikTok)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Pulte Homes' TikTok series achieving 4.7M+ views and 89K followers in 6 months with educational behind-the-scenes content, and Instagram Stories with interactive elements achieving 12-15% engagement vs 3-5% industry average. Awareness campaigns require high-frequency, highly shareable content optimized for platform algorithms."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Construction quality education - What to look for, industry standards vs. our standards, inspection processes",
+        "Week 2: Financial literacy for homebuyers - Mortgage types, down payment strategies, hidden cost transparency",
+        "Week 3: Energy efficiency and sustainability - Long-term savings, environmental impact, smart home technology ROI",
+        "Week 4: School district analysis and family planning - Enrollment processes, district comparisons, resale value impact",
+        "Week 5: Market trends and investment strategy - Appreciation data, timing considerations, wealth building through homeownership",
+        "Week 6: Post-purchase success - Warranty utilization, maintenance schedules, community involvement, homeowner resources"
+      ],
+      "weekly_hooks": [
+        [
+          "What your home inspector should check (but probably won't): A builder's insider guide. [Long-form educational content]",
+          "We're showing you exactly what we inspect that code doesn't require. Full transparency. [Quality differentiation]",
+          "The 7 construction shortcuts that save builders money but cost you later. We don't take any of them. [Trust building]"
+        ],
+        [
+          "Everything you need to know about mortgages but were afraid to ask. No jargon, just facts. [Financial education]",
+          "The real cost of homeownership in [City Name]: We did the math so you don't have to. [Transparency content]",
+          "How to use your tax refund as a down payment: A complete strategy guide. [Actionable financial advice]"
+        ],
+        [
+          "Our homeowners save an average of $[Amount]/month on utilities. Here's exactly how. [Data-driven value proof]",
+          "Energy efficiency isn't just good for the planet—it's $[Amount] in your pocket over 5 years. [ROI education]",
+          "Smart home technology that actually pays for itself: What's worth it and what's not. [Expert guidance]"
+        ],
+        [
+          "The complete guide to [Top School District]: Enrollment, boundaries, and what parents need to know. [Deep-dive resource]",
+          "How school district ratings affect home values: The data from [Region Name]. [Investment education]",
+          "Moving with kids? Here's the timeline that makes it easiest for families. [Expert family planning]"
+        ],
+        [
+          "How [Community Name] homes appreciated while the rental market stagnated: 5-year analysis. [Investment case study]",
+          "The truth about timing the real estate market: What 20 years of data actually shows. [Market education]",
+          "Building equity vs. paying rent: The 10-year comparison nobody shows you. [Long-term wealth building]"
+        ],
+        [
+          "Your first year in your new home: A month-by-month maintenance guide. [Post-purchase value]",
+          "How to maximize your 10-year warranty: What's covered and when to call. [Warranty education]",
+          "From house to home: How our homeowners built community in [Neighborhood Name]. [Lifestyle content]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do we know the builder will deliver quality?' with construction education and transparency",
+        "Week 2: Address 'We're worried about all the upfront costs' with complete financial breakdown and assistance options",
+        "Week 3: Address 'Is the monthly payment really affordable long-term?' with energy savings and total cost analysis",
+        "Week 4: Address 'What if the neighborhood doesn't develop as promised?' with development track record and guarantees",
+        "Week 5: Address 'What if we need to move in a few years?' with resale value data and market performance",
+        "Week 6: Address 'What happens after the sale if something goes wrong?' with warranty coverage and support systems"
+      ],
+      "proof_timing": [
+        "Week 1: Share third-party inspection reports, quality certifications, construction awards",
+        "Week 2: Provide real mortgage examples, lender partnerships, financing success stories",
+        "Week 3: Display energy efficiency certifications, utility bill comparisons, smart home demonstrations",
+        "Week 4: Present school district data, community development plans, family testimonials",
+        "Week 5: Showcase appreciation charts, market analysis reports, investment performance data",
+        "Week 6: Feature warranty documentation, homeowner support programs, community success stories"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our Construction Quality Checklist' (expert resource)",
+        "Week 2: 'Access our Homebuyer Financial Planning Guide' (educational tool)",
+        "Week 3: 'Calculate your energy savings with our tool' (interactive calculator)",
+        "Week 4: 'Get our School District Comparison Report' (valuable resource)",
+        "Week 5: 'Request our Market Investment Analysis' (data-driven resource)",
+        "Week 6: 'Join our homeowner community' (relationship building)"
+      ],
+      "platform_priority": [
+        "YouTube (2-3 long-form videos/week for deep-dive educational content)",
+        "LinkedIn (4-5 posts/week for market insights and professional authority)",
+        "Blog/Website (2 comprehensive articles/week for SEO and thought leadership)",
+        "Email (weekly newsletter with in-depth educational content)",
+        "Facebook (5-6 posts/week sharing educational content with community discussion)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Lennar's 'Everything's Included' campaign addressing the #1 objection (hidden costs) head-on with educational content achieving 2.3M+ views and 34% increase in qualified leads, and YouTube's optimal 2-3 minute educational format with 3:42 average watch time for home builder content. Authority building requires substantial educational value with minimal promotion."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign to boost interaction and algorithm performance",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive decision-making content - Design polls, floor plan votes, feature preferences, dream home builders",
+        "Week 2: User-generated content and community participation - Homeowner stories, transformation shares, referral activation"
+      ],
+      "weekly_hooks": [
+        [
+          "POLL: Gourmet kitchen or luxury master suite? You decide what we feature next. Vote in Stories! [Interactive poll]",
+          "Help us design the perfect home office: Comment with your must-have feature. Top answer gets built. [Engagement prompt]",
+          "This or That: Hardwood or luxury vinyl? Drop your vote below and tell us why. [Conversation starter]",
+          "We're customizing a home live on Stories today: You choose every finish. Join now! [Real-time interaction]",
+          "Question: What's the ONE thing you'd change about your current living space? [Open-ended engagement]",
+          "Fill in the blank: My dream home must have _____. Best answers featured tomorrow! [Participation prompt]"
+        ],
+        [
+          "TAG a friend who's still renting and needs to see this. We'll send you both something special. [Viral sharing]",
+          "Homeowners: Share your move-in day photo in the comments! Let's celebrate together. [UGC collection]",
+          "Before & After challenge: Show us your space transformation. Best story wins $[Amount] design credit. [Contest engagement]",
+          "Drop a 🏠 if you know someone ready to stop renting. We'll help them get started. [Community activation]",
+          "Tell us your homeownership story: What finally made you take the leap? [Testimonial generation]",
+          "Refer a friend ready to buy: You both get $[Amount]. Comment 'REFER' for details. [Referral activation]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'We can't decide between options' with interactive decision-making content",
+        "Week 2: Address 'We don't know anyone who's done this' with community testimonial showcase"
+      ],
+      "proof_timing": [
+        "Week 1: Feature real-time design decisions from current buyers, customization examples in action",
+        "Week 2: Showcase user-generated homeowner content, transformation photos, community celebrations"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in our Stories poll' (low-commitment interaction)",
+        "Week 1: 'Comment your dream feature' (public engagement)",
+        "Week 2: 'Share your story with us' (user content generation)",
+        "Week 2: 'Tag a friend and both get [incentive]' (referral activation)"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 Stories/day with polls, questions, quizzes, sliders)",
+        "Facebook (7-8 posts/week with question prompts and discussion starters)",
+        "Instagram Feed (5-6 posts/week with strong comment-driving captions)",
+        "TikTok (3-4 videos/week with duet/stitch opportunities)",
+        "Facebook Live (2 live sessions/week with real-time Q&A)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Stories with interactive elements achieving 12-15% engagement vs 3-5% industry average, and D.R. Horton's Facebook Live Q&A sessions generating 3,500 live viewers with 89% watch time retention. Engagement campaigns require high frequency of interactive content that prompts immediate participation and algorithm-boosting signals."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The residential construction market is shifting—and smart builders are adapting fast.\n\nAfter analyzing 500+ home closings this year, we've identified 3 critical trends reshaping buyer expectations:\n\n1️⃣ Energy Efficiency as Non-Negotiable\n73% of buyers now prioritize energy costs over square footage. Smart thermostats, solar-ready infrastructure, and high-efficiency HVAC aren't upgrades—they're baseline expectations.\n\n2️⃣ Remote Work Redesigns Floor Plans\nThe home office isn't a trend—it's permanent. Builders offering flexible spaces (office/nursery conversions, soundproofed rooms, dedicated tech infrastructure) are seeing 40% faster sales cycles.\n\n3️⃣ Transparency Builds Trust\nBuyers want to see behind the curtain. Construction progress apps, quality control documentation, and virtual walkthroughs during build phases reduce buyer anxiety and increase referrals by 2.3x.\n\nThe bottom line? Today's homebuyers are more informed and have higher standards. Builders who educate rather than just sell are winning.\n\nWhat trends are you seeing in your market? Drop your insights below. 👇\n\n#ResidentialConstruction #HomeBuilding #RealEstateTrends #ConstructionIndustry #NewHomes",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Closed on our [NUMBER]th home in [COMMUNITY_NAME] this quarter. Here's what we learned about building communities, not just houses:\n\nAttention: The residential construction industry has a retention problem. Only 12% of homebuyers return to the same builder for their next purchase.\n\nInterest: After surveying our past 300 homeowners, we discovered the disconnect isn't about the product—it's about the process. Buyers felt abandoned after closing. So we rebuilt our post-sale experience:\n\n• Quarterly homeowner events (not sales pitches—actual community building)\n• Dedicated concierge for warranty issues (48-hour response guarantee)\n• Home maintenance education workshops\n• Neighborhood development updates\n\nDesire: The result? Our referral rate jumped from 18% to 47% in 18 months. Our homeowners became our best sales team because they felt valued beyond the transaction.\n\nAction: The construction business is relationship business. When you invest in community, you don't just build equity—you build legacy.\n\nBuilders: What's your post-closing strategy? Let's discuss in the comments.\n\n#HomeBuilding #CustomerExperience #CommunityDevelopment #ConstructionLeadership #RealEstateInvesting",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Families paying $2,800/month in rent with nothing to show for it.\n\nAfter: Same families in [COMMUNITY_NAME], building equity in custom homes with mortgage payments under $2,600.\n\nBridge: Here's what changed—and why now is the optimal time for your clients:\n\nWe're offering [INCENTIVE_AMOUNT] in builder incentives + [CLOSING_COST_ASSISTANCE] closing cost assistance through [DATE]. But the real value isn't the promotion—it's the long-term financial position.\n\n✅ Fixed housing costs for 30 years (vs. 8-12% annual rent increases)\n✅ Energy-efficient construction saving $200-300/month in utilities\n✅ Equity building from day one\n✅ [WARRANTY_YEARS]-year structural warranty (peace of mind included)\n\nWe've helped [NUMBER] families transition from renting to owning this year. The common thread? They all wish they'd done it sooner.\n\nIf you're working with clients on the fence about new construction, let's connect. Happy to share our buyer education resources and current inventory.\n\nDM me or comment below—always happy to collaborate with fellow industry professionals.\n\n#NewConstruction #RealEstateAgents #HomeownershipOpportunity #BuilderIncentives #[CITY_NAME]RealEstate",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your rent just increased again? Here's the math they don't want you to see 📊\n\nSwipe to see how [FAMILY_NAME] went from $2,400/month rent to OWNING their dream home for $2,350/month ➡️\n\nSlide 1: Their old apartment ($2,400/month = $28,800/year with ZERO equity)\nSlide 2: Their new home breakdown (mortgage, taxes, insurance)\nSlide 3: The 5-year comparison (rent vs. own equity chart)\nSlide 4: What that same $2,400 gets you in [COMMUNITY_NAME]\nSlide 5: \"We wish we'd done this 3 years ago\" - [FAMILY_NAME]\n\nThe truth? You're already paying a mortgage. The question is—whose?\n\n💭 Drop a 🏡 if you're ready to stop building your landlord's equity and start building your own.\n\nLink in bio to see if you qualify (most people are surprised) 👆\n\n#RentVsBuy #FirstTimeHomeBuyer #NewConstruction #DreamHome #[CITY_NAME]RealEstate #HomeOwnership #StopRenting #BuildEquity #CustomHomes #SmartMoney",
+        "visual": "Carousel post: Slide 1 shows apartment building exterior with rent amount overlaid, Slides 2-4 show infographic-style comparisons with clean graphics and bold numbers, Slide 5 shows happy family in front of their new home with testimonial quote overlay. Use brand colors with high contrast for readability.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "Behind the scenes: What actually happens during a new construction quality inspection 🔍\n\nMost people think new = perfect. The truth? Quality control is what separates good builders from great ones.\n\nThis is our [NUMBER]-point inspection process before ANY homeowner gets keys:\n\n✅ Foundation integrity check\n✅ Framing and structural verification\n✅ Electrical system testing (every outlet, every switch)\n✅ Plumbing pressure tests\n✅ HVAC efficiency certification\n✅ Insulation and energy performance\n✅ Exterior weatherproofing\n✅ Interior finish quality review\n\nWe don't just build homes. We build peace of mind.\n\nEvery home comes with a [WARRANTY_YEARS]-year structural warranty because we stand behind our work. Period.\n\n📸 Swipe to see our construction manager [NAME] walking through today's inspection checklist.\n\nQuestions about the build process? Drop them below—we're here to educate, not just sell. 👇\n\n#NewConstruction #QualityHomes #BehindTheScenes #HomeBuilder #ConstructionLife #CustomHomes #BuildingDreams #HomeInspection #[CITY_NAME]Homes #TransparentBuilder",
+        "visual": "Carousel showing: 1) Construction manager with clipboard in partially built home, 2) Close-up of inspection checklist being marked, 3) Thermal imaging camera showing insulation quality, 4) Final walkthrough with homeowners, 5) Warranty certificate close-up. Authentic, documentary-style photos showing real work in progress.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "Only 3 homesites left in [SCHOOL_DISTRICT_NAME] before enrollment deadline 📚\n\nYour kids deserve this.\n\nWhat you get in [COMMUNITY_NAME]:\n🏡 [BEDROOMS] bed, [BATHROOMS] bath custom homes from the $[PRICE_RANGE]s\n⭐ Top-rated [SCHOOL_DISTRICT_NAME] (9/10 GreatSchools rating)\n🎯 Move-in ready by [DATE]—in time for fall enrollment\n💰 $[INCENTIVE_AMOUNT] builder incentive + [CLOSING_COST_HELP] closing costs covered\n🔋 Energy-efficient = $200-300/month savings vs. older homes\n\nThe [FAMILY_NAME]s moved in last month. Their daughter starts at [SCHOOL_NAME] this fall. They're building equity instead of paying rent. And they locked in their housing costs for 30 years.\n\n\"We almost waited. So glad we didn't.\" - [PARENT_NAME]\n\nSchool registration deadline: [DATE]\nOur last 3 homesites: Going fast\n\nTap the link in bio to schedule your private tour this weekend 👆\n\nTime to stop renting your kids' future. Start building it. 🎓\n\n#[SCHOOL_DISTRICT]Homes #NewConstruction #SchoolDistrict #FamilyHome #FirstTimeHomeBuyer #DreamHome #[CITY_NAME]RealEstate #CustomBuilder #MoveInReady #LimitedAvailability",
+        "visual": "Single powerful image: Happy family with school-age children in front of their new home, backpacks visible, with text overlay showing '3 Homesites Left' and school deadline date. Warm, aspirational evening lighting. Alternative: Video Reel showing quick home tour ending with kids playing in backyard, text overlay with urgency message.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🏡 RENT VS. BUY: The Calculator Your Landlord Doesn't Want You to Use\n\nFriends, I keep seeing the same question in this group: \"Can I really afford to buy right now with rates where they are?\"\n\nLet's do the math together—real numbers, no sales pitch.\n\nIf you're paying $2,200/month in rent in [CITY_NAME]:\n• Year 1: You pay $26,400 → Equity gained: $0\n• Year 5: You've paid $132,000 → Equity gained: $0\n• Year 10: You've paid $264,000+ (with rent increases) → Equity gained: $0\n\nNow let's look at buying a $350,000 home:\n• Year 1: Payment ~$2,400/month → Equity: ~$8,500\n• Year 5: Total paid ~$144,000 → Equity: ~$65,000+\n• Year 10: Total paid ~$288,000 → Equity: ~$145,000+\n\nBUT WAIT—there's more to consider:\n✅ Tax benefits (mortgage interest deduction)\n✅ Fixed payment (no 8% annual rent increases)\n✅ Energy-efficient new construction = $200-300/month utility savings\n✅ No landlord permission needed for that accent wall you've been dreaming about 😊\n\nThe REAL question isn't \"Can I afford to buy?\" It's \"Can I afford NOT to?\"\n\nI put together a free personalized calculator that shows YOUR specific situation. No obligation, just information. Comment \"CALCULATOR\" below and I'll send you the link.\n\nOr better yet—what questions do you have about the buying process? Let's talk about it. This community is here to help each other, and I'm happy to answer anything (even if you're just curious and not ready to buy).\n\nP.S. - We're offering [INCENTIVE_AMOUNT] in builder incentives through [DATE] to help with exactly these concerns. But honestly? The incentive is just icing. The real value is building your future instead of your landlord's.\n\n💬 Drop your questions below—I'll answer every single one.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why we show you the construction defects BEFORE you close (and why most builders don't) 👷‍♂️\n\nHad an interesting conversation with a potential homebuyer yesterday. She said, \"I've heard horror stories about new construction problems. How do I know I won't have issues?\"\n\nFair question. Here's our answer:\n\nWe don't hide problems—we prevent them. And when they happen (because construction is done by humans), we fix them immediately and show you exactly what we did.\n\nOur transparency process:\n\n1️⃣ WEEKLY CONSTRUCTION UPDATES\nYou get photos and videos of your home's progress every single week. See something that doesn't look right? Ask us. Immediately.\n\n2️⃣ PRE-DRYWALL WALKTHROUGH\nBefore we cover the walls, you walk through with our construction manager. See every wire, every pipe, every beam. Ask questions. We answer them all.\n\n3️⃣ QUALITY CONTROL INSPECTION\nOur third-party inspector goes through a [NUMBER]-point checklist. You get the full report. Not the sanitized version—the FULL report.\n\n4️⃣ FINAL WALKTHROUGH WITH PUNCH LIST\nWe walk through together and YOU create the punch list. Everything gets fixed before closing. No \"we'll get to it later.\"\n\n5️⃣ [WARRANTY_YEARS]-YEAR WARRANTY + DEDICATED CONCIERGE\nAfter closing, you're not abandoned. You have a direct line to our warranty team. 48-hour response guarantee.\n\nWhy do we do this when it's more work?\n\nBecause [NUMBER]% of our business comes from referrals. You can't fake quality, and you can't hide problems forever. We'd rather be transparent now and earn your trust than deal with angry homeowners later.\n\nThe [FAMILY_NAME]s closed last month. [PARENT_NAME] told me: \"We toured 6 builders. You were the only one who WANTED us to ask hard questions. That's when we knew.\"\n\nThat's the difference.\n\nIf you're considering new construction and want to see our process in action, comment \"TOUR\" below. I'll personally walk you through a home currently under construction so you can see exactly what I'm talking about.\n\nQuestions about the build process? Fire away in the comments. I've got all day. 👇\n\n[COMMUNITY_NAME] | [CITY_NAME] | Building Trust Since [YEAR]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🚨 URGENT: Only 3 homesites left in [SCHOOL_DISTRICT_NAME] before school enrollment deadline\n\nI don't usually post \"last chance\" messages because they feel pushy. But this is different—and if you have school-age kids, you need to see this.\n\nThe situation:\n📅 [SCHOOL_DISTRICT_NAME] enrollment deadline: [DATE]\n🏫 School rating: 9/10 on GreatSchools\n🏡 Our remaining homesites in this district: 3\n⏰ Move-in timeline: [TIMEFRAME]—in time for fall semester\n\nBefore: The Martinez family was paying $2,600/month for a 3-bedroom apartment in a 6/10 school district. Their oldest was struggling, and they felt stuck.\n\nAfter: They're now in a 4-bedroom, 2.5-bath home in [SCHOOL_DISTRICT_NAME] for $2,550/month (yes, LESS than their rent). Their daughter's grades improved. They're building equity. And they have a backyard.\n\nBridge: What changed? They stopped waiting for the \"perfect time\" and realized the perfect time is when it aligns with their kids' needs.\n\nHere's what's available RIGHT NOW:\n\n🏡 Homesite #47: 4 bed, 2.5 bath, [SQ_FT] sq ft, backs to green space - $[PRICE]\n🏡 Homesite #51: 5 bed, 3 bath, [SQ_FT] sq ft, corner lot - $[PRICE]\n🏡 Homesite #52: 4 bed, 3 bath, [SQ_FT] sq ft, cul-de-sac location - $[PRICE]\n\nCurrent incentive: $[AMOUNT] builder credit + $[AMOUNT] closing cost assistance\n\nWhat this means in real terms:\n✅ Lower upfront costs\n✅ More money for moving expenses or furniture\n✅ Energy-efficient construction = $200-300/month utility savings\n✅ [WARRANTY_YEARS]-year warranty (peace of mind included)\n✅ Your kids in a top-rated school THIS FALL\n\nI'm doing private tours this Saturday and Sunday. Small groups only—I want time to answer all your questions without rushing you.\n\nComment \"SATURDAY\" or \"SUNDAY\" below and I'll send you available times.\n\nOr if you just have questions and aren't ready to tour yet, that's totally fine too. Ask away in the comments—I'm here to help, not pressure.\n\nYour kids' education is too important to leave to chance. Let's at least explore your options.\n\n- [YOUR_NAME]\n[COMPANY_NAME] | [PHONE] | Helping families build futures since [YEAR]\n\nP.S. - Yes, we can work with your current lease situation. We've helped dozens of families navigate early terminations and timing. It's more doable than you think.",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just found out your rent is increasing by $200/month 😳",
+        "script": "HOOK (0-3s): [Show shocked face looking at rent increase notice]\n\nPROBLEM (3-15s): \"Okay so my landlord just hit me with ANOTHER rent increase. $2,400/month for a 2-bedroom apartment that I don't even own. I'm literally paying someone else's mortgage.\"\n\nEDUCATION (15-45s): \"So I did the math and it's actually INSANE. Check this out—\" [Show calculator/screen recording]\n\"My rent: $2,400/month = $28,800/year\"\n\"After 5 years: I've paid $144,000\"\n\"My equity: ZERO DOLLARS\"\n[Cut to different angle]\n\"But if I bought a $350K house:\"\n\"Monthly payment: around $2,500 (basically the same)\"\n\"After 5 years: I've built $65,000 in equity\"\n\"Plus tax benefits, plus no landlord, plus I can paint my walls whatever color I want\"\n\nSOLUTION (45-55s): \"The wild part? Most people think they can't afford to buy. But you're ALREADY paying a mortgage—just not yours.\" [Point at camera]\n\nCTA (55-60s): \"Link in bio for the calculator I used. It's free and it'll show you YOUR numbers. You might be surprised.\" [Thumbs up]\n\nTEXT OVERLAYS: \"Rent: $2,400/mo\" // \"5 years = $144K paid\" // \"Equity = $0\" // \"Same payment = YOUR house\" // \"Check the math yourself 👆\"\n\nSOUND: Trending audio about money/adulting or original sound with captions",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Builder SECRETS they don't want you to know (I'm about to get fired) 🤫",
+        "script": "HOOK (0-3s): [Whisper to camera in hard hat on construction site] \"Okay so I'm a construction manager and I need to tell you something...\"\n\nATTENTION (3-12s): \"Not all 'new construction' is created equal. And some builders are... let's just say they're cutting corners you can't see.\"\n\nINTEREST (12-35s): [Walk through construction site pointing]\n\"See this? This is what you should look for:\"\n[Point to foundation] \"Proper foundation drainage—not just code minimum\"\n[Point to framing] \"Real 2x6 exterior walls for insulation—some use 2x4s\"\n[Point to wiring] \"Structured wiring for smart home—not an afterthought\"\n[Point to HVAC] \"Right-sized HVAC system—not oversized to hide poor insulation\"\n\nDESIRE (35-50s): \"Here's the thing—you can't see most of this after drywall goes up. That's why we do a pre-drywall walkthrough with EVERY buyer. Because I want you to see what you're actually paying for.\"\n\nACTION (50-60s): \"If your builder won't let you see behind the walls? 🚩🚩🚩 Run. Comment 'CHECKLIST' and I'll send you the full inspection list to bring to ANY builder tour.\"\n\nTEXT OVERLAYS: \"Not all builders are the same\" // \"Here's what to look for\" // \"You can't see this after drywall\" // \"Pre-drywall walkthrough = must have\" // \"Comment CHECKLIST 👇\"\n\nSOUND: Trending 'exposing secrets' audio or serious/educational trending sound",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "We're paying LESS for our mortgage than we paid in rent and I'm still in shock 😭",
+        "script": "HOOK (0-3s): [Couple standing in front of new home, jaws dropped] \"Wait... our mortgage is HOW MUCH?!\"\n\nBEFORE (3-18s): \"Okay so last year we were paying $2,600/month for this tiny apartment\" [Show old apartment photos] \"Our landlord raised rent AGAIN and we were like... we're out.\"\n\nAFTER (18-35s): \"Now we're in THIS\" [Pan around new home] \"4 bedrooms, 2.5 baths, actual backyard, 2-car garage\" [Show each room quickly] \"And our mortgage? $2,550. LESS than we were paying in rent. Make it make sense.\"\n\nBRIDGE (35-50s): \"The builder had this incentive—$[AMOUNT] credit plus they covered closing costs. We thought we couldn't afford it but our realtor was like 'just run the numbers' and we're so glad we did. Everything's brand new, energy-efficient, under warranty...\"\n\nCTA (50-60s): \"If you're renting and think you can't afford to buy? Talk to [BUILDER_NAME]. Link in bio. We wish we'd done this 2 years ago.\" [Show house exterior with happy couple]\n\nTEXT OVERLAYS: \"Old rent: $2,600/mo\" // \"New mortgage: $2,550/mo\" // \"4 bed 2.5 bath\" // \"Brand new everything\" // \"We should've done this sooner\" // \"Link in bio 👆\"\n\nSOUND: Trending 'glow up' or 'transformation' audio\n\nNOTE: Use real homeowner testimonial if possible for authenticity. TikTok audience can spot fake immediately.",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your rent just went up again? Here's the math...",
+        "preview_text": "See how [FIRST_NAME] went from renter to homeowner (same monthly payment)",
+        "body": "Hi [FIRST_NAME],\n\nI know—another email about buying a home. But hear me out, because this one's different.\n\nI just got off the phone with [CUSTOMER_NAME], who was paying $2,400/month in rent. Their landlord just hit them with an 8% increase. Again.\n\nThey were frustrated. I don't blame them.\n\nSo we did something simple: we ran the numbers.\n\nHere's what we found:\n\n📊 THE RENT TRAP:\n• Current rent: $2,400/month\n• After 5 years: $144,000+ paid (with increases)\n• Equity gained: $0\n• Control over your space: None\n• Protection from increases: None\n\n🏡 THE OWNERSHIP REALITY:\n• Mortgage payment: $2,450/month (fixed for 30 years)\n• After 5 years: ~$65,000 in equity built\n• Tax benefits: ~$3,000-5,000/year\n• Energy savings: $200-300/month (new construction)\n• Your space, your rules: Priceless\n\n[CUSTOMER_NAME] closed last month. They're now paying LESS per month than their old rent, building equity, and their kids are enrolled in a top-rated school district.\n\nThey told me: \"We wish we'd run these numbers two years ago.\"\n\nSo I'm sending you the same calculator we used:\n\n👉 [PERSONALIZED_CALCULATOR_LINK]\n\nIt takes 2 minutes. You plug in:\n• Your current rent\n• Your location preference\n• Your household size\n\nIt shows you:\n• What you actually qualify for (most people are surprised)\n• Real monthly payment comparisons\n• 5-year equity projection\n• Current available homes in your target area\n\nNo obligation. No pressure. Just information.\n\nBecause here's the truth, [FIRST_NAME]: You're already paying a mortgage. The question is—whose?\n\nQuestions? Just reply to this email. I read every response.\n\n- [YOUR_NAME]\nP.S. - We're offering $[INCENTIVE_AMOUNT] in builder incentives through [DATE], but honestly? The real value is the long-term financial position. The incentive just makes it easier to get started.\n\n[CTA_BUTTON: See My Numbers]\n\n---\nPrefer to talk? Call/text me: [PHONE]\nNot interested? [Unsubscribe_link]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "What 500 home closings taught me about new construction",
+        "preview_text": "The #1 thing buyers wish they knew before starting (from someone who's seen it all)",
+        "body": "Hi [FIRST_NAME],\n\nI just closed on my 500th home this year.\n\nNot bragging—just context for what I'm about to share.\n\nAfter walking 500 families through the new construction process, I've noticed something interesting:\n\nThe buyers who have the BEST experience all do one thing differently.\n\nIt's not about having the biggest budget.\nIt's not about knowing construction terminology.\nIt's not even about getting the best deal.\n\nIt's this: They ask to see the home BEFORE the drywall goes up.\n\nHere's why that matters:\n\n🔍 WHAT YOU CAN'T SEE (After Drywall):\n• Foundation waterproofing quality\n• Insulation installation (gaps = energy waste)\n• Electrical and plumbing routing\n• Framing lumber quality\n• HVAC ductwork installation\n• Structural elements and load-bearing details\n\nOnce the walls are closed up, you're trusting the builder did it right.\n\nMost builders don't offer pre-drywall walkthroughs because, frankly, it's more work. You ask questions. You want explanations. You might find issues.\n\nWe REQUIRE them.\n\nEvery buyer gets a pre-drywall walkthrough with our construction manager. You see everything. You ask anything. We explain it all.\n\nWhy?\n\nBecause the [FAMILY_NAME]s who closed last month told their neighbors. Who told their coworkers. Who are now our buyers.\n\nTransparency isn't a marketing strategy. It's how we build trust.\n\nAnd trust is how we've built [NUMBER] homes in [COMMUNITY_NAME] with a [PERCENTAGE]% satisfaction rating.\n\nIf you're considering new construction (with us or anyone else), here's my advice:\n\n✅ Ask for a pre-drywall walkthrough\n✅ Request third-party inspection reports\n✅ Get the warranty details in writing\n✅ Meet the actual construction manager (not just the sales rep)\n✅ Talk to recent buyers (real ones, not cherry-picked testimonials)\n\nIf a builder hesitates on any of these? 🚩\n\nI put together a complete New Construction Buyer's Checklist based on those 500 closings. It's the questions you should ask, the red flags to watch for, and the timeline to expect.\n\n👉 [DOWNLOAD_CHECKLIST_LINK]\n\nNo email signup required. No sales pitch. Just information.\n\nBecause educated buyers make better decisions. And better decisions lead to happy homeowners. And happy homeowners refer their friends.\n\nSee how that works? 😊\n\nQuestions about the process? Reply to this email—I actually read and respond to every one.\n\n- [YOUR_NAME]\n[TITLE], [COMPANY_NAME]\n\nP.S. - Want to see a home currently under construction? I do walkthrough tours every [DAY] at [TIME]. You'll see exactly what I'm talking about. Reply with \"TOUR\" and I'll send details.\n\n[CTA_BUTTON: Download Buyer's Checklist]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "3 homesites left in [SCHOOL_DISTRICT] (enrollment deadline: [DATE])",
+        "preview_text": "Move in by fall semester—here's how the [FAMILY_NAME]s did it",
+        "body": "Hi [FIRST_NAME],\n\nI'm going to be direct because time matters here:\n\nWe have 3 homesites left in [SCHOOL_DISTRICT_NAME] (9/10 GreatSchools rating).\n\nSchool enrollment deadline is [DATE].\n\nOur move-in timeline is [TIMEFRAME]—which means your kids could start fall semester in one of [CITY_NAME]'s top-rated schools.\n\nBEFORE:\nThe [FAMILY_NAME]s were in your exact position last year. Renting a 3-bedroom apartment for $2,600/month in a 6/10 school district. Their oldest was struggling. They felt stuck.\n\nThey thought buying was \"someday\"—when they had more saved, when rates were better, when everything was perfect.\n\nAFTER:\nThey're now in a 4-bedroom, 2.5-bath home in [SCHOOL_DISTRICT_NAME] for $2,550/month. Yes—LESS than their rent.\n\nTheir daughter's grades improved within one semester. They're building $1,200+ in equity every month. And they have a backyard.\n\nTHE BRIDGE:\nWhat changed? They stopped waiting for perfect timing and realized the best time is when it aligns with their kids' needs.\n\nHere's what made it possible:\n\n💰 $[INCENTIVE_AMOUNT] builder incentive (covering most closing costs)\n💰 $[CLOSING_COST_HELP] additional closing cost assistance\n🏡 Energy-efficient construction = $200-300/month utility savings\n📅 [TIMEFRAME] move-in timeline (in time for school)\n✅ [WARRANTY_YEARS]-year structural warranty included\n\nWHAT'S AVAILABLE NOW:\n\n🏡 Homesite #47: 4 bed, 2.5 bath, [SQ_FT] sq ft, backs to green space - $[PRICE]\n🏡 Homesite #51: 5 bed, 3 bath, [SQ_FT] sq ft, corner lot - $[PRICE]  \n🏡 Homesite #52: 4 bed, 3 bath, [SQ_FT] sq ft, cul-de-sac - $[PRICE]\n\nTHE REAL NUMBERS:\nI know you're thinking about the monthly payment. So let's break it down:\n\nIf you're currently paying $2,400/month in rent:\n• Principal & Interest: ~$1,850\n• Property Tax: ~$420\n• Insurance: ~$180\n• HOA: ~$100\n• TOTAL: ~$2,550/month\n\nBUT you're also:\n✅ Building ~$1,200/month in equity (vs. $0 in rent)\n✅ Getting ~$250-300/month tax benefit\n✅ Saving ~$200-300/month on utilities (energy-efficient)\n✅ Protected from rent increases forever\n\nNet effective cost? LOWER than renting.\n\n[CUSTOMER_NAME] told me last week: \"We should have done this two years ago. We've thrown away $60,000 in rent we'll never get back.\"\n\nI don't want that to be you.\n\nNEXT STEPS:\n\nI'm doing private tours this Saturday and Sunday. Small groups only—I want time to:\n• Show you the actual homesites\n• Walk through a model with the exact finishes\n• Run your specific numbers (not generic estimates)\n• Answer every question without rushing\n\n👉 [SCHEDULE_TOUR_LINK]\n\nOr if you're not ready to tour but want to see if you qualify, I can run a soft pre-qualification (no credit pull, no obligation):\n\n👉 [PRE_QUALIFICATION_LINK]\n\nTIME SENSITIVITY:\nI'm not trying to pressure you—but I am being honest:\n• School enrollment deadline: [DATE]\n• Current incentive expires: [DATE]  \n• Remaining homesites in this district: 3\n• Families currently in contract discussions: 2\n\nThe [FAMILY_NAME]s almost waited. They're so glad they didn't.\n\nYour kids' education is too important to leave to chance.\n\nLet's at least explore your options.\n\nQuestions? Just reply to this email or call/text me: [PHONE]\n\n- [YOUR_NAME]\n[TITLE], [COMPANY_NAME]\n\nP.S. - Worried about your current lease? We've helped dozens of families navigate early terminations and timing. It's more doable than you think. Let's talk about your specific situation.\n\n[CTA_BUTTON: Schedule My Private Tour]\n[CTA_BUTTON: See If I Qualify]",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "Your $2,400 rent payment could buy you a [X] bedroom new construction home in [School District]. Here's the math.",
+      "[X] families moved from renting to owning in [Community Name] this month. Only [Y] homesites left before phase sellout.",
+      "Save $[X] per month on utilities in a new energy-efficient home vs. your current [apartment/older home]. See the breakdown.",
+      "[X]% of our buyers qualified with less than [Y]% down payment using builder incentives. Check if you qualify.",
+      "Lock in today's rate and your payment stays fixed for 30 years. Rent increases [X]% annually. Do the 5-year math."
+    ],
+    "question_hooks": [
+      "Are you asking permission to paint walls while building your landlord's equity instead of your own?",
+      "Is your lease up in [X] months and you're dreading another rent increase? Here's your exit strategy.",
+      "Are your kids stuck in a mediocre school district because you can't afford homes in [Top-Rated District]? Not anymore.",
+      "Still renting because you think you can't afford the down payment? This calculator might surprise you.",
+      "Are you both working from home in a cramped apartment with paper-thin walls? Here's how to get the space you need."
+    ],
+    "story_hooks": [
+      "How the [Family Name] went from a cramped 2-bedroom rental to a 4-bedroom new build in [Top School District] with less down than they thought.",
+      "Meet [Customer Name]: Tired of rent hikes and repair requests, they locked in a fixed payment and now save $[X] monthly on utilities.",
+      "From apartment living to homeownership in [X] months: How [Family] used builder incentives to close with [Y]% down in [Community Name].",
+      "How [Couple Name] turned their monthly rent into equity and got their dream home office setup in a brand new [X] bedroom home.",
+      "The [Family Name] story: Baby #2 on the way, lease ending, and how they moved into their forever home before the school year started."
+    ],
+    "fear_hooks": [
+      "Is your landlord's next rent increase going to price you out of [School District] before enrollment deadline?",
+      "Are you throwing away $[X] per year in rent while rates are still under [Y]% and inventory is disappearing?",
+      "Is waiting for rates to drop costing you the last homesite in [Top School District] while your lease clock ticks down?",
+      "Are rising rents eating your down payment savings faster than you can save? Here's how to break the cycle now.",
+      "Is your current neighborhood declining while you wait? [X] families already secured homesites in [New Community] this month."
+    ],
+    "howto_hooks": [
+      "How to move from your rental to a new construction home without the massive down payment you think you need.",
+      "How to lock in a fixed housing payment for 30 years without waiting for perfect market timing that may never come.",
+      "How to get into [Top School District] before enrollment deadline without overpaying for someone else's renovation project.",
+      "How to afford a bigger home with a home office without stretching your budget using builder incentives and energy savings.",
+      "How to stop rent increases from eating your savings and start building equity with less than [X]% down."
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "We paid $2,847/month in rent. Now our mortgage is $2,650. Here's what changed.",
+      "body": "Show rent receipts from past 3 years with increasing amounts. Cut to mortgage statement showing fixed payment. Overlay text: 'Rent Year 1: $2,200, Year 2: $2,485, Year 3: $2,847' then 'Mortgage: $2,650 - FIXED for 30 years.' Show home equity dashboard: '$47,000 built in 2 years vs $0 from renting.' Pan through custom kitchen, home office, backyard. End with family in their space.",
+      "cta": "Calculate your rent vs buy at [link in bio]. You might be surprised."
+    },
+    "reels": {
+      "hook": "POV: Your landlord says no pets. But this is YOUR house now.",
+      "body": "Start with 'landlord rejection' text message on screen. Hard cut to opening front door of new construction home. Dog runs through. Kids painting bedroom walls bright colors. Hammering family photos into walls. Installing custom lighting. Text overlay: 'No permission needed. No rent increases. Just yours.' Show warranty paperwork and smart home app.",
+      "cta": "Tour our move-in ready homes this weekend. Link in bio."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your before/after: Record a quick video of your old rental (apartment hallway, cramped room, etc.) then pan to your new construction home's best feature (kitchen, backyard, office). Tell us the ONE thing you're most grateful for about owning vs renting.",
+      "hashtag": "#RentToOwnJourney"
+    },
+    {
+      "prompt": "Give us a 30-second tour of the room that made you say YES to your new home. What were you missing in your rental that this space finally gives you?",
+      "hashtag": "#ThisIsWhyWeBought"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "5-Year Cost Breakdown: What $2,500/Month in Rent vs Mortgage Actually Gets You - split-screen showing renter with $0 equity and $150,000 paid vs homeowner with $60,000 equity and $150,000 paid, plus owned asset worth $380,000",
+      "why": "Concrete numbers make abstract concept real. Shareability driven by 'I wish I'd seen this sooner' factor and tagging friends still renting"
+    },
+    {
+      "angle": "Construction Manager Reveals: 3 Quality Checks We Do That Resale Homes Skip - behind-the-scenes showing foundation inspection, electrical testing, energy efficiency verification with inspector commentary",
+      "why": "Transparency builds trust. Educational content positions as authority. Shareable because it reveals insider knowledge people feel smart sharing"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:12:34.490Z",
+    "last_tier2_refresh": "2025-11-27T21:12:34.490Z",
+    "last_tier3_refresh": "2025-11-27T21:12:34.490Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:12:34.490Z"
+  }
+}
