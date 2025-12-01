@@ -73,6 +73,13 @@ export interface SynthesisInput {
   targetCount?: number;
   // V3.1: Enriched context from orchestrator
   enrichedContext?: EnrichedContext;
+  // Synapse 2.0: BuzzSumo content benchmarks
+  buzzsumoData?: {
+    topHeadlinePatterns?: string[];
+    optimalWordCount?: number;
+    bestPublishDays?: string[];
+    performanceByFormat?: Record<string, number>;
+  };
 }
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
@@ -127,7 +134,8 @@ export async function synthesizeInsights(input: SynthesisInput): Promise<Synthes
     uvpData,
     brandData,
     targetCount,
-    enrichedContext // V3.1: Pass enriched context
+    enrichedContext, // V3.1: Pass enriched context
+    input.buzzsumoData // Synapse 2.0: Pass BuzzSumo benchmarks
   );
 
   // Step 3: V3 - Apply ContentFrameworkLibrary post-synthesis
@@ -527,6 +535,7 @@ Analyze deeply. Find the non-obvious connections. Think like a breakthrough cont
 /**
  * Step 2: Use Sonnet 4.5 to generate titles/hooks at scale
  * V3.1: Enhanced with EQ, Industry Profile, and Segment context
+ * Synapse 2.0: Now includes BuzzSumo content performance benchmarks
  */
 async function generateInsightsWithSonnet(
   breakthroughAnalysis: any,
@@ -535,7 +544,8 @@ async function generateInsightsWithSonnet(
   uvpData: any,
   brandData: any,
   targetCount: number,
-  enrichedContext?: EnrichedContext
+  enrichedContext?: EnrichedContext,
+  buzzsumoData?: SynthesisInput['buzzsumoData']
 ): Promise<SynthesizedInsight[]> {
   console.log('[AI-Synthesizer/Sonnet] Generating insights with Sonnet 4.5...');
 
@@ -574,7 +584,8 @@ async function generateInsightsWithSonnet(
       brandData,
       batch,
       batchSize,
-      enrichedContext
+      enrichedContext,
+      buzzsumoData
     );
 
     // Create promise for this batch
@@ -742,6 +753,7 @@ async function generateInsightsWithSonnet(
 /**
  * Build the Sonnet prompt for batch generation
  * V3.1: Enhanced with EQ, Industry Profile, and Segment context
+ * Synapse 2.0: Now includes BuzzSumo content performance benchmarks
  */
 function buildSonnetPrompt(
   breakthroughs: any[],
@@ -751,7 +763,8 @@ function buildSonnetPrompt(
   brandData: any,
   batchNumber: number,
   batchSize: number,
-  enrichedContext?: EnrichedContext
+  enrichedContext?: EnrichedContext,
+  buzzsumoData?: SynthesisInput['buzzsumoData']
 ): string {
   const targetCustomer = uvpData?.target_customer || 'business professionals';
   const keyBenefit = uvpData?.key_benefit || 'improved outcomes';
@@ -818,6 +831,17 @@ UVP-ALIGNED CTAs:
 - Decision CTAs: "Start your [transformation] today"
 ` : '';
 
+  // Synapse 2.0: Build BuzzSumo content performance benchmarks
+  const buzzsumoGuidance = buzzsumoData ? `
+CONTENT PERFORMANCE BENCHMARKS (from BuzzSumo):
+${buzzsumoData.topHeadlinePatterns?.length ? `- Top-Performing Headline Patterns: ${buzzsumoData.topHeadlinePatterns.slice(0, 5).join(', ')}` : ''}
+${buzzsumoData.optimalWordCount ? `- Optimal Content Length: ~${buzzsumoData.optimalWordCount} words (content this length gets highest engagement)` : ''}
+${buzzsumoData.bestPublishDays?.length ? `- Best Days to Publish: ${buzzsumoData.bestPublishDays.join(', ')}` : ''}
+${buzzsumoData.performanceByFormat ? `- Format Performance Ranking: ${Object.entries(buzzsumoData.performanceByFormat).sort((a, b) => b[1] - a[1]).map(([format, score]) => `${format} (${score}%)`).slice(0, 4).join(', ')}` : ''}
+
+USE THESE BENCHMARKS: Model headlines after top-performing patterns. Match content length recommendations.
+` : '';
+
   return `You are an expert content strategist creating insights for ${brandData?.name || 'a business'}.
 
 TARGET CUSTOMER (the HERO of our content):
@@ -828,7 +852,7 @@ ${keyBenefit.substring(0, 300)}
 
 TRANSFORMATION PROMISE:
 ${transformation.substring(0, 200)}
-${eqGuidance}${industryGuidance}${segmentGuidance}${ctaGuidance}
+${eqGuidance}${industryGuidance}${segmentGuidance}${ctaGuidance}${buzzsumoGuidance}
 BREAKTHROUGH PATTERNS IDENTIFIED:
 ${JSON.stringify(breakthroughs.slice(0, 5), null, 2)}
 
@@ -886,7 +910,244 @@ OUTPUT FORMAT (JSON only):
 Generate ${batchSize} high-quality, unique, EQ-aligned insights NOW. No explanations, just JSON.`;
 }
 
+// ============================================================================
+// VOC (Voice of Customer) Phrase Extraction
+// ============================================================================
+
+/**
+ * VOC Phrase Patterns - Customer voice signals
+ * These patterns indicate high-intent customer needs and pain points
+ */
+const VOC_PATTERNS = {
+  wishes: [
+    /\bi wish\b/i,
+    /\bif only\b/i,
+    /\bwould be nice if\b/i,
+    /\bi want\b/i,
+    /\bi need\b/i,
+    /\bi'm looking for\b/i,
+    /\blooking for something that\b/i,
+  ],
+  frustrations: [
+    /\bi hate\b/i,
+    /\bi can't stand\b/i,
+    /\bso frustrating\b/i,
+    /\bdriving me crazy\b/i,
+    /\bwaste of time\b/i,
+    /\bwaste of money\b/i,
+    /\bterrible experience\b/i,
+    /\bawful\b/i,
+  ],
+  discoveries: [
+    /\bfinally found\b/i,
+    /\bgame changer\b/i,
+    /\blife saver\b/i,
+    /\bwish i knew\b/i,
+    /\bwish i had found this\b/i,
+    /\bwhere has this been\b/i,
+  ],
+  suggestions: [
+    /\bsomeone should\b/i,
+    /\bwhy doesn't\b/i,
+    /\bwhy isn't there\b/i,
+    /\bwhy can't\b/i,
+    /\bthere should be\b/i,
+    /\bneeds to be\b/i,
+  ],
+  comparisons: [
+    /\bbetter than\b/i,
+    /\bworse than\b/i,
+    /\bunlike\b/i,
+    /\bcompared to\b/i,
+    /\bswitched from\b/i,
+    /\bused to use\b/i,
+  ],
+  urgency: [
+    /\bdesperately need\b/i,
+    /\burgently looking\b/i,
+    /\basap\b/i,
+    /\bright now\b/i,
+    /\bcan't wait\b/i,
+    /\bimmediately\b/i,
+  ],
+};
+
+export interface VOCPhrase {
+  type: 'wish' | 'frustration' | 'discovery' | 'suggestion' | 'comparison' | 'urgency';
+  phrase: string;
+  context: string;
+  source: string;
+  emotionalIntensity: number;
+}
+
+export interface VOCExtractionResult {
+  phrases: VOCPhrase[];
+  summary: {
+    totalWishes: number;
+    totalFrustrations: number;
+    totalDiscoveries: number;
+    totalSuggestions: number;
+    totalComparisons: number;
+    totalUrgent: number;
+  };
+  topPainPoints: string[];
+  topDesires: string[];
+}
+
+/**
+ * Extract VOC (Voice of Customer) phrases from data points
+ * Finds patterns like "I wish", "I hate", "Finally found", etc.
+ */
+export function extractVOCPhrases(dataPoints: DataPoint[]): VOCExtractionResult {
+  console.log(`[VOC-Extractor] Analyzing ${dataPoints.length} data points for customer voice...`);
+
+  const phrases: VOCPhrase[] = [];
+
+  for (const dp of dataPoints) {
+    if (!dp.content || dp.content.length < 20) continue;
+
+    const content = dp.content;
+    const source = dp.source || 'unknown';
+
+    // Check each VOC pattern type
+    for (const [type, patterns] of Object.entries(VOC_PATTERNS)) {
+      for (const pattern of patterns) {
+        const matches = content.match(new RegExp(`.{0,50}${pattern.source}.{0,100}`, 'gi'));
+
+        if (matches) {
+          for (const match of matches) {
+            // Calculate emotional intensity based on punctuation and caps
+            const exclamations = (match.match(/!/g) || []).length;
+            const caps = (match.match(/[A-Z]{2,}/g) || []).length;
+            const intensity = Math.min(1, 0.5 + (exclamations * 0.15) + (caps * 0.1));
+
+            phrases.push({
+              type: type.replace(/s$/, '') as VOCPhrase['type'], // Remove plural
+              phrase: match.trim(),
+              context: content.substring(0, 200),
+              source,
+              emotionalIntensity: intensity,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // Deduplicate similar phrases
+  const uniquePhrases = deduplicateVOCPhrases(phrases);
+
+  // Calculate summary
+  const summary = {
+    totalWishes: uniquePhrases.filter(p => p.type === 'wish').length,
+    totalFrustrations: uniquePhrases.filter(p => p.type === 'frustration').length,
+    totalDiscoveries: uniquePhrases.filter(p => p.type === 'discovery').length,
+    totalSuggestions: uniquePhrases.filter(p => p.type === 'suggestion').length,
+    totalComparisons: uniquePhrases.filter(p => p.type === 'comparison').length,
+    totalUrgent: uniquePhrases.filter(p => p.type === 'urgency').length,
+  };
+
+  // Extract top pain points (from frustrations + wishes)
+  const painPhrases = uniquePhrases
+    .filter(p => p.type === 'frustration' || p.type === 'wish')
+    .sort((a, b) => b.emotionalIntensity - a.emotionalIntensity)
+    .slice(0, 10);
+
+  // Extract top desires (from wishes + discoveries)
+  const desirePhrases = uniquePhrases
+    .filter(p => p.type === 'wish' || p.type === 'discovery')
+    .sort((a, b) => b.emotionalIntensity - a.emotionalIntensity)
+    .slice(0, 10);
+
+  const result: VOCExtractionResult = {
+    phrases: uniquePhrases,
+    summary,
+    topPainPoints: painPhrases.map(p => p.phrase),
+    topDesires: desirePhrases.map(p => p.phrase),
+  };
+
+  console.log(`[VOC-Extractor] ✅ Extracted ${uniquePhrases.length} VOC phrases:`, summary);
+
+  return result;
+}
+
+/**
+ * Deduplicate similar VOC phrases using simple text similarity
+ */
+function deduplicateVOCPhrases(phrases: VOCPhrase[]): VOCPhrase[] {
+  const unique: VOCPhrase[] = [];
+
+  for (const phrase of phrases) {
+    const isDuplicate = unique.some(existing => {
+      // Check if phrases are very similar (80%+ overlap)
+      const words1 = new Set(phrase.phrase.toLowerCase().split(/\s+/));
+      const words2 = new Set(existing.phrase.toLowerCase().split(/\s+/));
+      const intersection = new Set([...words1].filter(w => words2.has(w)));
+      const similarity = intersection.size / Math.max(words1.size, words2.size);
+      return similarity > 0.8;
+    });
+
+    if (!isDuplicate) {
+      unique.push(phrase);
+    }
+  }
+
+  return unique;
+}
+
+/**
+ * Enhance insights with VOC data
+ * Adds customer voice quotes and emotional intensity to matching insights
+ */
+export function enhanceInsightsWithVOC(
+  insights: SynthesizedInsight[],
+  vocResult: VOCExtractionResult
+): SynthesizedInsight[] {
+  if (vocResult.phrases.length === 0) return insights;
+
+  return insights.map(insight => {
+    // Find matching VOC phrases for this insight
+    const insightWords = new Set(insight.title.toLowerCase().split(/\s+/));
+
+    const matchingVOC = vocResult.phrases.filter(voc => {
+      const vocWords = new Set(voc.phrase.toLowerCase().split(/\s+/));
+      const intersection = [...insightWords].filter(w => vocWords.has(w));
+      return intersection.length >= 2; // At least 2 words match
+    });
+
+    if (matchingVOC.length > 0) {
+      // Add VOC quotes as additional sources
+      const vocSources = matchingVOC.slice(0, 2).map(voc => ({
+        platform: `voc-${voc.type}`,
+        quote: voc.phrase,
+        url: undefined,
+      }));
+
+      // Boost emotional intensity based on VOC
+      const maxVOCIntensity = Math.max(...matchingVOC.map(v => v.emotionalIntensity));
+
+      return {
+        ...insight,
+        sources: [...insight.sources, ...vocSources],
+        psychology: {
+          ...insight.psychology,
+          emotionalIntensity: Math.max(insight.psychology.emotionalIntensity, maxVOCIntensity),
+        },
+        validation: {
+          ...insight.validation,
+          sourceCount: insight.validation.sourceCount + vocSources.length,
+          crossPlatform: true,
+        },
+      };
+    }
+
+    return insight;
+  });
+}
+
 export const aiInsightSynthesizer = {
   synthesizeInsights,
-  generateFallbackInsights
+  generateFallbackInsights,
+  extractVOCPhrases,
+  enhanceInsightsWithVOC,
 };

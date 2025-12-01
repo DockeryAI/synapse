@@ -361,12 +361,22 @@ const DEFAULT_CORE_KEYWORDS = [
  * This prevents cross-contamination (e.g., HVAC trends for SaaS company)
  */
 const NEGATIVE_KEYWORDS_BY_CATEGORY: Record<string, string[]> = {
-  // SaaS B2B - reject physical service industries
+  // SaaS B2B - reject physical service industries and generic industry news
   national_saas_b2b: [
-    // Physical trades
+    // Physical trades - REJECT ALL
     'hvac', 'plumbing', 'roofing', 'landscaping', 'electrical contractor',
     'air conditioning repair', 'heating repair', 'furnace', 'ductwork',
     'air conditioning', 'heating system', 'cooling system',
+    'contractor', 'technician dispatch', 'field service',
+    'missed hvac', 'hvac call', 'hvac service',
+    // ERP systems (unless AI-specific)
+    'erp system', 'erp best practices', 'rover erp', 'sap erp', 'oracle erp',
+    'master class erp', 'erp implementation',
+    // Generic contact center (not AI) - vonage, qualtrics reports
+    'contact center trends', 'contact center predictions',
+    'customer experience trends', 'cx trends 2025',
+    'call center trends', 'call center predictions',
+    '7 trends and 10 predictions', 'future of contact centers',
     // Crypto/unrelated
     'coinbase', 'bitcoin', 'ethereum', 'crypto wallet', 'nft',
     'cryptocurrency', 'blockchain wallet',

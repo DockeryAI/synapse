@@ -11,6 +11,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { streamingApiManager, ApiEventType, ApiUpdate } from '../services/intelligence/streaming-api-manager';
 import { triggerConsolidationService, ConsolidatedTrigger, TriggerConsolidationResult } from '../services/triggers/trigger-consolidation.service';
+import { triggerTitleRewriterService } from '../services/triggers/trigger-title-rewriter.service';
 import type { TriggerSynthesisResult } from '../services/triggers/llm-trigger-synthesizer.service';
 import type { DeepContext } from '../types/synapse/deepContext.types';
 import type { CompleteUVP } from '../types/uvp-flow.types';
@@ -22,6 +23,8 @@ export interface StreamingTriggersResult {
   consolidationResult: TriggerConsolidationResult | null;
   deepContext: DeepContext | null;
   isLoading: boolean;
+  /** True when triggers have been processed and titles rewritten - safe to display */
+  isReady: boolean;
   loadingStatus: string;
   loadedSources: string[];
   totalSources: number;
@@ -45,10 +48,12 @@ const SOURCE_NAMES: Partial<Record<ApiEventType, string>> = {
   'outscraper-reviews': 'Google Reviews',
   'news-breaking': 'Breaking News',
   'news-trending': 'Trending News',
+  'competitor-voice': 'Competitor Reviews',  // HIGH VALUE: VoC from competitor intel
 };
 
 // Sources relevant for triggers (not all 23 APIs are useful)
 const TRIGGER_SOURCES: ApiEventType[] = [
+  'competitor-voice',  // PRIORITY: Load competitor VoC first (highest quality)
   'apify-twitter-sentiment',
   'apify-trustpilot-reviews',
   'apify-g2-reviews',
@@ -70,6 +75,7 @@ export function useStreamingTriggers(
   const [triggers, setTriggers] = useState<ConsolidatedTrigger[]>([]);
   const [consolidationResult, setConsolidationResult] = useState<TriggerConsolidationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isReady, setIsReady] = useState(false); // True after title rewriting completes
   const [loadingStatus, setLoadingStatus] = useState('Waiting to start...');
   const [loadedSources, setLoadedSources] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -78,8 +84,6 @@ export function useStreamingTriggers(
   const contextRef = useRef<Partial<DeepContext>>({});
   const consolidationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isConsolidatingRef = useRef(false);
-  const lastConsolidationTimeRef = useRef(0);
-  const CONSOLIDATION_COOLDOWN_MS = 2000; // Min 2 seconds between consolidations
 
   // RESET state when disabled - ensures sample data is used in TriggersDevPage
   useEffect(() => {
@@ -89,6 +93,7 @@ export function useStreamingTriggers(
       setTriggers([]);
       setConsolidationResult(null);
       setIsLoading(false);
+      setIsReady(false);
       setLoadedSources([]);
       setError(null);
       contextRef.current = {};
@@ -98,9 +103,19 @@ export function useStreamingTriggers(
   }, [enabled]);
 
   // Re-consolidate triggers when context updates - DEBOUNCED + THROTTLED to prevent excessive re-runs
+  // PHASE M: During live streaming, DON'T run regex consolidation - wait for Opus 4.5 synthesis
+  // Only use consolidation for cached data (immediate=true)
   const consolidateTriggers = useCallback((context: DeepContext, immediate: boolean = false) => {
     if (!uvp) {
       console.log('[StreamingTriggers] No UVP - skipping consolidation');
+      return;
+    }
+
+    // PHASE M: Skip regex consolidation during streaming
+    // Raw data will be synthesized by LLM when APIs complete
+    // Only process cached data immediately
+    if (!immediate) {
+      console.log('[StreamingTriggers] ⏳ Skipping regex consolidation - waiting for LLM synthesis');
       return;
     }
 
@@ -109,28 +124,16 @@ export function useStreamingTriggers(
       clearTimeout(consolidationTimeoutRef.current);
     }
 
-    const doConsolidate = () => {
+    const doConsolidate = async () => {
       // Guard: Skip if already consolidating
       if (isConsolidatingRef.current) {
         console.log('[StreamingTriggers] ⚠️ Skipping - consolidation already in progress');
         return;
       }
 
-      // Throttle: Check cooldown (except for immediate calls)
-      const now = Date.now();
-      const timeSinceLast = now - lastConsolidationTimeRef.current;
-      if (!immediate && timeSinceLast < CONSOLIDATION_COOLDOWN_MS) {
-        // Schedule for after cooldown
-        const remainingCooldown = CONSOLIDATION_COOLDOWN_MS - timeSinceLast;
-        console.log(`[StreamingTriggers] ⏳ Throttled - scheduling consolidation in ${remainingCooldown}ms`);
-        consolidationTimeoutRef.current = setTimeout(doConsolidate, remainingCooldown);
-        return;
-      }
-
       try {
         isConsolidatingRef.current = true;
-        lastConsolidationTimeRef.current = now;
-        console.log('[StreamingTriggers] Re-consolidating triggers with new data');
+        console.log('[StreamingTriggers] Processing cached triggers data');
         const result = triggerConsolidationService.consolidate(
           context,
           uvp,
@@ -140,11 +143,40 @@ export function useStreamingTriggers(
         // PROGRESSIVE LOADING FIX: Only update triggers if we have results
         // This prevents early batches (without correlatedInsights) from clearing triggers
         if (result.triggers.length > 0) {
-          setTriggers(result.triggers);
-          setConsolidationResult(result);
-          console.log(`[StreamingTriggers] Consolidated: ${result.triggers.length} triggers`);
+          // REWRITE TITLES: Use LLM to clean up trigger titles
+          console.log('[StreamingTriggers] Rewriting trigger titles with LLM...');
+          const triggersToRewrite = result.triggers.map(t => ({
+            id: t.id,
+            rawTitle: t.title,
+            rawQuote: t.evidence[0]?.quote,
+            category: t.category
+          }));
+
+          try {
+            const rewrittenMap = await triggerTitleRewriterService.rewriteTitles(triggersToRewrite);
+
+            // Apply rewritten titles
+            const cleanedTriggers = result.triggers.map(trigger => {
+              const rewritten = rewrittenMap.get(trigger.id);
+              if (rewritten) {
+                return { ...trigger, title: rewritten.title };
+              }
+              return trigger;
+            });
+
+            setTriggers(cleanedTriggers);
+            setConsolidationResult({ ...result, triggers: cleanedTriggers });
+            setIsReady(true); // Mark as ready AFTER title rewriting completes
+            console.log(`[StreamingTriggers] Consolidated: ${cleanedTriggers.length} triggers from cache (titles rewritten, isReady=true)`);
+          } catch (rewriteError) {
+            // Fallback: use original titles if rewriting fails
+            console.warn('[StreamingTriggers] Title rewriting failed, using original titles:', rewriteError);
+            setTriggers(result.triggers);
+            setConsolidationResult(result);
+            setIsReady(true); // Still mark as ready, just with original titles
+          }
         } else {
-          console.log('[StreamingTriggers] Skipping update - consolidation returned 0 triggers (waiting for Perplexity data)');
+          console.log('[StreamingTriggers] Skipping update - consolidation returned 0 triggers');
         }
       } catch (err) {
         console.error('[StreamingTriggers] Consolidation error:', err);
@@ -154,12 +186,8 @@ export function useStreamingTriggers(
       }
     };
 
-    if (immediate) {
-      doConsolidate();
-    } else {
-      // Debounce: wait 1 second for more data before consolidating (increased from 500ms)
-      consolidationTimeoutRef.current = setTimeout(doConsolidate, 1000);
-    }
+    // Only run immediately for cached data
+    doConsolidate();
   }, [uvp, brand]);
 
   // Track enabled state in ref so callbacks can check it
@@ -260,27 +288,29 @@ export function useStreamingTriggers(
     // Other sources will still work
   }, []);
 
-  // Handle completion
+  // Handle completion - all APIs loaded, now waiting for LLM synthesis
   const handleComplete = useCallback(() => {
-    setLoadingStatus('Synthesizing triggers...');
+    setLoadingStatus('Synthesizing triggers with AI...');
     // Keep isLoading true - synthesis still running
   }, []);
 
-  // Handle LLM-synthesized triggers
+  // Handle LLM-synthesized triggers from Sonnet 4
   const handleTriggerSynthesis = useCallback((result: TriggerSynthesisResult) => {
-    console.log(`[StreamingTriggers] Received ${result.triggers.length} LLM-synthesized triggers`);
+    console.log(`[StreamingTriggers] Received ${result.triggers.length} Sonnet 4-synthesized triggers`);
 
     if (result.triggers.length > 0) {
-      // Use LLM triggers directly - skip regex consolidation
+      // Use Sonnet 4 synthesized triggers directly
       setTriggers(result.triggers);
-      setLoadingStatus(`Complete: ${result.triggers.length} triggers synthesized by AI`);
+      setLoadingStatus(`Complete: ${result.triggers.length} triggers synthesized`);
+      setIsReady(true); // Mark as ready - we have quality synthesized triggers
     } else {
-      // Fallback: use regex-consolidated triggers
-      setLoadingStatus(`Complete: ${triggers.length} triggers (regex fallback)`);
+      // Sonnet 4 returned no triggers - show empty state
+      console.warn('[StreamingTriggers] Sonnet 4 synthesis returned no triggers');
+      setLoadingStatus(`No triggers synthesized - check raw data quality`);
     }
 
     setIsLoading(false);
-  }, [triggers.length]);
+  }, []);
 
   // Initialize streaming
   useEffect(() => {
@@ -336,6 +366,7 @@ export function useStreamingTriggers(
     consolidationResult,
     deepContext,
     isLoading,
+    isReady,
     loadingStatus,
     loadedSources,
     totalSources,
@@ -408,7 +439,7 @@ function mergeApiDataIntoContext(
       // Perplexity insights → correlatedInsights
       // NEW FORMAT: { insightsWithSources: [{insight, sources: [{title, url, excerpt}]}], ... }
       // OLD FORMAT: { insights: string[], sources: [{title, url, excerpt}], ... }
-      const MAX_PERPLEXITY_INSIGHTS = 50;
+      const MAX_PERPLEXITY_INSIGHTS = 100;
 
       // PREFER new format with per-insight sources
       if (update.data?.insightsWithSources && Array.isArray(update.data.insightsWithSources)) {
@@ -507,6 +538,37 @@ function mergeApiDataIntoContext(
             }
           });
         });
+      }
+      break;
+
+    case 'competitor-voice':
+      // HIGH VALUE: Voice of Customer data from competitor intelligence
+      // Contains pain_points, desires, objections, switching_triggers from competitor reviews
+      if (update.data?.insightsWithSources && Array.isArray(update.data.insightsWithSources)) {
+        const insights = update.data.insightsWithSources;
+        console.log(`[StreamingTriggers] Processing ${insights.length} competitor voice insights (HIGH VALUE)`);
+
+        insights.forEach((item: { insight: string; sources: Array<{ title: string; url: string; excerpt: string }>; category?: string }, idx: number) => {
+          if (item.insight && item.insight.length > 10) {
+            const insightSources = item.sources || [];
+            merged.correlatedInsights!.push({
+              id: `competitor-voice-${Date.now()}-${idx}`,
+              type: 'validated_pain',  // Competitor VoC is validated customer feedback
+              insight: item.insight,
+              confidence: update.data.confidence || 0.9,  // High confidence - real customer quotes
+              sources: insightSources.map((s: any) => s.title || 'Competitor Review'),
+              sourceDetails: insightSources.map((s: any) => ({
+                title: s.title || 'Competitor Review',
+                url: s.url || '',
+                excerpt: s.excerpt || ''
+              })),
+              evidenceCount: 1,
+              // Pass through category if provided (pain-point, desire, objection, fear)
+              category: item.category,
+            });
+          }
+        });
+        console.log(`[StreamingTriggers] Added ${insights.length} competitor voice insights to correlatedInsights`);
       }
       break;
 

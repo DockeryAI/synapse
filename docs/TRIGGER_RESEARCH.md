@@ -15,6 +15,38 @@
 
 ---
 
+## Part 0: Critical Statistics That Prove Why This Matters
+
+### The Trigger Event Advantage
+
+| Metric | Statistic | Source |
+|--------|-----------|--------|
+| Win rate improvement from trigger-based selling | **Up to 74%** | Forrester Research |
+| Buyers who went with their first-choice vendor | **71%** | B2B Buying Behavior Research 2024 |
+| Buyers who shortlist only 3 vendors | **78%** | B2B Buying Behavior Research 2024 |
+| Conversion rate with strong intent signals | **4x higher** within 30 days | Demandbase |
+| Cost of acquiring new customer vs. retention | **5-6x more expensive** | Churn Research |
+| Chance of selling to existing customer | **60-70%** | HubSpot |
+
+### The Problem with Current Approaches
+
+| Issue | Impact | Source |
+|-------|--------|--------|
+| Intent data false positive rate | **48-52%** | Sales Professional Survey |
+| IP misattribution issues (remote work) | **29%** cite as key issue | ZoomInfo User Survey |
+| B2B purchases that stall due to stakeholder issues | **86%** | Buying Committee Research |
+| Marketers citing buying committee ID as major challenge | **46%** | ABM Research |
+| Buyers who think salespeople are pushy | **50%** | HubSpot 2021 |
+| Buyers who trust sales reps | **Only 3%** | HubSpot 2021 |
+
+### The Emotional Reality of B2B Buying
+
+**Critical Insight**: Emotions drive up to **70% of purchase decisions**, even in "rational" B2B contexts. The psychological triggers matter as much as the business case.
+
+**McKinsey 2024 Finding**: B2B customers now use an average of **10 channels** in their buying journey (up from 5 in 2016). Over 50% want a true omnichannel experience.
+
+---
+
 ## Part 1: What V1 Got Right (And What's Missing Now)
 
 ### V1's Relevance Scoring System
@@ -51,6 +83,8 @@ V1 validated that triggers contained psychological language and matched UVP voca
 | Trigger-based selling | 20-35% |
 | Traditional cold outreach | 5-10% |
 | Signal-based lead scoring | 35-40% higher conversion |
+| Reaching out to customer competitors | **2.5x higher conversion** |
+| Talking to 11+ buying committee members | **3.4-4.4x higher conversion** |
 
 ### Key Insight from Research
 
@@ -59,6 +93,8 @@ V1 validated that triggers contained psychological language and matched UVP voca
 **Forrester Research**: Companies excelling at lead nurturing and intent data generate **50% more sales-ready leads at 33% lower costs**.
 
 **SiriusDecisions**: **67% of the buyer's journey** is now done digitally.
+
+**The Reality**: Most people don't buy unless something happens that causes them to buy. The trigger IS the sale.
 
 ### The Three Types of Buying Signals
 
@@ -72,6 +108,31 @@ V1 validated that triggers contained psychological language and matched UVP voca
 
 **Why they matter**: These create URGENCY and BUDGET where none existed before.
 
+**The 23 Most Important B2B Sales Trigger Events** (UserGems Research):
+1. Champion job change (moves to new company)
+2. New executive hire
+3. Company funding round
+4. Product launch
+5. Company expansion/new location
+6. Technology implementation
+7. Regulatory change affecting industry
+8. Competitor acquisition
+9. Hiring surge (5+ roles in 30 days)
+10. Budget cycle timing (Q1, fiscal year end)
+11. Contract expiration window
+12. Merger/acquisition announcement
+13. New partnership announcement
+14. Geographic expansion
+15. Restructuring/layoffs
+16. IPO preparation
+17. New market entry
+18. Competitive loss (lost deal going elsewhere)
+19. Customer success story published
+20. Industry event attendance
+21. Webinar replay viewing
+22. Multiple stakeholders researching
+23. Usage threshold hit (PLG signals)
+
 #### 2. Intent Signals (Research Behavior)
 - Searching for your category (not just pain points)
 - Visiting competitor comparison pages
@@ -81,6 +142,15 @@ V1 validated that triggers contained psychological language and matched UVP voca
 
 **Why they matter**: Shows active consideration, not just awareness.
 
+**Intent Signal Quality Hierarchy**:
+| Signal Type | Reliability | Example |
+|-------------|-------------|---------|
+| First-party intent (your site) | Highest | Demo request, pricing page visit |
+| G2/Capterra intent | High | Product comparison, alternative search |
+| Bombora surge | Medium-High | Topic research spike |
+| Bidstream/IP-based | Medium-Low | 48-52% false positive rate |
+| Generic topic research | Low | Blog article views |
+
 #### 3. Pain Signals (Customer Voice)
 - Complaints about current solution on G2/Trustpilot
 - Reddit threads asking for alternatives
@@ -88,6 +158,13 @@ V1 validated that triggers contained psychological language and matched UVP voca
 - Support ticket patterns indicating churn risk
 
 **Why they matter**: Only valid if the pain LEADS TO YOUR PRODUCT.
+
+**The Competitive Displacement Hierarchy**:
+1. **Explicit switching intent**: "Looking to switch from [Competitor]..." → Highest value
+2. **Active dissatisfaction**: "We've had nothing but problems with..." → High value
+3. **Feature comparison**: "Does anyone know if X can do what Y does?" → Medium value
+4. **General frustration**: "Frustrated with [category] tools..." → Lower value
+5. **Vague complaint**: "This is hard..." → Lowest value (often not actionable)
 
 ---
 
@@ -113,6 +190,126 @@ V1 validated that triggers contained psychological language and matched UVP voca
 ### The Validation Question
 
 For every trigger, ask: **"If someone has this problem, would searching for a solution lead them to OUR product category?"**
+
+---
+
+## Part 3.5: The Psychology of Why Buyers Actually Buy (NEW)
+
+### Cognitive Biases That Drive B2B Decisions
+
+Understanding these biases is critical for correctly interpreting pain signals:
+
+| Bias | How It Manifests | Implication for Triggers |
+|------|------------------|-------------------------|
+| **Anchoring** | First price/solution seen becomes reference point | Early-stage research signals are high value |
+| **Confirmation** | Buyers seek info supporting existing beliefs | Triggers should align with their worldview |
+| **Loss Aversion** | Pain of loss > pleasure of gain (2x stronger) | Frame triggers around what they're LOSING |
+| **Social Proof** | Following what others do reduces risk | Competitor user complaints are gold |
+| **Status Quo** | Changing is painful, requires justification | Need a FORCING FUNCTION to overcome |
+| **Escalation of Commitment** | Sunk cost makes switching harder | Target frustrated users, not new evaluators |
+
+### The Three Dimensions of a "Job" (Christensen JTBD)
+
+Every purchase serves three types of jobs:
+
+1. **Functional Job**: The practical task to complete
+   - "I need to automate my customer support"
+
+2. **Emotional Job**: How they want to FEEL
+   - "I want to feel confident I won't lose customers overnight"
+
+3. **Social Job**: How they want to be PERCEIVED
+   - "I want my team to see me as innovative"
+
+**Critical Insight**: Most trigger systems only capture functional jobs. The EMOTIONAL and SOCIAL jobs are what create urgency.
+
+### The Trigger-Job-Outcome Framework
+
+Every valid buying trigger follows this pattern:
+
+```
+TRIGGER (what happened) → JOB (what they need to do) → OUTCOME (what success looks like)
+```
+
+**Example**:
+- TRIGGER: "New VP of Customer Success hired"
+- JOB: "Reduce churn by 15% in first quarter to prove value"
+- OUTCOME: "Keep job, get promoted, expand team"
+
+**Why this matters**: The trigger creates the job, but the OUTCOME is what they're buying. Content should speak to outcomes, not just triggers.
+
+### The Motivation Triad
+
+For a trigger to cause purchasing behavior, three factors must align:
+
+1. **Reward**: What do they get? (functional benefit)
+2. **Goal**: What are they trying to achieve? (business outcome)
+3. **Motivation**: Why does it matter NOW? (emotional driver)
+
+**If ANY of these three is missing, the trigger won't convert.**
+
+### Why Complaints ≠ Buying Triggers
+
+The current system interprets "Frustrated with X" as a trigger. But research shows:
+
+| Complaint Type | Buying Likelihood | Why |
+|----------------|-------------------|-----|
+| Venting frustration | 5-10% | No action intent |
+| Asking for workarounds | 15-25% | Trying to avoid switching |
+| Comparing alternatives | 40-60% | Active evaluation |
+| Explicit switching intent | 70-85% | Decision made |
+
+**Key Insight**: The LANGUAGE pattern matters more than sentiment. "I hate [X]" is lower intent than "Has anyone switched from [X] to [Y]?"
+
+### Semantic Patterns That Indicate Real Intent
+
+**High-Intent Language Patterns**:
+- "We're evaluating..." / "We're looking at..."
+- "Has anyone migrated from..."
+- "What's the best alternative to..."
+- "We're switching from..."
+- "Our contract is up and..."
+- "We've decided to move away from..."
+
+**Low-Intent Language Patterns** (Reject These):
+- "I wish [X] would..."
+- "Why doesn't [X] have..."
+- "Anyone else annoyed by..."
+- "[X] sucks because..."
+- "I hate when [X]..."
+
+### The Decision Committee Reality
+
+**Average B2B Buying Committee Size**: 6-15 people (Forrester 2024 says average is 13)
+
+**The 10 Roles in Every B2B Purchase**:
+1. Project Sponsor (budget authority, initiated the search)
+2. Champion (internal ally pushing for your solution)
+3. Executive Sponsor (ultimate decision authority)
+4. Financial Approver (fiscal gatekeeper)
+5. Technical Buyer (feasibility gatekeeper)
+6. Operations/Process Owner (implementation owner)
+7. Business User (end-user representative)
+8. Legal Reviewer (compliance and contract)
+9. Influencer (internal/external expert)
+10. Gatekeeper (controls access and information flow)
+
+**Implication for Triggers**: Different committee members have DIFFERENT triggers. A trigger that resonates with the Champion may not move the Economic Buyer.
+
+### Trigger Timing Windows
+
+Research shows trigger events have a **decay curve** for relevance:
+
+| Trigger Event | Peak Window | Still Relevant | Stale |
+|---------------|-------------|----------------|-------|
+| Funding round | 0-30 days | 30-90 days | 90+ days |
+| Leadership change | 0-60 days | 60-120 days | 120+ days |
+| Hiring surge | 0-45 days | 45-90 days | 90+ days |
+| Contract expiration | 90-30 days before | 30-0 days | After renewal |
+| Tech stack change | 0-30 days | 30-60 days | 60+ days |
+| Competitive loss | 0-14 days | 14-45 days | 45+ days |
+
+**Key Insight**: Triggers have expiration dates. A 6-month-old funding round is NOT a valid trigger.
 
 ---
 
@@ -146,6 +343,129 @@ A valid trigger should enable you to:
 
 ---
 
+## Part 4.5: Voice of Customer Mining - How to Actually Extract Actionable Triggers (NEW)
+
+### The Reddit Goldmine
+
+Reddit has **430 million monthly users** across **100,000+ communities**. Unlike sanitized reviews, Reddit reveals:
+- Unfiltered opinions about products and services
+- Real experiences, frustrations, and comparisons
+- Authentic pain points that users share with peers, not vendors
+
+**Key Reddit Monitoring Patterns**:
+```
+"[competitor] problems"
+"switching from [competitor]"
+"[competitor] vs [alternative]"
+"anyone else frustrated with [competitor]"
+"what do you use instead of [competitor]"
+"migrating from [competitor]"
+```
+
+**Best Practice**: Lurk first. Understand the community tone before extracting. Frequency + engagement (upvotes, supportive comments) = genuine pain point worth addressing.
+
+### G2/Capterra/Trustpilot Intelligence Extraction
+
+**Why These Platforms Are Superior**:
+- G2: **100M+ software buyers** research annually, **4.6/5 satisfaction rating**
+- First-party verified data (actual platform users, not inferred clicks)
+- Unlike cookie-based tracking, reflects genuine purchase consideration
+
+**What to Extract from Reviews**:
+1. **Specific feature complaints** → Product gaps you can fill
+2. **Pricing objections** → Positioning opportunities
+3. **Support failures** → Service differentiation angles
+4. **Integration frustrations** → Technical partnership opportunities
+5. **Contract/billing issues** → Sales process improvements
+
+**Real Example of Actionable Intelligence**:
+> "Monitoring customer reviews highlighted how a competitor's customers complained about hidden subscription fees. The team used these insights to create battlecards, increasing win rate by 35%." — VP Customer Services, Clario
+
+### Intent Data Provider Deep Dive
+
+**Provider Comparison Table**:
+
+| Provider | Strength | Weakness | Accuracy | Best For |
+|----------|----------|----------|----------|----------|
+| **G2** | Verified buyer behavior | Software-only | 4.6/5 | Software category intent |
+| **Bombora** | Quality intent signals | No contact data, weak EU coverage | 4.4/5 | Topic surge detection |
+| **6sense** | Predictive AI, dark funnel | Data accuracy concerns | Variable | ABM campaigns |
+| **ZoomInfo** | Real-time updates, CRM integration | Least accurate intent data | 3.5/5 | Contact data |
+| **Demandbase** | ABM platform | Expensive ($123K avg contract) | Good | Enterprise ABM |
+
+**Critical Warning**: ZoomInfo users report **48% false positives** from intent signals. **32%** cite outdated data. Multi-signal stacking is required.
+
+### NLP Techniques for Pain Point Extraction
+
+**The Problem with Basic Sentiment Analysis**:
+- "Sick" = negative in medical reviews, positive in slang
+- "This tool is killer" = positive
+- Context matters more than word polarity
+
+**Advanced Extraction Methods**:
+
+1. **Aspect-Based Sentiment Analysis (ABSA)**
+   - Extract sentiments about SPECIFIC product attributes
+   - "The UI is beautiful but the API is terrible" → Two separate signals
+
+2. **Intent Classification**
+   - Beyond positive/negative/neutral
+   - Detect: frustration, praise, churn signal, purchase intent, feature request
+
+3. **Topic Modeling (LDA)**
+   - Extract recurring themes from large review corpuses
+   - Identify patterns humans would miss
+
+4. **High-Intent Language Detection**
+   - "We're evaluating..." vs "I hate..."
+   - The verb tense and subject matter more than sentiment
+
+**Recommended Open-Source Tools**:
+- Hugging Face transformers for sentiment
+- spaCy for entity extraction
+- Google NLP API for multi-language support
+
+### Competitor Displacement Signal Extraction
+
+**The Churn Prediction Signals** (from academic research):
+- Percentage of communications TO competitors
+- Percentage of "friends" (network contacts) using competitors
+- Usage decline patterns (fewer logins, less feature usage)
+- Support ticket escalation frequency
+- Contract renewal proximity + research activity
+
+**Explicit Displacement Language Patterns**:
+```
+"alternatives to [competitor]"
+"migrating from [competitor]"
+"[competitor] replacement"
+"anyone left [competitor]"
+"why we switched from [competitor]"
+"[competitor] vs" (comparison intent)
+```
+
+**Implicit Displacement Signals**:
+- Visiting YOUR comparison pages
+- Engaging with YOUR vs competitor content
+- Multiple stakeholders from same account researching
+- Repeat visits to pricing page without converting
+
+### Source Integration Best Practices
+
+**Multi-Source Triangulation**:
+Don't rely on a single source. Stack signals:
+
+1. **G2 complaint** + **Reddit thread** + **LinkedIn post** = High confidence trigger
+2. **Single G2 review** = Medium confidence (could be outlier)
+3. **Generic industry article** = Low confidence (not buyer voice)
+
+**Source Diversity Requirements**:
+- Minimum 2 sources for any trigger
+- At least 1 must be first-party (G2, Reddit, Trustpilot)
+- Recency matters: prioritize <90 day old signals
+
+---
+
 ## Part 5: Source Quality Hierarchy
 
 ### Tier 1: Direct Buying Intent (Weight: 1.3x)
@@ -172,6 +492,30 @@ A valid trigger should enable you to:
 - AI-generated summaries without sources
 - Content not specific to target buyer
 - Pain that doesn't lead to product category
+
+### Tier 1.5: Competitor Voice of Customer (NEW - Weight: 1.25x)
+
+This tier specifically addresses the VoC data from competitor users:
+
+**Highest Value (1.4x)**:
+- Explicit switching intent: "We're moving from [Competitor] to..."
+- Active evaluation: "Comparing [Competitor] against alternatives"
+- Contract-related: "Our [Competitor] contract is up and..."
+
+**High Value (1.25x)**:
+- Feature gap complaints: "[Competitor] doesn't have X, looking for..."
+- Performance issues: "[Competitor] keeps crashing when..."
+- Support failures: "[Competitor] support took 2 weeks to respond"
+
+**Medium Value (1.0x)**:
+- General dissatisfaction: "Frustrated with [Competitor]'s..."
+- Pricing complaints: "[Competitor] is overpriced for..."
+- Usability issues: "[Competitor] UI is confusing"
+
+**Low Value (0.5x)**:
+- Vague complaints: "[Competitor] sucks"
+- Feature wishes without action: "I wish [Competitor] would..."
+- Minor annoyances: "Small thing but [Competitor]..."
 
 ---
 
@@ -963,26 +1307,161 @@ Following Synapse's EventEmitter-based parallel loading architecture, trigger di
 
 ---
 
+## Part 9.5: Trigger Title Generation - Semantic Accuracy Requirements (NEW)
+
+### The Current Problem
+
+The system generates titles like:
+- ❌ "Buyers want platform complexity and pricing that doesn't align"
+- ❌ "Buyers struggle with not coping with large language models"
+- ❌ "Buyers want inefficiency in their analytics"
+
+**Why these are WRONG**: The system blindly prepends category-based verbs to complaint text, creating semantically inverted meanings.
+
+### The Semantic Inversion Problem
+
+When a user complains: "The platform is too complex and pricing doesn't align with our company size"
+
+The system does:
+```
+category: "desire" → verb: "want" → "Buyers want platform complexity..."
+```
+
+**The ACTUAL meaning**: Buyers are FRUSTRATED BY complexity, not DESIRING it.
+
+### Correct Title Generation Rules
+
+**Rule 1: Complaints Are Not Desires**
+| Original Complaint | WRONG Title | CORRECT Title |
+|--------------------|-------------|---------------|
+| "Platform is too complex" | "Buyers want platform complexity" | "Buyers frustrated by platform complexity" |
+| "Pricing doesn't align with small teams" | "Buyers want misaligned pricing" | "Buyers seeking pricing that scales with team size" |
+| "Support takes too long" | "Buyers want slow support" | "Buyers need faster support response times" |
+
+**Rule 2: Preserve the Complaint Framing**
+- Complaints should NEVER be rephrased as desires
+- Use verbs like: "frustrated by", "struggling with", "seeking alternatives to", "concerned about"
+- NEVER use "want" for negative attributes
+
+**Rule 3: Include the Competitor When Known**
+| Without Competitor | With Competitor |
+|--------------------|-----------------|
+| "Buyers frustrated by complex platforms" | "[Competitor] users frustrated by platform complexity" |
+| "Teams struggling with pricing" | "Teams finding [Competitor] pricing doesn't scale" |
+
+### The Title Generation Algorithm (Corrected)
+
+```
+1. DETECT SENTIMENT of original quote
+   - Negative sentiment → Use complaint verbs
+   - Positive sentiment → Use desire verbs
+   - Comparison → Use evaluation verbs
+
+2. EXTRACT THE CORE ISSUE
+   - What is the specific pain point?
+   - What feature/aspect is mentioned?
+
+3. PRESERVE SEMANTIC MEANING
+   - If they're complaining about X, the title should show frustration with X
+   - NOT desire for X
+
+4. ADD CONTEXT
+   - Include competitor name if known
+   - Include industry/role if relevant
+   - Include quantitative data if available
+
+5. VALIDATE GRAMMATICALLY
+   - Title must make logical sense
+   - Subject + verb + object must align semantically
+```
+
+### Valid vs Invalid Title Patterns
+
+**VALID Patterns**:
+```
+"[Competitor] users frustrated by [specific issue]"
+"[Role] teams seeking alternatives to [pain point]"
+"Buyers concerned about [risk/fear]"
+"[Industry] companies struggling with [challenge]"
+"Teams evaluating alternatives due to [trigger]"
+```
+
+**INVALID Patterns** (REJECT):
+```
+"Buyers want [negative thing]" ← Semantic inversion
+"Buyers struggle with not [doing thing]" ← Grammatical nonsense
+"Buyers [verb] [truncated sentence..." ← Incomplete
+"buyers want..." ← Missing capitalization
+"Buyers want" ← No object
+```
+
+### Competitor Attribution Requirements
+
+Every trigger derived from competitor VoC data MUST:
+1. Name the competitor in the title OR evidence
+2. Show which competitor's users are affected
+3. Link to the source (G2 review, Reddit post, etc.)
+
+**Example**:
+```
+Title: "HubSpot users frustrated by limited automation workflows"
+Evidence: G2 Review - "HubSpot's automation is too basic for our needs..."
+Competitor: HubSpot
+Source: g2.com/products/hubspot/reviews/...
+```
+
+### Title Length and Truncation
+
+- Maximum title length: 80 characters
+- If truncation needed, truncate at a word boundary
+- NEVER truncate mid-sentence
+- If the title can't fit in 80 chars, it's probably too complex—simplify
+
+### Quality Validation Checklist
+
+Before displaying any trigger:
+
+- [ ] Title makes grammatical sense
+- [ ] Semantic meaning matches original quote
+- [ ] Competitor named (if VoC data)
+- [ ] No "want [negative thing]" pattern
+- [ ] No truncated sentences
+- [ ] Proper capitalization
+- [ ] Source URL is valid
+- [ ] Evidence supports the title claim
+
+---
+
 ## Appendix A: Research Sources
 
 ### Academic/Industry
 - Gartner B2B Buying Research
 - Forrester Research (50% more leads at 33% lower cost with intent data)
+- Forrester 2024 State of Business Buying Report (13-person average buying committee)
 - SiriusDecisions (67% digital buyer journey)
 - Challenger Sale methodology (Dixon & Adamson)
 - MEDDIC qualification framework
 - Jobs-To-Be-Done (Christensen, Ulwick, Moesta)
 - Harvard Business School (restaurant hygiene/review correlation)
 - Boston University (consumer behavior studies)
+- McKinsey 2024 B2B Pulse Survey (10 channels in buyer journey)
+- HubSpot Sales Enablement 2021 Report
+- CustomerThink B2B Buying Triggers Research
+- American Psychological Association motivation research
 
 ### Platform Analysis
-- G2 Buyer Intent methodology
-- Gartner Digital Markets (Capterra, GetApp, Software Advice)
-- Bombora Surge Data methodology
-- 6sense ABM platform analysis
-- ZoomInfo signal detection
+- G2 Buyer Intent methodology (100M+ software buyers)
+- Gartner Digital Markets (Capterra, GetApp, Software Advice - 100M+ buyers)
+- Bombora Surge Data methodology (5,000+ B2B website co-op)
+- 6sense ABM platform analysis (average contract $123,711)
+- ZoomInfo signal detection (48% false positive rate reported)
 - NielsenIQ/Circana syndicated data
 - Mindbody/ClassPass fitness platform data
+- Demandbase ABM (4x pipeline likelihood with intent signals)
+- Reddit Analytics (430M monthly users, 100K+ communities)
+- GummySearch Reddit research tool
+- Brandwatch social listening
+- Sprout Social competitive intelligence
 
 ### Industry-Specific Sources
 - CISA cybersecurity advisories
@@ -991,6 +1470,7 @@ Following Synapse's EventEmitter-based parallel loading architecture, trigger di
 - Franchise industry (Multi-Unit Franchisee data)
 - eMarketer D2C market analysis
 - Shopify commerce intelligence
+- UserGems (23 trigger events research)
 
 ### Frameworks Referenced
 - Cialdini's 7 Principles of Persuasion
@@ -998,6 +1478,21 @@ Following Synapse's EventEmitter-based parallel loading architecture, trigger di
 - Eugene Schwartz Awareness Stages
 - Pain-Desire Mapping
 - AARRR (Pirate Metrics) for PLG
+- JTBD Three Dimensions (Functional, Emotional, Social)
+- Trigger-Job-Outcome Framework
+- Motivation Triad (Reward, Goal, Motivation)
+- Competitive Displacement Hierarchy
+- Intent Signal Quality Hierarchy
+- Multi-Source Triangulation Method
+
+### NLP/Sentiment Analysis Sources
+- Hugging Face Hub (pre-trained sentiment models)
+- Google NLP API
+- spaCy entity extraction
+- SATORE method (LDA topic modeling)
+- Aspect-Based Sentiment Analysis (ABSA) research
+- Bert-BiGRU-Softmax deep learning for reviews
+- Amazon Science (subjective search intent predictions)
 
 ---
 

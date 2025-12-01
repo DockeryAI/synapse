@@ -48,7 +48,16 @@ export type ApiEventType =
   | 'perplexity-research'
   | 'website-analysis'
   | 'keywords-intent'
-  | 'keywords-validated';
+  | 'keywords-validated'
+  | 'competitor-voice'  // Competitor Voice of Customer data from Gaps tab
+  // Multi-source trigger integration (Phase J)
+  | 'hackernews-triggers'  // Tech community switching signals
+  | 'news-event-triggers'  // Funding, acquisitions, leadership changes
+  | 'reddit-conversations'  // UVP pain point community validation
+  | 'linkedin-executive-signals'  // B2B executive/hiring signals
+  // Synapse 2.0 - Hidden data sources
+  | 'sec-edgar-intelligence'  // SEC filings - risk factors, executive priorities
+  | 'buzzsumo-performance';  // Content performance + trend timing
 
 export interface ApiUpdate {
   type: ApiEventType;
@@ -92,6 +101,7 @@ class StreamingApiManager extends EventEmitter {
   // Guard against duplicate/concurrent loadAllApis calls
   private isLoadingApis = false;
   private currentLoadBrandId: string | null = null;
+  private currentForceFresh = false; // Skip cached data sources when forcing fresh fetch
 
   // Early loading state
   private earlyLoadingStarted = false;
@@ -229,6 +239,31 @@ class StreamingApiManager extends EventEmitter {
       return true;
     } catch {
       return false;
+    }
+  }
+
+  /**
+   * Get profile-specific source guidance for Perplexity queries
+   * Tells Perplexity which platforms to prioritize based on business profile
+   */
+  private getPerplexitySourceGuidance(profileType: BusinessProfileType): string {
+    switch (profileType) {
+      case 'local-service-b2b':
+        return 'Search Google Reviews, LinkedIn, industry forums, BBB. Focus on local B2B service providers.';
+      case 'local-service-b2c':
+        return 'Search Google Reviews, Yelp, Facebook, NextDoor, local community forums. Focus on consumer reviews.';
+      case 'regional-b2b-agency':
+        return 'Search Clutch, G2, LinkedIn, industry-specific forums, case study discussions. Focus on agency/consulting reviews.';
+      case 'regional-retail-b2c':
+        return 'Search Google Reviews, Yelp, Facebook, local news, community forums. Focus on retail consumer feedback.';
+      case 'national-saas-b2b':
+        return 'Search G2, Capterra, TrustRadius, Reddit (r/SaaS, r/startups), HackerNews, LinkedIn discussions. Focus on B2B software reviews.';
+      case 'global-saas-b2b':
+        return 'Search G2, Gartner Peer Insights, Capterra, Trustpilot, Reddit, LinkedIn. Focus on enterprise software reviews and international perspectives.';
+      case 'national-product-b2c':
+        return 'Search Trustpilot, Amazon reviews, Reddit (product-specific subreddits), TikTok, YouTube reviews. Focus on consumer product feedback.';
+      default:
+        return 'Search G2, Reddit, Trustpilot for customer reviews and discussions.';
     }
   }
 
@@ -533,6 +568,10 @@ class StreamingApiManager extends EventEmitter {
   /**
    * Get API gating configuration based on profile type
    * Used for TRIGGERS - general data collection
+   *
+   * CRITICAL: YouTube is ONLY useful for B2C profiles where video content matters.
+   * For B2B (especially SaaS), YouTube searches brand name and returns marketing videos,
+   * NOT customer voice data. Disable YouTube for B2B profiles to reduce noise.
    */
   private getAPIGatingForProfile(profileType: BusinessProfileType): {
     useWeather: boolean;
@@ -540,6 +579,8 @@ class StreamingApiManager extends EventEmitter {
     useG2: boolean;
     useLocalReviews: boolean;
     useTrustpilot: boolean;
+    useYouTube: boolean;  // Gate YouTube - NOT useful for B2B SaaS
+    useReddit: boolean;   // Gate Reddit - VERY useful for B2B SaaS, less for local B2C
   } {
     switch (profileType) {
       case 'local-service-b2b':
@@ -549,6 +590,8 @@ class StreamingApiManager extends EventEmitter {
           useG2: false,
           useLocalReviews: true,
           useTrustpilot: false,
+          useYouTube: false,  // B2B doesn't need YouTube
+          useReddit: false,   // Local B2B rarely discussed on Reddit
         };
 
       case 'local-service-b2c':
@@ -558,6 +601,8 @@ class StreamingApiManager extends EventEmitter {
           useG2: false,
           useLocalReviews: true,
           useTrustpilot: true,
+          useYouTube: true,   // B2C can benefit from YouTube reviews/tutorials
+          useReddit: true,    // Local services discussed on r/localarea subreddits
         };
 
       case 'regional-b2b-agency':
@@ -566,7 +611,9 @@ class StreamingApiManager extends EventEmitter {
           useLinkedIn: true,
           useG2: true,
           useLocalReviews: true,
-          useTrustpilot: true, // Trustpilot has B2B reviews too
+          useTrustpilot: true,
+          useYouTube: false,  // Agencies don't need YouTube brand searches
+          useReddit: true,    // r/marketing, r/agencies have B2B discussions
         };
 
       case 'regional-retail-b2c':
@@ -576,6 +623,8 @@ class StreamingApiManager extends EventEmitter {
           useG2: false,
           useLocalReviews: true,
           useTrustpilot: true,
+          useYouTube: true,   // Retail B2C benefits from YouTube
+          useReddit: true,    // Consumer discussions on Reddit
         };
 
       case 'national-saas-b2b':
@@ -585,7 +634,9 @@ class StreamingApiManager extends EventEmitter {
           useLinkedIn: true,
           useG2: true,
           useLocalReviews: false,
-          useTrustpilot: true, // Trustpilot has B2B reviews too
+          useTrustpilot: true,
+          useYouTube: false,  // ⚠️ CRITICAL: YouTube returns marketing videos, NOT customer voice
+          useReddit: true,    // ⭐ HIGH VALUE: r/SaaS, r/startups, industry subreddits have real customer discussions
         };
 
       case 'national-product-b2c':
@@ -595,6 +646,8 @@ class StreamingApiManager extends EventEmitter {
           useG2: false,
           useLocalReviews: false,
           useTrustpilot: true,
+          useYouTube: true,   // Consumer products benefit from YouTube reviews
+          useReddit: true,    // Product discussions on Reddit
         };
 
       default:
@@ -604,6 +657,8 @@ class StreamingApiManager extends EventEmitter {
           useG2: true,
           useLocalReviews: false,
           useTrustpilot: false,
+          useYouTube: false,  // Default to off - must explicitly enable
+          useReddit: true,    // Reddit generally useful
         };
     }
   }
@@ -800,6 +855,30 @@ class StreamingApiManager extends EventEmitter {
   }
 
   /**
+   * Clear Supabase cached trigger data - async method for forceFresh mode
+   * Deletes stale data from brand_competitor_voice table
+   */
+  private async clearSupabaseTriggerCaches(brandId: string): Promise<void> {
+    try {
+      const { supabase } = await import('@/lib/supabase');
+
+      // Delete old competitor voice data to force fresh fetch
+      const { error } = await supabase
+        .from('brand_competitor_voice')
+        .delete()
+        .eq('brand_id', brandId);
+
+      if (error && !error.message?.includes('relation')) {
+        console.warn('[StreamingAPI] Failed to clear brand_competitor_voice:', error);
+      } else {
+        console.log('[StreamingAPI] 🗑️ Cleared Supabase brand_competitor_voice cache for brand:', brandId);
+      }
+    } catch (e) {
+      console.warn('[StreamingAPI] Failed to clear Supabase caches:', e);
+    }
+  }
+
+  /**
    * Clear ALL caches including localStorage - use for forceFresh mode
    * This ensures APIs actually fire instead of returning cached data
    */
@@ -877,7 +956,12 @@ class StreamingApiManager extends EventEmitter {
     if (forceFresh) {
       console.log('[StreamingAPI] 🔄 FORCE FRESH MODE - clearing all caches');
       this.clearAllCaches(brandId);
+      // Also clear Supabase caches (async, fire and forget - don't block)
+      this.clearSupabaseTriggerCaches(brandId);
     }
+
+    // Track forceFresh for use in API gating (skip stale competitor-voice cache)
+    this.currentForceFresh = forceFresh;
 
     console.log('[StreamingAPI] Starting optimized parallel load of all APIs', forceFresh ? '(FORCE FRESH)' : '');
     const startTime = performance.now();
@@ -939,18 +1023,82 @@ class StreamingApiManager extends EventEmitter {
       apiCalls.set('outscraper-data', () => this.loadOutscraperData(brand));
     }
 
-    // Universal APIs (always run)
+    // Universal APIs (always run for all profile types)
     // NOTE: Skipping news-api (broken module import), using Serper news instead
     // apiCalls.set('news-breaking', () => this.loadNewsApi(brand));
     apiCalls.set('serper-search', () => this.loadSerperQuickData(brand));
-    apiCalls.set('youtube-trending', () => this.loadYouTubeApi(brand));
     apiCalls.set('website-analysis', () => this.loadWebsiteAnalysis(brand));
     apiCalls.set('serper-full', () => this.loadSerperFullData(brand));
     apiCalls.set('apify-data', () => this.loadApifyData(brand));
     apiCalls.set('apify-social-data', () => this.loadApifySocialData(brand));
     apiCalls.set('semrush-data', () => this.loadSemrushData(brand));
     apiCalls.set('perplexity-research', () => this.loadPerplexityData(brand));
-    apiCalls.set('reddit-intelligence', () => this.loadRedditData(brand)); // Direct Reddit via Apify
+
+    // DISABLED: Competitor Voice loads stale cached Supabase data (brand_competitor_voice)
+    // The old data was generated with fear-focused queries and pollutes fresh Perplexity results.
+    // TODO: Re-enable after clearing stale data or implementing proper cache invalidation
+    // apiCalls.set('competitor-voice', () => this.loadCompetitorVoiceData(brandId));
+    console.log('[StreamingAPI] ⏭️ DISABLED competitor-voice cache - using only fresh Perplexity data');
+
+    // PHASE 4 RE-ENABLED: YouTube with parallel comment fetching
+    // Fixed youtube-api.ts to use Promise.all instead of sequential for loop
+    // 5 videos × 30 comments each, all fetched in parallel (~15s instead of ~75s)
+    apiCalls.set('youtube-trending', () => this.loadYouTubeApi(brand));
+    console.log(`[StreamingAPI] ✅ YouTube enabled for ${profileType} (parallel comment fetching)`);
+
+    // Profile-gated Reddit - High value for B2B SaaS & tech, less relevant for local-only businesses
+    if (apiGating.useReddit) {
+      apiCalls.set('reddit-intelligence', () => this.loadRedditData(brand));
+      console.log(`[StreamingAPI] ✅ Reddit enabled for ${profileType} profile`);
+    } else {
+      console.log(`[StreamingAPI] ⏭️ Skipping Reddit for ${profileType} profile`);
+    }
+
+    // =========================================================================
+    // PHASE J: Multi-Source Trigger Integration
+    // Add News Events, HackerNews, Reddit Conversations, LinkedIn Signals
+    // =========================================================================
+
+    // News Event Triggers - Funding, acquisitions, leadership changes (all profiles)
+    apiCalls.set('news-event-triggers', () => this.loadNewsEventTriggers(brand));
+    console.log(`[StreamingAPI] ✅ News Event Triggers enabled`);
+
+    // HackerNews - Tech community switching signals (tech/SaaS profiles only)
+    if (this.isTechProfile(profileType)) {
+      apiCalls.set('hackernews-triggers', () => this.loadHackerNewsTriggers(brand));
+      console.log(`[StreamingAPI] ✅ HackerNews triggers enabled for ${profileType} profile`);
+    } else {
+      console.log(`[StreamingAPI] ⏭️ Skipping HackerNews for ${profileType} profile (non-tech)`);
+    }
+
+    // Reddit Conversations - UVP pain point community validation (Reddit-enabled profiles)
+    if (apiGating.useReddit && this.currentUVP) {
+      apiCalls.set('reddit-conversations', () => this.loadRedditConversations(brand));
+      console.log(`[StreamingAPI] ✅ Reddit Conversations enabled for ${profileType} profile`);
+    }
+
+    // LinkedIn Executive Signals - B2B profiles only
+    if (this.isB2BProfile(profileType)) {
+      apiCalls.set('linkedin-executive-signals', () => this.loadLinkedInExecutiveSignals(brand));
+      console.log(`[StreamingAPI] ✅ LinkedIn Executive Signals enabled for ${profileType} profile`);
+    } else {
+      console.log(`[StreamingAPI] ⏭️ Skipping LinkedIn Executive Signals for ${profileType} profile (B2C)`);
+    }
+
+    // =========================================================================
+    // SYNAPSE 2.0: Hidden Data Sources
+    // SEC EDGAR + BuzzSumo for unique competitive intelligence
+    // =========================================================================
+
+    // SEC EDGAR - Industry intelligence from 10-K filings (B2B tech only)
+    if (this.isB2BProfile(profileType) && this.isTechProfile(profileType)) {
+      apiCalls.set('sec-edgar-intelligence', () => this.loadSECEdgarIntelligence(brand));
+      console.log(`[StreamingAPI] ✅ SEC EDGAR enabled for ${profileType} profile`);
+    }
+
+    // BuzzSumo - Content performance + trend timing (all profiles)
+    apiCalls.set('buzzsumo-performance', () => this.loadBuzzSumoPerformance(brand));
+    console.log(`[StreamingAPI] ✅ BuzzSumo Performance enabled`);
 
     console.log(`[StreamingAPI] Running ${apiCalls.size} APIs for ${profileType} profile`);
 
@@ -988,9 +1136,13 @@ class StreamingApiManager extends EventEmitter {
     if (this.currentUVP && this.rawDataBuffer.length > 0) {
       console.log(`[StreamingAPI] Starting LLM trigger synthesis with ${this.rawDataBuffer.length} samples`);
 
+      // DIVERSIFY SOURCES: Cap each platform at 20 samples to prevent VoC flooding
+      const diversifiedData = this.diversifySourceData(this.rawDataBuffer, 20);
+      console.log(`[StreamingAPI] Diversified: ${this.rawDataBuffer.length} -> ${diversifiedData.length} samples`);
+
       try {
         const synthesisResult = await llmTriggerSynthesizer.synthesize({
-          rawData: this.rawDataBuffer,
+          rawData: diversifiedData,
           uvp: this.currentUVP,
           profileType: this.currentProfileType,
           brandName: this.currentBrandName,
@@ -1151,7 +1303,19 @@ class StreamingApiManager extends EventEmitter {
 
     try {
       const { YouTubeAPI } = await import('./youtube-api');
-      const keywords = brand.keywords || [brand.name];
+      // PHASE 4: Use PRODUCT CATEGORY pain keywords instead of NAICS industry code
+      // brand.industry = "Software Publishers" (NAICS) - too generic, returns marketing videos
+      // this.currentIndustry = "AI agent" (product category) - specific, returns customer pain discussions
+      const productCategory = this.currentIndustry || brand.industry || 'AI software';
+      const industryKeywords = [
+        `${productCategory} problems`,
+        `${productCategory} frustrated`,
+        `${productCategory} issues`,
+        `${productCategory} hate`,
+        `${productCategory} mistakes`,
+        ...(brand.keywords || []).slice(0, 3)
+      ];
+      console.log(`[StreamingAPI] 🎬 YouTube searching PRODUCT CATEGORY pain points: ${industryKeywords.slice(0, 3).join(', ')}...`);
 
       // Fallback data for when YouTube API fails
       const fallbackTrending = [
@@ -1188,22 +1352,25 @@ class StreamingApiManager extends EventEmitter {
       this.updateStatus(trendingType, 'success');
 
       // Mine psychology with retry and fallback
-      // Increased from 10 to 15 videos to get more comments for 200 data point target
+      // PHASE 4 FIX: Reduced from 20 to 5 videos - each video fetches 50 comments sequentially via Apify
+      // With ~10s per video, 5 videos = ~50s which fits in 90s timeout
       const psychology = await apiRetryWrapper.executeWithRetry(
-        () => YouTubeAPI.mineIndustryPsychology(keywords, 15),
+        () => YouTubeAPI.mineIndustryPsychology(industryKeywords, 5),
         `youtube-psychology-${brand.id}`,
         {
           maxRetries: 2,
           fallbackData: fallbackPsychology,
-          timeout: 45000 // Increased timeout for more videos
+          timeout: 90000 // 90s timeout for 5 videos × 50 comments each
         }
       );
+      // PHASE 4 FIX: Emit with correct structure so bufferRawData can find data.comments
       this.emitUpdate(commentsType, psychology, false);
       this.updateStatus(commentsType, 'success');
+      console.log(`[StreamingAPI] 🎬 YouTube mined ${psychology.comments?.length || 0} comments, ${psychology.patterns?.length || 0} patterns`);
 
       // Analyze engagement with retry and fallback
       const engagement = await apiRetryWrapper.executeWithRetry(
-        () => YouTubeAPI.analyzeVideoTrends(brand.industry, keywords),
+        () => YouTubeAPI.analyzeVideoTrends(brand.industry, industryKeywords),
         `youtube-engagement-${brand.id}`,
         {
           maxRetries: 2,
@@ -1420,21 +1587,22 @@ class StreamingApiManager extends EventEmitter {
       console.log('[StreamingAPI] Social search keywords (product-specific):', keywords.slice(0, 3));
 
       // Execute scrapers in parallel with proper error boundaries
+      // PHASE 5: Increased limits for more data points (Twitter 30→50, Quora 20→35)
       const scrapers: Promise<any>[] = [
         // Universal scrapers (all profiles)
-        apifySocialScraper.scrapeTwitterSentiment(keywords, 30)
+        apifySocialScraper.scrapeTwitterSentiment(keywords, 50)
           .then(data => ({ type: twitterType, data }))
           .catch(error => ({ type: twitterType, error })),
 
-        apifySocialScraper.scrapeQuoraInsights(keywords, 20)
+        apifySocialScraper.scrapeQuoraInsights(keywords, 35)
           .then(data => ({ type: quoraType, data }))
           .catch(error => ({ type: quoraType, error })),
       ];
 
-      // Add Trustpilot for B2C profiles
+      // Add Trustpilot for B2C profiles (PHASE 5: 40→60)
       if (apiGating.useTrustpilot) {
         scrapers.push(
-          apifySocialScraper.scrapeTrustPilotReviews(brand.name, 40)
+          apifySocialScraper.scrapeTrustPilotReviews(brand.name, 60)
             .then(data => ({ type: trustpilotType, data }))
             .catch(error => ({ type: trustpilotType, error }))
         );
@@ -1454,10 +1622,10 @@ class StreamingApiManager extends EventEmitter {
         this.updateStatus(linkedinType, 'success');
       }
 
-      // Add G2 for B2B SaaS profiles
+      // Add G2 for B2B SaaS profiles (PHASE 5: 40→60)
       if (apiGating.useG2) {
         scrapers.push(
-          apifySocialScraper.scrapeG2Reviews(brand.name, brand.category || brand.industry, 40)
+          apifySocialScraper.scrapeG2Reviews(brand.name, brand.category || brand.industry, 60)
             .then(data => ({ type: g2Type, data }))
             .catch(error => ({ type: g2Type, error }))
         );
@@ -1667,86 +1835,95 @@ class StreamingApiManager extends EventEmitter {
         ? productKeywords.slice(0, 3).join(', ')
         : industry;
 
+      // PROFILE-AWARE SOURCE GUIDANCE: Tell Perplexity which platforms matter for this profile
+      const sourceGuidance = this.getPerplexitySourceGuidance(this.currentProfileType);
       console.log(`[StreamingAPI] Perplexity search for: ${targetCustomer} in ${industry}`);
       console.log(`[StreamingAPI] Product keywords for query specificity: ${productContext}`);
+      console.log(`[StreamingAPI] Source guidance for ${this.currentProfileType}: ${sourceGuidance}`);
 
-      // PHASE 10: Product-specific queries to avoid generic enterprise pain
-      // Include product keywords to constrain results to relevant product category
-      // TARGET 200 DATA POINTS: 10 queries × 20 results = 200 potential insights
+      // PHASE L: STRUCTURED JSON EXTRACTION
+      // The problem: Prose instructions get ignored, Perplexity returns meta-commentary
+      // The fix: Demand structured JSON output with explicit required fields
+      // If no real quotes exist, we get empty array (clean failure) not garbage
+      const STRUCTURED_JSON_FORMAT = `
+Return ONLY a valid JSON array. No other text. Format:
+[
+  {
+    "quote": "exact first-person quote (I, We, Our team...)",
+    "speaker": "role or name if known (e.g., 'IT Director', 'anonymous user')",
+    "source_url": "full URL where quote appears",
+    "platform": "G2|Reddit|LinkedIn|Capterra|TrustRadius|other",
+    "emotion": "frustrated|angry|disappointed|worried|hopeful|excited"
+  }
+]
+
+CRITICAL RULES:
+- Return [] (empty array) if you cannot find REAL quotes with sources
+- NEVER return descriptions like "G2 reviews show..." - those are NOT quotes
+- NEVER return "No quotes found..." - just return []
+- Each quote MUST be first-person (I, We, Our, My)
+- Each quote MUST have a real source_url (not just the platform homepage)
+`;
+
       const psychologyQueries = searchQueries ? [
-        // FEAR queries (3x)
-        `Find real customer fears and anxieties about ${productContext}:
-         ${searchQueries.fearQueries.slice(0, 3).join('\n')}
+        // 1. SWITCHING INTENT - Highest value triggers
+        `Search for first-person quotes from people switching away from ${productContext} vendors.
+Keywords: "we switched", "migrating from", "why we left", "moving to"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-         ONLY search Reddit, G2, Trustpilot for ${targetCustomer} worried about ${productContext}.
-         Ignore general enterprise/IT fears not related to ${productContext}.
-         Format each as: "Fear of [specific concern about ${productContext}]"`,
+        // 2. FRUSTRATION QUOTES - Real pain points
+        `Search for first-person frustration quotes about ${productContext} tools.
+Keywords: "frustrated", "hate", "broken", "doesn't work", "wasted time"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        `Find risk concerns and worries about adopting ${productContext}:
-         What makes ${targetCustomer} nervous about implementing ${productContext}?
-         Search Reddit, forums, review sites for fear-based language.
-         Include vendor trust concerns, ROI anxiety, implementation fears.`,
+        // 3. IMPLEMENTATION FAILURES - Post-purchase reality
+        `Search for quotes about ${productContext} implementation problems.
+Keywords: "took longer", "hidden costs", "didn't work as expected", "regret"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        `Find what scares ${targetCustomer} about ${productContext} vendors:
-         Search for "worried about", "concerned that", "afraid of" in reviews.
-         Include security fears, reliability worries, support anxieties.
-         Format as customer fears.`,
+        // 4. SUPPORT NIGHTMARES - Service failures
+        `Search for quotes about terrible ${productContext} vendor support.
+Keywords: "no response", "weeks to reply", "unhelpful", "ghosted"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        // FRUSTRATION queries (3x)
-        `Find real customer frustrations with ${productContext}:
-         ${searchQueries.frustrationQueries.slice(0, 3).join('\n')}
+        // 5. PRICING COMPLAINTS - Budget concerns
+        `Search for quotes complaining about ${productContext} pricing.
+Keywords: "too expensive", "hidden fees", "price increase", "not worth"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-         ONLY find complaints about ${productContext} - words like "hate", "frustrated", "annoyed".
-         Ignore frustrations about unrelated software categories.
-         Format as direct customer frustrations with ${productContext}.`,
+        // 6. FEATURE GAPS - Missing capabilities
+        `Search for quotes about missing features in ${productContext} tools.
+Keywords: "I wish", "why doesn't it", "dealbreaker", "can't do"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        `Find customer complaints and pain points about existing ${productContext} solutions:
-         Search for "terrible", "worst", "disappointed", "waste of money" about ${productContext}.
-         Include negative reviews from G2, Capterra, Reddit, Twitter.
-         Focus on specific product failures and unmet expectations.`,
+        // 7. COMPARISON DISCUSSIONS - Active evaluation
+        `Search for quotes comparing ${productContext} alternatives.
+Keywords: "vs", "compared to", "evaluating", "which is better"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        `Find what annoys ${targetCustomer} most about ${productContext}:
-         Search for "annoying", "buggy", "slow", "doesn't work" in reviews.
-         Include UX complaints, integration issues, missing features.
-         Format as real customer complaints.`,
+        // 8. CONTRACT/LOCK-IN FEARS - Vendor concerns
+        `Search for quotes about ${productContext} vendor lock-in concerns.
+Keywords: "trapped", "can't leave", "contract", "migration nightmare"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
 
-        // DESIRE queries (2x)
-        `Find unmet customer desires for ${productContext}:
-         ${searchQueries.desireQueries.slice(0, 3).join('\n')}
-
-         ONLY look for "I wish", "If only" about ${productContext} in forums and reviews.
-         Ignore desires for unrelated product categories.
-         Keep customer's voice - these should sound like quotes about ${productContext}.`,
-
-        `Find what ${targetCustomer} dream of having in ${productContext}:
-         Search for "would love", "need a solution that", "looking for" in forums.
-         Include feature requests and ideal solution descriptions.
-         Focus on gaps in current market offerings.`,
-
-        // OBJECTION queries (2x)
-        `Find purchase objections for ${productContext}:
-         ${searchQueries.objectionQueries.slice(0, 3).join('\n')}
-
-         ONLY find hesitations about buying ${productContext}.
-         Ignore objections about unrelated software.
-         Format as: "Concern about [objection to ${productContext}]"`,
-
-        `Find reasons ${targetCustomer} delay or reject ${productContext} purchases:
-         Search for "not ready", "too expensive", "not sure if", "waiting for".
-         Include budget concerns, timing hesitations, trust issues.
-         Format as specific buying objections.`,
       ] : [
-        // Fallback to generic queries if no search queries generated - 10 queries for 200 data points
-        `What are ${targetCustomer}'s biggest FEARS about ${productContext}? Find real quotes from Reddit/G2.`,
-        `What RISKS worry ${targetCustomer} about adopting ${productContext}? Find forum discussions.`,
-        `What scares ${targetCustomer} about ${productContext} vendors? Find customer concerns.`,
-        `What FRUSTRATES ${targetCustomer} about current ${productContext} solutions? Find real complaints.`,
-        `What do ${targetCustomer} HATE about existing ${productContext} vendors? Find negative reviews.`,
-        `What annoys ${targetCustomer} most about ${productContext}? Find UX and integration complaints.`,
-        `What do ${targetCustomer} desperately WANT but can't find in ${productContext}?`,
-        `What FEATURES do ${targetCustomer} wish ${productContext} had? Find feature requests.`,
-        `Why do ${targetCustomer} HESITATE before buying ${productContext} solutions?`,
-        `What makes ${targetCustomer} DELAY purchasing ${productContext}? Find decision blockers.`,
+        // Fallback queries with same structured format
+        `Quotes about switching ${productContext} vendors. ${STRUCTURED_JSON_FORMAT}`,
+        `Frustration quotes about ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Implementation failure quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Support nightmare quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Pricing complaint quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Missing feature quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Comparison quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
+        `Vendor lock-in quotes for ${productContext}. ${STRUCTURED_JSON_FORMAT}`,
       ];
 
       // Run all queries in parallel - TARGET 200 DATA POINTS (10 queries x 20 results = 200)
@@ -1763,44 +1940,192 @@ class StreamingApiManager extends EventEmitter {
         )
       );
 
-      // Combine all insights WITH their source citations
-      interface InsightWithSource {
+      // PHASE L: Import quote validator for structured validation
+      const { quoteValidatorService } = await import('../triggers/quote-validator.service');
+
+      // PHASE L: Structured quote extraction with validation
+      // Instead of filtering prose garbage, we extract structured JSON and validate each quote
+      interface StructuredQuote {
+        quote: string;
+        speaker?: string;
+        source_url: string;
+        platform: string;
+        emotion?: string;
+      }
+
+      interface ValidatedInsight {
         insight: string;
         sources: Array<{ title: string; url: string; excerpt: string }>;
+        isValidated: boolean;
+        validationReason?: string;
       }
-      const insightsWithSources: InsightWithSource[] = [];
+
+      const validatedInsights: ValidatedInsight[] = [];
       const allSources: Array<{ title: string; url: string; excerpt: string }> = [];
+      let rejectedCount = 0;
+      let jsonParseSuccessCount = 0;
+      let jsonParseFailCount = 0;
 
-      results.forEach((result, idx) => {
-        if (result.status === 'fulfilled') {
-          const { insights, sources } = result.value;
-          // Collect sources from this query
-          if (sources && sources.length > 0) {
-            allSources.push(...sources);
+      // Helper to try extracting JSON from response
+      const tryExtractJSON = (text: string): StructuredQuote[] | null => {
+        try {
+          // Clean potential markdown code fences
+          let cleaned = text.trim();
+          cleaned = cleaned.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
+
+          // Find JSON array
+          const jsonStart = cleaned.indexOf('[');
+          const jsonEnd = cleaned.lastIndexOf(']');
+          if (jsonStart >= 0 && jsonEnd > jsonStart) {
+            cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
           }
-          // Associate each insight with available sources
-          insights.forEach((insight: string) => {
-            insightsWithSources.push({
-              insight,
-              sources: sources || [],
-            });
-          });
-        } else {
-          console.warn(`[StreamingAPI] Perplexity query ${idx} failed:`, result.reason);
-        }
-      });
 
-      console.log(`[StreamingAPI] Perplexity returned ${insightsWithSources.length} psychological insights with ${allSources.length} source citations for ${this.currentProfileType}`);
+          const parsed = JSON.parse(cleaned);
+          if (Array.isArray(parsed)) {
+            return parsed as StructuredQuote[];
+          }
+          return null;
+        } catch {
+          return null;
+        }
+      };
+
+      // Helper to validate URL is real (not just platform homepage)
+      const isValidSourceUrl = (url: string): boolean => {
+        if (!url || !url.startsWith('http')) return false;
+        try {
+          const parsed = new URL(url);
+          // Reject if just homepage (path is / or empty)
+          if (parsed.pathname === '/' || parsed.pathname === '') return false;
+          // Reject perplexity URLs
+          if (parsed.hostname.includes('perplexity.ai')) return false;
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
+      // Process results with structured extraction
+      for (const [idx, result] of results.entries()) {
+        if (result.status !== 'fulfilled') {
+          console.warn(`[StreamingAPI] Perplexity query ${idx} failed:`, result.reason);
+          continue;
+        }
+
+        const { insights, sources } = result.value;
+
+        // Collect sources from this query
+        if (sources && sources.length > 0) {
+          allSources.push(...sources);
+        }
+
+        // Try to extract structured JSON from each insight
+        for (const insight of insights) {
+          // First, try to parse as JSON (our new format)
+          const structuredQuotes = tryExtractJSON(insight);
+
+          if (structuredQuotes && structuredQuotes.length > 0) {
+            jsonParseSuccessCount++;
+
+            // Validate each quote in the JSON array
+            for (const sq of structuredQuotes) {
+              // Skip if no quote text
+              if (!sq.quote || sq.quote.length < 20) {
+                rejectedCount++;
+                continue;
+              }
+
+              // Skip if no valid source URL
+              if (!isValidSourceUrl(sq.source_url)) {
+                rejectedCount++;
+                console.log(`[StreamingAPI] Rejected (invalid URL): "${sq.quote.slice(0, 40)}..."`);
+                continue;
+              }
+
+              // Validate with quote validator
+              const validation = await quoteValidatorService.validateQuote(sq.quote);
+              if (!validation.isReal) {
+                rejectedCount++;
+                console.log(`[StreamingAPI] Rejected (${validation.reason}): "${sq.quote.slice(0, 40)}..."`);
+                continue;
+              }
+
+              // Valid quote! Add it
+              validatedInsights.push({
+                insight: sq.quote,
+                sources: [{
+                  title: sq.speaker || 'Customer Quote',
+                  url: sq.source_url,
+                  excerpt: sq.quote
+                }],
+                isValidated: true,
+                validationReason: validation.reason
+              });
+            }
+          } else {
+            // Fallback: not JSON, try to validate as prose quote
+            jsonParseFailCount++;
+
+            // Validate with quote validator
+            const validation = await quoteValidatorService.validateQuote(insight);
+            if (!validation.isReal) {
+              rejectedCount++;
+              console.log(`[StreamingAPI] Rejected prose (${validation.reason}): "${insight.slice(0, 50)}..."`);
+              continue;
+            }
+
+            // It's a valid quote, but we need a URL
+            // Try to find a matching source from the sources array
+            const matchingSource = sources?.find((s: any) =>
+              s.excerpt?.toLowerCase().includes(insight.toLowerCase().slice(0, 30))
+            );
+
+            if (matchingSource && isValidSourceUrl(matchingSource.url)) {
+              validatedInsights.push({
+                insight,
+                sources: [matchingSource],
+                isValidated: true,
+                validationReason: validation.reason
+              });
+            } else if (sources && sources.length > 0 && isValidSourceUrl(sources[0].url)) {
+              // Use first available source if quote validated
+              validatedInsights.push({
+                insight,
+                sources: [sources[0]],
+                isValidated: true,
+                validationReason: validation.reason
+              });
+            } else {
+              // No valid source URL, reject
+              rejectedCount++;
+              console.log(`[StreamingAPI] Rejected (no valid URL): "${insight.slice(0, 50)}..."`);
+            }
+          }
+        }
+      }
+
+      console.log(`[StreamingAPI] Perplexity PHASE L: ${validatedInsights.length} validated quotes (rejected ${rejectedCount})`);
+      console.log(`[StreamingAPI] JSON parse: ${jsonParseSuccessCount} success, ${jsonParseFailCount} fallback to prose`);
 
       // Emit combined results WITH sources preserved
       this.emitUpdate(type, {
-        insights: insightsWithSources.map(i => i.insight),
-        insightsWithSources, // Full data with per-insight sources
+        insights: validatedInsights.map(i => i.insight),
+        insightsWithSources: validatedInsights.map(vi => ({
+          insight: vi.insight,
+          sources: vi.sources
+        })),
         sources: allSources.slice(0, 30), // Cap to prevent bloat
         confidence: 0.85,
         profileType: this.currentProfileType,
         targetCustomer,
-        industry
+        industry,
+        // PHASE L: Add validation metadata
+        validationStats: {
+          validated: validatedInsights.length,
+          rejected: rejectedCount,
+          jsonParseSuccess: jsonParseSuccessCount,
+          proseValidated: jsonParseFailCount - rejectedCount
+        }
       }, false);
       this.updateStatus(type, 'success');
     } catch (error) {
@@ -1834,11 +2159,11 @@ class StreamingApiManager extends EventEmitter {
       console.log('[StreamingAPI] Reddit subreddits:', subreddits.slice(0, 3));
 
       // Mine intelligence - TARGET 200 DATA POINTS
-      // Increased from 20 to 30 posts to get more Reddit data
+      // Phase 2 scaling: Increased limits for 30+ triggers
       const result = await redditAPI.mineIntelligence(searchQuery, {
-        subreddits: subreddits.slice(0, 4), // Increased from 3 to 4 subreddits
-        limit: 30, // Increased from 20 to 30 posts
-        commentsPerPost: 15, // Increased from 10 to 15 comments per post
+        subreddits: subreddits.slice(0, 6), // Increased from 4 to 6 subreddits
+        limit: 50, // Increased from 30 to 50 posts
+        commentsPerPost: 20, // Increased from 15 to 20 comments per post
         sortBy: 'hot',
         timeFilter: 'month'
       });
@@ -2146,9 +2471,15 @@ class StreamingApiManager extends EventEmitter {
       console.log(`[StreamingAPI] ⚠️ Rejected ${rejectedCount} samples from untrusted domains from ${type}`);
     }
 
+    // PHASE J: Tag samples with sourceType for multi-signal triangulation
+    const taggedSamples = validSamples.map(s => ({
+      ...s,
+      sourceType: s.sourceType || this.getSourceTypeForApiType(type, s.platform)
+    }));
+
     // Add to buffer with source distribution logging
-    if (validSamples.length > 0) {
-      this.rawDataBuffer.push(...validSamples);
+    if (taggedSamples.length > 0) {
+      this.rawDataBuffer.push(...taggedSamples);
 
       // Log source distribution for debugging
       const platformCounts = new Map<string, number>();
@@ -2160,8 +2491,55 @@ class StreamingApiManager extends EventEmitter {
         .map(([p, c]) => `${p}: ${c}`)
         .join(', ');
 
-      console.log(`[StreamingAPI] ✅ Buffered ${validSamples.length} trusted samples from ${type} (total: ${this.rawDataBuffer.length} | ${distribution})`);
+      console.log(`[StreamingAPI] ✅ Buffered ${taggedSamples.length} trusted samples from ${type} (total: ${this.rawDataBuffer.length} | ${distribution})`);
     }
+  }
+
+  /**
+   * Get source type for multi-signal triangulation based on API type and platform
+   * This enables confidence scoring: 2+ source types = higher confidence
+   */
+  private getSourceTypeForApiType(type: ApiEventType, platform?: string): RawDataSample['sourceType'] {
+    // VoC (Voice of Customer) - Review platforms
+    const vocTypes: ApiEventType[] = [
+      'apify-g2-reviews', 'apify-trustpilot-reviews', 'outscraper-reviews',
+      'competitor-voice'
+    ];
+    if (vocTypes.includes(type)) return 'voc';
+
+    // Community - Social discussions
+    const communityTypes: ApiEventType[] = [
+      'reddit-intelligence', 'reddit-conversations', 'hackernews-triggers',
+      'apify-quora-insights', 'youtube-comments'
+    ];
+    if (communityTypes.includes(type)) return 'community';
+
+    // News - News and industry publications
+    const newsTypes: ApiEventType[] = [
+      'news-breaking', 'news-trending', 'news-event-triggers', 'serper-news'
+    ];
+    if (newsTypes.includes(type)) return 'news';
+
+    // Executive - LinkedIn and B2B professional signals
+    const executiveTypes: ApiEventType[] = [
+      'linkedin-company', 'linkedin-network', 'linkedin-executive-signals',
+      'apify-linkedin-b2b'
+    ];
+    if (executiveTypes.includes(type)) return 'executive';
+
+    // Event - Trigger events (funding, acquisitions, etc.)
+    if (type === 'news-event-triggers') return 'event';
+
+    // Platform-based fallback
+    if (platform) {
+      const platformLower = platform.toLowerCase();
+      if (['g2', 'trustpilot', 'capterra', 'gartner'].includes(platformLower)) return 'voc';
+      if (['reddit', 'hackernews', 'quora', 'x', 'twitter'].includes(platformLower)) return 'community';
+      if (['linkedin'].includes(platformLower)) return 'executive';
+    }
+
+    // Default to news for everything else (Perplexity, Serper, etc.)
+    return 'news';
   }
 
   private emitUpdate(type: ApiEventType, data: any, fromCache: boolean): void {
@@ -2249,6 +2627,52 @@ class StreamingApiManager extends EventEmitter {
   }
 
   /**
+   * Diversify source data to prevent any single platform from flooding the LLM
+   * Problem: VoC data can have 382 items, drowning out Reddit, Perplexity, etc.
+   * Solution: Cap each platform at maxPerSource samples, keeping the most diverse mix
+   */
+  private diversifySourceData(samples: RawDataSample[], maxPerSource: number = 20): RawDataSample[] {
+    // Group by platform
+    const byPlatform = new Map<string, RawDataSample[]>();
+
+    for (const sample of samples) {
+      const platform = sample.platform || 'unknown';
+      if (!byPlatform.has(platform)) {
+        byPlatform.set(platform, []);
+      }
+      byPlatform.get(platform)!.push(sample);
+    }
+
+    // Log original distribution
+    const originalDist = Array.from(byPlatform.entries())
+      .map(([p, s]) => `${p}: ${s.length}`)
+      .join(', ');
+    console.log(`[StreamingAPI] Pre-diversification: ${originalDist}`);
+
+    // Take max N from each platform (prioritize variety within each platform)
+    const diversified: RawDataSample[] = [];
+
+    for (const [platform, platformSamples] of byPlatform.entries()) {
+      // Shuffle to get variety, then take first N
+      const shuffled = [...platformSamples].sort(() => Math.random() - 0.5);
+      const selected = shuffled.slice(0, maxPerSource);
+      diversified.push(...selected);
+
+      if (platformSamples.length > maxPerSource) {
+        console.log(`[StreamingAPI] Capped ${platform}: ${platformSamples.length} -> ${maxPerSource}`);
+      }
+    }
+
+    // Log new distribution
+    const newDist = Array.from(byPlatform.keys())
+      .map(p => `${p}: ${Math.min(byPlatform.get(p)!.length, maxPerSource)}`)
+      .join(', ');
+    console.log(`[StreamingAPI] Post-diversification: ${newDist}`);
+
+    return diversified;
+  }
+
+  /**
    * Extract platform name from a URL for evidence attribution
    */
   private extractPlatformFromUrl(url: string): string {
@@ -2277,6 +2701,320 @@ class StreamingApiManager extends EventEmitter {
     }
   }
 
+  // =========================================================================
+  // PHASE J: Multi-Source Trigger Integration Methods
+  // =========================================================================
+
+  /**
+   * Check if profile is tech/SaaS where HackerNews data is valuable
+   */
+  private isTechProfile(profileType: BusinessProfileType): boolean {
+    const techProfiles: BusinessProfileType[] = [
+      'national-saas-b2b',
+      'global-saas-b2b',
+      'regional-b2b-agency'  // Tech agencies benefit from HN too
+    ];
+    return techProfiles.includes(profileType);
+  }
+
+  /**
+   * Check if profile is B2B where LinkedIn executive signals matter
+   */
+  private isB2BProfile(profileType: BusinessProfileType): boolean {
+    const b2bProfiles: BusinessProfileType[] = [
+      'national-saas-b2b',
+      'global-saas-b2b',
+      'regional-b2b-agency',
+      'local-service-b2b'
+    ];
+    return b2bProfiles.includes(profileType);
+  }
+
+  /**
+   * Load News Event Triggers - Funding, acquisitions, leadership changes
+   * These are trigger EVENTS that create buying windows
+   */
+  private async loadNewsEventTriggers(brand: any): Promise<void> {
+    const type: ApiEventType = 'news-event-triggers';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { SerperAPI } = await import('./serper-api');
+
+      // Get competitors from brand data (passed from context)
+      const competitors: string[] = brand.competitors || [];
+
+      // Build event-focused queries for competitors
+      const eventQueries = competitors.slice(0, 3).map(comp =>
+        `"${comp}" (funding OR acquired OR launches OR hires OR layoffs OR announces)`
+      );
+
+      // Also search for industry-wide events
+      eventQueries.push(`${brand.industry} (funding round OR acquisition OR new CEO OR expansion)`);
+
+      const samples: RawDataSample[] = [];
+
+      for (const query of eventQueries) {
+        try {
+          const news = await SerperAPI.getNews(query);
+
+          news.slice(0, 10).forEach(article => {
+            // Only include recent news (last 30 days)
+            const articleDate = new Date(article.date);
+            const daysAgo = (Date.now() - articleDate.getTime()) / (1000 * 60 * 60 * 24);
+
+            if (daysAgo <= 30) {
+              // Extract competitor name from query
+              const competitorMatch = query.match(/"([^"]+)"/);
+              const competitorName = competitorMatch ? competitorMatch[1] : undefined;
+
+              samples.push({
+                id: `news-event-${article.link.slice(-20)}`,
+                content: `${article.title}. ${article.snippet}`,
+                source: article.source,
+                platform: 'News',
+                sourceType: 'event',
+                url: article.link,
+                timestamp: article.date,
+                author: article.source,
+                competitorName
+              });
+            }
+          });
+        } catch (err) {
+          console.warn(`[StreamingAPI] News query failed: ${query}`, err);
+        }
+      }
+
+      // Add to raw data buffer
+      if (samples.length > 0) {
+        this.rawDataBuffer.push(...samples);
+        console.log(`[StreamingAPI] 📰 Buffered ${samples.length} news event samples (total: ${this.rawDataBuffer.length})`);
+      }
+
+      this.emitUpdate(type, { newsEvents: samples }, false);
+      this.updateStatus(type, 'success');
+
+    } catch (error) {
+      console.error('[StreamingAPI] News Event Triggers failed:', error);
+      this.updateStatus(type, 'error');
+    }
+  }
+
+  /**
+   * Load HackerNews Triggers - Tech community switching signals
+   * High value for SaaS: "switching from X to Y", "frustrated with X", "alternatives to X"
+   */
+  private async loadHackerNewsTriggers(brand: any): Promise<void> {
+    const type: ApiEventType = 'hackernews-triggers';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { HackerNewsAPI } = await import('./hackernews-api');
+
+      // Get competitors from brand data (passed from context)
+      const competitors: string[] = brand.competitors || [];
+
+      // Build switching/frustration queries
+      const switchingQueries = [
+        `${brand.industry} switching alternative`,
+        `${brand.industry} frustrated hate`,
+        `${brand.industry} vs comparison`,
+        ...competitors.slice(0, 2).map(c => `${c} alternative`),
+        ...competitors.slice(0, 2).map(c => `${c} problems issues`)
+      ];
+
+      // PHASE 3: Increased HN limits for more data points (5→15 hits/topic, 25→50 samples)
+      const results = await HackerNewsAPI.searchMultiple(switchingQueries, {
+        hitsPerTopic: 15,
+        minPoints: 5  // Lowered threshold to catch more discussions
+      });
+
+      const samples: RawDataSample[] = results.slice(0, 50).map(hit => ({
+        id: `hn-${hit.id}`,
+        content: `${hit.title}. ${hit.description}`,
+        source: 'HackerNews',
+        platform: 'HackerNews',
+        sourceType: 'community',
+        url: hit.url,
+        timestamp: hit.date,
+        author: hit.author,
+        engagement: hit.engagementScore
+      }));
+
+      // Add to raw data buffer (PHASE 3: increased cap from 25 to 50)
+      if (samples.length > 0) {
+        this.rawDataBuffer.push(...samples);
+        console.log(`[StreamingAPI] 🔶 Buffered ${samples.length} HackerNews samples (total: ${this.rawDataBuffer.length})`);
+      }
+
+      this.emitUpdate(type, { hackerNewsInsights: samples }, false);
+      this.updateStatus(type, 'success');
+
+    } catch (error) {
+      console.error('[StreamingAPI] HackerNews Triggers failed:', error);
+      this.updateStatus(type, 'error');
+    }
+  }
+
+  /**
+   * Load Reddit Conversations - UVP pain point community validation
+   * Uses mineConversations() with UVP pain points as keywords
+   */
+  private async loadRedditConversations(brand: any): Promise<void> {
+    const type: ApiEventType = 'reddit-conversations';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { redditAPI } = await import('./reddit-apify-api');
+
+      // Extract pain points from UVP targetCustomer data
+      const painPoints: string[] = [];
+
+      // Get emotional drivers from UVP as pain point proxies
+      const targetCustomer = this.currentUVP?.targetCustomer;
+      if (targetCustomer?.emotionalDrivers) {
+        // Emotional drivers often reflect underlying pain points
+        painPoints.push(...targetCustomer.emotionalDrivers.slice(0, 3));
+      }
+
+      // Use transformation goal as a pain indicator (what they want to fix)
+      const transformGoal = this.currentUVP?.transformationGoal;
+      if (transformGoal?.statement) {
+        painPoints.push(transformGoal.statement);
+      } else if (transformGoal?.outcomeStatement) {
+        painPoints.push(transformGoal.outcomeStatement);
+      }
+
+      // Fallback to industry keywords if no pain points
+      if (painPoints.length === 0) {
+        painPoints.push(`${brand.industry} problems`, `${brand.industry} frustrating`);
+      }
+
+      // PHASE 6: Increased Reddit conversations limit (15→30) for more data points
+      const result = await redditAPI.mineConversations(
+        painPoints,
+        brand.industry,
+        { limit: 30, timeFilter: 'month' }
+      );
+
+      const samples: RawDataSample[] = [];
+
+      // Convert insights to samples
+      result.insights.forEach((insight, idx) => {
+        samples.push({
+          id: `reddit-conv-insight-${idx}`,
+          content: insight.painPoint || insight.desire || insight.context,
+          source: `r/${insight.subreddit}`,
+          platform: 'Reddit',
+          sourceType: 'community',
+          url: insight.url,
+          engagement: insight.upvotes
+        });
+      });
+
+      // Convert triggers to samples
+      result.triggers.forEach((trigger, idx) => {
+        samples.push({
+          id: `reddit-conv-trigger-${idx}`,
+          content: trigger.text,
+          source: `r/${trigger.subreddit}`,
+          platform: 'Reddit',
+          sourceType: 'community',
+          url: trigger.url,
+          engagement: trigger.upvotes
+        });
+      });
+
+      // Add to raw data buffer (PHASE 6: increased cap from 30 to 50)
+      const cappedSamples = samples.slice(0, 50);
+      if (cappedSamples.length > 0) {
+        this.rawDataBuffer.push(...cappedSamples);
+        console.log(`[StreamingAPI] 🔴 Buffered ${cappedSamples.length} Reddit conversation samples (total: ${this.rawDataBuffer.length})`);
+      }
+
+      this.emitUpdate(type, { redditConversations: cappedSamples }, false);
+      this.updateStatus(type, 'success');
+
+    } catch (error) {
+      console.error('[StreamingAPI] Reddit Conversations failed:', error);
+      this.updateStatus(type, 'error');
+    }
+  }
+
+  /**
+   * Load LinkedIn Executive Signals - B2B hiring/leadership changes
+   * Uses LinkedIn Alternative service (Perplexity + Serper combo)
+   */
+  private async loadLinkedInExecutiveSignals(brand: any): Promise<void> {
+    const type: ApiEventType = 'linkedin-executive-signals';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { linkedInAlternativeService, needsLinkedInData } = await import('./linkedin-alternative.service');
+
+      // Skip if this industry doesn't need LinkedIn data
+      if (!needsLinkedInData(brand.industry)) {
+        console.log(`[StreamingAPI] ⏭️ Skipping LinkedIn signals - not needed for ${brand.industry}`);
+        this.updateStatus(type, 'success');
+        return;
+      }
+
+      // Get competitors from brand data (passed from context)
+      const competitors: string[] = brand.competitors || [];
+
+      const samples: RawDataSample[] = [];
+
+      for (const competitor of competitors.slice(0, 3)) {
+        try {
+          const insights = await linkedInAlternativeService.getInsights(competitor, brand.industry);
+
+          // Convert buyer intent signals to trigger samples
+          insights.buyer_intent_signals.forEach((signal, idx) => {
+            samples.push({
+              id: `linkedin-intent-${competitor}-${idx}`,
+              content: signal.signal,
+              source: 'LinkedIn',
+              platform: 'LinkedIn',
+              sourceType: 'executive',
+              competitorName: competitor,
+              engagement: Math.round(signal.strength * 100)
+            });
+          });
+
+          // Convert professional pain points
+          insights.professional_pain_points.forEach((pp, idx) => {
+            samples.push({
+              id: `linkedin-pain-${competitor}-${idx}`,
+              content: pp.text,
+              source: 'LinkedIn',
+              platform: 'LinkedIn',
+              sourceType: 'executive',
+              competitorName: competitor,
+              engagement: Math.round(pp.intensity * 100)
+            });
+          });
+        } catch (err) {
+          console.warn(`[StreamingAPI] LinkedIn signals for ${competitor} failed:`, err);
+        }
+      }
+
+      // Add to raw data buffer (capped at 25)
+      const cappedSamples = samples.slice(0, 25);
+      if (cappedSamples.length > 0) {
+        this.rawDataBuffer.push(...cappedSamples);
+        console.log(`[StreamingAPI] 🔵 Buffered ${cappedSamples.length} LinkedIn executive samples (total: ${this.rawDataBuffer.length})`);
+      }
+
+      this.emitUpdate(type, { linkedInSignals: cappedSamples }, false);
+      this.updateStatus(type, 'success');
+
+    } catch (error) {
+      console.error('[StreamingAPI] LinkedIn Executive Signals failed:', error);
+      this.updateStatus(type, 'error');
+    }
+  }
+
   private async saveToCacheasync(brandId: string): Promise<void> {
     // Collect all successful API data
     const allData: any = {};
@@ -2291,6 +3029,401 @@ class StreamingApiManager extends EventEmitter {
     });
 
     console.log('[StreamingAPI] Saved combined data to cache');
+  }
+
+  /**
+   * Load competitor Voice of Customer data from brand_competitor_voice table
+   * This is HIGH VALUE data - contains pain_points, desires, objections, switching_triggers
+   * extracted from competitor reviews and discussions.
+   */
+  private async loadCompetitorVoiceData(brandId: string): Promise<void> {
+    const type: ApiEventType = 'competitor-voice';
+    this.updateStatus(type, 'loading');
+
+    try {
+      console.log('[StreamingAPI] Loading competitor voice data for brand:', brandId);
+
+      const { supabase } = await import('@/lib/supabase');
+
+      // Load all competitor voice data for this brand
+      const { data: voiceData, error } = await supabase
+        .from('brand_competitor_voice')
+        .select('*')
+        .eq('brand_id', brandId);
+
+      if (error) {
+        // Table might not exist - gracefully skip
+        if (error.code === '42P01' || error.code === 'PGRST205' || error.message?.includes('relation')) {
+          console.log('[StreamingAPI] brand_competitor_voice table not found - skipping');
+          this.updateStatus(type, 'success');
+          return;
+        }
+        throw error;
+      }
+
+      if (!voiceData || voiceData.length === 0) {
+        console.log('[StreamingAPI] No competitor voice data found for brand');
+        this.updateStatus(type, 'success');
+        return;
+      }
+
+      console.log(`[StreamingAPI] Found ${voiceData.length} competitor voice records`);
+
+      // Helper: Generate fallback URL for competitor (G2 search)
+      const getFallbackUrl = (competitorName: string): string => {
+        const slug = competitorName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        return `https://www.g2.com/search?query=${encodeURIComponent(competitorName)}`;
+      };
+
+      // Convert VoC data to trigger-compatible format
+      const insights: Array<{
+        insight: string;
+        sources: Array<{ title: string; url: string; excerpt: string }>;
+        category: string;
+        competitorName: string;
+      }> = [];
+
+      for (const voice of voiceData) {
+        const competitorName = voice.competitor_name || 'Competitor';
+        const sourceQuotes = voice.source_quotes || [];
+        const fallbackUrl = getFallbackUrl(competitorName);
+
+        // Pain points → pain-point triggers
+        for (const painPoint of (voice.pain_points || [])) {
+          const matchingQuote = sourceQuotes.find((sq: any) =>
+            painPoint.toLowerCase().includes(sq.quote?.toLowerCase()?.slice(0, 30) || '')
+          );
+          insights.push({
+            insight: painPoint,
+            sources: matchingQuote ? [{
+              title: matchingQuote.source || `${competitorName} Review`,
+              url: matchingQuote.url || fallbackUrl,
+              excerpt: matchingQuote.quote || ''
+            }] : [{
+              title: `${competitorName} Reviews on G2`,
+              url: fallbackUrl,
+              excerpt: ''
+            }],
+            category: 'pain-point',
+            competitorName
+          });
+        }
+
+        // Desires → desire triggers
+        for (const desire of (voice.desires || [])) {
+          const matchingQuote = sourceQuotes.find((sq: any) =>
+            desire.toLowerCase().includes(sq.quote?.toLowerCase()?.slice(0, 30) || '')
+          );
+          insights.push({
+            insight: desire,
+            sources: matchingQuote ? [{
+              title: matchingQuote.source || `${competitorName} Review`,
+              url: matchingQuote.url || fallbackUrl,
+              excerpt: matchingQuote.quote || ''
+            }] : [{
+              title: `${competitorName} Reviews on G2`,
+              url: fallbackUrl,
+              excerpt: ''
+            }],
+            category: 'desire',
+            competitorName
+          });
+        }
+
+        // Objections → objection triggers
+        for (const objection of (voice.objections || [])) {
+          const matchingQuote = sourceQuotes.find((sq: any) =>
+            objection.toLowerCase().includes(sq.quote?.toLowerCase()?.slice(0, 30) || '')
+          );
+          insights.push({
+            insight: objection,
+            sources: matchingQuote ? [{
+              title: matchingQuote.source || `${competitorName} Review`,
+              url: matchingQuote.url || fallbackUrl,
+              excerpt: matchingQuote.quote || ''
+            }] : [{
+              title: `${competitorName} Reviews on G2`,
+              url: fallbackUrl,
+              excerpt: ''
+            }],
+            category: 'objection',
+            competitorName
+          });
+        }
+
+        // Switching triggers → fear/urgency triggers (GOLD MINE!)
+        for (const switchTrigger of (voice.switching_triggers || [])) {
+          const matchingQuote = sourceQuotes.find((sq: any) =>
+            switchTrigger.toLowerCase().includes(sq.quote?.toLowerCase()?.slice(0, 30) || '')
+          );
+          insights.push({
+            insight: switchTrigger,
+            sources: matchingQuote ? [{
+              title: matchingQuote.source || `${competitorName} Review`,
+              url: matchingQuote.url || fallbackUrl,
+              excerpt: matchingQuote.quote || ''
+            }] : [{
+              title: `${competitorName} Reviews on G2`,
+              url: fallbackUrl,
+              excerpt: ''
+            }],
+            category: 'fear',  // Switching triggers are often driven by fear
+            competitorName
+          });
+        }
+
+        // Also add source quotes directly as high-value evidence
+        for (const sq of sourceQuotes) {
+          if (sq.quote && sq.quote.length > 20) {
+            insights.push({
+              insight: sq.quote,
+              sources: [{
+                title: sq.source || `${competitorName} Review`,
+                url: sq.url || fallbackUrl,
+                excerpt: sq.quote
+              }],
+              category: sq.sentiment === 'negative' ? 'pain-point' : 'desire',
+              competitorName
+            });
+          }
+        }
+      }
+
+      console.log(`[StreamingAPI] Converted ${insights.length} VoC items to insights`);
+
+      // Filter out positive reviews - they're NOT triggers (happy customers don't switch)
+      const POSITIVE_INDICATORS = [
+        'really good', 'great experience', 'love it', 'excellent', 'amazing',
+        'highly recommend', 'very happy', 'works great', 'very satisfied',
+        'best tool', 'perfect for', 'saved a lot of time', 'really helped',
+        'fantastic', 'wonderful', 'impressive', 'couldn\'t be happier'
+      ];
+
+      const filteredInsights = insights.filter(item => {
+        const text = item.insight.toLowerCase();
+        // Keep pain-points, objections, fears - these are real triggers
+        if (['pain-point', 'objection', 'fear'].includes(item.category)) {
+          return true;
+        }
+        // For desires, filter out ones that are actually satisfied (positive reviews)
+        const isPositive = POSITIVE_INDICATORS.some(indicator => text.includes(indicator));
+        if (isPositive) {
+          console.log(`[StreamingAPI] Filtering positive review (not a trigger): "${item.insight.slice(0, 50)}..."`);
+          return false;
+        }
+        return true;
+      });
+
+      console.log(`[StreamingAPI] After filtering positive reviews: ${filteredInsights.length} insights (filtered ${insights.length - filteredInsights.length} positive reviews)`);
+
+      // Emit as Perplexity-like format so useStreamingTriggers can process it
+      // Note: Don't prefix with competitor name - the trigger stands on its own
+      this.emitUpdate(type, {
+        insightsWithSources: filteredInsights.map(item => ({
+          insight: item.insight,
+          sources: item.sources,
+          category: item.category
+        })),
+        confidence: 0.9,  // VoC data is high quality
+        source: 'competitor-voice'
+      }, false);
+
+      // Also buffer for LLM synthesis (only filtered insights - no positive reviews)
+      for (const item of filteredInsights) {
+        this.bufferRawData(type, {
+          content: item.insight,
+          source: item.sources[0]?.title || 'Competitor Review',
+          url: item.sources[0]?.url || '',
+          platform: 'competitor-reviews',
+          category: item.category
+        });
+      }
+
+      this.updateStatus(type, 'success');
+      console.log('[StreamingAPI] Competitor voice data loaded successfully');
+
+    } catch (error) {
+      console.error('[StreamingAPI] Error loading competitor voice data:', error);
+      this.handleApiError(type, error instanceof Error ? error : new Error(String(error)));
+    }
+  }
+
+  // =========================================================================
+  // SYNAPSE 2.0: Hidden Data Sources
+  // SEC EDGAR + BuzzSumo for unique competitive intelligence
+  // =========================================================================
+
+  /**
+   * Load SEC EDGAR data for industry intelligence
+   * Mines risk factors, executive priorities from 10-K filings
+   */
+  private async loadSECEdgarIntelligence(brand: any): Promise<void> {
+    const type: ApiEventType = 'sec-edgar-intelligence';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { secEdgarAPI } = await import('./sec-edgar-api');
+
+      // Extract industry from brand
+      const industry = this.currentIndustry || brand.industry || 'technology';
+
+      console.log(`[StreamingAPI] Loading SEC EDGAR intelligence for industry: ${industry}`);
+
+      // Mine industry intelligence
+      const result = await secEdgarAPI.mineIndustryIntelligence({
+        industry,
+        keywords: [brand.name, 'AI', 'automation', 'digital transformation'].filter(Boolean),
+        limit: 10
+      });
+
+      if (result.insights.length > 0) {
+        // Convert to format compatible with insight synthesizer
+        const edgarInsights = result.insights.map(insight => ({
+          insight: insight.text,
+          sources: [{
+            title: `${insight.source.company} ${insight.source.formType}`,
+            url: insight.source.fileUrl,
+            excerpt: insight.text.substring(0, 200)
+          }],
+          category: insight.type,
+          relevance: insight.relevanceScore
+        }));
+
+        this.emitUpdate(type, {
+          insights: edgarInsights,
+          companies: result.companies,
+          filingCount: result.filingCount,
+          source: 'sec-edgar'
+        }, false);
+
+        // Buffer for LLM synthesis
+        for (const insight of result.insights) {
+          this.bufferRawData(type, {
+            content: insight.text,
+            source: `SEC ${insight.source.formType}`,
+            url: insight.source.fileUrl,
+            platform: 'sec-edgar',
+            category: insight.type
+          });
+        }
+
+        console.log(`[StreamingAPI] SEC EDGAR loaded ${result.insights.length} insights from ${result.filingCount} filings`);
+      } else {
+        console.log('[StreamingAPI] SEC EDGAR: No relevant filings found');
+      }
+
+      this.updateStatus(type, 'success');
+    } catch (error) {
+      console.error('[StreamingAPI] SEC EDGAR error:', error);
+      this.handleApiError(type, error instanceof Error ? error : new Error(String(error)));
+    }
+  }
+
+  /**
+   * Load BuzzSumo performance data
+   * Content performance + trend timing intelligence
+   */
+  private async loadBuzzSumoPerformance(brand: any): Promise<void> {
+    const type: ApiEventType = 'buzzsumo-performance';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { buzzsumoAPI } = await import('./buzzsumo-api');
+
+      const industry = this.currentIndustry || brand.industry || 'technology';
+      const brandName = brand.name || '';
+
+      console.log(`[StreamingAPI] Loading BuzzSumo performance data for: ${industry}`);
+
+      // Get what's working now
+      const whatsWorking = await buzzsumoAPI.getWhatsWorkingNow(industry, brandName);
+
+      if (whatsWorking) {
+        // Extract headline patterns
+        const headlinePatterns = buzzsumoAPI.extractHeadlinePatterns(
+          whatsWorking.topContent.map(c => c.title)
+        );
+
+        // Calculate trend timing
+        const trendTiming = this.calculateTrendTiming(whatsWorking);
+
+        this.emitUpdate(type, {
+          topContent: whatsWorking.topContent.slice(0, 10),
+          trendingTopics: whatsWorking.trendingTopics.slice(0, 5),
+          headlinePatterns,
+          trendTiming,
+          engagementBenchmarks: {
+            avgShares: whatsWorking.topContent.reduce((sum, c) => sum + c.totalShares, 0) / whatsWorking.topContent.length,
+            avgEngagement: whatsWorking.topContent.reduce((sum, c) => sum + c.engagement, 0) / whatsWorking.topContent.length
+          },
+          source: 'buzzsumo'
+        }, false);
+
+        // Buffer top content for LLM synthesis
+        for (const content of whatsWorking.topContent.slice(0, 5)) {
+          this.bufferRawData(type, {
+            content: `High-performing content: "${content.title}" - ${content.totalShares} shares`,
+            source: content.domain || 'BuzzSumo',
+            url: content.url,
+            platform: 'buzzsumo',
+            category: 'content-performance'
+          });
+        }
+
+        console.log(`[StreamingAPI] BuzzSumo loaded ${whatsWorking.topContent.length} top content items`);
+      }
+
+      this.updateStatus(type, 'success');
+    } catch (error) {
+      console.error('[StreamingAPI] BuzzSumo error:', error);
+      this.handleApiError(type, error instanceof Error ? error : new Error(String(error)));
+    }
+  }
+
+  /**
+   * Calculate trend timing from BuzzSumo data
+   * Identifies where in the lifecycle a topic is (early/peak/saturated)
+   */
+  private calculateTrendTiming(data: any): {
+    lifecycle: 'emerging' | 'growing' | 'peak' | 'saturated';
+    recommendation: string;
+    confidence: number;
+  } {
+    // Simple heuristic based on content age and engagement
+    const contentAges = data.topContent.map((c: any) => {
+      const published = new Date(c.publishedDate);
+      const now = new Date();
+      return (now.getTime() - published.getTime()) / (1000 * 60 * 60 * 24); // days
+    });
+
+    const avgAge = contentAges.reduce((a: number, b: number) => a + b, 0) / contentAges.length;
+    const recentCount = contentAges.filter((age: number) => age < 7).length;
+    const recentRatio = recentCount / contentAges.length;
+
+    // Determine lifecycle stage
+    let lifecycle: 'emerging' | 'growing' | 'peak' | 'saturated';
+    let recommendation: string;
+    let confidence: number;
+
+    if (recentRatio > 0.7 && avgAge < 5) {
+      lifecycle = 'emerging';
+      recommendation = 'Perfect timing - publish now to establish authority before competition floods in';
+      confidence = 0.85;
+    } else if (recentRatio > 0.4 && avgAge < 14) {
+      lifecycle = 'growing';
+      recommendation = 'Good timing - still room to capture attention with quality content';
+      confidence = 0.75;
+    } else if (recentRatio > 0.2 && avgAge < 30) {
+      lifecycle = 'peak';
+      recommendation = 'High competition - need unique angle or deeper insights to stand out';
+      confidence = 0.7;
+    } else {
+      lifecycle = 'saturated';
+      recommendation = 'Saturated topic - consider adjacent angles or wait for next wave';
+      confidence = 0.65;
+    }
+
+    return { lifecycle, recommendation, confidence };
   }
 
   /**

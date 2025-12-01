@@ -94,18 +94,43 @@ export interface UseStreamingTrendsOptions {
 }
 
 // ============================================================================
-// CACHE
+// CACHE - Brand-specific to prevent cross-brand contamination
 // ============================================================================
 
-const CACHE_KEY = 'trends2_pipeline_result_v2';
+const CACHE_KEY_PREFIX = 'trends2_pipeline_';
+
+function getCacheKey(): string {
+  // Get current brand ID from localStorage
+  try {
+    const brandData = localStorage.getItem('currentBrand');
+    if (brandData) {
+      const brand = JSON.parse(brandData);
+      if (brand?.id) {
+        return `${CACHE_KEY_PREFIX}${brand.id}`;
+      }
+    }
+  } catch (e) {
+    console.warn('[useStreamingTrends] Could not get brand ID for cache key');
+  }
+  // Fallback to generic key (will be cleared on brand switch)
+  return `${CACHE_KEY_PREFIX}generic`;
+}
 
 function loadCachedResult(): TrendsPipelineResult | null {
   try {
-    const cached = localStorage.getItem(CACHE_KEY);
+    const cacheKey = getCacheKey();
+    const cached = localStorage.getItem(cacheKey);
     if (cached) {
       const parsed = JSON.parse(cached);
-      console.log('[useStreamingTrends] Loaded cached result:', parsed.trends?.length || 0, 'trends');
+      console.log(`[useStreamingTrends] Loaded cached result (${cacheKey}):`, parsed.trends?.length || 0, 'trends');
       return parsed;
+    }
+
+    // MIGRATION: Clear old generic cache key if it exists (one-time cleanup)
+    const oldCache = localStorage.getItem('trends2_pipeline_result_v2');
+    if (oldCache) {
+      console.log('[useStreamingTrends] Removing old generic cache (brand contamination risk)');
+      localStorage.removeItem('trends2_pipeline_result_v2');
     }
   } catch (err) {
     console.warn('[useStreamingTrends] Failed to load cache:', err);
@@ -115,10 +140,23 @@ function loadCachedResult(): TrendsPipelineResult | null {
 
 function saveCachedResult(result: TrendsPipelineResult): void {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(result));
-    console.log('[useStreamingTrends] Saved result to cache');
+    const cacheKey = getCacheKey();
+    localStorage.setItem(cacheKey, JSON.stringify(result));
+    console.log(`[useStreamingTrends] Saved result to cache (${cacheKey})`);
   } catch (err) {
     console.error('[useStreamingTrends] Failed to save cache:', err);
+  }
+}
+
+function clearCachedResult(): void {
+  try {
+    const cacheKey = getCacheKey();
+    localStorage.removeItem(cacheKey);
+    // Also clear old generic cache key
+    localStorage.removeItem('trends2_pipeline_result_v2');
+    console.log(`[useStreamingTrends] Cleared cache (${cacheKey})`);
+  } catch (err) {
+    console.error('[useStreamingTrends] Failed to clear cache:', err);
   }
 }
 
@@ -783,6 +821,15 @@ export function useStreamingTrends(options: UseStreamingTrendsOptions = {}) {
   const executePipeline = useCallback(async (uvp: CompleteUVP) => {
     console.log('[useStreamingTrends] Starting Trends 2.0 pipeline', deepMining ? '(Deep Mining Mode)' : '(Standard Mode)');
 
+    // DEBUG: Log UVP being used to verify correct brand
+    const uvpDebugInfo = {
+      valueProposition: uvp.valuePropositionStatement?.substring(0, 100),
+      targetIndustry: uvp.targetCustomer?.industry,
+      productNames: uvp.productsServices?.categories?.flatMap(c => c.items.map(i => i.name)).slice(0, 3),
+      targetStatement: uvp.targetCustomer?.statement?.substring(0, 80)
+    };
+    console.log('[useStreamingTrends] 🔍 UVP DEBUG:', uvpDebugInfo);
+
     try {
       // Stage 1: Generate Queries
       updateState({
@@ -869,10 +916,14 @@ export function useStreamingTrends(options: UseStreamingTrendsOptions = {}) {
       let relevantTrends = scoredTrends.filter(t => t.isRelevant);
       console.log(`[useStreamingTrends] Filtered to ${relevantTrends.length}/${scoredTrends.length} relevant trends`);
 
-      if (relevantTrends.length === 0) {
-        console.warn('[useStreamingTrends] No relevant trends after filtering - using top 10 by score');
-        // Fallback: use top 10 by score if all were filtered
-        relevantTrends = scoredTrends.slice(0, 10);
+      if (relevantTrends.length < 20) {
+        // If fewer than 20 passed relevance filtering, supplement with top-scored trends
+        const alreadyIncluded = new Set(relevantTrends.map(t => t.id));
+        const supplemental = scoredTrends
+          .filter(t => !alreadyIncluded.has(t.id))
+          .slice(0, 50 - relevantTrends.length);
+        relevantTrends = [...relevantTrends, ...supplemental];
+        console.log(`[useStreamingTrends] Supplemented to ${relevantTrends.length} trends (was ${alreadyIncluded.size} relevant)`);
       }
 
       // Stage 5: EQ Prioritization
@@ -953,7 +1004,7 @@ export function useStreamingTrends(options: UseStreamingTrendsOptions = {}) {
   // ============================================================================
 
   const clearCache = useCallback(() => {
-    localStorage.removeItem(CACHE_KEY);
+    clearCachedResult(); // Uses brand-specific cache key + clears old generic key
     setResult(null);
     updateState({
       stage: 'idle',
@@ -961,7 +1012,6 @@ export function useStreamingTrends(options: UseStreamingTrendsOptions = {}) {
       statusMessage: 'Cache cleared',
       apisUsed: []
     });
-    console.log('[useStreamingTrends] Cache cleared');
   }, [updateState]);
 
   // ============================================================================

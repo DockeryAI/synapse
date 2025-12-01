@@ -57,6 +57,10 @@ interface ApiDataStates {
   // Keywords 2.0 (2 sources)
   keywordsIntent: any | null;
   keywordsValidated: any | null;
+
+  // Synapse 2.0 - Hidden data sources
+  secEdgarIntelligence: any | null;  // SEC filings - risk factors, executive priorities
+  buzzsumoPerformance: any | null;   // Content performance + trend timing
 }
 
 // Loading states for each API
@@ -113,6 +117,9 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     websiteAnalysis: null,
     keywordsIntent: null,
     keywordsValidated: null,
+    // Synapse 2.0 - Hidden data sources
+    secEdgarIntelligence: null,
+    buzzsumoPerformance: null,
   });
 
   const [loading, setLoading] = useState<ApiLoadingStates>({});
@@ -152,6 +159,9 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     'website-analysis': 'websiteAnalysis',
     'keywords-intent': 'keywordsIntent',
     'keywords-validated': 'keywordsValidated',
+    // Synapse 2.0 - Hidden data sources
+    'sec-edgar-intelligence': 'secEdgarIntelligence',
+    'buzzsumo-performance': 'buzzsumoPerformance',
   };
 
   // Handle API updates - update ONLY the specific state slice
@@ -313,7 +323,7 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
   }, [brand, handleCacheLoaded, handleApiUpdate, handleStatusUpdate, handleApiError]);
 
   // Calculate metrics
-  const totalApis = 23;
+  const totalApis = 25; // 23 original + 2 Synapse 2.0 (SEC EDGAR + BuzzSumo)
   const loadedApis = Object.values(data).filter(d => d !== null).length;
   const failedApis = Object.values(errors).filter(e => e !== null).length;
   const percentComplete = Math.round((loadedApis / totalApis) * 100);

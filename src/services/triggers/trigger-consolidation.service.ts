@@ -43,8 +43,10 @@ export interface EvidenceItem {
   url?: string;
   author?: string;
   timestamp?: string;
-  sentiment: 'positive' | 'negative' | 'neutral';
+  sentiment: 'positive' | 'negative' | 'neutral' | 'complaint' | 'desire' | 'comparison';
   confidence: number;
+  /** Competitor name if this evidence is about a specific competitor */
+  competitorName?: string;
 }
 
 export interface UVPAlignment {
@@ -84,6 +86,16 @@ export interface ConsolidatedTrigger {
   buyerProductFitReasoning?: string;
 }
 
+/** Summary of data sources that contributed to the triggers */
+export interface DataSourceSummary {
+  /** Total number of data points collected */
+  totalDataPoints: number;
+  /** Breakdown by source platform */
+  bySource: Record<string, number>;
+  /** Human-readable summary string */
+  summary: string;
+}
+
 export interface TriggerConsolidationResult {
   triggers: ConsolidatedTrigger[];
   profileType: BusinessProfileType;
@@ -94,6 +106,8 @@ export interface TriggerConsolidationResult {
   filteredCount: number;
   /** Average relevance score of remaining triggers */
   avgRelevanceScore: number;
+  /** Summary of data sources that drove these insights */
+  sourceSummary?: DataSourceSummary;
 }
 
 // ============================================================================
@@ -179,8 +193,8 @@ const INVALID_SOURCE_NAMES = [
 
 class TriggerConsolidationService {
   private maxEvidencePerTrigger = 5;
-  private maxInputEvidence = 100; // Cap input to prevent 1000+ item processing
-  private maxOutputTriggers = 50; // Cap output triggers
+  private maxInputEvidence = 150; // Cap input to prevent 1000+ item processing
+  private maxOutputTriggers = 75; // Cap output triggers
 
   /**
    * Validates that an evidence item has a real, verifiable source URL
@@ -218,13 +232,73 @@ class TriggerConsolidationService {
   }
 
   /**
-   * Filters evidence to only include items with valid source URLs
+   * Trusted scraper sources - these provide verified data and don't need URL validation
+   * Data from these platforms comes from Apify scrapers, not AI synthesis
+   */
+  private readonly TRUSTED_SCRAPER_SOURCES = [
+    'twitter', 'x', 'x.com',
+    'reddit', 'r/',
+    'hackernews', 'hacker news', 'hn', 'ycombinator',
+    'g2', 'g2crowd',
+    'capterra',
+    'trustradius',
+    'trustpilot',
+    'youtube', 'yt'
+  ];
+
+  /**
+   * Check if evidence comes from a trusted scraper source
+   * Scraper data doesn't need URL validation - it's already from real platforms
+   */
+  private isFromTrustedScraperSource(evidence: EvidenceItem): boolean {
+    const sourceLower = (evidence.source || '').toLowerCase();
+    const platformLower = (evidence.platform || '').toLowerCase();
+
+    return this.TRUSTED_SCRAPER_SOURCES.some(trusted =>
+      sourceLower.includes(trusted) || platformLower.includes(trusted)
+    );
+  }
+
+  /**
+   * Filters evidence to only include valid items
+   * PHASE L.3: Different validation for Perplexity vs Scraper data
+   *
+   * - Perplexity data: MUST have real URLs (that's where garbage comes from)
+   * - Scraper data: URL optional, just check quote quality
    */
   private filterValidEvidence(evidence: EvidenceItem[]): EvidenceItem[] {
-    const valid = evidence.filter(e => this.hasValidSourceUrl(e));
-    const filtered = evidence.length - valid.length;
-    if (filtered > 0) {
-      console.log(`[TriggerConsolidation] Filtered ${filtered} evidence items without valid source URLs`);
+    const valid: EvidenceItem[] = [];
+    let urlFilteredCount = 0;
+    let quoteFilteredCount = 0;
+
+    for (const e of evidence) {
+      const isScraperData = this.isFromTrustedScraperSource(e);
+
+      // For Perplexity/AI data: require valid URLs
+      // For Scraper data: skip URL check (data is already verified)
+      if (!isScraperData && !this.hasValidSourceUrl(e)) {
+        urlFilteredCount++;
+        continue;
+      }
+
+      // PHASE L.3: Check quote quality (applies to ALL sources)
+      // Must have meaningful content, not "no data" or marketing copy
+      if (!e.quote || e.quote.length < 20) {
+        quoteFilteredCount++;
+        continue;
+      }
+
+      if (this.isNoDataResponse(e.quote) || this.isMarketingCopy(e.quote)) {
+        quoteFilteredCount++;
+        continue;
+      }
+
+      valid.push(e);
+    }
+
+    const totalFiltered = urlFilteredCount + quoteFilteredCount;
+    if (totalFiltered > 0) {
+      console.log(`[TriggerConsolidation] PHASE L: Filtered ${totalFiltered} evidence items (URL: ${urlFilteredCount}, Quote: ${quoteFilteredCount})`);
     }
     return valid;
   }
@@ -258,25 +332,21 @@ class TriggerConsolidationService {
 
     console.log('[TriggerConsolidation] Processing', llmTriggers.length, 'LLM-synthesized triggers');
 
-    // CRITICAL: Filter evidence to only items with valid source URLs
-    // Reject AI-generated content without real backing
-    const triggersWithValidEvidence = llmTriggers.map(trigger => {
-      const validEvidence = this.filterValidEvidence(trigger.evidence);
-      return {
-        ...trigger,
-        evidence: validEvidence,
-        evidenceCount: validEvidence.length
-      };
-    }).filter(trigger => {
-      // REQUIRE at least 1 valid evidence item - reject triggers with no real sources
-      if (trigger.evidence.length === 0) {
-        console.log(`[TriggerConsolidation] Rejecting trigger (no valid evidence): "${trigger.title.substring(0, 50)}..."`);
+    // PHASE M: Trust the LLM synthesizer output!
+    // The synthesizer already did the hard work of extracting psychological insights from raw data.
+    // We should NOT filter evidence after synthesis - the triggers themselves ARE the insights.
+    // Only require at least 1 evidence item (can be empty quote for synthesized insights).
+    const triggersWithValidEvidence = llmTriggers.filter(trigger => {
+      // Keep triggers even with no evidence - the title/summary IS the insight
+      // Only reject if literally empty trigger
+      if (!trigger.title || trigger.title.length < 10) {
+        console.log(`[TriggerConsolidation] Rejecting empty trigger`);
         return false;
       }
       return true;
     });
 
-    console.log(`[TriggerConsolidation] ${triggersWithValidEvidence.length} triggers have valid evidence (${llmTriggers.length - triggersWithValidEvidence.length} rejected)`);
+    console.log(`[TriggerConsolidation] ${triggersWithValidEvidence.length} triggers passed (${llmTriggers.length - triggersWithValidEvidence.length} empty rejected)`);
 
     // Skip extraction/categorization/grouping - triggers are already formatted
     // Just apply scoring and filtering
@@ -304,8 +374,8 @@ class TriggerConsolidationService {
       brandData
     );
 
-    // 4. Apply source quality weighting
-    const qualityWeightedTriggers = this.applySourceQualityWeighting(relevantTriggers);
+    // 4. Apply source quality weighting (profile-aware)
+    const qualityWeightedTriggers = this.applySourceQualityWeighting(relevantTriggers, profileAnalysis.profileType);
 
     // 5. Sort by relevance and confidence
     const sortedTriggers = this.sortTriggers(qualityWeightedTriggers);
@@ -401,14 +471,18 @@ class TriggerConsolidationService {
       brandData
     );
 
-    // 9. Apply source quality weighting
-    const qualityWeightedTriggers = this.applySourceQualityWeighting(relevantTriggers);
+    // 9. Apply source quality weighting (profile-aware)
+    const qualityWeightedTriggers = this.applySourceQualityWeighting(relevantTriggers, profileAnalysis.profileType);
 
     // 10. Sort by relevance and confidence
     const sortedTriggers = this.sortTriggers(qualityWeightedTriggers);
 
+    // 10.5. DEDUPLICATE similar triggers to avoid repetitive content
+    const deduplicatedTriggers = this.deduplicateSimilarTriggers(sortedTriggers);
+    console.log(`[TriggerConsolidation] Deduplicated: ${sortedTriggers.length} → ${deduplicatedTriggers.length} triggers`);
+
     // 11. CAP output to maxOutputTriggers
-    const cappedTriggers = sortedTriggers.slice(0, this.maxOutputTriggers);
+    const cappedTriggers = deduplicatedTriggers.slice(0, this.maxOutputTriggers);
 
     // Calculate average relevance
     const avgRelevanceScore = cappedTriggers.length > 0
@@ -417,6 +491,9 @@ class TriggerConsolidationService {
 
     console.log(`[TriggerConsolidation] ${sortedTriggers.length} triggers created, returning top ${cappedTriggers.length} (capped at ${this.maxOutputTriggers}), ${filteredCount} filtered out`);
 
+    // Calculate source summary from all evidence used in final triggers
+    const sourceSummary = this.calculateSourceSummary(cappedTriggers);
+
     return {
       triggers: cappedTriggers,
       profileType: profileAnalysis.profileType,
@@ -424,7 +501,41 @@ class TriggerConsolidationService {
       totalEvidenceItems: rawEvidence.length,
       deduplicatedCount: rawEvidence.length - sortedTriggers.reduce((sum, t) => sum + t.evidence.length, 0),
       filteredCount,
-      avgRelevanceScore
+      avgRelevanceScore,
+      sourceSummary
+    };
+  }
+
+  /**
+   * Calculate a summary of data sources that contributed to the triggers
+   */
+  private calculateSourceSummary(triggers: ConsolidatedTrigger[]): DataSourceSummary {
+    const bySource: Record<string, number> = {};
+    let totalDataPoints = 0;
+
+    // Count evidence items by platform
+    triggers.forEach(trigger => {
+      trigger.evidence.forEach(ev => {
+        const platform = ev.platform || ev.source || 'Unknown';
+        bySource[platform] = (bySource[platform] || 0) + 1;
+        totalDataPoints++;
+      });
+    });
+
+    // Generate human-readable summary
+    const sortedSources = Object.entries(bySource)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5); // Top 5 sources
+
+    const summaryParts = sortedSources.map(([source, count]) => `${source} (${count})`);
+    const summary = `${totalDataPoints} data points from ${Object.keys(bySource).length} sources: ${summaryParts.join(', ')}`;
+
+    console.log(`[TriggerConsolidation] Source summary: ${summary}`);
+
+    return {
+      totalDataPoints,
+      bySource,
+      summary
     };
   }
 
@@ -530,6 +641,47 @@ class TriggerConsolidationService {
   }
 
   /**
+   * PHASE K.2: Detect "no data found" LLM responses
+   * These are meta-responses from Perplexity/Claude saying they couldn't find customer quotes
+   * They should NEVER be displayed as triggers
+   */
+  private readonly noDataPatterns: RegExp[] = [
+    // "No customer quotes..." patterns
+    /^no customer (quotes|voices|experiences|narratives|feedback)/i,
+    /^no (first-person|significant|direct|relevant|specific) (quotes|customer|data)/i,
+    /no quotes (are )?(available|present|found|describing|expressing)/i,
+    /no (problem|surprise)\/?(problem|surprise)? narratives/i,
+
+    // "Not found" patterns
+    /narratives were (not )?(found|discovered)/i,
+    /were not found in/i,
+    /in the provided search results/i,
+    /the search (results|did not)/i,
+
+    // Meta-descriptions of quote types (not actual quotes)
+    /^direct quotes from customers who/i,
+    /^quotes (from|about|describing|expressing)/i,
+    /^customer (experience|success)? narratives/i,
+
+    // Generic solution statements (not customer voice)
+    /^(robotic process|rpa|automation) (transforms|improves|streamlines)/i,
+    /transforms workforce efficiency/i,
+    /leverage ai to streamline/i,
+    /seek transparent solutions/i,
+    /vendor switching reveals/i,
+    /reveals critical gaps/i,
+
+    // Data security/generic observations without customer voice
+    /^data security concerns prevent/i,
+    /^poor user experience drives/i,
+    /^customers seek transparent/i,
+  ];
+
+  private isNoDataResponse(text: string): boolean {
+    return this.noDataPatterns.some(pattern => pattern.test(text.trim()));
+  }
+
+  /**
    * Check if text contains psychological trigger language
    */
   private hasPsychologicalContent(text: string): boolean {
@@ -554,6 +706,12 @@ class TriggerConsolidationService {
       // FILTER: Skip marketing copy
       if (this.isMarketingCopy(ci.insight)) {
         console.log(`[TriggerConsolidation] Filtered marketing copy from correlatedInsights: "${ci.insight.substring(0, 50)}..."`);
+        return;
+      }
+
+      // FILTER: Skip "no data found" LLM responses (PHASE K.2)
+      if (this.isNoDataResponse(ci.insight)) {
+        console.log(`[TriggerConsolidation] Filtered "no data" response: "${ci.insight.substring(0, 50)}..."`);
         return;
       }
       // Use sourceDetails if available (from Perplexity with real URLs)
@@ -770,8 +928,8 @@ class TriggerConsolidationService {
     // Reject if too short (likely incomplete)
     if (title.length < 10) return false;
 
-    // Reject if too long (should be 3-8 words, ~60 chars max)
-    if (title.length > 80) return false;
+    // Reject if too long (allow up to 120 chars for VoC quotes that are natural sentences)
+    if (title.length > 120) return false;
 
     // Reject if starts with quote character (raw quote text)
     if (/^["'"'`]/.test(title)) return false;
@@ -790,10 +948,129 @@ class TriggerConsolidationService {
       /kill|vampire|mcdonald/i,                      // Obvious noise
       /pet's|pets|dog|cat|animal/i,                  // Pet-related (irrelevant)
       /help[.!]?\s*$/i,                              // Just "Help" or "Help!"
+      // PERPLEXITY META-RESPONSES: These are NOT customer insights - they're Perplexity saying it couldn't find data
+      /^to obtain the/i,                             // "To obtain the specific customer quotes..."
+      /^to provide the/i,                            // "To provide the 20 specific..."
+      /^to gather the/i,                             // "To gather the 20 specific..."
+      /^you would need/i,                            // "You would need search results..."
+      /^i appreciate your/i,                         // "I appreciate your detailed request, but..."
+      /^i cannot provide/i,                          // "I cannot provide the requested..."
+      /^i don't have access/i,                       // "I don't have access to..."
+      /^i've reviewed the/i,                         // "I've reviewed the search results..."
+      /^the search results/i,                        // "The search results do not contain..."
+      /^the current search/i,                        // "The current search results..."
+      /^search directly on/i,                        // "Search directly on G2..."
+      /^look for case studies/i,                     // "Look for case studies..."
+      /in json format/i,                             // "...insights you need in JSON format"
+      /search results (do not|don't|provided)/i,    // "search results do not contain..."
+
+      // META-DESCRIPTIONS about data sources (NOT actual insights)
+      /^reddit discussions/i,                        // "Reddit discussions from r/SaaS..."
+      /^linkedin posts/i,                            // "LinkedIn posts about..."
+      /^discussion threads/i,                        // "Discussion threads from..."
+      /^real customer quotes/i,                      // "Real customer quotes discussing..."
+      /^customer satisfaction scores/i,              // "Customer satisfaction scores for..."
+      /^comparative pricing/i,                       // "Comparative pricing across..."
+      /capterra shines/i,                            // "Capterra shines in product content..."
+      /^g2 reviews/i,                                // "G2 reviews about..."
+      /^trustpilot reviews/i,                        // "Trustpilot reviews mentioning..."
+      /mentioning the product$/i,                    // "...mentioning the product"
+      /about these tools$/i,                         // "...about these tools"
+      /about this ai$/i,                             // "...about this AI"
+      /provides detailed information/i,              // "...provides detailed information..."
+      /^youtube videos/i,                            // "YouTube videos discussing..."
+      /^quora questions/i,                           // "Quora questions about..."
+      /^forum posts/i,                               // "Forum posts from..."
+      /startup founders explore/i,                   // Generic startup exploration
+      /reveals competitive advantages/i,             // Meta-analysis language
+      /innovative software solutions/i,              // Marketing fluff
+      /for operational challenges$/i,                // Generic endings
+
+      // GENERIC OBSERVATION patterns - describe behavior without emotional insight
+      /professionals seek/i,
+      /founders (constantly )?(compare|evaluate|explore)/i,
+      /companies seek/i,
+      /teams (need|want|require|look for) (comprehensive|better|modern)/i,
+      /users (often|frequently|typically|commonly)/i,
+      /organizations (seek|need|want)/i,
+      /businesses (explore|evaluate|compare)/i,
+      /buyers (research|compare|evaluate)/i,
+      /provide(s)? (deeper|better|comprehensive|detailed) insights/i,
+      /offer(s)? (comprehensive|innovative|robust)/i,
+      /deliver(s)? (value|results|insights)/i,
+      /across (startup|saas|software|tech) communities/i,
+      /competing solutions/i,
+      /software solutions for/i,
+      /to make strategic decisions/i,
+      /to enhance operational/i,
+      /industry (trends|insights|analysis)/i,
+      /market (analysis|comparison|research)/i,
+      /platform comparisons/i,
     ];
 
     for (const pattern of rejectPatterns) {
       if (pattern.test(title)) return false;
+    }
+
+    // PHASE K: HIGH-INTENT patterns - these are GOLD (switching signals, active evaluation)
+    // From research doc: "Has anyone switched from X?" is higher intent than "I hate X"
+    const hasHighIntent = [
+      /we're (evaluating|looking at|moving from|switching)/i,
+      /has anyone (migrated|switched|moved) from/i,
+      /what's the best alternative to/i,
+      /we've decided to (move|switch|leave)/i,
+      /our contract is up/i,
+      /we're (comparing|considering|evaluating)/i,
+      /anyone (recommend|suggest) an alternative/i,
+      /we left .+ because/i,
+      /we switched from .+ to/i,
+      /after .+ (months|years) with/i,
+    ].some(pattern => pattern.test(title));
+
+    // High-intent triggers are always valid - they're the best leads
+    if (hasHighIntent) {
+      return true;
+    }
+
+    // Check for emotional/psychological language - but don't strictly REQUIRE it
+    // Many valid triggers imply pain without explicit emotional words
+    const hasEmotionalContent = [
+      /fear(s|ed|ful)?|afraid|worried|anxious|nervous|scared|concern(ed)?/i,
+      /frustrat(ed|ing|ion)|annoyed|irritat(ed|ing)|hate(s)?|sick of|tired of/i,
+      /struggle(s|d)?|difficult(y)?|challeng(e|ing)|pain(ful)?|problem(s)?|issue(s)?/i,
+      /urgent|deadline|pressure|forced to|have to|must/i,
+      /fail(s|ed|ure)?|lose|lost|miss(ed)?|cost(s|ly)?|waste(d)?|broke(n)?/i,
+      /trust|doubt(s)?|skeptic(al)?|suspicious|uncertain|risky/i,
+      /hesitat|anxiet|stress|overwhelm/i,
+    ].some(pattern => pattern.test(title));
+
+    if (!hasEmotionalContent) {
+      // Check for implied pain (specific problems/issues without explicit emotion)
+      const hasImpliedPain = [
+        // Strong action verbs
+        /desperately|urgently|critically|immediately/i,
+        /can't|cannot|won't|unable to/i,
+        /keep(s)? failing|keeps? breaking/i,
+        /always|never|every time/i,
+        // Implementation/operational problems
+        /exceed|delay|slow|manual|hours|days|months/i,
+        /complex|hard to|impossible/i,
+        /block|prevent|stop|limit|restrict/i,
+        /break|crash|error|bug/i,
+        /expensive|costly|budget|price/i,
+        // Business impact
+        /customer (satisfaction|churn|loss)/i,
+        /revenue|profit|loss|cost/i,
+        /compliance|regulation|audit/i,
+        /security|breach|risk/i,
+        // Comparison/switching signals
+        /switch|migrate|replace|alternative/i,
+        /legacy|outdated|old|current/i,
+      ].some(pattern => pattern.test(title));
+
+      if (!hasImpliedPain) {
+        return false; // Reject generic observations without emotion or implied pain
+      }
     }
 
     // EXPANDED: Accept triggers with ANY of these psychological/business keywords
@@ -840,7 +1117,17 @@ class TriggerConsolidationService {
       // Decision factors
       'compare', 'alternative', 'competitor', 'switch', 'change',
       'time', 'deadline', 'urgent', 'asap', 'quickly',
-      'learn', 'understand', 'confus', 'complex', 'simple'
+      'learn', 'understand', 'confus', 'complex', 'simple',
+
+      // VoC-specific patterns (common in review quotes)
+      'moved', 'migrat', 'evaluat', 'replacing', 'considering',
+      'better', 'worse', 'easier', 'harder', 'faster', 'slower',
+      'love', 'like', 'dislike', 'prefer', 'recommend',
+      'finally', 'best', 'only', 'actual', 'real',
+      'too', 'very', 'really', 'so', 'much', 'many',
+      'never', 'always', 'used to', 'before', 'after',
+      'contract', 'pricing', 'renewal', 'option', 'feature',
+      'team', 'company', 'organization', 'department',
     ];
 
     const hasValidKeyword = validKeywords.some(kw => lowerTitle.includes(kw));
@@ -854,6 +1141,12 @@ class TriggerConsolidationService {
         /^(hesitat|skeptic|doubt|unsure|uncertain)/i,
         /(keeps? me up|up at night|nightmare|disaster)/i,
         /(waste of|loss of|risk of|threat of)/i,
+        // VoC quote patterns
+        /^(buyers|customers|users|teams|companies)\s+(are|want|need|seeking|frustrated)/i,
+        /evaluating alternatives/i,
+        /\bvs\b|\bversus\b/i,  // Comparison triggers
+        /switched (from|to)/i,
+        /migrating (from|to)/i,
       ];
       return emotionalPatterns.some(p => p.test(title));
     }
@@ -966,72 +1259,81 @@ class TriggerConsolidationService {
     uvp: CompleteUVP,
     profileConfig: ProfileTriggerConfig
   ): string {
-    // More detailed summary with actionable messaging recommendation
-    const evidenceQuotes = trigger.evidence.map(e => e.quote);
+    // Get the primary evidence quote - this is the actual insight
+    const primaryQuote = trigger.evidence[0]?.quote || '';
+    const cleanedQuote = primaryQuote
+      .replace(/^["']|["']$/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
     const platforms = [...new Set(trigger.evidence.map(e => e.platform))];
+    const sourceAttribution = platforms[0] || 'industry research';
 
-    // Extract the core insight from evidence - preserve more detail
-    const coreInsight = this.extractCoreInsight(evidenceQuotes);
+    // Category-specific marketing angles
+    // Part 1: Restate what the trigger IS (from the evidence)
+    // Part 2: Tell them the marketing angle - what to DO about it
+    const angles: Record<TriggerCategory, { action: string; tactic: string }> = {
+      'fear': {
+        action: 'Address this fear head-on in your messaging',
+        tactic: 'Show proof that you prevent this scenario. Use case studies and guarantees.'
+      },
+      'desire': {
+        action: 'Lead with this outcome in your hero messaging',
+        tactic: 'Make this the headline promise. Show testimonials of customers who achieved it.'
+      },
+      'pain-point': {
+        action: 'Show the before/after transformation',
+        tactic: 'Use testimonials that speak to this exact frustration. Demo how you solve it.'
+      },
+      'objection': {
+        action: 'Proactively address this in your FAQ and sales deck',
+        tactic: 'Add social proof and guarantees that counter this specific concern.'
+      },
+      'motivation': {
+        action: 'Amplify this motivation in your CTAs',
+        tactic: 'Connect your product to this goal in headlines and email subject lines.'
+      },
+      'trust': {
+        action: 'Build credibility around this with proof points',
+        tactic: 'Feature logos, metrics, and third-party validation that address this need.'
+      },
+      'urgency': {
+        action: 'Emphasize speed-to-value in your positioning',
+        tactic: 'Use deadline-driven campaigns and show quick wins they can achieve.'
+      }
+    };
 
-    // Find which differentiator addresses this trigger
-    const matchingDifferentiator = this.findMatchingDifferentiator(coreInsight, uvp);
+    const angle = angles[trigger.category] || angles['pain-point'];
 
-    // Get target customer description for personalization
-    const targetCustomer = this.extractBuyerDescription(uvp);
-
-    // Build source attribution string
-    const sourceAttribution = platforms.length > 1
-      ? `Validated across ${platforms.join(', ')}`
-      : `Source: ${platforms[0] || 'industry research'}`;
-
-    // Category-specific summaries with ACTIONABLE messaging recommendations
-    switch (trigger.category) {
-      case 'fear':
-        return matchingDifferentiator
-          ? `${targetCustomer} express anxiety about ${coreInsight}. Your "${this.truncateDifferentiator(matchingDifferentiator)}" directly addresses this concern. Lead with risk-mitigation messaging: "Eliminate the fear of..." ${sourceAttribution}.`
-          : `${targetCustomer} consistently worry about ${coreInsight}. Address this in sales materials with specific proof points showing how you prevent this scenario. ${sourceAttribution}.`;
-
-      case 'desire':
-        return matchingDifferentiator
-          ? `${targetCustomer} actively search for ${coreInsight}. Your "${this.truncateDifferentiator(matchingDifferentiator)}" delivers exactly this. Use outcome-focused CTAs highlighting this specific benefit. ${sourceAttribution}.`
-          : `${targetCustomer} want ${coreInsight} but struggle to find it. Position this as a key differentiator in your hero messaging. ${sourceAttribution}.`;
-
-      case 'pain-point':
-        return matchingDifferentiator
-          ? `${targetCustomer} are frustrated by ${coreInsight}. Your "${this.truncateDifferentiator(matchingDifferentiator)}" eliminates this friction. Use "before/after" messaging to show the transformation. ${sourceAttribution}.`
-          : `${targetCustomer} struggle with ${coreInsight}. Demonstrate how your solution removes this obstacle entirely. Consider testimonials addressing this specific pain. ${sourceAttribution}.`;
-
-      case 'objection':
-        return matchingDifferentiator
-          ? `${targetCustomer} hesitate because of concerns about ${coreInsight}. Counter proactively with "${this.truncateDifferentiator(matchingDifferentiator)}" in your FAQ and sales deck. ${sourceAttribution}.`
-          : `${targetCustomer} need reassurance about ${coreInsight}. Add social proof or guarantees that directly address this objection. ${sourceAttribution}.`;
-
-      case 'motivation':
-        return matchingDifferentiator
-          ? `${targetCustomer} are energized by ${coreInsight}. Connect "${this.truncateDifferentiator(matchingDifferentiator)}" to this motivation in your calls-to-action and urgency messaging. ${sourceAttribution}.`
-          : `${targetCustomer} are driven by ${coreInsight}. Amplify this motivation in your landing page headlines and email subject lines. ${sourceAttribution}.`;
-
-      case 'trust':
-        return matchingDifferentiator
-          ? `Building trust around ${coreInsight} is critical for ${targetCustomer}. Feature "${this.truncateDifferentiator(matchingDifferentiator)}" with concrete proof points (numbers, logos, testimonials). ${sourceAttribution}.`
-          : `${targetCustomer} need to trust you on ${coreInsight}. Add third-party validation, specific metrics, and named customer references. ${sourceAttribution}.`;
-
-      case 'urgency':
-        return matchingDifferentiator
-          ? `${targetCustomer} feel time pressure around ${coreInsight}. "${this.truncateDifferentiator(matchingDifferentiator)}" enables rapid response. Use deadline-driven campaigns and "start today" messaging. ${sourceAttribution}.`
-          : `${targetCustomer} face urgency around ${coreInsight}. Emphasize speed-to-value and quick wins in your positioning. ${sourceAttribution}.`;
-
-      default:
-        return `${targetCustomer} indicate ${coreInsight} is a key decision factor. ${sourceAttribution}.`;
-    }
+    // Build summary: What the trigger is + What to do about it
+    return `${cleanedQuote}. ${angle.action}. ${angle.tactic} Source: ${sourceAttribution}.`;
   }
 
   /**
-   * Truncate differentiator to reasonable length for executive summary
+   * Shorten differentiator to reasonable length for executive summary
+   * Finds a natural break point rather than truncating mid-word
    */
   private truncateDifferentiator(diff: string): string {
     if (diff.length <= 60) return diff;
-    return diff.substring(0, 57) + '...';
+
+    // Find natural break points
+    const words = diff.split(/\s+/);
+    let result = '';
+    const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from'];
+
+    for (let i = 0; i < words.length; i++) {
+      const nextResult = result ? `${result} ${words[i]}` : words[i];
+      if (nextResult.length > 55) {
+        // Don't end on stop words
+        while (result.split(/\s+/).length > 2 && stopWords.includes(result.split(/\s+/).pop()?.toLowerCase() || '')) {
+          result = result.split(/\s+/).slice(0, -1).join(' ');
+        }
+        break;
+      }
+      result = nextResult;
+    }
+
+    return result || diff.substring(0, 55);
   }
 
   /**
@@ -1068,6 +1370,71 @@ class TriggerConsolidationService {
   }
 
   /**
+   * DEDUPLICATE triggers with similar topics to prevent repetitive output
+   * Uses keyword overlap detection to identify near-duplicates
+   * Keeps the highest-confidence version of each topic
+   */
+  private deduplicateSimilarTriggers(triggers: ConsolidatedTrigger[]): ConsolidatedTrigger[] {
+    if (triggers.length === 0) return [];
+
+    const result: ConsolidatedTrigger[] = [];
+    const seenTopics = new Map<string, ConsolidatedTrigger>();
+
+    // Key topics that identify duplicates - triggers about the same thing
+    const topicPatterns = [
+      { pattern: /vendor.?lock|lock.?in|proprietary/i, topic: 'vendor-lock-in' },
+      { pattern: /30.?day|implementation.?timeline|fast.?implement/i, topic: 'implementation-timeline' },
+      { pattern: /conversion.?improve|conversion.?metric|proven.?conversion/i, topic: 'conversion-metrics' },
+      { pattern: /roi|return.?on|instant.?roi|rapid.?roi/i, topic: 'roi-concerns' },
+      { pattern: /compliance|regulatory|regulator/i, topic: 'compliance-concerns' },
+      { pattern: /data.?security|data.?privacy|security.?breach/i, topic: 'data-security' },
+      { pattern: /support|customer.?service|vendor.?response/i, topic: 'support-quality' },
+      { pattern: /integration|connect|api/i, topic: 'integration-concerns' },
+      { pattern: /price|cost|expensive|budget|hidden.?cost/i, topic: 'pricing-concerns' },
+      { pattern: /skill.?gap|expertise|train/i, topic: 'skill-gaps' },
+      { pattern: /ai.?bias|algorithm.?bias|unfair/i, topic: 'ai-bias' },
+      { pattern: /explainab|transparen|black.?box/i, topic: 'explainability' },
+      { pattern: /upsell|cross.?sell|automatic.?sell/i, topic: 'upselling-concerns' },
+      { pattern: /hallucin|wrong.?answer|incorrect/i, topic: 'ai-accuracy' },
+      { pattern: /scale|growth|enterprise/i, topic: 'scalability' },
+    ];
+
+    for (const trigger of triggers) {
+      const titleLower = trigger.title.toLowerCase();
+
+      // Check if this trigger matches any known topic
+      let matchedTopic: string | null = null;
+      for (const { pattern, topic } of topicPatterns) {
+        if (pattern.test(titleLower)) {
+          matchedTopic = topic;
+          break;
+        }
+      }
+
+      if (matchedTopic) {
+        // Check if we've seen this topic before
+        const existingTrigger = seenTopics.get(matchedTopic);
+        if (existingTrigger) {
+          // Keep the one with higher confidence, merge evidence counts
+          if (trigger.confidence > existingTrigger.confidence) {
+            existingTrigger.confidence = trigger.confidence;
+            existingTrigger.evidenceCount += trigger.evidenceCount;
+          } else {
+            existingTrigger.evidenceCount += trigger.evidenceCount;
+          }
+          // Skip adding this duplicate
+          continue;
+        }
+        seenTopics.set(matchedTopic, trigger);
+      }
+
+      result.push(trigger);
+    }
+
+    return result;
+  }
+
+  /**
    * Extract the core insight from evidence quotes
    * Finds the most representative/common theme
    */
@@ -1086,22 +1453,85 @@ class TriggerConsolidationService {
 
   /**
    * Extract a key phrase from a quote (not the whole quote)
+   * Returns a COMPLETE, grammatically correct phrase - never truncated fragments
    */
   private extractKeyPhrase(quote: string): string {
-    // Remove leading/trailing quotes
-    let cleaned = quote.replace(/^["']|["']$/g, '').trim();
+    // Remove leading/trailing quotes and clean whitespace
+    let cleaned = quote.replace(/^["']|["']$/g, '').replace(/\s+/g, ' ').trim();
 
-    // If it's already short, use it
-    if (cleaned.length < 60) return cleaned.toLowerCase();
+    // Check if the text appears truncated
+    const isTruncated = this.detectTruncation(cleaned);
 
-    // Extract first meaningful clause (before first comma, dash, or semicolon)
-    const firstClause = cleaned.split(/[,;–—]/)[0].trim();
-    if (firstClause.length > 20 && firstClause.length < 80) {
-      return firstClause.toLowerCase();
+    // If truncated, synthesize a complete phrase
+    if (isTruncated) {
+      return this.synthesizeKeyPhrase(cleaned);
     }
 
-    // Fallback: first 60 chars with ellipsis
-    return cleaned.substring(0, 60).trim().toLowerCase() + '...';
+    // If it's already short and complete, use it
+    if (cleaned.length < 60) return cleaned.toLowerCase();
+
+    // Try to extract the first complete sentence
+    const sentences = cleaned.split(/[.!?]+/).filter(s => s.trim().length > 0);
+    if (sentences[0] && sentences[0].trim().length >= 15 && sentences[0].trim().length < 80) {
+      const sentence = sentences[0].trim();
+      // Verify this sentence is complete
+      if (!this.detectTruncation(sentence)) {
+        return sentence.toLowerCase();
+      }
+    }
+
+    // If we can't get a clean sentence, synthesize one
+    return this.synthesizeKeyPhrase(cleaned);
+  }
+
+  /**
+   * Synthesize a complete key phrase from potentially truncated text
+   */
+  private synthesizeKeyPhrase(text: string): string {
+    // Extract the core topic/subject
+    const topicPatterns = [
+      // AI/tech topics
+      /(?:implementing|deploying|using|adopting)\s+(.+?)(?:\s+(?:that|which|will|would|can|could)|$)/i,
+      /(?:multiple|various|different)\s+(.+?)(?:\s+(?:that|which|will|would)|$)/i,
+      /(.+?)\s+(?:implementation|integration|adoption|deployment)/i,
+      // Problem patterns
+      /(?:problems?|issues?|challenges?)\s+(?:with|from|in)\s+(.+)/i,
+      /(?:difficulty|trouble|struggle)\s+(?:with|in)\s+(.+)/i,
+      // General extraction - get noun phrases
+      /^(.{15,50}?)(?:\s+(?:that|which|who|will|would|could|can)\s+|$)/i,
+    ];
+
+    for (const pattern of topicPatterns) {
+      const match = text.match(pattern);
+      if (match && match[1]) {
+        let phrase = match[1].trim();
+        // Clean up trailing incomplete parts
+        phrase = phrase.replace(/\s+(?:with|that|which|who|and|or|but)\s*$/i, '');
+        // Remove trailing quotes
+        phrase = phrase.replace(/['"]$/, '');
+
+        if (phrase.length >= 10 && phrase.length <= 60) {
+          return phrase.toLowerCase();
+        }
+      }
+    }
+
+    // Last resort: take first meaningful words up to a noun
+    const words = text.split(/\s+/);
+    let phrase = '';
+    for (let i = 0; i < Math.min(words.length, 8); i++) {
+      phrase = phrase ? `${phrase} ${words[i]}` : words[i];
+      // Stop at common break points
+      if (/^(that|which|who|will|would|could|can)$/i.test(words[i + 1] || '')) {
+        break;
+      }
+    }
+
+    // Clean up and ensure completeness
+    phrase = phrase.replace(/\s+(?:with|that|which|who|and|or|but)\s*$/i, '');
+    phrase = phrase.replace(/['"]$/, '');
+
+    return (phrase || 'this concern').toLowerCase();
   }
 
   /**
@@ -1130,48 +1560,111 @@ class TriggerConsolidationService {
     return 'Your target buyers';
   }
 
-  private extractTitle(text: string, category: TriggerCategory): string {
-    // Extract a CONCISE, readable title from the evidence text
-    // Titles should be 3-8 words, capturing the core psychological trigger
-    const cleaned = text
+  /**
+   * Detect the actual sentiment of text to avoid semantic inversion.
+   * A complaint about "complexity" should NOT become "Buyers want complexity"
+   */
+  private detectSentiment(text: string): 'complaint' | 'desire' | 'comparison' | 'neutral' {
+    const lowerText = text.toLowerCase();
+
+    // High-intent comparison patterns (switching intent) - HIGHEST PRIORITY
+    if (/evaluating|comparing|vs\s|versus|alternative|migrating from|switching from/i.test(lowerText)) return 'comparison';
+    if (/contract is up|looking at other|considering other/i.test(lowerText)) return 'comparison';
+
+    // Complaint patterns (negative sentiment about current state)
+    // These indicate frustration, NOT desire
+    if (/frustrated|annoyed|hate|struggling|difficult|problem|issue|broken/i.test(lowerText)) return 'complaint';
+    if (/doesn't work|failed|waste|inefficient|tedious|stuck|limited/i.test(lowerText)) return 'complaint';
+    if (/too complex|too expensive|too slow|takes too long|not working/i.test(lowerText)) return 'complaint';
+    if (/can't|won't|doesn't|isn't|aren't|wasn't|weren't/i.test(lowerText)) return 'complaint';
+    if (/lack of|missing|poor|bad|terrible|awful|horrible/i.test(lowerText)) return 'complaint';
+    if (/overpriced|underwhelming|disappointing|unreliable/i.test(lowerText)) return 'complaint';
+
+    // Desire patterns (positive seeking)
+    if (/want|wish|hope|looking for|searching for|need|would love/i.test(lowerText)) return 'desire';
+    if (/excited about|interested in|motivated by/i.test(lowerText)) return 'desire';
+
+    return 'neutral';
+  }
+
+  /**
+   * Detect if text appears truncated (incomplete sentence fragments)
+   */
+  private detectTruncation(text: string): boolean {
+    // Check for common truncation indicators
+    const truncationIndicators = [
+      /\.{3,}$/, // Ends with ellipsis
+      /\s+that$/i, // Ends with "that"
+      /\s+which$/i, // Ends with "which"
+      /\s+where$/i, // Ends with "where"
+      /\s+when$/i, // Ends with "when"
+      /\s+who$/i, // Ends with "who"
+      /\s+to$/i, // Ends with "to"
+      /\s+and$/i, // Ends with "and"
+      /\s+or$/i, // Ends with "or"
+      /\s+the$/i, // Ends with "the"
+      /\s+a$/i, // Ends with "a"
+      /\s+an$/i, // Ends with "an"
+      /\s+with$/i, // Ends with "with"
+      /\s+for$/i, // Ends with "for"
+      /[,;:]$/, // Ends with comma, semicolon, or colon
+    ];
+
+    for (const pattern of truncationIndicators) {
+      if (pattern.test(text.trim())) return true;
+    }
+
+    // Check if it starts mid-sentence (lowercase first word)
+    const firstWord = text.trim().split(/\s+/)[0];
+    if (firstWord && /^[a-z]/.test(firstWord) && !['i', 'i\'m', 'i\'ve', 'i\'d', 'i\'ll'].includes(firstWord.toLowerCase())) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private extractTitle(text: string, category: TriggerCategory, competitorName?: string): string {
+    // SIMPLIFIED: Clean the text and use directly. LLM rewriter will polish later.
+
+    let cleaned = text
       .replace(/^["']|["']$/g, '') // Remove surrounding quotes
+      .replace(/\[Competitor\]\s*/gi, '') // Remove [Competitor] placeholder
+      .replace(/\[Company\]\s*/gi, '') // Remove [Company] placeholder
+      .replace(/^\[[^\]]+\]\s*/i, '') // Remove any [Tag] prefix
+      // Remove source prefixes
+      .replace(/^(reddit\s+)?r\/\w+:\s*/gi, '')
+      .replace(/^g2(\s+reviews)?:\s*/gi, '')
+      .replace(/^capterra:\s*/gi, '')
+      .replace(/^trustpilot:\s*/gi, '')
+      .replace(/^forum(\s+discussion)?:\s*/gi, '')
+      // Remove sentiment prefixes - let the text speak for itself
+      .replace(/^(fear of|afraid of|worried about|anxious about|concerned about)\s*/gi, '')
+      .replace(/^(frustrated (that|by|with|about)|frustration with)\s*/gi, '')
+      .replace(/^buyers\s+(evaluating alternatives to|concerned about|considering|weighing|frustrated by|worried about)\s*/gi, '')
       .replace(/\s+/g, ' ')
       .trim();
 
-    // Try to extract core trigger phrase (first meaningful clause)
-    // Split on common clause boundaries
-    const clauses = cleaned.split(/[-–—,;:]/);
-    let title = clauses[0].trim();
-
-    // If first clause is still too long, truncate to ~8 words
-    const words = title.split(/\s+/);
-    if (words.length > 8) {
-      title = words.slice(0, 8).join(' ');
+    // If it's a complete sentence under 80 chars, use it
+    if (cleaned.length <= 80) {
+      return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
     }
 
-    // Clean up: remove trailing conjunctions/articles
-    title = title.replace(/\s+(and|or|but|the|a|an|that|which|who|when|where|with|from|to|for|of|in|on|at|by)$/i, '');
-
-    // Ensure minimum length
-    if (title.length < 10) {
-      title = cleaned.split(/[.!?]/)[0].trim();
-      if (title.length > 60) {
-        title = title.substring(0, 60).trim();
-      }
+    // Take first sentence if present and reasonable length
+    const firstSentence = cleaned.match(/^[^.!?]+[.!?]/);
+    if (firstSentence && firstSentence[0].length >= 20 && firstSentence[0].length <= 80) {
+      const sentence = firstSentence[0].trim();
+      return sentence.charAt(0).toUpperCase() + sentence.slice(1);
     }
 
-    // Add category prefix if title doesn't start with emotion word
-    const emotionStarters = /^(fear|afraid|worried|anxious|frustrated|annoyed|hate|want|wish|need|looking|hoping|concerned|hesitant|uncertain)/i;
-    if (!emotionStarters.test(title)) {
-      // Only prefix if it makes sense and isn't too long
-      if (title.length < 40) {
-        if (category === 'fear') title = `Fear of ${title.toLowerCase()}`;
-        else if (category === 'desire') title = `Want ${title.toLowerCase()}`;
-        else if (category === 'pain-point') title = `Frustrated by ${title.toLowerCase()}`;
-      }
+    // Shorten to ~70 chars at word boundary
+    const words = cleaned.split(/\s+/);
+    let shortened = '';
+    for (const word of words) {
+      if ((shortened + ' ' + word).length > 65) break;
+      shortened = shortened ? shortened + ' ' + word : word;
     }
 
-    return title || `${CATEGORY_LABELS[category]} Signal`;
+    return shortened.charAt(0).toUpperCase() + shortened.slice(1);
   }
 
   // ============================================================================
@@ -1450,19 +1943,31 @@ class TriggerConsolidationService {
     return { relevantTriggers, filteredCount };
   }
 
-  private applySourceQualityWeighting(triggers: ConsolidatedTrigger[]): ConsolidatedTrigger[] {
+  /**
+   * Apply PROFILE-AWARE source quality weighting
+   * Uses the profile-specific source tier assignments from source-quality.service.ts
+   * e.g., G2 is tier1 for SaaS B2B but tier3 for local B2C
+   */
+  private applySourceQualityWeighting(
+    triggers: ConsolidatedTrigger[],
+    profileType?: BusinessProfileType
+  ): ConsolidatedTrigger[] {
+    const profile = profileType || 'national-saas-b2b';
+
     return triggers.map(trigger => {
       // Get the primary evidence source
       const primarySource = trigger.evidence[0];
       if (!primarySource) return trigger;
 
-      const quality = sourceQualityService.getQualityAdjustment(
+      // Use PROFILE-AWARE quality adjustment (not generic)
+      const quality = sourceQualityService.getProfileAwareQualityAdjustment(
         primarySource.platform,
+        profile,
         primarySource.url,
         primarySource.quote
       );
 
-      // Adjust relevance score based on source quality
+      // Adjust relevance score based on profile-specific source quality
       const adjustedRelevance = Math.min(1, (trigger.relevanceScore || 0.5) * quality.multiplier);
 
       return {
@@ -1582,15 +2087,6 @@ class TriggerConsolidationService {
   // ============================================================================
   // UTILITIES
   // ============================================================================
-
-  private detectSentiment(text: string): 'positive' | 'negative' | 'neutral' {
-    const positive = /love|great|excellent|amazing|perfect|happy|satisfied|recommend/i;
-    const negative = /hate|terrible|awful|worst|frustrated|angry|disappointed|problem/i;
-
-    if (positive.test(text)) return 'positive';
-    if (negative.test(text)) return 'negative';
-    return 'neutral';
-  }
 
   private normalizePlatform(source: string): string {
     const platformMap: Record<string, string> = {

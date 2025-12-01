@@ -311,6 +311,20 @@ export interface EnhancedIndustryProfile {
   ugc_prompts: EnhancedUGCPrompt[];
   viral_triggers: EnhancedViralTrigger[];
   freshness_metadata: EnhancedFreshnessMetadata;
+
+  // Tab visibility configuration - determines which tabs show for this industry
+  enabledTabs?: EnabledTabs;
+}
+
+// Tab visibility configuration for industry-specific tab rendering
+export interface EnabledTabs {
+  triggers: boolean;      // Always true - psychological hooks
+  proof: boolean;         // Always true - social proof, testimonials
+  trends: boolean;        // Always true - timely topics, industry shifts
+  conversations: boolean; // Always true - customer voice, reviews
+  competitors: boolean;   // Always true - competitive intelligence
+  local: boolean;         // true for location-dependent businesses (retail, restaurants, healthcare)
+  weather: boolean;       // true for weather-sensitive industries (construction, outdoor services)
 }
 
 export interface EnhancedCustomerTrigger {

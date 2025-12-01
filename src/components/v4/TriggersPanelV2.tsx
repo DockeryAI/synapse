@@ -36,7 +36,8 @@ import {
   type ConsolidatedTrigger,
   type TriggerCategory,
   type TriggerConsolidationResult,
-  type BuyerJourneyStage
+  type BuyerJourneyStage,
+  type DataSourceSummary
 } from '@/services/triggers/trigger-consolidation.service';
 import {
   profileDetectionService,
@@ -52,56 +53,28 @@ import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // ============================================================================
-// PERSISTENT CACHE - Saves API data to localStorage (matches TriggersDevPage)
+// CACHING DISABLED - LIVE ONLY MODE
+// User requested no caching - always fetch live data
 // ============================================================================
 
 const TRIGGERS_CACHE_KEY = 'triggersPanel_deepContext_v1';
 const TRIGGERS_DATA_KEY = 'triggersPanel_triggers_v1';
 
+// All cache functions return null/no-op for live-only mode
 function loadCachedDeepContext(): DeepContext | null {
-  try {
-    const cached = localStorage.getItem(TRIGGERS_CACHE_KEY);
-    if (cached) {
-      const parsed = JSON.parse(cached);
-      console.log('[TriggersPanelV2] Loaded cached DeepContext');
-      return parsed;
-    }
-  } catch (err) {
-    console.warn('[TriggersPanelV2] Failed to load cached data:', err);
-  }
-  return null;
+  return null; // LIVE ONLY - no cache loading
 }
 
 function saveCachedDeepContext(data: DeepContext): void {
-  try {
-    localStorage.setItem(TRIGGERS_CACHE_KEY, JSON.stringify(data));
-    console.log('[TriggersPanelV2] 💾 Saved DeepContext to localStorage');
-  } catch (err) {
-    console.error('[TriggersPanelV2] Failed to save cached data:', err);
-  }
+  // LIVE ONLY - no cache saving
 }
 
 function loadCachedTriggers(): ConsolidatedTrigger[] | null {
-  try {
-    const cached = localStorage.getItem(TRIGGERS_DATA_KEY);
-    if (cached) {
-      const parsed = JSON.parse(cached);
-      console.log('[TriggersPanelV2] Loaded cached triggers:', parsed?.length || 0);
-      return parsed;
-    }
-  } catch (err) {
-    console.warn('[TriggersPanelV2] Failed to load cached triggers:', err);
-  }
-  return null;
+  return null; // LIVE ONLY - no cache loading
 }
 
 function saveCachedTriggers(triggers: ConsolidatedTrigger[]): void {
-  try {
-    localStorage.setItem(TRIGGERS_DATA_KEY, JSON.stringify(triggers));
-    console.log('[TriggersPanelV2] 💾 Saved triggers to localStorage:', triggers.length);
-  } catch (err) {
-    console.error('[TriggersPanelV2] Failed to save triggers:', err);
-  }
+  // LIVE ONLY - no cache saving
 }
 
 // ============================================================================
@@ -383,14 +356,30 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
 }: TriggersPanelV2Props) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
-  // Initialize consolidationResult from cached triggers to avoid empty state flash on page load
+  // Initialize consolidationResult - PRIORITY: parent props > localStorage cache
+  // This avoids empty state flash while ensuring parent data always wins
   const [consolidationResult, setConsolidationResult] = useState<TriggerConsolidationResult | null>(() => {
+    // If parent provides triggers at mount time, use them (rare but possible)
+    if (preConsolidatedTriggers && preConsolidatedTriggers.length > 0) {
+      console.log('[TriggersPanelV2] 🎯 Initializing from parent props:', preConsolidatedTriggers.length, 'triggers');
+      return {
+        triggers: preConsolidatedTriggers,
+        profileType: 'global-saas-b2b',
+        profileConfig: PROFILE_CONFIGS['global-saas-b2b'],
+        totalEvidenceItems: preConsolidatedTriggers.reduce((sum, t) => sum + (t.evidence?.length || 0), 0),
+        deduplicatedCount: 0,
+        filteredCount: 0,
+        avgRelevanceScore: preConsolidatedTriggers.reduce((sum, t) => sum + (t.relevanceScore || 0), 0) / preConsolidatedTriggers.length
+      };
+    }
+
+    // Fallback to localStorage cache only for standalone usage (e.g., TriggersDevPage)
     const cached = loadCachedTriggers();
     if (cached && cached.length > 0) {
-      console.log('[TriggersPanelV2] 📦 Initializing consolidationResult from cache:', cached.length, 'triggers');
+      console.log('[TriggersPanelV2] 📦 Initializing from localStorage cache:', cached.length, 'triggers');
       return {
         triggers: cached,
-        profileType: 'global-saas-b2b', // Will be updated when UVP loads
+        profileType: 'global-saas-b2b',
         profileConfig: PROFILE_CONFIGS['global-saas-b2b'],
         totalEvidenceItems: cached.reduce((sum, t) => sum + (t.evidence?.length || 0), 0),
         deduplicatedCount: 0,
@@ -447,17 +436,22 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
   // Use cached data OR streaming data
   const deepContext = cachedContext || streamingResult.deepContext || parentDeepContext;
 
-  // Use cached triggers OR streaming triggers - CACHED TAKES PRIORITY
+  // Use preConsolidatedTriggers from parent (V4PowerModePanel streaming) FIRST,
+  // then fall back to internal cache/streaming for standalone usage (TriggersDevPage)
   const triggers = useMemo(() => {
-    if (cachedTriggers && cachedTriggers.length > 0) return cachedTriggers;
-    if (streamingResult.triggers && streamingResult.triggers.length > 0) return streamingResult.triggers;
+    // Parent-provided triggers take priority (V4PowerModePanel passes streaming results)
     if (preConsolidatedTriggers && preConsolidatedTriggers.length > 0) return preConsolidatedTriggers;
+    // Internal cache for standalone usage
+    if (cachedTriggers && cachedTriggers.length > 0) return cachedTriggers;
+    // Internal streaming for standalone usage
+    if (streamingResult.triggers && streamingResult.triggers.length > 0) return streamingResult.triggers;
     return [];
-  }, [cachedTriggers, streamingResult.triggers, preConsolidatedTriggers]);
+  }, [preConsolidatedTriggers, cachedTriggers, streamingResult.triggers]);
 
-  // Loading state - never show loading if we have cached triggers
+  // Loading state - never show loading if we have data from parent OR cache
+  const hasParentData = preConsolidatedTriggers && preConsolidatedTriggers.length > 0;
   const hasCachedData = cachedTriggers && cachedTriggers.length > 0;
-  const isLoading = hasCachedData ? false : (streamingResult.isLoading || parentIsLoading);
+  const isLoading = (hasParentData || hasCachedData) ? false : (streamingResult.isLoading || parentIsLoading);
   const loadingStatus = streamingResult.isLoading
     ? `${streamingResult.loadingStatus} (${streamingResult.loadedSources.length}/${streamingResult.totalSources} sources)`
     : parentLoadingStatus;
@@ -523,8 +517,14 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
   }, [streamingResult.triggers, streamingResult.isLoading, streamingEnabled, detectedProfile]);
 
   // Auto-reconsolidate: When UVP loads and we have cached triggers, recalculate UVP alignments
+  // SKIP if parent provides triggers - they're already consolidated by the parent (V4PowerModePanel)
   const hasAutoReconsolidated = useRef(false);
   useEffect(() => {
+    // Skip auto-reconsolidation if parent provides data - it's already been processed
+    if (preConsolidatedTriggers && preConsolidatedTriggers.length > 0) {
+      return;
+    }
+
     if (uvp && cachedTriggers && cachedTriggers.length > 0 && cachedContext && !hasAutoReconsolidated.current) {
       hasAutoReconsolidated.current = true;
       console.log('[TriggersPanelV2] 🔄 Auto-reconsolidating cached triggers with UVP alignment...');
@@ -542,11 +542,45 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
         console.error('[TriggersPanelV2] Auto-reconsolidation error:', err);
       }
     }
-  }, [uvp, cachedTriggers, cachedContext, brandData]);
+  }, [uvp, cachedTriggers, cachedContext, brandData, preConsolidatedTriggers]);
 
   // Update consolidation result when triggers change
+  // CRITICAL: Parent-provided triggers (preConsolidatedTriggers) ALWAYS take priority
+  // This ensures V4PowerModePanel streaming data is displayed, not stale localStorage cache
+  // Use a ref to track what we've already set to prevent infinite loops
+  const lastTriggerCountRef = useRef<number>(0);
+  const lastTriggerSourceRef = useRef<'parent' | 'internal' | null>(null);
+
   useEffect(() => {
+    // If parent provides triggers, ALWAYS use them (overwrite any existing consolidationResult)
+    if (preConsolidatedTriggers && preConsolidatedTriggers.length > 0) {
+      // Skip if we already set this exact count from the same source
+      if (lastTriggerSourceRef.current === 'parent' && lastTriggerCountRef.current === preConsolidatedTriggers.length) {
+        return; // Already using this data, skip to prevent infinite loop
+      }
+      console.log('[TriggersPanelV2] 🎯 Using parent-provided triggers:', preConsolidatedTriggers.length);
+      lastTriggerSourceRef.current = 'parent';
+      lastTriggerCountRef.current = preConsolidatedTriggers.length;
+      setConsolidationResult({
+        triggers: preConsolidatedTriggers,
+        profileType: detectedProfile || 'global-saas-b2b',
+        profileConfig: PROFILE_CONFIGS[detectedProfile || 'global-saas-b2b'],
+        totalEvidenceItems: preConsolidatedTriggers.reduce((sum, t) => sum + (t.evidence?.length || 0), 0),
+        deduplicatedCount: 0,
+        filteredCount: 0,
+        avgRelevanceScore: preConsolidatedTriggers.reduce((sum, t) => sum + (t.relevanceScore || 0), 0) / preConsolidatedTriggers.length
+      });
+      return; // Don't process other sources when parent provides data
+    }
+
+    // Fallback: Use internal triggers only if no parent data AND no existing consolidationResult
     if (triggers.length > 0 && !consolidationResult) {
+      // Skip if we already set this
+      if (lastTriggerSourceRef.current === 'internal' && lastTriggerCountRef.current === triggers.length) {
+        return;
+      }
+      lastTriggerSourceRef.current = 'internal';
+      lastTriggerCountRef.current = triggers.length;
       setConsolidationResult({
         triggers: triggers,
         profileType: detectedProfile || 'global-saas-b2b',
@@ -557,7 +591,7 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
         avgRelevanceScore: triggers.reduce((sum, t) => sum + (t.relevanceScore || 0), 0) / triggers.length
       });
     }
-  }, [triggers, consolidationResult, detectedProfile]);
+  }, [preConsolidatedTriggers, triggers, consolidationResult, detectedProfile]);
 
   // Report trigger count to parent for tab badge display
   useEffect(() => {
@@ -639,10 +673,13 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
   }, [cachedContext, uvp, brandData]);
 
   // Filter triggers by category and journey stage
+  // Use consolidationResult.triggers OR parent-provided triggers as fallback
   const filteredTriggers = useMemo(() => {
-    if (!consolidationResult) return [];
+    // Get triggers from consolidationResult or parent props
+    const sourceTriggers = consolidationResult?.triggers || preConsolidatedTriggers || [];
+    if (sourceTriggers.length === 0) return [];
 
-    let filtered = consolidationResult.triggers;
+    let filtered = sourceTriggers;
 
     // Apply category filter
     if (filterCategory !== 'all') {
@@ -655,7 +692,7 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
     }
 
     return filtered;
-  }, [consolidationResult, filterCategory, filterJourneyStage]);
+  }, [consolidationResult, preConsolidatedTriggers, filterCategory, filterJourneyStage]);
 
   // Group filtered triggers by category
   const groupedTriggers = useMemo(() => {
@@ -673,36 +710,38 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
 
   // Category counts for filter (based on journey-filtered triggers)
   const categoryCounts = useMemo(() => {
-    if (!consolidationResult) return {};
+    const sourceTriggers = consolidationResult?.triggers || preConsolidatedTriggers || [];
+    if (sourceTriggers.length === 0) return {};
 
     // If no journey filter, count all triggers
     // Otherwise, count triggers that match the journey filter
     const triggersToCount = filterJourneyStage === 'all'
-      ? consolidationResult.triggers
-      : consolidationResult.triggers.filter(t => t.buyerJourneyStage === filterJourneyStage);
+      ? sourceTriggers
+      : sourceTriggers.filter(t => t.buyerJourneyStage === filterJourneyStage);
 
     return triggersToCount.reduce((acc, t) => {
       acc[t.category] = (acc[t.category] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-  }, [consolidationResult, filterJourneyStage]);
+  }, [consolidationResult, preConsolidatedTriggers, filterJourneyStage]);
 
   // Journey stage counts for filter
   const journeyStageCounts = useMemo(() => {
-    if (!consolidationResult) return {} as Record<BuyerJourneyStage, number>;
+    const sourceTriggers = consolidationResult?.triggers || preConsolidatedTriggers || [];
+    if (sourceTriggers.length === 0) return {} as Record<BuyerJourneyStage, number>;
 
     // If no category filter, count all triggers
     // Otherwise, count triggers that match the category filter
     const triggersToCount = filterCategory === 'all'
-      ? consolidationResult.triggers
-      : consolidationResult.triggers.filter(t => t.category === filterCategory);
+      ? sourceTriggers
+      : sourceTriggers.filter(t => t.category === filterCategory);
 
     return triggersToCount.reduce((acc, t) => {
       const stage = t.buyerJourneyStage || 'problem-aware';
       acc[stage] = (acc[stage] || 0) + 1;
       return acc;
     }, {} as Record<BuyerJourneyStage, number>);
-  }, [consolidationResult, filterCategory]);
+  }, [consolidationResult, preConsolidatedTriggers, filterCategory]);
 
   // Loading steps configuration (defined outside conditional for consistency)
   const loadingSteps = useMemo(() => [
@@ -716,8 +755,9 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
 
   // Loading state - animated loading screen with step descriptions
   // PROGRESSIVE LOADING: Only show full loading screen if we have NO existing data
-  // If we have existing triggers, show them with overlay progress indicator instead
-  const hasExistingTriggers = consolidationResult && consolidationResult.triggers.length > 0;
+  // If we have existing triggers (from parent OR cache), show them with overlay progress indicator instead
+  const hasExistingTriggers = (consolidationResult && consolidationResult.triggers.length > 0) ||
+                               (preConsolidatedTriggers && preConsolidatedTriggers.length > 0);
 
   if ((isLoading || streamingEnabled) && !hasExistingTriggers) {
     const step = streamingEnabled
@@ -801,9 +841,12 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
     );
   }
 
-  // No data state - BUT skip this check if we have cached triggers
-  // This allows showing cached triggers while UVP is still loading
-  if ((!deepContext || !uvp) && !consolidationResult) {
+  // Check if we have parent-provided triggers (from V4PowerModePanel)
+  const hasParentTriggers = preConsolidatedTriggers && preConsolidatedTriggers.length > 0;
+
+  // No data state - BUT skip this check if we have parent triggers or cached triggers
+  // This allows showing triggers while UVP is still loading
+  if ((!deepContext || !uvp) && !consolidationResult && !hasParentTriggers) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
         <div className="w-16 h-16 bg-gray-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
@@ -820,7 +863,8 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
   }
 
   // Empty triggers state - prompt user to fetch fresh data
-  if (!consolidationResult || consolidationResult.triggers.length === 0) {
+  // SKIP if parent provides triggers - they just haven't populated consolidationResult yet
+  if ((!consolidationResult || consolidationResult.triggers.length === 0) && !hasParentTriggers) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
         <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4">
@@ -896,12 +940,20 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
           <div className="flex items-center gap-2">
             <span className="text-xs text-gray-500 dark:text-gray-400">Detected Profile:</span>
             <span className="px-2 py-1 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg">
-              {PROFILE_LABELS[consolidationResult.profileType]}
+              {PROFILE_LABELS[consolidationResult?.profileType || detectedProfile || 'global-saas-b2b']}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="text-xs text-gray-500 dark:text-gray-400">
-              {consolidationResult.triggers.length} triggers • {consolidationResult.totalEvidenceItems} evidence
+              {consolidationResult?.triggers?.length || preConsolidatedTriggers?.length || 0} triggers
+              {consolidationResult?.sourceSummary && (
+                <span className="ml-1" title={consolidationResult.sourceSummary.summary}>
+                  • {consolidationResult.sourceSummary.totalDataPoints} data points from {Object.keys(consolidationResult.sourceSummary.bySource).length} sources
+                </span>
+              )}
+              {!consolidationResult?.sourceSummary && consolidationResult?.totalEvidenceItems && (
+                <span> • {consolidationResult.totalEvidenceItems} evidence</span>
+              )}
               {hasCachedData && (
                 <span className="ml-1 text-blue-600 dark:text-blue-400">📦 cached</span>
               )}
@@ -966,7 +1018,7 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
                 : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400 hover:bg-purple-100 dark:hover:bg-purple-900/20'
             }`}
           >
-            All ({consolidationResult.triggers.length})
+            All ({consolidationResult?.triggers?.length || preConsolidatedTriggers?.length || 0})
           </button>
           {CATEGORY_ORDER.map(cat => {
             const count = categoryCounts[cat] || 0;
@@ -1025,6 +1077,24 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
           })}
         </div>
       </div>
+
+      {/* PHASE L.4: Limited Data Notice - Show when we have few triggers but not zero */}
+      {!streamingEnabled && (consolidationResult?.triggers?.length || preConsolidatedTriggers?.length || 0) > 0 &&
+       (consolidationResult?.triggers?.length || preConsolidatedTriggers?.length || 0) < 5 && (
+        <div className="mb-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+          <div className="flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
+                Limited customer voice data found ({consolidationResult?.triggers?.length || preConsolidatedTriggers?.length} triggers)
+              </p>
+              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                For more insights, try adding competitor names in Brand Profile or check industry-specific review sites.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Triggers Grid - Grouped by Category */}
       <div className="flex-1 overflow-y-auto">

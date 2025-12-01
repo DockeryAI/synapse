@@ -18,6 +18,27 @@ export interface InsightCluster {
   sources: string[]; // Unique sources in cluster
   dominantSentiment: string;
   size: number;
+  // Semantic gap detection
+  isSemanticGap?: boolean; // True if cluster has no dominant keyword
+  gapScore?: number; // 0-1, higher = more undefined/unnamed pain point
+  suggestedAngles?: string[]; // AI-suggested angles for this gap
+}
+
+/**
+ * Semantic Gap - An unnamed pattern that represents an opportunity
+ * These are clusters where:
+ * - No single keyword dominates (word frequency spread)
+ * - High coherence (semantically similar content)
+ * - Multiple sources (cross-platform validation)
+ */
+export interface SemanticGap {
+  clusterId: string;
+  gapScore: number;
+  coherence: number;
+  sourceCount: number;
+  sampleContent: string[];
+  suggestedName?: string;
+  contentOpportunity: string;
 }
 
 class ClusteringService {
@@ -389,6 +410,152 @@ class ClusteringService {
 
     console.log(`[Clustering] ✅ Enhanced ${enhanced.length} cluster themes`);
     return enhanced;
+  }
+
+  // ============================================================================
+  // Semantic Gap Detection
+  // ============================================================================
+
+  /**
+   * Detect semantic gaps in clusters
+   * A semantic gap is a cluster with high coherence but no dominant keyword
+   * These represent UNNAMED pain points - goldmine for unique content
+   */
+  detectSemanticGaps(clusters: InsightCluster[]): InsightCluster[] {
+    console.log(`[Clustering] Detecting semantic gaps in ${clusters.length} clusters...`);
+
+    const enhancedClusters = clusters.map(cluster => {
+      const gapAnalysis = this.analyzeClusterForGap(cluster);
+
+      return {
+        ...cluster,
+        isSemanticGap: gapAnalysis.isGap,
+        gapScore: gapAnalysis.gapScore,
+      };
+    });
+
+    const gapCount = enhancedClusters.filter(c => c.isSemanticGap).length;
+    console.log(`[Clustering] ✅ Found ${gapCount} semantic gaps (unnamed pain points)`);
+
+    return enhancedClusters;
+  }
+
+  /**
+   * Analyze a single cluster to determine if it's a semantic gap
+   */
+  private analyzeClusterForGap(cluster: InsightCluster): { isGap: boolean; gapScore: number } {
+    if (!cluster.dataPoints || cluster.dataPoints.length < 3) {
+      return { isGap: false, gapScore: 0 };
+    }
+
+    // 1. Calculate word frequency distribution
+    const wordCounts = this.getWordFrequency(cluster.dataPoints);
+    const wordEntries = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
+
+    if (wordEntries.length === 0) {
+      return { isGap: false, gapScore: 0 };
+    }
+
+    // 2. Calculate concentration ratio (how dominant is top word vs others)
+    const totalWords = wordEntries.reduce((sum, [, count]) => sum + count, 0);
+    const topWordRatio = wordEntries[0][1] / totalWords;
+
+    // If top word is < 15% of total, it's not dominant = potential gap
+    const hasNoDominantKeyword = topWordRatio < 0.15;
+
+    // 3. Check word distribution spread (entropy-like measure)
+    const top5Ratio = wordEntries.slice(0, 5).reduce((sum, [, count]) => sum + count, 0) / totalWords;
+    const isDistributed = top5Ratio < 0.5; // Top 5 words are less than 50%
+
+    // 4. High coherence means semantically similar despite no keyword
+    const hasHighCoherence = cluster.coherence > 0.6;
+
+    // 5. Multiple sources indicates cross-platform validation
+    const hasMultipleSources = cluster.sources.length >= 2;
+
+    // Calculate gap score
+    let gapScore = 0;
+
+    if (hasNoDominantKeyword) gapScore += 0.35;
+    if (isDistributed) gapScore += 0.25;
+    if (hasHighCoherence) gapScore += 0.25;
+    if (hasMultipleSources) gapScore += 0.15;
+
+    // A semantic gap requires: no dominant keyword + high coherence
+    const isGap = hasNoDominantKeyword && hasHighCoherence && gapScore >= 0.6;
+
+    return { isGap, gapScore };
+  }
+
+  /**
+   * Get word frequency for a set of data points
+   */
+  private getWordFrequency(points: DataPoint[]): Record<string, number> {
+    const words: Record<string, number> = {};
+    const stopWords = new Set([
+      'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
+      'should', 'may', 'might', 'must', 'shall', 'to', 'of', 'in', 'for',
+      'on', 'with', 'at', 'by', 'from', 'as', 'into', 'through', 'during',
+      'before', 'after', 'above', 'below', 'between', 'under', 'again',
+      'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why',
+      'how', 'all', 'each', 'few', 'more', 'most', 'other', 'some', 'such',
+      'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very',
+      'just', 'and', 'but', 'or', 'if', 'because', 'while', 'although',
+      'this', 'that', 'these', 'those', 'i', 'me', 'my', 'we', 'our', 'you',
+      'your', 'he', 'him', 'his', 'she', 'her', 'it', 'its', 'they', 'them',
+      'their', 'what', 'which', 'who', 'whom', 'can', 'get', 'like', 'know',
+      'think', 'want', 'need', 'going', 'really', 'also', 'even', 'still',
+    ]);
+
+    for (const point of points) {
+      if (!point.content) continue;
+
+      const contentWords = point.content
+        .toLowerCase()
+        .replace(/[^a-z\s]/g, '')
+        .split(/\s+/)
+        .filter(w => w.length > 3 && !stopWords.has(w));
+
+      for (const word of contentWords) {
+        words[word] = (words[word] || 0) + 1;
+      }
+    }
+
+    return words;
+  }
+
+  /**
+   * Extract semantic gaps as actionable opportunities
+   */
+  extractSemanticGapOpportunities(clusters: InsightCluster[]): SemanticGap[] {
+    const gaps = clusters.filter(c => c.isSemanticGap && c.gapScore && c.gapScore > 0.5);
+
+    return gaps.map(cluster => ({
+      clusterId: cluster.id,
+      gapScore: cluster.gapScore || 0,
+      coherence: cluster.coherence,
+      sourceCount: cluster.sources.length,
+      sampleContent: cluster.dataPoints.slice(0, 3).map(dp => dp.content.substring(0, 150)),
+      suggestedName: cluster.theme,
+      contentOpportunity: this.generateContentOpportunity(cluster),
+    }));
+  }
+
+  /**
+   * Generate content opportunity description for a semantic gap
+   */
+  private generateContentOpportunity(cluster: InsightCluster): string {
+    const sourceList = cluster.sources.join(', ');
+    const sentiment = cluster.dominantSentiment;
+
+    if (sentiment === 'negative') {
+      return `Unnamed frustration pattern across ${sourceList}. ${cluster.size} people discussing similar pain without a clear label. First to name this wins the narrative.`;
+    } else if (sentiment === 'positive') {
+      return `Emerging trend without category name across ${sourceList}. ${cluster.size} people excited about something they can't easily describe. Define the category.`;
+    }
+
+    return `Cross-platform pattern (${sourceList}) with ${cluster.size} data points. High semantic coherence suggests a real but unnamed phenomenon. Content opportunity: be first to give it a name.`;
   }
 
   /**

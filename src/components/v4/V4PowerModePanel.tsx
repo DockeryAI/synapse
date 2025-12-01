@@ -66,7 +66,14 @@ import {
   Trash2,
   RefreshCcw,
   Pencil,
-  Check
+  Check,
+  Cloud,
+  Search,
+  Youtube,
+  BarChart3,
+  TrendingDown,
+  AlertTriangle,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -79,6 +86,14 @@ import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { useCompetitorIntelligence } from '@/hooks/useCompetitorIntelligence';
 import { useEarlyCompetitorDiscovery } from '@/hooks/useEarlyCompetitorDiscovery';
 import { useKeywords } from '@/hooks/useKeywords';
+// Trends 2.0 - Full streaming pipeline
+import { useStreamingTrends } from '@/hooks/useStreamingTrends';
+// Triggers 2.0 - Streaming triggers pipeline
+import { useStreamingTriggers } from '@/hooks/useStreamingTriggers';
+import { useBrand } from '@/hooks/useBrand';
+import type { TrendWithMatches } from '@/services/trends/triggers-trend-matcher.service';
+import type { LifecycleStage } from '@/services/trends/trend-lifecycle-detector.service';
+import type { PsychologicalTrigger } from '@/services/trends/eq-trend-prioritizer.service';
 import { CompetitorGapsPanel } from './CompetitorGapsPanel';
 import { CompetitorChipsBar } from './CompetitorChipsBar';
 import { CompetitorIntelligencePanel } from './CompetitorIntelligencePanel';
@@ -86,6 +101,8 @@ import { StreamingGapIndicator, GapSkeletonGrid } from './GapSkeletonCards';
 import { CompetitorScanProgress } from './CompetitorScanProgress';
 import { TriggersPanelV2 } from './TriggersPanelV2';
 import { ProofTab } from './ProofTab';
+import { LocalTab } from './LocalTab';
+import { WeatherTab } from './WeatherTab';
 import { EnhancedCompetitorIntelligence } from './EnhancedCompetitorIntelligence';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
@@ -96,6 +113,8 @@ import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
 // Proof consolidation service for computing proof count from cache
 import { proofConsolidationService } from '@/services/proof/proof-consolidation.service';
+// AI-powered insight suggestion service
+import { insightSuggestionService, type SuggestionResult } from '@/services/intelligence/insight-suggestion.service';
 import { profileDetectionService } from '@/services/triggers/profile-detection.service';
 import type {
   GeneratedContent,
@@ -115,7 +134,21 @@ import type {
 
 // New Synapse-aligned insight categories (action-driven, not source-driven)
 type InsightType = 'triggers' | 'proof' | 'trends' | 'conversations' | 'gaps';
-type FilterType = 'all' | InsightType;
+// Extended filter types include conditional local/weather tabs
+type FilterType = 'all' | InsightType | 'local' | 'weather';
+
+// Phase 10: Intent filter for Trends 2.0 - Use Cases, Product, Industry, Outcomes, Persona, Pain Points
+type TrendsIntentFilter = 'all' | 'product' | 'industry' | 'pain_point' | 'use_case' | 'outcome' | 'persona';
+
+const TRENDS_INTENT_FILTER_CONFIG: Record<TrendsIntentFilter, { label: string; icon: React.ElementType; color: string }> = {
+  all: { label: 'All Types', icon: BarChart3, color: 'gray' },
+  use_case: { label: 'Use Cases', icon: Target, color: 'purple' },
+  product: { label: 'Product', icon: Package, color: 'green' },
+  industry: { label: 'Industry', icon: Globe, color: 'blue' },
+  outcome: { label: 'Outcomes', icon: TrendingUp, color: 'emerald' },
+  persona: { label: 'Persona', icon: Users, color: 'pink' },
+  pain_point: { label: 'Pain Points', icon: AlertTriangle, color: 'orange' }
+};
 
 // Legacy type mapping for backward compatibility with existing data
 const LEGACY_TYPE_MAP: Record<string, InsightType> = {
@@ -125,6 +158,471 @@ const LEGACY_TYPE_MAP: Record<string, InsightType> = {
   'local': 'trends',            // Local insights → timely local relevance
   'opportunity': 'gaps',        // Opportunity insights → unmet needs
 };
+
+// ============================================================================
+// TRENDS 2.0 - Icon maps for lifecycle stages and triggers
+// ============================================================================
+
+const LIFECYCLE_ICONS: Record<LifecycleStage, React.ElementType> = {
+  emerging: Flame,
+  peak: TrendingUp,
+  stable: RefreshCcw,
+  declining: TrendingDown
+};
+
+const TRIGGER_ICONS: Record<PsychologicalTrigger, React.ElementType> = {
+  fear: AlertTriangle,
+  desire: Heart,
+  trust: Shield,
+  urgency: Clock,
+  curiosity: Lightbulb,
+  social: Users,
+  practical: Target
+};
+
+// ============================================================================
+// TREND CARD 2.0 COMPONENT - Expandable with Exec Summary, UVP Correlation, Sources
+// Copied from TrendsDevPage for full functionality
+// ============================================================================
+
+interface TrendCard2Props {
+  trend: TrendWithMatches;
+  isSelected: boolean;
+  isExpanded: boolean;
+  isGenerating?: boolean;
+  onToggle: () => void;
+  onToggleExpand: () => void;
+  onGenerateContent: () => void;
+}
+
+// Using forwardRef for AnimatePresence popLayout compatibility
+const TrendCard2 = React.forwardRef<HTMLDivElement, TrendCard2Props>(function TrendCard2(
+  { trend, isSelected, isExpanded, isGenerating, onToggle, onToggleExpand, onGenerateContent },
+  ref
+) {
+  const [sourcesExpanded, setSourcesExpanded] = useState(false);
+  const [uvpExpanded, setUvpExpanded] = useState(false);
+  const LifecycleIcon = LIFECYCLE_ICONS[trend.lifecycle.stage];
+  const TriggerIcon = TRIGGER_ICONS[trend.primaryTrigger];
+
+  // Build UVP correlation data
+  const uvpCorrelations = useMemo(() => {
+    const correlations: { component: string; icon: string; color: string; reason: string; score: number }[] = [];
+    const matchedKws = trend.relevance.matchedKeywords || [];
+
+    if (trend.relevance.breakdown) {
+      const dims = trend.relevance.breakdown;
+      if (dims.industry > 0) {
+        correlations.push({
+          component: 'Industry',
+          icon: '🏢',
+          color: 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Matches your industry',
+          score: dims.industry
+        });
+      }
+      if (dims.painPoints > 0) {
+        correlations.push({
+          component: 'Pain Points',
+          icon: '😣',
+          color: 'bg-orange-50 border-orange-200 text-orange-700 dark:bg-orange-900/30 dark:border-orange-700 dark:text-orange-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Addresses pain points',
+          score: dims.painPoints
+        });
+      }
+      if (dims.differentiators > 0) {
+        correlations.push({
+          component: 'Differentiators',
+          icon: '⭐',
+          color: 'bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-900/30 dark:border-purple-700 dark:text-purple-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Relates to your differentiators',
+          score: dims.differentiators
+        });
+      }
+      if (dims.products > 0) {
+        correlations.push({
+          component: 'Products/Services',
+          icon: '📦',
+          color: 'bg-green-50 border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-700 dark:text-green-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Connected to your products',
+          score: dims.products
+        });
+      }
+      if (dims.customerDescriptors > 0) {
+        correlations.push({
+          component: 'Target Customer',
+          icon: '👤',
+          color: 'bg-pink-50 border-pink-200 text-pink-700 dark:bg-pink-900/30 dark:border-pink-700 dark:text-pink-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Relevant to your target customer',
+          score: dims.customerDescriptors
+        });
+      }
+      if (dims.emotionalDrivers > 0) {
+        correlations.push({
+          component: 'Emotional Drivers',
+          icon: '❤️',
+          color: 'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300',
+          reason: matchedKws.length > 0 ? `Matched: ${matchedKws.slice(0, 3).join(', ')}` : 'Connects with emotional drivers',
+          score: dims.emotionalDrivers
+        });
+      }
+    }
+
+    return correlations.filter(c => c.score > 0).sort((a, b) => b.score - a.score);
+  }, [trend.relevance.breakdown, trend.relevance.matchedKeywords]);
+
+  // Generate opportunity statement
+  const opportunityStatement = useMemo(() => {
+    const triggerLabel = trend.primaryTrigger.charAt(0).toUpperCase() + trend.primaryTrigger.slice(1);
+
+    if (trend.lifecycle.stage === 'emerging') {
+      return `Early-mover opportunity: Position your brand as a thought leader on this emerging trend. Use ${triggerLabel.toLowerCase()} messaging to connect with prospects actively exploring this space.`;
+    } else if (trend.lifecycle.stage === 'peak') {
+      return `High-visibility opportunity: This trend is at peak attention. Create timely content to capture traffic and establish authority during this window of maximum engagement.`;
+    } else if (trend.lifecycle.stage === 'stable') {
+      return `Evergreen opportunity: Build foundational content around this stable trend for long-term SEO value and consistent lead generation.`;
+    } else {
+      return `Strategic opportunity: Counter-position against this declining trend by highlighting your differentiated approach and superior alternative.`;
+    }
+  }, [trend.lifecycle.stage, trend.primaryTrigger]);
+
+  return (
+    <motion.div
+      ref={ref}
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className={`rounded-xl border-2 overflow-hidden transition-all ${
+        isExpanded ? 'col-span-full' : ''
+      } ${
+        isSelected
+          ? 'border-green-500 bg-green-50 dark:bg-green-900/20 shadow-lg ring-2 ring-green-500/50'
+          : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-green-300 hover:shadow-md'
+      }`}
+    >
+      {/* Header Row */}
+      <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+        <div className="flex items-center justify-between">
+          {/* Left: Lifecycle + Trigger */}
+          <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium ${
+              trend.lifecycle.stage === 'emerging' ? 'bg-orange-100 text-orange-700' :
+              trend.lifecycle.stage === 'peak' ? 'bg-green-100 text-green-700' :
+              trend.lifecycle.stage === 'stable' ? 'bg-blue-100 text-blue-700' :
+              'bg-gray-100 text-gray-600'
+            }`}>
+              <LifecycleIcon className="w-3 h-3" />
+              {trend.lifecycle.stageLabel}
+              {trend.lifecycle.isFirstMover && (
+                <span className="ml-1 px-1 bg-yellow-200 text-yellow-800 rounded text-[10px]">1st</span>
+              )}
+            </div>
+
+            <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
+              trend.primaryTrigger === 'fear' ? 'bg-red-100 text-red-600' :
+              trend.primaryTrigger === 'desire' ? 'bg-pink-100 text-pink-600' :
+              trend.primaryTrigger === 'trust' ? 'bg-blue-100 text-blue-600' :
+              trend.primaryTrigger === 'urgency' ? 'bg-orange-100 text-orange-600' :
+              trend.primaryTrigger === 'curiosity' ? 'bg-purple-100 text-purple-600' :
+              trend.primaryTrigger === 'social' ? 'bg-green-100 text-green-600' :
+              'bg-gray-100 text-gray-600'
+            }`}>
+              <TriggerIcon className="w-3 h-3" />
+              {trend.primaryTrigger}
+            </div>
+          </div>
+
+          {/* Right: Expand button only */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggleExpand(); }}
+              className="p-1.5 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-colors"
+            >
+              <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Collapsed Content - Title and Description */}
+      <div className="p-4 cursor-pointer" onClick={onToggle}>
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+          {trend.title}
+        </h4>
+        {!isExpanded && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+            {trend.description}
+          </p>
+        )}
+      </div>
+
+      {/* Expanded Content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="border-t border-gray-200 dark:border-slate-700"
+          >
+            <div className="p-4 space-y-4">
+              {/* Executive Summary */}
+              <div className={`p-4 rounded-lg border ${
+                trend.lifecycle.stage === 'emerging' ? 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800' :
+                trend.lifecycle.stage === 'peak' ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' :
+                trend.lifecycle.stage === 'stable' ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' :
+                'bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-800'
+              }`}>
+                <h5 className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  Executive Summary
+                </h5>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                  {trend.description}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                  {trend.whyThisMatters}
+                </p>
+              </div>
+
+              {/* Opportunity */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800">
+                <h5 className="text-xs font-bold text-green-700 dark:text-green-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5" />
+                  Opportunity
+                </h5>
+                <p className="text-sm text-green-800 dark:text-green-200 leading-relaxed">
+                  {opportunityStatement}
+                </p>
+                {trend.bestMatch && (
+                  <div className="mt-3 pt-3 border-t border-green-200 dark:border-green-700">
+                    <p className="text-xs font-medium text-green-600 dark:text-green-400 mb-1">Suggested Hook:</p>
+                    <p className="text-sm font-medium text-green-900 dark:text-green-100 italic">
+                      "{trend.bestMatch.suggestedHook}"
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* UVP Correlation - Collapsible */}
+              <div className="rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setUvpExpanded(!uvpExpanded); }}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                    <Target className="w-4 h-4 text-purple-500" />
+                    UVP Correlation ({uvpCorrelations.length} matches)
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${uvpExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {uvpExpanded && (
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: 'auto' }}
+                      exit={{ height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-3 space-y-2 bg-gray-50 dark:bg-slate-800/30">
+                        {uvpCorrelations.length > 0 ? (
+                          uvpCorrelations.map((corr, idx) => (
+                            <div key={idx} className={`p-3 rounded-lg border ${corr.color}`}>
+                              <div className="flex items-start gap-2">
+                                <span className="text-lg">{corr.icon}</span>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-sm font-semibold">{corr.component}</span>
+                                    <span className="px-2 py-0.5 text-xs bg-white/70 dark:bg-slate-700 rounded-full">
+                                      {corr.score}% match
+                                    </span>
+                                  </div>
+                                  <p className="text-sm opacity-90">{corr.reason}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                            No strong UVP correlations detected. Consider reviewing if this trend is relevant to your brand.
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Sources - Collapsible */}
+              <div className="rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setSourcesExpanded(!sourcesExpanded); }}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                    <Link2 className="w-4 h-4 text-blue-500" />
+                    Sources ({trend.sources.length})
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${sourcesExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {sourcesExpanded && (
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: 'auto' }}
+                      exit={{ height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-3 space-y-2 bg-gray-50 dark:bg-slate-800/30">
+                        {trend.sources.map((source, idx) => (
+                          <div key={idx} className="p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
+                            <div className="flex items-start gap-3">
+                              <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                                source.source === 'serper' ? 'bg-green-100 text-green-600' :
+                                source.source === 'youtube' ? 'bg-red-100 text-red-600' :
+                                source.source === 'reddit' ? 'bg-orange-100 text-orange-600' :
+                                source.source === 'perplexity' ? 'bg-purple-100 text-purple-600' :
+                                source.source === 'news' ? 'bg-blue-100 text-blue-600' :
+                                source.source === 'linkedin' ? 'bg-sky-100 text-sky-600' :
+                                'bg-gray-100 text-gray-600'
+                              }`}>
+                                {source.source === 'youtube' ? <Youtube className="w-4 h-4" /> :
+                                 source.source === 'reddit' ? <MessageSquare className="w-4 h-4" /> :
+                                 source.source === 'serper' ? <Search className="w-4 h-4" /> :
+                                 source.source === 'perplexity' ? <Brain className="w-4 h-4" /> :
+                                 <Newspaper className="w-4 h-4" />}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-xs font-medium text-gray-500 uppercase">{source.source}</span>
+                                  {(source as { contribution?: number }).contribution && (
+                                    <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-slate-700 rounded">
+                                      {Math.round((source as { contribution?: number }).contribution! * 100)}% contribution
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
+                                  {source.title || trend.title}
+                                </p>
+                                {source.url && (
+                                  <a
+                                    href={source.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 mt-1"
+                                  >
+                                    <ExternalLink className="w-3 h-3" />
+                                    View Source
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center justify-end gap-2 pt-2">
+                {trend.isContentReady && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onGenerateContent(); }}
+                    disabled={isGenerating}
+                    className={`flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg shadow-sm ${
+                      isGenerating
+                        ? 'bg-gray-400 cursor-wait'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
+                    }`}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-4 h-4" />
+                        Generate Content
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Collapsed Footer - Only shown when not expanded */}
+      {!isExpanded && (
+        <div className="px-4 py-3 border-t border-gray-100 dark:border-slate-700 bg-gray-50/30 dark:bg-slate-800/30">
+          <div className="flex items-center justify-between">
+            {/* Sources preview */}
+            <div className="flex items-center gap-1">
+              {trend.sources.slice(0, 3).map((source, idx) => (
+                <span
+                  key={idx}
+                  className={`w-6 h-6 rounded flex items-center justify-center text-xs ${
+                    source.source === 'serper' ? 'bg-green-100 text-green-600' :
+                    source.source === 'youtube' ? 'bg-red-100 text-red-600' :
+                    source.source === 'reddit' ? 'bg-orange-100 text-orange-600' :
+                    source.source === 'perplexity' ? 'bg-purple-100 text-purple-600' :
+                    'bg-blue-100 text-blue-600'
+                  }`}
+                  title={source.source}
+                >
+                  {source.source === 'youtube' ? <Youtube className="w-3 h-3" /> :
+                   source.source === 'reddit' ? <MessageSquare className="w-3 h-3" /> :
+                   source.source === 'serper' ? <Search className="w-3 h-3" /> :
+                   source.source === 'perplexity' ? <Brain className="w-3 h-3" /> :
+                   <Newspaper className="w-3 h-3" />}
+                </span>
+              ))}
+              {trend.sources.length > 3 && (
+                <span className="text-xs text-gray-500">+{trend.sources.length - 3}</span>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {trend.isContentReady && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onGenerateContent(); }}
+                  disabled={isGenerating}
+                  className={`flex items-center gap-1 px-3 py-1.5 text-white text-xs font-medium rounded-lg shadow-sm ${
+                    isGenerating
+                      ? 'bg-gray-400 cursor-wait'
+                      : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
+                  }`}
+                >
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-3 h-3" />
+                      Generate
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
+});
 
 // New Synapse insight type mapping - maps data sources to content-action categories
 // This defines HOW data should be used for content creation
@@ -621,6 +1119,33 @@ const typeConfig: Record<InsightType, {
     description: 'Competitor intelligence, gaps, and opportunities',
     icon: Target,
     gradient: 'from-orange-500 to-amber-600'
+  },
+};
+
+// Extended tab config for Local and Weather (conditional tabs)
+const extendedTabConfig: Record<'local' | 'weather', {
+  label: string;
+  color: string;
+  bgColor: string;
+  description: string;
+  icon: React.ElementType;
+  gradient: string;
+}> = {
+  local: {
+    label: 'Local',
+    color: 'text-cyan-600',
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
+    description: 'Community events, local news, neighborhood happenings',
+    icon: MapPin,
+    gradient: 'from-cyan-500 to-teal-600'
+  },
+  weather: {
+    label: 'Weather',
+    color: 'text-sky-600',
+    bgColor: 'bg-sky-100 dark:bg-sky-900/30',
+    description: 'Weather-triggered content opportunities',
+    icon: Cloud,
+    gradient: 'from-sky-500 to-blue-600'
   },
 };
 
@@ -1833,6 +2358,8 @@ interface InsightCardComponentProps {
   insight: InsightCard;
   isSelected: boolean;
   onToggle: () => void;
+  /** AI suggestion info - if present, this card was AI-suggested */
+  suggestion?: { reason: string };
 }
 
 // Extract raw quotes from rawData
@@ -2127,11 +2654,12 @@ function extractGapProvenance(insight: InsightCard): {
   };
 }
 
-const InsightCardComponent = memo(function InsightCardComponent({ insight, isSelected, onToggle }: InsightCardComponentProps) {
+const InsightCardComponent = memo(function InsightCardComponent({ insight, isSelected, onToggle, suggestion }: InsightCardComponentProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [expandedSection, setExpandedSection] = useState<'sources' | 'uvp' | 'pillars' | 'provenance' | null>(null);
   const config = typeConfig[insight.type];
   const isGapInsight = insight.type === 'gaps';
+  const isSuggested = !!suggestion;
 
   const rawQuotes = useMemo(() => extractRawQuotes(insight.rawData), [insight.rawData]);
   const uvpAlignment = useMemo(() => determineUVPAlignment(insight), [insight]);
@@ -2164,16 +2692,26 @@ const InsightCardComponent = memo(function InsightCardComponent({ insight, isSel
   return (
     <div
       className={`
-        w-full text-left rounded-xl border-2 transition-all duration-200 overflow-hidden
+        w-full text-left rounded-xl border-2 transition-all duration-200 overflow-hidden relative
         ${isSelected
           ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-lg ring-2 ring-purple-500/20'
-          : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 hover:shadow-md'}
+          : isSuggested
+            ? 'border-amber-400 dark:border-amber-500 bg-amber-50/50 dark:bg-amber-900/10 shadow-md ring-2 ring-amber-400/30 hover:ring-amber-400/50'
+            : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 hover:shadow-md'}
       `}
     >
+      {/* AI Suggestion Badge */}
+      {isSuggested && (
+        <div className="absolute top-0 right-0 flex items-center gap-1 px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-bl-lg">
+          <Sparkles className="w-3 h-3" />
+          AI Suggested
+        </div>
+      )}
+
       {/* Main Card Content - Clickable for selection */}
       <button
         onClick={onToggle}
-        className="w-full text-left p-4"
+        className={`w-full text-left p-4 ${isSuggested ? 'pt-6' : ''}`}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -2198,6 +2736,15 @@ const InsightCardComponent = memo(function InsightCardComponent({ insight, isSel
             <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
               {insight.description}
             </p>
+            {/* AI Suggestion Reason */}
+            {isSuggested && suggestion.reason && (
+              <div className="flex items-center gap-1.5 mt-2 p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded-md">
+                <Brain className="w-3 h-3 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                <span className="text-[10px] text-amber-700 dark:text-amber-300 italic">
+                  {suggestion.reason}
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xs text-gray-500 dark:text-gray-500">
                 {insight.category}
@@ -4520,12 +5067,18 @@ interface CSSGridInsightGridProps {
   insights: InsightCard[];
   selectedInsights: string[];
   onToggle: (id: string) => void;
+  /** AI-suggested insight IDs with reasons */
+  suggestedInsights?: SuggestionResult[];
+  /** Whether suggestions are loading */
+  isLoadingSuggestions?: boolean;
 }
 
 const CSSGridInsightGrid = memo(function CSSGridInsightGrid({
   insights,
   selectedInsights,
-  onToggle
+  onToggle,
+  suggestedInsights = [],
+  isLoadingSuggestions = false
 }: CSSGridInsightGridProps) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
@@ -4543,13 +5096,19 @@ const CSSGridInsightGrid = memo(function CSSGridInsightGrid({
           const Icon = typeConfig[insight.type]?.icon || TrendingUp;
           const gradientColor = typeConfig[insight.type]?.gradient || 'from-gray-500 to-gray-600';
 
+          // Check if this insight is AI-suggested
+          const suggestion = suggestedInsights.find(s => s.id === insight.id);
+          const isSuggested = !!suggestion;
+
           // Card classes - expanded cards span both columns
           const cardClasses = `relative rounded-lg border-2 transition-all ${
             isExpanded ? 'col-span-2' : ''
           } ${
             isSelected
               ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 shadow-md'
-              : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-sm'
+              : isSuggested
+                ? 'border-amber-400 dark:border-amber-500 bg-amber-50/50 dark:bg-amber-900/10 shadow-md ring-2 ring-amber-400/30 hover:ring-amber-400/50'
+                : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-sm'
           }`;
 
           // V3 FIX: Use regular div instead of motion.div for better performance
@@ -4559,13 +5118,21 @@ const CSSGridInsightGrid = memo(function CSSGridInsightGrid({
               key={insight.id}
               className={cardClasses}
             >
+              {/* AI Suggestion Badge */}
+              {isSuggested && (
+                <div className="absolute top-0 left-0 flex items-center gap-1 px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded-br-lg z-10">
+                  <Sparkles className="w-2.5 h-2.5" />
+                  AI Pick
+                </div>
+              )}
+
               {/* Card Content - Clickable to select */}
               <button
                 onClick={() => onToggle(insight.id)}
-                className="w-full p-3 text-left"
+                className={`w-full p-3 text-left ${isSuggested ? 'pt-5' : ''}`}
               >
                 {/* Confidence Badge */}
-                <div className={`absolute top-2 right-2 px-2 py-0.5 bg-gradient-to-r ${gradientColor} rounded-full`}>
+                <div className={`absolute top-2 right-2 px-2 py-0.5 bg-gradient-to-r ${gradientColor} rounded-full ${isSuggested ? 'mt-2' : ''}`}>
                   <span className="text-xs font-bold text-white">
                     {Math.round(insight.confidence * 100)}%
                   </span>
@@ -4593,9 +5160,19 @@ const CSSGridInsightGrid = memo(function CSSGridInsightGrid({
                   )}
                 </div>
 
+                {/* AI Suggestion Reason */}
+                {isSuggested && suggestion.reason && (
+                  <div className="flex items-center gap-1 mt-2 p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded">
+                    <Brain className="w-3 h-3 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                    <span className="text-[10px] text-amber-700 dark:text-amber-300 italic line-clamp-1">
+                      {suggestion.reason}
+                    </span>
+                  </div>
+                )}
+
                 {/* Selection Indicator */}
                 {isSelected && (
-                  <div className="absolute top-2 left-2 w-4 h-4 bg-purple-600 rounded-full flex items-center justify-center">
+                  <div className={`absolute left-2 w-4 h-4 bg-purple-600 rounded-full flex items-center justify-center ${isSuggested ? 'top-6' : 'top-2'}`}>
                     <div className="w-2 h-2 bg-white rounded-full" />
                   </div>
                 )}
@@ -4915,6 +5492,13 @@ export function V4PowerModePanel({
   const [allInsights, setAllInsights] = useState<InsightCard[]>([]);
   const [selectedInsights, setSelectedInsights] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  // Load cached proof count from localStorage on mount
+  const [liveProofCount, setLiveProofCount] = useState(() => {
+    try {
+      const cached = localStorage.getItem('synapse_proof_count');
+      return cached ? parseInt(cached, 10) : 0;
+    } catch { return 0; }
+  });
   const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const [templateSidebarCollapsed, setTemplateSidebarCollapsed] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState<InsightRecipe | null>(null);
@@ -4947,38 +5531,14 @@ export function V4PowerModePanel({
   const [isRefreshingApis, setIsRefreshingApis] = useState(false); // Track API refresh state
   const [recipeDropdownOpen, setRecipeDropdownOpen] = useState(false); // Recipe dropdown state
 
-  // Compute trigger and proof counts directly from localStorage cache
-  // This ensures counts are accurate even before user clicks on those tabs
-  const { triggerCount, proofCount } = useMemo(() => {
-    // Trigger count: read from localStorage cache (same key as TriggersPanelV2)
-    let triggers = 0;
-    try {
-      const cachedTriggers = localStorage.getItem('triggersPanel_triggers_v1');
-      if (cachedTriggers) {
-        const parsed = JSON.parse(cachedTriggers);
-        triggers = Array.isArray(parsed) ? parsed.length : 0;
-      }
-    } catch (err) {
-      console.warn('[V4PowerModePanel] Failed to read cached triggers:', err);
-    }
+  // AI-powered insight suggestions
+  const [suggestedInsightIds, setSuggestedInsightIds] = useState<SuggestionResult[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
+  const lastSuggestionRequestRef = useRef<string | null>(null);
 
-    // Proof count: read from localStorage cache and run consolidation (same as ProofTab)
-    let proofs = 0;
-    try {
-      const cachedProofContext = localStorage.getItem('proofTab_deepContext_v1');
-      if (cachedProofContext && uvp) {
-        const parsedContext = JSON.parse(cachedProofContext) as DeepContext;
-        const brandData = { name: uvp?.brandId || '', industry: 'Auto-detected' };
-        const analysis = profileDetectionService.detectProfile(uvp, brandData);
-        const result = proofConsolidationService.consolidate(parsedContext, uvp, analysis.profileType);
-        proofs = result?.proofs?.length || 0;
-      }
-    } catch (err) {
-      console.warn('[V4PowerModePanel] Failed to compute proof count:', err);
-    }
-
-    return { triggerCount: triggers, proofCount: proofs };
-  }, [uvp]); // Re-compute when uvp changes
+  // TRIGGERS 2.0: NO CACHING - Always use live data
+  // User requested live-only mode - no localStorage cache loading
+  const cachedTriggers: any[] | null = null;
 
   // Detect B2B vs B2C from UVP for platform suggestions
   const isB2B = useMemo(() => {
@@ -4999,6 +5559,54 @@ export function V4PowerModePanel({
 
     return hasB2BIndicator;
   }, [uvp]);
+
+  // ============================================================================
+  // TRIGGERS 2.0 STREAMING HOOK
+  // Full pipeline with profile-based API gating, consolidation, and UVP alignment
+  // ============================================================================
+
+  // Get current brand for triggers API calls
+  const { currentBrand } = useBrand();
+
+  // Detect business profile from UVP for intelligent API gating
+  const detectedTriggerProfile = useMemo(() => {
+    if (!uvp) return undefined;
+    const brandData = currentBrand
+      ? { name: currentBrand.name, industry: currentBrand.naicsCode }
+      : undefined;
+    const analysis = profileDetectionService.detectProfile(uvp, brandData);
+    console.log('[V4PowerMode] Detected trigger profile:', analysis.profileType);
+    return analysis.profileType;
+  }, [uvp, currentBrand]);
+
+  // Triggers streaming state - auto-enabled when UVP loads (LIVE ONLY MODE)
+  const [triggersStreamingEnabled, setTriggersStreamingEnabled] = useState(false);
+
+  // LIVE ONLY: Always auto-start triggers streaming when conditions are met
+  useEffect(() => {
+    if (uvp && currentBrand && !skipApis && !triggersStreamingEnabled) {
+      console.log('[V4PowerMode] 🎯 Auto-starting triggers streaming (LIVE MODE)...');
+      setTriggersStreamingEnabled(true);
+    }
+  }, [uvp, currentBrand, skipApis, triggersStreamingEnabled]);
+
+  // Streaming triggers hook - provides consolidated triggers with UVP alignment
+  const triggersStreamingResult = useStreamingTriggers(
+    currentBrand,
+    uvp,
+    triggersStreamingEnabled && !skipApis,
+    detectedTriggerProfile
+  );
+
+  // LIVE ONLY: Compute trigger and proof counts from streaming results (no localStorage)
+  // Counts will show 0 until streaming completes
+  const { triggerCount, proofCount } = useMemo(() => {
+    // Trigger count: from live streaming results only
+    const triggers = triggersStreamingResult?.triggers?.length || 0;
+
+    // Proof count: from ProofTab callback via liveProofCount state
+    return { triggerCount: triggers, proofCount: liveProofCount };
+  }, [triggersStreamingResult?.triggers?.length, liveProofCount]);
 
   // V4 Hook
   const {
@@ -5057,6 +5665,117 @@ export function V4PowerModePanel({
     startFullAnalysis: startFullCompetitorAnalysis,
     hasRunForBrand: hasEarlyDiscoveryRun
   } = useEarlyCompetitorDiscovery({ triggerAtProgress: 30 });
+
+  // ============================================================================
+  // TRENDS 2.0 STREAMING HOOK
+  // Full pipeline with UVP-informed queries, multi-source validation, relevance scoring
+  // ============================================================================
+  const {
+    state: trendsState,
+    result: trendsResult,
+    executePipeline: executeTrendsPipeline,
+    clearCache: clearTrendsCache,
+    isLoading: isLoadingStreamingTrends,
+    hasCachedData: hasCachedTrends
+  } = useStreamingTrends({ deepMining: true });
+
+  // Handler to refresh trends - clears cache and re-executes pipeline
+  const handleRefreshTrends = useCallback(() => {
+    console.log('[V4PowerMode] 🔄 Refreshing Trends 2.0...');
+    // DEBUG: Log UVP identity to track industry mismatch issues
+    console.log('[V4PowerMode] UVP being used:', {
+      valueProposition: uvp?.valuePropositionStatement?.substring(0, 80),
+      targetIndustry: uvp?.targetCustomer?.industry,
+      targetStatement: uvp?.targetCustomer?.statement?.substring(0, 80),
+      productNames: uvp?.productsServices?.categories?.flatMap(c => c.items.map(i => i.name)).slice(0, 3)
+    });
+    if (uvp) {
+      clearTrendsCache();
+      executeTrendsPipeline(uvp);
+    } else {
+      console.warn('[V4PowerMode] Cannot refresh trends - UVP not available');
+    }
+  }, [uvp, executeTrendsPipeline, clearTrendsCache]);
+
+  // ============================================================================
+  // TRENDS 2.0 - Selection, expansion, and filtering state (like TrendsDevPage)
+  // ============================================================================
+  const [selectedTrends, setSelectedTrends] = useState<string[]>([]);
+  const [expandedTrends, setExpandedTrends] = useState<Set<string>>(new Set());
+  const [generatingTrendContent, setGeneratingTrendContent] = useState<string | null>(null);
+  const [trendsMainFilter, setTrendsMainFilter] = useState<'all' | 'content_ready'>('all');
+  // Phase 10: Intent filter for JTBD-focused categories (Use Cases, Outcomes, Persona, etc.)
+  const [trendsIntentFilter, setTrendsIntentFilter] = useState<TrendsIntentFilter>('all');
+
+  // Phase 10: Calculate intent counts for filter badges
+  const trendsIntentCounts = useMemo(() => {
+    if (!trendsResult?.trends) return { all: 0, product: 0, industry: 0, pain_point: 0, use_case: 0, outcome: 0, persona: 0 };
+
+    return {
+      all: trendsResult.trends.length,
+      use_case: trendsResult.trends.filter(t => t.queryIntent === 'use_case').length,
+      product: trendsResult.trends.filter(t => t.queryIntent === 'product').length,
+      industry: trendsResult.trends.filter(t => t.queryIntent === 'industry' || t.queryIntent === 'trend').length,
+      outcome: trendsResult.trends.filter(t => t.queryIntent === 'outcome').length,
+      persona: trendsResult.trends.filter(t => t.queryIntent === 'persona').length,
+      pain_point: trendsResult.trends.filter(t => t.queryIntent === 'pain_point').length
+    };
+  }, [trendsResult?.trends]);
+
+  // Filter trends based on main filter (All vs Suggested) AND intent filter (Phase 10)
+  const filteredTrends = useMemo(() => {
+    if (!trendsResult?.trends) return [];
+
+    let filtered = [...trendsResult.trends];
+
+    // Main filter (All vs Suggested)
+    if (trendsMainFilter === 'content_ready') {
+      filtered = filtered.filter(t => t.isContentReady);
+    }
+
+    // Phase 10: Intent filter (Use Cases, Product, Industry, Outcomes, Persona, Pain Points)
+    if (trendsIntentFilter !== 'all') {
+      if (trendsIntentFilter === 'industry') {
+        // Industry includes both 'industry' and 'trend' queryIntent
+        filtered = filtered.filter(t => t.queryIntent === 'industry' || t.queryIntent === 'trend');
+      } else {
+        filtered = filtered.filter(t => t.queryIntent === trendsIntentFilter);
+      }
+    }
+
+    return filtered;
+  }, [trendsResult?.trends, trendsMainFilter, trendsIntentFilter]);
+
+  // Handler to toggle trend selection
+  const handleToggleTrend = useCallback((id: string) => {
+    setSelectedTrends(prev =>
+      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
+    );
+  }, []);
+
+  // Handler to toggle trend expansion
+  const handleToggleTrendExpand = useCallback((id: string) => {
+    setExpandedTrends(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  }, []);
+
+  // Handler to generate content from trend
+  const handleGenerateTrendContent = useCallback(async (trend: TrendWithMatches) => {
+    console.log('[V4PowerMode] Generate content for trend:', trend.title);
+    setGeneratingTrendContent(trend.id);
+    // TODO: Implement content generation integration
+    setTimeout(() => {
+      setGeneratingTrendContent(null);
+      console.log('[V4PowerMode] Content generation placeholder - wire to actual generator');
+    }, 2000);
+  }, []);
 
   // Ref to track if early discovery has been triggered during this session
   const earlyDiscoveryTriggeredRef = useRef(false);
@@ -5403,10 +6122,24 @@ export function V4PowerModePanel({
   // Check if there are more items to load
   const hasMoreInsights = filteredInsights.length > visibleCount;
 
-  // Get selected insight objects
+  // Convert selected insight IDs to full SelectedInsight objects for generation
+  // NOTE: This must be defined BEFORE handleGenerate so it uses the properly typed version
   const selectedInsightObjects = useMemo(() => {
-    return allInsights.filter(i => selectedInsights.includes(i.id));
-  }, [allInsights, selectedInsights]);
+    return selectedInsights
+      .map(id => allInsights.find(i => i.id === id))
+      .filter((i): i is InsightCard => i !== undefined)
+      .map(i => ({
+        id: i.id,
+        type: i.type,
+        title: i.title,
+        description: i.description,
+        category: i.category,
+        confidence: i.confidence,
+        actionableInsight: i.actionableInsight,
+        evidence: i.evidence,
+        sources: i.sources,
+      }));
+  }, [selectedInsights, allInsights]);
 
   // Toggle insight selection
   const handleToggleInsight = useCallback((insightId: string) => {
@@ -5608,7 +6341,8 @@ export function V4PowerModePanel({
         platform: activePlatform,
         framework: activeFramework,
         funnelStage: activeFunnelStage,
-        tone: 'professional'
+        tone: 'professional',
+        selectedInsights: selectedInsightObjects
       });
 
       setGeneratedContent(content);
@@ -5616,7 +6350,7 @@ export function V4PowerModePanel({
     } catch (err) {
       console.error('V4 Power Mode generation failed:', err);
     }
-  }, [generateWithControl, activeFramework, activePlatform, activeFunnelStage, clearError, onContentGenerated]);
+  }, [generateWithControl, activeFramework, activePlatform, activeFunnelStage, clearError, onContentGenerated, selectedInsightObjects]);
 
   // Handle save
   const handleSave = useCallback(() => {
@@ -5627,21 +6361,88 @@ export function V4PowerModePanel({
 
   // FREEZE FIX: Count insights by type using deferred value (non-blocking)
   // Use child component counts for triggers/proof (from callbacks), deferredInsights for others
+  // Trends count: prefer actual pipeline result over insight cards
+  // Triggers count: prefer streaming pipeline result over localStorage cache
   const insightCounts = useMemo(() => {
-    const trendsCount = deferredInsights.filter(i => i.type === 'trends').length;
+    // Use actual trends pipeline result when available (more accurate than insight cards)
+    const trendsCount = trendsResult?.trends?.length || deferredInsights.filter(i => i.type === 'trends').length;
     const conversationsCount = deferredInsights.filter(i => i.type === 'conversations').length;
     const gapsCount = deferredInsights.filter(i => i.type === 'gaps').length;
+    // Use streaming triggers count when available (more accurate than localStorage)
+    const actualTriggerCount = triggersStreamingResult.triggers?.length || triggerCount;
     // "All" = sum of child component counts + deferredInsights for non-child types
-    const allCount = triggerCount + proofCount + trendsCount + conversationsCount + gapsCount;
+    const allCount = actualTriggerCount + proofCount + trendsCount + conversationsCount + gapsCount;
     return {
       all: allCount,
-      triggers: triggerCount,  // From TriggersPanelV2 callback
+      triggers: actualTriggerCount,  // From streaming pipeline or TriggersPanelV2 callback
       proof: proofCount,       // From ProofTab callback
       trends: trendsCount,
       conversations: conversationsCount,
       gaps: gapsCount,
     };
-  }, [deferredInsights, triggerCount, proofCount]);
+  }, [deferredInsights, triggerCount, proofCount, trendsResult?.trends?.length, triggersStreamingResult.triggers?.length]);
+
+  // AI-powered insight suggestions: fetch suggestions when a new insight is selected
+  useEffect(() => {
+    // Only trigger on single selection (when user clicks an insight)
+    if (selectedInsights.length === 0) {
+      setSuggestedInsightIds([]);
+      return;
+    }
+
+    // Get the most recently selected insight
+    const lastSelectedId = selectedInsights[selectedInsights.length - 1];
+
+    // Don't re-fetch if we already fetched for this selection
+    if (lastSuggestionRequestRef.current === lastSelectedId) {
+      return;
+    }
+
+    // Find the full insight object
+    const selectedInsight = allInsights.find(i => i.id === lastSelectedId);
+    if (!selectedInsight) {
+      return;
+    }
+
+    // Mark this request to avoid duplicates
+    lastSuggestionRequestRef.current = lastSelectedId;
+
+    // Fetch suggestions
+    setIsLoadingSuggestions(true);
+    insightSuggestionService
+      .getSuggestions(
+        {
+          id: selectedInsight.id,
+          type: selectedInsight.type,
+          title: selectedInsight.title,
+          category: selectedInsight.category,
+          confidence: selectedInsight.confidence,
+          description: selectedInsight.description,
+          evidence: selectedInsight.evidence,
+        },
+        allInsights.map(i => ({
+          id: i.id,
+          type: i.type,
+          title: i.title,
+          category: i.category,
+          confidence: i.confidence,
+          description: i.description,
+          evidence: i.evidence,
+        })),
+        selectedInsights
+      )
+      .then(suggestions => {
+        setSuggestedInsightIds(suggestions);
+        console.log('[V4PowerMode] Got AI suggestions:', suggestions);
+      })
+      .catch(err => {
+        console.error('[V4PowerMode] Failed to get suggestions:', err);
+        setSuggestedInsightIds([]);
+      })
+      .finally(() => {
+        setIsLoadingSuggestions(false);
+      });
+  }, [selectedInsights, allInsights]);
 
   // Auto-generate live preview when selection changes (debounced) - DISABLED BY DEFAULT
   useEffect(() => {
@@ -5677,7 +6478,8 @@ export function V4PowerModePanel({
           platform: activePlatform,
           framework: activeFramework,
           funnelStage: activeFunnelStage,
-          tone: 'professional'
+          tone: 'professional',
+          selectedInsights: selectedInsightObjects
         });
 
         // Only set content if not aborted
@@ -5704,7 +6506,7 @@ export function V4PowerModePanel({
         abortControllerRef.current.abort();
       }
     };
-  }, [selectedInsights, activeFramework, activePlatform, activeFunnelStage, generateWithControl, autoGenerateEnabled]);
+  }, [selectedInsights, activeFramework, activePlatform, activeFunnelStage, generateWithControl, autoGenerateEnabled, selectedInsightObjects]);
 
   // Cleanup timeouts and abort controller on unmount
   useEffect(() => {
@@ -5737,7 +6539,8 @@ export function V4PowerModePanel({
         platform: activePlatform,
         framework: activeFramework,
         funnelStage: activeFunnelStage,
-        tone: 'professional'
+        tone: 'professional',
+        selectedInsights: selectedInsightObjects
       });
 
       if (!abortControllerRef.current?.signal.aborted) {
@@ -5752,7 +6555,7 @@ export function V4PowerModePanel({
     } finally {
       setIsLiveGenerating(false);
     }
-  }, [selectedInsights, activePlatform, activeFramework, activeFunnelStage, generateWithControl]);
+  }, [selectedInsights, activePlatform, activeFramework, activeFunnelStage, generateWithControl, selectedInsightObjects]);
 
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-slate-900 relative">
@@ -6242,24 +7045,62 @@ export function V4PowerModePanel({
 
         {/* Middle: Insight Grid */}
         <div className="flex-1 flex flex-col min-w-0 p-4">
-          {/* Filter Tabs - Synapse-aligned categories */}
+          {/* Filter Tabs - Synapse-aligned categories with conditional Local/Weather */}
           <div className="flex-shrink-0 flex gap-2 mb-4 overflow-x-auto pb-2">
-            {(['all', 'triggers', 'proof', 'trends', 'gaps'] as FilterType[]).map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
-                  activeFilter === filter
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/20'
-                }`}
-              >
-                {filter === 'all' ? 'All' : typeConfig[filter as InsightType].label}
-                <span className="ml-1.5 text-xs opacity-70">
-                  {insightCounts[filter as keyof typeof insightCounts]}
-                </span>
-              </button>
-            ))}
+            {(() => {
+              // Build tabs array dynamically based on enabledTabs from industry profile
+              const enabledTabs = businessProfile?.industryProfile?.enabledTabs;
+              const baseTabs: FilterType[] = ['all', 'triggers', 'proof', 'trends', 'gaps'];
+
+              // Add conditional tabs if enabled (or if no profile yet, show for dev testing)
+              const conditionalTabs: FilterType[] = [];
+              if (enabledTabs?.local || !businessProfile?.industryProfile) {
+                conditionalTabs.push('local');
+              }
+              if (enabledTabs?.weather || !businessProfile?.industryProfile) {
+                conditionalTabs.push('weather');
+              }
+
+              const allTabs = [...baseTabs, ...conditionalTabs];
+
+              return allTabs.map((filter) => {
+                // Get label from appropriate config
+                let label = 'All';
+                if (filter !== 'all') {
+                  if (filter === 'local' || filter === 'weather') {
+                    label = extendedTabConfig[filter].label;
+                  } else {
+                    label = typeConfig[filter as InsightType].label;
+                  }
+                }
+
+                // Count for basic tabs, empty for extended tabs
+                const count = filter === 'local' || filter === 'weather'
+                  ? undefined
+                  : insightCounts[filter as keyof typeof insightCounts];
+
+                return (
+                  <button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                      activeFilter === filter
+                        ? filter === 'local' ? 'bg-cyan-600 text-white'
+                        : filter === 'weather' ? 'bg-sky-600 text-white'
+                        : 'bg-purple-600 text-white'
+                        : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/20'
+                    }`}
+                  >
+                    {label}
+                    {count !== undefined && (
+                      <span className="ml-1.5 text-xs opacity-70">
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                );
+              });
+            })()}
           </div>
 
           {/* Insights Grid - Virtualized for Performance */}
@@ -6364,13 +7205,14 @@ export function V4PowerModePanel({
               <ScrollArea className="h-full">
                 <div className="p-4">
                   <TriggersPanelV2
-                    deepContext={deepContext}
+                    deepContext={triggersStreamingResult.deepContext || deepContext}
                     uvp={uvp}
-                    brandData={{ name: uvp?.brandId, industry: 'Auto-detected' }}
+                    brandData={{ name: currentBrand?.name || '', industry: currentBrand?.industry || 'Auto-detected' }}
                     selectedTriggers={selectedInsights}
-                    isLoading={isLoading}
-                    loadingStatus={loadingStatus}
+                    isLoading={cachedTriggers ? false : (triggersStreamingResult.isLoading || isLoading)}
+                    loadingStatus={cachedTriggers ? 'Using cached data' : (triggersStreamingResult.isLoading ? `${triggersStreamingResult.loadingStatus} (${triggersStreamingResult.percentComplete}%)` : loadingStatus)}
                     onToggle={handleToggleInsight}
+                    preConsolidatedTriggers={cachedTriggers || (triggersStreamingResult.isReady ? triggersStreamingResult.triggers : null)}
                   />
                 </div>
               </ScrollArea>
@@ -6381,7 +7223,222 @@ export function V4PowerModePanel({
                   <ProofTab
                     uvp={uvp}
                     brandId={uvp?.id}
+                    onProofCountChange={setLiveProofCount}
                   />
+                </div>
+              </ScrollArea>
+            ) : activeFilter === 'local' ? (
+              /* Local Tab - Community events, local news */
+              <ScrollArea className="h-full">
+                <div className="p-4">
+                  <LocalTab
+                    uvp={uvp}
+                    brandId={uvp?.id}
+                  />
+                </div>
+              </ScrollArea>
+            ) : activeFilter === 'weather' ? (
+              /* Weather Tab - Weather-triggered content opportunities */
+              <ScrollArea className="h-full">
+                <div className="p-4">
+                  <WeatherTab
+                    uvp={uvp}
+                    brandId={uvp?.id}
+                  />
+                </div>
+              </ScrollArea>
+            ) : activeFilter === 'trends' ? (
+              /* ============================================================
+               * TRENDS 2.0 PANEL - Full streaming pipeline
+               * Uses useStreamingTrends hook for UVP-informed trend discovery
+               * ============================================================ */
+              <ScrollArea className="h-full">
+                <div className="p-4 space-y-4">
+                  {/* Header with Refresh Button */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-green-600" />
+                      <h3 className="font-semibold text-gray-900 dark:text-white">
+                        Trends 2.0
+                      </h3>
+                      {hasCachedTrends && (
+                        <span className="px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded">cached</span>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={handleRefreshTrends}
+                      disabled={isLoadingStreamingTrends || !uvp}
+                      className="gap-2 bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <RefreshCw className={`w-4 h-4 ${isLoadingStreamingTrends ? 'animate-spin' : ''}`} />
+                      <span>{isLoadingStreamingTrends ? 'Loading...' : 'Refresh Trends'}</span>
+                    </Button>
+                  </div>
+
+                  {/* Filter Tabs - All Trends vs Suggested (content-ready) */}
+                  {trendsResult?.trends && trendsResult.trends.length > 0 && (
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setTrendsMainFilter('all')}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                          trendsMainFilter === 'all'
+                            ? 'bg-green-600 text-white shadow-md'
+                            : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-green-100'
+                        }`}
+                      >
+                        <BarChart3 className="w-4 h-4" />
+                        All Trends
+                        <span className="text-xs opacity-70">({trendsResult.trends.length})</span>
+                      </button>
+                      <button
+                        onClick={() => setTrendsMainFilter('content_ready')}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                          trendsMainFilter === 'content_ready'
+                            ? 'bg-green-600 text-white shadow-md'
+                            : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-green-100'
+                        }`}
+                      >
+                        <CheckCircle2 className="w-4 h-4" />
+                        Suggested
+                        <span className="text-xs opacity-70">({trendsResult.stats?.contentReadyCount || 0})</span>
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Phase 10: Type Filter - JTBD Categories (Use Cases, Product, Industry, Outcomes, Persona, Pain Points) */}
+                  {trendsResult?.trends && trendsResult.trends.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-medium text-gray-500 mr-1">Filter by Type:</span>
+                      {(Object.keys(TRENDS_INTENT_FILTER_CONFIG) as TrendsIntentFilter[]).map((intent) => {
+                        const config = TRENDS_INTENT_FILTER_CONFIG[intent];
+                        const Icon = config.icon;
+                        const count = trendsIntentCounts[intent];
+
+                        return (
+                          <button
+                            key={intent}
+                            onClick={() => setTrendsIntentFilter(intent)}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+                              trendsIntentFilter === intent
+                                ? config.color === 'green' ? 'bg-green-600 text-white shadow-md' :
+                                  config.color === 'blue' ? 'bg-blue-600 text-white shadow-md' :
+                                  config.color === 'orange' ? 'bg-orange-600 text-white shadow-md' :
+                                  config.color === 'purple' ? 'bg-purple-600 text-white shadow-md' :
+                                  config.color === 'emerald' ? 'bg-emerald-600 text-white shadow-md' :
+                                  config.color === 'pink' ? 'bg-pink-600 text-white shadow-md' :
+                                  'bg-gray-600 text-white shadow-md'
+                                : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600'
+                            }`}
+                          >
+                            <Icon className="w-3.5 h-3.5" />
+                            {config.label}
+                            <span className="opacity-70">({count})</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Progress Bar when Loading */}
+                  {isLoadingStreamingTrends && (
+                    <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-green-700 dark:text-green-300">{trendsState.statusMessage}</span>
+                        <span className="text-sm font-medium text-green-600">{trendsState.progress}%</span>
+                      </div>
+                      <div className="h-2 bg-green-200 dark:bg-green-800 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-green-500 transition-all duration-300"
+                          style={{ width: `${trendsState.progress}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Empty State */}
+                  {!hasCachedTrends && !isLoadingStreamingTrends && (
+                    <div className="flex flex-col items-center justify-center py-12 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-gray-300 dark:border-slate-600">
+                      <TrendingUp className="w-12 h-12 text-gray-300 mb-4" />
+                      <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                        Run Trends 2.0 Pipeline
+                      </h4>
+                      <p className="text-sm text-gray-500 text-center max-w-md mb-4">
+                        Click "Refresh Trends" to run the full Trends 2.0 pipeline with UVP-informed queries,
+                        multi-source validation, and relevance scoring.
+                      </p>
+                      <Button
+                        onClick={handleRefreshTrends}
+                        disabled={!uvp}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        <Sparkles className="w-4 h-4 mr-2" />
+                        Run Pipeline
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Trends Grid - Using TrendCard2 with selection/expansion like TrendsDevPage */}
+                  {filteredTrends.length > 0 && (
+                    <>
+                      <p className="text-xs text-gray-500">Showing {filteredTrends.length} trends (scroll to see all)</p>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <AnimatePresence mode="popLayout">
+                          {filteredTrends.map((trend) => (
+                          <TrendCard2
+                            key={trend.id}
+                            trend={trend}
+                            isSelected={selectedTrends.includes(trend.id)}
+                            isExpanded={expandedTrends.has(trend.id)}
+                            isGenerating={generatingTrendContent === trend.id}
+                            onToggle={() => handleToggleTrend(trend.id)}
+                            onToggleExpand={() => handleToggleTrendExpand(trend.id)}
+                            onGenerateContent={() => handleGenerateTrendContent(trend)}
+                          />
+                        ))}
+                        </AnimatePresence>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Empty state when filters result in no trends */}
+                  {trendsResult?.trends && trendsResult.trends.length > 0 && filteredTrends.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-8 bg-white dark:bg-slate-800 rounded-xl">
+                      <Target className="w-12 h-12 text-gray-300 mb-4" />
+                      <p className="text-gray-500">No trends match the current filter</p>
+                      <button
+                        onClick={() => setTrendsMainFilter('all')}
+                        className="mt-2 text-sm text-green-600 hover:text-green-700"
+                      >
+                        Show all trends
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Stats Summary */}
+                  {trendsResult?.stats && (
+                    <div className="p-4 bg-gray-50 dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700">
+                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Pipeline Stats</h4>
+                      <div className="grid grid-cols-4 gap-4 text-center">
+                        <div>
+                          <p className="text-2xl font-bold text-gray-900 dark:text-white">{trendsResult.stats.rawCount}</p>
+                          <p className="text-xs text-gray-500">Raw Fetched</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold text-blue-600">{trendsResult.stats.validatedCount}</p>
+                          <p className="text-xs text-gray-500">Validated</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold text-green-600">{trendsResult.stats.relevantCount}</p>
+                          <p className="text-xs text-gray-500">Relevant</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold text-emerald-600">{trendsResult.stats.contentReadyCount}</p>
+                          <p className="text-xs text-gray-500">Content Ready</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </ScrollArea>
             ) : filteredInsights.length > 0 ? (
@@ -6391,6 +7448,8 @@ export function V4PowerModePanel({
                   insights={paginatedInsights}
                   selectedInsights={selectedInsights}
                   onToggle={handleToggleInsight}
+                  suggestedInsights={suggestedInsightIds}
+                  isLoadingSuggestions={isLoadingSuggestions}
                 />
                 {/* Load More Button - only show if there are more insights to load */}
                 {hasMoreInsights && (

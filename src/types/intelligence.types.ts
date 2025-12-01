@@ -437,3 +437,288 @@ export interface IntelligenceSignal {
   detected_at: string;
   processed_at?: string;
 }
+
+// ============================================
+// SYNAPSE 2.0 INTELLIGENCE ROUTER TYPES
+// ============================================
+
+import type { DataSource, InsightDimensions } from './connections.types';
+
+/**
+ * Standardized signal format from any API source
+ * All API outputs get normalized to this format before correlation
+ */
+export interface RawSignal {
+  id: string;
+  source: DataSource;
+  type: SignalType;
+  content: string;
+  title?: string;
+  metadata: SignalMetadata;
+  timestamp: Date;
+  confidence: number; // 0-1 based on source reliability
+  embedding?: number[]; // 1536-dim vector after embedding
+}
+
+export type SignalType =
+  | 'pain_point'
+  | 'trigger'
+  | 'trend'
+  | 'competitor_gap'
+  | 'competitor_weakness'
+  | 'customer_voice'
+  | 'question'
+  | 'sentiment'
+  | 'timing'
+  | 'weather'
+  | 'news'
+  | 'social_proof'
+  | 'feature_request'
+  | 'objection'
+  | 'success_story';
+
+export interface SignalMetadata {
+  // Source-specific
+  url?: string;
+  author?: string;
+  platform?: string;
+
+  // Engagement metrics
+  engagement?: number;
+  upvotes?: number;
+  comments?: number;
+  shares?: number;
+
+  // Sentiment
+  sentiment?: 'positive' | 'negative' | 'neutral';
+  sentimentScore?: number; // -1 to 1
+
+  // Timing
+  recency?: 'immediate' | 'recent' | 'older';
+  velocity?: number; // trend velocity
+
+  // Source quality
+  sourceAuthority?: number; // 0-100
+  verified?: boolean;
+
+  // Cross-reference
+  relatedSignalIds?: string[];
+
+  // Custom fields
+  [key: string]: unknown;
+}
+
+/**
+ * A correlated insight is formed when 2+ signals from different sources
+ * are semantically similar (same topic/theme)
+ */
+export interface CorrelatedInsight {
+  id: string;
+  title: string;
+  description: string;
+
+  // Contributing signals
+  signals: RawSignal[];
+  signalCount: number;
+  sources: DataSource[];
+
+  // Scoring
+  confidence: number; // Aggregate confidence 0-1
+  opportunityScore: number; // 0-100, ranked by actionability
+
+  // Content generation
+  suggestedAngles: string[];
+  dimensions: Partial<InsightDimensions>;
+
+  // Metadata
+  createdAt: Date;
+  clusterId?: string;
+  avgSimilarity?: number;
+}
+
+// CORRECT 12-Dimension Tags for Content Variety (from research)
+export interface DimensionTags {
+  // 1. Buyer Journey Stage
+  buyerJourneyStage: 'awareness' | 'consideration' | 'decision' | 'retention' | 'advocacy';
+  // 2. Psychological Trigger
+  psychologicalTrigger: 'joy' | 'trust' | 'fear' | 'curiosity' | 'anger' | 'anticipation' | 'belonging' | 'achievement';
+  // 3. Content Format
+  contentFormat: 'how-to' | 'comparison' | 'case-study' | 'checklist' | 'data' | 'hot-take' | 'story' | 'faq' | 'testimonial';
+  // 4. Content Pillar
+  contentPillar: 'industry-trends' | 'customer-experience' | 'compliance' | 'roi' | 'implementation';
+  // 5. Persona Target
+  personaTarget: 'decision-maker' | 'influencer' | 'user' | 'blocker' | 'champion';
+  // 6. Objection Type
+  objectionType: 'price' | 'timing' | 'authority' | 'need' | 'trust' | 'competitor';
+  // 7. Content Angle
+  contentAngle: 'contrarian' | 'data-driven' | 'story-driven' | 'expert' | 'trending' | 'comparison' | 'behind-scenes' | 'prediction';
+  // 8. CTA Type
+  ctaType: 'download' | 'demo' | 'trial' | 'pricing' | 'consult' | 'webinar' | 'assessment';
+  // 9. Urgency Level
+  urgencyLevel: 'critical' | 'high' | 'medium' | 'low';
+  // 10. Source Combination
+  sourceCombination: '5-way' | '4-way' | '3-way' | '2-way' | 'single';
+  // 11. Competitive Position
+  competitivePosition: 'leader' | 'challenger' | 'niche' | 'innovator' | 'value';
+  // 12. Content Lifecycle
+  contentLifecycle: 'evergreen' | 'seasonal' | 'trending' | 'reactive';
+}
+
+// Unique Angle Discovery Types
+export type AngleDiscoveryMethod =
+  | 'contrarian_flip'
+  | 'adjacent_industry'
+  | 'semantic_gap'
+  | 'hidden_correlation'
+  | 'predictive_trend';
+
+export interface DiscoveredAngle {
+  id: string;
+  method: AngleDiscoveryMethod;
+  title: string;
+  description: string;
+  dataBacking: string;
+
+  // Scoring
+  novelty: number; // 0-100
+  relevance: number; // 0-100
+  actionability: number; // 0-100
+  confidence: number; // 0-100
+  composite: number; // Weighted average
+
+  sourceSignals: RawSignal[];
+  createdAt: Date;
+}
+
+// Content Queue Types
+export interface QueuedContent {
+  id: string;
+  insight: CorrelatedInsight;
+  angle?: DiscoveredAngle;
+  dimensions: DimensionTags;
+  status: 'ready' | 'generating' | 'generated' | 'published';
+  priority: number;
+  generatedContent?: GeneratedContent;
+  queuedAt: Date;
+  generatedAt?: Date;
+}
+
+export interface GeneratedContent {
+  hook: string;
+  body: string;
+  cta: string;
+  hashtags: string[];
+  platform: string;
+  qualityLevel: 1 | 2 | 3 | 4 | 5;
+  qualityReasoning: string;
+  sourceAttribution: string;
+}
+
+// Intelligence State for Context Provider
+export interface IntelligenceRouterState {
+  rawSignals: RawSignal[];
+  isLoadingSignals: boolean;
+  correlatedInsights: CorrelatedInsight[];
+  isCorrelating: boolean;
+  uniqueAngles: DiscoveredAngle[];
+  isDiscoveringAngles: boolean;
+  contentQueue: QueuedContent[];
+  diversityScore: number;
+  lastCorrelatedAt: Date | null;
+  error: string | null;
+}
+
+// Signal Strength Scoring
+export interface SignalStrengthScore {
+  sourceTier: number;
+  recency: number;
+  engagement: number;
+  crossPlatform: number;
+  composite: number;
+}
+
+export const SIGNAL_STRENGTH_WEIGHTS = {
+  sourceTier: 0.30,
+  recency: 0.25,
+  engagement: 0.25,
+  crossPlatform: 0.20,
+} as const;
+
+export const SOURCE_TIER_SCORES: Record<DataSource, number> = {
+  outscraper: 10,
+  g2: 10,
+  trustpilot: 10,
+  yelp: 10,
+  reddit: 7,
+  youtube: 7,
+  twitter: 6,
+  tiktok: 6,
+  linkedin: 8,
+  news: 5,
+  serper: 5,
+  perplexity: 6,
+  quora: 6,
+  apify: 6,
+  semrush: 7,
+  website: 5,
+  weather: 8,
+  google_trends: 7,
+  whisper: 6,
+};
+
+// Parallel LLM Types
+export interface ParallelLLMRequest {
+  id: string;
+  prompt: string;
+  priority?: number;
+}
+
+export interface ParallelLLMResult<T> {
+  id: string;
+  result: T;
+  success: boolean;
+  error?: string;
+  keyUsed: number;
+  durationMs: number;
+}
+
+export interface ParallelLLMBatch<T> {
+  requests: ParallelLLMRequest[];
+  results: ParallelLLMResult<T>[];
+  totalDurationMs: number;
+  successCount: number;
+  failureCount: number;
+}
+
+// API Normalizer Types
+export interface NormalizerConfig {
+  source: DataSource;
+  defaultConfidence: number;
+  defaultSignalType: SignalType;
+  engagementThreshold?: number;
+}
+
+export interface NormalizationResult {
+  signals: RawSignal[];
+  stats: {
+    inputCount: number;
+    outputCount: number;
+    filteredCount: number;
+    avgConfidence: number;
+  };
+}
+
+// Correlation Config
+export interface CorrelationConfig {
+  similarityThreshold: number;
+  minSourcesForInsight: number;
+  maxInsights: number;
+  requireDifferentSources: boolean;
+}
+
+export const DEFAULT_CORRELATION_CONFIG: CorrelationConfig = {
+  similarityThreshold: 0.75,
+  minSourcesForInsight: 2,
+  maxInsights: 20,
+  requireDifferentSources: true,
+};

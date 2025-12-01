@@ -23,7 +23,7 @@
  * The Force Refresh button bypasses this setting via forceBypassCache parameter.
  * This allows testing the Gaps tab without triggering APIs on every refresh.
  */
-export const CACHE_ONLY_MODE = false; // Set to false to enable API calls for proper source URLs
+export const CACHE_ONLY_MODE = true; // Set to true to use cached data from DB - prevents API calls on page load
 
 /**
  * Brand ID for OpenDialog (set after first load to lock to this brand)
@@ -35,7 +35,7 @@ export const OPENDIALOG_BRAND_ID: string | null = null;
  * Whether to auto-run discovery when no competitors exist in cache
  * Only works when CACHE_ONLY_MODE = false
  */
-export const AUTO_DISCOVER_IF_EMPTY = true;
+export const AUTO_DISCOVER_IF_EMPTY = false; // Disabled - only discover when user clicks Force Refresh
 
 /**
  * Minimum confidence threshold for gap extraction.

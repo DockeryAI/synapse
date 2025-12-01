@@ -40,12 +40,12 @@ class InsightSuggestionService {
   private cache: Map<string, SuggestionResult[]> = new Map();
   private apiKey: string;
   private endpoint: string;
-  private model = 'anthropic/claude-sonnet-4-5-20250514'; // Claude Sonnet 4.5 for speed
+  private model = 'anthropic/claude-sonnet-4'; // Claude Sonnet 4 for speed (OpenRouter format)
 
   constructor() {
     this.apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
     this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
-    console.log('[InsightSuggestionService] Initialized with Claude Sonnet 4.5 via ai-proxy');
+    console.log('[InsightSuggestionService] Initialized with Claude Sonnet 4 via ai-proxy');
   }
 
   /**

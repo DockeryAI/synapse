@@ -193,6 +193,96 @@ class EmbeddingService {
 
     return similarities;
   }
+
+  /**
+   * Cluster data points by semantic similarity using greedy clustering
+   * Groups signals with similarity > threshold into clusters
+   * Each cluster with 2+ different sources = correlated insight
+   */
+  clusterBySemanticSimilarity(
+    dataPoints: DataPoint[],
+    threshold: number = 0.75
+  ): SignalCluster[] {
+    console.log(`[Embedding] Clustering ${dataPoints.length} data points with threshold ${threshold}...`);
+    const startTime = Date.now();
+
+    // Filter to only points with embeddings
+    const embeddedPoints = dataPoints.filter(dp => dp.embedding && dp.embedding.length > 0);
+    if (embeddedPoints.length < 2) {
+      console.log(`[Embedding] Not enough embedded points to cluster`);
+      return [];
+    }
+
+    const clusters: SignalCluster[] = [];
+    const assigned = new Set<string>();
+
+    // Greedy clustering: for each unassigned point, find all similar points
+    for (const point of embeddedPoints) {
+      if (assigned.has(point.id)) continue;
+
+      // Find all similar points above threshold
+      const similar = embeddedPoints
+        .filter(other => !assigned.has(other.id) && other.id !== point.id)
+        .map(other => ({
+          point: other,
+          similarity: this.cosineSimilarity(point.embedding!, other.embedding!)
+        }))
+        .filter(s => s.similarity >= threshold)
+        .sort((a, b) => b.similarity - a.similarity);
+
+      if (similar.length > 0) {
+        // Create cluster with seed point + similar points
+        const clusterPoints = [point, ...similar.map(s => s.point)];
+        const sources = [...new Set(clusterPoints.map(p => p.source))];
+        const avgSimilarity = similar.reduce((sum, s) => sum + s.similarity, 0) / similar.length;
+
+        // Only keep clusters with 2+ different sources (cross-source validation)
+        if (sources.length >= 2) {
+          const clusterId = `cluster_${clusters.length + 1}`;
+          clusters.push({
+            id: clusterId,
+            signals: clusterPoints,
+            sources,
+            avgSimilarity,
+            signalCount: clusterPoints.length,
+            representativeContent: this.extractRepresentativeContent(clusterPoints),
+          });
+
+          // Mark all points as assigned
+          clusterPoints.forEach(p => assigned.add(p.id));
+        }
+      }
+    }
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log(`[Embedding] ✅ Found ${clusters.length} clusters in ${elapsed}s`);
+    console.log(`[Embedding] Clusters by source diversity: ${clusters.map(c => `${c.sources.length} sources`).join(', ')}`);
+
+    return clusters.sort((a, b) => b.signalCount - a.signalCount);
+  }
+
+  /**
+   * Extract representative content from cluster for display
+   */
+  private extractRepresentativeContent(points: DataPoint[]): string {
+    // Use the point with highest relevance/certainty as representative
+    const sorted = [...points].sort((a, b) => {
+      const aScore = (a.metadata?.relevance || 0) + (a.metadata?.certainty || 0);
+      const bScore = (b.metadata?.relevance || 0) + (b.metadata?.certainty || 0);
+      return bScore - aScore;
+    });
+    return sorted[0]?.content || '';
+  }
+}
+
+// Signal Cluster type for clustering output
+export interface SignalCluster {
+  id: string;
+  signals: DataPoint[];
+  sources: string[];
+  avgSimilarity: number;
+  signalCount: number;
+  representativeContent: string;
 }
 
 export const embeddingService = new EmbeddingService();

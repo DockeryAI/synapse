@@ -1,13 +1,15 @@
 /**
  * Enhanced Industry Profile Loader Service
  *
- * Loads and matches 143+ enhanced industry profiles from the brandock output.
+ * Loads and matches 376+ enhanced industry profiles from Supabase.
  * Provides fuzzy matching by NAICS code, industry name, and keywords.
  *
  * Created: 2025-11-29
- * Source: /Users/byronhudson/brandock/industry-enhancement/output/enhanced-profiles/
+ * Updated: 2025-11-30 - Switched from local files to Supabase storage
+ * Source: Supabase industry_profiles table (migrated from brandock output)
  */
 
+import { supabase } from '@/lib/supabase';
 import type {
   EnhancedIndustryProfile,
   EnhancedProfileLoadResult,
@@ -30,84 +32,108 @@ interface ProfileIndexEntry {
   keywords: string[];
 }
 
-// Profile index built from available profiles
-// This will be populated dynamically or can be pre-built
-const PROFILE_INDEX: ProfileIndexEntry[] = [
-  // Technology
-  { slug: 'app-development', industry: 'App Development', naics_code: '541511', category: 'Technology', subcategory: 'Mobile & Web Applications', keywords: ['mobile app', 'software', 'developer', 'ios', 'android', 'web app'] },
-  { slug: 'cloud-services', industry: 'Cloud Services', naics_code: '541512', category: 'Technology', subcategory: 'Cloud Computing', keywords: ['cloud', 'saas', 'aws', 'azure', 'hosting', 'infrastructure'] },
-  { slug: 'computer-repair', industry: 'Computer Repair', naics_code: '811212', category: 'Technology', subcategory: 'IT Services', keywords: ['computer repair', 'it support', 'tech support', 'pc repair'] },
-  { slug: 'cybersecurity', industry: 'Cybersecurity', naics_code: '541512', category: 'Technology', subcategory: 'Security', keywords: ['security', 'cyber', 'infosec', 'penetration testing', 'vulnerability'] },
-  { slug: 'it-consulting', industry: 'IT Consulting', naics_code: '541512', category: 'Technology', subcategory: 'Consulting', keywords: ['it consulting', 'technology consulting', 'systems integration'] },
-
-  // Professional Services
-  { slug: 'business-consulting', industry: 'Business Consulting', naics_code: '541611', category: 'Professional Services', subcategory: 'Management Consulting', keywords: ['consultant', 'strategy', 'management', 'advisor', 'coach'] },
-  { slug: 'business-law', industry: 'Business Law', naics_code: '541110', category: 'Professional Services', subcategory: 'Legal', keywords: ['lawyer', 'attorney', 'legal', 'law firm', 'corporate law'] },
-  { slug: 'bookkeeping-services', industry: 'Bookkeeping Services', naics_code: '541219', category: 'Professional Services', subcategory: 'Accounting', keywords: ['bookkeeping', 'accounting', 'cpa', 'tax', 'financial'] },
-  { slug: 'career-coaching', industry: 'Career Coaching', naics_code: '624310', category: 'Professional Services', subcategory: 'Coaching', keywords: ['career', 'coaching', 'resume', 'interview', 'job search'] },
-  { slug: 'content-writing', industry: 'Content Writing', naics_code: '541890', category: 'Professional Services', subcategory: 'Creative Services', keywords: ['content', 'copywriting', 'writer', 'blog', 'marketing content'] },
-
-  // Health & Wellness
-  { slug: 'acupuncture', industry: 'Acupuncture', naics_code: '621399', category: 'Health & Wellness', subcategory: 'Alternative Medicine', keywords: ['acupuncture', 'chinese medicine', 'holistic', 'wellness'] },
-  { slug: 'aesthetics-skincare', industry: 'Aesthetics & Skincare', naics_code: '812111', category: 'Health & Wellness', subcategory: 'Beauty', keywords: ['aesthetics', 'skincare', 'botox', 'facial', 'med spa'] },
-  { slug: 'chiropractic', industry: 'Chiropractic', naics_code: '621310', category: 'Health & Wellness', subcategory: 'Healthcare', keywords: ['chiropractor', 'spine', 'back pain', 'adjustment'] },
-  { slug: 'cosmetic-dentistry', industry: 'Cosmetic Dentistry', naics_code: '621210', category: 'Health & Wellness', subcategory: 'Dental', keywords: ['dentist', 'cosmetic dentistry', 'veneers', 'whitening', 'smile'] },
-
-  // Food & Beverage
-  { slug: 'bakery', industry: 'Bakery', naics_code: '311811', category: 'Food & Beverage', subcategory: 'Specialty Food', keywords: ['bakery', 'bread', 'pastry', 'cake', 'baking'] },
-  { slug: 'bar-pub', industry: 'Bar & Pub', naics_code: '722410', category: 'Food & Beverage', subcategory: 'Hospitality', keywords: ['bar', 'pub', 'tavern', 'nightlife', 'cocktail'] },
-  { slug: 'brewery-winery', industry: 'Brewery & Winery', naics_code: '312120', category: 'Food & Beverage', subcategory: 'Beverage Manufacturing', keywords: ['brewery', 'winery', 'craft beer', 'wine', 'distillery'] },
-  { slug: 'cafe-coffee-shop', industry: 'Cafe & Coffee Shop', naics_code: '722515', category: 'Food & Beverage', subcategory: 'Quick Service', keywords: ['cafe', 'coffee', 'espresso', 'coffee shop', 'barista'] },
-  { slug: 'catering-services', industry: 'Catering Services', naics_code: '722320', category: 'Food & Beverage', subcategory: 'Events', keywords: ['catering', 'events', 'wedding catering', 'corporate catering'] },
-
-  // Retail
-  { slug: 'bookstore', industry: 'Bookstore', naics_code: '451211', category: 'Retail', subcategory: 'Specialty Retail', keywords: ['bookstore', 'books', 'reading', 'literature'] },
-  { slug: 'boutique-clothing-store', industry: 'Boutique Clothing Store', naics_code: '448120', category: 'Retail', subcategory: 'Fashion', keywords: ['boutique', 'clothing', 'fashion', 'apparel', 'designer'] },
-
-  // Automotive
-  { slug: 'auto-detailing', industry: 'Auto Detailing', naics_code: '811192', category: 'Automotive', subcategory: 'Services', keywords: ['auto detailing', 'car wash', 'car care', 'detailing'] },
-  { slug: 'auto-repair', industry: 'Auto Repair', naics_code: '811111', category: 'Automotive', subcategory: 'Services', keywords: ['auto repair', 'mechanic', 'car repair', 'garage', 'automotive'] },
-  { slug: 'car-wash', industry: 'Car Wash', naics_code: '811192', category: 'Automotive', subcategory: 'Services', keywords: ['car wash', 'auto wash', 'vehicle cleaning'] },
-
-  // Home Services
-  { slug: 'cleaning-services', industry: 'Cleaning Services', naics_code: '561720', category: 'Home Services', subcategory: 'Janitorial', keywords: ['cleaning', 'maid', 'janitorial', 'house cleaning', 'commercial cleaning'] },
-  { slug: 'concrete-contractor', industry: 'Concrete Contractor', naics_code: '238110', category: 'Construction', subcategory: 'Specialty Trade', keywords: ['concrete', 'contractor', 'foundation', 'cement', 'flatwork'] },
-  { slug: 'commercial-construction', industry: 'Commercial Construction', naics_code: '236220', category: 'Construction', subcategory: 'General Contractor', keywords: ['construction', 'commercial', 'builder', 'general contractor'] },
-
-  // Personal Care
-  { slug: 'barbershop', industry: 'Barbershop', naics_code: '812111', category: 'Personal Care', subcategory: 'Hair Care', keywords: ['barber', 'barbershop', 'haircut', 'mens grooming'] },
-
-  // Hospitality
-  { slug: 'bed-breakfast', industry: 'Bed & Breakfast', naics_code: '721191', category: 'Hospitality', subcategory: 'Lodging', keywords: ['bed and breakfast', 'bnb', 'inn', 'lodging', 'guesthouse'] },
-
-  // Education
-  { slug: 'after-school-program', industry: 'After School Program', naics_code: '624410', category: 'Education', subcategory: 'Child Services', keywords: ['after school', 'tutoring', 'childcare', 'enrichment'] },
-
-  // Real Estate
-  { slug: 'commercial-real-estate', industry: 'Commercial Real Estate', naics_code: '531120', category: 'Real Estate', subcategory: 'Commercial', keywords: ['commercial real estate', 'cre', 'office space', 'retail space', 'industrial'] },
-
-  // Healthcare
-  { slug: 'compounding-pharmacy', industry: 'Compounding Pharmacy', naics_code: '446110', category: 'Healthcare', subcategory: 'Pharmacy', keywords: ['pharmacy', 'compounding', 'prescription', 'medications'] },
-];
+// Dynamic profile index - loaded from Supabase on first access
+let PROFILE_INDEX: ProfileIndexEntry[] = [];
+let indexLoaded = false;
+let indexLoadPromise: Promise<void> | null = null;
 
 // Cache for loaded profiles
 const profileCache = new Map<string, EnhancedIndustryProfile>();
 
 // =============================================================================
-// PROFILE PATH CONFIGURATION
+// INDEX LOADING FROM SUPABASE
 // =============================================================================
 
-// Base path to enhanced profiles (in development, this loads from the brandock folder)
-// In production, these would be bundled or served from a CDN/API
-const PROFILES_BASE_PATH = '/Users/byronhudson/brandock/industry-enhancement/output/enhanced-profiles';
+/**
+ * Load the profile index from Supabase (lazy, one-time)
+ */
+async function ensureIndexLoaded(): Promise<void> {
+  if (indexLoaded) return;
+
+  // Prevent concurrent loads
+  if (indexLoadPromise) {
+    await indexLoadPromise;
+    return;
+  }
+
+  indexLoadPromise = (async () => {
+    try {
+      console.log('[EnhancedProfileLoader] Loading profile index from Supabase...');
+
+      const { data, error } = await supabase
+        .from('industry_profiles')
+        .select('id, name, naics_code, profile_data')
+        .eq('is_active', true);
+
+      if (error) {
+        console.error('[EnhancedProfileLoader] Failed to load index from Supabase:', error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        console.warn('[EnhancedProfileLoader] No profiles found in Supabase');
+        return;
+      }
+
+      // Build index from Supabase data
+      PROFILE_INDEX = data.map(row => {
+        const profileData = row.profile_data as EnhancedIndustryProfile;
+        return {
+          slug: row.id,
+          industry: row.name || profileData?.industry_name || '',
+          naics_code: row.naics_code || profileData?.naics_code || '',
+          category: profileData?.category || '',
+          subcategory: profileData?.subcategory || '',
+          keywords: extractKeywords(profileData),
+        };
+      });
+
+      indexLoaded = true;
+      console.log(`[EnhancedProfileLoader] Loaded ${PROFILE_INDEX.length} profiles from Supabase`);
+    } catch (err) {
+      console.error('[EnhancedProfileLoader] Error loading index:', err);
+    }
+  })();
+
+  await indexLoadPromise;
+}
+
+/**
+ * Extract keywords from profile data for matching
+ */
+function extractKeywords(profile: EnhancedIndustryProfile | null): string[] {
+  if (!profile) return [];
+
+  const keywords: string[] = [];
+
+  // Add industry name words
+  if (profile.industry_name) {
+    keywords.push(...profile.industry_name.toLowerCase().split(/\s+/));
+  }
+
+  // Add category and subcategory
+  if (profile.category) keywords.push(profile.category.toLowerCase());
+  if (profile.subcategory) keywords.push(profile.subcategory.toLowerCase());
+
+  // Add power words (first 5) - handle both string and array formats
+  if (profile.power_words) {
+    const powerWordsArray = Array.isArray(profile.power_words)
+      ? profile.power_words
+      : typeof profile.power_words === 'string'
+        ? profile.power_words.split(',').map((s: string) => s.trim())
+        : [];
+    keywords.push(...powerWordsArray.slice(0, 5).map((w: string) => w.toLowerCase()));
+  }
+
+  return [...new Set(keywords)]; // Deduplicate
+}
 
 // =============================================================================
 // CORE SERVICE FUNCTIONS
 // =============================================================================
 
 /**
- * Load a profile by slug
- * Fetches from /industry-profiles/{slug}.json (public folder)
+ * Load a profile by slug from Supabase
  */
 export async function loadProfileBySlug(slug: string): Promise<EnhancedIndustryProfile | null> {
   // Check cache first
@@ -117,17 +143,25 @@ export async function loadProfileBySlug(slug: string): Promise<EnhancedIndustryP
   }
 
   try {
-    // Fetch from public folder
-    const profileUrl = `/industry-profiles/${slug}.json`;
-    console.log(`[EnhancedProfileLoader] Fetching profile: ${slug}`);
+    console.log(`[EnhancedProfileLoader] Fetching profile from Supabase: ${slug}`);
 
-    const response = await fetch(profileUrl);
-    if (!response.ok) {
-      console.warn(`[EnhancedProfileLoader] Profile not found: ${slug} (${response.status})`);
+    const { data, error } = await supabase
+      .from('industry_profiles')
+      .select('profile_data')
+      .eq('id', slug)
+      .single();
+
+    if (error) {
+      console.warn(`[EnhancedProfileLoader] Profile not found: ${slug}`, error.message);
       return null;
     }
 
-    const profile = await response.json() as EnhancedIndustryProfile;
+    if (!data?.profile_data) {
+      console.warn(`[EnhancedProfileLoader] Profile ${slug} has no profile_data`);
+      return null;
+    }
+
+    const profile = data.profile_data as EnhancedIndustryProfile;
 
     // Cache the loaded profile
     profileCache.set(slug, profile);
@@ -142,11 +176,24 @@ export async function loadProfileBySlug(slug: string): Promise<EnhancedIndustryP
 
 /**
  * Find the best matching profile for a brand
+ * Note: This is now sync but requires ensureIndexLoaded() to be called first
+ * For async usage, call ensureIndexLoaded() before calling findBestMatch()
  */
 export function findBestMatch(options: EnhancedProfileMatchOptions): EnhancedProfileLoadResult {
   let bestMatch: ProfileIndexEntry | null = null;
   let bestScore = 0;
   let matchedBy: EnhancedProfileLoadResult['matchedBy'] = null;
+
+  // If index not loaded, return no match (caller should have awaited ensureIndexLoaded)
+  if (!indexLoaded || PROFILE_INDEX.length === 0) {
+    console.warn('[EnhancedProfileLoader] findBestMatch called before index loaded');
+    return {
+      profile: null,
+      matched: false,
+      matchedBy: null,
+      confidence: 0,
+    };
+  }
 
   // 1. Try exact NAICS match (highest confidence)
   if (options.naicsCode) {
@@ -259,6 +306,14 @@ export function findBestMatch(options: EnhancedProfileMatchOptions): EnhancedPro
     matchedBy: null,
     confidence: 0,
   };
+}
+
+/**
+ * Async wrapper that ensures index is loaded before matching
+ */
+export async function findBestMatchAsync(options: EnhancedProfileMatchOptions): Promise<EnhancedProfileLoadResult> {
+  await ensureIndexLoaded();
+  return findBestMatch(options);
 }
 
 /**
@@ -460,6 +515,8 @@ export function getHooksByType(profile: EnhancedIndustryProfile, type: keyof Enh
 export const enhancedProfileLoaderService = {
   loadProfileBySlug,
   findBestMatch,
+  findBestMatchAsync,
+  ensureIndexLoaded,
   getAvailableProfileSlugs,
   getProfilesByCategory,
   searchProfiles,
@@ -468,7 +525,8 @@ export const enhancedProfileLoaderService = {
   getPlatformOptions,
   getRandomHooks,
   getHooksByType,
-  PROFILE_INDEX,
+  getProfileIndex: () => PROFILE_INDEX,
 };
 
+export { ensureIndexLoaded };
 export default enhancedProfileLoaderService;

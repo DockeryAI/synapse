@@ -19,6 +19,10 @@ import {
   createDataSourcesFromIntelligence
 } from './helpers/ConnectionHintGenerator';
 
+// Synapse 2.0: VOC extraction and semantic gap detection
+import { extractVOCPhrases, type VOCPhrase, type VOCExtractionResult } from '@/services/intelligence/ai-insight-synthesizer.service';
+import { clusteringService } from '@/services/intelligence/clustering.service';
+
 import type { SynapseInsight } from '@/types/synapse/synapse.types';
 
 export interface ProofPoint {
@@ -271,6 +275,35 @@ export async function generateSynapses(
   const dataContext = buildDataContext(input.intelligence);
 
   // ==========================================================================
+  // STEP 3.3: Extract VOC Phrases (Synapse 2.0)
+  // ==========================================================================
+  console.log('[Synapse] Step 3.3: Extracting VOC phrases...');
+
+  let vocContext = '';
+  if (input.detailedDataPoints && input.detailedDataPoints.length > 0) {
+    const vocResult = extractVOCPhrases(input.detailedDataPoints);
+    if (vocResult.phrases && vocResult.phrases.length > 0) {
+      vocContext = formatVOCForPrompt(vocResult);
+      console.log(`[Synapse] Found ${vocResult.phrases.length} VOC phrases`);
+    }
+  }
+
+  // ==========================================================================
+  // STEP 3.4: Detect Semantic Gaps (Synapse 2.0)
+  // ==========================================================================
+  console.log('[Synapse] Step 3.4: Detecting semantic gaps...');
+
+  let semanticGapsContext = '';
+  if (input.intelligence?.clusters) {
+    const clustersWithGaps = clusteringService.detectSemanticGaps(input.intelligence.clusters);
+    const semanticGaps = clustersWithGaps.filter(c => c.isSemanticGap);
+    if (semanticGaps.length > 0) {
+      semanticGapsContext = formatSemanticGapsForPrompt(semanticGaps);
+      console.log(`[Synapse] Found ${semanticGaps.length} semantic gap opportunities`);
+    }
+  }
+
+  // ==========================================================================
   // STEP 3.5: Format Proof Points (Phase 5.1)
   // ==========================================================================
   const proofText = formatProofForPrompt(input.selectedProof);
@@ -288,7 +321,9 @@ export async function generateSynapses(
     dataContext,
     costEquivalenceText,
     connectionHintText,
-    proofText
+    proofText,
+    vocContext,             // Synapse 2.0: VOC phrases
+    semanticGapsContext     // Synapse 2.0: Semantic gap opportunities
   });
 
   // ==========================================================================
@@ -536,6 +571,80 @@ function buildDataContext(intelligence: any): string {
 }
 
 /**
+ * Format VOC phrases for the prompt (Synapse 2.0)
+ * Includes customer language patterns like "I wish", "I hate", "Finally found"
+ */
+function formatVOCForPrompt(vocResult: VOCExtractionResult): string {
+  if (!vocResult.phrases || vocResult.phrases.length === 0) {
+    return '';
+  }
+
+  let text = '### VOICE OF CUSTOMER (Real Customer Language)\n';
+  text += 'Use these exact phrases in your content - they resonate because customers actually say them:\n\n';
+
+  // Group by sentiment/type
+  const wishPhrases = vocResult.phrases.filter(p => p.type === 'wish' || p.type === 'desire');
+  const painPhrases = vocResult.phrases.filter(p => p.type === 'frustration' || p.type === 'complaint');
+  const successPhrases = vocResult.phrases.filter(p => p.type === 'success' || p.type === 'relief');
+
+  if (wishPhrases.length > 0) {
+    text += '**Customer Wishes:**\n';
+    wishPhrases.slice(0, 3).forEach(p => {
+      text += `- "${p.phrase}" (from ${p.source || 'customer review'})\n`;
+    });
+    text += '\n';
+  }
+
+  if (painPhrases.length > 0) {
+    text += '**Customer Pain Points:**\n';
+    painPhrases.slice(0, 3).forEach(p => {
+      text += `- "${p.phrase}" (from ${p.source || 'customer feedback'})\n`;
+    });
+    text += '\n';
+  }
+
+  if (successPhrases.length > 0) {
+    text += '**Customer Success Moments:**\n';
+    successPhrases.slice(0, 3).forEach(p => {
+      text += `- "${p.phrase}" (from ${p.source || 'testimonial'})\n`;
+    });
+    text += '\n';
+  }
+
+  text += '**INSTRUCTION:** Weave these exact phrases naturally into headlines and content.\n';
+  return text;
+}
+
+/**
+ * Format semantic gaps for the prompt (Synapse 2.0)
+ * These are UNNAMED pain points - topics with engagement but no dominant keyword
+ */
+function formatSemanticGapsForPrompt(semanticGaps: any[]): string {
+  if (!semanticGaps || semanticGaps.length === 0) {
+    return '';
+  }
+
+  let text = '### SEMANTIC GAP OPPORTUNITIES (Unnamed Pain Points)\n';
+  text += 'These topics have high engagement but no one is naming them directly - be first to define them:\n\n';
+
+  semanticGaps.slice(0, 5).forEach((gap, i) => {
+    const gapScore = gap.gapScore || gap.coherence || 0.7;
+    const themes = gap.themes || gap.keywords || [];
+    const description = gap.gapDescription || gap.description || 'Unnamed customer concern';
+
+    text += `**Gap ${i + 1} (Score: ${(gapScore * 100).toFixed(0)}%):**\n`;
+    text += `- Description: ${description}\n`;
+    if (themes.length > 0) {
+      text += `- Related themes: ${themes.slice(0, 4).join(', ')}\n`;
+    }
+    text += '\n';
+  });
+
+  text += '**INSTRUCTION:** Create content that NAMES and OWNS these unnamed pain points.\n';
+  return text;
+}
+
+/**
  * Build the synapse prompt
  */
 function buildSynapsePrompt(params: {
@@ -544,6 +653,8 @@ function buildSynapsePrompt(params: {
   costEquivalenceText: string;
   connectionHintText: string;
   proofText?: string;
+  vocContext?: string;           // Synapse 2.0: VOC phrases
+  semanticGapsContext?: string;  // Synapse 2.0: Semantic gap opportunities
 }): string {
   // Get current date for seasonal context
   const now = new Date();
@@ -566,6 +677,10 @@ ${params.costEquivalenceText}
 ${params.connectionHintText}
 
 ${params.proofText || ''}
+
+${params.vocContext || ''}
+
+${params.semanticGapsContext || ''}
 
 ---
 

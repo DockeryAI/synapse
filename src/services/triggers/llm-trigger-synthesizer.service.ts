@@ -31,6 +31,14 @@ export interface RawDataSample {
   author?: string;
   /** Original source title (e.g., article name, forum thread title) */
   sourceTitle?: string;
+  /** Competitor name if this sample is about a specific competitor */
+  competitorName?: string;
+  /** Source type for multi-signal triangulation (2+ types = higher confidence) */
+  sourceType?: 'voc' | 'community' | 'event' | 'executive' | 'news';
+  /** Timestamp of when this data was collected/published */
+  timestamp?: string;
+  /** Engagement score (upvotes, likes, shares, etc.) */
+  engagement?: number;
 }
 
 export type BuyerJourneyStage = 'unaware' | 'problem-aware' | 'solution-aware' | 'product-aware';
@@ -199,6 +207,14 @@ const PROFILE_VALIDATION_CRITERIA: Record<BusinessProfileType, {
 // SERVICE
 // ============================================================================
 
+// OpenRouter keys for parallel LLM synthesis (loaded from environment)
+const OPENROUTER_KEYS = [
+  import.meta.env.VITE_OPENROUTER_KEY_1 || '',
+  import.meta.env.VITE_OPENROUTER_KEY_2 || '',
+  import.meta.env.VITE_OPENROUTER_KEY_3 || '',
+  import.meta.env.VITE_OPENROUTER_KEY_4 || '',
+].filter(k => k !== '');
+
 class LLMTriggerSynthesizerService {
   private endpoint: string;
   private apiKey: string;
@@ -212,11 +228,12 @@ class LLMTriggerSynthesizerService {
 
   /**
    * Synthesize raw data into formatted psychological triggers
+   * PARALLEL BATCHING: Splits samples across 4 OpenRouter keys for 4x speed
    */
   async synthesize(input: TriggerSynthesisInput): Promise<TriggerSynthesisResult> {
     const startTime = performance.now();
 
-    console.log('[LLMTriggerSynthesizer] Starting synthesis with', input.rawData.length, 'data points');
+    console.log('[LLMTriggerSynthesizer] Starting PARALLEL synthesis with', input.rawData.length, 'data points');
 
     // PHASE 10: Source diversity gate - validate we have diverse sources
     const sourceDiversity = this.checkSourceDiversity(input.rawData);
@@ -226,35 +243,66 @@ class LLMTriggerSynthesizerService {
       console.warn('[LLMTriggerSynthesizer] ⚠️ LOW SOURCE DIVERSITY - only', sourceDiversity.uniquePlatforms, 'platform(s). Results may be less accurate.');
     }
 
-    // Limit to top 120 most relevant samples to fit context (increased for more triggers)
-    // Increased from 120 to 200 samples to generate more triggers (up to 50)
-    const samples = this.selectBestSamples(input.rawData, 200);
+    // PARALLEL BATCHING: Select 200 samples (50 per batch × 4 batches)
+    const allSamples = this.selectBestSamples(input.rawData, 200);
+    console.log(`[LLMTriggerSynthesizer] Selected ${allSamples.length} samples for parallel processing`);
 
-    // Build the synthesis prompt
-    const prompt = this.buildPrompt(samples, input.uvp, input.profileType, input.industry);
+    // Store all samples for URL lookup
+    this.lastSamples = allSamples;
+
+    // Split into 4 batches for parallel processing
+    const batchSize = Math.ceil(allSamples.length / 4);
+    const batches: RawDataSample[][] = [];
+    for (let i = 0; i < 4; i++) {
+      const start = i * batchSize;
+      const end = Math.min(start + batchSize, allSamples.length);
+      if (start < allSamples.length) {
+        batches.push(allSamples.slice(start, end));
+      }
+    }
+
+    console.log(`[LLMTriggerSynthesizer] Split into ${batches.length} batches: ${batches.map(b => b.length).join(', ')} samples each`);
 
     try {
-      // Call Claude Haiku for fast synthesis
-      const response = await this.callLLM(prompt);
+      // Run 4 LLM calls in PARALLEL using different OpenRouter keys
+      const batchPromises = batches.map((batch, idx) =>
+        this.synthesizeBatch(batch, input.uvp, input.profileType, input.industry, idx)
+      );
 
-      // Parse the response
-      const synthesizedTriggers = this.parseResponse(response);
+      const batchResults = await Promise.allSettled(batchPromises);
+
+      // Collect all triggers from successful batches
+      let allTriggers: SynthesizedTrigger[] = [];
+      batchResults.forEach((result, idx) => {
+        if (result.status === 'fulfilled') {
+          console.log(`[LLMTriggerSynthesizer] Batch ${idx + 1}: ${result.value.length} triggers`);
+          allTriggers = allTriggers.concat(result.value);
+        } else {
+          console.error(`[LLMTriggerSynthesizer] Batch ${idx + 1} FAILED:`, result.reason);
+        }
+      });
+
+      console.log(`[LLMTriggerSynthesizer] Total before dedupe: ${allTriggers.length} triggers`);
+
+      // Deduplicate by title similarity
+      const dedupedTriggers = this.deduplicateTriggers(allTriggers);
+      console.log(`[LLMTriggerSynthesizer] After dedupe: ${dedupedTriggers.length} unique triggers`);
 
       // Convert to ConsolidatedTrigger format
-      const triggers = this.convertToConsolidatedTriggers(synthesizedTriggers);
+      const triggers = this.convertToConsolidatedTriggers(dedupedTriggers);
 
       const synthesisTime = performance.now() - startTime;
 
-      console.log(`[LLMTriggerSynthesizer] Synthesized ${triggers.length} triggers in ${synthesisTime.toFixed(0)}ms`);
+      console.log(`[LLMTriggerSynthesizer] ✅ Synthesized ${triggers.length} triggers in ${synthesisTime.toFixed(0)}ms (PARALLEL)`);
 
       return {
         triggers,
         synthesisTime,
-        model: 'claude-sonnet-4',
-        rawTriggerCount: synthesizedTriggers.length,
+        model: 'claude-sonnet-4-parallel',
+        rawTriggerCount: allTriggers.length,
       };
     } catch (error) {
-      console.error('[LLMTriggerSynthesizer] Synthesis failed:', error);
+      console.error('[LLMTriggerSynthesizer] Parallel synthesis failed:', error);
 
       // Return empty result - let fallback to regex consolidation
       return {
@@ -264,6 +312,72 @@ class LLMTriggerSynthesizerService {
         rawTriggerCount: 0,
       };
     }
+  }
+
+  /**
+   * Synthesize a single batch of samples using a specific OpenRouter key
+   */
+  private async synthesizeBatch(
+    samples: RawDataSample[],
+    uvp: CompleteUVP,
+    profileType: BusinessProfileType,
+    industry: string | undefined,
+    batchIndex: number
+  ): Promise<SynthesizedTrigger[]> {
+    const apiKey = OPENROUTER_KEYS[batchIndex % OPENROUTER_KEYS.length];
+
+    console.log(`[LLMTriggerSynthesizer] Batch ${batchIndex + 1}: Processing ${samples.length} samples with key ${batchIndex + 1}`);
+
+    // Build prompt for this batch
+    const prompt = this.buildPrompt(samples, uvp, profileType, industry);
+
+    // Call LLM with specific key
+    const response = await this.callLLMDirect(prompt, apiKey);
+
+    // Parse response
+    return this.parseResponse(response);
+  }
+
+  /**
+   * Deduplicate triggers by title similarity (fuzzy match ~80%)
+   */
+  private deduplicateTriggers(triggers: SynthesizedTrigger[]): SynthesizedTrigger[] {
+    const seen = new Map<string, SynthesizedTrigger>();
+
+    for (const trigger of triggers) {
+      // Normalize title for comparison
+      const normalizedTitle = trigger.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+      const words = normalizedTitle.split(/\s+/);
+
+      // Check if we've seen a similar title
+      let isDuplicate = false;
+      for (const [existingNorm, existingTrigger] of seen.entries()) {
+        const existingWords = existingNorm.split(/\s+/);
+
+        // Count common words
+        const commonWords = words.filter(w => existingWords.includes(w)).length;
+        const similarity = commonWords / Math.max(words.length, existingWords.length);
+
+        if (similarity > 0.7) {
+          // Keep the one with higher confidence
+          if (trigger.confidence > existingTrigger.confidence) {
+            seen.delete(existingNorm);
+            seen.set(normalizedTitle, trigger);
+          }
+          isDuplicate = true;
+          break;
+        }
+      }
+
+      if (!isDuplicate) {
+        seen.set(normalizedTitle, trigger);
+      }
+    }
+
+    // Sort by confidence descending, return top 50
+    return Array.from(seen.values())
+      .sort((a, b) => b.confidence - a.confidence)
+      .slice(0, 50);
   }
 
   /**
@@ -440,7 +554,7 @@ ${sampleText}
 4. Group similar sentiments into distinct triggers
 5. Write each trigger title as a CONCISE phrase (3-6 words max)
 6. Include 1-3 evidence quotes per trigger (use actual quotes from the data)
-7. Output 40-50 high-quality, VALIDATED triggers (IMPORTANT: aim for at least 40 triggers)
+7. Output 15-25 high-quality, VALIDATED triggers
 
 ## Quality Rules
 
@@ -452,12 +566,14 @@ ${sampleText}
 - **REJECT triggers that fail buyer-product fit validation**
 
 ## Title Format (CRITICAL)
-Titles must be SHORT and PUNCHY (3-6 words). Examples:
-- GOOD: "Vendor lock-in anxiety"
-- GOOD: "Integration complexity fears"
-- GOOD: "Compliance deadline pressure"
-- BAD: "Frustrated by rigid vendor roadmaps that ignore business needs" (too long)
-- BAD: "Fear of vendor lock-in when switching platforms" (too long)
+Titles must be COMPLETE, CLEAR statements (5-12 words). Write in plain English as a complete thought. Examples:
+- GOOD: "Buyers fear getting locked into inflexible vendor contracts"
+- GOOD: "Teams struggle with complex integrations that break easily"
+- GOOD: "Compliance deadlines create pressure to find faster solutions"
+- GOOD: "Customers want simpler pricing without hidden fees"
+- BAD: "Vendor lock-in anxiety" (too vague, not a complete thought)
+- BAD: "Integration complexity fears" (not a sentence)
+- BAD: "Platform complexity and pricing that doesn't align with" (cut off mid-sentence)
 
 ## Output Format
 
@@ -508,16 +624,17 @@ NEVER include notes, comments, or explanations in your output. No "**Note:**", "
 - buyerProductFit = 0-1 score indicating how likely this trigger leads to THIS product category
 - buyerProductFitReasoning = 1-2 sentence explanation of WHY this trigger fits: who the buyer is, what pain they have, and why solving it would lead them to THIS product category (not just any product)
 
-IMPORTANT: You MUST output at least 40 triggers. With ${samples.length} data samples provided, there is enough material for 40-50 distinct psychological triggers. Do not stop early.
+Output 20-30 distinct psychological triggers based on the data provided. Keep responses concise.
 
 Return ONLY the JSON array, no other text.`;
   }
 
   /**
-   * Call the LLM via ai-proxy
-   * Using Sonnet 4 for high-quality psychological trigger synthesis
+   * Call the LLM via ai-proxy (fallback method)
    */
   private async callLLM(prompt: string): Promise<string> {
+    console.log('[LLMTriggerSynthesizer] Calling Sonnet 4 via ai-proxy...');
+
     const response = await fetch(this.endpoint, {
       method: 'POST',
       headers: {
@@ -533,14 +650,50 @@ Return ONLY the JSON array, no other text.`;
             content: prompt,
           },
         ],
-        temperature: 0.3, // Lower temp for more consistent output
-        max_tokens: 8000, // Increased for 30-50 triggers
+        temperature: 0.3,
+        max_tokens: 8000,
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
       throw new Error(`LLM call failed: ${response.status} ${error}`);
+    }
+
+    const data = await response.json();
+    console.log('[LLMTriggerSynthesizer] Sonnet 4 response received');
+    return data.choices[0].message.content;
+  }
+
+  /**
+   * Call OpenRouter directly with a specific API key
+   * Used for parallel batch processing
+   */
+  private async callLLMDirect(prompt: string, apiKey: string): Promise<string> {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://synapse.app',
+        'X-Title': 'Synapse Trigger Synthesizer',
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-sonnet-4',
+        messages: [
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        temperature: 0.3,
+        max_tokens: 6000, // Smaller per batch since we're splitting
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`OpenRouter call failed: ${response.status} ${error}`);
     }
 
     const data = await response.json();
@@ -569,6 +722,137 @@ Return ONLY the JSON array, no other text.`;
     /software publishers/i,        // Random garbage
     /altkomsoftware/i,             // Specific garbage source
     /focus on business benefits/i, // Meta-commentary
+    /\[competitor\]/i,             // Unprocessed [competitor] placeholder
+    /\[company\]/i,                // Unprocessed [company] placeholder
+    /that doesn't align with$/i,   // Cut-off mid-sentence
+    /and pricing that$/i,          // Cut-off mid-sentence
+    /doesn't align$/i,             // Cut-off incomplete
+
+    // META-DESCRIPTIONS about data sources (NOT actual insights)
+    /^reddit discussions/i,        // "Reddit discussions from r/SaaS..."
+    /^linkedin posts/i,            // "LinkedIn posts about..."
+    /^discussion threads/i,        // "Discussion threads from..."
+    /^real customer quotes/i,      // "Real customer quotes discussing..."
+    /^customer satisfaction scores/i, // "Customer satisfaction scores for..."
+    /^comparative pricing/i,       // "Comparative pricing across..."
+    /capterra shines/i,            // "Capterra shines in product content..."
+    /^g2 reviews/i,                // "G2 reviews about..."
+    /^trustpilot reviews/i,        // "Trustpilot reviews mentioning..."
+    /mentioning the product$/i,    // "...mentioning the product"
+    /about these tools$/i,         // "...about these tools"
+    /about this ai$/i,             // "...about this AI"
+    /provides detailed information/i, // "...provides detailed information..."
+    /^youtube videos/i,            // "YouTube videos discussing..."
+    /^quora questions/i,           // "Quora questions about..."
+    /^forum posts/i,               // "Forum posts from..."
+    /startup founders explore/i,   // Generic startup exploration
+    /reveals competitive advantages/i, // Meta-analysis language
+    /innovative software solutions/i, // Marketing fluff
+    /for operational challenges$/i, // Generic endings
+
+    // PHASE K.2: "NO DATA FOUND" responses being displayed as triggers
+    /^no (first-person|significant|direct|relevant|specific)/i, // "No first-person quotes...", "No significant narratives..."
+    /^no customer (quotes|voices|experiences|narratives)/i, // "No customer quotes found..."
+    /^no problem\/surprise narratives/i, // "**No problem/surprise narratives**"
+    /narratives were discovered$/i, // "...narratives were discovered"
+    /were not found$/i,            // "...were not found"
+    /were found in the/i,          // "...were found in the provided search results"
+    /^direct quotes from customers who/i, // Meta-description of quote type, not actual quote
+    /^quotes? (from|about|describing|expressing)/i, // Description of quotes, not quotes themselves
+    /^customer (experience|success)? narratives/i, // Meta-description
+    /in the provided search results/i, // Meta-commentary about search
+    /the search did not/i,         // Meta-commentary
+    /no quotes describing/i,       // "No quotes describing..."
+    /concerns about vendor/i,      // Too generic without context
+
+    // PHASE K.2: Generic capability statements (not triggers)
+    /^(robotic process|rpa|automation) (transforms|improves|streamlines)/i, // Solution statements, not customer voice
+    /transforms workforce efficiency/i, // Marketing speak
+    /leverage ai to streamline/i,  // Marketing speak
+    /seek transparent solutions/i, // Generic observation
+    /addressing their core operational/i, // Generic
+    /vendor switching reveals/i,   // Meta-observation
+    /reveals critical gaps/i,      // Meta-analysis
+  ];
+
+  /**
+   * Generic observation patterns that describe behavior without emotional insight
+   * These look like triggers but don't reveal actual pain/fear/desire
+   */
+  private readonly GENERIC_OBSERVATION_PATTERNS = [
+    // Behavior observations (not triggers)
+    /professionals seek/i,
+    /founders (constantly )?(compare|evaluate|explore)/i,
+    /companies seek/i,
+    /teams (need|want|require|look for)/i,
+    /users (often|frequently|typically|commonly)/i,
+    /organizations (seek|need|want)/i,
+    /businesses (explore|evaluate|compare)/i,
+    /buyers (research|compare|evaluate)/i,
+
+    // Generic quality/capability statements
+    /provide(s)? (deeper|better|comprehensive|detailed)/i,
+    /reveal(s)? competitive advantages/i,
+    /offer(s)? (comprehensive|innovative|robust)/i,
+    /deliver(s)? (value|results|insights)/i,
+
+    // Meta-commentary about tools/solutions
+    /across (startup|saas|software|tech) communities/i,
+    /competing solutions/i,
+    /software solutions for/i,
+    /to make strategic decisions/i,
+    /to enhance operational/i,
+    /for operational challenges/i,
+
+    // Industry/market observations
+    /industry (trends|insights|analysis)/i,
+    /market (analysis|comparison|research)/i,
+    /platform comparisons/i,
+  ];
+
+  /**
+   * Valid trigger patterns - must contain emotional/psychological language
+   * A real trigger has: WHO + PROBLEM/PAIN + EMOTIONAL IMPACT
+   * EXPANDED: Now includes technical pain points (hallucinate, errors, slow, etc.)
+   */
+  private readonly VALID_TRIGGER_INDICATORS = [
+    // Fear indicators
+    /fear(s|ed|ful)?|afraid|worried|anxious|nervous|scared|concern(ed)?/i,
+
+    // Frustration indicators
+    /frustrat(ed|ing|ion)|annoyed|irritat(ed|ing)|hate(s)?|sick of|tired of/i,
+
+    // Pain indicators - FIXED: Added "ing" variants (struggling, challenging, etc.)
+    /struggl(e|es|ed|ing)?|difficult(y)?|challeng(e|es|ed|ing)?|pain(ful)?|problem(s)?|issue(s)?/i,
+
+    // Desire indicators
+    /want(s|ed)?|need(s|ed)?|wish(es)?|hope(s)?|looking for|searching for/i,
+
+    // Urgency indicators
+    /urgent|deadline|pressure|forced to|have to|must|immediately/i,
+
+    // Consequence indicators
+    /fail(s|ed|ure)?|lose|lost|miss(ed)?|cost(s|ly)?|waste(d)?|broke(n)?/i,
+
+    // Trust indicators
+    /trust|doubt(s)?|skeptic(al)?|suspicious|uncertain|risky/i,
+
+    // Technical pain indicators (NEW - captures AI/tech frustrations)
+    /hallucinate(s|d)?|wrong|error(s)?|bug(s|gy)?|slow|crash(es|ed)?|freeze(s)?/i,
+    /resist(s|ance)?|reject(s|ed)?|confus(ed|ing|ion)|give(s)? up|won't|doesn't work/i,
+    /unreliable|inconsistent|unpredictable|inaccurate|incorrect/i,
+
+    // Adoption/change indicators (NEW - captures resistance to change)
+    /adopt(ion)?|implement(ation)?|switch(ing)?|migrat(e|ion)|transition/i,
+    /replace|upgrade|integrate|onboard/i,
+
+    // Opportunity indicators (NEW - captures positive triggers too)
+    /opportunity|potential|emerging|growing|trend(ing)?|shift(ing)?/i,
+    /automat(e|ion|ing)|streamline|simplif(y|ied)|transform(ation)?/i,
+
+    // Positive emotion indicators (NEW - captures aspirational triggers)
+    /excit(ed|ing|ement)?|motivat(ed|ing|ion)?|eager|enthusias(tic|m)/i,
+    /inspir(ed|ing)|optimis(tic|m)|confident|ready to|looking forward/i,
   ];
 
   /**
@@ -585,7 +869,86 @@ Return ONLY the JSON array, no other text.`;
       }
     }
 
+    // Check for generic observations (behavior without emotion)
+    for (const pattern of this.GENERIC_OBSERVATION_PATTERNS) {
+      if (pattern.test(title)) {
+        console.log(`[LLMTriggerSynthesizer] Rejected generic observation: "${title.substring(0, 60)}..."`);
+        return false;
+      }
+    }
+
+    // REQUIRE emotional/psychological language for valid triggers
+    const hasEmotionalContent = this.VALID_TRIGGER_INDICATORS.some(pattern => pattern.test(title));
+    if (!hasEmotionalContent) {
+      console.log(`[LLMTriggerSynthesizer] Rejected non-emotional title: "${title.substring(0, 60)}..."`);
+      return false;
+    }
+
     return true;
+  }
+
+  /**
+   * Recover complete JSON objects from a truncated JSON array
+   * When max_tokens is hit, the response may be cut mid-object
+   * This extracts all complete objects that were successfully output
+   */
+  private recoverTruncatedJsonArray(jsonStr: string): any[] {
+    const results: any[] = [];
+
+    // Remove leading [ if present
+    let str = jsonStr.trim();
+    if (str.startsWith('[')) {
+      str = str.substring(1);
+    }
+
+    // Find complete objects by matching balanced braces
+    let depth = 0;
+    let objectStart = -1;
+    let inString = false;
+    let escapeNext = false;
+
+    for (let i = 0; i < str.length; i++) {
+      const char = str[i];
+
+      if (escapeNext) {
+        escapeNext = false;
+        continue;
+      }
+
+      if (char === '\\') {
+        escapeNext = true;
+        continue;
+      }
+
+      if (char === '"' && !escapeNext) {
+        inString = !inString;
+        continue;
+      }
+
+      if (inString) continue;
+
+      if (char === '{') {
+        if (depth === 0) {
+          objectStart = i;
+        }
+        depth++;
+      } else if (char === '}') {
+        depth--;
+        if (depth === 0 && objectStart !== -1) {
+          // Found a complete object
+          const objStr = str.substring(objectStart, i + 1);
+          try {
+            const obj = JSON.parse(objStr);
+            results.push(obj);
+          } catch {
+            // Invalid object, skip
+          }
+          objectStart = -1;
+        }
+      }
+    }
+
+    return results;
   }
 
   /**
@@ -596,13 +959,45 @@ Return ONLY the JSON array, no other text.`;
       // Extract JSON from response (handle markdown code blocks)
       let jsonStr = response;
 
-      // Remove markdown code blocks if present
-      const jsonMatch = response.match(/```(?:json)?\s*([\s\S]*?)```/);
-      if (jsonMatch) {
-        jsonStr = jsonMatch[1];
+      // ROBUST FIX: Handle multiple markdown fence formats
+      // 1. ```json\n...\n``` (standard)
+      // 2. ```\n...\n``` (no language specifier)
+      // 3. Leading/trailing text outside fences
+      // 4. Multiple possible code blocks (take first one)
+
+      // First try: Look for ```json or ``` code block
+      const jsonMatch = response.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+      if (jsonMatch && jsonMatch[1]) {
+        jsonStr = jsonMatch[1].trim();
+      } else {
+        // Second try: Strip leading/trailing non-JSON content
+        // Find the first [ or { and last ] or }
+        const firstBracket = response.search(/[\[{]/);
+        const lastBracket = Math.max(response.lastIndexOf(']'), response.lastIndexOf('}'));
+
+        if (firstBracket !== -1 && lastBracket > firstBracket) {
+          jsonStr = response.substring(firstBracket, lastBracket + 1);
+        }
       }
 
-      const parsed = JSON.parse(jsonStr.trim());
+      // Final cleanup: remove any stray backticks that might have slipped through
+      jsonStr = jsonStr.replace(/^`+|`+$/g, '').trim();
+
+      let parsed: any[];
+      try {
+        parsed = JSON.parse(jsonStr);
+      } catch (parseError) {
+        // Try to recover from truncated JSON array
+        // Find all complete JSON objects in the array
+        console.log('[LLMTriggerSynthesizer] JSON parse failed, attempting truncation recovery...');
+        const recovered = this.recoverTruncatedJsonArray(jsonStr);
+        if (recovered.length > 0) {
+          console.log(`[LLMTriggerSynthesizer] Recovered ${recovered.length} complete triggers from truncated response`);
+          parsed = recovered;
+        } else {
+          throw parseError; // Re-throw if recovery failed
+        }
+      }
 
       if (!Array.isArray(parsed)) {
         console.warn('[LLMTriggerSynthesizer] Response is not an array');
@@ -621,10 +1016,28 @@ Return ONLY the JSON array, no other text.`;
           return false;
         }
 
-        // Filter out executive summaries that contain meta-commentary
-        if (/^\*\*note/i.test(t.executiveSummary) ||
-            /the search results/i.test(t.executiveSummary) ||
-            /altkomsoftware/i.test(t.executiveSummary)) {
+        // Filter out executive summaries that contain meta-commentary, placeholders, or prompt leakage
+        const summaryGarbagePatterns = [
+          /^\*\*note/i,
+          /the search results/i,
+          /altkomsoftware/i,
+          /\[competitor\]/i,
+          /\[company\]/i,
+          // PHASE K.2: Prompt leakage patterns
+          /show the before\/after transformation/i,  // Prompt instruction leaking
+          /use testimonials that speak/i,            // Prompt instruction leaking
+          /demo how you solve/i,                     // Prompt instruction leaking
+          /address this fear head-on/i,              // Prompt instruction leaking
+          /use case studies and guarantees/i,        // Prompt instruction leaking
+          /there are no quotes/i,                    // "No data" response
+          /no quotes describing/i,                   // "No data" response
+          /no first-person/i,                        // "No data" response
+          /were not found/i,                         // "No data" response
+          /in the provided search/i,                 // Meta-commentary
+          /Source: (Roots|Saifr|Convin)\./i,         // Raw source names being exposed
+        ];
+
+        if (summaryGarbagePatterns.some(p => p.test(t.executiveSummary))) {
           console.log(`[LLMTriggerSynthesizer] Rejected garbage summary for: "${t.title}"`);
           return false;
         }
@@ -661,13 +1074,25 @@ Return ONLY the JSON array, no other text.`;
         let url: string | undefined;
         let author: string | undefined;
 
+        let competitorName: string | undefined;
+
         if (e.sampleIndex && e.sampleIndex > 0 && e.sampleIndex <= this.lastSamples.length) {
           const originalSample = this.lastSamples[e.sampleIndex - 1]; // 1-indexed
           url = e.url || originalSample?.url;
           author = e.author || originalSample?.author;
+          competitorName = originalSample?.competitorName;
         } else {
           url = e.url;
           author = e.author;
+        }
+
+        // Try to extract competitor name from source if not provided
+        if (!competitorName && e.source) {
+          // Check for "X reviews" or "X Review" pattern (e.g., "HubSpot reviews")
+          const reviewMatch = e.source.match(/^([A-Z][a-zA-Z0-9]+)\s+reviews?$/i);
+          if (reviewMatch) {
+            competitorName = reviewMatch[1];
+          }
         }
 
         return {
@@ -679,6 +1104,7 @@ Return ONLY the JSON array, no other text.`;
           author,
           sentiment: this.detectSentiment(e.quote),
           confidence: st.confidence,
+          competitorName,
         };
       });
 

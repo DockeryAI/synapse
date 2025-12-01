@@ -74,7 +74,11 @@ const GLOBAL_INDICATORS = [
   'global', 'international', 'worldwide', 'multi-region', 'multinational',
   'emea', 'apac', 'uk', 'europe', 'european', 'united kingdom', 'britain',
   'gdpr', 'iso', 'soc2', 'data residency', 'cross-border', 'localization',
-  'multi-language', 'eu', 'asia pacific', 'middle east', 'africa'
+  'multi-language', 'eu', 'asia pacific', 'middle east', 'africa',
+  // Major international cities - company HQ location indicates global scope
+  'london', 'paris', 'berlin', 'amsterdam', 'dublin', 'singapore', 'tokyo',
+  'sydney', 'toronto', 'hong kong', 'mumbai', 'bangalore', 'tel aviv',
+  'zurich', 'stockholm', 'copenhagen', 'melbourne', 'dubai', 'frankfurt'
 ];
 
 const B2B_INDICATORS = [
@@ -335,9 +339,10 @@ class ProfileDetectionService {
     const nationalScore = this.countMatches(text, NATIONAL_INDICATORS);
     const globalScore = this.countMatches(text, GLOBAL_INDICATORS);
 
-    // Global takes priority if strong signals (EMEA, UK, GDPR, etc.)
-    if (globalScore >= 2 && globalScore >= nationalScore) {
-      signals.push(`Global scope (${globalScore} signals: EMEA/UK/international)`);
+    // Global takes priority if any global signals (EMEA, UK, GDPR, international cities, etc.)
+    // Single signal is sufficient - a company HQ'd in London/Paris/etc. is inherently global
+    if (globalScore >= 1 && globalScore >= nationalScore) {
+      signals.push(`Global scope (${globalScore} signals: EMEA/UK/international cities)`);
       return 'global';
     }
     if (nationalScore > localScore && nationalScore > regionalScore) {

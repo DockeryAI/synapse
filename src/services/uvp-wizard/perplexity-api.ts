@@ -351,27 +351,30 @@ Focus on frustrations, challenges, and unmet needs they're expressing.`,
         messages: [
           {
             role: 'system',
-            content: `You are a customer psychology researcher with real-time web access. Your job is to find and report CUSTOMER VOICES - real fears, frustrations, desires, and objections expressed by actual customers.
+            content: `You are a customer research analyst. Find and summarize customer feedback, pain points, and market insights.
 
-CRITICAL RULES:
-1. Return CUSTOMER PSYCHOLOGY, not business recommendations
-2. Use customer language: "Fear of...", "Frustrated with...", "Worried about...", "Want..."
-3. Find REAL QUOTES from Reddit, forums, G2, Trustpilot - not marketing copy
-4. Keep emotional words: hate, love, frustrated, anxious, worried, wish, need
-5. NEVER suggest actions like "Implement...", "Deploy...", "Conduct..."
-6. Each insight should read like a customer quote or paraphrase, not a consultant's advice
+OUTPUT RULES:
+- Write clear, complete sentences (not fragments)
+- Each insight should be self-contained and understandable
+- Include specific details when available (percentages, timeframes, etc.)
+- NO sentiment prefixes like "Fear of...", "Worried about...", "Frustrated that..."
+- NO source prefixes like "Reddit says...", "G2 reviews show..."
+- Write in third person, professional tone
 
-GOOD EXAMPLES (customer psychology):
-- "Fear of vendor lock-in when chatbot conversations are stored in proprietary formats"
-- "Frustrated that most chatbots can't handle multi-product insurance bundles"
-- "Worried about AI giving incorrect policy information that leads to legal issues"
+GOOD EXAMPLES:
+- "Integration with legacy CRM systems is a major challenge for enterprise buyers"
+- "Implementation timelines often exceed vendor estimates by 3-6 months"
+- "Support response times during onboarding average 48+ hours"
+- "Pricing typically increases 40-60% at first contract renewal"
+- "Companies report $50k+ annual savings after switching vendors"
 
-BAD EXAMPLES (recommendations - AVOID):
-- "Implement customer churn prediction by analyzing behavior patterns"
-- "Deploy A/B testing on conversion points"
-- "Conduct social media sentiment analysis"
+BAD EXAMPLES (avoid these patterns):
+- "Fear of vendor lock-in..." (sentiment prefix - BAD)
+- "Frustrated that..." (sentiment prefix - BAD)
+- "Reddit r/SaaS: users report..." (source prefix - BAD)
+- "Consider implementing..." (recommendation - BAD)
 
-Always respond with valid JSON arrays of customer psychology insights.`,
+Return diverse insights as a JSON array of complete sentences.`,
           },
           {
             role: 'user',
@@ -411,6 +414,38 @@ Always respond with valid JSON arrays of customer psychology insights.`,
         .map((line: string) => line.replace(/^[\d.-]+\s*/, '').trim())
         .filter((line: string) => line.length > 10)
     }
+
+    // FILTER: Remove meta-responses where Perplexity says it couldn't find data
+    // These are NOT customer insights - they're Perplexity explaining it has no data
+    const metaResponsePatterns = [
+      /^to obtain the/i,
+      /^to provide the/i,
+      /^to gather the/i,
+      /^you would need/i,
+      /^i appreciate your/i,
+      /^i cannot provide/i,
+      /^i don't have access/i,
+      /^i've reviewed the/i,
+      /^the search results/i,
+      /^the current search/i,
+      /^search directly on/i,
+      /^look for case studies/i,
+      /in json format/i,
+      /search results (do not|don't|provided)/i,
+    ];
+
+    const filteredInsights = insights.filter((insight: string) => {
+      const isMetaResponse = metaResponsePatterns.some(pattern => pattern.test(insight));
+      if (isMetaResponse) {
+        console.log(`[PerplexityAPI] Filtered meta-response: "${insight.substring(0, 50)}..."`);
+      }
+      return !isMetaResponse;
+    });
+
+    if (filteredInsights.length < insights.length) {
+      console.log(`[PerplexityAPI] Filtered ${insights.length - filteredInsights.length} meta-responses, ${filteredInsights.length} real insights remain`);
+    }
+    insights = filteredInsights;
 
     // Cap insights to prevent memory bloat from verbose responses
     if (insights.length > MAX_INSIGHTS_PER_RESPONSE) {

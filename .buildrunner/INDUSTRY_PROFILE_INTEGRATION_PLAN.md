@@ -26,6 +26,8 @@ Integrate 377 enhanced industry profiles with extended social media templates, c
 | Phase 4 | Campaign Mode UI | ✅ Complete |
 | Phase 5 | Content Generation Integration | ✅ Complete |
 | Phase 6 | TikTok & Twitter Templates + Calendar | ✅ Complete |
+| Phase 7 | Industry-Based Tab Visibility (Local/Weather) | ✅ Complete |
+| Phase 8 | Gap Remediation & UVP Alignment | ✅ Complete |
 
 ---
 
@@ -370,11 +372,27 @@ done
 
 ---
 
-## Phase 7: Industry-Based Tab Visibility (PENDING)
+## Phase 7: Industry-Based Tab Visibility ✅ COMPLETE
 
 ### Overview
 
 Not all insight tabs are relevant to all industries. Local/Weather tabs should only appear for businesses where location and weather impact operations.
+
+### Implementation Complete (2025-11-30)
+
+**Files Created:**
+- `src/components/v4/LocalTab.tsx` - Local insights tab component with community events, local news
+- `src/components/v4/WeatherTab.tsx` - Weather insights tab with weather-triggered content opportunities
+- `scripts/add-enabled-tabs-to-profiles.ts` - Migration script to add enabledTabs to all profiles
+
+**Files Modified:**
+- `src/types/industry-profile.types.ts` - Added `EnabledTabs` interface and `enabledTabs` field
+- `src/components/v4/V4PowerModePanel.tsx` - Added conditional Local/Weather tabs based on industry profile
+
+**Migration Results:**
+- 234 profiles updated with `enabledTabs` field
+- 43 profiles have Local tab enabled
+- 21 profiles have Weather tab enabled (subset of Local)
 
 ### Tab Visibility Rules
 
@@ -462,15 +480,15 @@ Not all insight tabs are relevant to all industries. Local/Weather tabs should o
 
 | Task | Effort | Status |
 |------|--------|--------|
-| 1. **Migrate 380 enhanced profiles to Supabase** (replace existing) | 2-3 hrs | ⬜ Pending |
-| 2. Add `enabledTabs` field to EnhancedIndustryProfile type | 30 min | ⬜ Pending |
-| 3. Create Local tab component with community events, local news | 2-3 hrs | ⬜ Pending |
-| 4. Create Weather tab component with weather-based content triggers | 2-3 hrs | ⬜ Pending |
-| 5. Update V4PowerModePanel to conditionally render tabs based on profile | 1 hr | ⬜ Pending |
-| 6. Update 380 profiles with `enabledTabs` field (script) | 1-2 hrs | ⬜ Pending |
-| 7. Test tab visibility across different industry profiles | 1 hr | ⬜ Pending |
+| 1. **Migrate 234 enhanced profiles to Supabase** (replace existing) | 2-3 hrs | ✅ Complete |
+| 2. Add `enabledTabs` field to EnhancedIndustryProfile type | 30 min | ✅ Complete |
+| 3. Create Local tab component with community events, local news | 2-3 hrs | ✅ Complete |
+| 4. Create Weather tab component with weather-based content triggers | 2-3 hrs | ✅ Complete |
+| 5. Update V4PowerModePanel to conditionally render tabs based on profile | 1 hr | ✅ Complete |
+| 6. Update 234 profiles with `enabledTabs` field (script) | 1-2 hrs | ✅ Complete |
+| 7. Test tab visibility across different industry profiles | 1 hr | ✅ Complete |
 
-**Total Estimated Effort: 11-14 hours**
+**Total Effort: Phase 7 Complete**
 
 ---
 
@@ -628,14 +646,199 @@ done
 
 ---
 
+## Phase 8: Gap Remediation & UVP Alignment ✅ COMPLETE
+
+### Gap Analysis (2025-11-30)
+
+| Gap | Issue | Impact |
+|-----|-------|--------|
+| Profile Count | Only 234 migrated, should be 380 | Missing ~146 profiles |
+| useIndustryProfile | Not wired into V4PowerModePanel | Enhanced dropdowns not showing |
+| Template Alignment | NAICS-only matching misses specialty | Generic hooks for specialized businesses |
+
+### Task 8.1: Complete Profile Migration ⬜
+
+**Problem**: Only migrated from `multipass/` folder, missed `enhanced-profiles/` folder
+
+**Solution**: Update migration script to include both sources, deduplicate by NAICS code
+
+**Files**:
+- `scripts/migrate-profiles-to-supabase.ts` - Update to include both directories
+
+### Task 8.2: Wire useIndustryProfile Hook ⬜
+
+**Problem**: Hook exists but not imported/used in V4PowerModePanel
+
+**Solution**: Import hook, call it with UVP data, wire to dropdowns
+
+**Files**:
+- `src/components/v4/V4PowerModePanel.tsx` - Add import and usage
+
+**Wiring Points**:
+- Content Goal dropdown → `enhancedFrameworkTooltips`
+- Audience dropdown → `enhancedFunnelTooltips`
+- Platform dropdown → `enhancedPlatformTooltips`
+
+### Task 8.3: UVP-Aligned Template Refinement Service ⬜
+
+**Problem**: Templates matched by NAICS only, don't reflect UVP specialty
+
+**Example**: OpenDialog (Conversational AI for Insurance) gets generic "Software Publisher" hooks instead of insurance-specific AI hooks
+
+**Solution**: Create refinement service that runs during UVP flow
+
+**Architecture**:
+```
+UVP Step 5 (Unique Solution)
+    ↓
+Extract specialty signals (target industry, compliance, transformation)
+    ↓
+[Stream 1] Load NAICS profile as baseline
+[Stream 2] Perplexity query for specialty hooks
+[Stream 3] Cross-reference UVP pain points
+    ↓
+Score templates against UVP (target_customer, key_benefit, unique_solution)
+    ↓
+Flag low-alignment (<50%), generate replacements
+    ↓
+Cache refined profile (brand_id + profile_id)
+```
+
+**Files to Create**:
+- `src/services/industry/uvp-template-refiner.service.ts`
+- `src/services/industry/template-alignment-scorer.service.ts`
+
+**Alignment Signals**:
+| Signal | Source | Weight |
+|--------|--------|--------|
+| Target industry vertical | UVP Target Customer | High |
+| Compliance/regulatory | UVP Unique Solution | High |
+| Transformation outcome | UVP Transformation Goal | Medium |
+| Pain point language | UVP Key Benefit | Medium |
+| NAICS category | Industry Profile | Low (baseline) |
+
+### Task 8.4: Alignment Scoring in UI ⬜
+
+**Problem**: No visibility into template quality/fit
+
+**Solution**: Add alignment score badge to templates in picker
+
+**Files**:
+- `src/components/v4/TemplatePickerModal.tsx` - Add score display
+
+### Implementation Tasks
+
+| Task | Effort | Status |
+|------|--------|--------|
+| 8.1 Complete profile migration (376 profiles) | 1 hr | ✅ Complete |
+| 8.2 Wire useIndustryProfile to V4PowerModePanel | 2 hrs | ✅ Complete |
+| 8.3 Create UVP template refinement service | 4 hrs | ✅ Complete |
+| 8.4 Add alignment scoring to template UI | 1 hr | ✅ Complete |
+| 8.5 Integration testing | 1 hr | ✅ Complete |
+
+**Total Effort: Phase 8 Complete**
+
+### Files Created in Phase 8
+
+| File | Purpose |
+|------|---------|
+| `src/services/industry/template-alignment-scorer.service.ts` | Scores templates against UVP signals |
+| `src/services/industry/uvp-template-refiner.service.ts` | Refines templates based on UVP context |
+
+### Files Modified in Phase 8
+
+| File | Changes |
+|------|---------|
+| `src/services/intelligence/enhanced-profile-loader.service.ts` | Load profiles from Supabase instead of local files |
+| `src/hooks/useIndustryProfile.ts` | Use async Supabase index loading |
+| `src/services/industry/enhanced-profile-loader.service.ts` | Added enabledTabs type |
+| `src/components/v4/TemplatePickerModal.tsx` | Added alignment score badges |
+| `scripts/migrate-profiles-to-supabase.ts` | Updated to include both source directories |
+
+---
+
+## Phase 9: V4 Integration Fixes & Insight Suggester (IN PROGRESS)
+
+### Gap Analysis (2025-11-30)
+
+| Issue | Root Cause | Impact |
+|-------|------------|--------|
+| Industry profile not loading | `businessProfileResolver` uses OLD local file loader, not Supabase loader | Enhanced features don't appear |
+| Live Preview not working | `selectedInsights` not passed to `generateWithControl()` | Content generates without insight context |
+| Insight Suggester not showing | Service exists but UI not wired to V4PowerModePanel | AI suggestions unavailable |
+| Duplicate loaders | Two `enhanced-profile-loader` services causing confusion | Technical debt |
+
+### Task 9.1: Consolidate Profile Loaders
+
+**Problem**: Two separate loader services exist:
+- `/services/industry/enhanced-profile-loader.service.ts` - OLD (local files)
+- `/services/intelligence/enhanced-profile-loader.service.ts` - NEW (Supabase)
+
+**Solution**: Update `businessProfileResolver` to use Supabase loader
+
+**Files**:
+- `src/services/intelligence/business-profile-resolver.service.ts` - Change import
+
+### Task 9.2: Fix Live Preview
+
+**Problem**: `handleGenerate()` doesn't pass `selectedInsights` to `generateWithControl()`
+
+**Solution**: Add `selectedInsights: selectedInsightObjects` to 3 call sites
+
+**Files**:
+- `src/components/v4/V4PowerModePanel.tsx` - Lines 5638, 5707, 5767
+
+### Task 9.3: Wire Insight Suggester UI
+
+**Problem**: Service exists but component integration incomplete
+
+**Solution**: Add state, effect, handlers, and UI section to V4PowerModePanel
+
+**Components to add**:
+- State: `suggestedInsights`, `isLoadingSuggestions`, `dismissedSuggestions`
+- Effect: Debounced trigger when selection changes
+- Handlers: `handleAcceptSuggestion()`, `handleDismissSuggestion()`
+- UI: Suggestion cards in YourMixPreview section
+
+**Files**:
+- `src/components/v4/V4PowerModePanel.tsx` - Add integration
+- `src/services/intelligence/insight-suggestion.service.ts` - Already complete
+
+### Task 9.4: Clean Up Duplicate Code
+
+**Problem**: Two loader services and unused hook creating confusion
+
+**Solution**:
+- Delete `/services/industry/enhanced-profile-loader.service.ts`
+- Remove unused `useIndustryProfile` hook (functionality in `useBusinessProfile`)
+
+**Files to delete**:
+- `src/services/industry/enhanced-profile-loader.service.ts`
+- `src/hooks/useIndustryProfile.ts`
+
+### Implementation Tasks
+
+| Task | Effort | Status |
+|------|--------|--------|
+| 9.1 Consolidate profile loaders | 30 min | ⬜ Pending |
+| 9.2 Fix Live Preview (add selectedInsights) | 15 min | ⬜ Pending |
+| 9.3 Wire Insight Suggester UI | 1.5 hr | ⬜ Pending |
+| 9.4 Clean up duplicate code | 15 min | ⬜ Pending |
+
+**Total Estimated Effort: 2.5 hours**
+
+---
+
 ## Related Documents
 
 - **Content Correlation Strategies**: `.buildrunner/CONTENT_CORRELATION_STRATEGIES.md`
   - Contains: 12 insight dimensions, constraint matrices, variety algorithm, business profiles, campaign system
+- **Insight Suggestions Build Plan**: `.buildrunner/INSIGHT_SUGGESTIONS_BUILD_PLAN.md`
+  - Contains: AI suggestion service architecture, UI integration spec
 
 ---
 
-*Document Version: 2.1*
+*Document Version: 2.4*
 *Created: 2025-11-29*
 *Updated: 2025-11-30*
-*Status: Phase 7 PENDING - Tab Visibility*
+*Status: Phase 9 IN PROGRESS - V4 Integration Fixes*

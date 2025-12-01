@@ -28,6 +28,7 @@ import { competitorIntelligence } from '@/services/intelligence/competitor-intel
 import { competitorStreamingManager } from '@/services/intelligence/competitor-streaming-manager';
 import { customerVoiceExtractor } from '@/services/intelligence/customer-voice-extractor.service';
 import { battlecardGenerator } from '@/services/intelligence/battlecard-generator.service';
+import { buzzsumoAPI } from '@/services/intelligence/buzzsumo-api';
 import type { CompetitorStreamEvent } from '@/services/intelligence/competitor-streaming-manager';
 import {
   CACHE_ONLY_MODE,
@@ -936,6 +937,34 @@ export function useCompetitorIntelligence(
               return newMap;
             });
             console.log('[useCompetitorIntelligence] Battlecard generated for', competitor.name);
+          }
+          // Synapse 2.0: BuzzSumo Content Analysis for competitor gaps
+          if (competitor.website) {
+            try {
+              console.log('[useCompetitorIntelligence] Running BuzzSumo analysis for', competitor.name);
+              const domain = new URL(competitor.website).hostname.replace('www.', '');
+              const buzzsumoResult = await buzzsumoAPI.analyzeCompetitors([domain]);
+
+              if (buzzsumoResult.contentGaps.length > 0 || buzzsumoResult.opportunityTopics.length > 0) {
+                setEnhancedInsights(prev => {
+                  const newMap = new Map(prev);
+                  const existing = newMap.get(competitor.id) || {};
+                  newMap.set(competitor.id, {
+                    ...existing,
+                    buzzsumo_content: {
+                      contentGaps: buzzsumoResult.contentGaps,
+                      opportunityTopics: buzzsumoResult.opportunityTopics,
+                      avgEngagement: buzzsumoResult.benchmark.avgEngagement,
+                      topPerformingFormat: buzzsumoResult.benchmark.topPerformingFormat
+                    }
+                  });
+                  return newMap;
+                });
+                console.log('[useCompetitorIntelligence] BuzzSumo content gaps found:', buzzsumoResult.contentGaps.length);
+              }
+            } catch (buzzErr) {
+              console.warn('[useCompetitorIntelligence] BuzzSumo analysis failed (non-fatal):', buzzErr);
+            }
           }
         } catch (voiceErr) {
           console.warn('[useCompetitorIntelligence] Voice/Battlecard extraction failed (non-fatal):', voiceErr);

@@ -647,9 +647,11 @@ export function ProofTab({ uvp, brandId, deepContext: providedDeepContext, onSel
     return counts;
   }, [consolidationResult]);
 
-  // Report proof count to parent for tab badge display
+  // Report proof count to parent for tab badge display + cache for initial load
   useEffect(() => {
     const count = consolidationResult?.proofs?.length || 0;
+    // Cache the count for initial tab badge display (before ProofTab mounts)
+    try { localStorage.setItem('synapse_proof_count', count.toString()); } catch {}
     if (onProofCountChange) {
       onProofCountChange(count);
     }

@@ -902,6 +902,14 @@ export interface EnhancedCompetitorInsights {
   seo_metrics?: SEOMetrics;
   threat_score?: ThreatScore;
 
+  // Synapse 2.0: BuzzSumo Content Performance
+  buzzsumo_content?: {
+    contentGaps: string[];
+    opportunityTopics: string[];
+    avgEngagement: number;
+    topPerformingFormat: string;
+  };
+
   // Metadata
   last_updated: string;
   data_sources: string[];

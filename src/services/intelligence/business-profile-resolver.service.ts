@@ -10,7 +10,13 @@
  * Config-driven, not code-driven - add industries by adding JSON, not code.
  */
 
-import { enhancedProfileLoader, EnhancedIndustryProfile } from '../industry/enhanced-profile-loader.service';
+import {
+  loadProfileBySlug,
+  searchProfiles,
+  findBestMatchAsync,
+  ensureIndexLoaded,
+} from './enhanced-profile-loader.service';
+import type { EnhancedIndustryProfile } from '@/types/industry-profile.types';
 import { detectSegment, BusinessSegment } from '@/components/dashboard/SegmentAwarePanel';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 
@@ -245,30 +251,33 @@ class BusinessProfileResolverService {
 
     const industry = context.business.profile.industry.toLowerCase();
 
+    // Ensure index is loaded for search
+    await ensureIndexLoaded();
+
     // Try direct match from map
     for (const [keyword, profileId] of Object.entries(INDUSTRY_PROFILE_MAP)) {
       if (industry.includes(keyword)) {
-        const profile = await enhancedProfileLoader.loadProfile(profileId);
+        const profile = await loadProfileBySlug(profileId);
         if (profile) return profile;
       }
     }
 
     // Try search by industry name
-    const searchResults = await enhancedProfileLoader.search(industry);
+    const searchResults = await searchProfiles(industry);
     if (searchResults.length > 0) {
-      return enhancedProfileLoader.loadProfile(searchResults[0].id);
+      return loadProfileBySlug(searchResults[0].slug);
     }
 
     // Try by NAICS if available
     const naicsCode = context.business?.profile?.naicsCode;
     if (naicsCode) {
-      const profile = await enhancedProfileLoader.findByNaics(naicsCode);
-      if (profile) return profile;
+      const result = await findBestMatchAsync({ naicsCode });
+      if (result.matched && result.profile) return result.profile;
     }
 
     // Default to software-development for B2B/tech
     if (this.looksLikeTech(industry)) {
-      return enhancedProfileLoader.loadProfile('software-development');
+      return loadProfileBySlug('software-development');
     }
 
     return null;

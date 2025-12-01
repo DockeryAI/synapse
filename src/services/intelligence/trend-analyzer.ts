@@ -1,13 +1,14 @@
 import { TrendingTopic, OpportunityInsight } from '@/types/intelligence.types'
 import { supabase } from '@/lib/supabase'
+import { buzzsumoAPI, BuzzSumoTrend, TrendingResult } from './buzzsumo-api'
 
 /**
  * Trend Analyzer Service
- * Detects trending topics using Google Trends API and other sources
- * Identifies content opportunities based on rising search interest
+ * Detects trending topics using BuzzSumo API for content performance trends
+ * Identifies content opportunities based on rising engagement and velocity
  *
- * NOTE: Google Trends has no official API - integration would require
- * a third-party service like SerpAPI routed through an Edge Function
+ * SYNAPSE 2.0: Replaced broken Google Trends with BuzzSumo
+ * BuzzSumo provides: velocity (growth rate), emergingTopics, decliningTopics
  */
 
 interface TrendConfig {
@@ -119,21 +120,69 @@ export class TrendAnalyzerService {
   }
 
   /**
-   * Fetch trend data from API
-   * NOTE: Google Trends has no official API. This would require a third-party service
-   * like SerpAPI which should be called via an Edge Function for security.
+   * Fetch trend data from BuzzSumo API
+   * SYNAPSE 2.0: Replaced broken Google Trends with BuzzSumo
    */
   private static async fetchTrendData(
     keyword: string,
     location?: string
   ): Promise<any> {
-    // Google Trends integration not yet implemented
-    // This would require a third-party service like SerpAPI
-    // which should be called via an Edge Function for security
-    throw new Error(
-      'Google Trends integration pending. This requires a third-party API service like SerpAPI ' +
-      'routed through a Supabase Edge Function for security.'
-    )
+    try {
+      // Get trending data from BuzzSumo
+      const trendingResult = await buzzsumoAPI.getTrending({ topic: keyword });
+
+      if (!trendingResult || !trendingResult.trends || trendingResult.trends.length === 0) {
+        console.log(`[TrendAnalyzer] No BuzzSumo trends found for "${keyword}"`);
+        return null;
+      }
+
+      // Find the most relevant trend for this keyword
+      const matchingTrend = trendingResult.trends.find(t =>
+        t.topic.toLowerCase().includes(keyword.toLowerCase()) ||
+        keyword.toLowerCase().includes(t.topic.toLowerCase())
+      ) || trendingResult.trends[0];
+
+      // Convert BuzzSumo format to expected format
+      // BuzzSumo velocity maps to our growth_rate calculation
+      const trendData = {
+        keyword,
+        values: this.velocityToValues(matchingTrend.velocity),
+        velocity: matchingTrend.velocity,
+        totalEngagements: matchingTrend.totalEngagements,
+        articleCount: matchingTrend.articleCount,
+        topHeadlines: matchingTrend.topHeadlines,
+        peakDay: matchingTrend.peakDay,
+        emergingTopics: trendingResult.emergingTopics,
+        decliningTopics: trendingResult.decliningTopics,
+        source: 'buzzsumo'
+      };
+
+      console.log(`[TrendAnalyzer] BuzzSumo trend data for "${keyword}": velocity=${matchingTrend.velocity}`);
+      return trendData;
+    } catch (error) {
+      console.error(`[TrendAnalyzer] BuzzSumo fetch failed for "${keyword}":`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Convert BuzzSumo velocity (growth rate) to normalized values array
+   * BuzzSumo velocity is already a growth percentage
+   */
+  private static velocityToValues(velocity: number): number[] {
+    // Generate synthetic timeline showing growth from baseline to current
+    const baseline = 50;
+    const current = Math.min(100, baseline + (velocity / 2));
+
+    // Create 6 data points showing progression
+    return [
+      baseline,
+      baseline + (current - baseline) * 0.2,
+      baseline + (current - baseline) * 0.4,
+      baseline + (current - baseline) * 0.6,
+      baseline + (current - baseline) * 0.8,
+      current
+    ];
   }
 
   /**
@@ -299,7 +348,7 @@ export class TrendAnalyzerService {
       type: 'trending_topic',
       title: `Trending: "${trend.keyword}" (+${trend.growth_rate}%)`,
       description: `Interest in "${trend.keyword}" has grown ${trend.growth_rate}% recently with ${trend.search_volume.toLocaleString()} searches. Create content to capture this search volume.`,
-      source: 'google_trends',
+      source: 'buzzsumo',
       source_data: {
         keyword: trend.keyword,
         growth_rate: trend.growth_rate,

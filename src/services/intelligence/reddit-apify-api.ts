@@ -495,15 +495,15 @@ export class RedditAPI {
     try {
       // If specific subreddits provided, search them IN PARALLEL (not sequential!)
       if (subreddits.length > 0) {
-        // Limit to 3 subreddits max for speed
-        const limitedSubreddits = subreddits.slice(0, 3);
+        // Phase 2 scaling: Increased from 3 to 5 subreddits for more data
+        const limitedSubreddits = subreddits.slice(0, 5);
         const subredditPromises = limitedSubreddits.map(subreddit =>
           this.fetchRedditViaApify({
             searchQuery: query,
             subreddit,
             sort: sortBy === 'relevance' ? 'hot' : sortBy,
             timeFilter,
-            limit: 5, // Reduced limit per subreddit for speed
+            limit: 10, // Increased from 5 to 10 per subreddit
             includeComments: false, // Skip comments to speed up
             maxComments: 0
           }).catch(() => []) // Don't fail entire batch if one subreddit fails

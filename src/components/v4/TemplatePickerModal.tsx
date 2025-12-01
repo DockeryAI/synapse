@@ -35,6 +35,11 @@ import {
   TrendingUp
 } from 'lucide-react';
 import type { EnhancedIndustryProfile } from '@/types/industry-profile.types';
+import type { CompleteUVP } from '@/types/uvp-flow.types';
+import {
+  templateAlignmentScorerService,
+  type AlignmentScore
+} from '@/services/industry/template-alignment-scorer.service';
 
 // =============================================================================
 // TYPES
@@ -44,6 +49,7 @@ interface TemplatePickerModalProps {
   isOpen: boolean;
   onClose: () => void;
   profile: EnhancedIndustryProfile | null;
+  uvp?: CompleteUVP | null;
   onSelectTemplate: (template: SelectedTemplate) => void;
 }
 
@@ -102,11 +108,40 @@ const CAMPAIGN_TYPES = [
 interface TemplateItemProps {
   template: string;
   context?: string;
+  alignmentScore?: AlignmentScore | null;
   onSelect: () => void;
   onCopy: () => void;
 }
 
-const TemplateItem = memo(function TemplateItem({ template, context, onSelect, onCopy }: TemplateItemProps) {
+// Alignment score badge component
+const AlignmentBadge = memo(function AlignmentBadge({ score }: { score: AlignmentScore }) {
+  const percentage = Math.round(score.overall * 100);
+  let bgColor: string;
+  let textColor: string;
+
+  if (score.confidenceLevel === 'high') {
+    bgColor = 'bg-green-100 dark:bg-green-900/30';
+    textColor = 'text-green-700 dark:text-green-300';
+  } else if (score.confidenceLevel === 'medium') {
+    bgColor = 'bg-amber-100 dark:bg-amber-900/30';
+    textColor = 'text-amber-700 dark:text-amber-300';
+  } else {
+    bgColor = 'bg-red-100 dark:bg-red-900/30';
+    textColor = 'text-red-700 dark:text-red-300';
+  }
+
+  return (
+    <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${bgColor} ${textColor}`}>
+      <span className="text-xs font-medium">{percentage}%</span>
+      {score.confidenceLevel === 'high' && <Check className="w-3 h-3" />}
+      {score.needsRefinement && (
+        <span className="text-[10px] opacity-70">needs refine</span>
+      )}
+    </div>
+  );
+});
+
+const TemplateItem = memo(function TemplateItem({ template, context, alignmentScore, onSelect, onCopy }: TemplateItemProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback((e: React.MouseEvent) => {
@@ -122,13 +157,21 @@ const TemplateItem = memo(function TemplateItem({ template, context, onSelect, o
       onClick={onSelect}
       className="group p-3 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-md transition-all cursor-pointer"
     >
-      <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
-        "{template}"
-      </p>
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed flex-1">
+          "{template}"
+        </p>
+        {alignmentScore && <AlignmentBadge score={alignmentScore} />}
+      </div>
       {context && (
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
           {context}
         </p>
+      )}
+      {alignmentScore?.refinementHints && alignmentScore.refinementHints.length > 0 && alignmentScore.needsRefinement && (
+        <div className="mt-2 text-[10px] text-amber-600 dark:text-amber-400">
+          Tip: {alignmentScore.refinementHints[0]}
+        </div>
       )}
       <div className="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <button
@@ -156,12 +199,32 @@ const TemplateItem = memo(function TemplateItem({ template, context, onSelect, o
 
 interface HooksTabProps {
   profile: EnhancedIndustryProfile;
+  uvp?: CompleteUVP | null;
   onSelect: (template: SelectedTemplate) => void;
   searchQuery: string;
 }
 
-const HooksTab = memo(function HooksTab({ profile, onSelect, searchQuery }: HooksTabProps) {
+const HooksTab = memo(function HooksTab({ profile, uvp, onSelect, searchQuery }: HooksTabProps) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>('number');
+
+  // Score hooks against UVP
+  const hookScores = useMemo(() => {
+    if (!uvp) return new Map<string, AlignmentScore>();
+
+    const scores = new Map<string, AlignmentScore>();
+    const signals = templateAlignmentScorerService.extractUVPSignals(uvp);
+
+    Object.entries(profile.hook_library || {}).forEach(([, hooks]) => {
+      if (Array.isArray(hooks)) {
+        hooks.forEach(hook => {
+          const score = templateAlignmentScorerService.scoreTemplate(hook, signals, 'hook');
+          scores.set(hook, score);
+        });
+      }
+    });
+
+    return scores;
+  }, [profile.hook_library, uvp]);
 
   const categories = useMemo(() => {
     return HOOK_CATEGORIES.map(cat => ({
@@ -212,6 +275,7 @@ const HooksTab = memo(function HooksTab({ profile, onSelect, searchQuery }: Hook
                       <TemplateItem
                         key={idx}
                         template={hook}
+                        alignmentScore={hookScores.get(hook)}
                         onSelect={() => onSelect({
                           type: 'hook',
                           category: category.id,
@@ -464,6 +528,7 @@ export const TemplatePickerModal = memo(function TemplatePickerModal({
   isOpen,
   onClose,
   profile,
+  uvp,
   onSelectTemplate
 }: TemplatePickerModalProps) {
   const [activeTab, setActiveTab] = useState<TabType>('hooks');
@@ -570,7 +635,7 @@ export const TemplatePickerModal = memo(function TemplatePickerModal({
               ) : (
                 <>
                   {activeTab === 'hooks' && (
-                    <HooksTab profile={profile} onSelect={handleSelect} searchQuery={searchQuery} />
+                    <HooksTab profile={profile} uvp={uvp} onSelect={handleSelect} searchQuery={searchQuery} />
                   )}
                   {activeTab === 'headlines' && (
                     <HeadlinesTab profile={profile} onSelect={handleSelect} searchQuery={searchQuery} />

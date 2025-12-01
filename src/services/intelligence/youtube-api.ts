@@ -481,17 +481,27 @@ class YouTubeAPIService {
       // Search for relevant videos
       const videos = await this.searchVideos(keywords, maxVideos)
 
-      // Get comments from each video
-      // FIXED: Don't skip videos based on commentCount - Apify may not return it
-      const allComments: YouTubeComment[] = []
-      for (const video of videos) {
-        // Try to get comments for ALL videos - commentCount may be missing from Apify response
-        const comments = await this.getVideoComments(video.id, 50)
-        if (comments.length > 0) {
-          allComments.push(...comments)
-          console.log(`[YouTube API] Got ${comments.length} comments from video: ${video.title?.substring(0, 50)}`)
+      // PARALLEL COMMENT FETCHING - fetch all video comments simultaneously
+      // This reduces 5 videos × 10s = 50s sequential → ~15s parallel
+      console.log(`[YouTube API] Fetching comments from ${videos.length} videos IN PARALLEL...`)
+
+      const commentPromises = videos.map(async (video) => {
+        try {
+          const comments = await this.getVideoComments(video.id, 30) // Reduced from 50 to 30 per video
+          if (comments.length > 0) {
+            console.log(`[YouTube API] Got ${comments.length} comments from: ${video.title?.substring(0, 40)}`)
+          }
+          return comments
+        } catch (err) {
+          console.warn(`[YouTube API] Failed to get comments for ${video.id}:`, err)
+          return [] // Don't fail the whole batch for one video
         }
-      }
+      })
+
+      const commentArrays = await Promise.all(commentPromises)
+      const allComments = commentArrays.flat()
+
+      console.log(`[YouTube API] Total: ${allComments.length} comments from ${videos.length} videos (parallel fetch complete)`)
 
       // Extract psychological patterns
       const patterns = this.extractPsychologicalPatterns(allComments)
