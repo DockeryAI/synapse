@@ -100,6 +100,7 @@ import { CompetitorIntelligencePanel } from './CompetitorIntelligencePanel';
 import { StreamingGapIndicator, GapSkeletonGrid } from './GapSkeletonCards';
 import { CompetitorScanProgress } from './CompetitorScanProgress';
 import { TriggersPanelV2 } from './TriggersPanelV2';
+import { TriggersPanelV3 } from './TriggersPanelV3';
 import { ProofTab } from './ProofTab';
 import { LocalTab } from './LocalTab';
 import { WeatherTab } from './WeatherTab';
@@ -7201,10 +7202,10 @@ export function V4PowerModePanel({
                 </div>
               </ScrollArea>
             ) : activeFilter === 'triggers' ? (
-              /* Triggers 2.0 - Consolidated view with evidence nested under triggers */
+              /* Triggers 3.0 - Enhanced view with confidence scores, surge detection, and advanced filtering */
               <ScrollArea className="h-full">
                 <div className="p-4">
-                  <TriggersPanelV2
+                  <TriggersPanelV3
                     deepContext={triggersStreamingResult.deepContext || deepContext}
                     uvp={uvp}
                     brandData={{ name: currentBrand?.name || '', industry: currentBrand?.industry || 'Auto-detected' }}
@@ -7213,6 +7214,7 @@ export function V4PowerModePanel({
                     loadingStatus={cachedTriggers ? 'Using cached data' : (triggersStreamingResult.isLoading ? `${triggersStreamingResult.loadingStatus} (${triggersStreamingResult.percentComplete}%)` : loadingStatus)}
                     onToggle={handleToggleInsight}
                     preConsolidatedTriggers={cachedTriggers || (triggersStreamingResult.isReady ? triggersStreamingResult.triggers : null)}
+                    showAdvancedFilters={true}
                   />
                 </div>
               </ScrollArea>
