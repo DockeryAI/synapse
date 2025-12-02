@@ -14,7 +14,7 @@ import { supabase } from '@/lib/supabase';
 // Model definitions
 export const AI_MODELS = {
   HAIKU: 'anthropic/claude-3.5-haiku',
-  SONNET: 'anthropic/claude-opus-4.1',
+  SONNET: 'anthropic/claude-sonnet-4-5-20250929',
   OPUS: 'anthropic/claude-opus-4'
 } as const;
 

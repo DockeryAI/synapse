@@ -267,7 +267,7 @@ export class OnDemandProfileGenerator {
 
       const requestBody = {
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1', // Back to Opus for highest quality
+        model: 'anthropic/claude-sonnet-4-5-20250929', // Back to Opus for highest quality
         messages: [
           {
             role: 'user',

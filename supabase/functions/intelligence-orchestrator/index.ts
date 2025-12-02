@@ -39,8 +39,9 @@ const corsHeaders = {
 // OpenRouter API endpoint
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-// Fast model for extraction
-const MODEL = 'anthropic/claude-opus-4.5'; // Opus 4.5 for quality testing
+// Fast model for extraction - Opus 4.5 (Sonnet 4.5) for speed + quality
+// OpenRouter ID: claude-sonnet-4-5-20250929 (the "thinking" model)
+const MODEL = 'anthropic/claude-sonnet-4-5-20250929';
 
 interface OrchestratorRequest {
   websiteContent: string;
@@ -61,13 +62,32 @@ interface ExtractionResult {
 }
 
 /**
- * Make AI call to OpenRouter
+ * Get API key by index for 4-key rotation (parallel processing)
+ * Keys: OPENROUTER_API_KEY_1, _2, _3, _4 (falls back to OPENROUTER_API_KEY)
  */
-async function callAI(prompt: string, maxTokens: number = 4000): Promise<string> {
-  const apiKey = Deno.env.get('OPENROUTER_API_KEY');
-  if (!apiKey) {
+function getApiKey(keyIndex: number): string {
+  // Try numbered key first
+  const numberedKey = Deno.env.get(`OPENROUTER_API_KEY_${keyIndex + 1}`);
+  if (numberedKey && numberedKey.length > 10) {
+    return numberedKey;
+  }
+
+  // Fall back to default key
+  const defaultKey = Deno.env.get('OPENROUTER_API_KEY');
+  if (!defaultKey) {
     throw new Error('OPENROUTER_API_KEY not configured');
   }
+  return defaultKey;
+}
+
+/**
+ * Make AI call to OpenRouter with key rotation for parallel processing
+ * @param prompt - The prompt to send
+ * @param maxTokens - Max tokens to generate
+ * @param keyIndex - Which key to use (0-3) for parallel distribution
+ */
+async function callAI(prompt: string, maxTokens: number = 4000, keyIndex: number = 0): Promise<string> {
+  const apiKey = getApiKey(keyIndex);
 
   const response = await fetch(OPENROUTER_URL, {
     method: 'POST',
@@ -113,8 +133,9 @@ function parseJSON(text: string): any {
 
 /**
  * Extract products/services with FAB (Feature → Advantage → Benefit) cascade
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractProducts(content: string, businessName: string): Promise<any[]> {
+async function extractProducts(content: string, businessName: string, keyIndex: number = 0): Promise<any[]> {
   const prompt = `You are extracting ALL products, services, features, and offerings from ${businessName}'s website using the FAB Framework.
 
 WEBSITE CONTENT:
@@ -166,7 +187,7 @@ IMPORTANT:
 - Higher confidence (80+) for items with direct quotes and clear benefits`;
 
   try {
-    const response = await callAI(prompt, 6000);
+    const response = await callAI(prompt, 6000, keyIndex);
     console.log('[Products] Raw response length:', response.length);
     const parsed = parseJSON(response);
     console.log('[Products] Parsed items:', parsed?.length || 0);
@@ -184,8 +205,9 @@ IMPORTANT:
  *
  * CRITICAL: Emotional drivers must be TRUE identity/feeling transformations,
  * NOT business metrics wrapped in emotional language.
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractCustomers(content: string, businessName: string, industry: string): Promise<any[]> {
+async function extractCustomers(content: string, businessName: string, industry: string, keyIndex: number = 1): Promise<any[]> {
   const prompt = `You are a JTBD (Jobs-to-be-Done) expert extracting customer profiles from ${businessName}'s website (${industry}).
 
 WEBSITE CONTENT:
@@ -256,7 +278,7 @@ IMPORTANT:
 - Create profiles for different industries, roles, and company sizes`;
 
   try {
-    const response = await callAI(prompt, 6000);
+    const response = await callAI(prompt, 6000, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Customers] Extraction failed:', e);
@@ -266,8 +288,9 @@ IMPORTANT:
 
 /**
  * Extract differentiators
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractDifferentiators(content: string, businessName: string): Promise<any[]> {
+async function extractDifferentiators(content: string, businessName: string, keyIndex: number = 2): Promise<any[]> {
   const prompt = `Extract what makes ${businessName} different from competitors.
 
 CONTENT:
@@ -289,7 +312,7 @@ Rules:
 - Higher score for unique, defensible advantages`;
 
   try {
-    const response = await callAI(prompt);
+    const response = await callAI(prompt, 4000, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Differentiators] Extraction failed:', e);
@@ -299,8 +322,9 @@ Rules:
 
 /**
  * Extract buyer personas
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractBuyerPersonas(content: string, businessName: string, industry: string): Promise<any[]> {
+async function extractBuyerPersonas(content: string, businessName: string, industry: string, keyIndex: number = 3): Promise<any[]> {
   const prompt = `Create detailed buyer personas from ${businessName}'s website (${industry}).
 
 CONTENT:
@@ -327,7 +351,7 @@ Rules:
 - Include specific triggers and objections`;
 
   try {
-    const response = await callAI(prompt);
+    const response = await callAI(prompt, 4000, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[BuyerPersonas] Extraction failed:', e);
@@ -337,8 +361,9 @@ Rules:
 
 /**
  * Extract customer transformations (before → after)
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractTransformations(content: string, businessName: string): Promise<any[]> {
+async function extractTransformations(content: string, businessName: string, keyIndex: number = 0): Promise<any[]> {
   const prompt = `Extract customer transformation stories from ${businessName}'s website.
 
 CONTENT:
@@ -362,7 +387,7 @@ Rules:
 - Focus on outcome-focused language`;
 
   try {
-    const response = await callAI(prompt);
+    const response = await callAI(prompt, 4000, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Transformations] Extraction failed:', e);
@@ -373,8 +398,9 @@ Rules:
 /**
  * Extract benefits using FAB Framework (Features → Advantages → Benefits)
  * Apply the "So What?" test until reaching identity/emotional transformation
+ * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractBenefits(content: string, businessName: string): Promise<any[]> {
+async function extractBenefits(content: string, businessName: string, keyIndex: number = 1): Promise<any[]> {
   const prompt = `You are a marketing expert using the FAB Framework to transform ${businessName}'s features into compelling customer benefits.
 
 CONTENT:
@@ -435,7 +461,7 @@ Rules:
 - Think: "What story can they tell about themselves now?"`;
 
   try {
-    const response = await callAI(prompt, 5000);
+    const response = await callAI(prompt, 5000, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Benefits] Extraction failed:', e);
@@ -475,7 +501,8 @@ serve(async (req) => {
     console.log(`[Orchestrator] Content length: ${body.websiteContent.length} chars`);
 
     // =========================================================================
-    // RUN ALL 6 EXTRACTIONS IN PARALLEL - NO BROWSER CONNECTION LIMITS!
+    // RUN ALL 6 EXTRACTIONS IN PARALLEL WITH 4-KEY ROTATION
+    // Distributes load across 4 API keys for maximum throughput
     // =========================================================================
     const [
       products,
@@ -485,12 +512,12 @@ serve(async (req) => {
       transformations,
       benefits
     ] = await Promise.all([
-      extractProducts(body.websiteContent, body.businessName),
-      extractCustomers(body.websiteContent, body.businessName, body.industry || 'general'),
-      extractDifferentiators(body.websiteContent, body.businessName),
-      extractBuyerPersonas(body.websiteContent, body.businessName, body.industry || 'general'),
-      extractTransformations(body.websiteContent, body.businessName),
-      extractBenefits(body.websiteContent, body.businessName),
+      extractProducts(body.websiteContent, body.businessName, 0),         // Key 1
+      extractCustomers(body.websiteContent, body.businessName, body.industry || 'general', 1), // Key 2
+      extractDifferentiators(body.websiteContent, body.businessName, 2),   // Key 3
+      extractBuyerPersonas(body.websiteContent, body.businessName, body.industry || 'general', 3), // Key 4
+      extractTransformations(body.websiteContent, body.businessName, 0),   // Key 1 (reuse)
+      extractBenefits(body.websiteContent, body.businessName, 1),          // Key 2 (reuse)
     ]);
 
     const extractionTime = Date.now() - startTime;

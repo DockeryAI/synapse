@@ -269,7 +269,7 @@ If you cannot detect a location with confidence > 0.5, respond with:
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-sonnet-4-5-20250929',
         temperature: 0.3,
         maxTokens: 200
       });

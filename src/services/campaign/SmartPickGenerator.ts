@@ -643,7 +643,7 @@ Make it specific to the business and actionable.`
     const response = await ErrorHandlerService.executeWithRetry(
       async () => {
         return await chat([{ role: 'user', content: prompt }], {
-          model: 'anthropic/claude-opus-4.1',
+          model: 'anthropic/claude-sonnet-4-5-20250929',
           temperature: 0.8,
           maxTokens: 300
         })

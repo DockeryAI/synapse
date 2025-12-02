@@ -12,7 +12,7 @@
  * - Source verification from website data
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input';
 import { IndustrySelector, type IndustryOption } from './IndustrySelector';
 import { Link } from 'react-router-dom';
 import type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
+import { urlPreloader } from '@/services/onboarding-v5/url-preloader.service';
 
 interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
@@ -173,6 +174,14 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
   const currentStepIndex = DETECTION_STEPS.findIndex((step) => step.id === status);
   const isDetecting = status !== 'idle' && status !== 'complete';
 
+  // Preload website data on URL blur (saves 10-15 seconds)
+  const handleUrlBlur = useCallback(() => {
+    if (url.trim()) {
+      const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+      urlPreloader.preload(fullUrl);
+    }
+  }, [url]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
       <motion.div
@@ -224,6 +233,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                       type="text"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
+                      onBlur={handleUrlBlur}
                       placeholder="www.yourbusiness.com"
                       className="text-center text-lg sm:text-xl py-6 sm:py-8 px-4 rounded-xl border-2 border-gray-300 dark:border-slate-600 focus:border-purple-500 dark:focus:border-purple-500 transition-colors"
                       autoFocus

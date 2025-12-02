@@ -496,4 +496,173 @@ export function TriggerCardGrid({
   );
 }
 
+// ============================================================================
+// SKELETON COMPONENT - Loading state matching TriggerCardV4 dark theme
+// ============================================================================
+
+export interface TriggerCardSkeletonProps {
+  /** Pass type label for the loading state */
+  passLabel?: string;
+  /** Custom class name */
+  className?: string;
+}
+
+/**
+ * Dark-themed skeleton card that matches TriggerCardV4 layout.
+ * Shows a centered spinner animation with optional pass label.
+ */
+export function TriggerCardSkeleton({
+  passLabel,
+  className,
+}: TriggerCardSkeletonProps) {
+  return (
+    <div
+      className={cn(
+        // Match TriggerCardV4 collapsed styling
+        'rounded-lg border transition-all duration-200',
+        'border-gray-700 bg-gray-900/80',
+        'flex flex-col h-auto min-h-[180px] p-3',
+        'relative overflow-hidden',
+        className
+      )}
+    >
+      {/* Shimmer overlay */}
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-gray-700/20 to-transparent" />
+
+      {/* Category Header Skeleton */}
+      <div className="flex items-center gap-2 mb-2">
+        <div className="w-6 h-6 rounded bg-gray-700/50" />
+        <div className="h-3 w-16 rounded bg-gray-700/50" />
+      </div>
+
+      {/* Title Skeleton */}
+      <div className="space-y-1.5 mb-2">
+        <div className="h-4 w-full rounded bg-gray-700/50" />
+        <div className="h-4 w-3/4 rounded bg-gray-700/50" />
+      </div>
+
+      {/* Center Spinner */}
+      <div className="flex-1 flex flex-col items-center justify-center py-4">
+        <div className="relative">
+          {/* Outer ring */}
+          <div className="w-8 h-8 rounded-full border-2 border-gray-700/50" />
+          {/* Spinning ring */}
+          <div className="absolute inset-0 w-8 h-8 rounded-full border-2 border-transparent border-t-purple-500 animate-spin" />
+        </div>
+        {passLabel && (
+          <span className="mt-2 text-[10px] text-gray-500 animate-pulse">
+            {passLabel}
+          </span>
+        )}
+      </div>
+
+      {/* Bottom Stats Row Skeleton */}
+      <div className="flex items-center justify-between text-[10px] pt-2 border-t border-gray-700">
+        <div className="h-3 w-8 rounded bg-gray-700/50" />
+        <div className="h-3 w-12 rounded bg-gray-700/50" />
+        <div className="h-3 w-4 rounded bg-gray-700/50" />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// PROGRESSIVE LOADING GRID
+// ============================================================================
+
+export interface ProgressiveLoadingGridProps {
+  /** Currently loaded triggers */
+  triggers: ConsolidatedTrigger[];
+  /** Number of columns */
+  columns?: 2 | 3 | 4;
+  /** Card variant */
+  variant?: 'default' | 'compact';
+  /** Selected trigger IDs */
+  selectedIds?: Set<string>;
+  /** Click handler */
+  onTriggerClick?: (trigger: ConsolidatedTrigger) => void;
+  /** Whether loading is in progress */
+  isLoading?: boolean;
+  /** Current pass being loaded (for label) */
+  currentPass?: 'pain-fear' | 'desire-motivation' | 'objection-trust' | 'competitor';
+  /** Number of skeleton cards to show while loading */
+  skeletonCount?: number;
+  /** Custom class name */
+  className?: string;
+}
+
+const PASS_LABELS: Record<string, string> = {
+  'pain-fear': 'Analyzing pain points...',
+  'desire-motivation': 'Finding desires...',
+  'objection-trust': 'Identifying objections...',
+  'competitor': 'Researching competitors...',
+};
+
+/**
+ * Grid that displays real trigger cards + skeleton cards during progressive loading.
+ * As passes complete, real cards appear and skeletons shrink until all done.
+ */
+export function ProgressiveLoadingGrid({
+  triggers,
+  columns = 3,
+  variant = 'default',
+  selectedIds = new Set(),
+  onTriggerClick,
+  isLoading = false,
+  currentPass,
+  skeletonCount = 6,
+  className,
+}: ProgressiveLoadingGridProps) {
+  // Responsive columns
+  const gridCols = {
+    2: 'grid-cols-1 sm:grid-cols-2',
+    3: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
+    4: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+  };
+
+  const passLabel = currentPass ? PASS_LABELS[currentPass] : 'Loading triggers...';
+
+  return (
+    <div className={cn('space-y-4', className)}>
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 px-1">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+            <span>{passLabel}</span>
+          </div>
+          <span>{triggers.length} triggers loaded</span>
+        </div>
+      )}
+
+      {/* Grid with real cards + skeletons */}
+      <div className={cn('grid gap-3', gridCols[columns])}>
+        {/* Real trigger cards */}
+        {triggers.map((trigger) => (
+          <TriggerCardV4
+            key={trigger.id}
+            trigger={trigger}
+            variant={variant}
+            isSelected={selectedIds.has(trigger.id)}
+            onClick={onTriggerClick}
+          />
+        ))}
+
+        {/* Skeleton cards while loading */}
+        {isLoading &&
+          Array.from({ length: skeletonCount }).map((_, idx) => (
+            <TriggerCardSkeleton key={`skeleton-${idx}`} passLabel={idx === 0 ? passLabel : undefined} />
+          ))}
+      </div>
+
+      {/* Completion indicator */}
+      {!isLoading && triggers.length > 0 && (
+        <div className="text-center text-xs text-gray-500 dark:text-gray-400 py-2">
+          All {triggers.length} triggers loaded
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default TriggerCardV4;

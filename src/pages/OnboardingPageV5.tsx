@@ -46,6 +46,7 @@ import { supabase } from '@/lib/supabase';
 import { getOrCreateBrand, validateBrandExists } from '@/services/brand/brand-persistence.service';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
+import { urlPreloader } from '@/services/onboarding-v5/url-preloader.service';
 import { syncUVPProductsToCatalog } from '@/services/product-marketing/uvp-product-sync.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
@@ -524,9 +525,18 @@ export const OnboardingPageV5: React.FC = () => {
     ]);
 
     try {
-      // Step 1: Scrape website to get content
+      // Step 1: Scrape website to get content (use preloaded data if available - saves 10-15s)
       addProgressStep('Scanning website content', 'in_progress', 'Reading your website...');
-      const scrapedData = await scrapeWebsite(url);
+
+      // Check for preloaded data first
+      let scrapedData = await urlPreloader.getOrWait(url);
+      if (scrapedData) {
+        console.log('[OnboardingPageV5] Using preloaded website data (saved 10-15s)');
+      } else {
+        console.log('[OnboardingPageV5] No preload available, scraping now...');
+        scrapedData = await scrapeWebsite(url);
+      }
+
       addProgressStep('Scanning website content', 'complete', 'Website scanned successfully');
 
       // Extract business name from website (prioritize website metadata over domain)

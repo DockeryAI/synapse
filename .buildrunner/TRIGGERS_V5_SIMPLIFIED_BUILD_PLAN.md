@@ -253,6 +253,7 @@ Mitigation: Quality justifies cost. Each trigger defensible.
 - [x] Phase 4: Source-first flow ✅ Evidence built from cited sampleIds only
 - [ ] Phase 5: Remove confidence theater (simplified: source count only)
 - [x] Phase 6: Fix V4 card rendering ✅ TriggerCardV4 on all tabs
+- [x] Phase 6B: Progressive loading UI ✅ `TriggerCardSkeleton` + `ProgressiveLoadingGrid` components
 - [ ] Phase 7: Simplified UI
 - [x] Phase 8: Multi-pass orchestrator ✅ `runMultiPass()` with progressive callback
 - [ ] Phase 9: Archive dead services

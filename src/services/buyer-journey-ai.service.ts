@@ -60,7 +60,7 @@ interface ValidationResult {
 export class BuyerJourneyAI {
   private supabaseAnonKey: string | null = null
   private aiProxyUrl: string | null = null
-  private model: string = 'anthropic/claude-opus-4.1'
+  private model: string = 'anthropic/claude-sonnet-4-5-20250929'
 
   constructor() {
     this.supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || null

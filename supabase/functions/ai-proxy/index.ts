@@ -151,17 +151,20 @@ function normalizeModelName(model: string, provider: Provider): string {
       'anthropic/claude-3-5-haiku': 'anthropic/claude-3.5-haiku',
       'anthropic/claude-3-5-haiku-20241022': 'anthropic/claude-3.5-haiku',
       'anthropic/claude-haiku': 'anthropic/claude-3.5-haiku',
-      // Sonnet variants - OpenRouter uses anthropic/claude-sonnet-4
+      // Sonnet 4 (standard)
       'anthropic/claude-3.5-sonnet': 'anthropic/claude-sonnet-4',
       'anthropic/claude-3-5-sonnet': 'anthropic/claude-sonnet-4',
       'anthropic/claude-3-5-sonnet-20241022': 'anthropic/claude-sonnet-4',
       'anthropic/claude-sonnet-4': 'anthropic/claude-sonnet-4',
-      'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4',
-      'anthropic/claude-sonnet-4-5-20250514': 'anthropic/claude-sonnet-4', // Dated variant
-      // Opus variants
+      // Sonnet 4.5 (Opus 4.5 / thinking model) - PREFERRED FOR SPEED + QUALITY
+      'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4-5-20250929',
+      'anthropic/claude-sonnet-4-5': 'anthropic/claude-sonnet-4-5-20250929',
+      'anthropic/claude-sonnet-4-5-20250514': 'anthropic/claude-sonnet-4-5-20250929',
+      'anthropic/claude-sonnet-4-5-20250929': 'anthropic/claude-sonnet-4-5-20250929',
+      'anthropic/claude-opus-4.5': 'anthropic/claude-sonnet-4-5-20250929', // Opus 4.5 IS Sonnet 4.5
+      // Opus 4 variants (heavyweight)
       'anthropic/claude-opus-4': 'anthropic/claude-opus-4',
-      'anthropic/claude-opus-4.5': 'anthropic/claude-opus-4',
-      'anthropic/claude-opus-4-5-20250514': 'anthropic/claude-opus-4', // Dated variant
+      'anthropic/claude-opus-4-5-20250514': 'anthropic/claude-opus-4',
       'anthropic/claude-opus-4.1': 'anthropic/claude-opus-4', // Legacy variant
       'anthropic/claude-3-opus': 'anthropic/claude-3-opus',
       'anthropic/claude-3-opus-20240229': 'anthropic/claude-3-opus',

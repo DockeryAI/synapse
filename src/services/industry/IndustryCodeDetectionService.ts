@@ -66,7 +66,7 @@ Important:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-opus-4.1',
+          model: 'anthropic/claude-sonnet-4-5-20250929',
           messages: [
             {
               role: 'user',

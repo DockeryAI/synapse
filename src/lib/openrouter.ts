@@ -6,7 +6,7 @@
 // - 4x effective rate limit capacity when using all keys
 
 import type { OpenRouterRequest, OpenRouterResponse, OpenRouterMessage } from '@/types';
-import { OPENROUTER_MODELS } from './constants';
+import { OPENROUTER_MODELS, DEFAULT_MODEL } from './constants';
 
 // AI Proxy configuration - secure server-side API calls
 const AI_PROXY_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
@@ -41,7 +41,7 @@ export async function chat(
   }
 
   const {
-    model = OPENROUTER_MODELS.claude35Sonnet,
+    model = DEFAULT_MODEL, // Opus 4.5 for speed + quality
     temperature = 0.7,
     maxTokens = 2000,
     topP = 1,

@@ -158,12 +158,25 @@ export const API_ENDPOINTS = {
 } as const;
 
 // OpenRouter Models
+// PREFERRED: claude-sonnet-4-5-20250929 (Opus 4.5 / "thinking" model) - best speed/quality ratio
 export const OPENROUTER_MODELS = {
-  claude35Sonnet: 'anthropic/claude-3.5-sonnet',
-  claude3Opus: 'anthropic/claude-3-opus',
+  // Opus 4.5 (Sonnet 4.5) - PREFERRED for speed + quality
+  claudeOpus45: 'anthropic/claude-sonnet-4-5-20250929',
+  // Sonnet 4 - standard quality
+  claudeSonnet4: 'anthropic/claude-sonnet-4',
+  claude35Sonnet: 'anthropic/claude-sonnet-4', // Legacy alias
+  // Opus 4 - heavyweight, slow but highest quality
+  claudeOpus4: 'anthropic/claude-opus-4',
+  claude3Opus: 'anthropic/claude-opus-4', // Legacy alias
+  // Haiku 3.5 - fast, cheap
+  claudeHaiku: 'anthropic/claude-3.5-haiku',
+  // OpenAI
   gpt4: 'openai/gpt-4-turbo',
   gpt35: 'openai/gpt-3.5-turbo',
 } as const;
+
+// Default model for most operations - Opus 4.5 for speed + quality
+export const DEFAULT_MODEL = OPENROUTER_MODELS.claudeOpus45;
 
 // Feature Flags
 export const FEATURES = {

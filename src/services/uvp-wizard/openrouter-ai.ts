@@ -21,20 +21,23 @@ interface IndustryContext {
 }
 
 // Best models for marketing/UVP content generation
+// NOTE: "Opus 4.5" = claude-sonnet-4-5-20250929 (the "thinking" model)
 const MODELS = {
-  CLAUDE_OPUS_41: 'anthropic/claude-opus-4.1', // Claude Opus 4.1 - HIGHEST QUALITY
-  CLAUDE_35_SONNET: 'anthropic/claude-opus-4.1-20240620', // Claude 3.5 Sonnet
-  CLAUDE_SONNET: 'anthropic/claude-opus-4.1', // Claude 3.5 Sonnet
+  CLAUDE_OPUS_45: 'anthropic/claude-sonnet-4-5-20250929', // Opus 4.5 - SPEED + QUALITY
+  CLAUDE_SONNET_4: 'anthropic/claude-sonnet-4', // Sonnet 4 - standard
+  CLAUDE_OPUS_4: 'anthropic/claude-opus-4', // Opus 4 - heavyweight
   GPT4_TURBO: 'openai/gpt-4-turbo', // Excellent structured reasoning
-  // DEPRECATED - DO NOT USE
-  // CLAUDE_OPUS: 'anthropic/claude-3-opus-20240229', // OLD VERSION - USE OPUS 4.1 INSTEAD
   MISTRAL_LARGE: 'mistralai/mistral-large', // Good cost/performance ratio
+  // Legacy aliases
+  CLAUDE_OPUS_41: 'anthropic/claude-sonnet-4-5-20250929', // Legacy → Opus 4.5
+  CLAUDE_35_SONNET: 'anthropic/claude-sonnet-4', // Legacy → Sonnet 4
+  CLAUDE_SONNET: 'anthropic/claude-sonnet-4-5-20250929', // Legacy → Opus 4.5
 }
 
 class OpenRouterAI {
   private apiKey: string
   private endpoint: string
-  private model = MODELS.CLAUDE_OPUS_41 // Using Claude Opus 4.1 - HIGHEST QUALITY
+  private model = MODELS.CLAUDE_OPUS_45 // Using Opus 4.5 - SPEED + QUALITY
 
   constructor() {
     this.apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''

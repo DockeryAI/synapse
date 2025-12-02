@@ -166,7 +166,7 @@ export function assertEQScoreValid(score: EQScore): void {
 /**
  * Create mock AI API response
  */
-export function createMockAIResponse(content: any, model: string = 'anthropic/claude-opus-4.1') {
+export function createMockAIResponse(content: any, model: string = 'anthropic/claude-sonnet-4-5-20250929') {
   return {
     choices: [{
       message: {
