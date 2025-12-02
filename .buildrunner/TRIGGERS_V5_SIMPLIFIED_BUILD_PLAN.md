@@ -247,12 +247,12 @@ Mitigation: Quality justifies cost. Each trigger defensible.
 
 ## Status
 
-- [ ] Phase 1: Consolidate services
-- [ ] Phase 2: V1 prompt structure
+- [x] Phase 1: Consolidate services ✅ `trigger-synthesis.service.ts` created
+- [x] Phase 2: V1 prompt structure ✅ Hard constraints: 2+ sampleIds, verbatimQuote, reasoning required
 - [ ] Phase 3: Profile-aware data collection
-- [ ] Phase 4: Source-first flow
-- [ ] Phase 5: Remove confidence theater
-- [ ] Phase 6: Fix V4 card rendering (BLOCKING)
+- [x] Phase 4: Source-first flow ✅ Evidence built from cited sampleIds only
+- [ ] Phase 5: Remove confidence theater (simplified: source count only)
+- [x] Phase 6: Fix V4 card rendering ✅ TriggerCardV4 on all tabs
 - [ ] Phase 7: Simplified UI
-- [ ] Phase 8: Multi-pass orchestrator
+- [x] Phase 8: Multi-pass orchestrator ✅ `runMultiPass()` with progressive callback
 - [ ] Phase 9: Archive dead services

@@ -355,3 +355,18 @@ export {
   type InvalidationStrategy,
   type InvalidationOptions,
 } from './trigger-cache.service';
+
+// =============================================================================
+// TRIGGERS V5 SIMPLIFIED: Consolidated Multi-Pass Synthesis
+// =============================================================================
+
+// Trigger Synthesis Service - Consolidates LLM synthesis, consolidation, and scoring
+// V1-style provenance with hard constraints: 2+ sources required, verbatim quotes, reasoning
+export {
+  triggerSynthesisService,
+  type PassType,
+  type RawDataSample,
+  type BrandProfile,
+  type PassResult,
+  type MultiPassResult,
+} from './trigger-synthesis.service';
