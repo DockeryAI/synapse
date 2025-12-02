@@ -36,18 +36,27 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
-// OpenRouter API endpoint
+// API endpoints - DUAL PROVIDER for true parallelism
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 
-// Fast model for extraction - Opus 4.5 (Sonnet 4.5) for speed + quality
-// OpenRouter ID: claude-sonnet-4-5-20250929 (the "thinking" model)
-const MODEL = 'anthropic/claude-sonnet-4-5-20250929';
+// Model IDs per provider
+// Phase 1 uses FAST model (Sonnet) for quick products page load (~5s vs ~18s)
+// Phase 2 uses QUALITY model (Opus) for deep insights in background
+const OPENROUTER_MODEL_FAST = 'anthropic/claude-sonnet-4'; // Fast for Phase 1
+const OPENROUTER_MODEL_QUALITY = 'anthropic/claude-opus-4.5'; // Quality for Phase 2
+const ANTHROPIC_MODEL = 'claude-opus-4-5-20251101'; // Anthropic direct API format for Opus 4.5
+
+// Provider type
+type Provider = 'openrouter' | 'anthropic';
 
 interface OrchestratorRequest {
   websiteContent: string;
   businessName: string;
   industry: string;
   testimonials?: string[];
+  /** Optional phase for progressive loading: 1 = Products/Customers/Differentiators, 2 = BuyerPersonas/Transformations/Benefits, undefined = all */
+  phase?: 1 | 2;
 }
 
 interface ExtractionResult {
@@ -80,38 +89,105 @@ function getApiKey(keyIndex: number): string {
   return defaultKey;
 }
 
+// Global timing tracker for debugging
+const timingLog: { name: string; provider: string; startedAt: number; completedAt: number; duration: number }[] = [];
+let globalStartTime = 0;
+
 /**
- * Make AI call to OpenRouter with key rotation for parallel processing
- * @param prompt - The prompt to send
- * @param maxTokens - Max tokens to generate
- * @param keyIndex - Which key to use (0-3) for parallel distribution
+ * Get Anthropic API key
  */
-async function callAI(prompt: string, maxTokens: number = 4000, keyIndex: number = 0): Promise<string> {
-  const apiKey = getApiKey(keyIndex);
+function getAnthropicKey(): string {
+  const key = Deno.env.get('ANTHROPIC_API_KEY');
+  if (!key) {
+    throw new Error('ANTHROPIC_API_KEY not configured');
+  }
+  return key;
+}
 
-  const response = await fetch(OPENROUTER_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://synapse-smb.com',
-      'X-Title': 'Synapse Intelligence Orchestrator',
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: maxTokens,
-      temperature: 0.3,
-    }),
-  });
+/**
+ * Make AI call to specified provider
+ * DUAL PROVIDER: OpenRouter OR Anthropic Direct for true parallelism
+ * useFastModel: true = Sonnet (fast, ~5s), false = Opus (quality, ~18s)
+ * keyIndex: Which API key to use (0-3) for parallel distribution across rate limits
+ */
+async function callAI(prompt: string, maxTokens: number = 4000, provider: Provider = 'openrouter', callName: string = 'unknown', useFastModel: boolean = false, keyIndex: number = 0): Promise<string> {
+  const startedAt = Date.now() - globalStartTime;
+  const model = useFastModel ? 'FAST (Sonnet)' : 'QUALITY (Opus)';
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`AI API error: ${response.status} - ${error}`);
+  console.log(`[TIMING] ${callName} STARTED at +${startedAt}ms (${provider}, ${model}, key${keyIndex + 1})`);
+
+  let response: Response;
+  let content: string;
+
+  if (provider === 'anthropic') {
+    // Anthropic Direct API
+    const apiKey = getAnthropicKey();
+    response = await fetch(ANTHROPIC_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: ANTHROPIC_MODEL,
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.3,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      const completedAt = Date.now() - globalStartTime;
+      console.log(`[TIMING] ${callName} FAILED at +${completedAt}ms (${provider}): ${error}`);
+      throw new Error(`Anthropic API error: ${response.status} - ${error}`);
+    }
+
+    const data = await response.json();
+    content = data.content?.[0]?.text || '';
+
+  } else {
+    // OpenRouter API - use keyIndex for parallel distribution across rate limits
+    const apiKey = getApiKey(keyIndex);
+    // Select model based on speed requirement: Sonnet (~5s) vs Opus (~18s)
+    const modelId = useFastModel ? OPENROUTER_MODEL_FAST : OPENROUTER_MODEL_QUALITY;
+    response = await fetch(OPENROUTER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://synapse-smb.com',
+        'X-Title': 'Synapse Intelligence Orchestrator',
+      },
+      body: JSON.stringify({
+        model: modelId,
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: maxTokens,
+        temperature: 0.3,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      const completedAt = Date.now() - globalStartTime;
+      console.log(`[TIMING] ${callName} FAILED at +${completedAt}ms (${provider}): ${error}`);
+      throw new Error(`OpenRouter API error: ${response.status} - ${error}`);
+    }
+
+    const data = await response.json();
+    content = data.choices?.[0]?.message?.content || '';
   }
 
-  const data = await response.json();
-  return data.choices[0]?.message?.content || '';
+  const completedAt = Date.now() - globalStartTime;
+  const duration = completedAt - startedAt;
+
+  console.log(`[TIMING] ${callName} COMPLETED at +${completedAt}ms (duration: ${duration}ms, ${provider})`);
+
+  // Record timing for response
+  timingLog.push({ name: callName, provider, startedAt, completedAt, duration });
+
+  return content;
 }
 
 /**
@@ -133,9 +209,9 @@ function parseJSON(text: string): any {
 
 /**
  * Extract products/services with FAB (Feature → Advantage → Benefit) cascade
- * @param keyIndex - API key index (0-3) for parallel distribution
+ * @param provider - Which API provider to use
  */
-async function extractProducts(content: string, businessName: string, keyIndex: number = 0): Promise<any[]> {
+async function extractProducts(content: string, businessName: string, provider: Provider = 'openrouter', useFastModel: boolean = false, keyIndex: number = 0): Promise<any[]> {
   const prompt = `You are extracting ALL products, services, features, and offerings from ${businessName}'s website using the FAB Framework.
 
 WEBSITE CONTENT:
@@ -187,7 +263,7 @@ IMPORTANT:
 - Higher confidence (80+) for items with direct quotes and clear benefits`;
 
   try {
-    const response = await callAI(prompt, 6000, keyIndex);
+    const response = await callAI(prompt, 6000, provider, 'Products', useFastModel, keyIndex);
     console.log('[Products] Raw response length:', response.length);
     const parsed = parseJSON(response);
     console.log('[Products] Parsed items:', parsed?.length || 0);
@@ -207,7 +283,7 @@ IMPORTANT:
  * NOT business metrics wrapped in emotional language.
  * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractCustomers(content: string, businessName: string, industry: string, keyIndex: number = 1): Promise<any[]> {
+async function extractCustomers(content: string, businessName: string, industry: string, provider: Provider = 'openrouter', useFastModel: boolean = false, keyIndex: number = 0): Promise<any[]> {
   const prompt = `You are a JTBD (Jobs-to-be-Done) expert extracting customer profiles from ${businessName}'s website (${industry}).
 
 WEBSITE CONTENT:
@@ -278,7 +354,7 @@ IMPORTANT:
 - Create profiles for different industries, roles, and company sizes`;
 
   try {
-    const response = await callAI(prompt, 6000, keyIndex);
+    const response = await callAI(prompt, 6000, provider, 'Customers', useFastModel, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Customers] Extraction failed:', e);
@@ -290,7 +366,7 @@ IMPORTANT:
  * Extract differentiators
  * @param keyIndex - API key index (0-3) for parallel distribution
  */
-async function extractDifferentiators(content: string, businessName: string, keyIndex: number = 2): Promise<any[]> {
+async function extractDifferentiators(content: string, businessName: string, provider: Provider = 'openrouter', useFastModel: boolean = false, keyIndex: number = 0): Promise<any[]> {
   const prompt = `Extract what makes ${businessName} different from competitors.
 
 CONTENT:
@@ -312,7 +388,7 @@ Rules:
 - Higher score for unique, defensible advantages`;
 
   try {
-    const response = await callAI(prompt, 4000, keyIndex);
+    const response = await callAI(prompt, 4000, provider, 'Differentiators', useFastModel, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Differentiators] Extraction failed:', e);
@@ -323,8 +399,9 @@ Rules:
 /**
  * Extract buyer personas
  * @param keyIndex - API key index (0-3) for parallel distribution
+ * @param useFastModel - Use Sonnet (fast) vs Opus (quality)
  */
-async function extractBuyerPersonas(content: string, businessName: string, industry: string, keyIndex: number = 3): Promise<any[]> {
+async function extractBuyerPersonas(content: string, businessName: string, industry: string, provider: Provider = 'openrouter', keyIndex: number = 0, useFastModel: boolean = false): Promise<any[]> {
   const prompt = `Create detailed buyer personas from ${businessName}'s website (${industry}).
 
 CONTENT:
@@ -351,7 +428,7 @@ Rules:
 - Include specific triggers and objections`;
 
   try {
-    const response = await callAI(prompt, 4000, keyIndex);
+    const response = await callAI(prompt, 4000, provider, 'BuyerPersonas', useFastModel, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[BuyerPersonas] Extraction failed:', e);
@@ -362,8 +439,9 @@ Rules:
 /**
  * Extract customer transformations (before → after)
  * @param keyIndex - API key index (0-3) for parallel distribution
+ * @param useFastModel - Use Sonnet (fast) vs Opus (quality)
  */
-async function extractTransformations(content: string, businessName: string, keyIndex: number = 0): Promise<any[]> {
+async function extractTransformations(content: string, businessName: string, provider: Provider = 'openrouter', keyIndex: number = 0, useFastModel: boolean = false): Promise<any[]> {
   const prompt = `Extract customer transformation stories from ${businessName}'s website.
 
 CONTENT:
@@ -387,7 +465,7 @@ Rules:
 - Focus on outcome-focused language`;
 
   try {
-    const response = await callAI(prompt, 4000, keyIndex);
+    const response = await callAI(prompt, 4000, provider, 'Transformations', useFastModel, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Transformations] Extraction failed:', e);
@@ -399,8 +477,9 @@ Rules:
  * Extract benefits using FAB Framework (Features → Advantages → Benefits)
  * Apply the "So What?" test until reaching identity/emotional transformation
  * @param keyIndex - API key index (0-3) for parallel distribution
+ * @param useFastModel - Use Sonnet (fast) vs Opus (quality)
  */
-async function extractBenefits(content: string, businessName: string, keyIndex: number = 1): Promise<any[]> {
+async function extractBenefits(content: string, businessName: string, provider: Provider = 'openrouter', keyIndex: number = 0, useFastModel: boolean = false): Promise<any[]> {
   const prompt = `You are a marketing expert using the FAB Framework to transform ${businessName}'s features into compelling customer benefits.
 
 CONTENT:
@@ -461,7 +540,7 @@ Rules:
 - Think: "What story can they tell about themselves now?"`;
 
   try {
-    const response = await callAI(prompt, 5000, keyIndex);
+    const response = await callAI(prompt, 5000, provider, 'Benefits', useFastModel, keyIndex);
     return parseJSON(response);
   } catch (e) {
     console.error('[Benefits] Extraction failed:', e);
@@ -499,42 +578,99 @@ serve(async (req) => {
 
     console.log(`[Orchestrator] Starting parallel extraction for: ${body.businessName}`);
     console.log(`[Orchestrator] Content length: ${body.websiteContent.length} chars`);
+    console.log(`[Orchestrator] RAW body.phase value: "${body.phase}" (type: ${typeof body.phase})`);
 
     // =========================================================================
     // RUN ALL 6 EXTRACTIONS IN PARALLEL WITH 4-KEY ROTATION
     // Distributes load across 4 API keys for maximum throughput
     // =========================================================================
-    const [
-      products,
-      customers,
-      differentiators,
-      buyerPersonas,
-      transformations,
-      benefits
-    ] = await Promise.all([
-      extractProducts(body.websiteContent, body.businessName, 0),         // Key 1
-      extractCustomers(body.websiteContent, body.businessName, body.industry || 'general', 1), // Key 2
-      extractDifferentiators(body.websiteContent, body.businessName, 2),   // Key 3
-      extractBuyerPersonas(body.websiteContent, body.businessName, body.industry || 'general', 3), // Key 4
-      extractTransformations(body.websiteContent, body.businessName, 0),   // Key 1 (reuse)
-      extractBenefits(body.websiteContent, body.businessName, 1),          // Key 2 (reuse)
-    ]);
+    globalStartTime = Date.now();
+    timingLog.length = 0; // Clear previous timing data
+
+    // PROGRESSIVE LOADING: Support phased extraction
+    // Phase 0: Products ONLY (fastest path to first UI)
+    // Phase 1: Customers ONLY (parallel with Phase 0)
+    // Phase 2: Differentiators ONLY (after Products + Customers complete)
+    // Phase 3: Benefits ONLY (after Differentiators complete)
+    // No phase: All 6 extractions (legacy behavior)
+    // IMPORTANT: Use !== undefined to handle phase=0 (0 is falsy in JS!)
+    const phase = body.phase !== undefined ? Number(body.phase) : undefined;
+
+    console.log(`[TIMING] ========== V2: PROMISE.ALL INITIATED (Phase: ${phase !== undefined ? phase : 'all'}, type: ${typeof phase}, raw: ${body.phase}) ==========`);
+
+    let products: any[] = [];
+    let customers: any[] = [];
+    let differentiators: any[] = [];
+    let buyerPersonas: any[] = [];
+    let transformations: any[] = [];
+    let benefits: any[] = [];
+    let parallelCalls = 0;
+
+    if (phase === 0) {
+      // PHASE 0: Products ONLY - OpenRouter Opus 4.5
+      console.log(`[TIMING] PHASE 0: Products ONLY (OpenRouter Opus 4.5)`);
+      products = await extractProducts(body.websiteContent, body.businessName, 'openrouter', false, 0);
+      parallelCalls = 1;
+    } else if (phase === 1) {
+      // PHASE 1: Customers ONLY - OpenRouter Opus 4.5
+      console.log(`[TIMING] PHASE 1: Customers ONLY (OpenRouter Opus 4.5)`);
+      customers = await extractCustomers(body.websiteContent, body.businessName, body.industry || 'general', 'openrouter', false, 0);
+      parallelCalls = 1;
+    } else if (phase === 2) {
+      // PHASE 2: Differentiators ONLY - OpenRouter Opus 4.5
+      console.log(`[TIMING] PHASE 2: Differentiators ONLY (OpenRouter Opus 4.5)`);
+      differentiators = await extractDifferentiators(body.websiteContent, body.businessName, 'openrouter', false, 0);
+      parallelCalls = 1;
+    } else if (phase === 3) {
+      // PHASE 3: Benefits ONLY - OpenRouter Opus 4.5
+      console.log(`[TIMING] PHASE 3: Benefits ONLY (OpenRouter Opus 4.5)`);
+      benefits = await extractBenefits(body.websiteContent, body.businessName, 'openrouter', 0, false);
+      parallelCalls = 1;
+    } else {
+      // ALL PHASES: Full extraction (legacy behavior)
+      // Uses 6 OpenRouter keys for maximum parallelism (Anthropic direct has no credits)
+      console.log(`[TIMING] ALL PHASES: Full 6-call extraction (OpenRouter with key rotation)`);
+      [products, customers, differentiators, buyerPersonas, transformations, benefits] = await Promise.all([
+        extractProducts(body.websiteContent, body.businessName, 'openrouter', false, 0),      // OpenRouter Key 1
+        extractCustomers(body.websiteContent, body.businessName, body.industry || 'general', 'openrouter', false, 1),  // OpenRouter Key 2
+        extractDifferentiators(body.websiteContent, body.businessName, 'openrouter', false, 2), // OpenRouter Key 3
+        extractBuyerPersonas(body.websiteContent, body.businessName, body.industry || 'general', 'openrouter', 3, false), // OpenRouter Key 4
+        extractTransformations(body.websiteContent, body.businessName, 'openrouter', 0, false), // OpenRouter Key 1 (rotate)
+        extractBenefits(body.websiteContent, body.businessName, 'openrouter', 1, false),       // OpenRouter Key 2 (rotate)
+      ]);
+      parallelCalls = 6;
+    }
+
+    const totalParallelTime = Date.now() - globalStartTime;
+    console.log(`[TIMING] ========== PROMISE.ALL COMPLETED in ${totalParallelTime}ms ==========`);
+
+    // Log timing analysis
+    console.log(`[TIMING] === CALL TIMING ANALYSIS ===`);
+    timingLog.forEach(t => {
+      console.log(`[TIMING] ${t.name}: started +${t.startedAt}ms, completed +${t.completedAt}ms (${t.duration}ms) [${t.provider}]`);
+    });
+    const sumDurations = timingLog.reduce((sum, t) => sum + t.duration, 0);
+    console.log(`[TIMING] Total time: ${totalParallelTime}ms | Sum of durations: ${sumDurations}ms | Parallel efficiency: ${((sumDurations / totalParallelTime) * 100).toFixed(0)}%`);
 
     const extractionTime = Date.now() - startTime;
 
     console.log(`[Orchestrator] ========================================`);
-    console.log(`[Orchestrator] PARALLEL EXTRACTION COMPLETE`);
+    console.log(`[Orchestrator] EXTRACTION COMPLETE (Phase: ${phase || 'all'})`);
     console.log(`[Orchestrator] Time: ${extractionTime}ms (${(extractionTime / 1000).toFixed(1)}s)`);
     console.log(`[Orchestrator] Results:`);
-    console.log(`  - Products: ${products.length}`);
-    console.log(`  - Customers: ${customers.length}`);
-    console.log(`  - Differentiators: ${differentiators.length}`);
-    console.log(`  - Buyer Personas: ${buyerPersonas.length}`);
-    console.log(`  - Transformations: ${transformations.length}`);
-    console.log(`  - Benefits: ${benefits.length}`);
+    if (phase !== 2) {
+      console.log(`  - Products: ${products.length}`);
+      console.log(`  - Customers: ${customers.length}`);
+      console.log(`  - Differentiators: ${differentiators.length}`);
+    }
+    if (phase !== 1) {
+      console.log(`  - Buyer Personas: ${buyerPersonas.length}`);
+      console.log(`  - Transformations: ${transformations.length}`);
+      console.log(`  - Benefits: ${benefits.length}`);
+    }
     console.log(`[Orchestrator] ========================================`);
 
-    const result: ExtractionResult = {
+    const result = {
       products,
       customers,
       differentiators,
@@ -542,7 +678,16 @@ serve(async (req) => {
       transformations,
       benefits,
       extractionTime,
-      parallelCalls: 6,
+      parallelCalls,
+      phase: phase !== undefined ? phase : 'all',
+      // Include timing data for debugging
+      _timing: {
+        calls: timingLog,
+        totalTime: totalParallelTime,
+        sumDurations,
+        parallelEfficiency: `${((sumDurations / totalParallelTime) * 100).toFixed(0)}%`,
+        isParallel: totalParallelTime < sumDurations * 0.6,
+      },
     };
 
     return new Response(

@@ -11,6 +11,10 @@
  * │  Result: All data in ~30-40 seconds (vs 2+ minutes client-side) │
  * └─────────────────────────────────────────────────────────────────┘
  *
+ * PROGRESSIVE LOADING (2025-12-02):
+ * Phase 1: Products, Customers, Differentiators (~15s) → Show UI
+ * Phase 2: BuyerPersonas, Transformations, Benefits (background)
+ *
  * Created: 2025-11-25
  */
 
@@ -88,6 +92,142 @@ export interface OrchestrationProgress {
 }
 
 class ServerOrchestratorService {
+  // Cache for prepared content (used across phases)
+  private cachedContent: { websiteContent: string; testimonials: string[] } | null = null;
+
+  /**
+   * Phase 1: Extract Products, Customers, Differentiators (~15s)
+   * Critical data for showing Products page immediately
+   */
+  async extractPhase0(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: OrchestrationProgress) => void
+  ): Promise<Partial<ServerExtractionResult>> {
+    console.log('🚀🚀🚀 [ServerOrchestrator] PHASE 0: PRODUCTS ONLY (~12-15s) 🚀🚀🚀');
+    return this.extractWithPhase(websiteData, businessName, industry, 0, onProgress);
+  }
+
+  /**
+   * Phase 1: Extract Customers ONLY (parallel with Phase 0)
+   */
+  async extractPhase1(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: OrchestrationProgress) => void
+  ): Promise<Partial<ServerExtractionResult>> {
+    console.log('[ServerOrchestrator] PHASE 1: Customers ONLY (parallel with Products)');
+    return this.extractWithPhase(websiteData, businessName, industry, 1, onProgress);
+  }
+
+  /**
+   * Phase 2: Extract Differentiators ONLY (after Products + Customers complete)
+   */
+  async extractPhase2(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: OrchestrationProgress) => void
+  ): Promise<Partial<ServerExtractionResult>> {
+    console.log('[ServerOrchestrator] PHASE 2: Differentiators ONLY (after Products + Customers)');
+    return this.extractWithPhase(websiteData, businessName, industry, 2, onProgress);
+  }
+
+  /**
+   * Phase 3: Extract Benefits ONLY (after Differentiators complete)
+   */
+  async extractPhase3(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: OrchestrationProgress) => void
+  ): Promise<Partial<ServerExtractionResult>> {
+    console.log('[ServerOrchestrator] PHASE 3: Benefits ONLY (after Differentiators)');
+    return this.extractWithPhase(websiteData, businessName, industry, 3, onProgress);
+  }
+
+  /**
+   * Internal: Extract with specific phase
+   */
+  private async extractWithPhase(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    phase: 0 | 1 | 2 | 3,
+    onProgress?: (progress: OrchestrationProgress) => void
+  ): Promise<Partial<ServerExtractionResult>> {
+    const startTime = Date.now();
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration missing');
+    }
+
+    // Cache content for reuse across phases
+    if (!this.cachedContent) {
+      this.cachedContent = {
+        websiteContent: this.prepareContent(websiteData),
+        testimonials: this.extractTestimonials(websiteData)
+      };
+    }
+
+    const { websiteContent, testimonials } = this.cachedContent;
+
+    onProgress?.({
+      stage: 'sending',
+      progress: 0,
+      message: phase === 1 ? 'Scanning for products and services' : 'Analyzing buyer personas'
+    });
+
+    try {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/intelligence-orchestrator`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          websiteContent,
+          businessName,
+          industry,
+          testimonials,
+          phase // Send phase to Edge Function
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Server orchestrator error: ${response.status} - ${error}`);
+      }
+
+      const result = await response.json();
+      const totalTime = Date.now() - startTime;
+
+      console.log(`[ServerOrchestrator] Phase ${phase} complete in ${totalTime}ms`);
+      console.log(`[ServerOrchestrator] Server processing: ${result.extractionTime}ms`);
+      console.log(`[ServerOrchestrator] Server reported phase: ${result.phase}, parallelCalls: ${result.parallelCalls}`);
+
+      onProgress?.({
+        stage: 'complete',
+        progress: 100,
+        message: `Phase ${phase} complete in ${(totalTime / 1000).toFixed(1)}s`
+      });
+
+      return result;
+    } catch (error) {
+      console.error(`[ServerOrchestrator] Phase ${phase} failed:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Clear cached content (call when starting new extraction)
+   */
+  clearCache(): void {
+    this.cachedContent = null;
+  }
+
   /**
    * Call server-side orchestrator for parallel extraction
    * ONE request, ALL data, ~30-40 seconds
@@ -201,6 +341,16 @@ class ServerOrchestratorService {
       console.log(`  - Buyer Personas: ${result.buyerPersonas.length}`);
       console.log(`  - Transformations: ${result.transformations.length}`);
       console.log(`  - Benefits: ${result.benefits.length}`);
+      // Log timing data if available
+      if ((result as any)._timing) {
+        const timing = (result as any)._timing;
+        console.log('[ServerOrchestrator] === PARALLEL TIMING ANALYSIS ===');
+        console.log(`[ServerOrchestrator] Total: ${timing.totalTime}ms | Sum: ${timing.sumDurations}ms | Efficiency: ${timing.parallelEfficiency}`);
+        console.log(`[ServerOrchestrator] Is Parallel: ${timing.isParallel}`);
+        timing.calls?.forEach((t: any) => {
+          console.log(`[ServerOrchestrator]   ${t.name}: +${t.startedAt}ms → +${t.completedAt}ms (${t.duration}ms) [key ${t.key}]`);
+        });
+      }
       console.log('[ServerOrchestrator] ========================================');
 
       onProgress?.({

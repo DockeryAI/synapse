@@ -88,6 +88,451 @@ export type DataCollectionProgress = {
  * Orchestrates all AI services to collect onboarding data
  */
 class DataCollectionService {
+  // Store background promises for progressive loading
+  private phase1Promise: Promise<any> | null = null; // Customers + Differentiators
+  private phase2Promise: Promise<any> | null = null; // BuyerPersonas, Transformations, Benefits
+  private cachedWebsiteData: WebsiteData | null = null;
+  private cachedBusinessInfo: { name: string; industry: string } | null = null;
+  private cachedProducts: any[] = [];
+
+  /**
+   * PHASE 0: Products ONLY (~12-15s)
+   * Returns as fast as possible so user can see products page
+   * Call startBackgroundLoading() immediately after to load customers + rest in background
+   */
+  async collectProductsOnly(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: DataCollectionProgress) => void
+  ): Promise<OnboardingDataPackage> {
+    console.log('[DataCollection] 🚀 PHASE 0: Products ONLY (single AI call ~12-15s)');
+
+    // Cache for background phases
+    this.cachedWebsiteData = websiteData;
+    this.cachedBusinessInfo = { name: businessName, industry };
+    serverOrchestrator.clearCache();
+
+    try {
+      onProgress?.({
+        stage: 'scanning_website',
+        progress: 10,
+        message: 'Extracting products...',
+        details: 'Phase 0: Products only for fast load'
+      });
+
+      // Get ONLY products (Phase 0)
+      const phase0Result = await serverOrchestrator.extractPhase0(
+        websiteData,
+        businessName,
+        industry
+      );
+
+      const products = phase0Result.products || [];
+      this.cachedProducts = products;
+
+      console.log('[DataCollection] ✅ Phase 0 complete');
+      console.log(`  - Products: ${products.length}`);
+      console.log(`  - Time: ${phase0Result.extractionTime}ms`);
+
+      // Get industry EQ score
+      const industryEQ = INDUSTRY_EQ_MAP[industry] || INDUSTRY_EQ_MAP['default'];
+      const emotionalWeight = industryEQ?.emotional_weight || 50;
+
+      // Convert to legacy format
+      const legacy = serverOrchestrator.convertToLegacyFormats({
+        products,
+        customers: [],
+        differentiators: [],
+        buyerPersonas: [],
+        transformations: [],
+        benefits: [],
+        extractionTime: phase0Result.extractionTime || 0,
+        parallelCalls: 1
+      });
+
+      return {
+        valuePropositions: [],
+        customerTriggers: [],
+        buyerPersonas: [],
+        transformations: [],
+        industryEQScore: emotionalWeight,
+        coreTruth: this.synthesizeCoreTruth(businessName, industry, [], [], emotionalWeight, websiteData),
+        rawProductsData: legacy.products,
+        rawCustomersData: undefined,
+        rawDifferentiatorsData: undefined,
+        rawBuyerIntelData: undefined,
+        rawTransformationsData: undefined,
+        rawBenefitsData: undefined,
+        collectionTimestamp: new Date(),
+        dataQuality: 'fair',
+        warnings: ['Loading customers and insights in background...']
+      };
+
+    } catch (error) {
+      console.error('[DataCollection] Phase 0 failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Start Phase 1 (Customers ONLY) IMMEDIATELY - in parallel with Phase 0
+   * Call this at the same time as collectProductsOnly() for maximum parallelism
+   */
+  startPhase1Immediately(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string
+  ): void {
+    // Cache for later phases
+    this.cachedWebsiteData = websiteData;
+    this.cachedBusinessInfo = { name: businessName, industry };
+
+    console.log('[DataCollection] 🚀🚀🚀 PARALLEL: Starting Phase 1 (Customers ONLY) with Phase 0 🚀🚀🚀');
+
+    // Phase 1: Customers ONLY - start NOW, in parallel with Phase 0
+    this.phase1Promise = serverOrchestrator.extractPhase1(
+      websiteData,
+      businessName,
+      industry
+    ).then(result => {
+      console.log('[DataCollection] ✅ Phase 1 (Customers) complete');
+      console.log(`  - Customers: ${result.customers?.length || 0}`);
+      return result;
+    }).catch(err => {
+      console.error('[DataCollection] Phase 1 (Customers) failed:', err);
+      return { customers: [] };
+    });
+  }
+
+  /**
+   * Start Phase 2 (Differentiators) - called after BOTH Phase 0 and Phase 1 complete
+   * Chains: Phase 2 (Differentiators) → Phase 3 (Benefits)
+   */
+  startPhase2Differentiators(): void {
+    if (!this.cachedWebsiteData || !this.cachedBusinessInfo) {
+      console.warn('[DataCollection] Cannot start Phase 2: missing cached data');
+      return;
+    }
+
+    if (this.phase2Promise) {
+      console.log('[DataCollection] Phase 2 (Differentiators) already running, skipping...');
+      return;
+    }
+
+    console.log('[DataCollection] 🔄 Starting Phase 2 (Differentiators)...');
+
+    this.phase2Promise = serverOrchestrator.extractPhase2(
+      this.cachedWebsiteData,
+      this.cachedBusinessInfo.name,
+      this.cachedBusinessInfo.industry
+    ).then(result => {
+      console.log('[DataCollection] ✅ Phase 2 (Differentiators) complete');
+      console.log(`  - Differentiators: ${result.differentiators?.length || 0}`);
+
+      // Chain: Start Phase 3 (Benefits) after Differentiators complete
+      this.startPhase3Benefits();
+
+      return result;
+    }).catch(error => {
+      console.error('[DataCollection] Phase 2 (Differentiators) failed:', error);
+      // Still try to load benefits even if differentiators failed
+      this.startPhase3Benefits();
+      return null;
+    });
+  }
+
+  /**
+   * Start Phase 3 (Benefits) - called after Phase 2 (Differentiators) completes
+   */
+  private phase3Promise: Promise<any> | null = null;
+
+  startPhase3Benefits(): void {
+    if (!this.cachedWebsiteData || !this.cachedBusinessInfo) {
+      console.warn('[DataCollection] Cannot start Phase 3: missing cached data');
+      return;
+    }
+
+    if (this.phase3Promise) {
+      console.log('[DataCollection] Phase 3 (Benefits) already running, skipping...');
+      return;
+    }
+
+    console.log('[DataCollection] 🔄 Starting Phase 3 (Benefits)...');
+
+    this.phase3Promise = serverOrchestrator.extractPhase3(
+      this.cachedWebsiteData,
+      this.cachedBusinessInfo.name,
+      this.cachedBusinessInfo.industry
+    ).then(result => {
+      console.log('[DataCollection] ✅ Phase 3 (Benefits) complete');
+      console.log(`  - Benefits: ${result.benefits?.length || 0}`);
+      return result;
+    }).catch(error => {
+      console.error('[DataCollection] Phase 3 (Benefits) failed:', error);
+      return null;
+    });
+  }
+
+  /**
+   * DEPRECATED: Old background loading - replaced by sequential chaining
+   * Kept for backwards compatibility
+   */
+  startBackgroundLoading(): void {
+    console.log('[DataCollection] ⚠️ startBackgroundLoading() deprecated - use startPhase2Differentiators() instead');
+    this.startPhase2Differentiators();
+  }
+
+  /**
+   * Get Phase 1 results (Customers ONLY)
+   * Returns immediately if ready, or waits if still loading
+   */
+  async getPhase1Results(): Promise<any | null> {
+    if (!this.phase1Promise) {
+      console.warn('[DataCollection] Phase 1 not started');
+      return null;
+    }
+    return this.phase1Promise;
+  }
+
+  /**
+   * Get Phase 2 results (Differentiators ONLY)
+   * Returns immediately if ready, or waits if still loading
+   */
+  async getPhase2Results(): Promise<any | null> {
+    if (!this.phase2Promise) {
+      console.warn('[DataCollection] Phase 2 not started');
+      return null;
+    }
+    return this.phase2Promise;
+  }
+
+  /**
+   * Get Phase 3 results (Benefits ONLY)
+   * Returns immediately if ready, or waits if still loading
+   */
+  async getPhase3Results(): Promise<any | null> {
+    if (!this.phase3Promise) {
+      console.warn('[DataCollection] Phase 3 not started');
+      return null;
+    }
+    return this.phase3Promise;
+  }
+
+  /**
+   * LEGACY: Phase 1 that includes customers (for backwards compatibility)
+   * Now calls Phase 0 + starts background, returns when Phase 1 ready
+   */
+  async collectPhase1Data(
+    websiteData: WebsiteData,
+    businessName: string,
+    industry: string,
+    onProgress?: (progress: DataCollectionProgress) => void
+  ): Promise<OnboardingDataPackage> {
+    // Use new Phase 0 approach
+    const package0 = await this.collectProductsOnly(websiteData, businessName, industry, onProgress);
+
+    // Start background loading
+    this.startBackgroundLoading();
+
+    return package0;
+  }
+
+  /**
+   * Start Phase 2 loading in background (BuyerPersonas, Transformations, Benefits)
+   * Call immediately after collectPhase1Data(), no await needed
+   * Note: This is now called automatically by startBackgroundLoading()
+   */
+  startPhase2(): void {
+    // Guard: Don't start if already running
+    if (this.phase2Promise) {
+      console.log('[DataCollection] Phase 2 already running, skipping duplicate start');
+      return;
+    }
+    if (!this.cachedWebsiteData || !this.cachedBusinessInfo) {
+      console.warn('[DataCollection] Cannot start Phase 2: missing cached data');
+      return;
+    }
+
+    console.log('[DataCollection] Starting Phase 2 in background...');
+
+    this.phase2Promise = serverOrchestrator.extractPhase2(
+      this.cachedWebsiteData,
+      this.cachedBusinessInfo.name,
+      this.cachedBusinessInfo.industry
+    ).then(result => {
+      console.log('[DataCollection] Phase 2 complete');
+      console.log(`  - BuyerPersonas: ${result.buyerPersonas?.length || 0}`);
+      console.log(`  - Transformations: ${result.transformations?.length || 0}`);
+      console.log(`  - Benefits: ${result.benefits?.length || 0}`);
+      return result;
+    }).catch(error => {
+      console.error('[DataCollection] Phase 2 failed:', error);
+      return null;
+    });
+  }
+
+  /**
+   * Get Phase 2 results (await if still loading)
+   */
+  async getPhase2Results(): Promise<any | null> {
+    if (!this.phase2Promise) {
+      console.warn('[DataCollection] Phase 2 not started');
+      return null;
+    }
+    return this.phase2Promise;
+  }
+
+  /**
+   * Merge Phase 2 results into existing data package
+   */
+  async mergePhase2Data(existingPackage: OnboardingDataPackage): Promise<OnboardingDataPackage> {
+    const phase2Result = await this.getPhase2Results();
+    if (!phase2Result) {
+      return existingPackage;
+    }
+
+    const buyerPersonas = phase2Result.buyerPersonas || [];
+    const transformations = phase2Result.transformations || [];
+    const benefits = phase2Result.benefits || [];
+    const websiteData = this.cachedWebsiteData!;
+    const industry = this.cachedBusinessInfo?.industry || 'general';
+    const businessName = this.cachedBusinessInfo?.name || '';
+
+    const industryEQ = INDUSTRY_EQ_MAP[industry] || INDUSTRY_EQ_MAP['default'];
+    const emotionalWeight = industryEQ?.emotional_weight || 50;
+
+    // Convert to UI format
+    const newBuyerPersonas: BuyerPersona[] = buyerPersonas.slice(0, 5).map((p: any, i: number) => ({
+      id: `persona-${i}`,
+      name: p.name,
+      archetype: `${p.title} seeking ${p.desiredOutcomes?.[0] || 'better solutions'}`,
+      demographics: {
+        ageRange: undefined,
+        income: undefined,
+        location: p.industry
+      },
+      psychographics: {
+        values: (p.desiredOutcomes || []).slice(0, 3),
+        fears: (p.painPoints || []).slice(0, 2),
+        goals: (p.desiredOutcomes || []).slice(0, 3)
+      },
+      decisionDrivers: {
+        emotional: 65,
+        rational: 70,
+        social: 55
+      },
+      confidence: {
+        overall: p.confidence || 70,
+        dataQuality: 70,
+        sourceCount: 1,
+        modelAgreement: p.confidence || 70,
+        reasoning: 'Phase 2 extraction'
+      }
+    }));
+
+    const newTriggers: CustomerTrigger[] = buyerPersonas.flatMap((p: any, i: number) => [
+      ...(p.painPoints || []).slice(0, 2).map((pain: string, j: number) => ({
+        id: `trigger-pain-${i}-${j}`,
+        type: 'pain' as const,
+        description: pain,
+        urgency: 75,
+        frequency: 60,
+        emotionalWeight: 70,
+        sources: []
+      })),
+      ...(p.desiredOutcomes || []).slice(0, 1).map((outcome: string, j: number) => ({
+        id: `trigger-desire-${i}-${j}`,
+        type: 'desire' as const,
+        description: outcome,
+        urgency: 65,
+        frequency: 55,
+        emotionalWeight: 65,
+        sources: []
+      }))
+    ]).slice(0, 10);
+
+    const newTransformations: Transformation[] = transformations.slice(0, 5).map((t: any, i: number) => ({
+      id: `trans-${i}`,
+      painPoint: t.fromState,
+      pleasureGoal: t.toState,
+      mechanism: t.mechanism,
+      clarity: 80,
+      confidence: {
+        overall: t.confidence || 70,
+        dataQuality: 70,
+        sourceCount: 1,
+        modelAgreement: t.confidence || 70,
+        reasoning: 'Phase 2 extraction'
+      }
+    }));
+
+    // Enhanced value propositions from benefits
+    const enhancedValueProps: ValueProposition[] = benefits.slice(0, 5).map((b: any, i: number) => {
+      const functionalOutcome = b.benefit || b.feature || 'Key benefit';
+      const emotionalTransform = b.emotionalBenefit || '';
+      const shouldIncludeEmotional = emotionalWeight > 70 ? true : emotionalWeight > 40 ? (i < 2) : false;
+
+      let combinedStatement: string;
+      if (shouldIncludeEmotional && functionalOutcome && emotionalTransform && emotionalTransform !== functionalOutcome) {
+        combinedStatement = `${functionalOutcome} so you ${emotionalTransform.toLowerCase()}`;
+      } else {
+        combinedStatement = functionalOutcome;
+      }
+
+      return {
+        id: `vp-${Date.now()}-${i}`,
+        statement: combinedStatement,
+        outcomeStatement: combinedStatement,
+        category: i === 0 ? 'core' as const : 'secondary' as const,
+        confidence: {
+          overall: b.confidence || 70,
+          dataQuality: 75,
+          sourceCount: 1,
+          modelAgreement: b.confidence || 70,
+          reasoning: `EQ-balanced FAB cascade (${emotionalWeight}% emotional)`
+        },
+        sources: [{
+          type: 'website' as const,
+          url: websiteData.url,
+          snippet: b.feature || '',
+          confidence: b.confidence || 70
+        }],
+        marketPosition: 'Value leader',
+        differentiators: [],
+        validated: false,
+        jtbdInsights: undefined
+      };
+    });
+
+    // Convert for raw data
+    const legacy = serverOrchestrator.convertToLegacyFormats({
+      products: [],
+      customers: [],
+      differentiators: [],
+      buyerPersonas,
+      transformations,
+      benefits,
+      extractionTime: 0,
+      parallelCalls: 3
+    });
+
+    // Merge data
+    return {
+      ...existingPackage,
+      // Use enhanced value props if available, otherwise keep existing
+      valuePropositions: enhancedValueProps.length > 0 ? enhancedValueProps : existingPackage.valuePropositions,
+      customerTriggers: newTriggers,
+      buyerPersonas: newBuyerPersonas,
+      transformations: newTransformations,
+      rawBuyerIntelData: legacy.buyerIntelligence,
+      rawTransformationsData: legacy.transformations,
+      rawBenefitsData: legacy.benefits,
+      dataQuality: 'good',
+      warnings: []
+    };
+  }
+
   /**
    * Collect complete onboarding data from website
    *
