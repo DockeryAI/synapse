@@ -53,7 +53,7 @@ export const ConfirmCodeDetectionDialog: React.FC<ConfirmCodeDetectionDialogProp
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onCorrect()}>
-      <DialogContent className="sm:max-w-[550px]">
+      <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30">

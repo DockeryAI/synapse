@@ -358,8 +358,8 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
       console.log('[Code Confirmed] Auto-proceeding to website scan (skipScanning=true)');
       onIndustrySelected(industry, true);
     } else {
-      // No cached profile - MUST GENERATE
-      console.log('[Code Confirmed] ❌ NO CACHED PROFILE - Triggering profile generation...');
+      // No cached profile - FIRE AND FORGET parallel generation, proceed immediately
+      console.log('[Code Confirmed] ❌ NO CACHED PROFILE - Firing parallel generation in background...');
       const industry: IndustryOption = {
         naicsCode: detectedCode.naics_code,
         displayName: detectedCode.display_name,
@@ -367,9 +367,39 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         category: detectedCode.category,
         hasFullProfile: false,
       };
+
+      // 🚀 FIRE AND FORGET: Call Edge Function directly - it creates its own profile row
+      // This runs while user goes through UVP flow (~60s) - profile will be ready by triggers
+      console.log('[Code Confirmed] 🚀 Starting BACKGROUND parallel profile generation...');
+
+      // Edge Function has service role - it will create the profile row itself
+      supabase.functions.invoke('generate-specialty-profile-parallel', {
+        body: {
+          // No specialtyProfileId - Edge Function will create the row
+          specialtyName: detectedCode.display_name,
+          specialtyDescription: `${detectedCode.display_name} - ${detectedCode.category}`,
+          baseNaicsCode: detectedCode.naics_code,
+          businessProfileType: 'national-saas-b2b',
+          uvpData: {
+            targetCustomer: '',
+            productsServices: '',
+            businessDescription: detectedCode.display_name
+          }
+        }
+      }).then(result => {
+        if (result.error) {
+          console.warn('[Background Generation] ⚠️ Generation error:', result.error.message);
+        } else {
+          console.log('[Background Generation] ✅ Profile generated successfully!', result.data);
+        }
+      }).catch(err => {
+        console.warn('[Background Generation] ⚠️ Failed:', err);
+      });
+
+      // Proceed immediately - don't wait for generation
+      console.log('[Code Confirmed] ➡️ Proceeding to UVP flow immediately (generation continues in background)');
       setSelectedIndustry(industry);
-      console.log('[Code Confirmed] Calling performGeneration() - user should see animation...');
-      await performGeneration(industry);
+      onIndustrySelected(industry, true);
     }
     } catch (error) {
       console.error('[Code Confirmed] ❌ ERROR during profile check:', error);
@@ -378,7 +408,7 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         stack: error instanceof Error ? error.stack : undefined
       });
 
-      // On error, still proceed with generation - the profile might not exist in DB yet
+      // On error, still proceed - fire background generation and continue
       const industry: IndustryOption = {
         naicsCode: detectedCode.naics_code,
         displayName: detectedCode.display_name,
@@ -386,9 +416,26 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         category: detectedCode.category,
         hasFullProfile: false,
       };
+
+      // Fire background generation even on error (same pattern as success path)
+      console.log('[Code Confirmed] 🚀 Starting BACKGROUND parallel profile generation (error recovery)...');
+      supabase.functions.invoke('generate-specialty-profile-parallel', {
+        body: {
+          specialtyName: detectedCode.display_name,
+          specialtyDescription: `${detectedCode.display_name} - ${detectedCode.category}`,
+          baseNaicsCode: detectedCode.naics_code,
+          businessProfileType: 'national-saas-b2b',
+          uvpData: {
+            targetCustomer: '',
+            productsServices: '',
+            businessDescription: detectedCode.display_name
+          }
+        }
+      }).catch(err => console.warn('[Background Generation] Failed:', err));
+
       setSelectedIndustry(industry);
-      console.log('[Code Confirmed] Proceeding with generation despite error...');
-      await performGeneration(industry);
+      console.log('[Code Confirmed] ➡️ Proceeding despite error (generation in background)');
+      onIndustrySelected(industry, true);
     }
   };
 

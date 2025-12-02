@@ -1,8 +1,11 @@
 /**
  * INDUSTRY CODE DETECTION SERVICE
  *
- * Uses Claude Opus 4.1 to detect the correct NAICS code
- * for free-form industry input that doesn't match our database
+ * Uses Perplexity (web search) to find the CORRECT NAICS code
+ * for free-form industry input that doesn't match our database.
+ *
+ * Why Perplexity? Because it does LIVE WEB SEARCH to find the actual
+ * NAICS code instead of guessing from training data.
  */
 
 export interface CodeDetectionResult {
@@ -16,7 +19,7 @@ export interface CodeDetectionResult {
 
 export class IndustryCodeDetectionService {
   /**
-   * Use Opus 4.1 to detect NAICS code for unknown industry
+   * Use Perplexity (web search) to find the correct NAICS code
    */
   static async detectCode(
     freeformIndustry: string
@@ -28,34 +31,30 @@ export class IndustryCodeDetectionService {
       throw new Error('Supabase configuration not found');
     }
 
-    const prompt = `You are an expert in NAICS (North American Industry Classification System) codes and SMB business classification.
+    // Use Perplexity with web search to find the ACTUAL NAICS code
+    const prompt = `Search the web to find the correct NAICS code for: "${freeformIndustry}"
 
-A user entered this industry: "${freeformIndustry}"
+Search for "${freeformIndustry} NAICS code" and find the official 6-digit NAICS classification.
 
-Your task:
-1. Determine the most appropriate 6-digit NAICS code for this industry
-2. Provide the standard industry name for this code
-3. Categorize the industry (e.g., Healthcare, Professional Services, Retail, etc.)
-4. Generate 5-10 relevant keywords for matching
-5. Explain your reasoning
-
-Return ONLY valid JSON in this exact format:
+After searching, return ONLY valid JSON in this exact format:
 {
-  "naics_code": "621111",
-  "display_name": "Pediatric Medicine",
-  "category": "Healthcare",
-  "keywords": ["pediatrician", "children", "kids", "child health", "family doctor"],
+  "naics_code": "541611",
+  "display_name": "Fractional CFO Services",
+  "category": "Professional Services",
+  "keywords": ["fractional cfo", "outsourced cfo", "part-time cfo", "virtual cfo", "cfo services"],
   "confidence": 0.95,
-  "reasoning": "The user input 'kids doctor' most closely matches Pediatric Medicine (NAICS 621111), which specifically covers physicians who treat children and adolescents."
+  "reasoning": "Based on web search results, fractional CFO services are classified under NAICS 541611 (Administrative Management and General Management Consulting Services) because they provide strategic financial management consulting rather than traditional accounting services."
 }
 
 Important:
-- Use the MOST SPECIFIC 6-digit code that matches
-- Confidence should be 0.0 to 1.0 (use 0.5+ only if reasonably confident)
-- Be precise - don't guess if truly ambiguous (confidence < 0.5)
-- Keywords should be natural search terms people use`;
+- SEARCH THE WEB to find the correct code - do NOT guess
+- Use the MOST SPECIFIC 6-digit code from your search results
+- Confidence should reflect how certain the web sources are
+- Include the source of your information in the reasoning`;
 
     try {
+      console.log('[IndustryCodeDetection] Using Perplexity web search for:', freeformIndustry);
+
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
@@ -65,21 +64,21 @@ Important:
           'X-Title': 'BranDock Industry Code Detection'
         },
         body: JSON.stringify({
-          provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4-5-20250929',
+          provider: 'perplexity',
+          model: 'sonar-pro',
           messages: [
             {
               role: 'user',
               content: prompt
             }
           ],
-          temperature: 0.3,
+          temperature: 0.1,
           max_tokens: 1000
         })
       });
 
       if (!response.ok) {
-        throw new Error(`Opus API error: ${response.statusText}`);
+        throw new Error(`Perplexity API error: ${response.statusText}`);
       }
 
       const data = await response.json();
@@ -90,14 +89,14 @@ Important:
                        content.match(/\{[\s\S]*\}/);
 
       if (!jsonMatch) {
-        throw new Error('Could not parse Opus response as JSON');
+        throw new Error('Could not parse Perplexity response as JSON');
       }
 
       const result: CodeDetectionResult = JSON.parse(
         jsonMatch[1] || jsonMatch[0]
       );
 
-      console.log('[IndustryCodeDetection] Opus detected:', result);
+      console.log('[IndustryCodeDetection] Perplexity found:', result);
 
       return result;
     } catch (error) {

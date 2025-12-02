@@ -1,7 +1,12 @@
 /**
  * Website Scraper Service
  * Fetches and analyzes website content for brand analysis
+ *
+ * Uses Supabase Edge Function as primary method (server-side, no CORS issues)
+ * Falls back to CORS proxies if Edge Function fails
  */
+
+import { supabase } from '../../lib/supabase'
 
 export interface WebsiteData {
   url: string
@@ -29,6 +34,50 @@ export interface WebsiteData {
 }
 
 /**
+ * Try to scrape using Supabase Edge Function (server-side, no CORS)
+ */
+async function scrapeViaEdgeFunction(url: string): Promise<string | null> {
+  try {
+    console.log('[websiteScraper] Trying Edge Function scrape-website...')
+    const { data, error } = await supabase.functions.invoke('scrape-website', {
+      body: { url }
+    })
+
+    if (error) {
+      console.log('[websiteScraper] Edge Function error:', error.message)
+      return null
+    }
+
+    if (!data?.success || !data?.content?.text) {
+      console.log('[websiteScraper] Edge Function returned no content')
+      return null
+    }
+
+    console.log('[websiteScraper] Edge Function success, content length:', data.content.text.length)
+
+    // Reconstruct minimal HTML from Edge Function response for parsing
+    const reconstructedHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${data.content.title || ''}</title>
+        <meta name="description" content="${data.content.description || ''}">
+      </head>
+      <body>
+        ${(data.content.headings || []).map((h: string) => `<h2>${h}</h2>`).join('\n')}
+        ${(data.content.text || '').split('\n\n').map((p: string) => `<p>${p}</p>`).join('\n')}
+      </body>
+      </html>
+    `
+
+    return reconstructedHtml
+  } catch (err) {
+    console.log('[websiteScraper] Edge Function failed:', err)
+    return null
+  }
+}
+
+/**
  * Scrape a website and extract structured data
  */
 export async function scrapeWebsite(domain: string): Promise<WebsiteData> {
@@ -47,47 +96,49 @@ export async function scrapeWebsite(domain: string): Promise<WebsiteData> {
 
     console.log('[websiteScraper] Fetching:', url)
 
-    // Try multiple CORS proxies for client-side fetching
-    // In production, this should be a backend service
-    const proxies = [
-      `https://corsproxy.io/?${encodeURIComponent(url)}`,
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-      `https://cors-anywhere.herokuapp.com/${url}`
-    ]
+    // STRATEGY 1: Try Edge Function first (most reliable, no CORS)
+    let html = await scrapeViaEdgeFunction(url)
 
-    let response: Response | null = null
-    let lastError: Error | null = null
+    // STRATEGY 2: Fall back to CORS proxies if Edge Function fails
+    if (!html) {
+      console.log('[websiteScraper] Falling back to CORS proxies...')
 
-    // Try each proxy until one works
-    for (const proxyUrl of proxies) {
-      try {
-        console.log('[websiteScraper] Trying proxy:', proxyUrl.split('?')[0])
-        response = await fetch(proxyUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'text/html',
-          },
-        })
-        if (response.ok) {
-          console.log('[websiteScraper] Proxy successful:', proxyUrl.split('?')[0])
-          break
+      const proxies = [
+        `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        `https://cors-anywhere.herokuapp.com/${url}`
+      ]
+
+      let response: Response | null = null
+      let lastError: Error | null = null
+
+      // Try each proxy until one works
+      for (const proxyUrl of proxies) {
+        try {
+          console.log('[websiteScraper] Trying proxy:', proxyUrl.split('?')[0])
+          response = await fetch(proxyUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'text/html',
+            },
+          })
+          if (response.ok) {
+            console.log('[websiteScraper] Proxy successful:', proxyUrl.split('?')[0])
+            break
+          }
+        } catch (err) {
+          lastError = err as Error
+          console.log('[websiteScraper] Proxy failed, trying next...')
+          continue
         }
-      } catch (err) {
-        lastError = err as Error
-        console.log('[websiteScraper] Proxy failed, trying next...')
-        continue
       }
-    }
 
-    if (!response || !response.ok) {
-      throw lastError || new Error('All proxies failed')
-    }
+      if (!response || !response.ok) {
+        throw lastError || new Error('All proxies failed')
+      }
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch website: ${response.status} ${response.statusText}`)
+      html = await response.text()
     }
-
-    const html = await response.text()
     console.log('[websiteScraper] HTML fetched, length:', html.length)
 
     // Parse HTML using DOMParser (built-in browser API)
