@@ -67,6 +67,7 @@ import {
   RefreshCcw,
   Pencil,
   Check,
+  Lightbulb,
   Cloud,
   Search,
   Youtube,
@@ -81,7 +82,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Checkbox } from '@/components/ui/checkbox';
 
-import { useV4ContentGeneration } from '@/hooks/useV4ContentGeneration';
+import { useV5PowerModeGeneration, type SelectedInsight } from '@/hooks/useV5PowerModeGeneration';
+import type { Platform, V5GeneratedContent } from '@/services/v5/types';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { useCompetitorIntelligence } from '@/hooks/useCompetitorIntelligence';
 import { useEarlyCompetitorDiscovery } from '@/hooks/useEarlyCompetitorDiscovery';
@@ -97,6 +99,10 @@ import type { PsychologicalTrigger } from '@/services/trends/eq-trend-prioritize
 import { CompetitorGapsPanel } from './CompetitorGapsPanel';
 import { CompetitorChipsBar } from './CompetitorChipsBar';
 import { CompetitorIntelligencePanel } from './CompetitorIntelligencePanel';
+import { ScoreDisplayPanel } from '@/components/v5/ScoreDisplayPanel';
+import { WhyThisWorksTooltip } from '@/components/v5/WhyThisWorksTooltip';
+import { CustomerCategoryPreview } from '@/components/v5/CustomerCategoryPreview';
+import { FrameworkComparisonPanel, FRAMEWORK_CONFIGS, type PsychologyFramework } from '@/components/v5/FrameworkComparisonPanel';
 import { StreamingGapIndicator, GapSkeletonGrid } from './GapSkeletonCards';
 import { CompetitorScanProgress } from './CompetitorScanProgress';
 import { TriggersPanelV2 } from './TriggersPanelV2';
@@ -5250,6 +5256,12 @@ const CSSGridInsightGrid = memo(function CSSGridInsightGrid({
 // YOUR MIX PREVIEW COMPONENT
 // ============================================================================
 
+interface SuggestionWithInsight {
+  id: string;
+  reason: string;
+  insight: InsightCard;
+}
+
 interface YourMixPreviewProps {
   selectedInsights: InsightCard[];
   generatedContent: GeneratedContent | null;
@@ -5259,6 +5271,15 @@ interface YourMixPreviewProps {
   onClear: () => void;
   onGenerate: () => void;
   onSave?: () => void;
+  /** AI-suggested insights with accept/dismiss actions */
+  suggestions?: SuggestionWithInsight[];
+  isLoadingSuggestions?: boolean;
+  onAcceptSuggestion?: (id: string) => void;
+  onDismissSuggestion?: (id: string) => void;
+  /** Phase 7: A/B Framework comparison - regenerate with different framework */
+  onRegenerateWithFramework?: (framework: PsychologyFramework) => Promise<void>;
+  /** V5 generated content for framework comparison */
+  v5GeneratedContent?: V5GeneratedContent | null;
 }
 
 function YourMixPreview({
@@ -5269,7 +5290,13 @@ function YourMixPreview({
   onRemove,
   onClear,
   onGenerate,
-  onSave
+  onSave,
+  suggestions = [],
+  isLoadingSuggestions = false,
+  onAcceptSuggestion,
+  onDismissSuggestion,
+  onRegenerateWithFramework,
+  v5GeneratedContent
 }: YourMixPreviewProps) {
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
   const hasSelection = selectedInsights.length > 0;
@@ -5304,6 +5331,63 @@ function YourMixPreview({
           </span>
         </div>
       </div>
+
+      {/* AI Suggestions Section */}
+      {(suggestions.length > 0 || isLoadingSuggestions) && (
+        <div className="flex-shrink-0 border-b border-gray-200 dark:border-slate-700">
+          <div className="p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10">
+            <div className="flex items-center gap-2 mb-2">
+              <Lightbulb className="w-4 h-4 text-amber-600" />
+              <span className="text-xs font-bold text-amber-800 dark:text-amber-300">
+                AI Suggestions
+              </span>
+              {isLoadingSuggestions && (
+                <Loader2 className="w-3 h-3 text-amber-600 animate-spin ml-auto" />
+              )}
+            </div>
+            {suggestions.length > 0 ? (
+              <div className="space-y-2">
+                {suggestions.map((suggestion) => (
+                  <motion.div
+                    key={suggestion.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    className="p-2 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700/50 rounded-lg"
+                  >
+                    <p className="text-xs font-medium text-gray-900 dark:text-white mb-1">
+                      {suggestion.insight.title}
+                    </p>
+                    <p className="text-xs text-amber-700 dark:text-amber-400 italic mb-2">
+                      "{suggestion.reason}"
+                    </p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => onAcceptSuggestion?.(suggestion.id)}
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1 text-xs font-medium bg-green-100 hover:bg-green-200 dark:bg-green-900/30 dark:hover:bg-green-900/50 text-green-700 dark:text-green-400 rounded transition-colors"
+                      >
+                        <Check className="w-3 h-3" />
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => onDismissSuggestion?.(suggestion.id)}
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 rounded transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                        Dismiss
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : isLoadingSuggestions ? (
+              <p className="text-xs text-amber-700 dark:text-amber-400">
+                Finding complementary insights...
+              </p>
+            ) : null}
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <ScrollArea className="flex-1">
@@ -5407,6 +5491,37 @@ function YourMixPreview({
                       )}
                     </AnimatePresence>
                   </motion.div>
+                )}
+
+                {/* V5 Score Display Panel - Phase 3 */}
+                {generatedContent && !isGenerating && (
+                  <ScoreDisplayPanel
+                    score={generatedContent.score}
+                    isCompact={false}
+                    showHints={true}
+                    className="mt-3"
+                  />
+                )}
+
+                {/* V5 Why This Works Tooltip - Phase 4 */}
+                {generatedContent && !isGenerating && (
+                  <WhyThisWorksTooltip
+                    content={generatedContent}
+                    selectedInsights={selectedInsightObjects}
+                    industryName={industrySlug}
+                    className="mt-3"
+                  />
+                )}
+
+                {/* V5 Framework Comparison Panel - Phase 7 */}
+                {v5GeneratedContent && !isGenerating && onRegenerateWithFramework && (
+                  <FrameworkComparisonPanel
+                    currentContent={v5GeneratedContent}
+                    currentFramework={framework}
+                    isGenerating={isGenerating}
+                    onRegenerateWithFramework={onRegenerateWithFramework}
+                    className="mt-3"
+                  />
                 )}
 
                 {/* Selected Insights List */}
@@ -5609,13 +5724,29 @@ export function V4PowerModePanel({
     return { triggerCount: triggers, proofCount: liveProofCount };
   }, [triggersStreamingResult?.triggers?.length, liveProofCount]);
 
-  // V4 Hook
+  // V5 Power Mode Hook - Full Synapse V5 integration
   const {
     isGenerating,
     error,
-    generateWithControl,
+    generatedContent: v5GeneratedContent,
+    lastScore,
+    generateWithInsights,
+    regenerate,
+    scoreContent,
+    getImprovementHints,
+    clearContent,
     clearError
-  } = useV4ContentGeneration({ uvp, brandId, mode: 'power' });
+  } = useV5PowerModeGeneration();
+
+  // V5 EQ Score - Extract average from DeepContext breakthrough triggers for customer category mapping
+  const derivedEqScore = useMemo(() => {
+    const breakthroughs = deepContext?.synthesis?.breakthroughs;
+    if (!breakthroughs?.length) return undefined;
+    const eqScores = breakthroughs.map(b => b.eqScore).filter((s): s is number => typeof s === 'number');
+    if (!eqScores.length) return undefined;
+    // Use max eqScore to capture highest emotional resonance detected
+    return Math.max(...eqScores);
+  }, [deepContext?.synthesis?.breakthroughs]);
 
   // Business Profile Hook - provides competitor-aware gaps, industry hooks, and segment features
   const {
@@ -6123,24 +6254,81 @@ export function V4PowerModePanel({
   // Check if there are more items to load
   const hasMoreInsights = filteredInsights.length > visibleCount;
 
-  // Convert selected insight IDs to full SelectedInsight objects for generation
+  // Convert selected insight IDs to full SelectedInsight objects for V5 generation
   // NOTE: This must be defined BEFORE handleGenerate so it uses the properly typed version
-  const selectedInsightObjects = useMemo(() => {
+  // Maps V4 InsightType/FilterType (plural) to V5 SelectedInsight type (singular)
+  // Includes all 7 V5 insight types: trigger, proof, trend, conversation, competitor, local, weather
+  const mapInsightTypeToV5 = useCallback((type: InsightType | 'local' | 'weather'): SelectedInsight['type'] => {
+    const typeMap: Record<InsightType | 'local' | 'weather', SelectedInsight['type']> = {
+      'triggers': 'trigger',
+      'proof': 'proof',
+      'trends': 'trend',
+      'conversations': 'conversation',
+      'gaps': 'competitor', // gaps map to competitor insights
+      'local': 'local',     // local events/community context
+      'weather': 'weather', // weather-based triggers
+    };
+    return typeMap[type] || 'trigger';
+  }, []);
+
+  const selectedInsightObjects = useMemo((): SelectedInsight[] => {
     return selectedInsights
       .map(id => allInsights.find(i => i.id === id))
       .filter((i): i is InsightCard => i !== undefined)
       .map(i => ({
         id: i.id,
-        type: i.type,
+        type: mapInsightTypeToV5(i.type),
         title: i.title,
         description: i.description,
         category: i.category,
         confidence: i.confidence,
-        actionableInsight: i.actionableInsight,
-        evidence: i.evidence,
-        sources: i.sources,
+        data: {
+          actionableInsight: i.actionableInsight,
+          evidence: i.evidence,
+          sources: i.sources,
+          rawData: i.rawData,
+        },
       }));
-  }, [selectedInsights, allInsights]);
+  }, [selectedInsights, allInsights, mapInsightTypeToV5]);
+
+  // Phase 5: Dismissed suggestions state
+  const [dismissedSuggestionIds, setDismissedSuggestionIds] = useState<Set<string>>(new Set());
+
+  // Phase 5: Map suggestions to their insight objects (for YourMixPreview)
+  const suggestionsWithInsights = useMemo((): SuggestionWithInsight[] => {
+    return suggestedInsightIds
+      .filter(s => !dismissedSuggestionIds.has(s.id))
+      .map(suggestion => {
+        const insight = allInsights.find(i => i.id === suggestion.id);
+        if (!insight) return null;
+        return {
+          id: suggestion.id,
+          reason: suggestion.reason,
+          insight,
+        };
+      })
+      .filter((s): s is SuggestionWithInsight => s !== null);
+  }, [suggestedInsightIds, allInsights, dismissedSuggestionIds]);
+
+  // Phase 5: Accept a suggestion (add to selection)
+  const handleAcceptSuggestion = useCallback((id: string) => {
+    setSelectedInsights(prev => [...prev, id]);
+    // Remove from suggestions by adding to dismissed
+    setDismissedSuggestionIds(prev => new Set([...prev, id]));
+  }, []);
+
+  // Phase 5: Dismiss a suggestion
+  const handleDismissSuggestion = useCallback((id: string) => {
+    setDismissedSuggestionIds(prev => new Set([...prev, id]));
+  }, []);
+
+  // Phase 5: Clear dismissed suggestions when selection changes significantly
+  useEffect(() => {
+    // When all selections are cleared, also clear dismissed suggestions
+    if (selectedInsights.length === 0) {
+      setDismissedSuggestionIds(new Set());
+    }
+  }, [selectedInsights.length]);
 
   // Toggle insight selection
   const handleToggleInsight = useCallback((insightId: string) => {
@@ -6334,24 +6522,110 @@ export function V4PowerModePanel({
     }
   }, [allInsights]);
 
-  // Generate content with V4 engine
+  // Generate content with V5 Synapse engine
   const handleGenerate = useCallback(async () => {
     try {
       clearError();
-      const content = await generateWithControl({
-        platform: activePlatform,
-        framework: activeFramework,
-        funnelStage: activeFunnelStage,
-        tone: 'professional',
-        selectedInsights: selectedInsightObjects
+
+      // Map V4 platform to V5 Platform type
+      // V5 only supports: linkedin, facebook, instagram, twitter, tiktok
+      // blog/email fall back to linkedin (closest format for long-form)
+      const platformMap: Record<string, Platform> = {
+        'linkedin': 'linkedin',
+        'facebook': 'facebook',
+        'instagram': 'instagram',
+        'twitter': 'twitter',
+        'tiktok': 'tiktok',
+        'blog': 'linkedin',   // V5 fallback: blog → linkedin (long-form)
+        'email': 'linkedin',  // V5 fallback: email → linkedin (professional)
+      };
+
+      const result = await generateWithInsights({
+        platform: platformMap[activePlatform] || 'linkedin',
+        brandId,
+        industrySlug: deepContext?.business?.industry?.toLowerCase().replace(/\s+/g, '-'),
+        selectedInsights: selectedInsightObjects,
+        eqScore: derivedEqScore,  // V5: Pass EQ score for customer category mapping
       });
 
-      setGeneratedContent(content);
-      onContentGenerated?.(content);
+      if (result.success && result.content) {
+        // Convert V5 content to V4 format for backward compatibility
+        // V5GeneratedContent has flat structure: body, headline, cta, hashtags (not nested under .content)
+        const v4Content = {
+          id: result.content.id,
+          content: result.content.body || '',
+          headline: result.content.headline || '',
+          hook: result.content.headline || '',  // V5 uses headline, V4 expected hook
+          cta: result.content.cta || '',
+          hashtags: result.content.hashtags || [],
+          platform: activePlatform,
+          framework: activeFramework,
+          score: result.content.score?.total || 0,
+          scoreBreakdown: result.content.score?.breakdown,
+          tier: result.content.score?.tier,
+          hints: result.content.score?.hints || [],
+        };
+        setGeneratedContent(v4Content);
+        onContentGenerated?.(v4Content);
+      }
     } catch (err) {
-      console.error('V4 Power Mode generation failed:', err);
+      console.error('V5 Power Mode generation failed:', err);
     }
-  }, [generateWithControl, activeFramework, activePlatform, activeFunnelStage, clearError, onContentGenerated, selectedInsightObjects]);
+  }, [generateWithInsights, activeFramework, activePlatform, clearError, onContentGenerated, selectedInsightObjects, brandId, deepContext?.business?.industry, derivedEqScore]);
+
+  // Phase 7: Handle regenerate with different framework for A/B comparison
+  const handleRegenerateWithFramework = useCallback(async (framework: PsychologyFramework) => {
+    try {
+      clearError();
+      // Update active framework for UI
+      setActiveFramework(framework);
+
+      // Map V4 platform to V5 Platform type
+      const platformMap: Record<string, Platform> = {
+        'linkedin': 'linkedin',
+        'facebook': 'facebook',
+        'instagram': 'instagram',
+        'twitter': 'twitter',
+        'tiktok': 'tiktok',
+        'blog': 'linkedin',
+        'email': 'linkedin',
+      };
+
+      // Get the template structure associated with this framework
+      const templateStructure = FRAMEWORK_CONFIGS[framework]?.templateStructure;
+
+      const result = await generateWithInsights({
+        platform: platformMap[activePlatform] || 'linkedin',
+        brandId,
+        industrySlug: deepContext?.business?.industry?.toLowerCase().replace(/\s+/g, '-'),
+        selectedInsights: selectedInsightObjects,
+        eqScore: derivedEqScore,
+        // NOTE: templateStructure support would need to be added to PowerModeOptions
+        // For now, regenerate with same options - framework change is tracked in state
+      });
+
+      if (result.success && result.content) {
+        const v4Content = {
+          id: result.content.id,
+          content: result.content.body || '',
+          headline: result.content.headline || '',
+          hook: result.content.headline || '',
+          cta: result.content.cta || '',
+          hashtags: result.content.hashtags || [],
+          platform: activePlatform,
+          framework: framework, // Use the new framework
+          score: result.content.score?.total || 0,
+          scoreBreakdown: result.content.score?.breakdown,
+          tier: result.content.score?.tier,
+          hints: result.content.score?.hints || [],
+        };
+        setGeneratedContent(v4Content);
+        onContentGenerated?.(v4Content);
+      }
+    } catch (err) {
+      console.error('V5 Framework regeneration failed:', err);
+    }
+  }, [generateWithInsights, activePlatform, clearError, onContentGenerated, selectedInsightObjects, brandId, deepContext?.business?.industry, derivedEqScore]);
 
   // Handle save
   const handleSave = useCallback(() => {
@@ -6475,17 +6749,44 @@ export function V4PowerModePanel({
 
       setIsLiveGenerating(true);
       try {
-        const content = await generateWithControl({
-          platform: activePlatform,
-          framework: activeFramework,
-          funnelStage: activeFunnelStage,
-          tone: 'professional',
-          selectedInsights: selectedInsightObjects
+        // Map V4 platform to V5 Platform type
+        // V5 only supports: linkedin, facebook, instagram, twitter, tiktok
+        const platformMap: Record<string, Platform> = {
+          'linkedin': 'linkedin',
+          'facebook': 'facebook',
+          'instagram': 'instagram',
+          'twitter': 'twitter',
+          'tiktok': 'tiktok',
+          'blog': 'linkedin',   // V5 fallback
+          'email': 'linkedin',  // V5 fallback
+        };
+
+        const result = await generateWithInsights({
+          platform: platformMap[activePlatform] || 'linkedin',
+          brandId,
+          industrySlug: deepContext?.business?.industry?.toLowerCase().replace(/\s+/g, '-'),
+          selectedInsights: selectedInsightObjects,
         });
 
         // Only set content if not aborted
-        if (!abortControllerRef.current?.signal.aborted) {
-          setLivePreviewContent(content);
+        if (!abortControllerRef.current?.signal.aborted && result.success && result.content) {
+          // Convert V5 content to V4 format
+          // V5GeneratedContent has flat structure: body, headline, cta, hashtags
+          const v4Content = {
+            id: result.content.id,
+            content: result.content.body || '',
+            headline: result.content.headline || '',
+            hook: result.content.headline || '',  // V5 uses headline, V4 expected hook
+            cta: result.content.cta || '',
+            hashtags: result.content.hashtags || [],
+            platform: activePlatform,
+            framework: activeFramework,
+            score: result.content.score?.total || 0,
+            scoreBreakdown: result.content.score?.breakdown,
+            tier: result.content.score?.tier,
+            hints: result.content.score?.hints || [],
+          };
+          setLivePreviewContent(v4Content);
         }
       } catch (err) {
         // Ignore abort errors
@@ -6507,7 +6808,7 @@ export function V4PowerModePanel({
         abortControllerRef.current.abort();
       }
     };
-  }, [selectedInsights, activeFramework, activePlatform, activeFunnelStage, generateWithControl, autoGenerateEnabled, selectedInsightObjects]);
+  }, [selectedInsights, activeFramework, activePlatform, generateWithInsights, autoGenerateEnabled, selectedInsightObjects, brandId, deepContext?.business?.industry]);
 
   // Cleanup timeouts and abort controller on unmount
   useEffect(() => {
@@ -6524,7 +6825,7 @@ export function V4PowerModePanel({
     };
   }, []);
 
-  // Manual generate function (for explicit Generate button clicks)
+  // Manual generate function (for explicit Generate button clicks) - V5 Synapse Engine
   const handleManualGenerate = useCallback(async () => {
     if (selectedInsights.length === 0) return;
 
@@ -6536,16 +6837,44 @@ export function V4PowerModePanel({
 
     setIsLiveGenerating(true);
     try {
-      const content = await generateWithControl({
-        platform: activePlatform,
-        framework: activeFramework,
-        funnelStage: activeFunnelStage,
-        tone: 'professional',
-        selectedInsights: selectedInsightObjects
+      // Map V4 platform to V5 Platform type
+      // V5 only supports: linkedin, facebook, instagram, twitter, tiktok
+      const platformMap: Record<string, Platform> = {
+        'linkedin': 'linkedin',
+        'facebook': 'facebook',
+        'instagram': 'instagram',
+        'twitter': 'twitter',
+        'tiktok': 'tiktok',
+        'blog': 'linkedin',   // V5 fallback
+        'email': 'linkedin',  // V5 fallback
+      };
+
+      const result = await generateWithInsights({
+        platform: platformMap[activePlatform] || 'linkedin',
+        brandId,
+        industrySlug: deepContext?.business?.industry?.toLowerCase().replace(/\s+/g, '-'),
+        selectedInsights: selectedInsightObjects,
+        eqScore: derivedEqScore,  // V5: Pass EQ score for customer category mapping
       });
 
-      if (!abortControllerRef.current?.signal.aborted) {
-        setLivePreviewContent(content);
+      if (!abortControllerRef.current?.signal.aborted && result.success && result.content) {
+        // Convert V5 content to V4 format
+        // V5GeneratedContent has flat structure: body, headline, cta, hashtags
+        const v4Content = {
+          id: result.content.id,
+          content: result.content.body || '',
+          headline: result.content.headline || '',
+          hook: result.content.headline || '',  // V5 uses headline, V4 expected hook
+          cta: result.content.cta || '',
+          hashtags: result.content.hashtags || [],
+          platform: activePlatform,
+          framework: activeFramework,
+          score: result.content.score?.total || 0,
+          scoreBreakdown: result.content.score?.breakdown,
+          tier: result.content.score?.tier,
+          hints: result.content.score?.hints || [],
+        };
+        setLivePreviewContent(v4Content);
       }
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
@@ -6556,7 +6885,7 @@ export function V4PowerModePanel({
     } finally {
       setIsLiveGenerating(false);
     }
-  }, [selectedInsights, activePlatform, activeFramework, activeFunnelStage, generateWithControl, selectedInsightObjects]);
+  }, [selectedInsights, activePlatform, activeFramework, generateWithInsights, selectedInsightObjects, brandId, deepContext?.business?.industry, derivedEqScore]);
 
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-slate-900 relative">
@@ -7475,6 +7804,13 @@ export function V4PowerModePanel({
 
         {/* Right: Your Mix Preview */}
         <div className="w-80 flex-shrink-0 p-4 pl-0">
+          {/* V5 Customer Category Preview - Phase 6 */}
+          <div className="mb-3">
+            <CustomerCategoryPreview
+              selectedInsights={selectedInsightObjects}
+              eqScore={derivedEqScore}
+            />
+          </div>
           <YourMixPreview
             selectedInsights={selectedInsightObjects}
             generatedContent={generatedContent}
@@ -7484,6 +7820,12 @@ export function V4PowerModePanel({
             onClear={() => setSelectedInsights([])}
             onGenerate={handleGenerate}
             onSave={onSaveToCalendar ? handleSave : undefined}
+            suggestions={suggestionsWithInsights}
+            isLoadingSuggestions={isLoadingSuggestions}
+            onAcceptSuggestion={handleAcceptSuggestion}
+            onDismissSuggestion={handleDismissSuggestion}
+            onRegenerateWithFramework={handleRegenerateWithFramework}
+            v5GeneratedContent={v5GeneratedContent}
           />
         </div>
       </div>

@@ -1,0 +1,527 @@
+/**
+ * Variety Engine Service
+ *
+ * Enforces content diversity across the 12 dimensions:
+ * - Tracks dimension distribution across content queue
+ * - Scores insights for variety against already-selected items
+ * - Penalizes insights that cluster on same dimension values
+ * - Auto-backfills underrepresented dimensions
+ *
+ * Constraints:
+ * - No more than 40% on any single dimension value
+ * - All 12 dimensions represented
+ * - Stage distribution matches target mix ±10%
+ */
+
+import type { DimensionTags } from '@/types/intelligence.types';
+import { DIMENSION_OPTIONS } from './dimension-tagger.service';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface TaggedContent {
+  id: string;
+  title: string;
+  dimensions: DimensionTags;
+  baseScore: number;
+}
+
+export interface DiversityScore {
+  overall: number; // 0-100
+  byDimension: Record<keyof DimensionTags, number>;
+  violations: DiversityViolation[];
+  recommendations: DiversityRecommendation[];
+}
+
+export interface DiversityViolation {
+  dimension: keyof DimensionTags;
+  value: string;
+  currentPercentage: number;
+  maxAllowed: number;
+  severity: 'critical' | 'warning';
+}
+
+export interface DiversityRecommendation {
+  dimension: keyof DimensionTags;
+  underrepresentedValues: string[];
+  suggestion: string;
+}
+
+export interface SelectionResult {
+  selected: TaggedContent;
+  diversityImpact: number; // How much this selection helps diversity
+  newDiversityScore: number;
+}
+
+export interface TargetMix {
+  buyerJourneyStage?: Record<string, number>;
+  psychologicalTrigger?: Record<string, number>;
+  contentFormat?: Record<string, number>;
+  personaTarget?: Record<string, number>;
+  contentAngle?: Record<string, number>;
+  urgencyLevel?: Record<string, number>;
+  contentLifecycle?: Record<string, number>;
+}
+
+// ============================================================================
+// Default Target Mix (can be customized)
+// ============================================================================
+
+const DEFAULT_TARGET_MIX: TargetMix = {
+  buyerJourneyStage: {
+    'awareness': 0.35,
+    'consideration': 0.35,
+    'decision': 0.20,
+    'retention': 0.07,
+    'advocacy': 0.03,
+  },
+  contentAngle: {
+    'data-driven': 0.25,
+    'story-driven': 0.20,
+    'expert': 0.15,
+    'contrarian': 0.15,
+    'trending': 0.10,
+    'comparison': 0.08,
+    'behind-scenes': 0.05,
+    'prediction': 0.02,
+  },
+  contentFormat: {
+    'how-to': 0.25,
+    'data': 0.15,
+    'story': 0.15,
+    'comparison': 0.10,
+    'case-study': 0.10,
+    'checklist': 0.10,
+    'hot-take': 0.08,
+    'faq': 0.05,
+    'testimonial': 0.02,
+  },
+};
+
+// Maximum percentage any single value can have
+const MAX_SINGLE_VALUE_PERCENTAGE = 0.40;
+
+// Tolerance for target mix deviation
+const TARGET_MIX_TOLERANCE = 0.10;
+
+// ============================================================================
+// Variety Engine Service
+// ============================================================================
+
+class VarietyEngineService {
+  private targetMix: TargetMix;
+
+  constructor(targetMix: TargetMix = DEFAULT_TARGET_MIX) {
+    this.targetMix = targetMix;
+  }
+
+  /**
+   * Calculate diversity score for a content queue
+   */
+  calculateDiversityScore(queue: TaggedContent[]): DiversityScore {
+    if (queue.length === 0) {
+      return {
+        overall: 100,
+        byDimension: this.getEmptyDimensionScores(),
+        violations: [],
+        recommendations: [],
+      };
+    }
+
+    const distribution = this.calculateDistribution(queue);
+    const violations = this.findViolations(distribution, queue.length);
+    const recommendations = this.generateRecommendations(distribution, queue.length);
+
+    const dimensionScores = this.calculateDimensionScores(distribution, queue.length);
+    const overall = this.calculateOverallScore(dimensionScores, violations);
+
+    return {
+      overall,
+      byDimension: dimensionScores,
+      violations,
+      recommendations,
+    };
+  }
+
+  /**
+   * Score a potential addition for diversity impact
+   */
+  scoreForDiversity(
+    candidate: TaggedContent,
+    existingQueue: TaggedContent[]
+  ): {
+    diversityScore: number;
+    adjustedScore: number;
+    clusterPenalty: number;
+    boostFactors: string[];
+  } {
+    const existingDistribution = this.calculateDistribution(existingQueue);
+    const queueSize = existingQueue.length;
+
+    let clusterPenalty = 0;
+    let boostScore = 0;
+    const boostFactors: string[] = [];
+
+    // Check each dimension
+    for (const [dimKey, value] of Object.entries(candidate.dimensions)) {
+      const dimension = dimKey as keyof DimensionTags;
+      const currentCount = existingDistribution[dimension][value] || 0;
+      const currentPercentage = queueSize > 0 ? currentCount / queueSize : 0;
+
+      // Penalize if this value is already over-represented
+      if (currentPercentage >= MAX_SINGLE_VALUE_PERCENTAGE) {
+        clusterPenalty += 15; // Heavy penalty for exceeding max
+      } else if (currentPercentage >= MAX_SINGLE_VALUE_PERCENTAGE * 0.75) {
+        clusterPenalty += 8; // Moderate penalty for approaching max
+      }
+
+      // Boost if this value is underrepresented
+      if (currentPercentage < 0.05 && queueSize >= 5) {
+        boostScore += 10;
+        boostFactors.push(`Adds ${dimension}:${value}`);
+      }
+
+      // Check against target mix
+      const targetMixForDim = (this.targetMix as Record<string, Record<string, number>>)[dimension];
+      if (targetMixForDim) {
+        const targetPercentage = targetMixForDim[value] || 0;
+        const deviation = currentPercentage - targetPercentage;
+
+        if (deviation < -TARGET_MIX_TOLERANCE) {
+          boostScore += 5; // Boost underrepresented
+          boostFactors.push(`Balances ${dimension}`);
+        } else if (deviation > TARGET_MIX_TOLERANCE) {
+          clusterPenalty += 5; // Penalize overrepresented
+        }
+      }
+    }
+
+    const diversityScore = Math.max(0, 100 - clusterPenalty + boostScore);
+    const adjustedScore = candidate.baseScore * (1 + (diversityScore - 50) / 100);
+
+    return {
+      diversityScore,
+      adjustedScore,
+      clusterPenalty,
+      boostFactors,
+    };
+  }
+
+  /**
+   * Select the best content from candidates for diversity
+   */
+  selectForDiversity(
+    candidates: TaggedContent[],
+    existingQueue: TaggedContent[],
+    count: number = 1
+  ): SelectionResult[] {
+    const results: SelectionResult[] = [];
+    const currentQueue = [...existingQueue];
+
+    for (let i = 0; i < count && candidates.length > 0; i++) {
+      // Score all remaining candidates
+      const scored = candidates.map(candidate => {
+        const scoreResult = this.scoreForDiversity(candidate, currentQueue);
+        return {
+          candidate,
+          ...scoreResult,
+        };
+      });
+
+      // Sort by adjusted score (base score + diversity bonus/penalty)
+      scored.sort((a, b) => b.adjustedScore - a.adjustedScore);
+
+      const best = scored[0];
+      if (best) {
+        const prevDiversity = this.calculateDiversityScore(currentQueue);
+        currentQueue.push(best.candidate);
+        const newDiversity = this.calculateDiversityScore(currentQueue);
+
+        results.push({
+          selected: best.candidate,
+          diversityImpact: newDiversity.overall - prevDiversity.overall,
+          newDiversityScore: newDiversity.overall,
+        });
+
+        // Remove from candidates
+        const index = candidates.indexOf(best.candidate);
+        if (index > -1) candidates.splice(index, 1);
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Find content gaps - dimensions that need more content
+   */
+  findContentGaps(queue: TaggedContent[]): Array<{
+    dimension: keyof DimensionTags;
+    value: string;
+    currentPercentage: number;
+    targetPercentage: number;
+    gap: number;
+  }> {
+    const distribution = this.calculateDistribution(queue);
+    const queueSize = queue.length || 1;
+    const gaps: Array<{
+      dimension: keyof DimensionTags;
+      value: string;
+      currentPercentage: number;
+      targetPercentage: number;
+      gap: number;
+    }> = [];
+
+    for (const [dimKey, targetValues] of Object.entries(this.targetMix)) {
+      const dimension = dimKey as keyof DimensionTags;
+
+      if (targetValues) {
+        for (const [value, targetPercentage] of Object.entries(targetValues)) {
+          const currentCount = distribution[dimension][value] || 0;
+          const currentPercentage = currentCount / queueSize;
+          const gap = targetPercentage - currentPercentage;
+
+          if (gap > TARGET_MIX_TOLERANCE) {
+            gaps.push({
+              dimension,
+              value,
+              currentPercentage,
+              targetPercentage,
+              gap,
+            });
+          }
+        }
+      }
+    }
+
+    // Sort by gap size (largest gaps first)
+    gaps.sort((a, b) => b.gap - a.gap);
+
+    return gaps;
+  }
+
+  /**
+   * Auto-generate backfill suggestions
+   */
+  generateBackfillSuggestions(queue: TaggedContent[]): Array<{
+    priority: 'high' | 'medium' | 'low';
+    dimensions: Partial<DimensionTags>;
+    reason: string;
+  }> {
+    const gaps = this.findContentGaps(queue);
+    const suggestions: Array<{
+      priority: 'high' | 'medium' | 'low';
+      dimensions: Partial<DimensionTags>;
+      reason: string;
+    }> = [];
+
+    for (const gap of gaps.slice(0, 5)) {
+      const priority = gap.gap > 0.2 ? 'high' : gap.gap > 0.1 ? 'medium' : 'low';
+
+      suggestions.push({
+        priority,
+        dimensions: {
+          [gap.dimension]: gap.value,
+        } as Partial<DimensionTags>,
+        reason: `${gap.dimension} "${gap.value}" is ${Math.round(gap.gap * 100)}% below target`,
+      });
+    }
+
+    return suggestions;
+  }
+
+  /**
+   * Get visual meter data for UI
+   */
+  getDiversityMeterData(queue: TaggedContent[]): {
+    overall: number;
+    dimensions: Array<{
+      name: string;
+      score: number;
+      distribution: Array<{ value: string; count: number; percentage: number }>;
+    }>;
+  } {
+    const diversityScore = this.calculateDiversityScore(queue);
+    const distribution = this.calculateDistribution(queue);
+    const queueSize = queue.length || 1;
+
+    const dimensions = Object.entries(distribution).map(([dimKey, values]) => ({
+      name: dimKey,
+      score: diversityScore.byDimension[dimKey as keyof DimensionTags],
+      distribution: Object.entries(values).map(([value, count]) => ({
+        value,
+        count,
+        percentage: Math.round((count / queueSize) * 100),
+      })),
+    }));
+
+    return {
+      overall: diversityScore.overall,
+      dimensions,
+    };
+  }
+
+  /**
+   * Update target mix
+   */
+  updateTargetMix(newMix: Partial<TargetMix>): void {
+    this.targetMix = {
+      ...this.targetMix,
+      ...newMix,
+    };
+  }
+
+  // ============================================================================
+  // Private Methods
+  // ============================================================================
+
+  private calculateDistribution(
+    queue: TaggedContent[]
+  ): Record<keyof DimensionTags, Record<string, number>> {
+    const distribution: Record<keyof DimensionTags, Record<string, number>> = {
+      buyerJourneyStage: {},
+      psychologicalTrigger: {},
+      contentFormat: {},
+      contentPillar: {},
+      personaTarget: {},
+      objectionType: {},
+      contentAngle: {},
+      ctaType: {},
+      urgencyLevel: {},
+      sourceCombination: {},
+      competitivePosition: {},
+      contentLifecycle: {},
+    };
+
+    for (const content of queue) {
+      for (const [dimKey, value] of Object.entries(content.dimensions)) {
+        const dimension = dimKey as keyof DimensionTags;
+        distribution[dimension][value] = (distribution[dimension][value] || 0) + 1;
+      }
+    }
+
+    return distribution;
+  }
+
+  private findViolations(
+    distribution: Record<keyof DimensionTags, Record<string, number>>,
+    queueSize: number
+  ): DiversityViolation[] {
+    const violations: DiversityViolation[] = [];
+
+    for (const [dimKey, values] of Object.entries(distribution)) {
+      const dimension = dimKey as keyof DimensionTags;
+
+      for (const [value, count] of Object.entries(values)) {
+        const percentage = count / queueSize;
+
+        if (percentage > MAX_SINGLE_VALUE_PERCENTAGE) {
+          violations.push({
+            dimension,
+            value,
+            currentPercentage: percentage,
+            maxAllowed: MAX_SINGLE_VALUE_PERCENTAGE,
+            severity: percentage > MAX_SINGLE_VALUE_PERCENTAGE + 0.15 ? 'critical' : 'warning',
+          });
+        }
+      }
+    }
+
+    return violations;
+  }
+
+  private generateRecommendations(
+    distribution: Record<keyof DimensionTags, Record<string, number>>,
+    queueSize: number
+  ): DiversityRecommendation[] {
+    const recommendations: DiversityRecommendation[] = [];
+
+    for (const [dimKey, options] of Object.entries(DIMENSION_OPTIONS)) {
+      const dimension = dimKey as keyof DimensionTags;
+      const used = Object.keys(distribution[dimension]);
+      const unused = (options as readonly string[]).filter(opt => !used.includes(opt));
+
+      if (unused.length > 0 && queueSize >= 5) {
+        recommendations.push({
+          dimension,
+          underrepresentedValues: unused.slice(0, 3),
+          suggestion: `Consider adding content with ${dimension}: ${unused.slice(0, 2).join(' or ')}`,
+        });
+      }
+    }
+
+    return recommendations;
+  }
+
+  private calculateDimensionScores(
+    distribution: Record<keyof DimensionTags, Record<string, number>>,
+    queueSize: number
+  ): Record<keyof DimensionTags, number> {
+    const scores: Record<keyof DimensionTags, number> = {} as Record<keyof DimensionTags, number>;
+
+    for (const [dimKey, values] of Object.entries(distribution)) {
+      const dimension = dimKey as keyof DimensionTags;
+      const optionsForDim = DIMENSION_OPTIONS[dimension as keyof typeof DIMENSION_OPTIONS];
+
+      if (!optionsForDim) {
+        scores[dimension] = 50;
+        continue;
+      }
+
+      const totalOptions = optionsForDim.length;
+      const usedOptions = Object.keys(values).length;
+      const coverageScore = (usedOptions / totalOptions) * 50;
+
+      // Calculate evenness (entropy-like)
+      let evennessScore = 50;
+      if (queueSize > 0) {
+        const percentages = Object.values(values).map(c => c / queueSize);
+        const maxPercentage = Math.max(...percentages, 0);
+        evennessScore = Math.max(0, 50 - (maxPercentage - (1 / totalOptions)) * 100);
+      }
+
+      scores[dimension] = Math.round(coverageScore + evennessScore);
+    }
+
+    return scores;
+  }
+
+  private calculateOverallScore(
+    dimensionScores: Record<keyof DimensionTags, number>,
+    violations: DiversityViolation[]
+  ): number {
+    const avgDimensionScore = Object.values(dimensionScores).reduce((a, b) => a + b, 0) / 12;
+
+    // Penalize for violations
+    const criticalCount = violations.filter(v => v.severity === 'critical').length;
+    const warningCount = violations.filter(v => v.severity === 'warning').length;
+
+    const violationPenalty = criticalCount * 10 + warningCount * 5;
+
+    return Math.max(0, Math.min(100, Math.round(avgDimensionScore - violationPenalty)));
+  }
+
+  private getEmptyDimensionScores(): Record<keyof DimensionTags, number> {
+    return {
+      buyerJourneyStage: 100,
+      psychologicalTrigger: 100,
+      contentFormat: 100,
+      contentPillar: 100,
+      personaTarget: 100,
+      objectionType: 100,
+      contentAngle: 100,
+      ctaType: 100,
+      urgencyLevel: 100,
+      sourceCombination: 100,
+      competitivePosition: 100,
+      contentLifecycle: 100,
+    };
+  }
+}
+
+// Export singleton instance
+export const varietyEngine = new VarietyEngineService();
+
+// Export class for testing
+export { VarietyEngineService };

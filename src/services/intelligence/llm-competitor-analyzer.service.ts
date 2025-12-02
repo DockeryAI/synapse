@@ -188,12 +188,13 @@ IMPORTANT:
 // ============================================================================
 
 class LLMCompetitorAnalyzerService {
-  private readonly OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-  private readonly DEFAULT_MODEL = 'anthropic/claude-sonnet-4-20250514'; // Fast + good quality
-  private readonly PREMIUM_MODEL = 'anthropic/claude-sonnet-4-20250514'; // Best for complex analysis
+  private readonly AI_PROXY_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+  private readonly SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  private readonly DEFAULT_MODEL = 'anthropic/claude-sonnet-4'; // Fast + good quality
+  private readonly PREMIUM_MODEL = 'anthropic/claude-sonnet-4'; // Best for complex analysis
 
   /**
-   * Analyze a competitor using LLM knowledge
+   * Analyze a competitor using LLM knowledge via ai-proxy Edge Function
    */
   async analyzeCompetitor(
     request: LLMAnalysisRequest,
@@ -202,19 +203,18 @@ class LLMCompetitorAnalyzerService {
     const prompt = buildAnalysisPrompt(request);
     const model = usePremiumModel ? this.PREMIUM_MODEL : this.DEFAULT_MODEL;
 
-    console.log(`[LLM-Analyzer] Analyzing ${request.competitor_name} for ${request.brand_name} using ${model}`);
+    console.log(`[LLM-Analyzer] Analyzing ${request.competitor_name} for ${request.brand_name} using ${model} via ai-proxy`);
     const startTime = performance.now();
 
     try {
-      const response = await fetch(this.OPENROUTER_URL, {
+      const response = await fetch(this.AI_PROXY_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
-          'HTTP-Referer': 'https://synapse.ai',
-          'X-Title': 'Synapse Competitor Intelligence'
+          'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model,
           messages: [
             {
@@ -229,7 +229,8 @@ class LLMCompetitorAnalyzerService {
       });
 
       if (!response.ok) {
-        console.error('[LLM-Analyzer] API error:', response.status);
+        const errorText = await response.text();
+        console.error('[LLM-Analyzer] ai-proxy error:', response.status, errorText);
         return null;
       }
 

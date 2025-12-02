@@ -1,4 +1,4 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
 
 const PERPLEXITY_API_KEY = Deno.env.get('PERPLEXITY_API_KEY')
 const PERPLEXITY_API_URL = 'https://api.perplexity.ai/chat/completions'

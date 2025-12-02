@@ -17,6 +17,9 @@
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { BusinessProfileType } from './profile-detection.service';
 import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from './trigger-consolidation.service';
+import { validateLLMOutput, validateTrigger } from './output-validator.service';
+import { sourcePreservationService } from './source-preservation.service';
+import type { VerifiedSource } from '@/types/verified-source.types';
 
 // ============================================================================
 // TYPES
@@ -47,13 +50,15 @@ export interface SynthesizedTrigger {
   category: TriggerCategory;
   title: string;
   executiveSummary: string;
-  evidence: {
+  /** Sample indices (1-indexed) that support this trigger - we look up REAL data from these */
+  sampleIds: number[];
+  /** Legacy evidence array - for backwards compatibility, will be populated from sampleIds */
+  evidence?: {
     quote: string;
     source: string;
     platform: string;
     url?: string;
     author?: string;
-    /** Index reference to raw data sample (1-indexed from prompt) */
     sampleIndex?: number;
   }[];
   confidence: number;
@@ -79,6 +84,112 @@ export interface TriggerSynthesisResult {
   synthesisTime: number;
   model: string;
   rawTriggerCount: number;
+}
+
+// ============================================================================
+// PHASE D: SOURCE TYPE MAPPING FOR MULTI-SIGNAL TRIANGULATION
+// ============================================================================
+
+type SourceType = 'voc' | 'community' | 'event' | 'executive' | 'news';
+
+/**
+ * Map platforms to source types for triangulation confidence calculation
+ * - voc (Voice of Customer): Direct customer feedback platforms (G2, Capterra, Trustpilot, Yelp, Google Reviews)
+ * - community: Discussion/social platforms (Reddit, HackerNews, Twitter, Quora, Facebook)
+ * - event: Event/trigger signals (LinkedIn job posts, funding news, compliance deadlines)
+ * - executive: Executive/leadership content (LinkedIn posts, press releases, earnings calls)
+ * - news: Industry news and media (TechCrunch, industry publications, blogs)
+ */
+const PLATFORM_TO_SOURCE_TYPE: Record<string, SourceType> = {
+  // VOC - Voice of Customer (direct feedback)
+  'g2': 'voc',
+  'g2crowd': 'voc',
+  'capterra': 'voc',
+  'trustpilot': 'voc',
+  'trustradius': 'voc',
+  'yelp': 'voc',
+  'google reviews': 'voc',
+  'google-reviews': 'voc',
+  'amazon reviews': 'voc',
+  'amazon-reviews': 'voc',
+  'bbb': 'voc',
+
+  // Community - Discussion platforms
+  'reddit': 'community',
+  'hackernews': 'community',
+  'hacker news': 'community',
+  'hn': 'community',
+  'twitter': 'community',
+  'x': 'community',
+  'quora': 'community',
+  'facebook': 'community',
+  'nextdoor': 'community',
+  'discord': 'community',
+  'slack': 'community',
+
+  // Event - Trigger signals
+  'linkedin jobs': 'event',
+  'indeed': 'event',
+  'crunchbase': 'event',
+  'pitchbook': 'event',
+  'sec filings': 'event',
+
+  // Executive - Leadership content
+  'linkedin': 'executive',
+  'press release': 'executive',
+  'earnings call': 'executive',
+
+  // News - Industry media
+  'techcrunch': 'news',
+  'youtube': 'news',
+  'tiktok': 'news',
+  'instagram': 'news',
+  'medium': 'news',
+  'blog': 'news',
+  'industry forum': 'news',
+  'clutch': 'news',
+  'gartner': 'news',
+  'forrester': 'news',
+};
+
+/**
+ * Infer source type from platform name
+ */
+function inferSourceType(platform: string): SourceType {
+  const normalizedPlatform = platform.toLowerCase().trim();
+
+  // Direct lookup
+  if (PLATFORM_TO_SOURCE_TYPE[normalizedPlatform]) {
+    return PLATFORM_TO_SOURCE_TYPE[normalizedPlatform];
+  }
+
+  // Partial match
+  for (const [key, sourceType] of Object.entries(PLATFORM_TO_SOURCE_TYPE)) {
+    if (normalizedPlatform.includes(key) || key.includes(normalizedPlatform)) {
+      return sourceType;
+    }
+  }
+
+  // Default to community for unknown platforms (most inclusive)
+  return 'community';
+}
+
+/**
+ * PHASE D: Calculate triangulation confidence multiplier
+ * - 3+ source types = 1.3x (high triangulation)
+ * - 2 source types = 1.15x (moderate triangulation)
+ * - 1 source type = 0.9x (single source penalty)
+ */
+function calculateTriangulationMultiplier(sourceTypes: Set<SourceType>): number {
+  const uniqueTypes = sourceTypes.size;
+
+  if (uniqueTypes >= 3) {
+    return 1.3; // High confidence - corroborated across multiple signal types
+  } else if (uniqueTypes === 2) {
+    return 1.15; // Moderate confidence - two independent signal types
+  } else {
+    return 0.9; // Low confidence - single source type (may be echo chamber)
+  }
 }
 
 // ============================================================================
@@ -117,6 +228,14 @@ const CATEGORY_DEFINITIONS = `
    - Examples: "Urgent: Q4 budget deadline", "Falling behind competitors"
 `;
 
+// ============================================================================
+// PHASE E: PROFILE-SPECIFIC LLM CONTEXT FOR BETTER SYNTHESIS
+// ============================================================================
+
+/**
+ * Profile-specific context for LLM prompts
+ * Provides detailed guidance on what triggers matter for each business profile
+ */
 const PROFILE_CONTEXT: Record<BusinessProfileType, string> = {
   'local-service-b2b': 'Local B2B service provider (HVAC, IT services). Focus on reliability, response time, local reputation.',
   'local-service-b2c': 'Local B2C service (dental, salon, restaurant). Focus on convenience, reviews, personal experience.',
@@ -125,6 +244,103 @@ const PROFILE_CONTEXT: Record<BusinessProfileType, string> = {
   'national-saas-b2b': 'National SaaS B2B. Focus on integration, scalability, support, security.',
   'national-product-b2c': 'National consumer product. Focus on quality, durability, value, reviews.',
   'global-saas-b2b': 'Global enterprise SaaS. Focus on compliance, enterprise features, global support, vendor stability.',
+};
+
+/**
+ * PHASE E: Profile-specific trigger emphasis
+ * Guides the LLM on which psychological categories matter most for each profile
+ */
+const PROFILE_TRIGGER_EMPHASIS: Record<BusinessProfileType, {
+  primaryCategories: TriggerCategory[];
+  secondaryCategories: TriggerCategory[];
+  typicalFears: string[];
+  typicalDesires: string[];
+  typicalPainPoints: string[];
+  buyerTerms: string[];
+}> = {
+  'local-service-b2b': {
+    primaryCategories: ['fear', 'trust', 'urgency'],
+    secondaryCategories: ['pain-point', 'objection'],
+    typicalFears: ['equipment downtime', 'unreliable vendors', 'compliance violations', 'emergency response delays'],
+    typicalDesires: ['fast response time', 'reliable vendor', 'local accountability', 'predictable costs'],
+    typicalPainPoints: ['current vendor unresponsive', 'poor service quality', 'hidden fees', 'lack of transparency'],
+    buyerTerms: ['business owner', 'facilities manager', 'operations director', 'office manager']
+  },
+  'local-service-b2c': {
+    primaryCategories: ['trust', 'fear', 'desire'],
+    secondaryCategories: ['pain-point', 'urgency'],
+    typicalFears: ['bad experience', 'wasted money', 'poor results', 'safety concerns'],
+    typicalDesires: ['convenient scheduling', 'friendly staff', 'quality results', 'fair prices'],
+    typicalPainPoints: ['long wait times', 'rude staff', 'inconsistent quality', 'hard to book'],
+    buyerTerms: ['customer', 'patient', 'client', 'member', 'guest']
+  },
+  'regional-b2b-agency': {
+    primaryCategories: ['objection', 'trust', 'fear'],
+    secondaryCategories: ['motivation', 'desire'],
+    typicalFears: ['wasted budget', 'no ROI', 'agency doesnt understand our industry', 'locked into bad contract'],
+    typicalDesires: ['measurable results', 'industry expertise', 'strategic partnership', 'clear communication'],
+    typicalPainPoints: ['previous agency failed', 'no transparency on results', 'generic work', 'missed deadlines'],
+    buyerTerms: ['CMO', 'marketing director', 'CEO', 'founder', 'VP Marketing']
+  },
+  'regional-retail-b2c': {
+    primaryCategories: ['desire', 'trust', 'urgency'],
+    secondaryCategories: ['pain-point', 'objection'],
+    typicalFears: ['out of stock', 'poor quality', 'bad return policy', 'inconvenient locations'],
+    typicalDesires: ['good deals', 'product availability', 'easy returns', 'consistent experience'],
+    typicalPainPoints: ['items always out of stock', 'staff not helpful', 'long checkout lines', 'hard to find products'],
+    buyerTerms: ['shopper', 'customer', 'buyer', 'local customer']
+  },
+  'national-saas-b2b': {
+    primaryCategories: ['fear', 'objection', 'pain-point'],
+    secondaryCategories: ['trust', 'motivation'],
+    typicalFears: ['vendor lock-in', 'integration nightmares', 'data security breach', 'implementation failure'],
+    typicalDesires: ['easy integration', 'fast implementation', 'reliable uptime', 'responsive support'],
+    typicalPainPoints: ['current tool too complex', 'poor API documentation', 'slow support response', 'expensive upgrades'],
+    buyerTerms: ['CTO', 'VP Engineering', 'IT Director', 'DevOps lead', 'enterprise buyer']
+  },
+  'national-product-b2c': {
+    primaryCategories: ['desire', 'trust', 'objection'],
+    secondaryCategories: ['fear', 'motivation'],
+    typicalFears: ['product wont work as advertised', 'quality issues', 'hard to return', 'better alternatives exist'],
+    typicalDesires: ['high quality', 'good value', 'positive reviews', 'durable product'],
+    typicalPainPoints: ['last product broke quickly', 'hard to compare options', 'misleading marketing', 'poor customer service'],
+    buyerTerms: ['consumer', 'customer', 'buyer', 'shopper']
+  },
+  'global-saas-b2b': {
+    primaryCategories: ['fear', 'trust', 'objection'],
+    secondaryCategories: ['motivation', 'urgency'],
+    typicalFears: ['compliance violations', 'data residency issues', 'vendor instability', 'global rollout failure'],
+    typicalDesires: ['enterprise-grade security', 'global support coverage', 'compliance certifications', 'stable vendor'],
+    typicalPainPoints: ['current vendor lacks compliance', 'support timezone gaps', 'inconsistent global experience', 'complex procurement'],
+    buyerTerms: ['enterprise buyer', 'CISO', 'CTO', 'procurement', 'global IT director']
+  }
+};
+
+/**
+ * PHASE E: Semantic inversion patterns
+ * Complaints should NOT be synthesized as desires, and vice versa
+ * This mapping helps the LLM correctly categorize inverted sentiment
+ */
+const SEMANTIC_INVERSION_RULES = {
+  // Complaint patterns that should be categorized as pain-point, NOT desire
+  complaintToDesireInversion: [
+    { pattern: /hate|cant stand|sick of|tired of/i, correctCategory: 'pain-point' as TriggerCategory },
+    { pattern: /broken|doesnt work|keeps failing/i, correctCategory: 'pain-point' as TriggerCategory },
+    { pattern: /terrible|awful|worst/i, correctCategory: 'pain-point' as TriggerCategory },
+    { pattern: /frustrat|annoy|infuriat/i, correctCategory: 'pain-point' as TriggerCategory },
+  ],
+  // Desire patterns that should NOT be categorized as pain-point
+  desireToComplaintInversion: [
+    { pattern: /wish|hope|would love|dream of/i, correctCategory: 'desire' as TriggerCategory },
+    { pattern: /looking for|searching for|trying to find/i, correctCategory: 'desire' as TriggerCategory },
+    { pattern: /want|need|require/i, correctCategory: 'desire' as TriggerCategory },
+  ],
+  // Fear patterns
+  fearPatterns: [
+    { pattern: /afraid|scared|terrified|worried about/i, correctCategory: 'fear' as TriggerCategory },
+    { pattern: /what if.*fail|risk of|danger of/i, correctCategory: 'fear' as TriggerCategory },
+    { pattern: /nervous about|anxious about|concerned about/i, correctCategory: 'fear' as TriggerCategory },
+  ]
 };
 
 // ============================================================================
@@ -207,19 +423,13 @@ const PROFILE_VALIDATION_CRITERIA: Record<BusinessProfileType, {
 // SERVICE
 // ============================================================================
 
-// OpenRouter keys for parallel LLM synthesis (loaded from environment)
-const OPENROUTER_KEYS = [
-  import.meta.env.VITE_OPENROUTER_KEY_1 || '',
-  import.meta.env.VITE_OPENROUTER_KEY_2 || '',
-  import.meta.env.VITE_OPENROUTER_KEY_3 || '',
-  import.meta.env.VITE_OPENROUTER_KEY_4 || '',
-].filter(k => k !== '');
-
 class LLMTriggerSynthesizerService {
   private endpoint: string;
   private apiKey: string;
   /** Store last samples for URL lookup after LLM response */
   private lastSamples: RawDataSample[] = [];
+  /** TRIGGERS 4.0: Store verified sources from SourceRegistry for immutable source tracking */
+  private lastVerifiedSources: VerifiedSource[] = [];
 
   constructor() {
     this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
@@ -228,7 +438,7 @@ class LLMTriggerSynthesizerService {
 
   /**
    * Synthesize raw data into formatted psychological triggers
-   * PARALLEL BATCHING: Splits samples across 4 OpenRouter keys for 4x speed
+   * PARALLEL BATCHING: Splits samples into 4 batches for parallel processing via ai-proxy
    */
   async synthesize(input: TriggerSynthesisInput): Promise<TriggerSynthesisResult> {
     const startTime = performance.now();
@@ -249,6 +459,13 @@ class LLMTriggerSynthesizerService {
 
     // Store all samples for URL lookup
     this.lastSamples = allSamples;
+
+    // TRIGGERS 4.0: Register all samples with SourceRegistry for immutable source tracking
+    // This ensures source data can ONLY come from registry, not from LLM output
+    sourcePreservationService.reset(); // Clear previous session
+    this.lastVerifiedSources = sourcePreservationService.convertBatch(allSamples);
+    console.log(`[LLMTriggerSynthesizer] TRIGGERS 4.0: Registered ${this.lastVerifiedSources.length} sources in SourceRegistry`);
+    console.log(`[LLMTriggerSynthesizer] Registry stats:`, sourcePreservationService.getStats());
 
     // Split into 4 batches for parallel processing
     const batchSize = Math.ceil(allSamples.length / 4);
@@ -315,7 +532,7 @@ class LLMTriggerSynthesizerService {
   }
 
   /**
-   * Synthesize a single batch of samples using a specific OpenRouter key
+   * Synthesize a single batch of samples via ai-proxy Edge Function
    */
   private async synthesizeBatch(
     samples: RawDataSample[],
@@ -324,15 +541,13 @@ class LLMTriggerSynthesizerService {
     industry: string | undefined,
     batchIndex: number
   ): Promise<SynthesizedTrigger[]> {
-    const apiKey = OPENROUTER_KEYS[batchIndex % OPENROUTER_KEYS.length];
-
-    console.log(`[LLMTriggerSynthesizer] Batch ${batchIndex + 1}: Processing ${samples.length} samples with key ${batchIndex + 1}`);
+    console.log(`[LLMTriggerSynthesizer] Batch ${batchIndex + 1}: Processing ${samples.length} samples via ai-proxy`);
 
     // Build prompt for this batch
     const prompt = this.buildPrompt(samples, uvp, profileType, industry);
 
-    // Call LLM with specific key
-    const response = await this.callLLMDirect(prompt, apiKey);
+    // Call LLM via ai-proxy Edge Function
+    const response = await this.callLLMViaProxy(prompt, batchIndex);
 
     // Parse response
     return this.parseResponse(response);
@@ -382,6 +597,7 @@ class LLMTriggerSynthesizerService {
 
   /**
    * Select the most relevant data samples for synthesis
+   * IMPORTANT: Ensures all samples have unique IDs for source tracking
    */
   private selectBestSamples(data: RawDataSample[], limit: number): RawDataSample[] {
     // Prioritize samples with psychological language
@@ -391,10 +607,12 @@ class LLMTriggerSynthesizerService {
       'wish', 'hope', 'fear', 'concern', 'problem', 'issue'
     ];
 
-    const scored = data.map(sample => {
+    const scored = data.map((sample, idx) => {
       const lowerContent = sample.content.toLowerCase();
       const score = psychKeywords.filter(kw => lowerContent.includes(kw)).length;
-      return { sample, score };
+      // Ensure sample has an ID for source tracking
+      const sampleWithId = sample.id ? sample : { ...sample, id: `sample-${idx}-${Date.now()}` };
+      return { sample: sampleWithId, score };
     });
 
     // Sort by score descending, take top N
@@ -441,7 +659,10 @@ class LLMTriggerSynthesizerService {
   }
 
   /**
-   * Build the synthesis prompt
+   * Build the extraction prompt
+   *
+   * TRIGGERS 4.0: This prompt EXTRACTS verbatim quotes from real data.
+   * It does NOT synthesize or paraphrase. The title IS the customer's exact words.
    */
   private buildPrompt(
     samples: RawDataSample[],
@@ -450,97 +671,85 @@ class LLMTriggerSynthesizerService {
     industry?: string
   ): string {
     const targetCustomer = uvp.targetCustomer?.statement || 'business decision makers';
-    const painPoints = uvp.targetCustomer?.emotionalDrivers?.slice(0, 3) || [];
-    const transformation = uvp.transformationGoal?.after || '';
     const profileContext = PROFILE_CONTEXT[profileType] || PROFILE_CONTEXT['national-saas-b2b'];
 
-    // Extract PRODUCT CATEGORY from UVP - this is CRITICAL for buyer-product fit
-    // We need to know what we're selling (e.g., "conversational AI", "chatbots", "customer service automation")
+    // Extract PRODUCT CATEGORY from UVP
     const productCategory = this.extractProductCategory(uvp);
-    const uniqueSolution = uvp.uniqueSolution?.statement || '';
-    const keyBenefit = uvp.keyBenefit?.statement || '';
 
     // Format samples for the prompt - include URLs for source tracking
+    // IMPORTANT: Use global indices from lastSamples, not local batch indices
     const sampleText = samples
-      .map((s, i) => {
+      .map((s) => {
+        // Find the global index in lastSamples
+        const globalIndex = this.lastSamples.findIndex(ls => ls.id === s.id);
+        const displayIndex = globalIndex >= 0 ? globalIndex + 1 : this.lastSamples.indexOf(s) + 1;
         const urlPart = s.url ? ` | URL: ${s.url}` : '';
         const authorPart = s.author ? ` | Author: ${s.author}` : '';
-        return `[${i + 1}] (${s.platform}${authorPart}${urlPart})\n"${s.content.substring(0, 400)}"`;
+        return `[${displayIndex}] (${s.platform}${authorPart}${urlPart})\n"${s.content.substring(0, 400)}"`;
       })
       .join('\n\n');
-
-    // Store samples for URL lookup later
-    this.lastSamples = samples;
 
     // Get profile-specific validation criteria
     const validationCriteria = PROFILE_VALIDATION_CRITERIA[profileType] || PROFILE_VALIDATION_CRITERIA['national-saas-b2b'];
 
-    return `You are a customer psychology analyst specializing in buyer-product fit validation. Analyze these raw data samples and synthesize them into psychological buying triggers that would ACTUALLY lead buyers to THIS specific product category.
+    // PHASE E: Get profile-specific trigger emphasis
+    const triggerEmphasis = PROFILE_TRIGGER_EMPHASIS[profileType] || PROFILE_TRIGGER_EMPHASIS['national-saas-b2b'];
+
+    return `You are a customer voice extractor. Your job is to find and EXTRACT verbatim quotes from real customer posts that reveal buying triggers.
+
+## CRITICAL RULE: NO SYNTHESIS, NO PARAPHRASING
+
+The title field MUST be an EXACT QUOTE (or close excerpt) from the sample data.
+DO NOT write your own words. DO NOT paraphrase. DO NOT summarize.
+
+WRONG (synthesized): "Buyers fear getting locked into inflexible vendor contracts"
+RIGHT (extracted): "I'm terrified of getting stuck with this vendor for 3 years"
+
+WRONG (paraphrased): "Teams struggle with complex integrations"
+RIGHT (extracted): "We've been fighting with their API for 6 months now"
+
+WRONG (marketing speak): "Customers want simpler pricing"
+RIGHT (extracted): "Why is it so hard to figure out what this actually costs?"
 
 ## Context
 
 **Target Customer**: ${targetCustomer}
-**SPECIFIC INDUSTRY/PRODUCT (USE THIS EXACT TERM)**: ${productCategory || industry || 'this solution'}
-**Unique Solution**: ${uniqueSolution}
-**Key Benefit**: ${keyBenefit}
+**Product Category**: ${productCategory || industry || 'this solution'}
 **Business Profile**: ${profileContext}
-**Known Pain Points**: ${painPoints.join(', ') || 'not specified'}
-**Desired Transformation**: ${transformation || 'not specified'}
+**Typical Buyer Terms**: ${triggerEmphasis.buyerTerms.join(', ')}
 
-## CRITICAL: BANNED GENERIC TERMS (Never use these)
-The following NAICS-style generic terms MUST NEVER appear in your output. They are meaningless to customers:
-- "software publishers" → use "${productCategory}" instead
-- "software publishing" → use specific product type
-- "data processing" → use specific service type
-- "information services" → use specific service type
-- "professional services" → use specific service type
-- "business services" → use specific service type
-- "management consulting" → use specific service type
+## PHASE E: Profile-Specific Trigger Emphasis
 
-**ALWAYS use the SPECIFIC INDUSTRY/PRODUCT term provided above: "${productCategory || industry || 'this solution'}"**
+For this ${profileType} business profile, prioritize these psychological categories:
+- **PRIMARY** (extract 3-5 each): ${triggerEmphasis.primaryCategories.join(', ')}
+- **SECONDARY** (extract 2-3 each): ${triggerEmphasis.secondaryCategories.join(', ')}
 
-## CRITICAL: Buyer-Product Fit Validation
+**Typical Fears for this profile**: ${triggerEmphasis.typicalFears.join(', ')}
+**Typical Desires for this profile**: ${triggerEmphasis.typicalDesires.join(', ')}
+**Typical Pain Points for this profile**: ${triggerEmphasis.typicalPainPoints.join(', ')}
 
-This is the most important section. You must validate that each trigger would lead someone to buy THIS specific product category, not just any product.
+## PHASE E: Semantic Inversion Rules (CRITICAL)
 
-**Valid Trigger Types for this profile**: ${validationCriteria.validTriggerTypes.join(', ')}
-**REJECT triggers about**: ${validationCriteria.invalidTriggerTypes.join(', ')}
-**Valid Buyer Terms**: ${validationCriteria.validBuyerTerms.join(', ')}
-**Required Context**: ${validationCriteria.requiredContext.join(', ')}
+DO NOT confuse complaints with desires. Categorize correctly:
+- "I hate when X happens" → **pain-point** (NOT desire)
+- "I wish X would work" → **desire** (NOT pain-point)
+- "I'm scared of X" → **fear** (NOT pain-point)
+- "This is terrible because X" → **pain-point** (NOT fear)
+- "What if X fails?" → **fear** (NOT objection)
+- "I'm not sure about the price" → **objection** (NOT fear)
 
-### The Key Question
-For EACH trigger, ask: "If someone has this problem, would searching for a solution lead them to buy **${productCategory}**?"
+## Buyer-Product Fit Validation
 
-CRITICAL EXAMPLE for conversational AI/chatbot company:
-- VALID: "Frustrated by slow customer service response times" → Would search for chatbot/AI solutions ✓
-- VALID: "Fear of losing customers to competitors with 24/7 support" → Would search for automation ✓
-- INVALID: "Anxiety about legacy system integration failures" → Generic IT pain, would search for systems integrators, NOT chatbots ✗
-- INVALID: "Concerned about data security breaches" → Would search for security software, NOT chatbots ✗
+Only extract quotes that would lead someone to search for ${productCategory || 'this type of product'}.
 
-### Examples of VALID vs INVALID triggers:
+**Valid types for ${profileType}**: ${validationCriteria.validTriggerTypes.join(', ')}
+**REJECT quotes about**: ${validationCriteria.invalidTriggerTypes.join(', ')}
 
-VALID for ${profileType}:
-- Trigger that describes pain our target customer has
-- Trigger that would lead them to search for our product category
-- Trigger specific to our industry/use case
+## PHASE E: Competitor Name Inclusion
 
-INVALID (reject these):
-- Generic pain that could lead to ANY product category
-- Pain about a COMPETITOR in a DIFFERENT category
-- Marketing copy or thought leadership (not buyer voice)
-- Pain that doesn't match our target buyer profile
-
-${CATEGORY_DEFINITIONS}
-
-## Buyer Journey Stage
-
-For each trigger, determine the buyer's awareness stage:
-- **unaware**: General industry interest, not yet aware of the problem
-- **problem-aware**: Knows they have a problem, not yet researching solutions
-- **solution-aware**: Actively researching solutions, comparing options
-- **product-aware**: Ready to buy, evaluating specific products
-
-**Prioritize solution-aware and product-aware triggers** - these convert to revenue.
+If a quote mentions a specific competitor by name, INCLUDE the competitor name in the title.
+Example: "We switched from [Competitor] because their API was impossible to use"
+This helps connect triggers to competitive intelligence.
 
 ## Raw Data Samples
 
@@ -548,85 +757,64 @@ ${sampleText}
 
 ## Instructions
 
-1. Analyze the raw data for psychological patterns
-2. **VALIDATE each potential trigger against buyer-product fit criteria**
-3. **REJECT triggers that don't pass the validation question**
-4. Group similar sentiments into distinct triggers
-5. Write each trigger title as a CONCISE phrase (3-6 words max)
-6. Include 1-3 evidence quotes per trigger (use actual quotes from the data)
-7. Output 15-25 high-quality, VALIDATED triggers
+1. Read each sample looking for quotes that express pain, frustration, fear, desire, or urgency
+2. EXTRACT the most powerful phrase VERBATIM (8-20 words)
+3. The title MUST be words that actually appear in the sample (minor edits for clarity OK)
+4. Categorize each quote by psychological type using the semantic inversion rules above
+5. Reference the sample index where you found the quote
+6. ENSURE all 7 categories are represented (see category quotas below)
 
-## Quality Rules
+## ALL 7 Category Types (MUST include quotes from each)
 
-- NO marketing speak ("Implement", "Deploy", "Leverage")
-- NO recommendations ("You should", "Consider")
-- YES customer emotions ("Fear of", "Frustrated by", "Want")
-- YES specific concerns (not generic platitudes)
-- Each trigger must map to at least one data sample
-- **REJECT triggers that fail buyer-product fit validation**
-
-## Title Format (CRITICAL)
-Titles must be COMPLETE, CLEAR statements (5-12 words). Write in plain English as a complete thought. Examples:
-- GOOD: "Buyers fear getting locked into inflexible vendor contracts"
-- GOOD: "Teams struggle with complex integrations that break easily"
-- GOOD: "Compliance deadlines create pressure to find faster solutions"
-- GOOD: "Customers want simpler pricing without hidden fees"
-- BAD: "Vendor lock-in anxiety" (too vague, not a complete thought)
-- BAD: "Integration complexity fears" (not a sentence)
-- BAD: "Platform complexity and pricing that doesn't align with" (cut off mid-sentence)
+1. **fear** - Anxiety, worry, risk aversion ("I'm worried...", "What if...", "scared of...")
+2. **pain-point** - Frustration, struggle, current problems ("This is so frustrating...", "We've been dealing with...")
+3. **desire** - Wants, needs, wishes, aspirations ("I just want...", "We need...", "Looking for...")
+4. **objection** - Hesitation, concerns, doubts ("I'm not sure about...", "The problem is...", "Too expensive...")
+5. **motivation** - Positive drivers, reasons to act ("We need to grow...", "Excited about...", "Ready to...")
+6. **trust** - Credibility concerns, proof needed ("How do I know...", "Can they actually...", "I need proof...")
+7. **urgency** - Time pressure, deadlines ("We need this by...", "Running out of time...", "Before competitors...")
 
 ## Output Format
 
-Return a JSON array of triggers:
+Return a JSON array:
 \`\`\`json
 [
   {
-    "category": "fear",
-    "title": "Vendor lock-in anxiety",
-    "executiveSummary": "Enterprise IT leaders fear getting trapped with vendors who make data migration difficult, especially after significant investment. This aligns with the 'open architecture' differentiator in your Unique Solution and the 'data portability' feature in Products & Services. Opportunity: Lead sales conversations with 'Your data stays yours' messaging to win deals from locked-in competitors.",
-    "evidence": [
-      {"quote": "What if we invest millions and can't migrate out?", "source": "Reddit r/SaaS discussion", "platform": "Reddit", "sampleIndex": 3},
-      {"quote": "Our last vendor made it impossible to export data", "source": "G2 Review by IT Director", "platform": "G2", "sampleIndex": 7}
-    ],
-    "confidence": 0.85,
+    "category": "pain-point",
+    "title": "We've been fighting with their API for 6 months and it still doesn't work",
+    "executiveSummary": "Developer frustration with integration complexity. User describes ongoing API struggles - maps to easy integration differentiator.",
+    "sampleIds": [3],
+    "confidence": 0.9,
     "isTimeSensitive": false,
-    "buyerJourneyStage": "solution-aware",
+    "buyerJourneyStage": "problem-aware",
     "buyerProductFit": 0.85,
-    "buyerProductFitReasoning": "Matches target buyer (enterprise IT decision makers) experiencing vendor lock-in pain. This trigger leads directly to searching for platforms with open architecture and data portability - exactly this product category."
+    "buyerProductFitReasoning": "Developer experiencing integration pain would search for simpler integration tools."
   }
 ]
 \`\`\`
 
-## Executive Summary Guidelines (CRITICAL)
-Write the executive summary as 3 complete sentences in this structure:
-1. **WHO + WHAT**: Describe who experiences this trigger and what the pain/desire is. ALWAYS use the SPECIFIC INDUSTRY TERM "${productCategory || industry || 'this solution'}" - NEVER use generic terms like "software publishers", "professional services", etc.
-   - GOOD: "Marketing leaders struggle when conversational AI platforms emphasize 'safety and transparency'..."
-   - BAD: "Marketing leaders struggle when software publishers emphasize 'safety and transparency'..." (NEVER use "software publishers")
-2. **UVP ALIGNMENT**: EXPLICITLY name the UVP component that addresses this. Use format: "This aligns with [specific UVP element: Target Customer/Unique Solution/Transformation/Products & Services]." For example: "This aligns with the 'open architecture' differentiator in your Unique Solution."
-3. **OPPORTUNITY**: Provide a specific, actionable opportunity (e.g., "Opportunity: Lead sales conversations with 'Your data stays yours' messaging.")
+## Executive Summary Format
+1. Brief category label (2-3 words)
+2. What the user is experiencing (1 sentence, NO "From sample [N]" - just describe the issue)
+3. How this maps to the product (1 sentence)
 
-## Evidence Rules
-- Use EXACT quotes from the data samples (verbatim, in quotes)
-- sampleIndex = the [N] number from the raw data above
-- source = descriptive label (e.g., "G2 Review by Enterprise User", "Reddit r/chatbots thread")
-- platform = clean platform name (Reddit, G2, Trustpilot, LinkedIn, Quora, YouTube, etc.)
+## VALIDATION CHECKLIST (reject if any fail)
+- [ ] Title is a REAL QUOTE from the samples (not your words)
+- [ ] Quote expresses genuine emotion (fear, frustration, desire, etc.)
+- [ ] Person with this pain would search for ${productCategory || 'this product type'}
+- [ ] Quote is 8-20 words (not too short, not too long)
 
-## CRITICAL: NO META-COMMENTARY
-NEVER include notes, comments, or explanations in your output. No "**Note:**", "The search results...", "Unfortunately...", etc.
-- DO NOT comment on data quality
-- DO NOT explain what you found or didn't find
-- DO NOT apologize for limited data
-- ONLY output the JSON array of triggers
-- If data is limited, output fewer triggers - do NOT explain why
+## PHASE E: Category Quotas (MUST meet minimums)
+Ensure your output includes quotes from ALL 7 categories:
+- fear: 2-4 quotes minimum
+- pain-point: 3-5 quotes minimum
+- desire: 2-4 quotes minimum
+- objection: 2-4 quotes minimum
+- motivation: 1-3 quotes minimum
+- trust: 1-3 quotes minimum
+- urgency: 1-3 quotes minimum
 
-## New Fields
-- buyerJourneyStage = one of: "unaware", "problem-aware", "solution-aware", "product-aware"
-- buyerProductFit = 0-1 score indicating how likely this trigger leads to THIS product category
-- buyerProductFitReasoning = 1-2 sentence explanation of WHY this trigger fits: who the buyer is, what pain they have, and why solving it would lead them to THIS product category (not just any product)
-
-Output 20-30 distinct psychological triggers based on the data provided. Keep responses concise.
-
-Return ONLY the JSON array, no other text.`;
+Total: 20-30 extracted quotes across all categories. ONLY output the JSON array, no other text.`;
   }
 
   /**
@@ -666,19 +854,23 @@ Return ONLY the JSON array, no other text.`;
   }
 
   /**
-   * Call OpenRouter directly with a specific API key
-   * Used for parallel batch processing
+   * Call LLM via ai-proxy Edge Function for parallel batch processing
+   * Routes through Supabase Edge Function to securely handle API keys
+   *
+   * PARALLEL PROCESSING: Uses keyIndex to select different OpenRouter keys
+   * for each batch, enabling true 4x parallel throughput
    */
-  private async callLLMDirect(prompt: string, apiKey: string): Promise<string> {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  private async callLLMViaProxy(prompt: string, batchIndex: number): Promise<string> {
+    console.log(`[LLMTriggerSynthesizer] Batch ${batchIndex + 1}: Calling ai-proxy with keyIndex=${batchIndex} for parallel processing...`);
+
+    const response = await fetch(this.endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': 'https://synapse.app',
-        'X-Title': 'Synapse Trigger Synthesizer',
+        Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
+        provider: 'openrouter',
         model: 'anthropic/claude-sonnet-4',
         messages: [
           {
@@ -688,15 +880,17 @@ Return ONLY the JSON array, no other text.`;
         ],
         temperature: 0.3,
         max_tokens: 6000, // Smaller per batch since we're splitting
+        keyIndex: batchIndex, // Use different OpenRouter key for each batch (0-3)
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`OpenRouter call failed: ${response.status} ${error}`);
+      throw new Error(`ai-proxy call failed: ${response.status} ${error}`);
     }
 
     const data = await response.json();
+    console.log(`[LLMTriggerSynthesizer] Batch ${batchIndex + 1}: ai-proxy response received (key ${batchIndex + 1})`);
     return data.choices[0].message.content;
   }
 
@@ -727,6 +921,10 @@ Return ONLY the JSON array, no other text.`;
     /that doesn't align with$/i,   // Cut-off mid-sentence
     /and pricing that$/i,          // Cut-off mid-sentence
     /doesn't align$/i,             // Cut-off incomplete
+
+    // PROMPT LEAKAGE: "From sample [N]:" format leaking into titles
+    /from sample \[\d+\]/i,        // "From sample [3]: ..." leaking from executiveSummary format
+    /user (expressing|describes|describing)/i, // "user expressing direct frustration..."
 
     // META-DESCRIPTIONS about data sources (NOT actual insights)
     /^reddit discussions/i,        // "Reddit discussions from r/SaaS..."
@@ -811,57 +1009,52 @@ Return ONLY the JSON array, no other text.`;
   ];
 
   /**
-   * Valid trigger patterns - must contain emotional/psychological language
-   * A real trigger has: WHO + PROBLEM/PAIN + EMOTIONAL IMPACT
-   * EXPANDED: Now includes technical pain points (hallucinate, errors, slow, etc.)
+   * TRIGGERS 4.0: Valid QUOTE patterns
+   * Real quotes contain first-person language, questions, colloquial expressions
+   * NOT marketing speak or synthesized summaries
    */
-  private readonly VALID_TRIGGER_INDICATORS = [
-    // Fear indicators
-    /fear(s|ed|ful)?|afraid|worried|anxious|nervous|scared|concern(ed)?/i,
+  private readonly VALID_QUOTE_INDICATORS = [
+    // First-person language (real quotes)
+    /\b(I|I'm|I've|we|we're|we've|my|our|me|us)\b/i,
 
-    // Frustration indicators
-    /frustrat(ed|ing|ion)|annoyed|irritat(ed|ing)|hate(s)?|sick of|tired of/i,
+    // Questions (real customer voice)
+    /\?|why (is|are|do|does|can't|won't)|how (do|can|come)|what (is|are|if)/i,
 
-    // Pain indicators - FIXED: Added "ing" variants (struggling, challenging, etc.)
-    /struggl(e|es|ed|ing)?|difficult(y)?|challeng(e|es|ed|ing)?|pain(ful)?|problem(s)?|issue(s)?/i,
+    // Colloquial/emotional language (real speech)
+    /honestly|literally|actually|seriously|basically|just|really|so (much|many|hard|frustrated)/i,
 
-    // Desire indicators
-    /want(s|ed)?|need(s|ed)?|wish(es)?|hope(s)?|looking for|searching for/i,
+    // Frustration expressions
+    /frustrat|annoy|hate|sick of|tired of|fed up|can't stand|drives me crazy/i,
 
-    // Urgency indicators
-    /urgent|deadline|pressure|forced to|have to|must|immediately/i,
+    // Fear/worry expressions
+    /worried|afraid|scared|terrified|nervous|concerned|anxious/i,
 
-    // Consequence indicators
-    /fail(s|ed|ure)?|lose|lost|miss(ed)?|cost(s|ly)?|waste(d)?|broke(n)?/i,
+    // Desire expressions
+    /wish|hope|want|need|looking for|trying to find|searching for/i,
 
-    // Trust indicators
-    /trust|doubt(s)?|skeptic(al)?|suspicious|uncertain|risky/i,
+    // Problem statements
+    /problem|issue|struggle|difficult|hard to|can't|won't|doesn't work|broken/i,
 
-    // Technical pain indicators (NEW - captures AI/tech frustrations)
-    /hallucinate(s|d)?|wrong|error(s)?|bug(s|gy)?|slow|crash(es|ed)?|freeze(s)?/i,
-    /resist(s|ance)?|reject(s|ed)?|confus(ed|ing|ion)|give(s)? up|won't|doesn't work/i,
-    /unreliable|inconsistent|unpredictable|inaccurate|incorrect/i,
+    // Time/urgency
+    /deadline|running out|urgent|asap|immediately|right now|by (monday|friday|end of)/i,
 
-    // Adoption/change indicators (NEW - captures resistance to change)
-    /adopt(ion)?|implement(ation)?|switch(ing)?|migrat(e|ion)|transition/i,
-    /replace|upgrade|integrate|onboard/i,
+    // Money concerns
+    /expensive|cost|price|budget|afford|pay|money|waste/i,
 
-    // Opportunity indicators (NEW - captures positive triggers too)
-    /opportunity|potential|emerging|growing|trend(ing)?|shift(ing)?/i,
-    /automat(e|ion|ing)|streamline|simplif(y|ied)|transform(ation)?/i,
-
-    // Positive emotion indicators (NEW - captures aspirational triggers)
-    /excit(ed|ing|ement)?|motivat(ed|ing|ion)?|eager|enthusias(tic|m)/i,
-    /inspir(ed|ing)|optimis(tic|m)|confident|ready to|looking forward/i,
+    // Technical frustration
+    /bug|error|crash|slow|broken|down|not working|keeps failing/i,
   ];
 
   /**
-   * Check if a title is valid (not garbage/meta-commentary)
+   * TRIGGERS 4.0: Check if title looks like a REAL QUOTE (not synthesized)
+   *
+   * Real quotes contain first-person language, questions, colloquial speech.
+   * Synthesized titles are generic statements without personality.
    */
   private isValidTitle(title: string): boolean {
-    if (!title || title.length < 5 || title.length > 100) return false;
+    if (!title || title.length < 8 || title.length > 150) return false;
 
-    // Check against invalid patterns
+    // Check against invalid patterns (meta-commentary, garbage)
     for (const pattern of this.INVALID_TITLE_PATTERNS) {
       if (pattern.test(title)) {
         console.log(`[LLMTriggerSynthesizer] Rejected garbage title: "${title.substring(0, 60)}..."`);
@@ -869,7 +1062,7 @@ Return ONLY the JSON array, no other text.`;
       }
     }
 
-    // Check for generic observations (behavior without emotion)
+    // Check for generic observations (not real quotes)
     for (const pattern of this.GENERIC_OBSERVATION_PATTERNS) {
       if (pattern.test(title)) {
         console.log(`[LLMTriggerSynthesizer] Rejected generic observation: "${title.substring(0, 60)}..."`);
@@ -877,10 +1070,10 @@ Return ONLY the JSON array, no other text.`;
       }
     }
 
-    // REQUIRE emotional/psychological language for valid triggers
-    const hasEmotionalContent = this.VALID_TRIGGER_INDICATORS.some(pattern => pattern.test(title));
-    if (!hasEmotionalContent) {
-      console.log(`[LLMTriggerSynthesizer] Rejected non-emotional title: "${title.substring(0, 60)}..."`);
+    // TRIGGERS 4.0: Require quote-like language (first-person, questions, etc.)
+    const looksLikeQuote = this.VALID_QUOTE_INDICATORS.some(pattern => pattern.test(title));
+    if (!looksLikeQuote) {
+      console.log(`[LLMTriggerSynthesizer] Rejected synthesized title (not a quote): "${title.substring(0, 60)}..."`);
       return false;
     }
 
@@ -953,9 +1146,21 @@ Return ONLY the JSON array, no other text.`;
 
   /**
    * Parse the LLM response into SynthesizedTrigger[]
+   * TRIGGERS 4.0: Now validates output for hallucination indicators before processing
    */
   private parseResponse(response: string): SynthesizedTrigger[] {
     try {
+      // TRIGGERS 4.0: Validate raw output for hallucination indicators
+      const validationResult = validateLLMOutput(response);
+      if (!validationResult.isValid) {
+        console.error('[LLMTriggerSynthesizer] Output validation FAILED - hallucination indicators detected:');
+        validationResult.errors.forEach(e => {
+          console.error(`  - ${e.type}: "${e.pattern.substring(0, 50)}..." (${e.severity})`);
+        });
+        // Continue processing but log warning - some triggers may still be valid
+        console.warn('[LLMTriggerSynthesizer] Continuing with caution...');
+      }
+
       // Extract JSON from response (handle markdown code blocks)
       let jsonStr = response;
 
@@ -1005,9 +1210,16 @@ Return ONLY the JSON array, no other text.`;
       }
 
       // Validate each trigger AND filter out garbage titles
+      // TRIGGERS 4.0: Only accept sampleIds - evidence format is REMOVED to prevent hallucinations
       const valid = parsed.filter(t => {
-        // Basic validation
-        if (!t.category || !t.title || !t.executiveSummary || !Array.isArray(t.evidence)) {
+        // STRICT validation - sampleIds REQUIRED, evidence format REJECTED
+        const hasSampleIds = Array.isArray(t.sampleIds) && t.sampleIds.length > 0;
+
+        if (!t.category || !t.title || !t.executiveSummary || !hasSampleIds) {
+          // Log rejection for monitoring
+          if (Array.isArray(t.evidence) && t.evidence.length > 0) {
+            console.warn(`[LLMTriggerSynthesizer] REJECTED trigger "${t.title}" - uses legacy evidence format (hallucination risk)`);
+          }
           return false;
         }
 
@@ -1042,6 +1254,14 @@ Return ONLY the JSON array, no other text.`;
           return false;
         }
 
+        // TRIGGERS 4.0: Validate trigger object for hallucination indicators
+        const triggerValidation = validateTrigger(t, this.lastSamples.length);
+        if (!triggerValidation.isValid) {
+          console.warn(`[LLMTriggerSynthesizer] REJECTED trigger "${t.title}" - hallucination validation failed:`);
+          triggerValidation.errors.forEach(e => console.warn(`  - ${e.type}: ${e.pattern}`));
+          return false;
+        }
+
         // Filter out triggers containing BANNED GENERIC TERMS (NAICS-style)
         const combinedText = `${t.title} ${t.executiveSummary}`.toLowerCase();
         for (const bannedTerm of BANNED_GENERIC_TERMS) {
@@ -1055,7 +1275,14 @@ Return ONLY the JSON array, no other text.`;
       });
 
       console.log(`[LLMTriggerSynthesizer] Parsed ${valid.length} valid triggers (rejected ${parsed.length - valid.length} garbage)`);
-      return valid;
+
+      // PHASE E: Apply semantic inversion correction
+      const corrected = this.correctSemanticInversions(valid);
+
+      // POST-PROCESSING: Clean prompt leakage from titles and summaries
+      const cleaned = this.cleanPromptLeakage(corrected);
+
+      return cleaned;
     } catch (error) {
       console.error('[LLMTriggerSynthesizer] Failed to parse response:', error);
       console.log('[LLMTriggerSynthesizer] Raw response:', response.substring(0, 500));
@@ -1064,56 +1291,289 @@ Return ONLY the JSON array, no other text.`;
   }
 
   /**
+   * PHASE E: Correct semantic inversions in trigger categories
+   * Detects when the LLM miscategorized a trigger (e.g., complaint as desire)
+   * and corrects the category based on the title text
+   */
+  private correctSemanticInversions(triggers: SynthesizedTrigger[]): SynthesizedTrigger[] {
+    let correctionCount = 0;
+
+    const corrected = triggers.map(trigger => {
+      const title = trigger.title.toLowerCase();
+      let newCategory = trigger.category;
+
+      // Check complaint patterns that should be pain-point
+      for (const rule of SEMANTIC_INVERSION_RULES.complaintToDesireInversion) {
+        if (rule.pattern.test(title) && trigger.category === 'desire') {
+          console.log(`[LLMTriggerSynthesizer] PHASE E: Corrected "${trigger.title}" from desire → pain-point`);
+          newCategory = rule.correctCategory;
+          correctionCount++;
+          break;
+        }
+      }
+
+      // Check desire patterns that should not be pain-point
+      for (const rule of SEMANTIC_INVERSION_RULES.desireToComplaintInversion) {
+        if (rule.pattern.test(title) && trigger.category === 'pain-point') {
+          console.log(`[LLMTriggerSynthesizer] PHASE E: Corrected "${trigger.title}" from pain-point → desire`);
+          newCategory = rule.correctCategory;
+          correctionCount++;
+          break;
+        }
+      }
+
+      // Check fear patterns
+      for (const rule of SEMANTIC_INVERSION_RULES.fearPatterns) {
+        if (rule.pattern.test(title) && trigger.category !== 'fear') {
+          console.log(`[LLMTriggerSynthesizer] PHASE E: Corrected "${trigger.title}" from ${trigger.category} → fear`);
+          newCategory = rule.correctCategory;
+          correctionCount++;
+          break;
+        }
+      }
+
+      if (newCategory !== trigger.category) {
+        return { ...trigger, category: newCategory };
+      }
+      return trigger;
+    });
+
+    if (correctionCount > 0) {
+      console.log(`[LLMTriggerSynthesizer] PHASE E: Applied ${correctionCount} semantic inversion corrections`);
+    }
+
+    return corrected;
+  }
+
+  /**
+   * POST-PROCESSING: Clean prompt leakage from titles and executive summaries
+   * Removes patterns like "From sample [N]:", "user expressing...", etc.
+   */
+  private cleanPromptLeakage(triggers: SynthesizedTrigger[]): SynthesizedTrigger[] {
+    const promptLeakagePatterns = [
+      // "From sample [N]:" pattern and variations
+      /\bfrom sample \[\d+\]:?\s*/gi,
+      /\bsample \[\d+\]:?\s*/gi,
+      // "user expressing/describes/describing" meta-language
+      /\buser (expressing|describes|describing|mentions|says|states)\b[^.]*?\.\s*/gi,
+      // "this maps to" meta-commentary
+      /\bthis maps to\b[^.]*?\.\s*/gi,
+      // Generic leading labels that aren't the actual insight
+      /^(user experience frustration|developer frustration|customer complaint)\.\s*/gi,
+    ];
+
+    let cleanCount = 0;
+
+    const cleaned = triggers.map(trigger => {
+      let title = trigger.title;
+      let summary = trigger.executiveSummary;
+
+      // Clean title
+      for (const pattern of promptLeakagePatterns) {
+        const newTitle = title.replace(pattern, '');
+        if (newTitle !== title) {
+          title = newTitle.trim();
+          cleanCount++;
+        }
+      }
+
+      // Clean summary
+      for (const pattern of promptLeakagePatterns) {
+        const newSummary = summary.replace(pattern, '');
+        if (newSummary !== summary) {
+          summary = newSummary.trim();
+        }
+      }
+
+      // Capitalize first letter if needed
+      if (title.length > 0 && title[0] === title[0].toLowerCase()) {
+        title = title[0].toUpperCase() + title.slice(1);
+      }
+      if (summary.length > 0 && summary[0] === summary[0].toLowerCase()) {
+        summary = summary[0].toUpperCase() + summary.slice(1);
+      }
+
+      return {
+        ...trigger,
+        title,
+        executiveSummary: summary,
+      };
+    });
+
+    if (cleanCount > 0) {
+      console.log(`[LLMTriggerSynthesizer] POST-PROCESSING: Cleaned prompt leakage from ${cleanCount} triggers`);
+    }
+
+    return cleaned;
+  }
+
+  /**
+   * Normalize text for fuzzy matching - removes punctuation, extra spaces, lowercases
+   */
+  private normalizeForMatching(text: string): string {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '') // Remove punctuation
+      .replace(/\s+/g, ' ')    // Normalize whitespace
+      .trim()
+      .substring(0, 200);       // Compare first 200 chars for efficiency
+  }
+
+  /**
+   * Calculate similarity between two strings (0-1)
+   * Uses character overlap for speed
+   */
+  private calculateSimilarity(a: string, b: string): number {
+    const normA = this.normalizeForMatching(a);
+    const normB = this.normalizeForMatching(b);
+
+    if (!normA || !normB) return 0;
+    if (normA === normB) return 1;
+
+    // Check if one contains the other
+    if (normA.includes(normB) || normB.includes(normA)) return 0.9;
+
+    // Word overlap calculation
+    const wordsA = new Set(normA.split(' ').filter(w => w.length > 3));
+    const wordsB = new Set(normB.split(' ').filter(w => w.length > 3));
+
+    if (wordsA.size === 0 || wordsB.size === 0) return 0;
+
+    let overlap = 0;
+    for (const word of wordsA) {
+      if (wordsB.has(word)) overlap++;
+    }
+
+    return overlap / Math.max(wordsA.size, wordsB.size);
+  }
+
+  /**
+   * Find the best matching sample for a quote using fuzzy matching
+   * Returns the sample and a confidence score
+   */
+  private findMatchingSample(quote: string, hintIndex?: number): { sample: RawDataSample | null; confidence: number } {
+    if (!quote || this.lastSamples.length === 0) {
+      return { sample: null, confidence: 0 };
+    }
+
+    // First, check the hinted index if provided
+    // TRUST THE SAMPLEINDEX: The LLM provides correct sample references but often
+    // paraphrases instead of quoting verbatim. Lower threshold to 0.15 to allow
+    // verification when there's minimal word overlap. The sampleIndex is reliable
+    // because the LLM is correctly identifying which source it's referencing.
+    if (hintIndex && hintIndex > 0 && hintIndex <= this.lastSamples.length) {
+      const hintedSample = this.lastSamples[hintIndex - 1];
+      const hintSimilarity = this.calculateSimilarity(quote, hintedSample.content);
+
+      // Accept the hinted sample with very low threshold (0.15) since the LLM
+      // often paraphrases. The sampleIndex itself is trustworthy.
+      if (hintSimilarity > 0.15) {
+        return { sample: hintedSample, confidence: Math.max(hintSimilarity, 0.6) };
+      }
+    }
+
+    // Otherwise, search all samples for the best match
+    let bestMatch: RawDataSample | null = null;
+    let bestScore = 0;
+
+    for (const sample of this.lastSamples) {
+      const similarity = this.calculateSimilarity(quote, sample.content);
+      if (similarity > bestScore) {
+        bestScore = similarity;
+        bestMatch = sample;
+      }
+    }
+
+    // Only return if we have a reasonable match (>0.2)
+    // Lowered from 0.3 to account for LLM paraphrasing
+    if (bestScore > 0.2 && bestMatch) {
+      return { sample: bestMatch, confidence: bestScore };
+    }
+
+    return { sample: null, confidence: 0 };
+  }
+
+  /**
    * Convert SynthesizedTrigger[] to ConsolidatedTrigger[]
-   * Uses sampleIndex to look up original URLs from raw data
+   *
+   * TRIGGERS 4.0: Uses sampleIds to look up REAL source data from SourceRegistry.
+   * The LLM only provides indices - we look up actual URLs, quotes, and authors
+   * from the preserved VerifiedSource objects. This eliminates hallucinated sources.
    */
   private convertToConsolidatedTriggers(synthesized: SynthesizedTrigger[]): ConsolidatedTrigger[] {
-    return synthesized.map((st, idx) => {
-      const evidence: EvidenceItem[] = st.evidence.map((e, eIdx) => {
-        // Look up original sample by sampleIndex to get URL
-        let url: string | undefined;
-        let author: string | undefined;
+    let verifiedCount = 0;
+    let unverifiedCount = 0;
+    let triangulationStats = { high: 0, moderate: 0, low: 0 };
 
-        let competitorName: string | undefined;
+    const result = synthesized.map((st, idx) => {
+      // TRIGGERS 4.0: Build evidence from sampleIds using SourceRegistry
+      const evidence: EvidenceItem[] = [];
 
-        if (e.sampleIndex && e.sampleIndex > 0 && e.sampleIndex <= this.lastSamples.length) {
-          const originalSample = this.lastSamples[e.sampleIndex - 1]; // 1-indexed
-          url = e.url || originalSample?.url;
-          author = e.author || originalSample?.author;
-          competitorName = originalSample?.competitorName;
-        } else {
-          url = e.url;
-          author = e.author;
-        }
+      // PHASE D: Track source types for triangulation
+      const sourceTypes = new Set<SourceType>();
 
-        // Try to extract competitor name from source if not provided
-        if (!competitorName && e.source) {
-          // Check for "X reviews" or "X Review" pattern (e.g., "HubSpot reviews")
-          const reviewMatch = e.source.match(/^([A-Z][a-zA-Z0-9]+)\s+reviews?$/i);
-          if (reviewMatch) {
-            competitorName = reviewMatch[1];
+      // Use sampleIds to look up REAL source data from VerifiedSources
+      if (st.sampleIds && st.sampleIds.length > 0) {
+        for (let i = 0; i < st.sampleIds.length; i++) {
+          const sampleIndex = st.sampleIds[i];
+
+          // sampleIds are 1-indexed (as shown in prompt), convert to 0-indexed
+          // Look up from lastVerifiedSources (populated from SourceRegistry)
+          const verifiedSource = this.lastVerifiedSources[sampleIndex - 1];
+
+          if (verifiedSource) {
+            // PHASE D: Track source type for triangulation
+            const sourceType = inferSourceType(verifiedSource.platform);
+            sourceTypes.add(sourceType);
+
+            // VERIFIED: This is REAL data from SourceRegistry - immutable source of truth
+            evidence.push({
+              id: verifiedSource.id, // Use SourceRegistry ID for traceability
+              source: verifiedSource.communityName || verifiedSource.threadTitle || 'Community discussion',
+              platform: verifiedSource.platform,
+              quote: verifiedSource.originalContent.substring(0, 500), // Use REAL content from registry
+              url: verifiedSource.originalUrl, // REAL URL from SourceRegistry
+              author: verifiedSource.originalAuthor, // REAL author from SourceRegistry
+              sentiment: this.detectSentiment(verifiedSource.originalContent),
+              confidence: st.confidence,
+              competitorName: verifiedSource.competitorName,
+              // TRIGGERS 4.0: Include registry reference for display layer
+              verifiedSourceId: verifiedSource.id,
+            });
+            verifiedCount++;
+          } else {
+            // Invalid sample index - log but don't create fake evidence
+            console.warn(`[LLMTriggerSynthesizer] Invalid sampleId ${sampleIndex} for trigger "${st.title}"`);
+            unverifiedCount++;
           }
         }
+      } else if (st.evidence && st.evidence.length > 0) {
+        // TRIGGERS 4.0: Legacy evidence format REMOVED - this was the hallucination backdoor
+        // LLM output with evidence array should have been rejected in parseResponse validation
+        console.warn(`[LLMTriggerSynthesizer] BLOCKED: Trigger "${st.title}" uses legacy evidence format - potential hallucination`);
+        unverifiedCount += st.evidence.length;
+      }
 
-        return {
-          id: `llm-ev-${idx}-${eIdx}`,
-          source: e.source,
-          platform: e.platform,
-          quote: e.quote,
-          url,
-          author,
-          sentiment: this.detectSentiment(e.quote),
-          confidence: st.confidence,
-          competitorName,
-        };
-      });
+      // Only create trigger if we have at least one verified evidence
+      if (evidence.length === 0) {
+        console.warn(`[LLMTriggerSynthesizer] Skipping trigger "${st.title}" - no verified sources`);
+      }
+
+      // PHASE D: Apply triangulation confidence multiplier
+      const triangulationMultiplier = calculateTriangulationMultiplier(sourceTypes);
+      const adjustedConfidence = Math.min(0.99, st.confidence * triangulationMultiplier);
+
+      // Track triangulation stats
+      if (sourceTypes.size >= 3) triangulationStats.high++;
+      else if (sourceTypes.size === 2) triangulationStats.moderate++;
+      else triangulationStats.low++;
 
       return {
         id: `llm-trigger-${idx}`,
         category: st.category,
         title: st.title,
         executiveSummary: st.executiveSummary,
-        confidence: st.confidence,
+        confidence: adjustedConfidence, // PHASE D: Use triangulation-adjusted confidence
         evidenceCount: evidence.length,
         evidence,
         uvpAlignments: [], // Will be filled by consolidation service
@@ -1122,10 +1582,37 @@ Return ONLY the JSON array, no other text.`;
         rawSourceIds: evidence.map(e => e.id),
         isLLMSynthesized: true, // Flag to skip regex processing
         buyerJourneyStage: st.buyerJourneyStage || 'problem-aware',
-        buyerProductFit: st.buyerProductFit || st.confidence,
+        buyerProductFit: st.buyerProductFit || adjustedConfidence,
         buyerProductFitReasoning: st.buyerProductFitReasoning,
-      } as ConsolidatedTrigger & { isLLMSynthesized: boolean; buyerJourneyStage: BuyerJourneyStage; buyerProductFit: number; buyerProductFitReasoning?: string };
+        // PHASE D: Add triangulation metadata
+        sourceTypeCount: sourceTypes.size,
+        triangulationMultiplier,
+      } as ConsolidatedTrigger & {
+        isLLMSynthesized: boolean;
+        buyerJourneyStage: BuyerJourneyStage;
+        buyerProductFit: number;
+        buyerProductFitReasoning?: string;
+        sourceTypeCount: number;
+        triangulationMultiplier: number;
+      };
     });
+
+    // Filter out triggers with no verified evidence
+    const validTriggers = result.filter(t => t.evidenceCount > 0);
+
+    // Log verification stats
+    console.log(`[LLMTriggerSynthesizer] TRIGGERS 4.0 Source Verification:`);
+    console.log(`  - Verified sources: ${verifiedCount}`);
+    console.log(`  - Unverified/invalid: ${unverifiedCount}`);
+    console.log(`  - Triggers with verified sources: ${validTriggers.length}/${result.length}`);
+
+    // PHASE D: Log triangulation stats
+    console.log(`[LLMTriggerSynthesizer] PHASE D Triangulation Stats:`);
+    console.log(`  - High confidence (3+ source types): ${triangulationStats.high}`);
+    console.log(`  - Moderate confidence (2 source types): ${triangulationStats.moderate}`);
+    console.log(`  - Low confidence (1 source type): ${triangulationStats.low}`);
+
+    return validTriggers;
   }
 
   /**

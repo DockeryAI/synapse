@@ -47,6 +47,8 @@ export interface EvidenceItem {
   confidence: number;
   /** Competitor name if this evidence is about a specific competitor */
   competitorName?: string;
+  /** TRIGGERS 4.0: Reference to SourceRegistry entry for verified source lookup */
+  verifiedSourceId?: string;
 }
 
 export interface UVPAlignment {
@@ -84,6 +86,32 @@ export interface ConsolidatedTrigger {
   buyerProductFit?: number;
   /** Reasoning for why this trigger matches the target buyer (from fit validation) */
   buyerProductFitReasoning?: string;
+  /** PHASE D: Number of unique source types (voc, community, event, executive, news) */
+  sourceTypeCount?: number;
+  /** PHASE D: Triangulation confidence multiplier (0.9x for single, 1.15x for 2, 1.3x for 3+) */
+  triangulationMultiplier?: number;
+  /** PHASE F: Aggregate UVP alignment score (0-1) - average of all alignment match scores */
+  uvpAlignmentScore?: number;
+  /** PHASE F: Number of UVP components this trigger aligns with (0-4) */
+  uvpAlignmentCount?: number;
+  /** PHASE F: Whether this is a high-alignment trigger (score > 0.5 with 2+ alignments) */
+  isHighUVPAlignment?: boolean;
+  /** PHASE G: Weighted average source quality multiplier across all evidence */
+  sourceQualityMultiplier?: number;
+  /** PHASE H: Category weight multiplier based on profile (1.25x primary, 1.1x secondary, 1.0x tertiary) */
+  categoryWeightMultiplier?: number;
+  /** PHASE H: Whether this category is primary for the profile */
+  isPrimaryCategory?: boolean;
+  /** PHASE H: Whether this trigger is a synthetic fill for underrepresented category */
+  isCategoryFill?: boolean;
+}
+
+/** PHASE H: Category gap analysis result */
+export interface CategoryGapAnalysis {
+  underrepresentedCategories: TriggerCategory[];
+  categoryGaps: Record<TriggerCategory, number>;
+  totalGap: number;
+  needsRebalancing: boolean;
 }
 
 /** Summary of data sources that contributed to the triggers */
@@ -175,6 +203,62 @@ const CATEGORY_LABELS: Record<TriggerCategory, string> = {
   'trust': 'Trust Signal',
   'urgency': 'Urgency'
 };
+
+// ============================================================================
+// PHASE H: PROFILE-SPECIFIC CATEGORY WEIGHTS
+// ============================================================================
+
+/**
+ * PHASE H: Profile-specific category weighting
+ * Primary categories get 1.25x boost, secondary get 1.1x, others get 1.0x
+ * This ensures triggers in profile-relevant categories surface higher
+ */
+const PROFILE_CATEGORY_WEIGHTS: Record<BusinessProfileType, {
+  primaryCategories: TriggerCategory[];
+  secondaryCategories: TriggerCategory[];
+  minTriggersPerCategory: number;
+}> = {
+  'local-service-b2b': {
+    primaryCategories: ['fear', 'trust', 'urgency'],
+    secondaryCategories: ['pain-point', 'objection'],
+    minTriggersPerCategory: 3
+  },
+  'local-service-b2c': {
+    primaryCategories: ['trust', 'fear', 'desire'],
+    secondaryCategories: ['pain-point', 'urgency'],
+    minTriggersPerCategory: 3
+  },
+  'regional-b2b-agency': {
+    primaryCategories: ['objection', 'trust', 'fear'],
+    secondaryCategories: ['motivation', 'desire'],
+    minTriggersPerCategory: 4
+  },
+  'regional-retail-b2c': {
+    primaryCategories: ['desire', 'trust', 'urgency'],
+    secondaryCategories: ['pain-point', 'objection'],
+    minTriggersPerCategory: 3
+  },
+  'national-saas-b2b': {
+    primaryCategories: ['fear', 'objection', 'pain-point'],
+    secondaryCategories: ['trust', 'motivation'],
+    minTriggersPerCategory: 5
+  },
+  'national-product-b2c': {
+    primaryCategories: ['desire', 'trust', 'objection'],
+    secondaryCategories: ['fear', 'motivation'],
+    minTriggersPerCategory: 4
+  },
+  'global-saas-b2b': {
+    primaryCategories: ['fear', 'trust', 'objection'],
+    secondaryCategories: ['motivation', 'urgency'],
+    minTriggersPerCategory: 5
+  }
+};
+
+// Category weight multipliers
+const PRIMARY_CATEGORY_WEIGHT = 1.25;
+const SECONDARY_CATEGORY_WEIGHT = 1.1;
+const TERTIARY_CATEGORY_WEIGHT = 1.0;
 
 // ============================================================================
 // CONSOLIDATION SERVICE
@@ -377,8 +461,17 @@ class TriggerConsolidationService {
     // 4. Apply source quality weighting (profile-aware)
     const qualityWeightedTriggers = this.applySourceQualityWeighting(relevantTriggers, profileAnalysis.profileType);
 
-    // 5. Sort by relevance and confidence
-    const sortedTriggers = this.sortTriggers(qualityWeightedTriggers);
+    // 5. PHASE H: Apply category weighting (profile-aware)
+    const categoryWeightedTriggers = this.applyCategoryWeighting(qualityWeightedTriggers, profileAnalysis.profileType);
+
+    // 6. PHASE H: Analyze category distribution and get gap analysis
+    const gapAnalysis = this.analyzeCategoryDistribution(categoryWeightedTriggers, profileAnalysis.profileType);
+
+    // 7. PHASE H: Enforce minimum triggers per category (boost underrepresented)
+    const balancedTriggers = this.enforceCategoryMinimums(categoryWeightedTriggers, profileAnalysis.profileType, gapAnalysis);
+
+    // 8. Sort by relevance and confidence
+    const sortedTriggers = this.sortTriggers(balancedTriggers);
 
     const avgRelevanceScore = sortedTriggers.length > 0
       ? sortedTriggers.reduce((sum, t) => sum + (t.relevanceScore || 0), 0) / sortedTriggers.length
@@ -920,7 +1013,8 @@ class TriggerConsolidationService {
    * Validate that a trigger title looks like a genuine psychological trigger
    * Rejects random post titles, product names, marketing copy, and non-insight content
    *
-   * LOOSENED FILTERS: Allow more triggers through, especially customer psychology
+   * LOOSENED FILTERS V2: Allow more triggers through, especially real social posts
+   * The LLM title rewriter will clean up the titles afterward
    */
   private isValidTriggerTitle(title: string): boolean {
     const lowerTitle = title.toLowerCase();
@@ -928,8 +1022,8 @@ class TriggerConsolidationService {
     // Reject if too short (likely incomplete)
     if (title.length < 10) return false;
 
-    // Reject if too long (allow up to 120 chars for VoC quotes that are natural sentences)
-    if (title.length > 120) return false;
+    // Reject if too long (allow up to 150 chars for VoC quotes - rewriter will shorten)
+    if (title.length > 150) return false;
 
     // Reject if starts with quote character (raw quote text)
     if (/^["'"'`]/.test(title)) return false;
@@ -937,6 +1031,20 @@ class TriggerConsolidationService {
     // Reject marketing copy (most important filter)
     if (this.isMarketingCopy(title)) {
       return false;
+    }
+
+    // ALLOW social media posts that contain @ mentions - these are real insights
+    if (/@\w+/.test(title)) {
+      // Only reject if it's JUST a @ mention with no context
+      if (title.replace(/@\w+/g, '').trim().length < 20) return false;
+      // Otherwise, allow it through - the LLM rewriter will clean it up
+      return true;
+    }
+
+    // ALLOW posts that start with action verbs - these show intent/pain
+    const actionStarters = /^(i'm|i've|we're|we've|our team|my team|been trying|tried|struggling|can't|won't|doesn't)/i;
+    if (actionStarters.test(title)) {
+      return true; // These are high-intent signals
     }
 
     // Reject obvious non-trigger patterns (REDUCED list - only reject obvious noise)
@@ -1644,23 +1752,23 @@ class TriggerConsolidationService {
       .replace(/\s+/g, ' ')
       .trim();
 
-    // If it's a complete sentence under 80 chars, use it
-    if (cleaned.length <= 80) {
+    // If it's a complete sentence under 100 chars, use it
+    if (cleaned.length <= 100) {
       return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
     }
 
     // Take first sentence if present and reasonable length
     const firstSentence = cleaned.match(/^[^.!?]+[.!?]/);
-    if (firstSentence && firstSentence[0].length >= 20 && firstSentence[0].length <= 80) {
+    if (firstSentence && firstSentence[0].length >= 20 && firstSentence[0].length <= 100) {
       const sentence = firstSentence[0].trim();
       return sentence.charAt(0).toUpperCase() + sentence.slice(1);
     }
 
-    // Shorten to ~70 chars at word boundary
+    // Shorten to ~90 chars at word boundary - let LLM rewriter polish later
     const words = cleaned.split(/\s+/);
     let shortened = '';
     for (const word of words) {
-      if ((shortened + ' ' + word).length > 65) break;
+      if ((shortened + ' ' + word).length > 90) break;
       shortened = shortened ? shortened + ' ' + word : word;
     }
 
@@ -1819,12 +1927,25 @@ class TriggerConsolidationService {
         }
       }
 
+      // PHASE F: Calculate aggregate UVP alignment score
+      const uvpAlignmentScore = alignments.length > 0
+        ? alignments.reduce((sum, a) => sum + a.matchScore, 0) / alignments.length
+        : 0;
+      const uvpAlignmentCount = alignments.length;
+      const isHighUVPAlignment = uvpAlignmentScore >= 0.5 && uvpAlignmentCount >= 2;
+
       // Log first few triggers' alignment status for debugging
       if (triggers.indexOf(trigger) < 3) {
-        console.log('[UVPAlignment] Trigger:', trigger.title.substring(0, 40), '- Alignments found:', alignments.length, alignments.map(a => a.component));
+        console.log('[UVPAlignment] Trigger:', trigger.title.substring(0, 40), '- Alignments found:', alignments.length, alignments.map(a => a.component), '- Score:', uvpAlignmentScore.toFixed(2), '- High:', isHighUVPAlignment);
       }
 
-      return { ...trigger, uvpAlignments: alignments };
+      return {
+        ...trigger,
+        uvpAlignments: alignments,
+        uvpAlignmentScore,
+        uvpAlignmentCount,
+        isHighUVPAlignment
+      };
     });
   }
 
@@ -1954,28 +2075,231 @@ class TriggerConsolidationService {
   ): ConsolidatedTrigger[] {
     const profile = profileType || 'national-saas-b2b';
 
+    // PHASE G: Enhanced source quality weighting across ALL evidence
     return triggers.map(trigger => {
-      // Get the primary evidence source
-      const primarySource = trigger.evidence[0];
-      if (!primarySource) return trigger;
+      if (trigger.evidence.length === 0) return trigger;
 
-      // Use PROFILE-AWARE quality adjustment (not generic)
-      const quality = sourceQualityService.getProfileAwareQualityAdjustment(
-        primarySource.platform,
-        profile,
-        primarySource.url,
-        primarySource.quote
-      );
+      // Calculate weighted average multiplier across ALL evidence items
+      let totalMultiplier = 0;
+      let tier1Count = 0;
+      let tier2Count = 0;
+      let tier3Count = 0;
 
-      // Adjust relevance score based on profile-specific source quality
-      const adjustedRelevance = Math.min(1, (trigger.relevanceScore || 0.5) * quality.multiplier);
+      for (const evidence of trigger.evidence) {
+        const quality = sourceQualityService.getProfileAwareQualityAdjustment(
+          evidence.platform,
+          profile,
+          evidence.url,
+          evidence.quote
+        );
+        totalMultiplier += quality.multiplier;
+
+        // Track tier distribution
+        if (quality.tier === 'tier1') tier1Count++;
+        else if (quality.tier === 'tier2') tier2Count++;
+        else tier3Count++;
+      }
+
+      // Calculate average multiplier
+      const avgMultiplier = totalMultiplier / trigger.evidence.length;
+
+      // Determine dominant tier based on count
+      let dominantTier: 'tier1' | 'tier2' | 'tier3' = 'tier2';
+      if (tier1Count >= tier2Count && tier1Count >= tier3Count) {
+        dominantTier = 'tier1';
+      } else if (tier3Count > tier1Count && tier3Count > tier2Count) {
+        dominantTier = 'tier3';
+      }
+
+      // Adjust relevance score based on average profile-specific source quality
+      const adjustedRelevance = Math.min(1, (trigger.relevanceScore || 0.5) * avgMultiplier);
+
+      // Log first few triggers for debugging
+      if (triggers.indexOf(trigger) < 3) {
+        console.log('[SourceQuality] Trigger:', trigger.title.substring(0, 40),
+          '- Evidence:', trigger.evidence.length,
+          '- AvgMultiplier:', avgMultiplier.toFixed(2),
+          '- Tier1:', tier1Count, 'Tier2:', tier2Count, 'Tier3:', tier3Count,
+          '- Dominant:', dominantTier);
+      }
 
       return {
         ...trigger,
         relevanceScore: adjustedRelevance,
-        sourceTier: quality.tier
+        sourceTier: dominantTier,
+        sourceQualityMultiplier: avgMultiplier
       };
     });
+  }
+
+  // ============================================================================
+  // PHASE H: CATEGORY BALANCING
+  // ============================================================================
+
+  /**
+   * PHASE H: Apply profile-specific category weighting
+   * Primary categories get 1.25x boost, secondary get 1.1x, tertiary get 1.0x
+   * This ensures triggers in profile-relevant categories surface higher
+   */
+  private applyCategoryWeighting(
+    triggers: ConsolidatedTrigger[],
+    profileType: BusinessProfileType
+  ): ConsolidatedTrigger[] {
+    const categoryConfig = PROFILE_CATEGORY_WEIGHTS[profileType] || PROFILE_CATEGORY_WEIGHTS['national-saas-b2b'];
+
+    return triggers.map(trigger => {
+      // Determine category weight
+      let weightMultiplier: number;
+      let isPrimary = false;
+
+      if (categoryConfig.primaryCategories.includes(trigger.category)) {
+        weightMultiplier = PRIMARY_CATEGORY_WEIGHT;
+        isPrimary = true;
+      } else if (categoryConfig.secondaryCategories.includes(trigger.category)) {
+        weightMultiplier = SECONDARY_CATEGORY_WEIGHT;
+      } else {
+        weightMultiplier = TERTIARY_CATEGORY_WEIGHT;
+      }
+
+      // Apply weight to relevance score
+      const adjustedRelevance = Math.min(1, (trigger.relevanceScore || 0.5) * weightMultiplier);
+
+      return {
+        ...trigger,
+        relevanceScore: adjustedRelevance,
+        categoryWeightMultiplier: weightMultiplier,
+        isPrimaryCategory: isPrimary
+      };
+    });
+  }
+
+  /**
+   * PHASE H: Analyze category distribution and return gap analysis
+   * Tracks how triggers are distributed across all 7 categories
+   */
+  private analyzeCategoryDistribution(
+    triggers: ConsolidatedTrigger[],
+    profileType: BusinessProfileType
+  ): CategoryGapAnalysis {
+    const categoryConfig = PROFILE_CATEGORY_WEIGHTS[profileType] || PROFILE_CATEGORY_WEIGHTS['national-saas-b2b'];
+    const allCategories: TriggerCategory[] = ['fear', 'desire', 'pain-point', 'objection', 'motivation', 'trust', 'urgency'];
+
+    // Count triggers per category
+    const counts: Record<TriggerCategory, number> = {} as Record<TriggerCategory, number>;
+    for (const cat of allCategories) {
+      counts[cat] = 0;
+    }
+    for (const trigger of triggers) {
+      counts[trigger.category] = (counts[trigger.category] || 0) + 1;
+    }
+
+    // Build log message
+    const primary = categoryConfig.primaryCategories.map(c => `${c}:${counts[c]}`).join(', ');
+    const secondary = categoryConfig.secondaryCategories.map(c => `${c}:${counts[c]}`).join(', ');
+    const tertiary = allCategories
+      .filter(c => !categoryConfig.primaryCategories.includes(c) && !categoryConfig.secondaryCategories.includes(c))
+      .map(c => `${c}:${counts[c]}`)
+      .join(', ');
+
+    console.log(`[CategoryBalance] Profile: ${profileType} | Total: ${triggers.length}`);
+    console.log(`[CategoryBalance] Primary (1.25x): ${primary}`);
+    console.log(`[CategoryBalance] Secondary (1.1x): ${secondary}`);
+    console.log(`[CategoryBalance] Tertiary (1.0x): ${tertiary}`);
+
+    // Calculate gaps for each category
+    const categoryGaps: Record<TriggerCategory, number> = {} as Record<TriggerCategory, number>;
+    let totalGap = 0;
+    const underrepresentedCategories: TriggerCategory[] = [];
+
+    for (const cat of allCategories) {
+      const gap = Math.max(0, categoryConfig.minTriggersPerCategory - counts[cat]);
+      categoryGaps[cat] = gap;
+      totalGap += gap;
+      if (gap > 0) {
+        underrepresentedCategories.push(cat);
+      }
+    }
+
+    if (underrepresentedCategories.length > 0) {
+      console.log(`[CategoryBalance] Warning: Underrepresented categories (< ${categoryConfig.minTriggersPerCategory}): ${underrepresentedCategories.join(', ')}`);
+      console.log(`[CategoryBalance] Gaps: ${underrepresentedCategories.map(c => `${c}:${categoryGaps[c]}`).join(', ')}`);
+    }
+
+    return {
+      underrepresentedCategories,
+      categoryGaps,
+      totalGap,
+      needsRebalancing: totalGap > 0
+    };
+  }
+
+  /**
+   * PHASE H: Enforce minimum triggers per category
+   * Promotes triggers from underrepresented categories by boosting their relevance scores
+   * and ensures minimum representation across all 7 psychological categories
+   */
+  private enforceCategoryMinimums(
+    triggers: ConsolidatedTrigger[],
+    profileType: BusinessProfileType,
+    gapAnalysis: CategoryGapAnalysis
+  ): ConsolidatedTrigger[] {
+    if (!gapAnalysis.needsRebalancing) {
+      console.log(`[CategoryBalance] No rebalancing needed - all categories meet minimum`);
+      return triggers;
+    }
+
+    const categoryConfig = PROFILE_CATEGORY_WEIGHTS[profileType] || PROFILE_CATEGORY_WEIGHTS['national-saas-b2b'];
+    const result = [...triggers];
+
+    // Group triggers by category
+    const byCategory: Record<TriggerCategory, ConsolidatedTrigger[]> = {
+      'fear': [], 'desire': [], 'pain-point': [], 'objection': [],
+      'motivation': [], 'trust': [], 'urgency': []
+    };
+    for (const t of result) {
+      byCategory[t.category].push(t);
+    }
+
+    // Find overrepresented categories (have more than minTriggersPerCategory)
+    const overrepresented = Object.entries(byCategory)
+      .filter(([cat, arr]) => arr.length > categoryConfig.minTriggersPerCategory)
+      .map(([cat]) => cat as TriggerCategory);
+
+    // For each underrepresented category, boost any existing triggers
+    let boostCount = 0;
+    for (const underCat of gapAnalysis.underrepresentedCategories) {
+      const existingTriggers = byCategory[underCat];
+
+      // Boost relevance of existing triggers in underrepresented categories
+      for (const trigger of existingTriggers) {
+        const idx = result.findIndex(t => t.id === trigger.id);
+        if (idx !== -1) {
+          // Apply a 1.5x boost to help these surface higher
+          result[idx] = {
+            ...result[idx],
+            relevanceScore: Math.min(1, (result[idx].relevanceScore || 0.5) * 1.5),
+            isCategoryFill: true
+          };
+          boostCount++;
+        }
+      }
+    }
+
+    console.log(`[CategoryBalance] Boosted ${boostCount} triggers from underrepresented categories`);
+    console.log(`[CategoryBalance] Underrepresented: ${gapAnalysis.underrepresentedCategories.join(', ')} | Overrepresented: ${overrepresented.join(', ')}`);
+
+    return result;
+  }
+
+  /**
+   * PHASE H: Legacy wrapper - Log category distribution for debugging
+   * @deprecated Use analyzeCategoryDistribution instead
+   */
+  private logCategoryDistribution(
+    triggers: ConsolidatedTrigger[],
+    profileType: BusinessProfileType
+  ): void {
+    this.analyzeCategoryDistribution(triggers, profileType);
   }
 
   // ============================================================================
@@ -2069,17 +2393,29 @@ class TriggerConsolidationService {
 
   private sortTriggers(triggers: ConsolidatedTrigger[]): ConsolidatedTrigger[] {
     return triggers.sort((a, b) => {
-      // Primary: Sort by combined relevance score (higher first)
-      const scoreA = (a.relevanceScore || 0.5) * a.confidence * a.profileRelevance;
-      const scoreB = (b.relevanceScore || 0.5) * b.confidence * b.profileRelevance;
+      // PHASE F: Primary boost for high UVP alignment triggers (surface them first)
+      if (a.isHighUVPAlignment && !b.isHighUVPAlignment) return -1;
+      if (!a.isHighUVPAlignment && b.isHighUVPAlignment) return 1;
+
+      // PHASE H: Secondary boost for primary category triggers
+      if (a.isPrimaryCategory && !b.isPrimaryCategory) return -1;
+      if (!a.isPrimaryCategory && b.isPrimaryCategory) return 1;
+
+      // Tertiary: Sort by combined relevance score including UVP alignment (higher first)
+      // UVP alignment contributes 20% weight to the overall score
+      // Category weight is already factored into relevanceScore from applyCategoryWeighting()
+      const uvpBoostA = (a.uvpAlignmentScore || 0) * 0.2;
+      const uvpBoostB = (b.uvpAlignmentScore || 0) * 0.2;
+      const scoreA = ((a.relevanceScore || 0.5) * a.confidence * a.profileRelevance) + uvpBoostA;
+      const scoreB = ((b.relevanceScore || 0.5) * b.confidence * b.profileRelevance) + uvpBoostB;
       if (Math.abs(scoreB - scoreA) > 0.1) {
         return scoreB - scoreA;
       }
-      // Secondary: Group by category
+      // Quaternary: Group by category
       if (a.category !== b.category) {
         return a.category.localeCompare(b.category);
       }
-      // Tertiary: By confidence
+      // Final: By confidence
       return b.confidence - a.confidence;
     });
   }

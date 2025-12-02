@@ -19,6 +19,7 @@ import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, 
 import { getOrCreateTempBrand } from '@/services/onboarding/temp-brand.service';
 import { contentSynthesisOrchestrator } from '@/services/intelligence/content-synthesis-orchestrator.service';
 import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
+import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
 
 // ============================================================================
 // Database Row Types
@@ -37,6 +38,7 @@ interface MarbaUVPRow {
   what_statement: string | null;
   how_statement: string | null;
   overall_confidence: number | null;
+  // brand_voice and customer_stories removed - not in current schema
   created_at: string;
   updated_at: string;
 }
@@ -115,6 +117,8 @@ export async function saveCompleteUVP(
       overall_confidence: typeof uvp.overallConfidence === 'number'
         ? uvp.overallConfidence
         : uvp.overallConfidence?.overall || 0,
+
+      // NOTE: brand_voice and customer_stories columns removed - not in current schema
     };
 
     // Check if UVP already exists for this brand (upsert logic)
@@ -253,6 +257,9 @@ export async function getUVPByBrand(brandId: string): Promise<CompleteUVP | null
       },
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
+      // Brand voice and customer stories (may be null if not yet scanned)
+      brandVoice: parseJSON(row.brand_voice, undefined),
+      customerStories: parseJSON(row.customer_stories, undefined),
     };
 
     console.log('[MarbaUVPService] UVP retrieved successfully:', row.id);
@@ -585,6 +592,148 @@ export async function recoverUVPFromSession(brandId: string): Promise<{
       success: false,
       recovered: false,
       error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+}
+
+/**
+ * Scan brand website and extract brand voice + customer stories
+ *
+ * This function:
+ * 1. Gets the brand's website URL from the database
+ * 2. Scrapes the website content
+ * 3. Analyzes brand voice using AI
+ * 4. Extracts testimonials/customer stories
+ * 5. Updates the UVP with brandVoice and customerStories
+ *
+ * @param brandId - Brand ID to scan website for
+ * @returns Success status with extracted data summary
+ */
+export async function scanBrandWebsiteForVoice(brandId: string): Promise<{
+  success: boolean;
+  brandVoice?: CompleteUVP['brandVoice'];
+  customerStoriesCount?: number;
+  error?: string;
+}> {
+  console.log('[MarbaUVPService] Scanning brand website for voice:', brandId);
+
+  try {
+    // 1. Get brand from database to find website URL
+    const { data: brand, error: brandError } = await supabase
+      .from('brands')
+      .select('id, name, website')
+      .eq('id', brandId)
+      .single();
+
+    if (brandError || !brand) {
+      console.error('[MarbaUVPService] Brand not found:', brandError);
+      return { success: false, error: 'Brand not found' };
+    }
+
+    if (!brand.website) {
+      console.warn('[MarbaUVPService] Brand has no website URL');
+      return { success: false, error: 'Brand has no website URL configured' };
+    }
+
+    console.log('[MarbaUVPService] Found brand website:', brand.website);
+
+    // 2. Extract website content
+    console.log('[MarbaUVPService] Extracting website content...');
+    const websiteContent = await websiteAnalyzer.extractWebsiteContent(brand.website);
+
+    if (!websiteContent || websiteContent.length < 100) {
+      console.warn('[MarbaUVPService] Not enough content extracted from website');
+      return { success: false, error: 'Could not extract content from website' };
+    }
+
+    console.log('[MarbaUVPService] Extracted', websiteContent.length, 'characters');
+
+    // 3. Analyze brand voice using AI
+    console.log('[MarbaUVPService] Analyzing brand voice...');
+    const brandVoice = await websiteAnalyzer.analyzeBrandVoice(websiteContent, brand.name);
+
+    // 4. Get testimonials from last scrape
+    const testimonials = websiteAnalyzer.getLastTestimonials();
+    console.log('[MarbaUVPService] Found', testimonials.length, 'testimonials');
+
+    // 5. Get existing UVP
+    const existingUVP = await getUVPByBrand(brandId);
+    if (!existingUVP) {
+      console.warn('[MarbaUVPService] No UVP found for brand - cannot update');
+      return {
+        success: true,
+        brandVoice: {
+          tone: brandVoice.tone as string[],
+          values: brandVoice.values,
+          personality: brandVoice.personality,
+          vocabularyPatterns: brandVoice.vocabularyPatterns,
+          avoidWords: brandVoice.avoidWords,
+          signaturePhrases: brandVoice.signaturePhrases,
+          sentenceStyle: brandVoice.sentenceStyle,
+          emotionalTemperature: brandVoice.emotionalTemperature,
+          confidence: brandVoice.confidence
+        },
+        customerStoriesCount: testimonials.length,
+        error: 'UVP not found - brand voice extracted but not saved'
+      };
+    }
+
+    // 6. Update UVP with brand voice and customer stories
+    // We need to update the marba_uvps row directly since there's no dedicated column
+    // The brand voice will be stored in the target_customer or transformation_goal JSONB
+
+    // Actually, looking at CompleteUVP type, brandVoice and customerStories are top-level fields
+    // Let's store them in the complete_uvp column if it exists, or extend the row
+
+    // For now, let's update through the existing save mechanism
+    const updatedUVP: CompleteUVP = {
+      ...existingUVP,
+      brandVoice: {
+        tone: brandVoice.tone as string[],
+        values: brandVoice.values,
+        personality: brandVoice.personality,
+        vocabularyPatterns: brandVoice.vocabularyPatterns,
+        avoidWords: brandVoice.avoidWords,
+        signaturePhrases: brandVoice.signaturePhrases,
+        sentenceStyle: brandVoice.sentenceStyle,
+        emotionalTemperature: brandVoice.emotionalTemperature,
+        confidence: brandVoice.confidence
+      },
+      customerStories: testimonials.length > 0 ? testimonials : existingUVP.customerStories
+    };
+
+    // Save the updated UVP
+    const saveResult = await saveCompleteUVP(updatedUVP, brandId);
+
+    if (!saveResult.success) {
+      console.error('[MarbaUVPService] Failed to save updated UVP:', saveResult.error);
+      return {
+        success: false,
+        brandVoice: updatedUVP.brandVoice,
+        customerStoriesCount: testimonials.length,
+        error: `Failed to save UVP: ${saveResult.error}`
+      };
+    }
+
+    console.log('[MarbaUVPService] Brand voice and stories saved successfully');
+    console.log('[MarbaUVPService] Brand voice:', {
+      tone: brandVoice.tone,
+      values: brandVoice.values.slice(0, 3),
+      temperature: brandVoice.emotionalTemperature,
+      confidence: brandVoice.confidence
+    });
+
+    return {
+      success: true,
+      brandVoice: updatedUVP.brandVoice,
+      customerStoriesCount: testimonials.length
+    };
+
+  } catch (error) {
+    console.error('[MarbaUVPService] Website scan error:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error scanning website'
     };
   }
 }

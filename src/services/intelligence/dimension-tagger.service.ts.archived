@@ -1,0 +1,415 @@
+/**
+ * Dimension Tagger Service
+ *
+ * Tags correlated insights with 12 content dimensions for variety optimization.
+ * This service DOES parallelize LLM calls across 4 OpenRouter keys for 4x speed.
+ *
+ * CORRECT 12 Dimensions (from research):
+ * 1.  Buyer Journey Stage: Awareness | Consideration | Decision | Retention | Advocacy
+ * 2.  Psychological Trigger: Joy | Trust | Fear | Curiosity | Anger | Anticipation | Belonging | Achievement
+ * 3.  Content Format: How-To | Comparison | Case Study | Checklist | Data | Hot Take | Story | FAQ | Testimonial
+ * 4.  Content Pillar: Industry Trends | Customer Experience | Compliance | ROI | Implementation
+ * 5.  Persona Target: Decision Maker | Influencer | User | Blocker | Champion
+ * 6.  Objection Type: Price | Timing | Authority | Need | Trust | Competitor
+ * 7.  Content Angle: Contrarian | Data-Driven | Story-Driven | Expert | Trending | Comparison | Behind-Scenes | Prediction
+ * 8.  CTA Type: Download | Demo | Trial | Pricing | Consult | Webinar | Assessment
+ * 9.  Urgency Level: Critical | High | Medium | Low
+ * 10. Source Combination: 5-way | 4-way | 3-way | 2-way | Single
+ * 11. Competitive Position: Leader | Challenger | Niche | Innovator | Value
+ * 12. Content Lifecycle: Evergreen | Seasonal | Trending | Reactive
+ */
+
+import { parallelLLMManager, type LLMRequest } from './parallel-llm-manager.service';
+import type { CorrelatedInsight, DimensionTags, InsightDimensions } from '@/types/intelligence.types';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface DimensionTaggingResult {
+  insight: CorrelatedInsight;
+  dimensions: DimensionTags;
+  confidence: number;
+  processingTimeMs: number;
+}
+
+export interface BatchTaggingResult {
+  results: DimensionTaggingResult[];
+  stats: {
+    totalInsights: number;
+    successfullyTagged: number;
+    failedToTag: number;
+    totalTimeMs: number;
+    avgTimePerInsight: number;
+  };
+}
+
+export interface BrandContext {
+  pillars?: string[];
+  personas?: string[];
+  tone?: string;
+  industry?: string;
+}
+
+// ============================================================================
+// Dimension Options (for validation and prompting)
+// ============================================================================
+
+export const DIMENSION_OPTIONS = {
+  // 1. Buyer Journey Stage
+  buyerJourneyStage: ['awareness', 'consideration', 'decision', 'retention', 'advocacy'] as const,
+  // 2. Psychological Trigger
+  psychologicalTrigger: ['joy', 'trust', 'fear', 'curiosity', 'anger', 'anticipation', 'belonging', 'achievement'] as const,
+  // 3. Content Format
+  contentFormat: ['how-to', 'comparison', 'case-study', 'checklist', 'data', 'hot-take', 'story', 'faq', 'testimonial'] as const,
+  // 4. Content Pillar
+  contentPillar: ['industry-trends', 'customer-experience', 'compliance', 'roi', 'implementation'] as const,
+  // 5. Persona Target
+  personaTarget: ['decision-maker', 'influencer', 'user', 'blocker', 'champion'] as const,
+  // 6. Objection Type
+  objectionType: ['price', 'timing', 'authority', 'need', 'trust', 'competitor'] as const,
+  // 7. Content Angle
+  contentAngle: ['contrarian', 'data-driven', 'story-driven', 'expert', 'trending', 'comparison', 'behind-scenes', 'prediction'] as const,
+  // 8. CTA Type
+  ctaType: ['download', 'demo', 'trial', 'pricing', 'consult', 'webinar', 'assessment'] as const,
+  // 9. Urgency Level
+  urgencyLevel: ['critical', 'high', 'medium', 'low'] as const,
+  // 10. Source Combination
+  sourceCombination: ['5-way', '4-way', '3-way', '2-way', 'single'] as const,
+  // 11. Competitive Position
+  competitivePosition: ['leader', 'challenger', 'niche', 'innovator', 'value'] as const,
+  // 12. Content Lifecycle
+  contentLifecycle: ['evergreen', 'seasonal', 'trending', 'reactive'] as const,
+} as const;
+
+// ============================================================================
+// Dimension Tagger Service
+// ============================================================================
+
+class DimensionTaggerService {
+  private brandContext: BrandContext = {};
+
+  /**
+   * Set brand context for pillar/persona dimensions
+   */
+  setBrandContext(context: BrandContext): void {
+    this.brandContext = context;
+  }
+
+  /**
+   * Tag a single insight with all 12 dimensions
+   */
+  async tagInsight(insight: CorrelatedInsight): Promise<DimensionTaggingResult> {
+    const startTime = Date.now();
+
+    const prompt = this.buildTaggingPrompt(insight);
+    const response = await parallelLLMManager.execute<DimensionTags>({
+      prompt,
+      systemPrompt: this.getSystemPrompt(),
+      responseFormat: 'json',
+      temperature: 0.2, // Low temperature for consistent tagging
+    });
+
+    if (!response.success || !response.data) {
+      // Return default dimensions on failure
+      return {
+        insight,
+        dimensions: this.getDefaultDimensions(),
+        confidence: 0.3,
+        processingTimeMs: Date.now() - startTime,
+      };
+    }
+
+    // Validate and clean dimensions
+    const dimensions = this.validateDimensions(response.data);
+
+    return {
+      insight: {
+        ...insight,
+        dimensions: this.dimensionsToInsightDimensions(dimensions),
+      },
+      dimensions,
+      confidence: 0.85,
+      processingTimeMs: Date.now() - startTime,
+    };
+  }
+
+  /**
+   * Tag multiple insights in PARALLEL using all 4 OpenRouter keys
+   * This is where we get 4x speedup!
+   */
+  async tagInsightsBatch(
+    insights: CorrelatedInsight[],
+    onProgress?: (completed: number, total: number) => void
+  ): Promise<BatchTaggingResult> {
+    const startTime = Date.now();
+
+    console.log(`[DimensionTagger] Starting parallel tagging of ${insights.length} insights...`);
+
+    // Build all tagging requests
+    const requests: LLMRequest[] = insights.map(insight => ({
+      prompt: this.buildTaggingPrompt(insight),
+      systemPrompt: this.getSystemPrompt(),
+      responseFormat: 'json',
+      temperature: 0.2,
+    }));
+
+    // Execute ALL requests in parallel across 4 keys
+    const batchResult = await parallelLLMManager.executeParallel<DimensionTags>(
+      requests,
+      { onProgress }
+    );
+
+    // Process results
+    const results: DimensionTaggingResult[] = [];
+    let successCount = 0;
+
+    for (let i = 0; i < insights.length; i++) {
+      const insight = insights[i];
+      const response = batchResult.results[i];
+
+      if (response.success && response.data) {
+        const dimensions = this.validateDimensions(response.data);
+        results.push({
+          insight: {
+            ...insight,
+            dimensions: this.dimensionsToInsightDimensions(dimensions),
+          },
+          dimensions,
+          confidence: 0.85,
+          processingTimeMs: response.latencyMs,
+        });
+        successCount++;
+      } else {
+        // Fallback to default dimensions
+        results.push({
+          insight,
+          dimensions: this.getDefaultDimensions(),
+          confidence: 0.3,
+          processingTimeMs: response.latencyMs,
+        });
+      }
+    }
+
+    const totalTimeMs = Date.now() - startTime;
+    console.log(`[DimensionTagger] ✅ Tagged ${successCount}/${insights.length} insights in ${(totalTimeMs / 1000).toFixed(1)}s`);
+
+    return {
+      results,
+      stats: {
+        totalInsights: insights.length,
+        successfullyTagged: successCount,
+        failedToTag: insights.length - successCount,
+        totalTimeMs,
+        avgTimePerInsight: totalTimeMs / insights.length,
+      },
+    };
+  }
+
+  /**
+   * Build the tagging prompt for an insight
+   */
+  private buildTaggingPrompt(insight: CorrelatedInsight): string {
+    const signalSummary = insight.signals
+      .slice(0, 5) // Limit to top 5 signals
+      .map(s => `[${s.source}] ${s.content.substring(0, 150)}...`)
+      .join('\n');
+
+    const pillarOptions = this.brandContext.pillars?.length
+      ? this.brandContext.pillars.join(', ')
+      : 'industry-trends, customer-experience, compliance, roi, implementation';
+
+    const personaOptions = this.brandContext.personas?.length
+      ? this.brandContext.personas.join(', ')
+      : 'decision-maker, influencer, user, blocker, champion';
+
+    return `Analyze this content insight and tag it across 12 dimensions.
+
+INSIGHT:
+Title: ${insight.title}
+Description: ${insight.description}
+Sources: ${insight.sources.join(', ')}
+Opportunity Score: ${insight.opportunityScore}
+
+UNDERLYING SIGNALS:
+${signalSummary}
+
+TAG THIS INSIGHT with ONE value for each dimension. Return JSON:
+
+{
+  "buyerJourneyStage": "awareness" | "consideration" | "decision" | "retention" | "advocacy",
+  "psychologicalTrigger": "joy" | "trust" | "fear" | "curiosity" | "anger" | "anticipation" | "belonging" | "achievement",
+  "contentFormat": "how-to" | "comparison" | "case-study" | "checklist" | "data" | "hot-take" | "story" | "faq" | "testimonial",
+  "contentPillar": "${pillarOptions}",
+  "personaTarget": "${personaOptions}",
+  "objectionType": "price" | "timing" | "authority" | "need" | "trust" | "competitor",
+  "contentAngle": "contrarian" | "data-driven" | "story-driven" | "expert" | "trending" | "comparison" | "behind-scenes" | "prediction",
+  "ctaType": "download" | "demo" | "trial" | "pricing" | "consult" | "webinar" | "assessment",
+  "urgencyLevel": "critical" | "high" | "medium" | "low",
+  "sourceCombination": "5-way" | "4-way" | "3-way" | "2-way" | "single",
+  "competitivePosition": "leader" | "challenger" | "niche" | "innovator" | "value",
+  "contentLifecycle": "evergreen" | "seasonal" | "trending" | "reactive"
+}
+
+Choose the BEST fit for each dimension based on the insight content and signals.`;
+  }
+
+  /**
+   * System prompt for dimension tagging
+   */
+  private getSystemPrompt(): string {
+    return `You are a content strategist expert at classifying content insights across marketing dimensions.
+
+Your job is to analyze content insights and tag them with the most appropriate value for each of 12 dimensions. Be precise and consistent.
+
+Key guidelines:
+- buyerJourneyStage: awareness (just learning), consideration (evaluating options), decision (ready to buy), retention (existing customer), advocacy (promoter)
+- psychologicalTrigger: Choose the PRIMARY emotional driver
+- contentFormat: How the content would best be presented
+- personaTarget: Who is the primary audience for this content
+- objectionType: What objection does this content help overcome
+- contentAngle: The perspective or approach used
+- ctaType: What action should the reader take
+- urgencyLevel: How time-sensitive is this content
+- sourceCombination: How many data sources inform this insight
+- competitivePosition: How does this position against competitors
+- contentLifecycle: Is this evergreen, seasonal, trending, or reactive
+
+Output valid JSON only, with exactly one value per dimension.`;
+  }
+
+  /**
+   * Validate and clean dimension tags
+   */
+  private validateDimensions(raw: DimensionTags): DimensionTags {
+    const validated: DimensionTags = {
+      buyerJourneyStage: this.validateOption(raw.buyerJourneyStage, DIMENSION_OPTIONS.buyerJourneyStage, 'awareness'),
+      psychologicalTrigger: this.validateOption(raw.psychologicalTrigger, DIMENSION_OPTIONS.psychologicalTrigger, 'curiosity'),
+      contentFormat: this.validateOption(raw.contentFormat, DIMENSION_OPTIONS.contentFormat, 'how-to'),
+      contentPillar: this.validateOption(raw.contentPillar, DIMENSION_OPTIONS.contentPillar, 'industry-trends'),
+      personaTarget: this.validateOption(raw.personaTarget, DIMENSION_OPTIONS.personaTarget, 'decision-maker'),
+      objectionType: this.validateOption(raw.objectionType, DIMENSION_OPTIONS.objectionType, 'need'),
+      contentAngle: this.validateOption(raw.contentAngle, DIMENSION_OPTIONS.contentAngle, 'data-driven'),
+      ctaType: this.validateOption(raw.ctaType, DIMENSION_OPTIONS.ctaType, 'download'),
+      urgencyLevel: this.validateOption(raw.urgencyLevel, DIMENSION_OPTIONS.urgencyLevel, 'medium'),
+      sourceCombination: this.validateOption(raw.sourceCombination, DIMENSION_OPTIONS.sourceCombination, 'single'),
+      competitivePosition: this.validateOption(raw.competitivePosition, DIMENSION_OPTIONS.competitivePosition, 'challenger'),
+      contentLifecycle: this.validateOption(raw.contentLifecycle, DIMENSION_OPTIONS.contentLifecycle, 'evergreen'),
+    };
+
+    return validated;
+  }
+
+  /**
+   * Validate a single option against allowed values
+   */
+  private validateOption<T extends string>(
+    value: T | undefined,
+    options: readonly T[],
+    defaultValue: T
+  ): T {
+    if (value && options.includes(value)) {
+      return value;
+    }
+    return defaultValue;
+  }
+
+  /**
+   * Get default dimensions for fallback
+   */
+  private getDefaultDimensions(): DimensionTags {
+    return {
+      buyerJourneyStage: 'awareness',
+      psychologicalTrigger: 'curiosity',
+      contentFormat: 'how-to',
+      contentPillar: 'industry-trends',
+      personaTarget: 'decision-maker',
+      objectionType: 'need',
+      contentAngle: 'data-driven',
+      ctaType: 'download',
+      urgencyLevel: 'medium',
+      sourceCombination: 'single',
+      competitivePosition: 'challenger',
+      contentLifecycle: 'evergreen',
+    };
+  }
+
+  /**
+   * Convert DimensionTags to InsightDimensions (for insight.dimensions field)
+   */
+  private dimensionsToInsightDimensions(dims: DimensionTags): Partial<InsightDimensions> {
+    return {
+      stage: dims.buyerJourneyStage === 'awareness' ? 'TOFU' :
+             dims.buyerJourneyStage === 'consideration' ? 'MOFU' : 'BOFU',
+      emotion: dims.psychologicalTrigger,
+      format: dims.contentFormat,
+      hook: 'question', // Default, can be expanded
+      tone: 'professional', // Default, can be expanded
+      urgency: dims.contentLifecycle,
+    };
+  }
+
+  /**
+   * Get dimension distribution for a set of insights
+   * Useful for content calendar planning and variety analysis
+   */
+  analyzeDimensionDistribution(
+    results: DimensionTaggingResult[]
+  ): Record<keyof DimensionTags, Record<string, number>> {
+    const distribution: Record<keyof DimensionTags, Record<string, number>> = {
+      buyerJourneyStage: {},
+      psychologicalTrigger: {},
+      contentFormat: {},
+      contentPillar: {},
+      personaTarget: {},
+      objectionType: {},
+      contentAngle: {},
+      ctaType: {},
+      urgencyLevel: {},
+      sourceCombination: {},
+      competitivePosition: {},
+      contentLifecycle: {},
+    };
+
+    for (const result of results) {
+      for (const [key, value] of Object.entries(result.dimensions)) {
+        const dimKey = key as keyof DimensionTags;
+        distribution[dimKey][value] = (distribution[dimKey][value] || 0) + 1;
+      }
+    }
+
+    return distribution;
+  }
+
+  /**
+   * Find dimension gaps - dimensions with low or no coverage
+   * Useful for identifying content variety opportunities
+   */
+  findDimensionGaps(
+    results: DimensionTaggingResult[]
+  ): Array<{ dimension: keyof DimensionTags; missingValues: string[] }> {
+    const distribution = this.analyzeDimensionDistribution(results);
+    const gaps: Array<{ dimension: keyof DimensionTags; missingValues: string[] }> = [];
+
+    for (const [dimKey, options] of Object.entries(DIMENSION_OPTIONS)) {
+      const key = dimKey as keyof typeof DIMENSION_OPTIONS;
+      const covered = Object.keys(distribution[key]);
+      const missing = options.filter(opt => !covered.includes(opt));
+
+      if (missing.length > 0) {
+        gaps.push({
+          dimension: key,
+          missingValues: missing as string[],
+        });
+      }
+    }
+
+    return gaps;
+  }
+}
+
+// Export singleton instance
+export const dimensionTagger = new DimensionTaggerService();
+
+// Export class for testing
+export { DimensionTaggerService };

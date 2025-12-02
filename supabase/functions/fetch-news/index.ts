@@ -1,4 +1,4 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
 
 const NEWS_API_KEY = Deno.env.get('NEWS_API_KEY') || Deno.env.get('VITE_NEWS_API_KEY')
 

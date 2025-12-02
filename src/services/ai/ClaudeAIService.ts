@@ -23,8 +23,9 @@ import {
 
 export class ClaudeAIService {
   private config: AIServiceConfig;
-  private readonly API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-  private readonly DEFAULT_MODEL = 'anthropic/claude-3.5-sonnet';
+  private readonly AI_PROXY_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+  private readonly SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  private readonly DEFAULT_MODEL = 'anthropic/claude-sonnet-4';
   private readonly DEFAULT_MAX_TOKENS = 4096;
 
   constructor(config: AIServiceConfig) {
@@ -37,38 +38,37 @@ export class ClaudeAIService {
   }
 
   /**
-   * Send a chat message and get response
+   * Send a chat message and get response via ai-proxy Edge Function
    */
   async chat(request: ChatRequest): Promise<ServiceResponse<ChatResponse>> {
     try {
       const messages = this.prepareMessages(request);
       const systemPrompt = this.buildSystemPrompt(request.context);
 
-      // Add system prompt as first message for OpenRouter
-      const openRouterMessages = [
+      // Add system prompt as first message
+      const chatMessages = [
         { role: 'system', content: systemPrompt },
         ...messages
       ];
 
-      const response = await fetch(this.API_URL, {
+      const response = await fetch(this.AI_PROXY_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`,
-          'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://synapse.app',
-          'X-Title': 'Synapse SMB Platform',
+          'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: this.config.model,
           max_tokens: this.config.maxTokens,
           temperature: this.config.temperature,
-          messages: openRouterMessages,
+          messages: chatMessages,
         }),
       });
 
       if (!response.ok) {
         const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(error.error?.message || `API error: ${response.status}`);
+        throw new Error(error.error?.message || `ai-proxy error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -104,32 +104,31 @@ export class ClaudeAIService {
   }
 
   /**
-   * Stream chat response (for real-time typing effect)
+   * Stream chat response (for real-time typing effect) via ai-proxy Edge Function
    */
   async *chatStream(request: ChatRequest): AsyncGenerator<StreamChunk> {
     try {
       const messages = this.prepareMessages(request);
       const systemPrompt = this.buildSystemPrompt(request.context);
 
-      // Add system prompt as first message for OpenRouter
-      const openRouterMessages = [
+      // Add system prompt as first message
+      const chatMessages = [
         { role: 'system', content: systemPrompt },
         ...messages
       ];
 
-      const response = await fetch(this.API_URL, {
+      const response = await fetch(this.AI_PROXY_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`,
-          'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://synapse.app',
-          'X-Title': 'Synapse SMB Platform',
+          'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: this.config.model,
           max_tokens: this.config.maxTokens,
           temperature: this.config.temperature,
-          messages: openRouterMessages,
+          messages: chatMessages,
           stream: true,
         }),
       });
@@ -370,10 +369,11 @@ export class ClaudeAIService {
 }
 
 // Factory function for easy initialization
-export const createClaudeAI = (apiKey: string, config?: Partial<AIServiceConfig>): ClaudeAIService => {
+// Note: apiKey is no longer required as we route through ai-proxy Edge Function
+export const createClaudeAI = (apiKey?: string, config?: Partial<AIServiceConfig>): ClaudeAIService => {
   return new ClaudeAIService({
-    apiKey,
-    model: config?.model || 'anthropic/claude-3.5-sonnet',
+    apiKey: apiKey || '', // Not needed - using ai-proxy instead
+    model: config?.model || 'anthropic/claude-sonnet-4',
     ...config,
   } as AIServiceConfig);
 };

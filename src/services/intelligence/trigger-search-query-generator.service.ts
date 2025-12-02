@@ -32,6 +32,11 @@ export interface TriggerSearchQueries {
   // Competitor displacement queries
   competitorDisplacementQueries: string[];
 
+  // Trigger event queries (Phase C addition)
+  triggerEventQueries: string[];
+  highIntentQueries: string[];
+  seasonalQueries: string[];
+
   // Platform-specific queries
   redditQueries: string[];
   quoraQueries: string[];
@@ -109,6 +114,177 @@ const COMPETITOR_DISPLACEMENT_PATTERNS: Record<BusinessProfileType, string[]> = 
     'enterprise looking beyond {competitor}',
     '{competitor} support in {region} is poor',
   ],
+};
+
+// ============================================================================
+// PROFILE-SPECIFIC TRIGGER EVENT PATTERNS
+// ============================================================================
+
+// High-intent trigger events that indicate buying readiness per profile
+const PROFILE_TRIGGER_EVENT_PATTERNS: Record<BusinessProfileType, {
+  triggerEvents: string[];
+  highIntentSignals: string[];
+  seasonalTriggers: string[];
+}> = {
+  'local-service-b2b': {
+    triggerEvents: [
+      '{industry} equipment failure what to do',
+      '{industry} system broke down emergency',
+      'compliance deadline {industry} need help',
+      '{industry} contract ending renewal',
+      '{industry} service agreement expires soon',
+      'building inspection {industry} failed',
+      'insurance requires {industry} certification',
+    ],
+    highIntentSignals: [
+      'need {industry} by end of week',
+      'urgent {industry} request',
+      'emergency {industry} service same day',
+      '{industry} quote comparison',
+    ],
+    seasonalTriggers: [
+      '{industry} maintenance before winter',
+      'annual {industry} inspection due',
+      'budget cycle {industry} vendor',
+    ],
+  },
+
+  'local-service-b2c': {
+    triggerEvents: [
+      'bad {industry} experience need new',
+      'moving to new area need {industry}',
+      'just moved where to find {industry}',
+      'current {industry} closed down',
+      '{industry} appointment cancelled last minute',
+      'life event need {industry} recommendation',
+      'wedding coming up need {industry}',
+    ],
+    highIntentSignals: [
+      'looking for {industry} asap',
+      'need {industry} this week',
+      'emergency {industry} near me',
+      'accepting new patients {industry}',
+    ],
+    seasonalTriggers: [
+      '{industry} before holidays',
+      'summer {industry} appointments',
+      'back to school {industry}',
+    ],
+  },
+
+  'regional-b2b-agency': {
+    triggerEvents: [
+      'new CMO looking to change {industry} agency',
+      'leadership change reviewing {industry} vendors',
+      'RFP {industry} agency deadline',
+      'budget approved for {industry} agency',
+      'quarterly review {industry} performance',
+      'board wants new {industry} approach',
+      'fired our {industry} agency now what',
+    ],
+    highIntentSignals: [
+      'RFP {industry} agency 2024',
+      'shortlist {industry} agencies',
+      'agency pitch {industry} next quarter',
+      '{industry} agency contract negotiation',
+    ],
+    seasonalTriggers: [
+      'Q4 budget planning {industry}',
+      'new fiscal year {industry} agency',
+      'annual {industry} strategy review',
+    ],
+  },
+
+  'regional-retail-b2c': {
+    triggerEvents: [
+      '{product} store near me closed',
+      'where to buy {product} locally',
+      '{product} out of stock everywhere',
+      '{product} price drop alert',
+      'holiday shopping {product} deals',
+      '{product} gift ideas where to buy',
+    ],
+    highIntentSignals: [
+      'need {product} today pickup',
+      '{product} in stock near me',
+      'buy {product} same day',
+      '{product} price match local',
+    ],
+    seasonalTriggers: [
+      'black friday {product} deals',
+      'back to school {product} shopping',
+      'holiday {product} gift guide',
+    ],
+  },
+
+  'national-saas-b2b': {
+    triggerEvents: [
+      'just raised funding need {industry} platform',
+      'hiring surge need {industry} tool',
+      'scaling team {industry} software required',
+      'tech stack modernization {industry}',
+      'M&A integration {industry} platform',
+      'SOC2 compliance {industry} vendor',
+      'current {industry} not scaling',
+    ],
+    highIntentSignals: [
+      '{industry} demo request',
+      '{industry} pricing enterprise',
+      '{industry} implementation timeline',
+      'migrating to {industry} from competitor',
+    ],
+    seasonalTriggers: [
+      'Q4 {industry} procurement',
+      'budget renewal {industry} software',
+      'annual license negotiation {industry}',
+    ],
+  },
+
+  'national-product-b2c': {
+    triggerEvents: [
+      '{product} went viral on tiktok',
+      'influencer recommended {product}',
+      '{product} vs {competitor} comparison',
+      '{product} amazon review analysis',
+      '{product} dupe alternative cheaper',
+      '{product} restock alert',
+      'trending {product} where to buy',
+    ],
+    highIntentSignals: [
+      'should I buy {product}',
+      '{product} worth the price',
+      '{product} discount code',
+      'best time to buy {product}',
+    ],
+    seasonalTriggers: [
+      'prime day {product} deals',
+      'cyber monday {product}',
+      '{product} gift guide holiday',
+    ],
+  },
+
+  'global-saas-b2b': {
+    triggerEvents: [
+      'GDPR compliance {industry} vendor',
+      'data residency requirements {industry}',
+      'global rollout {industry} platform',
+      'multi-region deployment {industry}',
+      'enterprise {industry} RFP global',
+      'consolidating {industry} vendors worldwide',
+      'Gartner magic quadrant {industry}',
+    ],
+    highIntentSignals: [
+      '{industry} enterprise demo EMEA',
+      'global {industry} procurement',
+      '{industry} compliance audit vendor',
+      '{industry} vendor security assessment',
+    ],
+    seasonalTriggers: [
+      'fiscal year end {industry} Europe',
+      'global budget planning {industry}',
+      'annual vendor review {industry}',
+    ],
+  },
 };
 
 const PROFILE_QUERY_PATTERNS: Record<BusinessProfileType, {
@@ -361,6 +537,24 @@ class TriggerSearchQueryGeneratorService {
       region: 'Europe', // Default region for global queries
     });
 
+    // Generate trigger event queries (Phase C addition)
+    const triggerEventConfig = PROFILE_TRIGGER_EVENT_PATTERNS[profileType] || PROFILE_TRIGGER_EVENT_PATTERNS['national-saas-b2b'];
+    const triggerEventQueries = this.expandPatterns(triggerEventConfig.triggerEvents, {
+      industry,
+      product: industry,
+      competitor: competitors[0] || 'leading brand',
+    });
+
+    const highIntentQueries = this.expandPatterns(triggerEventConfig.highIntentSignals, {
+      industry,
+      product: industry,
+    });
+
+    const seasonalQueries = this.expandPatterns(triggerEventConfig.seasonalTriggers, {
+      industry,
+      product: industry,
+    });
+
     // Platform-specific queries
     const redditQueries = [
       ...fearQueries.slice(0, 2).map(q => `${patterns.platformPrefixes.reddit} ${q}`),
@@ -392,6 +586,9 @@ class TriggerSearchQueryGeneratorService {
       desireQueries,
       objectionQueries,
       competitorDisplacementQueries,
+      triggerEventQueries,
+      highIntentQueries,
+      seasonalQueries,
       redditQueries,
       quoraQueries,
       reviewQueries,
@@ -419,6 +616,8 @@ Search patterns to use:
 - Frustrations: ${queries.frustrationQueries.slice(0, 3).join(', ')}
 - Desires: ${queries.desireQueries.slice(0, 3).join(', ')}
 - Competitor Displacement: ${queries.competitorDisplacementQueries.slice(0, 3).join(', ')}
+- Trigger Events: ${queries.triggerEventQueries.slice(0, 3).join(', ')}
+- High Intent Signals: ${queries.highIntentQueries.slice(0, 3).join(', ')}
     `.trim();
   }
 

@@ -15,12 +15,16 @@ const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').the
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
 const BrandProfilePage = lazy(() => import('./pages/BrandProfilePage').then(m => ({ default: m.BrandProfilePage })))
-const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ default: m.V4ContentPage })))
-const TriggersDevPage = lazy(() => import('./pages/TriggersDevPage').then(m => ({ default: m.TriggersDevPage })))
-const ProofDevPage = lazy(() => import('./pages/ProofDevPage').then(m => ({ default: m.ProofDevPage })))
-const TrendsDevPage = lazy(() => import('./pages/TrendsDevPage').then(m => ({ default: m.TrendsDevPage })))
-const WeatherDevPage = lazy(() => import('./pages/WeatherDevPage').then(m => ({ default: m.WeatherDevPage })))
-const LocalDevPage = lazy(() => import('./pages/LocalDevPage').then(m => ({ default: m.LocalDevPage })))
+// V5 Content Engine - Full Synapse, UVP, Industry, EQ integration
+const V5ContentPage = lazy(() => import('./pages/V5ContentPage').then(m => ({ default: m.V5ContentPage })))
+// V4ContentPage archived - V5 hooks available at @/hooks/v5
+// const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ default: m.V4ContentPage })))
+// Dev pages archived - V5 hooks available at @/hooks/v5
+// const TriggersDevPage = lazy(() => import('./pages/TriggersDevPage').then(m => ({ default: m.TriggersDevPage })))
+// const ProofDevPage = lazy(() => import('./pages/ProofDevPage').then(m => ({ default: m.ProofDevPage })))
+// const TrendsDevPage = lazy(() => import('./pages/TrendsDevPage').then(m => ({ default: m.TrendsDevPage })))
+// const WeatherDevPage = lazy(() => import('./pages/WeatherDevPage').then(m => ({ default: m.WeatherDevPage })))
+// const LocalDevPage = lazy(() => import('./pages/LocalDevPage').then(m => ({ default: m.LocalDevPage })))
 
 // TODO: Lazy load auth routes when ready to enable authentication (Phase 0)
 // const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -52,9 +56,15 @@ function App() {
               {/* Default route - Onboarding (UVP Flow) */}
               <Route path="/" element={<OnboardingPageV5 />} />
 
-              {/* Routes with sidebar navigation */}
-              <Route element={<AppLayout />}>
+              {/* Routes without sidebar (onboarding flow) */}
+              <Route path="/onboarding" element={<OnboardingPageV5 />} />
+              <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
 
+              {/* OAuth callbacks */}
+              <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
+
+              {/* Routes with sidebar navigation - pathless layout wraps absolute paths */}
+              <Route element={<AppLayout />}>
                 {/* Dashboard / Command Center */}
                 <Route path="/dashboard" element={<DashboardPage />} />
 
@@ -70,36 +80,13 @@ function App() {
                 {/* Brand Profile / UVP Settings */}
                 <Route path="/brand-profile" element={<BrandProfilePage />} />
 
-                {/* V4 Content Engine */}
-                <Route path="/v4-content" element={<V4ContentPage />} />
-                <Route path="/v4" element={<V4ContentPage />} />
+                {/* V5 Content Engine - Full Synapse, UVP, Industry, EQ integration */}
+                <Route path="/v5" element={<V5ContentPage />} />
+                <Route path="/v5-content" element={<V5ContentPage />} />
 
-                {/* Triggers 2.0 Development - Isolated testing */}
-                <Route path="/triggers-dev" element={<TriggersDevPage />} />
-
-                {/* Proof Tab Development - Isolated testing */}
-                <Route path="/proof-dev" element={<ProofDevPage />} />
-
-                {/* Trends Tab Development - Isolated testing */}
-                <Route path="/trends-dev" element={<TrendsDevPage />} />
-
-                {/* Weather Tab Development - Isolated testing */}
-                <Route path="/weather-dev" element={<WeatherDevPage />} />
-
-                {/* Local Tab Development - Isolated testing */}
-                <Route path="/local-dev" element={<LocalDevPage />} />
-
-                {/* Admin Routes - Commented out until authentication is enabled */}
-                {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
-                {/* <Route path="/admin/user/:userId" element={<ProtectedRoute adminOnly><UserSessionViewer /></ProtectedRoute>} /> */}
+                {/* Catch-all route - redirect unknown paths to dashboard */}
+                <Route path="*" element={<DashboardPage />} />
               </Route>
-
-              {/* Routes without sidebar (onboarding flow) */}
-              <Route path="/onboarding" element={<OnboardingPageV5 />} />
-              <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
-
-              {/* OAuth callbacks */}
-              <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
             </Routes>
           </main>
         </Suspense>

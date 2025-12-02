@@ -14,7 +14,14 @@ import { performanceOptimizer } from './performance-optimizer.service';
 import { triggerSearchQueryGenerator, type TriggerSearchQueries } from './trigger-search-query-generator.service';
 import { llmTriggerSynthesizer, type RawDataSample } from '../triggers/llm-trigger-synthesizer.service';
 import { earlyTriggerLoaderService, type EarlyTriggerEvent } from '../triggers/early-trigger-loader.service';
-import type { BusinessProfileType } from '../triggers/profile-detection.service';
+import {
+  type BusinessProfileType,
+  type GatedApiType,
+  shouldRunApi,
+  getApiPriorityOrder,
+  getApiWeight,
+  getEnabledApis,
+} from '../triggers/profile-detection.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // API Event Types
@@ -569,6 +576,9 @@ class StreamingApiManager extends EventEmitter {
    * Get API gating configuration based on profile type
    * Used for TRIGGERS - general data collection
    *
+   * PHASE B INTEGRATION: Now delegates to profile-detection.service.ts for
+   * comprehensive API gating with 20+ API types and priority ordering.
+   *
    * CRITICAL: YouTube is ONLY useful for B2C profiles where video content matters.
    * For B2B (especially SaaS), YouTube searches brand name and returns marketing videos,
    * NOT customer voice data. Disable YouTube for B2B profiles to reduce noise.
@@ -579,88 +589,54 @@ class StreamingApiManager extends EventEmitter {
     useG2: boolean;
     useLocalReviews: boolean;
     useTrustpilot: boolean;
-    useYouTube: boolean;  // Gate YouTube - NOT useful for B2B SaaS
-    useReddit: boolean;   // Gate Reddit - VERY useful for B2B SaaS, less for local B2C
+    useYouTube: boolean;
+    useReddit: boolean;
+    // Extended Phase B fields
+    useHackerNews: boolean;
+    useCapterra: boolean;
+    useTikTok: boolean;
+    useAmazonReviews: boolean;
+    useClutch: boolean;
+    // Phase B functions for advanced gating
+    enabledApis: GatedApiType[];
+    priorityOrder: GatedApiType[];
+    shouldRunApi: (api: GatedApiType) => boolean;
+    getWeight: (api: GatedApiType) => number;
   } {
-    switch (profileType) {
-      case 'local-service-b2b':
-        return {
-          useWeather: true,
-          useLinkedIn: true,
-          useG2: false,
-          useLocalReviews: true,
-          useTrustpilot: false,
-          useYouTube: false,  // B2B doesn't need YouTube
-          useReddit: false,   // Local B2B rarely discussed on Reddit
-        };
+    // Use Phase B functions from profile-detection.service.ts
+    const enabledApis = getEnabledApis(profileType);
+    const priorityOrder = getApiPriorityOrder(profileType);
 
-      case 'local-service-b2c':
-        return {
-          useWeather: true,
-          useLinkedIn: false,
-          useG2: false,
-          useLocalReviews: true,
-          useTrustpilot: true,
-          useYouTube: true,   // B2C can benefit from YouTube reviews/tutorials
-          useReddit: true,    // Local services discussed on r/localarea subreddits
-        };
+    // Log Phase B gating for debugging
+    console.log(`[StreamingAPI] Phase B API Gating for ${profileType}:`, {
+      enabled: enabledApis.slice(0, 5),
+      priorityOrder: priorityOrder.slice(0, 5),
+    });
 
-      case 'regional-b2b-agency':
-        return {
-          useWeather: false,
-          useLinkedIn: true,
-          useG2: true,
-          useLocalReviews: true,
-          useTrustpilot: true,
-          useYouTube: false,  // Agencies don't need YouTube brand searches
-          useReddit: true,    // r/marketing, r/agencies have B2B discussions
-        };
+    // Determine weather usage (local businesses benefit from weather-based triggers)
+    const useWeather = profileType.includes('local');
 
-      case 'regional-retail-b2c':
-        return {
-          useWeather: false,
-          useLinkedIn: false,
-          useG2: false,
-          useLocalReviews: true,
-          useTrustpilot: true,
-          useYouTube: true,   // Retail B2C benefits from YouTube
-          useReddit: true,    // Consumer discussions on Reddit
-        };
-
-      case 'national-saas-b2b':
-      case 'global-saas-b2b':
-        return {
-          useWeather: false,
-          useLinkedIn: true,
-          useG2: true,
-          useLocalReviews: false,
-          useTrustpilot: true,
-          useYouTube: false,  // ⚠️ CRITICAL: YouTube returns marketing videos, NOT customer voice
-          useReddit: true,    // ⭐ HIGH VALUE: r/SaaS, r/startups, industry subreddits have real customer discussions
-        };
-
-      case 'national-product-b2c':
-        return {
-          useWeather: false,
-          useLinkedIn: false,
-          useG2: false,
-          useLocalReviews: false,
-          useTrustpilot: true,
-          useYouTube: true,   // Consumer products benefit from YouTube reviews
-          useReddit: true,    // Product discussions on Reddit
-        };
-
-      default:
-        return {
-          useWeather: false,
-          useLinkedIn: true,
-          useG2: true,
-          useLocalReviews: false,
-          useTrustpilot: false,
-          useYouTube: false,  // Default to off - must explicitly enable
-          useReddit: true,    // Reddit generally useful
-        };
-    }
+    return {
+      // Legacy boolean flags (for backward compatibility)
+      useWeather,
+      useLinkedIn: shouldRunApi(profileType, 'linkedin'),
+      useG2: shouldRunApi(profileType, 'g2'),
+      useLocalReviews: shouldRunApi(profileType, 'google-reviews') || shouldRunApi(profileType, 'yelp'),
+      useTrustpilot: shouldRunApi(profileType, 'trustpilot'),
+      useYouTube: shouldRunApi(profileType, 'youtube'),
+      useReddit: shouldRunApi(profileType, 'reddit'),
+      // Extended Phase B flags
+      useHackerNews: shouldRunApi(profileType, 'hackernews'),
+      useCapterra: shouldRunApi(profileType, 'capterra'),
+      useTikTok: shouldRunApi(profileType, 'tiktok'),
+      useAmazonReviews: shouldRunApi(profileType, 'amazon-reviews'),
+      useClutch: shouldRunApi(profileType, 'clutch'),
+      // Phase B functions for advanced use
+      enabledApis,
+      priorityOrder,
+      shouldRunApi: (api: GatedApiType) => shouldRunApi(profileType, api),
+      getWeight: (api: GatedApiType) => getApiWeight(profileType, api),
+    };
   }
 
   /**
@@ -1841,6 +1817,14 @@ class StreamingApiManager extends EventEmitter {
       console.log(`[StreamingAPI] Product keywords for query specificity: ${productContext}`);
       console.log(`[StreamingAPI] Source guidance for ${this.currentProfileType}: ${sourceGuidance}`);
 
+      // PHASE C: Log trigger event queries being used
+      if (searchQueries?.triggerEventQueries?.length) {
+        console.log(`[StreamingAPI] Phase C: Adding ${Math.min(2, searchQueries.triggerEventQueries.length)} trigger event queries`);
+      }
+      if (searchQueries?.highIntentQueries?.length) {
+        console.log(`[StreamingAPI] Phase C: Adding ${Math.min(2, searchQueries.highIntentQueries.length)} high-intent queries`);
+      }
+
       // PHASE L: STRUCTURED JSON EXTRACTION
       // The problem: Prose instructions get ignored, Perplexity returns meta-commentary
       // The fix: Demand structured JSON output with explicit required fields
@@ -1913,6 +1897,23 @@ ${STRUCTURED_JSON_FORMAT}`,
 Keywords: "trapped", "can't leave", "contract", "migration nightmare"
 ${sourceGuidance}
 ${STRUCTURED_JSON_FORMAT}`,
+
+        // ========================================
+        // PHASE C: PROFILE-SPECIFIC TRIGGER EVENTS
+        // ========================================
+        // Add high-intent trigger queries from Phase C (if available)
+        ...(searchQueries.triggerEventQueries?.slice(0, 2).map(query =>
+          `${query}
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`
+        ) || []),
+
+        // Add high-intent signal queries (if available)
+        ...(searchQueries.highIntentQueries?.slice(0, 2).map(query =>
+          `${query}
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`
+        ) || []),
 
       ] : [
         // Fallback queries with same structured format
@@ -2449,14 +2450,121 @@ ${STRUCTURED_JSON_FORMAT}`,
       });
     }
 
+    // FIXED: Handle LinkedIn company and network data for trigger synthesis
+    if ((type === 'linkedin-company' || type === 'linkedin-network') && data) {
+      // Extract insights, trends, or key messages from LinkedIn company data
+      const items = data.insights || data.updates || data.posts || [];
+      items.forEach((item: any, idx: number) => {
+        const content = item.text || item.content || item.message || item.insight;
+        if (content && content.length > 20) {
+          samples.push({
+            id: `linkedin-${type}-${idx}`,
+            content,
+            source: 'LinkedIn',
+            platform: 'linkedin',
+            url: item.url || 'https://linkedin.com',
+            sourceType: 'executive',
+          });
+        }
+      });
+    }
+
+    // FIXED: Handle HackerNews triggers
+    if (type === 'hackernews-triggers' && data) {
+      const stories = data.stories || data.items || (Array.isArray(data) ? data : []);
+      stories.forEach((story: any, idx: number) => {
+        const content = story.title || story.text || story.content;
+        if (content && content.length > 10) {
+          samples.push({
+            id: `hn-${idx}`,
+            content,
+            source: 'HackerNews',
+            platform: 'hackernews',
+            url: story.url || `https://news.ycombinator.com/item?id=${story.id}`,
+            sourceType: 'community',
+          });
+        }
+      });
+    }
+
+    // FIXED: Handle Serper news/search results
+    if ((type === 'serper-news' || type === 'serper-full') && data) {
+      const results = data.news || data.organic || data.results || [];
+      results.forEach((result: any, idx: number) => {
+        const content = result.snippet || result.description || result.title;
+        if (content && content.length > 20) {
+          samples.push({
+            id: `serper-${type}-${idx}`,
+            content,
+            source: result.source || 'Search',
+            platform: 'serper',
+            url: result.link || result.url,
+            sourceType: 'news',
+          });
+        }
+      });
+    }
+
+    // FIXED: Handle news events and breaking news
+    if ((type === 'news-breaking' || type === 'news-trending' || type === 'news-event-triggers') && data) {
+      const articles = data.articles || data.news || data.events || (Array.isArray(data) ? data : []);
+      articles.forEach((article: any, idx: number) => {
+        const content = article.description || article.snippet || article.title || article.content;
+        if (content && content.length > 20) {
+          samples.push({
+            id: `news-${type}-${idx}`,
+            content,
+            source: article.source || 'News',
+            platform: 'news',
+            url: article.url || article.link,
+            sourceType: type === 'news-event-triggers' ? 'event' : 'news',
+          });
+        }
+      });
+    }
+
+    // FIXED: Handle competitor voice data (VoC gold mine)
+    if (type === 'competitor-voice' && data) {
+      const voices = data.voices || data.painPoints || data.items || (Array.isArray(data) ? data : []);
+      voices.forEach((voice: any, idx: number) => {
+        const content = voice.text || voice.quote || voice.painPoint || voice.content;
+        if (content && content.length > 20) {
+          samples.push({
+            id: `competitor-voice-${idx}`,
+            content,
+            source: voice.source || voice.competitor || 'Competitor Research',
+            platform: voice.platform || 'voc',
+            url: voice.url,
+            sourceType: 'voc',
+          });
+        }
+      });
+    }
+
     // PHASE 10: Only buffer samples from TRUSTED source domains
     // Reject hallucinated/fake sources like "Spear-tech.com"
-    // BUT: Allow URL-less Perplexity insights labeled as "AI Research"
+    // BUT: Allow URL-less insights from KNOWN TRUSTED PLATFORMS
+    const TRUSTED_PLATFORMS_NO_URL = [
+      'ai-research', 'linkedin', 'hackernews', 'sec-edgar', 'buzzsumo',
+      'voc', 'news', 'serper', 'reddit', 'youtube', 'g2', 'trustpilot',
+      'capterra', 'quora', 'x', 'twitter', 'competitor-research'
+    ];
+
     const validSamples = samples.filter(s => {
-      // Allow samples with no URL if they're labeled as AI Research (URL-less Perplexity insights)
+      // Allow samples with no URL if they're from a KNOWN TRUSTED PLATFORM
       if (!s.url || !s.url.startsWith('http')) {
-        // Keep AI Research samples (Perplexity insights without source citations)
-        if (s.source === 'AI Research' || s.platform === 'ai-research') {
+        // Keep samples from trusted internal platforms
+        const platformLower = (s.platform || '').toLowerCase();
+        const sourceLower = (s.source || '').toLowerCase();
+
+        if (TRUSTED_PLATFORMS_NO_URL.some(tp =>
+          platformLower.includes(tp) || sourceLower.includes(tp) ||
+          s.source === 'AI Research' || s.platform === 'ai-research'
+        )) {
+          return true;
+        }
+        // Also allow if sourceType is set (indicates it came from a known source)
+        if (s.sourceType) {
           return true;
         }
         return false;

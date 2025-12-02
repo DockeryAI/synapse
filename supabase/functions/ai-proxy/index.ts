@@ -44,6 +44,8 @@ interface AIProxyRequest {
   temperature?: number;
   max_tokens?: number;
   stream?: boolean;
+  /** Key index for parallel processing (0-3). Uses OPENROUTER_API_KEY_{N+1} */
+  keyIndex?: number;
 }
 
 // Response interface
@@ -57,12 +59,27 @@ interface AIProxyResponse {
 
 /**
  * Get API key for the specified provider
- * ENHANCED: Multiple fallback keys and better diagnostics
+ * ENHANCED: Multiple OpenRouter keys for parallel processing (4x speedup)
+ *
+ * For OpenRouter, supports 4 keys: OPENROUTER_API_KEY_1, _2, _3, _4
+ * Use keyIndex parameter to select specific key for parallel batch processing
  */
-function getProviderApiKey(provider: Provider): string | null {
+function getProviderApiKey(provider: Provider, keyIndex?: number): string | null {
+  // For OpenRouter with keyIndex, use specific numbered key for parallel processing
+  if (provider === 'openrouter' && keyIndex !== undefined && keyIndex >= 0 && keyIndex <= 3) {
+    const numberedKeyName = `OPENROUTER_API_KEY_${keyIndex + 1}`;
+    const numberedKey = Deno.env.get(numberedKeyName);
+    if (numberedKey && numberedKey.length > 10) {
+      console.log(`[AI-Proxy] OpenRouter key ${keyIndex + 1} selected for parallel processing`);
+      return numberedKey;
+    }
+    // Fall through to default key if numbered key not found
+    console.log(`[AI-Proxy] OpenRouter key ${keyIndex + 1} not found, falling back to default`);
+  }
+
   // Try multiple key naming conventions for each provider
   const keyVariants = {
-    openrouter: ['OPENROUTER_API_KEY', 'OPEN_ROUTER_API_KEY', 'OPENROUTER_KEY'],
+    openrouter: ['OPENROUTER_API_KEY', 'OPENROUTER_API_KEY_1', 'OPEN_ROUTER_API_KEY', 'OPENROUTER_KEY'],
     perplexity: ['PERPLEXITY_API_KEY', 'PERPLEXITY_KEY'],
     openai: ['OPENAI_API_KEY', 'OPENAI_KEY'],
   };
@@ -162,9 +179,10 @@ function normalizeModelName(model: string, provider: Provider): string {
 /**
  * Make request to AI provider
  * ENHANCED: Auto-fallback to OpenAI if OpenRouter fails
+ * Supports parallel processing with keyIndex for 4x speedup
  */
 async function callProvider(req: AIProxyRequest): Promise<AIProxyResponse> {
-  const apiKey = getProviderApiKey(req.provider);
+  const apiKey = getProviderApiKey(req.provider, req.keyIndex);
 
   if (!apiKey) {
     // Try fallback to OpenAI if OpenRouter key is missing

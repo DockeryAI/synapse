@@ -570,5 +570,154 @@ class ProfileDetectionService {
   }
 }
 
+// ============================================================================
+// API GATING FOR PROFILE-AWARE SOURCE SELECTION
+// ============================================================================
+
+/**
+ * API types that can be gated per profile
+ */
+export type GatedApiType =
+  | 'google-reviews'
+  | 'yelp'
+  | 'nextdoor'
+  | 'facebook'
+  | 'linkedin'
+  | 'clutch'
+  | 'g2'
+  | 'capterra'
+  | 'trustradius'
+  | 'gartner'
+  | 'forrester'
+  | 'reddit'
+  | 'hackernews'
+  | 'youtube'
+  | 'tiktok'
+  | 'amazon-reviews'
+  | 'instagram'
+  | 'twitter'
+  | 'trustpilot'
+  | 'bbb'
+  | 'local-news'
+  | 'industry-forum'
+  | 'perplexity'; // Always enabled but with profile-specific guidance
+
+/**
+ * Profile-specific API enable/disable mapping
+ * Defines which APIs should run for each profile type
+ */
+const PROFILE_API_GATING: Record<BusinessProfileType, {
+  enabled: GatedApiType[];
+  disabled: GatedApiType[];
+  priorityOrder: GatedApiType[];
+}> = {
+  'local-service-b2b': {
+    enabled: ['google-reviews', 'linkedin', 'industry-forum', 'bbb', 'yelp', 'reddit', 'perplexity'],
+    disabled: ['tiktok', 'amazon-reviews', 'gartner', 'forrester', 'instagram', 'hackernews'],
+    priorityOrder: ['google-reviews', 'linkedin', 'industry-forum', 'bbb', 'reddit']
+  },
+  'local-service-b2c': {
+    enabled: ['google-reviews', 'yelp', 'facebook', 'nextdoor', 'reddit', 'local-news', 'instagram', 'perplexity'],
+    disabled: ['g2', 'capterra', 'gartner', 'forrester', 'hackernews', 'linkedin', 'trustradius'],
+    priorityOrder: ['google-reviews', 'yelp', 'facebook', 'nextdoor', 'reddit']
+  },
+  'regional-b2b-agency': {
+    enabled: ['linkedin', 'clutch', 'g2', 'reddit', 'industry-forum', 'google-reviews', 'perplexity'],
+    disabled: ['tiktok', 'amazon-reviews', 'nextdoor', 'instagram', 'yelp'],
+    priorityOrder: ['linkedin', 'clutch', 'g2', 'reddit', 'industry-forum']
+  },
+  'regional-retail-b2c': {
+    enabled: ['google-reviews', 'facebook', 'yelp', 'reddit', 'local-news', 'instagram', 'perplexity'],
+    disabled: ['g2', 'capterra', 'gartner', 'forrester', 'hackernews', 'linkedin'],
+    priorityOrder: ['google-reviews', 'facebook', 'yelp', 'reddit', 'local-news']
+  },
+  'national-saas-b2b': {
+    enabled: ['g2', 'capterra', 'reddit', 'hackernews', 'linkedin', 'trustradius', 'youtube', 'trustpilot', 'perplexity'],
+    disabled: ['yelp', 'nextdoor', 'amazon-reviews', 'local-news', 'bbb'],
+    priorityOrder: ['g2', 'reddit', 'capterra', 'hackernews', 'linkedin', 'trustradius']
+  },
+  'national-product-b2c': {
+    enabled: ['reddit', 'amazon-reviews', 'youtube', 'tiktok', 'instagram', 'trustpilot', 'twitter', 'perplexity'],
+    disabled: ['g2', 'capterra', 'gartner', 'linkedin', 'clutch', 'hackernews', 'bbb'],
+    priorityOrder: ['reddit', 'amazon-reviews', 'youtube', 'tiktok', 'instagram']
+  },
+  'global-saas-b2b': {
+    enabled: ['g2', 'gartner', 'forrester', 'linkedin', 'reddit', 'hackernews', 'capterra', 'trustpilot', 'perplexity'],
+    disabled: ['yelp', 'nextdoor', 'amazon-reviews', 'local-news', 'tiktok', 'bbb'],
+    priorityOrder: ['g2', 'gartner', 'linkedin', 'reddit', 'forrester', 'hackernews']
+  }
+};
+
+/**
+ * Get enabled APIs for a profile type
+ * Returns list of APIs that should be called for this profile
+ */
+export function getEnabledApis(profileType: BusinessProfileType): GatedApiType[] {
+  const gating = PROFILE_API_GATING[profileType];
+  if (!gating) {
+    console.warn(`[ProfileDetection] Unknown profile type: ${profileType}, defaulting to national-saas-b2b`);
+    return PROFILE_API_GATING['national-saas-b2b'].enabled;
+  }
+  return gating.enabled;
+}
+
+/**
+ * Get priority order for APIs for a profile type
+ * Higher priority APIs should be called first and weighted more heavily
+ */
+export function getApiPriorityOrder(profileType: BusinessProfileType): GatedApiType[] {
+  const gating = PROFILE_API_GATING[profileType];
+  if (!gating) {
+    return PROFILE_API_GATING['national-saas-b2b'].priorityOrder;
+  }
+  return gating.priorityOrder;
+}
+
+/**
+ * Check if an API should run for a given profile type
+ */
+export function shouldRunApi(profileType: BusinessProfileType, apiType: GatedApiType): boolean {
+  const gating = PROFILE_API_GATING[profileType];
+  if (!gating) {
+    // Default to running if unknown profile
+    return true;
+  }
+
+  // Check if explicitly disabled
+  if (gating.disabled.includes(apiType)) {
+    return false;
+  }
+
+  // Check if explicitly enabled
+  if (gating.enabled.includes(apiType)) {
+    return true;
+  }
+
+  // Default to not running if not in enabled list
+  return false;
+}
+
+/**
+ * Get API weight multiplier based on profile priority
+ * Higher priority APIs get weight boost
+ */
+export function getApiWeight(profileType: BusinessProfileType, apiType: GatedApiType): number {
+  const gating = PROFILE_API_GATING[profileType];
+  if (!gating) return 1.0;
+
+  const priorityIndex = gating.priorityOrder.indexOf(apiType);
+  if (priorityIndex === -1) {
+    // Not in priority list, check if enabled
+    if (gating.enabled.includes(apiType)) {
+      return 0.8; // Lower weight for non-priority enabled APIs
+    }
+    return 0; // Disabled or unknown
+  }
+
+  // Higher priority = higher weight
+  // Position 0 = 1.5x, Position 1 = 1.4x, etc.
+  return 1.5 - (priorityIndex * 0.1);
+}
+
 // Export singleton
 export const profileDetectionService = new ProfileDetectionService();

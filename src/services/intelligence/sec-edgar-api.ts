@@ -63,20 +63,21 @@ export interface SECIntelligenceResult {
 // SEC EDGAR API Service
 // ============================================================================
 
+// Get Supabase URL for edge function proxy
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
 class SECEdgarAPIService {
-  private readonly SEARCH_URL = 'https://efts.sec.gov/LATEST/search-index';
-  private readonly SUBMISSIONS_URL = 'https://data.sec.gov/submissions';
   private readonly FILING_URL = 'https://www.sec.gov/Archives/edgar/data';
-  private readonly USER_AGENT = 'SynapseEngine/1.0 (contact@synapseengine.com)';
 
   // Rate limiting
   private lastRequestTime = 0;
   private readonly MIN_REQUEST_INTERVAL = 100; // 100ms = 10 req/sec
 
   /**
-   * Rate-limited fetch to respect SEC's 10 req/sec limit
+   * Call SEC EDGAR via Edge Function proxy to bypass CORS
    */
-  private async rateLimitedFetch(url: string, options?: RequestInit): Promise<Response> {
+  private async callEdgeProxy(action: string, params: Record<string, unknown>): Promise<Response> {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequestTime;
 
@@ -88,19 +89,20 @@ class SECEdgarAPIService {
 
     this.lastRequestTime = Date.now();
 
-    return fetch(url, {
-      ...options,
+    return fetch(`${SUPABASE_URL}/functions/v1/sec-edgar-proxy`, {
+      method: 'POST',
       headers: {
-        'User-Agent': this.USER_AGENT,
-        'Accept': 'application/json',
-        ...options?.headers,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
       },
+      body: JSON.stringify({ action, params }),
     });
   }
 
   /**
    * Full-text search across all SEC filings
    * Great for finding industry-wide pain points and trends
+   * Routes through Edge Function proxy to bypass CORS
    */
   async searchFilings(params: {
     query: string;
@@ -113,20 +115,15 @@ class SECEdgarAPIService {
     console.log(`[SEC-EDGAR] Searching filings for: "${query}"`);
 
     try {
-      // Build search query
-      const searchParams = new URLSearchParams({
-        q: query,
-        dateRange: 'custom',
-        startdt: dateRange?.start || this.getDateMonthsAgo(12),
-        enddt: dateRange?.end || this.getToday(),
-        forms: formTypes?.join(',') || '10-K,10-Q,8-K',
-        from: '0',
-        size: String(limit),
+      const response = await this.callEdgeProxy('search', {
+        query,
+        formTypes,
+        dateRange: dateRange || {
+          start: this.getDateMonthsAgo(12),
+          end: this.getToday()
+        },
+        limit
       });
-
-      const response = await this.rateLimitedFetch(
-        `${this.SEARCH_URL}?${searchParams.toString()}`
-      );
 
       if (!response.ok) {
         console.warn(`[SEC-EDGAR] Search failed: ${response.status}`);
@@ -165,6 +162,7 @@ class SECEdgarAPIService {
 
   /**
    * Get company submission history and recent filings
+   * Routes through Edge Function proxy to bypass CORS
    */
   async getCompanyFilings(cik: string): Promise<SECFiling[]> {
     // Pad CIK to 10 digits
@@ -173,9 +171,7 @@ class SECEdgarAPIService {
     console.log(`[SEC-EDGAR] Fetching filings for CIK: ${paddedCik}`);
 
     try {
-      const response = await this.rateLimitedFetch(
-        `${this.SUBMISSIONS_URL}/CIK${paddedCik}.json`
-      );
+      const response = await this.callEdgeProxy('company', { cik: paddedCik });
 
       if (!response.ok) {
         console.warn(`[SEC-EDGAR] Company lookup failed: ${response.status}`);

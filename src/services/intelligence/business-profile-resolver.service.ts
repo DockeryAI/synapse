@@ -153,15 +153,16 @@ const PLATFORM_WEIGHTS: Record<BusinessSegment, Record<string, number>> = {
  * Industry keyword to profile ID mapping
  */
 const INDUSTRY_PROFILE_MAP: Record<string, string> = {
-  // Software & Tech
-  'software': 'software-development',
-  'saas': 'software-development',
-  'platform': 'software-development',
-  'ai': 'software-development',
-  'conversational': 'software-development',
-  'chatbot': 'software-development',
-  'app': 'app-development',
-  'mobile': 'app-development',
+  // Software & Tech - uses software-publishers profile which exists
+  'software': 'software-publishers',
+  'saas': 'software-publishers',
+  'platform': 'software-publishers',
+  'ai': 'software-publishers',
+  'conversational': 'software-publishers',
+  'chatbot': 'software-publishers',
+  'software-development': 'software-publishers', // Alias for missing profile
+  'app': 'software-publishers',
+  'mobile': 'software-publishers',
   'it consulting': 'it-consulting',
   'msp': 'msp-managed-service-provider',
   'managed service': 'msp-managed-service-provider',
@@ -275,9 +276,9 @@ class BusinessProfileResolverService {
       if (result.matched && result.profile) return result.profile;
     }
 
-    // Default to software-development for B2B/tech
+    // Default to software-publishers for B2B/tech
     if (this.looksLikeTech(industry)) {
-      return loadProfileBySlug('software-development');
+      return loadProfileBySlug('software-publishers');
     }
 
     return null;

@@ -1,0 +1,540 @@
+/**
+ * Constraint Solver Service
+ *
+ * THE MOAT - Prevents bad content combinations that would result in:
+ * - Mismatched stage/CTA (e.g., awareness content with "buy now" CTA)
+ * - Inappropriate format/stage pairings (e.g., case study for TOFU)
+ * - Wrong emotion/angle combinations (e.g., fear + casual angle)
+ * - Persona/format mismatches (e.g., decision maker + basic how-to)
+ *
+ * This service validates and corrects content dimension combinations
+ * before content generation, ensuring only valid combinations proceed.
+ */
+
+import type { DimensionTags } from '@/types/intelligence.types';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface ConstraintViolation {
+  type: 'stage-cta' | 'format-stage' | 'trigger-angle' | 'persona-format' | 'urgency-lifecycle';
+  severity: 'critical' | 'warning';
+  message: string;
+  dimension1: keyof DimensionTags;
+  value1: string;
+  dimension2: keyof DimensionTags;
+  value2: string;
+  suggestion: {
+    dimension: keyof DimensionTags;
+    newValue: string;
+  };
+}
+
+export interface ValidationResult {
+  isValid: boolean;
+  violations: ConstraintViolation[];
+  correctedDimensions?: DimensionTags;
+}
+
+export interface ConstraintRule {
+  dimension1: keyof DimensionTags;
+  value1: string | string[];
+  dimension2: keyof DimensionTags;
+  allowedValues: string[];
+  severity: 'critical' | 'warning';
+  errorMessage: string;
+}
+
+// ============================================================================
+// Constraint Rules (THE MOAT)
+// ============================================================================
+
+/**
+ * Stage ↔ CTA Constraints
+ * - Awareness: NEVER convert, only learn/engage
+ * - Consideration: demo, webinar, assessment
+ * - Decision: trial, pricing, consult
+ */
+const STAGE_CTA_RULES: ConstraintRule[] = [
+  {
+    dimension1: 'buyerJourneyStage',
+    value1: 'awareness',
+    dimension2: 'ctaType',
+    allowedValues: ['download', 'webinar', 'assessment'],
+    severity: 'critical',
+    errorMessage: 'Awareness stage content should NOT push for sales CTAs. Use educational CTAs like download, webinar, or assessment.',
+  },
+  {
+    dimension1: 'buyerJourneyStage',
+    value1: 'consideration',
+    dimension2: 'ctaType',
+    allowedValues: ['demo', 'webinar', 'assessment', 'download', 'consult'],
+    severity: 'warning',
+    errorMessage: 'Consideration stage content works best with demo, webinar, assessment, or consult CTAs.',
+  },
+  {
+    dimension1: 'buyerJourneyStage',
+    value1: 'decision',
+    dimension2: 'ctaType',
+    allowedValues: ['trial', 'pricing', 'consult', 'demo'],
+    severity: 'warning',
+    errorMessage: 'Decision stage content should use conversion CTAs like trial, pricing, or consult.',
+  },
+  {
+    dimension1: 'buyerJourneyStage',
+    value1: ['retention', 'advocacy'],
+    dimension2: 'ctaType',
+    allowedValues: ['webinar', 'download', 'consult', 'assessment'],
+    severity: 'warning',
+    errorMessage: 'Retention/advocacy content works best with value-add CTAs like webinar or exclusive content.',
+  },
+];
+
+/**
+ * Format ↔ Stage Constraints
+ * - Case Study: MOFU/BOFU only (never TOFU)
+ * - How-To: TOFU/MOFU (rarely BOFU)
+ * - Checklist: Any stage
+ * - Testimonial: MOFU/BOFU only
+ */
+const FORMAT_STAGE_RULES: ConstraintRule[] = [
+  {
+    dimension1: 'contentFormat',
+    value1: 'case-study',
+    dimension2: 'buyerJourneyStage',
+    allowedValues: ['consideration', 'decision'],
+    severity: 'critical',
+    errorMessage: 'Case studies are too specific for awareness stage. Use how-to or data content instead.',
+  },
+  {
+    dimension1: 'contentFormat',
+    value1: 'testimonial',
+    dimension2: 'buyerJourneyStage',
+    allowedValues: ['consideration', 'decision', 'retention'],
+    severity: 'warning',
+    errorMessage: 'Testimonials work best when prospects are already evaluating options.',
+  },
+  {
+    dimension1: 'contentFormat',
+    value1: 'comparison',
+    dimension2: 'buyerJourneyStage',
+    allowedValues: ['consideration', 'decision'],
+    severity: 'warning',
+    errorMessage: 'Comparison content assumes audience is already aware of alternatives.',
+  },
+  {
+    dimension1: 'contentFormat',
+    value1: ['how-to', 'checklist', 'faq'],
+    dimension2: 'buyerJourneyStage',
+    allowedValues: ['awareness', 'consideration', 'retention'],
+    severity: 'warning',
+    errorMessage: 'Educational formats like how-to are less effective at decision stage.',
+  },
+];
+
+/**
+ * Psychological Trigger ↔ Content Angle Constraints
+ * - Fear: data-driven, expert (never casual/personal)
+ * - Joy/Achievement: story-driven, behind-scenes
+ * - Trust: data-driven, expert, testimonial formats
+ */
+const TRIGGER_ANGLE_RULES: ConstraintRule[] = [
+  {
+    dimension1: 'psychologicalTrigger',
+    value1: 'fear',
+    dimension2: 'contentAngle',
+    allowedValues: ['data-driven', 'expert', 'contrarian', 'prediction'],
+    severity: 'critical',
+    errorMessage: 'Fear-based content requires authoritative backing. Use data-driven or expert angles.',
+  },
+  {
+    dimension1: 'psychologicalTrigger',
+    value1: ['joy', 'achievement', 'belonging'],
+    dimension2: 'contentAngle',
+    allowedValues: ['story-driven', 'behind-scenes', 'trending', 'comparison'],
+    severity: 'warning',
+    errorMessage: 'Positive emotions work best with story-driven or relatable angles.',
+  },
+  {
+    dimension1: 'psychologicalTrigger',
+    value1: 'trust',
+    dimension2: 'contentAngle',
+    allowedValues: ['data-driven', 'expert', 'story-driven', 'comparison'],
+    severity: 'warning',
+    errorMessage: 'Trust-building content needs credible angles like data-driven or expert.',
+  },
+  {
+    dimension1: 'psychologicalTrigger',
+    value1: 'curiosity',
+    dimension2: 'contentAngle',
+    allowedValues: ['contrarian', 'prediction', 'behind-scenes', 'trending'],
+    severity: 'warning',
+    errorMessage: 'Curiosity-driven content benefits from unexpected angles like contrarian or prediction.',
+  },
+  {
+    dimension1: 'psychologicalTrigger',
+    value1: 'anger',
+    dimension2: 'contentAngle',
+    allowedValues: ['contrarian', 'data-driven', 'expert'],
+    severity: 'warning',
+    errorMessage: 'Anger-based content requires credible, data-backed angles.',
+  },
+];
+
+/**
+ * Persona Target ↔ Content Format Constraints
+ * - Decision Maker: case study, comparison, data
+ * - User: how-to, checklist, tutorial
+ * - Influencer: hot take, prediction, trending
+ */
+const PERSONA_FORMAT_RULES: ConstraintRule[] = [
+  {
+    dimension1: 'personaTarget',
+    value1: 'decision-maker',
+    dimension2: 'contentFormat',
+    allowedValues: ['case-study', 'comparison', 'data', 'testimonial'],
+    severity: 'warning',
+    errorMessage: 'Decision makers prefer evidence-based formats like case studies, comparisons, or data.',
+  },
+  {
+    dimension1: 'personaTarget',
+    value1: 'user',
+    dimension2: 'contentFormat',
+    allowedValues: ['how-to', 'checklist', 'faq', 'story'],
+    severity: 'warning',
+    errorMessage: 'Users prefer practical, actionable formats like how-to or checklists.',
+  },
+  {
+    dimension1: 'personaTarget',
+    value1: 'influencer',
+    dimension2: 'contentFormat',
+    allowedValues: ['hot-take', 'data', 'comparison', 'story'],
+    severity: 'warning',
+    errorMessage: 'Influencers engage with shareable content like hot takes or compelling data.',
+  },
+  {
+    dimension1: 'personaTarget',
+    value1: 'blocker',
+    dimension2: 'contentFormat',
+    allowedValues: ['data', 'case-study', 'comparison', 'faq'],
+    severity: 'warning',
+    errorMessage: 'Blockers need objection-handling content like data, case studies, or FAQs.',
+  },
+];
+
+/**
+ * Urgency Level ↔ Content Lifecycle Constraints
+ * - Critical urgency: trending or reactive content
+ * - Low urgency: evergreen content
+ */
+const URGENCY_LIFECYCLE_RULES: ConstraintRule[] = [
+  {
+    dimension1: 'urgencyLevel',
+    value1: 'critical',
+    dimension2: 'contentLifecycle',
+    allowedValues: ['trending', 'reactive'],
+    severity: 'warning',
+    errorMessage: 'Critical urgency content should be tied to trending or reactive topics.',
+  },
+  {
+    dimension1: 'urgencyLevel',
+    value1: 'low',
+    dimension2: 'contentLifecycle',
+    allowedValues: ['evergreen', 'seasonal'],
+    severity: 'warning',
+    errorMessage: 'Low urgency content is best suited for evergreen or seasonal topics.',
+  },
+];
+
+// All constraint rules combined
+const ALL_CONSTRAINT_RULES: ConstraintRule[] = [
+  ...STAGE_CTA_RULES,
+  ...FORMAT_STAGE_RULES,
+  ...TRIGGER_ANGLE_RULES,
+  ...PERSONA_FORMAT_RULES,
+  ...URGENCY_LIFECYCLE_RULES,
+];
+
+// ============================================================================
+// Suggestion Maps (for auto-correction)
+// ============================================================================
+
+const STAGE_TO_CTA: Record<string, string> = {
+  'awareness': 'download',
+  'consideration': 'demo',
+  'decision': 'trial',
+  'retention': 'webinar',
+  'advocacy': 'download',
+};
+
+const FORMAT_TO_STAGE: Record<string, string> = {
+  'case-study': 'consideration',
+  'testimonial': 'consideration',
+  'comparison': 'consideration',
+  'how-to': 'awareness',
+  'checklist': 'awareness',
+  'faq': 'awareness',
+  'data': 'consideration',
+  'hot-take': 'awareness',
+  'story': 'awareness',
+};
+
+const TRIGGER_TO_ANGLE: Record<string, string> = {
+  'fear': 'data-driven',
+  'joy': 'story-driven',
+  'achievement': 'story-driven',
+  'belonging': 'story-driven',
+  'trust': 'data-driven',
+  'curiosity': 'contrarian',
+  'anger': 'contrarian',
+  'anticipation': 'prediction',
+};
+
+const PERSONA_TO_FORMAT: Record<string, string> = {
+  'decision-maker': 'case-study',
+  'user': 'how-to',
+  'influencer': 'hot-take',
+  'blocker': 'faq',
+  'champion': 'case-study',
+};
+
+// ============================================================================
+// Constraint Solver Service
+// ============================================================================
+
+class ConstraintSolverService {
+  /**
+   * Validate dimension tags against all constraint rules
+   */
+  validate(dimensions: DimensionTags): ValidationResult {
+    const violations: ConstraintViolation[] = [];
+
+    for (const rule of ALL_CONSTRAINT_RULES) {
+      const violation = this.checkRule(dimensions, rule);
+      if (violation) {
+        violations.push(violation);
+      }
+    }
+
+    // Sort by severity (critical first)
+    violations.sort((a, b) => {
+      if (a.severity === 'critical' && b.severity !== 'critical') return -1;
+      if (a.severity !== 'critical' && b.severity === 'critical') return 1;
+      return 0;
+    });
+
+    const hasCritical = violations.some(v => v.severity === 'critical');
+
+    return {
+      isValid: violations.length === 0,
+      violations,
+      correctedDimensions: hasCritical ? this.autoCorrect(dimensions, violations) : undefined,
+    };
+  }
+
+  /**
+   * Auto-correct dimensions based on violations
+   */
+  autoCorrect(dimensions: DimensionTags, violations: ConstraintViolation[]): DimensionTags {
+    const corrected = { ...dimensions };
+
+    for (const violation of violations) {
+      if (violation.severity === 'critical') {
+        const { dimension, newValue } = violation.suggestion;
+        (corrected as Record<string, string>)[dimension] = newValue;
+      }
+    }
+
+    return corrected;
+  }
+
+  /**
+   * Validate and auto-correct in one step
+   */
+  validateAndCorrect(dimensions: DimensionTags): {
+    original: DimensionTags;
+    corrected: DimensionTags;
+    violations: ConstraintViolation[];
+    wasModified: boolean;
+  } {
+    const result = this.validate(dimensions);
+    const corrected = result.correctedDimensions || dimensions;
+
+    return {
+      original: dimensions,
+      corrected,
+      violations: result.violations,
+      wasModified: result.correctedDimensions !== undefined,
+    };
+  }
+
+  /**
+   * Get all critical violations
+   */
+  getCriticalViolations(dimensions: DimensionTags): ConstraintViolation[] {
+    return this.validate(dimensions).violations.filter(v => v.severity === 'critical');
+  }
+
+  /**
+   * Check if a specific combination is valid
+   */
+  isValidCombination(
+    dimension1: keyof DimensionTags,
+    value1: string,
+    dimension2: keyof DimensionTags,
+    value2: string
+  ): boolean {
+    const partialDimensions = {
+      [dimension1]: value1,
+      [dimension2]: value2,
+    } as Partial<DimensionTags>;
+
+    for (const rule of ALL_CONSTRAINT_RULES) {
+      if (rule.dimension1 !== dimension1 || rule.dimension2 !== dimension2) continue;
+
+      const matches = Array.isArray(rule.value1)
+        ? rule.value1.includes(value1)
+        : rule.value1 === value1;
+
+      if (matches && !rule.allowedValues.includes(value2)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Get allowed values for dimension2 given dimension1 value
+   */
+  getAllowedValues(
+    dimension1: keyof DimensionTags,
+    value1: string,
+    dimension2: keyof DimensionTags
+  ): string[] | null {
+    for (const rule of ALL_CONSTRAINT_RULES) {
+      if (rule.dimension1 !== dimension1 || rule.dimension2 !== dimension2) continue;
+
+      const matches = Array.isArray(rule.value1)
+        ? rule.value1.includes(value1)
+        : rule.value1 === value1;
+
+      if (matches) {
+        return rule.allowedValues;
+      }
+    }
+
+    return null; // No constraints apply
+  }
+
+  /**
+   * Get suggested correction for a violation
+   */
+  private getSuggestion(
+    rule: ConstraintRule,
+    dimensions: DimensionTags
+  ): { dimension: keyof DimensionTags; newValue: string } {
+    // Determine which dimension to change based on rule type
+    const dim1Value = (dimensions as Record<string, string>)[rule.dimension1];
+    const dim2Value = (dimensions as Record<string, string>)[rule.dimension2];
+
+    // Prefer changing dimension2 to match dimension1
+    // Use suggestion maps
+    if (rule.dimension1 === 'buyerJourneyStage' && rule.dimension2 === 'ctaType') {
+      return { dimension: 'ctaType', newValue: STAGE_TO_CTA[dim1Value] || 'download' };
+    }
+
+    if (rule.dimension1 === 'contentFormat' && rule.dimension2 === 'buyerJourneyStage') {
+      return { dimension: 'buyerJourneyStage', newValue: FORMAT_TO_STAGE[dim1Value] || 'awareness' };
+    }
+
+    if (rule.dimension1 === 'psychologicalTrigger' && rule.dimension2 === 'contentAngle') {
+      return { dimension: 'contentAngle', newValue: TRIGGER_TO_ANGLE[dim1Value] || 'data-driven' };
+    }
+
+    if (rule.dimension1 === 'personaTarget' && rule.dimension2 === 'contentFormat') {
+      return { dimension: 'contentFormat', newValue: PERSONA_TO_FORMAT[dim1Value] || 'how-to' };
+    }
+
+    // Default: suggest first allowed value
+    return { dimension: rule.dimension2, newValue: rule.allowedValues[0] };
+  }
+
+  /**
+   * Check a single rule against dimensions
+   */
+  private checkRule(dimensions: DimensionTags, rule: ConstraintRule): ConstraintViolation | null {
+    const dim1Value = (dimensions as Record<string, string>)[rule.dimension1];
+    const dim2Value = (dimensions as Record<string, string>)[rule.dimension2];
+
+    // Check if dimension1 value matches the rule
+    const matches = Array.isArray(rule.value1)
+      ? rule.value1.includes(dim1Value)
+      : rule.value1 === dim1Value;
+
+    if (!matches) return null;
+
+    // Check if dimension2 value is in allowed values
+    if (rule.allowedValues.includes(dim2Value)) return null;
+
+    // Violation found
+    const violationType = this.getViolationType(rule.dimension1, rule.dimension2);
+
+    return {
+      type: violationType,
+      severity: rule.severity,
+      message: rule.errorMessage,
+      dimension1: rule.dimension1,
+      value1: dim1Value,
+      dimension2: rule.dimension2,
+      value2: dim2Value,
+      suggestion: this.getSuggestion(rule, dimensions),
+    };
+  }
+
+  /**
+   * Get violation type based on dimensions involved
+   */
+  private getViolationType(
+    dim1: keyof DimensionTags,
+    dim2: keyof DimensionTags
+  ): ConstraintViolation['type'] {
+    if (dim1 === 'buyerJourneyStage' && dim2 === 'ctaType') return 'stage-cta';
+    if (dim1 === 'contentFormat' && dim2 === 'buyerJourneyStage') return 'format-stage';
+    if (dim1 === 'psychologicalTrigger' && dim2 === 'contentAngle') return 'trigger-angle';
+    if (dim1 === 'personaTarget' && dim2 === 'contentFormat') return 'persona-format';
+    if (dim1 === 'urgencyLevel' && dim2 === 'contentLifecycle') return 'urgency-lifecycle';
+    return 'stage-cta'; // default
+  }
+
+  /**
+   * Get constraint statistics for analytics
+   */
+  getConstraintStats(): {
+    totalRules: number;
+    criticalRules: number;
+    warningRules: number;
+    rulesByType: Record<string, number>;
+  } {
+    const rulesByType: Record<string, number> = {};
+
+    for (const rule of ALL_CONSTRAINT_RULES) {
+      const type = this.getViolationType(rule.dimension1, rule.dimension2);
+      rulesByType[type] = (rulesByType[type] || 0) + 1;
+    }
+
+    return {
+      totalRules: ALL_CONSTRAINT_RULES.length,
+      criticalRules: ALL_CONSTRAINT_RULES.filter(r => r.severity === 'critical').length,
+      warningRules: ALL_CONSTRAINT_RULES.filter(r => r.severity === 'warning').length,
+      rulesByType,
+    };
+  }
+}
+
+// Export singleton instance
+export const constraintSolver = new ConstraintSolverService();
+
+// Export class for testing
+export { ConstraintSolverService };

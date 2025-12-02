@@ -1,0 +1,130 @@
+{
+  "timestamp": "2025-11-30T10:27:32.431628",
+  "build_context": "react",
+  "checks_run": [
+    {
+      "name": "syntax",
+      "passed": true,
+      "duration_ms": 127.68006324768066,
+      "errors": [],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "imports",
+      "passed": false,
+      "duration_ms": 130.73372840881348,
+      "errors": [
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/card",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/button",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/badge",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/tabs",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/select",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/progress",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/separator",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/scroll-area",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/tooltip",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/services/dashboard/dashboard-preloader.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/hooks/useV4ContentGeneration",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/types/uvp-flow.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/services/v4",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/button",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/scroll-area",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/select",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/tooltip",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/checkbox",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useV4ContentGeneration",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useBusinessProfile",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useCompetitorIntelligence",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useEarlyCompetitorDiscovery",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/dashboard/dashboard-preloader.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/intelligence/deepcontext-builder-progressive.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/types/uvp-flow.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/types/synapse/deepContext.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/intelligence/intelligence-cache.service"
+      ],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "typescript_quick",
+      "passed": false,
+      "duration_ms": 541.5740013122559,
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "Checked 2 files"
+      ],
+      "skipped": false,
+      "skip_reason": ""
+    }
+  ],
+  "overall_success": false,
+  "total_duration_ms": 602.9200553894043,
+  "critical_failures": [
+    {
+      "name": "imports",
+      "passed": false,
+      "duration_ms": 130.73372840881348,
+      "errors": [
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/card",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/button",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/badge",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/tabs",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/select",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/progress",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/separator",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/scroll-area",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/components/ui/tooltip",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/services/dashboard/dashboard-preloader.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/hooks/useV4ContentGeneration",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/types/uvp-flow.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4ContentGenerationPanel.tsx:0: Cannot resolve import: @/services/v4",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/button",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/scroll-area",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/select",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/tooltip",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/components/ui/checkbox",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useV4ContentGeneration",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useBusinessProfile",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useCompetitorIntelligence",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/hooks/useEarlyCompetitorDiscovery",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/dashboard/dashboard-preloader.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/intelligence/deepcontext-builder-progressive.service",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/types/uvp-flow.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/types/synapse/deepContext.types",
+        "/Users/byronhudson/Projects/Synapse/src/components/v4/V4PowerModePanel.tsx:0: Cannot resolve import: @/services/intelligence/intelligence-cache.service"
+      ],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "typescript_quick",
+      "passed": false,
+      "duration_ms": 541.5740013122559,
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "Checked 2 files"
+      ],
+      "skipped": false,
+      "skip_reason": ""
+    }
+  ],
+  "suggestions": [
+    "Fix errors before committing"
+  ],
+  "metadata": {
+    "files_changed": 12,
+    "checks_run": 3,
+    "checks_skipped": 0,
+    "total_errors": 27,
+    "total_warnings": 0
+  }
+}

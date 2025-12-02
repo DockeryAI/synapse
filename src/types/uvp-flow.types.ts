@@ -192,6 +192,22 @@ export interface CompleteUVP {
   overallConfidence: ConfidenceScore;
   createdAt: Date;
   updatedAt: Date;
+
+  // Brand voice/tone (optional - extracted from website during UVP creation)
+  brandVoice?: {
+    tone: string[];
+    values: string[];
+    personality: string[];
+    vocabularyPatterns: string[];
+    avoidWords: string[];
+    signaturePhrases: string[];
+    sentenceStyle: 'short' | 'medium' | 'long' | 'mixed';
+    emotionalTemperature: 'warm' | 'neutral' | 'urgent' | 'calm';
+    confidence: number;
+  };
+
+  // Real customer stories/testimonials (for grounding content)
+  customerStories?: string[];
 }
 
 /**

@@ -51,6 +51,7 @@ import { WeatherAPI } from '@/services/intelligence/weather-api';
 import { OutScraperAPI } from '@/services/intelligence/outscraper-api';
 import { SemrushAPI } from '@/services/intelligence/semrush-api';
 import { HackerNewsAPI } from '@/services/intelligence/hackernews-api';
+import { buzzsumoAPI } from '@/services/intelligence/buzzsumo-api';
 
 // ============================================================================
 // TYPES
@@ -749,6 +750,70 @@ async function fetchDeepMiningTrends(
         .catch(() => ({ source: 'linkedin_search', trends: [] }))
     );
   }
+
+  // 10. BuzzSumo - Top performing content trends (ALL categories)
+  apiPromises.push(
+    buzzsumoAPI.analyzeContent(industry, { numResults: 20, days: 14 })
+      .then(result => ({
+        source: 'buzzsumo',
+        trends: (result?.topContent || []).slice(0, 10).map((content, i) => ({
+          id: `buzzsumo-dm-${Date.now()}-${i}`,
+          title: content.title || 'High-Engagement Content',
+          description: `${content.totalShares.toLocaleString()} total shares. Published: ${new Date(content.publishedDate).toLocaleDateString()}`,
+          source: 'buzzsumo',
+          sourceUrl: content.url,
+          date: content.publishedDate || new Date().toISOString(),
+          metadata: {
+            totalShares: content.totalShares,
+            facebookShares: content.facebookShares,
+            twitterShares: content.twitterShares,
+            linkedinShares: content.linkedinShares,
+            wordCount: content.wordCount,
+          },
+          queryIntent: 'trend' as QueryIntent
+        }))
+      }))
+      .catch((err) => {
+        console.warn('[DeepMining] BuzzSumo failed:', err);
+        return { source: 'buzzsumo', trends: [] };
+      })
+  );
+
+  // 11. BuzzSumo Trending - Emerging topics
+  apiPromises.push(
+    buzzsumoAPI.getTrending({ topic: industry, hours: 48 })
+      .then(result => ({
+        source: 'buzzsumo_trending',
+        trends: [
+          ...(result?.emergingTopics || []).slice(0, 5).map((topic, i) => ({
+            id: `buzzsumo-emerging-${Date.now()}-${i}`,
+            title: `Emerging: ${topic}`,
+            description: `Rising topic in ${industry} - high velocity content gaining traction.`,
+            source: 'buzzsumo',
+            date: new Date().toISOString(),
+            queryIntent: 'trend' as QueryIntent
+          })),
+          ...(result?.trends || []).slice(0, 3).map((trend, i) => ({
+            id: `buzzsumo-trend-${Date.now()}-${i}`,
+            title: trend.topic,
+            description: `Velocity: ${trend.velocity.toFixed(1)}x growth. ${trend.articleCount} articles, ${trend.totalEngagements.toLocaleString()} engagements.`,
+            source: 'buzzsumo',
+            date: trend.peakDay || new Date().toISOString(),
+            metadata: {
+              velocity: trend.velocity,
+              articleCount: trend.articleCount,
+              totalEngagements: trend.totalEngagements,
+              avgEngagementsPerArticle: trend.avgEngagementsPerArticle,
+            },
+            queryIntent: 'trend' as QueryIntent
+          }))
+        ]
+      }))
+      .catch((err) => {
+        console.warn('[DeepMining] BuzzSumo Trending failed:', err);
+        return { source: 'buzzsumo_trending', trends: [] };
+      })
+  );
 
   updateProgress('Deep mining: Waiting for API responses...', 40);
 

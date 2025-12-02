@@ -12,6 +12,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { streamingApiManager, ApiEventType, ApiUpdate } from '../services/intelligence/streaming-api-manager';
 import { triggerConsolidationService, ConsolidatedTrigger, TriggerConsolidationResult } from '../services/triggers/trigger-consolidation.service';
 import { triggerTitleRewriterService } from '../services/triggers/trigger-title-rewriter.service';
+import { synapseDataProvider } from '../services/v4/synapse-data-provider.service';
 import type { TriggerSynthesisResult } from '../services/triggers/llm-trigger-synthesizer.service';
 import type { DeepContext } from '../types/synapse/deepContext.types';
 import type { CompleteUVP } from '../types/uvp-flow.types';
@@ -103,20 +104,31 @@ export function useStreamingTriggers(
   }, [enabled]);
 
   // Re-consolidate triggers when context updates - DEBOUNCED + THROTTLED to prevent excessive re-runs
-  // PHASE M: During live streaming, DON'T run regex consolidation - wait for Opus 4.5 synthesis
-  // Only use consolidation for cached data (immediate=true)
+  // Progressive consolidation: Show triggers as data arrives, replace with LLM synthesis when ready
   const consolidateTriggers = useCallback((context: DeepContext, immediate: boolean = false) => {
     if (!uvp) {
       console.log('[StreamingTriggers] No UVP - skipping consolidation');
       return;
     }
 
-    // PHASE M: Skip regex consolidation during streaming
-    // Raw data will be synthesized by LLM when APIs complete
-    // Only process cached data immediately
-    if (!immediate) {
-      console.log('[StreamingTriggers] ⏳ Skipping regex consolidation - waiting for LLM synthesis');
+    // Check if we have ANY usable data (not just Perplexity correlatedInsights)
+    // CRITICAL FIX: Don't block on Perplexity - use Reddit, Twitter, HackerNews, etc. directly
+    const hasCorrelatedInsights = (context.correlatedInsights?.length || 0) > 0;
+    const hasRawData = (context.rawData?.length || 0) > 0;
+    const hasSocialData = (context.socialListening?.reddit?.length || 0) > 0 ||
+                          (context.socialListening?.twitter?.length || 0) > 0 ||
+                          (context.socialListening?.hackernews?.length || 0) > 0;
+    const hasAnyData = hasCorrelatedInsights || hasRawData || hasSocialData;
+
+    // Progressive mode: Allow consolidation when we have ANY data source
+    // This prevents blocking on Perplexity when Reddit/Twitter/HackerNews have data
+    if (!immediate && !hasAnyData) {
+      console.log('[StreamingTriggers] ⏳ No data yet - waiting for any source (Reddit, Twitter, HN, Perplexity)');
       return;
+    }
+
+    if (!hasCorrelatedInsights && hasAnyData) {
+      console.log(`[StreamingTriggers] 🔄 Using alternate data sources: rawData=${context.rawData?.length || 0}, social=${hasSocialData}`);
     }
 
     // Clear any pending consolidation
@@ -133,7 +145,7 @@ export function useStreamingTriggers(
 
       try {
         isConsolidatingRef.current = true;
-        console.log('[StreamingTriggers] Processing cached triggers data');
+        console.log('[StreamingTriggers] Processing triggers data (progressive consolidation)');
         const result = triggerConsolidationService.consolidate(
           context,
           uvp,
@@ -167,7 +179,12 @@ export function useStreamingTriggers(
             setTriggers(cleanedTriggers);
             setConsolidationResult({ ...result, triggers: cleanedTriggers });
             setIsReady(true); // Mark as ready AFTER title rewriting completes
-            console.log(`[StreamingTriggers] Consolidated: ${cleanedTriggers.length} triggers from cache (titles rewritten, isReady=true)`);
+            console.log(`[StreamingTriggers] ✅ Consolidated: ${cleanedTriggers.length} triggers (titles rewritten, isReady=true)`);
+
+            // FALLBACK: Also push consolidated triggers to synapseDataProvider
+            // (LLM synthesis will overwrite these when complete, but this ensures data is available early)
+            synapseDataProvider.setTriggers(cleanedTriggers);
+            console.log(`[StreamingTriggers] Pushed ${cleanedTriggers.length} fallback triggers to SynapseDataProvider`);
           } catch (rewriteError) {
             // Fallback: use original titles if rewriting fails
             console.warn('[StreamingTriggers] Title rewriting failed, using original titles:', rewriteError);
@@ -186,7 +203,7 @@ export function useStreamingTriggers(
       }
     };
 
-    // Only run immediately for cached data
+    // Run consolidation (progressive mode - runs when correlatedInsights are available)
     doConsolidate();
   }, [uvp, brand]);
 
@@ -303,6 +320,11 @@ export function useStreamingTriggers(
       setTriggers(result.triggers);
       setLoadingStatus(`Complete: ${result.triggers.length} triggers synthesized`);
       setIsReady(true); // Mark as ready - we have quality synthesized triggers
+
+      // CRITICAL: Push triggers to synapseDataProvider for content generation
+      // This ensures ALL content generation can access the full Synapse 2.0 API data
+      synapseDataProvider.setTriggers(result.triggers);
+      console.log(`[StreamingTriggers] Pushed ${result.triggers.length} triggers to SynapseDataProvider`);
     } else {
       // Sonnet 4 returned no triggers - show empty state
       console.warn('[StreamingTriggers] Sonnet 4 synthesis returned no triggers');

@@ -1212,13 +1212,13 @@ export const OnboardingPageV5: React.FC = () => {
       setCurrentBrand(brandData);
       console.log('[OnboardingPageV5] Brand set in context');
 
-      // Step 5: Navigate to V4 Content Engine
-      console.log('[OnboardingPageV5] Onboarding complete - redirecting to V4 Content');
-      navigate('/v4-content');
+      // Step 5: Navigate to V5 Dashboard
+      console.log('[OnboardingPageV5] Onboarding complete - redirecting to V5 Dashboard');
+      navigate('/v5');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save insights:', error);
-      // Navigate to V4 Content anyway to prevent blocking the user
-      navigate('/v4-content');
+      // Navigate to V5 Dashboard anyway to prevent blocking the user
+      navigate('/v5');
     }
   };
 
@@ -1317,7 +1317,7 @@ export const OnboardingPageV5: React.FC = () => {
 
     if (!collectedData || !businessData || !refinedData) {
       console.error('[OnboardingPageV5] Missing required data for saving');
-      navigate('/v4-content');
+      navigate('/v5');
       return;
     }
 
@@ -1369,11 +1369,11 @@ export const OnboardingPageV5: React.FC = () => {
 
       // Step 6: Navigate to V4 Content Engine
       console.log('[OnboardingPageV5] Track E onboarding complete - redirecting to V4 Content');
-      navigate('/v4-content');
+      navigate('/v5');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save Track E data:', error);
       // Navigate to V4 Content anyway to prevent blocking the user
-      navigate('/v4-content');
+      navigate('/v5');
     }
   };
 
@@ -1929,7 +1929,7 @@ export const OnboardingPageV5: React.FC = () => {
           });
         }
 
-        navigate('/v4-content');
+        navigate('/v5');
       } else {
         throw new Error(result.error || 'Failed to save UVP');
       }
@@ -2752,7 +2752,7 @@ export const OnboardingPageV5: React.FC = () => {
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
                   // Navigate to V4 Content immediately - no blocking alert
-                  navigate('/v4-content');
+                  navigate('/v5');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);
                   alert(`Failed to save UVP: ${result.error}\n\nPlease check the console for more details.`);

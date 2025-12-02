@@ -1,0 +1,423 @@
+/**
+ * Angle Scorer Service
+ *
+ * Scores discovered angles by novelty, relevance, actionability, and confidence.
+ * Uses PARALLEL execution across 4 OpenRouter keys for 4x speed.
+ *
+ * Scoring Dimensions:
+ * - Novelty: How unexpected/unique is this angle (0-100)
+ * - Relevance: How aligned to the business/audience (0-100)
+ * - Actionability: How easy to create content from this (0-100)
+ * - Confidence: Data backing strength (0-100)
+ * - Composite: Weighted average of all dimensions
+ */
+
+import { parallelLLMManager, type LLMRequest } from './parallel-llm-manager.service';
+import type { DiscoveredAngle, AngleType } from './angle-discovery.service';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface AngleScore {
+  novelty: number;       // How unexpected (0-100)
+  relevance: number;     // How aligned to business (0-100)
+  actionability: number; // How easy to create content (0-100)
+  confidence: number;    // Data backing strength (0-100)
+  composite: number;     // Weighted average
+}
+
+export interface ScoredAngle extends DiscoveredAngle {
+  scores: AngleScore;
+  rank: number;
+  recommendation: 'high-priority' | 'worth-exploring' | 'low-priority' | 'skip';
+}
+
+export interface ScoringConfig {
+  weights: {
+    novelty: number;
+    relevance: number;
+    actionability: number;
+    confidence: number;
+  };
+  minCompositeScore: number;
+  businessContext?: {
+    industry: string;
+    targetAudience: string;
+    contentGoals: string[];
+    brandVoice: string;
+  };
+}
+
+export interface ScoringResult {
+  scoredAngles: ScoredAngle[];
+  stats: {
+    totalScored: number;
+    highPriority: number;
+    avgCompositeScore: number;
+    topAngleType: AngleType | null;
+    processingTimeMs: number;
+  };
+}
+
+// ============================================================================
+// Default Configuration
+// ============================================================================
+
+const DEFAULT_CONFIG: ScoringConfig = {
+  weights: {
+    novelty: 0.25,
+    relevance: 0.30,
+    actionability: 0.25,
+    confidence: 0.20,
+  },
+  minCompositeScore: 50,
+};
+
+// Score thresholds for recommendations
+const SCORE_THRESHOLDS = {
+  highPriority: 75,
+  worthExploring: 55,
+  lowPriority: 40,
+};
+
+// ============================================================================
+// Angle Scorer Service
+// ============================================================================
+
+class AngleScorerService {
+  private config: ScoringConfig;
+
+  constructor(config: Partial<ScoringConfig> = {}) {
+    this.config = {
+      ...DEFAULT_CONFIG,
+      ...config,
+      weights: { ...DEFAULT_CONFIG.weights, ...config.weights },
+    };
+  }
+
+  /**
+   * Score multiple angles in PARALLEL using 4 OpenRouter keys
+   */
+  async scoreAngles(
+    angles: DiscoveredAngle[],
+    config?: Partial<ScoringConfig>
+  ): Promise<ScoringResult> {
+    const startTime = Date.now();
+    const mergedConfig = {
+      ...this.config,
+      ...config,
+      weights: { ...this.config.weights, ...config?.weights },
+    };
+
+    if (angles.length === 0) {
+      return {
+        scoredAngles: [],
+        stats: {
+          totalScored: 0,
+          highPriority: 0,
+          avgCompositeScore: 0,
+          topAngleType: null,
+          processingTimeMs: 0,
+        },
+      };
+    }
+
+    console.log(`[AngleScorer] Scoring ${angles.length} angles in parallel...`);
+
+    // Build scoring requests for all angles
+    const requests: LLMRequest[] = angles.map(angle =>
+      this.buildScoringRequest(angle, mergedConfig)
+    );
+
+    // Execute ALL scoring in parallel across 4 keys
+    const batchResult = await parallelLLMManager.executeParallel<{
+      novelty: number;
+      relevance: number;
+      actionability: number;
+      confidence: number;
+      reasoning: string;
+    }>(requests);
+
+    // Process results
+    const scoredAngles: ScoredAngle[] = [];
+
+    for (let i = 0; i < angles.length; i++) {
+      const angle = angles[i];
+      const response = batchResult.results[i];
+
+      let scores: AngleScore;
+
+      if (response.success && response.data) {
+        const data = response.data;
+        scores = {
+          novelty: this.clampScore(data.novelty),
+          relevance: this.clampScore(data.relevance),
+          actionability: this.clampScore(data.actionability),
+          confidence: this.clampScore(data.confidence),
+          composite: this.calculateComposite({
+            novelty: data.novelty,
+            relevance: data.relevance,
+            actionability: data.actionability,
+            confidence: data.confidence,
+            composite: 0,
+          }, mergedConfig.weights),
+        };
+      } else {
+        // Fallback scoring based on angle metadata
+        scores = this.fallbackScoring(angle);
+      }
+
+      const scoredAngle: ScoredAngle = {
+        ...angle,
+        scores,
+        rank: 0, // Will be set after sorting
+        recommendation: this.getRecommendation(scores.composite),
+      };
+
+      scoredAngles.push(scoredAngle);
+    }
+
+    // Sort by composite score and assign ranks
+    scoredAngles.sort((a, b) => b.scores.composite - a.scores.composite);
+    scoredAngles.forEach((angle, idx) => {
+      angle.rank = idx + 1;
+    });
+
+    // Calculate stats
+    const processingTimeMs = Date.now() - startTime;
+    const highPriority = scoredAngles.filter(a => a.recommendation === 'high-priority').length;
+    const avgCompositeScore = scoredAngles.length > 0
+      ? scoredAngles.reduce((sum, a) => sum + a.scores.composite, 0) / scoredAngles.length
+      : 0;
+
+    // Find top angle type
+    const typeCounts: Record<AngleType, number> = {} as Record<AngleType, number>;
+    for (const angle of scoredAngles.filter(a => a.scores.composite >= SCORE_THRESHOLDS.worthExploring)) {
+      typeCounts[angle.type] = (typeCounts[angle.type] || 0) + 1;
+    }
+    const topAngleType = Object.entries(typeCounts)
+      .sort((a, b) => b[1] - a[1])[0]?.[0] as AngleType | undefined || null;
+
+    console.log(`[AngleScorer] ✅ Scored ${angles.length} angles in ${(processingTimeMs / 1000).toFixed(1)}s`);
+    console.log(`[AngleScorer] High priority: ${highPriority}, Avg score: ${avgCompositeScore.toFixed(1)}`);
+
+    return {
+      scoredAngles,
+      stats: {
+        totalScored: angles.length,
+        highPriority,
+        avgCompositeScore,
+        topAngleType,
+        processingTimeMs,
+      },
+    };
+  }
+
+  /**
+   * Score a single angle (for on-demand scoring)
+   */
+  async scoreSingleAngle(
+    angle: DiscoveredAngle,
+    config?: Partial<ScoringConfig>
+  ): Promise<ScoredAngle> {
+    const result = await this.scoreAngles([angle], config);
+    return result.scoredAngles[0];
+  }
+
+  /**
+   * Re-rank angles with updated weights
+   */
+  reRankWithWeights(
+    scoredAngles: ScoredAngle[],
+    newWeights: Partial<ScoringConfig['weights']>
+  ): ScoredAngle[] {
+    const mergedWeights = { ...this.config.weights, ...newWeights };
+
+    return scoredAngles
+      .map(angle => ({
+        ...angle,
+        scores: {
+          ...angle.scores,
+          composite: this.calculateComposite(angle.scores, mergedWeights),
+        },
+      }))
+      .map(angle => ({
+        ...angle,
+        recommendation: this.getRecommendation(angle.scores.composite),
+      }))
+      .sort((a, b) => b.scores.composite - a.scores.composite)
+      .map((angle, idx) => ({ ...angle, rank: idx + 1 }));
+  }
+
+  /**
+   * Filter angles by recommendation level
+   */
+  filterByRecommendation(
+    scoredAngles: ScoredAngle[],
+    recommendations: ScoredAngle['recommendation'][]
+  ): ScoredAngle[] {
+    return scoredAngles.filter(a => recommendations.includes(a.recommendation));
+  }
+
+  /**
+   * Get top N angles
+   */
+  getTopAngles(scoredAngles: ScoredAngle[], count: number = 5): ScoredAngle[] {
+    return scoredAngles.slice(0, count);
+  }
+
+  // ============================================================================
+  // Helper Methods
+  // ============================================================================
+
+  private buildScoringRequest(
+    angle: DiscoveredAngle,
+    config: ScoringConfig
+  ): LLMRequest {
+    const businessContext = config.businessContext
+      ? `
+BUSINESS CONTEXT:
+- Industry: ${config.businessContext.industry}
+- Target Audience: ${config.businessContext.targetAudience}
+- Content Goals: ${config.businessContext.contentGoals.join(', ')}
+- Brand Voice: ${config.businessContext.brandVoice}`
+      : '';
+
+    return {
+      prompt: `Score this content angle on 4 dimensions (0-100 each):
+
+ANGLE:
+Title: ${angle.title}
+Type: ${angle.type}
+Description: ${angle.description}
+Reasoning: ${angle.reasoning}
+Data Backing: ${angle.dataBacking}
+${businessContext}
+
+SCORING CRITERIA:
+1. NOVELTY (0-100): How unexpected/unique is this angle?
+   - 90-100: Never seen before, truly original
+   - 70-89: Fresh take on known topic
+   - 50-69: Somewhat unique
+   - 30-49: Common but with a twist
+   - 0-29: Very common angle
+
+2. RELEVANCE (0-100): How aligned to the business/audience?
+   - 90-100: Perfect fit, directly addresses core needs
+   - 70-89: Strong alignment
+   - 50-69: Moderate relevance
+   - 30-49: Tangential connection
+   - 0-29: Poor fit
+
+3. ACTIONABILITY (0-100): How easy to create content from this?
+   - 90-100: Clear path, could write immediately
+   - 70-89: Easy with some planning
+   - 50-69: Moderate effort needed
+   - 30-49: Complex, requires significant research
+   - 0-29: Very difficult to execute
+
+4. CONFIDENCE (0-100): How strong is the data backing?
+   - 90-100: Multiple strong sources, verified data
+   - 70-89: Good evidence, reliable sources
+   - 50-69: Some supporting data
+   - 30-49: Weak evidence
+   - 0-29: No real data backing
+
+Return JSON:
+{
+  "novelty": <score>,
+  "relevance": <score>,
+  "actionability": <score>,
+  "confidence": <score>,
+  "reasoning": "Brief explanation of scores"
+}`,
+      systemPrompt: 'You are an expert content strategist scoring content angles objectively. Output valid JSON only.',
+      responseFormat: 'json',
+      temperature: 0.3,
+    };
+  }
+
+  private calculateComposite(
+    scores: AngleScore,
+    weights: ScoringConfig['weights']
+  ): number {
+    return Math.round(
+      scores.novelty * weights.novelty +
+      scores.relevance * weights.relevance +
+      scores.actionability * weights.actionability +
+      scores.confidence * weights.confidence
+    );
+  }
+
+  private clampScore(score: number): number {
+    return Math.min(100, Math.max(0, Math.round(score)));
+  }
+
+  private getRecommendation(composite: number): ScoredAngle['recommendation'] {
+    if (composite >= SCORE_THRESHOLDS.highPriority) return 'high-priority';
+    if (composite >= SCORE_THRESHOLDS.worthExploring) return 'worth-exploring';
+    if (composite >= SCORE_THRESHOLDS.lowPriority) return 'low-priority';
+    return 'skip';
+  }
+
+  private fallbackScoring(angle: DiscoveredAngle): AngleScore {
+    // Basic fallback based on angle metadata
+    const novelty = angle.noveltyScore || 50;
+    const confidence = angle.confidence * 100 || 50;
+
+    // Estimate relevance and actionability based on type
+    const typeModifiers: Record<AngleType, { relevance: number; actionability: number }> = {
+      'contrarian': { relevance: 70, actionability: 65 },
+      'adjacent-industry': { relevance: 65, actionability: 60 },
+      'semantic-gap': { relevance: 80, actionability: 75 },
+      'hidden-correlation': { relevance: 60, actionability: 55 },
+      'predictive-trend': { relevance: 75, actionability: 70 },
+    };
+
+    const modifiers = typeModifiers[angle.type] || { relevance: 60, actionability: 60 };
+
+    const composite = this.calculateComposite(
+      {
+        novelty,
+        relevance: modifiers.relevance,
+        actionability: modifiers.actionability,
+        confidence,
+        composite: 0,
+      },
+      this.config.weights
+    );
+
+    return {
+      novelty,
+      relevance: modifiers.relevance,
+      actionability: modifiers.actionability,
+      confidence,
+      composite,
+    };
+  }
+
+  /**
+   * Update configuration
+   */
+  updateConfig(config: Partial<ScoringConfig>): void {
+    this.config = {
+      ...this.config,
+      ...config,
+      weights: { ...this.config.weights, ...config?.weights },
+    };
+  }
+
+  /**
+   * Get current weights
+   */
+  getWeights(): ScoringConfig['weights'] {
+    return { ...this.config.weights };
+  }
+}
+
+// Export singleton instance
+export const angleScorer = new AngleScorerService();
+
+// Export class for testing
+export { AngleScorerService };

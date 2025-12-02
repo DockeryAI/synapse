@@ -12,6 +12,19 @@ import { jtbdTransformer, type TransformedValueProps } from './jtbd-transformer.
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
+// Brand Voice Profile - extracted from website tone analysis
+export interface BrandVoiceProfile {
+  tone: ('professional' | 'friendly' | 'authoritative' | 'casual' | 'inspiring' | 'technical' | 'conversational')[];
+  values: string[];
+  personality: string[];
+  vocabularyPatterns: string[];  // Power words and phrases they use
+  avoidWords: string[];          // Words/styles that don't match their voice
+  signaturePhrases: string[];    // Unique expressions from their content
+  sentenceStyle: 'short' | 'medium' | 'long' | 'mixed';
+  emotionalTemperature: 'warm' | 'neutral' | 'urgent' | 'calm';
+  confidence: number;
+}
+
 export interface WebsiteMessagingAnalysis {
   // Original feature-focused props
   valuePropositions: string[]
@@ -30,6 +43,9 @@ export interface WebsiteMessagingAnalysis {
   testimonials?: string[]
   metaTags?: Record<string, string>
   keywords?: string[]
+
+  // Brand voice/tone analysis
+  brandVoice?: BrandVoiceProfile
 
   // Phase 6: Enhanced proof extraction
   extractedProof?: {
@@ -503,6 +519,146 @@ Return ONLY valid JSON (no markdown, no explanations):
         metaTags: {},
         keywords: []
       }
+    }
+  }
+
+  /**
+   * Analyze brand voice and tone from website content
+   * Uses Claude to detect communication style, personality, and vocabulary patterns
+   */
+  async analyzeBrandVoice(
+    websiteContent: string,
+    businessName: string
+  ): Promise<BrandVoiceProfile> {
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('[WebsiteAnalyzer] No Supabase configuration - returning default brand voice')
+      return this.getDefaultBrandVoice();
+    }
+
+    try {
+      console.log('[WebsiteAnalyzer] Analyzing brand voice for:', businessName)
+
+      // Truncate content to avoid token limits
+      const truncatedContent = websiteContent.slice(0, 15000)
+
+      const prompt = `You are a brand communication expert. Analyze this website content to understand the brand's voice, tone, and communication style.
+
+Business: ${businessName}
+Website Content:
+${truncatedContent}
+
+Analyze these aspects of their communication style:
+
+1. PRIMARY TONE (select 1-3 that best apply):
+   - professional: Formal language, industry terminology, structured communication
+   - friendly: Conversational, approachable, warm, uses "you/we"
+   - authoritative: Expert voice, data-driven, commands respect
+   - casual: Relaxed, informal, possibly humorous
+   - inspiring: Aspirational, emotional, motivational language
+   - technical: Jargon-heavy, detailed specifications
+   - conversational: Natural dialogue, questions, personal stories
+
+2. BRAND VALUES (what they clearly care about from their messaging):
+   Examples: trust, innovation, quality, customer-first, expertise, reliability, speed, value
+
+3. PERSONALITY TRAITS (how they come across):
+   Examples: confident, humble, bold, conservative, innovative, caring, direct, thoughtful
+
+4. VOCABULARY PATTERNS (power words and phrases they use repeatedly):
+   Extract 5-10 specific words or short phrases they favor
+
+5. WORDS TO AVOID (styles/language that would NOT match their voice):
+   What tone or words are conspicuously absent?
+
+6. SIGNATURE PHRASES (unique expressions, taglines, or recurring statements):
+   Exact quotes from their content
+
+7. SENTENCE STYLE: Are their sentences mostly short/punchy, medium-length, long/detailed, or mixed?
+
+8. EMOTIONAL TEMPERATURE: warm (personal, emotional), neutral (balanced), urgent (action-driven), or calm (reassuring)
+
+Return ONLY valid JSON (no markdown, no explanations):
+{
+  "tone": ["professional", "friendly"],
+  "values": ["trust", "expertise", "customer-first"],
+  "personality": ["confident", "caring", "direct"],
+  "vocabularyPatterns": ["specific phrase 1", "power word 2"],
+  "avoidWords": ["overly casual language", "aggressive sales speak"],
+  "signaturePhrases": ["their exact tagline", "recurring phrase"],
+  "sentenceStyle": "medium",
+  "emotionalTemperature": "warm"
+}`
+
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          provider: 'openrouter',
+          model: 'anthropic/claude-opus-4',
+          messages: [{
+            role: 'user',
+            content: prompt
+          }],
+          max_tokens: 2048,
+          temperature: 0.3
+        })
+      })
+
+      if (!response.ok) {
+        console.error('[WebsiteAnalyzer] Brand voice API error:', response.status)
+        return this.getDefaultBrandVoice();
+      }
+
+      const data = await response.json()
+      const analysisText = data.choices[0].message.content
+
+      // Clean and parse JSON
+      let cleaned = analysisText.trim()
+      cleaned = cleaned.replace(/^```(?:json)?\s*\n?/i, '')
+      cleaned = cleaned.replace(/\n?\s*```\s*$/i, '')
+
+      const analysis = JSON.parse(cleaned)
+
+      console.log('[WebsiteAnalyzer] Brand voice detected:')
+      console.log('  - Tone:', analysis.tone?.join(', '))
+      console.log('  - Values:', analysis.values?.slice(0, 3).join(', '))
+      console.log('  - Sentence style:', analysis.sentenceStyle)
+      console.log('  - Emotional temperature:', analysis.emotionalTemperature)
+
+      return {
+        tone: analysis.tone || ['professional'],
+        values: analysis.values || [],
+        personality: analysis.personality || [],
+        vocabularyPatterns: analysis.vocabularyPatterns || [],
+        avoidWords: analysis.avoidWords || [],
+        signaturePhrases: analysis.signaturePhrases || [],
+        sentenceStyle: analysis.sentenceStyle || 'medium',
+        emotionalTemperature: analysis.emotionalTemperature || 'neutral',
+        confidence: 85
+      }
+    } catch (error) {
+      console.error('[WebsiteAnalyzer] Brand voice analysis failed:', error)
+      return this.getDefaultBrandVoice();
+    }
+  }
+
+  /**
+   * Get default brand voice profile when analysis fails
+   */
+  private getDefaultBrandVoice(): BrandVoiceProfile {
+    return {
+      tone: ['professional'],
+      values: [],
+      personality: [],
+      vocabularyPatterns: [],
+      avoidWords: [],
+      signaturePhrases: [],
+      sentenceStyle: 'medium',
+      emotionalTemperature: 'neutral',
+      confidence: 0
     }
   }
 

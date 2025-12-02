@@ -270,6 +270,39 @@ class BuzzSumoAPIService {
     };
   }
 
+  /**
+   * Get "What's Working Now" data for a topic with brand context
+   * Alias method for streaming-api-manager compatibility
+   */
+  async getWhatsWorkingNow(topic: string, _brandName?: string): Promise<{
+    topContent: Array<BuzzSumoContent & { engagement: number }>;
+    trendingTopics: string[];
+  } | null> {
+    try {
+      const analysis = await this.analyzeContent(topic, { numResults: 50, days: 14 });
+      const trending = await this.getTrending({ topic, hours: 48 });
+
+      return {
+        topContent: analysis.topContent.map(c => ({
+          ...c,
+          engagement: c.totalShares
+        })),
+        trendingTopics: trending.emergingTopics
+      };
+    } catch (error) {
+      console.error('[BuzzSumo] getWhatsWorkingNow failed:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Extract headline patterns from titles array
+   * Public method for streaming-api-manager compatibility
+   */
+  extractHeadlinePatterns(titles: string[]): string[] {
+    return this.extractHeadlinePatternsFromTitles(titles);
+  }
+
   // ============================================================================
   // Private Methods
   // ============================================================================

@@ -1,4 +1,9 @@
 // OpenRouter API client for AI content generation
+//
+// PARALLEL ARCHITECTURE (2025-12-01):
+// - Supports keyIndex parameter for 4-key rotation via ai-proxy
+// - parallelChat() enables concurrent requests with automatic key distribution
+// - 4x effective rate limit capacity when using all keys
 
 import type { OpenRouterRequest, OpenRouterResponse, OpenRouterMessage } from '@/types';
 import { OPENROUTER_MODELS } from './constants';
@@ -19,10 +24,13 @@ interface ChatOptions {
   maxTokens?: number;
   topP?: number;
   stream?: boolean;
+  /** Key index (0-3) for parallel processing - routes to different OpenRouter keys */
+  keyIndex?: number;
 }
 
 /**
  * Send a chat completion request to OpenRouter
+ * Supports keyIndex for parallel processing across 4 API keys
  */
 export async function chat(
   messages: OpenRouterMessage[],
@@ -38,9 +46,10 @@ export async function chat(
     maxTokens = 2000,
     topP = 1,
     stream = false,
+    keyIndex,
   } = options;
 
-  const requestBody = {
+  const requestBody: Record<string, any> = {
     provider: 'openrouter',  // Route through ai-proxy to OpenRouter
     model,
     messages,
@@ -50,10 +59,16 @@ export async function chat(
     stream,
   };
 
+  // Add keyIndex for parallel processing (0-3 routes to different OpenRouter keys)
+  if (keyIndex !== undefined) {
+    requestBody.keyIndex = keyIndex;
+  }
+
   console.log('[OpenRouter] Making API request via ai-proxy:', {
     model,
     messageCount: messages.length,
-    provider: 'openrouter'
+    provider: 'openrouter',
+    keyIndex: keyIndex ?? 'auto',
   });
 
   try {
@@ -87,6 +102,67 @@ export async function chat(
     console.error('AI Proxy error:', error);
     throw error;
   }
+}
+
+/**
+ * Execute multiple chat requests in parallel using different API keys
+ * Distributes requests across 4 keys for 4x throughput
+ *
+ * @param requests Array of {messages, options} to process in parallel
+ * @returns Array of responses in same order as requests
+ */
+export async function parallelChat(
+  requests: Array<{ messages: OpenRouterMessage[]; options?: ChatOptions }>
+): Promise<string[]> {
+  console.log(`[OpenRouter] Starting parallel chat with ${requests.length} requests`);
+
+  // Distribute requests across 4 keys using round-robin
+  const promises = requests.map((req, index) => {
+    const keyIndex = index % 4; // Distribute across 4 keys
+    return chat(req.messages, { ...req.options, keyIndex });
+  });
+
+  // Execute all in parallel
+  const results = await Promise.allSettled(promises);
+
+  // Extract results, throwing if any failed
+  return results.map((result, index) => {
+    if (result.status === 'fulfilled') {
+      return result.value;
+    } else {
+      console.error(`[OpenRouter] Parallel request ${index} failed:`, result.reason);
+      throw result.reason;
+    }
+  });
+}
+
+/**
+ * Execute multiple chat requests in parallel, returning partial results on failure
+ * Use this when you want to continue even if some requests fail
+ */
+export async function parallelChatWithPartialResults(
+  requests: Array<{ messages: OpenRouterMessage[]; options?: ChatOptions }>
+): Promise<Array<{ success: boolean; content: string; error?: string }>> {
+  console.log(`[OpenRouter] Starting parallel chat with partial results for ${requests.length} requests`);
+
+  const promises = requests.map((req, index) => {
+    const keyIndex = index % 4;
+    return chat(req.messages, { ...req.options, keyIndex });
+  });
+
+  const results = await Promise.allSettled(promises);
+
+  return results.map((result) => {
+    if (result.status === 'fulfilled') {
+      return { success: true, content: result.value };
+    } else {
+      return {
+        success: false,
+        content: '',
+        error: result.reason?.message || 'Unknown error',
+      };
+    }
+  });
 }
 
 /**
@@ -385,6 +461,8 @@ Provide detailed JSON:
 
 export default {
   chat,
+  parallelChat,
+  parallelChatWithPartialResults,
   generateWithMARBA,
   generateWithSynapse,
   askMarbs,
