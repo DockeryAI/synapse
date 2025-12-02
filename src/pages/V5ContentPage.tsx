@@ -37,7 +37,7 @@ import { getGenerationStats } from '@/services/v5/ai-enhancer.service';
 
 // V5 Components
 import { UVPBuildingBlocks } from '@/components/v5/UVPBuildingBlocks';
-import { InsightTabs, type EnabledTabs } from '@/components/v5/InsightTabs';
+import { InsightTabs, type EnabledTabs, type UVPData } from '@/components/v5/InsightTabs';
 import { type Insight } from '@/components/v5/InsightCards';
 import { YourMixPreview, type GeneratedContentPreview, type PsychologyFramework } from '@/components/v5/YourMixPreview';
 import { ContentToolbar, type Platform, type FunnelStage, type InsightRecipe } from '@/components/v5/ContentToolbar';
@@ -490,7 +490,22 @@ export function V5ContentPage() {
             isGenerating={isGenerating}
           />
           <div className="flex-1 overflow-hidden">
-            <InsightTabs insights={insights} enabledTabs={DEFAULT_ENABLED_TABS} selectedInsights={selectedInsightIds} onToggleInsight={handleToggleInsight} onUseInsight={handleUseInsight} isLoading={isLoadingInsights} onRefreshTab={handleRefreshTab} refreshingTab={refreshingTab as any} />
+            <InsightTabs
+                insights={insights}
+                enabledTabs={DEFAULT_ENABLED_TABS}
+                selectedInsights={selectedInsightIds}
+                onToggleInsight={handleToggleInsight}
+                onUseInsight={handleUseInsight}
+                isLoading={isLoadingInsights}
+                onRefreshTab={handleRefreshTab}
+                refreshingTab={refreshingTab as any}
+                uvpData={{
+                  target_customer: uvp?.targetCustomer?.statement,
+                  key_benefit: uvp?.keyBenefit?.statement,
+                  unique_solution: uvp?.uniqueSolution?.statement,
+                  transformation: uvp?.transformationGoal?.statement,
+                }}
+              />
           </div>
         </div>
 

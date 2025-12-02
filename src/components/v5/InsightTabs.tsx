@@ -55,6 +55,14 @@ export interface EnabledTabs {
   weather: boolean;
 }
 
+/** UVP data for alignment checking */
+export interface UVPData {
+  target_customer?: string;
+  key_benefit?: string;
+  unique_solution?: string;
+  transformation?: string;
+}
+
 export interface InsightTabsProps {
   insights: Insight[];
   enabledTabs?: EnabledTabs;
@@ -64,6 +72,8 @@ export interface InsightTabsProps {
   isLoading?: boolean;
   onRefreshTab?: (tabType: InsightType) => Promise<void>;
   refreshingTab?: InsightType | null;
+  /** Brand UVP data for alignment calculation */
+  uvpData?: UVPData;
 }
 
 // ============================================================================
@@ -164,7 +174,7 @@ const SORT_OPTIONS: { id: SortOption; label: string }[] = [
  * This adapter bridges the generic Insight format from the API
  * to the rich ConsolidatedTrigger format expected by the V4 components.
  */
-function insightsToConsolidatedTriggers(insights: Insight[]): ConsolidatedTrigger[] {
+function insightsToConsolidatedTriggers(insights: Insight[], uvpData?: UVPData): ConsolidatedTrigger[] {
   return insights
     .filter((insight): insight is TriggerInsight => insight.type === 'trigger')
     .map((insight): ConsolidatedTrigger => {
@@ -196,15 +206,34 @@ function insightsToConsolidatedTriggers(insights: Insight[]): ConsolidatedTrigge
         });
       }
 
+      // Create concise title: first sentence or ~60 chars
+      const fullText = insight.text;
+      let title = fullText;
+      // Try to get first sentence
+      const sentenceMatch = fullText.match(/^[^.!?]+[.!?]/);
+      if (sentenceMatch && sentenceMatch[0].length <= 80) {
+        title = sentenceMatch[0].trim();
+      } else if (fullText.length > 60) {
+        // Truncate at word boundary around 60 chars
+        const truncated = fullText.substring(0, 65);
+        const lastSpace = truncated.lastIndexOf(' ');
+        title = (lastSpace > 40 ? truncated.substring(0, lastSpace) : truncated) + '...';
+      }
+
+      // Generate UVP alignments based on trigger content and brand UVP
+      const uvpAlignments = generateUVPAlignments(fullText, uvpData);
+      const isHighUVPAlignment = uvpAlignments.length >= 2;
+
       return {
         id: insight.id,
         category,
-        title: insight.text.length > 100 ? insight.text.substring(0, 100) + '...' : insight.text,
-        executiveSummary: insight.text,
+        title,
+        executiveSummary: fullText,
         confidence: (insight.confidence ?? 50) / 100,
         evidenceCount: evidence.length,
         evidence,
-        uvpAlignments: [],
+        uvpAlignments,
+        isHighUVPAlignment,
         isTimeSensitive: insight.isSurge || false,
         profileRelevance: 0.5,
         rawSourceIds: [insight.id],
@@ -227,6 +256,62 @@ function extractPlatformFromSource(source: string): string {
   if (lower.includes('hackernews') || lower.includes('ycombinator')) return 'hackernews';
   if (lower.includes('quora')) return 'quora';
   return 'unknown';
+}
+
+/**
+ * Generate UVP alignment strings based on trigger text and UVP data.
+ * Returns concise explanations: "Component - why it matches"
+ */
+function generateUVPAlignments(triggerText: string, uvpData?: UVPData): string[] {
+  if (!uvpData) return [];
+
+  const alignments: string[] = [];
+  const textLower = triggerText.toLowerCase();
+
+  // Stop words to exclude from matching
+  const stopWords = new Set(['the', 'and', 'for', 'that', 'with', 'this', 'from', 'your', 'they', 'have', 'been', 'more', 'will', 'into', 'their', 'when', 'what', 'which', 'about', 'are', 'was', 'were', 'been', 'being', 'has', 'had', 'does', 'did', 'could', 'would', 'should', 'may', 'might', 'must', 'can', 'need', 'want']);
+
+  // Helper to find matching keywords
+  const findMatchingWords = (text: string): string[] => {
+    const words = text.toLowerCase().split(/\s+/);
+    return words.filter(word =>
+      word.length > 3 && !stopWords.has(word) && textLower.includes(word)
+    ).slice(0, 2); // Max 2 matching words
+  };
+
+  // Check target customer alignment
+  if (uvpData.target_customer) {
+    const matches = findMatchingWords(uvpData.target_customer);
+    if (matches.length > 0) {
+      alignments.push(`Target Customer - mentions "${matches.join('", "')}"`);
+    }
+  }
+
+  // Check key benefit alignment
+  if (uvpData.key_benefit) {
+    const matches = findMatchingWords(uvpData.key_benefit);
+    if (matches.length > 0) {
+      alignments.push(`Key Benefit - references "${matches.join('", "')}"`);
+    }
+  }
+
+  // Check unique solution alignment
+  if (uvpData.unique_solution) {
+    const matches = findMatchingWords(uvpData.unique_solution);
+    if (matches.length > 0) {
+      alignments.push(`Differentiator - relates to "${matches.join('", "')}"`);
+    }
+  }
+
+  // Check transformation alignment
+  if (uvpData.transformation) {
+    const matches = findMatchingWords(uvpData.transformation);
+    if (matches.length > 0) {
+      alignments.push(`Transformation - addresses "${matches.join('", "')}"`);
+    }
+  }
+
+  return alignments;
 }
 
 // ============================================================================
@@ -280,6 +365,7 @@ export const InsightTabs = memo(function InsightTabs({
   isLoading = false,
   onRefreshTab,
   refreshingTab,
+  uvpData,
 }: InsightTabsProps) {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -372,10 +458,10 @@ export const InsightTabs = memo(function InsightTabs({
 
   // Triggers 4.0: Convert insights to ConsolidatedTrigger format for V4 cards
   const consolidatedTriggers = useMemo(() => {
-    const allTriggers = insightsToConsolidatedTriggers(insights);
+    const allTriggers = insightsToConsolidatedTriggers(insights, uvpData);
     // Apply V4 trigger filters
     return applyTriggerFilters(allTriggers, triggerFilters);
-  }, [insights, triggerFilters]);
+  }, [insights, triggerFilters, uvpData]);
 
   // Handler for trigger card click - toggles selection
   const handleTriggerClick = (trigger: ConsolidatedTrigger) => {
@@ -513,7 +599,7 @@ export const InsightTabs = memo(function InsightTabs({
             <>
               {/* V4 Trigger Filters */}
               <TriggerFilters
-                triggers={insightsToConsolidatedTriggers(insights)}
+                triggers={insightsToConsolidatedTriggers(insights, uvpData)}
                 filters={triggerFilters}
                 onFiltersChange={setTriggerFilters}
                 className="mb-4"
@@ -535,7 +621,7 @@ export const InsightTabs = memo(function InsightTabs({
               ) : (
                 <TriggerCardGrid
                   triggers={consolidatedTriggers}
-                  columns={2}
+                  columns={3}
                   variant="default"
                   selectedId={Array.from(selectedInsights)[0]}
                   onTriggerClick={handleTriggerClick}
@@ -560,16 +646,40 @@ export const InsightTabs = memo(function InsightTabs({
               </p>
             </div>
           ) : (
-            // Insight cards (non-trigger types)
-            filteredInsights.map((insight) => (
-              <InsightCard
-                key={insight.id}
-                insight={insight}
-                isSelected={selectedInsights.has(insight.id)}
-                onToggleSelect={onToggleInsight}
-                onUseInsight={onUseInsight}
-              />
-            ))
+            // Mixed insight cards - use TriggerCardV4 for triggers, InsightCard for others
+            <>
+              {/* Trigger insights - use V4 cards with UVP alignment */}
+              {filteredInsights.some(i => i.type === 'trigger') && (
+                <div className="mb-4">
+                  <TriggerCardGrid
+                    triggers={insightsToConsolidatedTriggers(
+                      filteredInsights.filter(i => i.type === 'trigger'),
+                      uvpData
+                    )}
+                    columns={3}
+                    variant="default"
+                    selectedId={Array.from(selectedInsights)[0]}
+                    onTriggerClick={handleTriggerClick}
+                  />
+                </div>
+              )}
+              {/* Non-trigger insights - use InsightCard */}
+              {filteredInsights.some(i => i.type !== 'trigger') && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {filteredInsights
+                    .filter(i => i.type !== 'trigger')
+                    .map((insight) => (
+                      <InsightCard
+                        key={insight.id}
+                        insight={insight}
+                        isSelected={selectedInsights.has(insight.id)}
+                        onToggleSelect={onToggleInsight}
+                        onUseInsight={onUseInsight}
+                      />
+                    ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </ScrollArea>
