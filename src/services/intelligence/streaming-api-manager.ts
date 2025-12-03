@@ -12,7 +12,7 @@ import { selectAPIsForIndustry } from './industry-api-selector.service';
 import { apiRetryWrapper } from './api-retry-wrapper';
 import { performanceOptimizer } from './performance-optimizer.service';
 import { triggerSearchQueryGenerator, type TriggerSearchQueries } from './trigger-search-query-generator.service';
-import { llmTriggerSynthesizer, type RawDataSample } from '../triggers/llm-trigger-synthesizer.service';
+import { triggerSynthesisService, type RawDataSample, type BrandProfile } from '../triggers/trigger-synthesis.service';
 import { earlyTriggerLoaderService, type EarlyTriggerEvent } from '../triggers/early-trigger-loader.service';
 import {
   type BusinessProfileType,
@@ -1108,44 +1108,47 @@ class StreamingApiManager extends EventEmitter {
       report
     });
 
-    // Run LLM trigger synthesis if we have UVP and raw data
+    // Run V1-style multi-pass trigger synthesis if we have UVP and raw data
     if (this.currentUVP && this.rawDataBuffer.length > 0) {
-      console.log(`[StreamingAPI] Starting LLM trigger synthesis with ${this.rawDataBuffer.length} samples`);
+      console.log(`[StreamingAPI] 🎯 Starting V1-style multi-pass synthesis with ${this.rawDataBuffer.length} samples`);
 
-      // DIVERSIFY SOURCES: Cap each platform at 20 samples to prevent VoC flooding
-      const diversifiedData = this.diversifySourceData(this.rawDataBuffer, 20);
-      console.log(`[StreamingAPI] Diversified: ${this.rawDataBuffer.length} -> ${diversifiedData.length} samples`);
+      // Build brand profile for V1 synthesis
+      const brandProfile: BrandProfile = {
+        uvp: this.currentUVP,
+        profileType: this.currentProfileType,
+        brandName: this.currentBrandName,
+        industry: this.currentIndustry,
+      };
 
       try {
-        const synthesisResult = await llmTriggerSynthesizer.synthesize({
-          rawData: diversifiedData,
-          uvp: this.currentUVP,
-          profileType: this.currentProfileType,
-          brandName: this.currentBrandName,
-          industry: this.currentIndustry,
-          // PHASE 5: Pass brandId for specialty profile lookup
-          brandId: this.currentLoadBrandId || undefined,
-          // PROGRESSIVE LOADING: Emit triggers as each batch completes
-          onBatchComplete: (triggers, batchIndex, totalBatches) => {
-            console.log(`[StreamingAPI] 🔄 Progressive: Batch ${batchIndex + 1}/${totalBatches} with ${triggers.length} triggers`);
+        // V1-STYLE: 4 sequential passes with hard provenance constraints
+        const synthesisResult = await triggerSynthesisService.runMultiPass(
+          brandProfile,
+          this.rawDataBuffer,
+          // Progressive callback for each pass
+          (passResult) => {
+            console.log(`[StreamingAPI] 🔄 Pass ${passResult.passType}: ${passResult.triggers.length} triggers in ${passResult.duration.toFixed(0)}ms`);
             this.emit('trigger-batch', {
-              triggers,
-              batchIndex,
-              totalBatches,
+              triggers: passResult.triggers,
+              batchIndex: ['pain-fear', 'desire-motivation', 'objection-trust', 'competitor'].indexOf(passResult.passType),
+              totalBatches: 4,
               isComplete: false,
             });
-          },
-        });
+          }
+        );
 
         if (synthesisResult.triggers.length > 0) {
-          console.log(`[StreamingAPI] Emitting ${synthesisResult.triggers.length} synthesized triggers (final)`);
-          this.emit('trigger-synthesis', synthesisResult);
+          console.log(`[StreamingAPI] ✅ V1 synthesis complete: ${synthesisResult.triggers.length} triggers (deduped ${synthesisResult.deduplicatedCount})`);
+          this.emit('trigger-synthesis', {
+            triggers: synthesisResult.triggers,
+            source: 'v1-multipass',
+            duration: synthesisResult.totalDuration,
+          });
         } else {
-          console.log('[StreamingAPI] No triggers synthesized - falling back to regex consolidation');
+          console.log('[StreamingAPI] No triggers synthesized from V1 passes');
         }
       } catch (error) {
-        console.error('[StreamingAPI] Trigger synthesis failed:', error);
-        // Silent failure - consumers will use regex consolidation as fallback
+        console.error('[StreamingAPI] V1 trigger synthesis failed:', error);
       }
     } else {
       console.log('[StreamingAPI] Skipping trigger synthesis - no UVP or raw data');

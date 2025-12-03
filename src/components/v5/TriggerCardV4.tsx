@@ -36,7 +36,7 @@
  * Updated: 2025-12-02
  */
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import {
   Flame,
   Heart,
@@ -53,7 +53,6 @@ import {
 import { cn } from '@/lib/utils';
 import { BorderBeam } from '@/components/ui/border-beam';
 import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from '@/services/triggers/trigger-consolidation.service';
-import { useResolvedSources } from '@/hooks/v5/useResolvedSources';
 
 // ============================================================================
 // TYPES
@@ -165,47 +164,93 @@ function getBestQuote(evidence: EvidenceItem[]): { quote: string; source: string
   const best = sorted[0];
   if (!best?.quote) return null;
 
-  // Format the source attribution
-  const source = formatSourceAttribution(best.platform, best.source);
+  // Format the source attribution - V1-STYLE: pass URL for reliable platform extraction
+  const source = formatSourceAttribution(best.platform, best.source, best.url);
 
   return { quote: best.quote, source };
 }
 
 /**
  * Format source attribution for display
+ * V1-STYLE: Extract platform from URL if available, with intelligent fallbacks
  */
-function formatSourceAttribution(platform?: string, source?: string): string {
-  if (platform) {
-    // Clean up platform names
-    const platformMap: Record<string, string> = {
-      'reddit': 'Reddit',
-      'g2': 'G2 Review',
-      'capterra': 'Capterra',
-      'hackernews': 'HackerNews',
-      'twitter': 'Twitter/X',
-      'linkedin': 'LinkedIn',
-      'youtube': 'YouTube',
-      'trustpilot': 'Trustpilot',
-      'google': 'Google Review',
-      'yelp': 'Yelp',
-      'amazon': 'Amazon Review',
-      'facebook': 'Facebook',
-      'tiktok': 'TikTok',
-      'uvpanalysis': 'UVP Analysis', // PHASE 20: Honest source for specialty triggers
-      'industryprofile': 'Industry Profile',
-    };
-    const cleanPlatform = platform.toLowerCase().replace(/[^a-z-]/g, '').replace(/-/g, '');
-    return platformMap[cleanPlatform] || platform;
-  }
-  if (source) {
-    // Try to extract domain or meaningful name
+function formatSourceAttribution(platform?: string, source?: string, url?: string): string {
+  // Platform mapping
+  const platformMap: Record<string, string> = {
+    'reddit': 'Reddit',
+    'g2': 'G2',
+    'capterra': 'Capterra',
+    'hackernews': 'HackerNews',
+    'twitter': 'X',
+    'x': 'X',
+    'linkedin': 'LinkedIn',
+    'youtube': 'YouTube',
+    'trustpilot': 'Trustpilot',
+    'google': 'Google Reviews',
+    'yelp': 'Yelp',
+    'amazon': 'Amazon',
+    'facebook': 'Facebook',
+    'tiktok': 'TikTok',
+    'quora': 'Quora',
+    'glassdoor': 'Glassdoor',
+    'producthunt': 'ProductHunt',
+    'clutch': 'Clutch',
+    'perplexity': 'Perplexity',
+  };
+
+  // 1. Try to extract platform from URL first (most reliable)
+  if (url) {
+    const urlLower = url.toLowerCase();
+    if (urlLower.includes('reddit.com') || urlLower.includes('redd.it')) return 'Reddit';
+    if (urlLower.includes('twitter.com') || urlLower.includes('x.com')) return 'X';
+    if (urlLower.includes('linkedin.com')) return 'LinkedIn';
+    if (urlLower.includes('g2.com') || urlLower.includes('g2crowd')) return 'G2';
+    if (urlLower.includes('capterra.com')) return 'Capterra';
+    if (urlLower.includes('trustpilot.com')) return 'Trustpilot';
+    if (urlLower.includes('yelp.com')) return 'Yelp';
+    if (urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) return 'YouTube';
+    if (urlLower.includes('tiktok.com')) return 'TikTok';
+    if (urlLower.includes('instagram.com')) return 'Instagram';
+    if (urlLower.includes('facebook.com') || urlLower.includes('fb.com')) return 'Facebook';
+    if (urlLower.includes('news.ycombinator.com')) return 'HackerNews';
+    if (urlLower.includes('quora.com')) return 'Quora';
+    if (urlLower.includes('amazon.com')) return 'Amazon';
+    if (urlLower.includes('glassdoor.com')) return 'Glassdoor';
+    if (urlLower.includes('producthunt.com')) return 'ProductHunt';
+    if (urlLower.includes('clutch.co')) return 'Clutch';
+    // Extract domain as fallback
     try {
-      const url = new URL(source);
-      return url.hostname.replace('www.', '');
+      const domain = new URL(url).hostname.replace('www.', '');
+      return domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1);
+    } catch {}
+  }
+
+  // 2. Use platform if provided
+  if (platform && platform.toLowerCase() !== 'unknown') {
+    const cleanPlatform = platform.toLowerCase().replace(/[^a-z]/g, '');
+    for (const [key, value] of Object.entries(platformMap)) {
+      if (cleanPlatform.includes(key)) return value;
+    }
+    // Capitalize first letter
+    return platform.charAt(0).toUpperCase() + platform.slice(1);
+  }
+
+  // 3. Use source string
+  if (source && source.toLowerCase() !== 'unknown') {
+    // Try to parse as URL
+    try {
+      const parsedUrl = new URL(source);
+      return parsedUrl.hostname.replace('www.', '');
     } catch {
-      return source.slice(0, 30);
+      // Check if source contains a known platform name
+      const sourceLower = source.toLowerCase();
+      for (const [key, value] of Object.entries(platformMap)) {
+        if (sourceLower.includes(key)) return value;
+      }
+      return source.slice(0, 20);
     }
   }
+
   return 'Source';
 }
 
@@ -236,19 +281,9 @@ export function TriggerCardV4({
   const config = CATEGORY_CONFIG[trigger.category] || CATEGORY_CONFIG['pain-point'];
   const CategoryIcon = config.icon;
 
-  // Extract verifiedSourceIds from evidence
-  const sourceIds = useMemo(() => {
-    return trigger.evidence
-      .map(e => e.verifiedSourceId)
-      .filter((id): id is string => !!id);
-  }, [trigger.evidence]);
-
-  // Resolve sources from registry
-  const { sources: registrySources } = useResolvedSources(sourceIds);
-
-  // Source count
-  const hasRegistrySources = registrySources.length > 0;
-  const sourceCount = hasRegistrySources ? registrySources.length : trigger.evidence.length;
+  // V1-STYLE: Use evidence directly, no registry lookup
+  // Source count is simply the number of evidence items
+  const sourceCount = trigger.evidence.length;
 
   // Get best quote for preview
   const bestQuote = getBestQuote(trigger.evidence);
@@ -421,7 +456,7 @@ export function TriggerCardV4({
               </p>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-[10px] text-gray-500">
-                  — {formatSourceAttribution(evidence.platform, evidence.source)}
+                  — {formatSourceAttribution(evidence.platform, evidence.source, evidence.url)}
                 </span>
                 {evidence.url && (
                   <a
