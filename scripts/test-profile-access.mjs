@@ -1,7 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
+import 'dotenv/config';
 
-const synapseUrl = process.env.VITE_SUPABASE_URL || 'https://jpwljchikgmggjidogon.supabase.co';
-const synapseKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impwd2xqY2hpa2dtZ2dpZG9nb24iLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcyOTAzNzAyOSwiZXhwIjoyMDQ0NjEzMDI5fQ.0gEO2pv6Tth5ehBFiYIF7bvjLalSxlkrfj5OgSqpE0A';
+const synapseUrl = process.env.VITE_SUPABASE_URL;
+const synapseKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!synapseUrl || !synapseKey) {
+  console.error('❌ Missing environment variables. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+  process.exit(1);
+}
 
 async function testProfileAccess() {
   console.log('🧪 TESTING PROFILE ACCESS');

@@ -1,9 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
+import 'dotenv/config';
 
 // Synapse Database
-const synapseUrl = process.env.VITE_SUPABASE_URL || 'https://jpwljchikgmggjidogon.supabase.co';
-const synapseKey = process.env.VITE_SUPABASE_SERVICE_KEY || process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impwd2xqY2hpa2dtZ2dpZG9nb24iLCJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNzI5MDM3MDI5LCJleHAiOjIwNDQ2MTMwMjl9.jdKGxI60ZLTD4QkCPgFaC5mQNuYr0TBd3Jw4gpxHCQw';
+const synapseUrl = process.env.VITE_SUPABASE_URL;
+const synapseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!synapseUrl || !synapseKey) {
+  console.error('❌ Missing environment variables. Set VITE_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env');
+  process.exit(1);
+}
 
 // Read MARBA export
 const marbaExport = JSON.parse(

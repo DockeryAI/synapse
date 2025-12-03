@@ -1,10 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
+import 'dotenv/config';
 
 // Use service role key to bypass RLS
-const supabase = createClient(
-  'https://jpwljchikgmggjidogon.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impwd2xqY2hpa2dtZ2dpZG9nb24iLCJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNzI5MDM3MDI5LCJleHAiOjIwNDQ2MTMwMjl9.jdKGxI60ZLTD4QkCPgFaC5mQNuYr0TBd3Jw4gpxHCQw'
-);
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !serviceRoleKey) {
+  console.error('❌ Missing environment variables. Set VITE_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, serviceRoleKey);
 
 async function fix400Errors() {
   console.log('🔧 FIXING 400 ERRORS ON LOCATION CACHE');

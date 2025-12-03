@@ -1,9 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
+import 'dotenv/config';
 
-const supabase = createClient(
-  'https://jpwljchikgmggjidogon.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impwd2xqY2hpa2dtZ2dpZG9nb24iLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcyOTAzNzAyOSwiZXhwIjoyMDQ0NjEzMDI5fQ.0gEO2pv6Tth5ehBFiYIF7bvjLalSxlkrfj5OgSqpE0A'
-);
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ Missing environment variables. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function testHelperFunction() {
   console.log('🧪 TESTING PRODUCTION-GRADE HELPER FUNCTION');
