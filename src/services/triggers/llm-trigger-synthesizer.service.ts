@@ -15,11 +15,13 @@
  */
 
 import type { CompleteUVP } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from './profile-detection.service';
-import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from './trigger-consolidation.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
+import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem, UVPAlignment } from './trigger-consolidation.service';
 import { validateLLMOutput, validateTrigger } from './output-validator.service';
 import { sourcePreservationService } from './source-preservation.service';
 import type { VerifiedSource } from '@/types/verified-source.types';
+import type { SpecialtyProfileRow } from '@/types/specialty-profile.types';
+import { supabase } from '@/lib/supabase';
 
 // ============================================================================
 // TYPES
@@ -77,6 +79,10 @@ export interface TriggerSynthesisInput {
   profileType: BusinessProfileType;
   brandName?: string;
   industry?: string;
+  /** Brand ID for specialty profile lookup */
+  brandId?: string;
+  /** Optional callback for progressive loading - called as each batch completes */
+  onBatchComplete?: (triggers: ConsolidatedTrigger[], batchIndex: number, totalBatches: number) => void;
 }
 
 export interface TriggerSynthesisResult {
@@ -155,7 +161,8 @@ const PLATFORM_TO_SOURCE_TYPE: Record<string, SourceType> = {
 /**
  * Infer source type from platform name
  */
-function inferSourceType(platform: string): SourceType {
+function inferSourceType(platform: string | null | undefined): SourceType {
+  if (!platform) return 'community';
   const normalizedPlatform = platform.toLowerCase().trim();
 
   // Direct lookup
@@ -436,14 +443,603 @@ class LLMTriggerSynthesizerService {
     this.apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
   }
 
+  // ============================================================================
+  // PHASE 5: SPECIALTY PROFILE INTEGRATION
+  // ============================================================================
+
+  /**
+   * Look up specialty profile by brand_id from Supabase
+   * Returns null if no specialty profile exists for this brand
+   */
+  private async lookupSpecialtyProfile(brandId: string): Promise<SpecialtyProfileRow | null> {
+    try {
+      console.log(`[LLMTriggerSynthesizer] Looking up specialty profile for brand: ${brandId}`);
+
+      const { data, error } = await supabase
+        .from('specialty_profiles')
+        .select('*')
+        .eq('brand_id', brandId)
+        .eq('generation_status', 'complete')
+        .maybeSingle();
+
+      if (error) {
+        console.error('[LLMTriggerSynthesizer] DB error:', error.message);
+        return null;
+      }
+
+      if (!data) {
+        console.log('[LLMTriggerSynthesizer] No specialty profile found for brand');
+        return null;
+      }
+
+      console.log(`[LLMTriggerSynthesizer] ✅ Found specialty profile: ${data.specialty_name}`);
+      return data as SpecialtyProfileRow;
+    } catch (err) {
+      console.error('[LLMTriggerSynthesizer] Failed to lookup specialty profile:', err);
+      return null;
+    }
+  }
+
+  /**
+   * Convert specialty profile triggers to ConsolidatedTrigger format
+   * This creates V1-quality triggers from the multipass-generated profile
+   *
+   * PHASE 21: Now uses full_uvp data for proper UVP alignment
+   */
+  private convertSpecialtyProfileToTriggers(profile: SpecialtyProfileRow): ConsolidatedTrigger[] {
+    const triggers: ConsolidatedTrigger[] = [];
+    const now = new Date().toISOString();
+
+    // Extract full UVP data from profile_data
+    const profileData = profile.profile_data as unknown as Record<string, unknown> | null;
+    const fullUVP = profileData?.full_uvp as {
+      target_customer_statement?: string;
+      products_services?: string[];
+      differentiators?: string[];
+      key_benefit_statement?: string;
+      value_proposition_statement?: string;
+      transformation_before?: string;
+      transformation_after?: string;
+      emotional_drivers?: string[];
+      functional_drivers?: string[];
+      benefit_metrics?: Array<{ metric: string; value: string; timeframe?: string }>;
+    } | null;
+
+    // Helper: Split semicolon-delimited strings into clean individual items
+    const splitDelimited = (text: string | null | undefined): string[] => {
+      if (!text) return [];
+      return text
+        .split(/[;|•\n]/)
+        .map(s => s.trim())
+        .filter(s => s.length > 10 && s.length < 200); // Filter out too short or too long
+    };
+
+    console.log('[LLMTriggerSynthesizer] Converting specialty profile to triggers');
+    console.log(`  - customer_triggers: ${profile.customer_triggers?.length || 0}`);
+    console.log(`  - common_pain_points: ${profile.common_pain_points?.length || 0}`);
+    console.log(`  - common_buying_triggers: ${profile.common_buying_triggers?.length || 0}`);
+    console.log(`  - urgency_drivers: ${profile.urgency_drivers?.length || 0}`);
+    console.log(`  - has full_uvp: ${!!fullUVP}`);
+    console.log(`  - full_uvp.products: ${fullUVP?.products_services?.length || 0}`);
+    console.log(`  - full_uvp.differentiators: ${fullUVP?.differentiators?.length || 0}`);
+
+    // Build UVP alignments from full_uvp data
+    const uvpAlignmentSources: string[] = [];
+    if (fullUVP?.differentiators?.length) {
+      uvpAlignmentSources.push(...fullUVP.differentiators.slice(0, 3));
+    }
+    if (fullUVP?.key_benefit_statement) {
+      uvpAlignmentSources.push(fullUVP.key_benefit_statement);
+    }
+    if (fullUVP?.value_proposition_statement) {
+      uvpAlignmentSources.push(fullUVP.value_proposition_statement);
+    }
+
+    // Helper to find matching UVP alignments for a trigger
+    // Returns proper UVPAlignment objects
+    const findUVPAlignments = (triggerText: string | null | undefined): UVPAlignment[] => {
+      if (!triggerText || !uvpAlignmentSources.length) return [];
+      const triggerLower = triggerText.toLowerCase();
+      const matchingAlignments: UVPAlignment[] = [];
+
+      // Check differentiators for keyword overlap
+      if (fullUVP?.differentiators) {
+        for (const diff of fullUVP.differentiators) {
+          if (!diff) continue;
+          const diffLower = diff.toLowerCase();
+          const keywords = triggerLower.split(/\s+/).filter(w => w.length >= 3);
+          const hasOverlap = keywords.some(kw => diffLower.includes(kw));
+          if (hasOverlap && matchingAlignments.length < 3) {
+            matchingAlignments.push({
+              component: 'unique_solution',
+              matchScore: 0.85,
+              matchReason: diff.substring(0, 80)
+            });
+          }
+        }
+      }
+
+      // Check key benefit for overlap
+      if (fullUVP?.key_benefit_statement) {
+        const benefitLower = fullUVP.key_benefit_statement.toLowerCase();
+        const keywords = triggerLower.split(/\s+/).filter(w => w.length >= 3);
+        const hasOverlap = keywords.some(kw => benefitLower.includes(kw));
+        if (hasOverlap && matchingAlignments.length < 3) {
+          matchingAlignments.push({
+            component: 'key_benefit',
+            matchScore: 0.9,
+            matchReason: fullUVP.key_benefit_statement.substring(0, 80)
+          });
+        }
+      }
+
+      // Check transformation for overlap
+      if (fullUVP?.transformation_after) {
+        const transformLower = fullUVP.transformation_after.toLowerCase();
+        const keywords = triggerLower.split(/\s+/).filter(w => w.length >= 3);
+        const hasOverlap = keywords.some(kw => transformLower.includes(kw));
+        if (hasOverlap && matchingAlignments.length < 3) {
+          matchingAlignments.push({
+            component: 'transformation',
+            matchScore: 0.88,
+            matchReason: fullUVP.transformation_after.substring(0, 80)
+          });
+        }
+      }
+
+      // If no matches, include first differentiator as default alignment
+      if (matchingAlignments.length === 0 && fullUVP?.differentiators?.[0]) {
+        matchingAlignments.push({
+          component: 'unique_solution',
+          matchScore: 0.7,
+          matchReason: fullUVP.differentiators[0].substring(0, 80)
+        });
+      }
+
+      return matchingAlignments;
+    };
+
+    // Target customer context for better summaries
+    const targetCustomer = fullUVP?.target_customer_statement || profile.specialty_name;
+
+    // Convert customer_triggers (primary source)
+    // Note: customer_triggers may contain semicolon-delimited lists that need splitting
+    if (profile.customer_triggers && Array.isArray(profile.customer_triggers)) {
+      let triggerIndex = 0;
+      profile.customer_triggers.forEach((ct) => {
+        // Check if this trigger is a semicolon-delimited list
+        const triggerTexts = ct.trigger?.includes(';') ? splitDelimited(ct.trigger) : [ct.trigger];
+
+        triggerTexts.forEach((triggerText) => {
+          if (!triggerText) return;
+          const confidence = Math.min(0.95, 0.7 + (ct.urgency || 5) * 0.03);
+          const alignments = findUVPAlignments(triggerText);
+          triggers.push({
+            id: `specialty-trigger-${profile.id}-${triggerIndex++}`,
+            category: this.inferCategoryFromTrigger(triggerText),
+            title: triggerText,
+            executiveSummary: `High-urgency trigger for ${targetCustomer}. ${alignments.length ? `Aligns with: ${alignments[0].matchReason.substring(0, 60)}...` : ''}`,
+            confidence,
+            evidenceCount: 1,
+            evidence: [{
+              id: `specialty-evidence-${profile.id}-${triggerIndex}`,
+              quote: triggerText,
+              source: 'UVP Analysis',
+              platform: 'uvp-analysis',
+              timestamp: now,
+              sentiment: 'neutral' as const,
+              confidence,
+            }],
+            uvpAlignments: alignments,
+            isTimeSensitive: (ct.urgency || 5) >= 7,
+            profileRelevance: 0.95,
+            rawSourceIds: [`specialty-profile-${profile.id}`],
+            isLLMSynthesized: true,
+            buyerJourneyStage: 'problem-aware' as BuyerJourneyStage,
+            buyerProductFit: 0.9,
+            buyerProductFitReasoning: `Generated from UVP for ${targetCustomer}`
+          });
+        });
+      });
+    }
+
+    // Convert common_pain_points to pain-point triggers
+    if (profile.common_pain_points && Array.isArray(profile.common_pain_points)) {
+      profile.common_pain_points.forEach((painPoint, idx) => {
+        const alignments = findUVPAlignments(painPoint);
+        triggers.push({
+          id: `specialty-pain-${profile.id}-${idx}`,
+          category: 'pain-point' as TriggerCategory,
+          title: painPoint, // Don't prefix with "Frustrated by" - use pain point directly
+          executiveSummary: `Pain point for ${targetCustomer}. ${alignments.length ? `Your solution addresses: ${alignments[0].matchReason.substring(0, 50)}...` : ''}`,
+          confidence: 0.85,
+          evidenceCount: 1,
+          evidence: [{
+            id: `specialty-pain-evidence-${profile.id}-${idx}`,
+            quote: painPoint,
+            source: 'UVP Analysis',
+            platform: 'uvp-analysis',
+            timestamp: now,
+            sentiment: 'negative' as const,
+            confidence: 0.85,
+          }],
+          uvpAlignments: alignments,
+          isTimeSensitive: false,
+          profileRelevance: 0.9,
+          rawSourceIds: [`specialty-profile-${profile.id}`],
+          isLLMSynthesized: true,
+          buyerJourneyStage: 'problem-aware' as BuyerJourneyStage,
+          buyerProductFit: 0.85,
+          buyerProductFitReasoning: `Pain point addressed by your UVP`
+        });
+      });
+    }
+
+    // Convert common_buying_triggers to desire triggers
+    if (profile.common_buying_triggers && Array.isArray(profile.common_buying_triggers)) {
+      profile.common_buying_triggers.forEach((buyingTrigger, idx) => {
+        const alignments = findUVPAlignments(buyingTrigger);
+        triggers.push({
+          id: `specialty-buying-${profile.id}-${idx}`,
+          category: 'desire' as TriggerCategory,
+          title: buyingTrigger, // Don't prefix with "Want" - use trigger directly
+          executiveSummary: `Buying motivation for ${targetCustomer}. ${alignments.length ? `You deliver: ${alignments[0].matchReason.substring(0, 50)}...` : ''}`,
+          confidence: 0.88,
+          evidenceCount: 1,
+          evidence: [{
+            id: `specialty-buying-evidence-${profile.id}-${idx}`,
+            quote: buyingTrigger,
+            source: 'UVP Analysis',
+            platform: 'uvp-analysis',
+            timestamp: now,
+            sentiment: 'positive' as const,
+            confidence: 0.88,
+          }],
+          uvpAlignments: alignments,
+          isTimeSensitive: false,
+          profileRelevance: 0.9,
+          rawSourceIds: [`specialty-profile-${profile.id}`],
+          isLLMSynthesized: true,
+          buyerJourneyStage: 'solution-aware' as BuyerJourneyStage,
+          buyerProductFit: 0.88,
+          buyerProductFitReasoning: `Buying trigger aligned with your UVP`
+        });
+      });
+    }
+
+    // Convert urgency_drivers to fear triggers
+    if (profile.urgency_drivers && Array.isArray(profile.urgency_drivers)) {
+      profile.urgency_drivers.forEach((urgencyDriver, idx) => {
+        const alignments = findUVPAlignments(urgencyDriver);
+        triggers.push({
+          id: `specialty-urgency-${profile.id}-${idx}`,
+          category: 'fear' as TriggerCategory,
+          title: urgencyDriver, // Don't prefix with "Fear of" - use driver directly
+          executiveSummary: `Urgency driver for ${targetCustomer}. ${alignments.length ? `Counter with: ${alignments[0].matchReason.substring(0, 50)}...` : ''}`,
+          confidence: 0.9,
+          evidenceCount: 1,
+          evidence: [{
+            id: `specialty-urgency-evidence-${profile.id}-${idx}`,
+            quote: urgencyDriver,
+            source: 'UVP Analysis',
+            platform: 'uvp-analysis',
+            timestamp: now,
+            sentiment: 'negative' as const,
+            confidence: 0.9,
+          }],
+          uvpAlignments: alignments,
+          isTimeSensitive: true,
+          profileRelevance: 0.95,
+          rawSourceIds: [`specialty-profile-${profile.id}`],
+          isLLMSynthesized: true,
+          buyerJourneyStage: 'problem-aware' as BuyerJourneyStage,
+          buyerProductFit: 0.9,
+          buyerProductFitReasoning: `Urgency driver that your solution resolves`
+        });
+      });
+    }
+
+    // PHASE 21: Generate additional triggers from transformation data
+    if (fullUVP?.transformation_before && fullUVP?.transformation_after) {
+      triggers.push({
+        id: `specialty-transform-${profile.id}-before`,
+        category: 'pain-point' as TriggerCategory,
+        title: fullUVP.transformation_before,
+        executiveSummary: `Current state your customers want to escape. Transform to: ${fullUVP.transformation_after.substring(0, 60)}...`,
+        confidence: 0.92,
+        evidenceCount: 1,
+        evidence: [{
+          id: `specialty-transform-evidence-${profile.id}-before`,
+          quote: `From "${fullUVP.transformation_before}" to "${fullUVP.transformation_after}"`,
+          source: 'UVP Analysis',
+          platform: 'uvp-analysis',
+          timestamp: now,
+          sentiment: 'negative' as const,
+          confidence: 0.92,
+        }],
+        uvpAlignments: fullUVP.value_proposition_statement ? [{
+          component: 'transformation' as const,
+          matchScore: 0.92,
+          matchReason: fullUVP.value_proposition_statement.substring(0, 80)
+        }] : [],
+        isTimeSensitive: false,
+        profileRelevance: 0.95,
+        rawSourceIds: [`specialty-profile-${profile.id}`],
+        isLLMSynthesized: true,
+        buyerJourneyStage: 'problem-aware' as BuyerJourneyStage,
+        buyerProductFit: 0.92,
+        buyerProductFitReasoning: `Core transformation your UVP delivers`
+      });
+
+      triggers.push({
+        id: `specialty-transform-${profile.id}-after`,
+        category: 'desire' as TriggerCategory,
+        title: fullUVP.transformation_after,
+        executiveSummary: `Desired outcome your customers seek. Escaping: ${fullUVP.transformation_before.substring(0, 60)}...`,
+        confidence: 0.92,
+        evidenceCount: 1,
+        evidence: [{
+          id: `specialty-transform-evidence-${profile.id}-after`,
+          quote: `Achieve "${fullUVP.transformation_after}" instead of "${fullUVP.transformation_before}"`,
+          source: 'UVP Analysis',
+          platform: 'uvp-analysis',
+          timestamp: now,
+          sentiment: 'positive' as const,
+          confidence: 0.92,
+        }],
+        uvpAlignments: fullUVP.key_benefit_statement ? [{
+          component: 'key_benefit' as const,
+          matchScore: 0.92,
+          matchReason: fullUVP.key_benefit_statement.substring(0, 80)
+        }] : [],
+        isTimeSensitive: false,
+        profileRelevance: 0.95,
+        rawSourceIds: [`specialty-profile-${profile.id}`],
+        isLLMSynthesized: true,
+        buyerJourneyStage: 'solution-aware' as BuyerJourneyStage,
+        buyerProductFit: 0.92,
+        buyerProductFitReasoning: `Transformation outcome from your UVP`
+      });
+    }
+
+    // =========================================================================
+    // FALLBACK: Generate triggers from full_uvp when main arrays are empty
+    // This ensures we always have quality triggers from UVP data
+    // =========================================================================
+    const hasMainArrayTriggers =
+      (profile.common_pain_points?.length || 0) > 0 ||
+      (profile.common_buying_triggers?.length || 0) > 0 ||
+      (profile.urgency_drivers?.length || 0) > 0;
+
+    if (!hasMainArrayTriggers && fullUVP) {
+      console.log('[LLMTriggerSynthesizer] Main arrays empty - generating from full_uvp fallback');
+
+      // Generate from emotional drivers (pain-point triggers)
+      if (fullUVP.emotional_drivers?.length) {
+        fullUVP.emotional_drivers.forEach((driver, idx) => {
+          if (!driver || driver.length < 10) return;
+          const alignments = findUVPAlignments(driver);
+          triggers.push({
+            id: `uvp-emotional-${profile.id}-${idx}`,
+            category: 'pain-point' as TriggerCategory,
+            title: driver,
+            executiveSummary: `Emotional pain point for ${targetCustomer}. ${alignments.length ? `Your solution addresses: ${alignments[0].matchReason.substring(0, 50)}...` : ''}`,
+            confidence: 0.85,
+            evidenceCount: 1,
+            evidence: [{
+              id: `uvp-emotional-evidence-${profile.id}-${idx}`,
+              quote: driver,
+              source: 'UVP Analysis',
+              platform: 'uvp-analysis',
+              timestamp: now,
+              sentiment: 'negative' as const,
+              confidence: 0.85,
+            }],
+            uvpAlignments: alignments,
+            isTimeSensitive: false,
+            profileRelevance: 0.9,
+            rawSourceIds: [`specialty-profile-${profile.id}`],
+            isLLMSynthesized: true,
+            buyerJourneyStage: 'problem-aware' as BuyerJourneyStage,
+            buyerProductFit: 0.85,
+            buyerProductFitReasoning: `Emotional driver from UVP`
+          });
+        });
+      }
+
+      // Generate from functional drivers (desire triggers)
+      if (fullUVP.functional_drivers?.length) {
+        fullUVP.functional_drivers.forEach((driver, idx) => {
+          if (!driver || driver.length < 10) return;
+          const alignments = findUVPAlignments(driver);
+          triggers.push({
+            id: `uvp-functional-${profile.id}-${idx}`,
+            category: 'desire' as TriggerCategory,
+            title: driver,
+            executiveSummary: `Functional need for ${targetCustomer}. ${alignments.length ? `You deliver: ${alignments[0].matchReason.substring(0, 50)}...` : ''}`,
+            confidence: 0.85,
+            evidenceCount: 1,
+            evidence: [{
+              id: `uvp-functional-evidence-${profile.id}-${idx}`,
+              quote: driver,
+              source: 'UVP Analysis',
+              platform: 'uvp-analysis',
+              timestamp: now,
+              sentiment: 'positive' as const,
+              confidence: 0.85,
+            }],
+            uvpAlignments: alignments,
+            isTimeSensitive: false,
+            profileRelevance: 0.9,
+            rawSourceIds: [`specialty-profile-${profile.id}`],
+            isLLMSynthesized: true,
+            buyerJourneyStage: 'solution-aware' as BuyerJourneyStage,
+            buyerProductFit: 0.85,
+            buyerProductFitReasoning: `Functional need from UVP`
+          });
+        });
+      }
+
+      // Generate from key benefit (desire trigger)
+      if (fullUVP.key_benefit_statement) {
+        // Split semicolon-delimited benefits
+        const benefits = splitDelimited(fullUVP.key_benefit_statement);
+        benefits.forEach((benefit, idx) => {
+          triggers.push({
+            id: `uvp-benefit-${profile.id}-${idx}`,
+            category: 'desire' as TriggerCategory,
+            title: benefit,
+            executiveSummary: `Key outcome ${targetCustomer} seeks.`,
+            confidence: 0.9,
+            evidenceCount: 1,
+            evidence: [{
+              id: `uvp-benefit-evidence-${profile.id}-${idx}`,
+              quote: benefit,
+              source: 'UVP Analysis',
+              platform: 'uvp-analysis',
+              timestamp: now,
+              sentiment: 'positive' as const,
+              confidence: 0.9,
+            }],
+            uvpAlignments: fullUVP.value_proposition_statement ? [{
+              component: 'key_benefit' as const,
+              matchScore: 0.9,
+              matchReason: fullUVP.value_proposition_statement.substring(0, 80)
+            }] : [],
+            isTimeSensitive: false,
+            profileRelevance: 0.95,
+            rawSourceIds: [`specialty-profile-${profile.id}`],
+            isLLMSynthesized: true,
+            buyerJourneyStage: 'solution-aware' as BuyerJourneyStage,
+            buyerProductFit: 0.9,
+            buyerProductFitReasoning: `Key benefit from UVP`
+          });
+        });
+      }
+
+      // Generate from differentiators (motivation triggers)
+      if (fullUVP.differentiators?.length) {
+        fullUVP.differentiators.forEach((diff, idx) => {
+          if (!diff || diff.length < 10) return;
+          triggers.push({
+            id: `uvp-diff-${profile.id}-${idx}`,
+            category: 'motivation' as TriggerCategory,
+            title: diff,
+            executiveSummary: `Unique value you deliver to ${targetCustomer}.`,
+            confidence: 0.88,
+            evidenceCount: 1,
+            evidence: [{
+              id: `uvp-diff-evidence-${profile.id}-${idx}`,
+              quote: diff,
+              source: 'UVP Analysis',
+              platform: 'uvp-analysis',
+              timestamp: now,
+              sentiment: 'positive' as const,
+              confidence: 0.88,
+            }],
+            uvpAlignments: [{
+              component: 'unique_solution' as const,
+              matchScore: 0.88,
+              matchReason: diff.substring(0, 80)
+            }],
+            isTimeSensitive: false,
+            profileRelevance: 0.92,
+            rawSourceIds: [`specialty-profile-${profile.id}`],
+            isLLMSynthesized: true,
+            buyerJourneyStage: 'product-aware' as BuyerJourneyStage,
+            buyerProductFit: 0.88,
+            buyerProductFitReasoning: `Differentiator from UVP`
+          });
+        });
+      }
+
+      console.log(`[LLMTriggerSynthesizer] Generated ${triggers.length} triggers from full_uvp fallback`);
+    }
+
+    console.log(`[LLMTriggerSynthesizer] ✅ Converted ${triggers.length} triggers from specialty profile (with UVP alignments)`);
+    return triggers;
+  }
+
+  /**
+   * Infer trigger category from trigger text
+   * Valid categories: fear, desire, pain-point, objection, motivation
+   */
+  private inferCategoryFromTrigger(triggerText: string | null | undefined): TriggerCategory {
+    if (!triggerText) return 'pain-point';
+    const text = triggerText.toLowerCase();
+
+    if (text.includes('fear') || text.includes('risk') || text.includes('lose') || text.includes('miss') || text.includes('worry')) {
+      return 'fear';
+    }
+    if (text.includes('want') || text.includes('need') || text.includes('looking') || text.includes('desire') || text.includes('wish')) {
+      return 'desire';
+    }
+    if (text.includes('frustrated') || text.includes('pain') || text.includes('struggle') || text.includes('problem') || text.includes('issue')) {
+      return 'pain-point';
+    }
+    if (text.includes('object') || text.includes('concern') || text.includes('hesitat') || text.includes('doubt') || text.includes('but')) {
+      return 'objection';
+    }
+    if (text.includes('opportunit') || text.includes('growth') || text.includes('expand') || text.includes('goal') || text.includes('achieve')) {
+      return 'motivation';
+    }
+
+    // Default to pain-point as it's most common
+    return 'pain-point';
+  }
+
+  // ============================================================================
+  // END PHASE 5: SPECIALTY PROFILE INTEGRATION
+  // ============================================================================
+
   /**
    * Synthesize raw data into formatted psychological triggers
    * PARALLEL BATCHING: Splits samples into 4 batches for parallel processing via ai-proxy
+   *
+   * PHASE 5: Now checks for specialty profile FIRST before LLM synthesis
    */
   async synthesize(input: TriggerSynthesisInput): Promise<TriggerSynthesisResult> {
     const startTime = performance.now();
 
     console.log('[LLMTriggerSynthesizer] Starting PARALLEL synthesis with', input.rawData.length, 'data points');
+
+    // =========================================================================
+    // PHASE 5: CHECK SPECIALTY PROFILE FIRST
+    // If a specialty profile exists for this brand, use its triggers instead
+    // of synthesizing from raw API data. This ensures V1-quality triggers.
+    // =========================================================================
+    if (input.brandId) {
+      const specialtyProfile = await this.lookupSpecialtyProfile(input.brandId);
+
+      if (specialtyProfile) {
+        console.log('[LLMTriggerSynthesizer] 🎯 SPECIALTY PROFILE FOUND - using V1-quality triggers');
+
+        const triggers = this.convertSpecialtyProfileToTriggers(specialtyProfile);
+        const synthesisTime = performance.now() - startTime;
+
+        // Emit all triggers immediately via callback
+        if (input.onBatchComplete && triggers.length > 0) {
+          console.log(`[LLMTriggerSynthesizer] 🔄 Emitting ${triggers.length} specialty triggers`);
+          input.onBatchComplete(triggers, 0, 1);
+        }
+
+        console.log(`[LLMTriggerSynthesizer] ✅ Returned ${triggers.length} specialty profile triggers in ${synthesisTime.toFixed(0)}ms`);
+
+        return {
+          triggers,
+          synthesisTime,
+          model: 'specialty-profile-v1',
+          rawTriggerCount: triggers.length,
+        };
+      }
+
+      console.log('[LLMTriggerSynthesizer] No specialty profile found, falling back to LLM synthesis');
+    } else {
+      console.log('[LLMTriggerSynthesizer] No brandId provided, skipping specialty profile lookup');
+    }
+    // =========================================================================
+    // END PHASE 5: Proceed with LLM synthesis if no specialty profile
+    // =========================================================================
 
     // PHASE 10: Source diversity gate - validate we have diverse sources
     const sourceDiversity = this.checkSourceDiversity(input.rawData);
@@ -481,21 +1077,43 @@ class LLMTriggerSynthesizerService {
     console.log(`[LLMTriggerSynthesizer] Split into ${batches.length} batches: ${batches.map(b => b.length).join(', ')} samples each`);
 
     try {
-      // Run 4 LLM calls in PARALLEL using different OpenRouter keys
+      // PROGRESSIVE LOADING: Process each batch and emit results as they complete
+      // Using individual promises with .then() to emit progressively instead of waiting for all
+      let allTriggers: SynthesizedTrigger[] = [];
+      const totalBatches = batches.length;
+      let completedBatches = 0;
+
+      // Create promises that emit results progressively
       const batchPromises = batches.map((batch, idx) =>
         this.synthesizeBatch(batch, input.uvp, input.profileType, input.industry, idx)
+          .then((triggers) => {
+            completedBatches++;
+            console.log(`[LLMTriggerSynthesizer] Batch ${idx + 1}: ${triggers.length} triggers (${completedBatches}/${totalBatches} complete)`);
+
+            // PROGRESSIVE: Emit batch results immediately via callback
+            if (input.onBatchComplete && triggers.length > 0) {
+              // Convert to ConsolidatedTrigger format for progressive emission
+              const consolidatedTriggers = this.convertToConsolidatedTriggers(triggers);
+              console.log(`[LLMTriggerSynthesizer] 🔄 Emitting ${consolidatedTriggers.length} triggers from batch ${idx + 1} (progressive)`);
+              input.onBatchComplete(consolidatedTriggers, idx, totalBatches);
+            }
+
+            return { triggers, idx };
+          })
+          .catch((error) => {
+            completedBatches++;
+            console.error(`[LLMTriggerSynthesizer] Batch ${idx + 1} FAILED:`, error);
+            return { triggers: [] as SynthesizedTrigger[], idx };
+          })
       );
 
-      const batchResults = await Promise.allSettled(batchPromises);
+      // Wait for all to complete (for final deduplication)
+      const batchResults = await Promise.all(batchPromises);
 
-      // Collect all triggers from successful batches
-      let allTriggers: SynthesizedTrigger[] = [];
-      batchResults.forEach((result, idx) => {
-        if (result.status === 'fulfilled') {
-          console.log(`[LLMTriggerSynthesizer] Batch ${idx + 1}: ${result.value.length} triggers`);
-          allTriggers = allTriggers.concat(result.value);
-        } else {
-          console.error(`[LLMTriggerSynthesizer] Batch ${idx + 1} FAILED:`, result.reason);
+      // Collect all triggers from all batches
+      batchResults.forEach(({ triggers, idx }) => {
+        if (triggers.length > 0) {
+          allTriggers = allTriggers.concat(triggers);
         }
       });
 
@@ -561,6 +1179,7 @@ class LLMTriggerSynthesizerService {
 
     for (const trigger of triggers) {
       // Normalize title for comparison
+      if (!trigger.title) continue;
       const normalizedTitle = trigger.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
       const words = normalizedTitle.split(/\s+/);
 
@@ -608,7 +1227,7 @@ class LLMTriggerSynthesizerService {
     ];
 
     const scored = data.map((sample, idx) => {
-      const lowerContent = sample.content.toLowerCase();
+      const lowerContent = (sample.content || '').toLowerCase();
       const score = psychKeywords.filter(kw => lowerContent.includes(kw)).length;
       // Ensure sample has an ID for source tracking
       const sampleWithId = sample.id ? sample : { ...sample, id: `sample-${idx}-${Date.now()}` };
@@ -1263,9 +1882,9 @@ Total: 20-30 extracted quotes across all categories. ONLY output the JSON array,
         }
 
         // Filter out triggers containing BANNED GENERIC TERMS (NAICS-style)
-        const combinedText = `${t.title} ${t.executiveSummary}`.toLowerCase();
+        const combinedText = `${t.title || ''} ${t.executiveSummary || ''}`.toLowerCase();
         for (const bannedTerm of BANNED_GENERIC_TERMS) {
-          if (combinedText.includes(bannedTerm.toLowerCase())) {
+          if (combinedText.includes((bannedTerm || '').toLowerCase())) {
             console.log(`[LLMTriggerSynthesizer] Rejected trigger with banned term "${bannedTerm}": "${t.title}"`);
             return false;
           }
@@ -1299,6 +1918,7 @@ Total: 20-30 extracted quotes across all categories. ONLY output the JSON array,
     let correctionCount = 0;
 
     const corrected = triggers.map(trigger => {
+      if (!trigger.title) return trigger;
       const title = trigger.title.toLowerCase();
       let newCategory = trigger.category;
 
@@ -1386,10 +2006,10 @@ Total: 20-30 extracted quotes across all categories. ONLY output the JSON array,
       }
 
       // Capitalize first letter if needed
-      if (title.length > 0 && title[0] === title[0].toLowerCase()) {
+      if (title && title.length > 0 && title[0] === title[0].toLowerCase()) {
         title = title[0].toUpperCase() + title.slice(1);
       }
-      if (summary.length > 0 && summary[0] === summary[0].toLowerCase()) {
+      if (summary && summary.length > 0 && summary[0] === summary[0].toLowerCase()) {
         summary = summary[0].toUpperCase() + summary.slice(1);
       }
 
@@ -1410,7 +2030,8 @@ Total: 20-30 extracted quotes across all categories. ONLY output the JSON array,
   /**
    * Normalize text for fuzzy matching - removes punctuation, extra spaces, lowercases
    */
-  private normalizeForMatching(text: string): string {
+  private normalizeForMatching(text: string | null | undefined): string {
+    if (!text) return '';
     return text
       .toLowerCase()
       .replace(/[^\w\s]/g, '') // Remove punctuation
@@ -1618,7 +2239,8 @@ Total: 20-30 extracted quotes across all categories. ONLY output the JSON array,
   /**
    * Simple sentiment detection
    */
-  private detectSentiment(text: string): 'positive' | 'negative' | 'neutral' {
+  private detectSentiment(text: string | null | undefined): 'positive' | 'negative' | 'neutral' {
+    if (!text) return 'neutral';
     const lower = text.toLowerCase();
     const negativeWords = ['hate', 'frustrated', 'angry', 'terrible', 'awful', 'worst', 'fail', 'broken'];
     const positiveWords = ['love', 'great', 'amazing', 'excellent', 'best', 'wonderful', 'perfect'];

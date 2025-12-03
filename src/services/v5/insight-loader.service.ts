@@ -23,6 +23,8 @@ import { insightPersistenceService } from './insight-persistence.service';
 import type { Insight, InsightType } from '@/components/v5/InsightCards';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { Brand } from '@/contexts/BrandContext';
+import type { SpecialtyProfileRow } from '@/types/specialty-profile.types';
+import { supabase } from '@/lib/supabase';
 
 // ============================================================================
 // TYPES
@@ -319,7 +321,12 @@ class InsightLoaderService {
     if (brandChanged) {
       console.log('[V5 InsightLoader] Brand changed, clearing old insights');
       this.insights = [];
-      this.loadingStates.clear();
+      // CRITICAL: Set all loading states to TRUE at the start
+      // This ensures BorderBeam animation shows while data loads (even from cache)
+      // They will be set to false when cache is found or when loading completes
+      ['trigger', 'proof', 'trend', 'competitor', 'local', 'weather'].forEach(type => {
+        this.loadingStates.set(type as InsightType, true);
+      });
     } else {
       console.log(`[V5 InsightLoader] Same brand, keeping ${this.insights.length} existing insights`);
     }
@@ -395,15 +402,67 @@ class InsightLoaderService {
   private setupEventListeners(): void {
     streamingApiManager.removeAllListeners('api-update');
     streamingApiManager.removeAllListeners('trigger-synthesis');
+    streamingApiManager.removeAllListeners('trigger-batch');
 
     streamingApiManager.on('api-update', (update: ApiUpdate) => {
       this.handleApiUpdate(update);
     });
 
-    // Listen for synthesized triggers from LLM trigger synthesizer
+    // PROGRESSIVE LOADING: Listen for batch updates as they complete
+    streamingApiManager.on('trigger-batch', (batch: {
+      triggers: any[];
+      batchIndex: number;
+      totalBatches: number;
+      isComplete: boolean;
+    }) => {
+      this.handleTriggerBatch(batch);
+    });
+
+    // Listen for final synthesized triggers from LLM trigger synthesizer
     streamingApiManager.on('trigger-synthesis', (result: { triggers: any[]; synthesisTime: number }) => {
       this.handleTriggerSynthesis(result);
     });
+  }
+
+  /**
+   * PROGRESSIVE LOADING: Handle individual batch of triggers as they complete
+   * This enables triggers to appear progressively as each of the 4 parallel batches finishes
+   */
+  private handleTriggerBatch(batch: {
+    triggers: any[];
+    batchIndex: number;
+    totalBatches: number;
+    isComplete: boolean;
+  }): void {
+    if (!batch.triggers || batch.triggers.length === 0) {
+      console.log(`[V5 InsightLoader] 🔄 Batch ${batch.batchIndex + 1}/${batch.totalBatches}: No triggers`);
+      return;
+    }
+
+    console.log(`[V5 InsightLoader] 🔄 Progressive batch ${batch.batchIndex + 1}/${batch.totalBatches}: ${batch.triggers.length} triggers`);
+
+    // Transform this batch of triggers to insights
+    // Use a unique offset based on batch index to avoid ID collisions
+    const batchOffset = batch.batchIndex * 100;
+    const batchInsights = batch.triggers.map((trigger, i) =>
+      transformTriggerToInsight(trigger, batchOffset + i)
+    );
+
+    // PROGRESSIVE MERGE: Append to existing triggers instead of replacing
+    // Get existing trigger insights
+    const existingTriggers = this.insights.filter(i => i.type === 'trigger');
+    const otherInsights = this.insights.filter(i => i.type !== 'trigger');
+
+    // Combine existing + new batch triggers
+    const allTriggers = [...existingTriggers, ...batchInsights];
+
+    // Update insights array
+    this.insights = [...otherInsights, ...allTriggers];
+
+    console.log(`[V5 InsightLoader] 🔄 Progressive: Now showing ${allTriggers.length} total triggers`);
+
+    // Notify listeners immediately so UI updates progressively
+    this.notifyListeners();
   }
 
   /**
@@ -415,14 +474,20 @@ class InsightLoaderService {
       return;
     }
 
-    console.log(`[V5 InsightLoader] Received ${result.triggers.length} synthesized triggers (${result.synthesisTime}ms)`);
+    console.log(`[V5 InsightLoader] Received ${result.triggers.length} synthesized triggers (${result.synthesisTime}ms) - FINAL`);
 
     // Transform ConsolidatedTrigger[] to Insight[]
     // NOTE: Removed hardcoded limit - show all triggers from LLM synthesis (target: 50+)
     const insights = result.triggers.map((trigger, i) => transformTriggerToInsight(trigger, i));
 
-    console.log(`[V5 InsightLoader] Transformed ${insights.length} triggers to insights`);
+    console.log(`[V5 InsightLoader] Transformed ${insights.length} triggers to insights (replacing progressive batch data)`);
+
+    // Replace all triggers with the final deduplicated set
     this.mergeInsights(insights, 'trigger');
+
+    // Mark loading as complete
+    this.loadingStates.set('trigger', false);
+    this.notifyListeners();
 
     // Immediately save after receiving synthesized triggers
     this.saveToDatabase();
@@ -629,8 +694,16 @@ class InsightLoaderService {
             this.insights = parsed.insights.map(cleanInsightSource);
             this.isFromCache = true;
             this.lastRefresh = parsed.timestamp ? new Date(parsed.timestamp) : null;
-            this.loadingStates.clear();
+
+            // NOTE: Loading states already set to TRUE in initialize()
+            // First notify with loading=true so UI shows skeletons briefly
             this.notifyListeners();
+
+            // Then clear loading states after a visible delay so users see the BorderBeam animation
+            setTimeout(() => {
+              this.loadingStates.clear();
+              this.notifyListeners();
+            }, 1500); // 1.5s delay so BorderBeam animation is visible before loading completes
             return; // DO NOT CALL APIs
           } else {
             console.log('[V5 InsightLoader] localStorage cache is stale (>24h) - will check database');
@@ -656,9 +729,17 @@ class InsightLoaderService {
         const status = await insightPersistenceService.getRefreshStatus(brandId);
         this.lastRefresh = status.lastRefresh;
 
-        // Clear loading states
-        this.loadingStates.clear();
+        // NOTE: Loading states already set to TRUE in initialize()
+        // First notify with loading=true so UI shows skeletons briefly
+        // This ensures the BorderBeam animation is visible during cache hydration
         this.notifyListeners();
+
+        // Then clear loading states and notify again to complete the loading sequence
+        // Use setTimeout to ensure UI has time to render loading state with BorderBeam animation
+        setTimeout(() => {
+          this.loadingStates.clear();
+          this.notifyListeners();
+        }, 1500); // 1.5s delay so BorderBeam animation is visible before loading completes
 
         // Also save to localStorage for faster access next time
         this.saveToLocalStorage();
@@ -1113,6 +1194,7 @@ class InsightLoaderService {
   /**
    * Load trends by triggering streaming API manager
    * Listens for trend-related API updates
+   * Phase 11: Check specialty profile first for V1-quality trends
    */
   private async loadTrends(): Promise<void> {
     const brand = this.currentConfig?.brand;
@@ -1127,6 +1209,19 @@ class InsightLoaderService {
     }
 
     console.log('[V5 InsightLoader] Refreshing trends via streaming API manager...');
+
+    // Phase 11: Check specialty profile first for V1-quality trends
+    const specialtyProfile = await this.lookupSpecialtyProfile(brandId);
+    if (specialtyProfile) {
+      const specialtyTrends = this.convertSpecialtyProfileToTrends(specialtyProfile);
+      if (specialtyTrends.length > 0) {
+        console.log('[V5 InsightLoader] 🎯 Using specialty profile trends:', specialtyTrends.length);
+        this.mergeInsights(specialtyTrends, 'trend');
+        this.loadingStates.set('trend', false);
+        this.notifyListeners();
+        return; // Skip API calls if we have specialty profile trends
+      }
+    }
 
     // The streaming API manager already emits 'api-update' events which we handle in handleApiUpdate()
     // Just trigger a fresh load for news/trends
@@ -1147,6 +1242,7 @@ class InsightLoaderService {
 
   /**
    * Load competitors by triggering streaming API manager
+   * Phase 12: Check specialty profile first for V1-quality competitor insights
    */
   private async loadCompetitors(): Promise<void> {
     const brand = this.currentConfig?.brand;
@@ -1161,6 +1257,19 @@ class InsightLoaderService {
     }
 
     console.log('[V5 InsightLoader] Refreshing competitors via streaming API manager...');
+
+    // Phase 12: Check specialty profile first for V1-quality competitor insights
+    const specialtyProfile = await this.lookupSpecialtyProfile(brandId);
+    if (specialtyProfile) {
+      const specialtyCompetitors = this.convertSpecialtyProfileToCompetitors(specialtyProfile);
+      if (specialtyCompetitors.length > 0) {
+        console.log('[V5 InsightLoader] 🎯 Using specialty profile competitors:', specialtyCompetitors.length);
+        this.mergeInsights(specialtyCompetitors, 'competitor');
+        this.loadingStates.set('competitor', false);
+        this.notifyListeners();
+        return; // Skip API calls if we have specialty profile competitor insights
+      }
+    }
 
     // Trigger fresh load - competitor data comes via 'semrush-competitors' and 'competitor-voice' events
     streamingApiManager.loadAllApis(brandId, brand, { uvp, forceFresh: true }).catch(err => {
@@ -1180,6 +1289,7 @@ class InsightLoaderService {
 
   /**
    * Load local news by triggering streaming API manager
+   * Phase 13: Uses geographic_variations from specialty profile as supplemental context
    */
   private async loadLocalNews(): Promise<void> {
     const brand = this.currentConfig?.brand;
@@ -1194,6 +1304,17 @@ class InsightLoaderService {
     }
 
     console.log('[V5 InsightLoader] Refreshing local news via streaming API manager...');
+
+    // Phase 13: Add specialty profile geographic variations as supplemental insights
+    const specialtyProfile = await this.lookupSpecialtyProfile(brandId);
+    if (specialtyProfile) {
+      const localInsights = this.convertSpecialtyProfileToLocal(specialtyProfile);
+      if (localInsights.length > 0) {
+        console.log('[V5 InsightLoader] 🎯 Adding specialty profile local context:', localInsights.length);
+        // Merge with existing - don't return early, still fetch real-time local news
+        this.mergeInsights(localInsights, 'local');
+      }
+    }
 
     // Local news comes via 'serper-news' events filtered by location
     streamingApiManager.loadAllApis(brandId, brand, { uvp, forceFresh: true }).catch(err => {
@@ -1213,6 +1334,7 @@ class InsightLoaderService {
 
   /**
    * Load weather by triggering streaming API manager
+   * Phase 13: Uses seasonal_patterns from specialty profile as supplemental context
    */
   private async loadWeather(): Promise<void> {
     const brand = this.currentConfig?.brand;
@@ -1227,6 +1349,17 @@ class InsightLoaderService {
     }
 
     console.log('[V5 InsightLoader] Refreshing weather via streaming API manager...');
+
+    // Phase 13: Add specialty profile seasonal patterns as weather-related insights
+    const specialtyProfile = await this.lookupSpecialtyProfile(brandId);
+    if (specialtyProfile) {
+      const weatherInsights = this.convertSpecialtyProfileToWeather(specialtyProfile);
+      if (weatherInsights.length > 0) {
+        console.log('[V5 InsightLoader] 🎯 Adding specialty profile weather context:', weatherInsights.length);
+        // Merge with existing - don't return early, still fetch real-time weather
+        this.mergeInsights(weatherInsights, 'weather');
+      }
+    }
 
     // Weather comes via 'weather-conditions' events
     streamingApiManager.loadAllApis(brandId, brand, { uvp, forceFresh: true }).catch(err => {
@@ -1250,6 +1383,208 @@ class InsightLoaderService {
   async getRefreshStatus() {
     if (!this.currentConfig?.brandId) return null;
     return await insightPersistenceService.getRefreshStatus(this.currentConfig.brandId);
+  }
+
+  // ==========================================================================
+  // PHASE 11/12: SPECIALTY PROFILE INTEGRATION
+  // ==========================================================================
+
+  /**
+   * Look up specialty profile by brand_id
+   */
+  private async lookupSpecialtyProfile(brandId: string): Promise<SpecialtyProfileRow | null> {
+    try {
+      console.log(`[V5 InsightLoader] Looking up specialty profile for brand: ${brandId}`);
+
+      const { data, error } = await supabase
+        .from('specialty_profiles')
+        .select('*')
+        .eq('brand_id', brandId)
+        .eq('generation_status', 'complete')
+        .maybeSingle();
+
+      if (error) {
+        console.error('[V5 InsightLoader] Error looking up specialty profile:', error);
+        return null;
+      }
+
+      if (!data) {
+        console.log('[V5 InsightLoader] No specialty profile found for brand');
+        return null;
+      }
+
+      console.log(`[V5 InsightLoader] ✅ Found specialty profile: ${data.specialty_name}`);
+      return data as SpecialtyProfileRow;
+    } catch (err) {
+      console.error('[V5 InsightLoader] Failed to lookup specialty profile:', err);
+      return null;
+    }
+  }
+
+  /**
+   * Convert specialty profile data to trend insights
+   * Uses: market_trends, seasonal_patterns, innovation_opportunities
+   */
+  private convertSpecialtyProfileToTrends(profile: SpecialtyProfileRow): Insight[] {
+    const insights: Insight[] = [];
+    const profileData = profile.profile_data as Record<string, unknown> | null;
+
+    console.log('[V5 InsightLoader] Converting specialty profile to trends');
+
+    // Convert market_trends
+    const marketTrends = profileData?.market_trends as string[] | undefined;
+    if (marketTrends && Array.isArray(marketTrends)) {
+      marketTrends.forEach((trend, idx) => {
+        insights.push({
+          id: `specialty-trend-${idx}`,
+          type: 'trend' as InsightType,
+          text: trend,
+          source: 'Industry Analysis',
+          relevanceScore: 85,
+          velocity: 'rising' as const,
+          recencyDays: 7,
+        });
+      });
+      console.log(`  - market_trends: ${marketTrends.length} insights`);
+    }
+
+    // Convert seasonal_patterns
+    const seasonalPatterns = profileData?.seasonal_patterns as Array<{ season: string; pattern: string; impact: string }> | undefined;
+    if (seasonalPatterns && Array.isArray(seasonalPatterns)) {
+      seasonalPatterns.forEach((pattern, idx) => {
+        insights.push({
+          id: `specialty-seasonal-${idx}`,
+          type: 'trend' as InsightType,
+          text: `${pattern.season}: ${pattern.pattern}`,
+          source: 'Seasonal Analysis',
+          relevanceScore: pattern.impact === 'high' ? 90 : pattern.impact === 'medium' ? 75 : 60,
+          velocity: 'stable' as const,
+          recencyDays: 30,
+        });
+      });
+      console.log(`  - seasonal_patterns: ${seasonalPatterns.length} insights`);
+    }
+
+    // Convert innovation_opportunities
+    const innovationOpps = profileData?.innovation_opportunities as string[] | undefined;
+    if (innovationOpps && Array.isArray(innovationOpps)) {
+      innovationOpps.forEach((opp, idx) => {
+        insights.push({
+          id: `specialty-innovation-${idx}`,
+          type: 'trend' as InsightType,
+          text: opp,
+          source: 'Innovation Opportunity',
+          relevanceScore: 80,
+          velocity: 'emerging' as const,
+          recencyDays: 14,
+        });
+      });
+      console.log(`  - innovation_opportunities: ${innovationOpps.length} insights`);
+    }
+
+    console.log(`[V5 InsightLoader] Converted ${insights.length} total trend insights from specialty profile`);
+    return insights;
+  }
+
+  /**
+   * Convert specialty profile data to competitor insights
+   * Uses: competitive_advantages, differentiators, objection_handlers
+   */
+  private convertSpecialtyProfileToCompetitors(profile: SpecialtyProfileRow): Insight[] {
+    const insights: Insight[] = [];
+    const profileData = profile.profile_data as Record<string, unknown> | null;
+
+    console.log('[V5 InsightLoader] Converting specialty profile to competitor insights');
+
+    // Convert competitive_advantages to competitor differentiation insights
+    const advantages = profileData?.competitive_advantages as string[] | undefined;
+    if (advantages && Array.isArray(advantages)) {
+      advantages.forEach((adv, idx) => {
+        insights.push({
+          id: `specialty-advantage-${idx}`,
+          type: 'competitor' as InsightType,
+          text: `Your Advantage: ${adv}`,
+          source: 'Competitive Analysis',
+          relevanceScore: 85,
+        });
+      });
+      console.log(`  - competitive_advantages: ${advantages.length} insights`);
+    }
+
+    // Convert objection_handlers to competitor positioning insights
+    if (profile.objection_handlers && Array.isArray(profile.objection_handlers)) {
+      profile.objection_handlers.slice(0, 5).forEach((handler, idx) => {
+        insights.push({
+          id: `specialty-objection-competitor-${idx}`,
+          type: 'competitor' as InsightType,
+          text: `Counter: "${handler.objection}" → ${handler.response}`,
+          source: 'Competitive Positioning',
+          relevanceScore: handler.effectiveness,
+        });
+      });
+      console.log(`  - objection_handlers: ${Math.min(profile.objection_handlers.length, 5)} insights`);
+    }
+
+    console.log(`[V5 InsightLoader] Converted ${insights.length} total competitor insights from specialty profile`);
+    return insights;
+  }
+
+  /**
+   * Convert specialty profile data to local insights
+   * Uses: geographic_variations from profile_data
+   */
+  private convertSpecialtyProfileToLocal(profile: SpecialtyProfileRow): Insight[] {
+    const insights: Insight[] = [];
+    const profileData = profile.profile_data as Record<string, unknown> | null;
+
+    console.log('[V5 InsightLoader] Converting specialty profile to local insights');
+
+    // Convert geographic_variations
+    const geoVariations = profileData?.geographic_variations as string[] | undefined;
+    if (geoVariations && Array.isArray(geoVariations)) {
+      geoVariations.forEach((variation, idx) => {
+        insights.push({
+          id: `specialty-local-${idx}`,
+          type: 'local' as InsightType,
+          text: variation,
+          source: 'Regional Analysis',
+          relevanceScore: 80,
+        });
+      });
+      console.log(`  - geographic_variations: ${geoVariations.length} insights`);
+    }
+
+    console.log(`[V5 InsightLoader] Converted ${insights.length} total local insights from specialty profile`);
+    return insights;
+  }
+
+  /**
+   * Convert specialty profile data to weather insights
+   * Uses: seasonal_patterns from profile_data (reframed as weather-related timing)
+   */
+  private convertSpecialtyProfileToWeather(profile: SpecialtyProfileRow): Insight[] {
+    const insights: Insight[] = [];
+    const profileData = profile.profile_data as Record<string, unknown> | null;
+
+    console.log('[V5 InsightLoader] Converting specialty profile to weather insights');
+
+    // Convert seasonal_patterns to weather-related insights
+    const seasonalPatterns = profileData?.seasonal_patterns as Array<{ season: string; pattern: string; impact: string }> | undefined;
+    if (seasonalPatterns && Array.isArray(seasonalPatterns)) {
+      seasonalPatterns.forEach((pattern, idx) => {
+        insights.push({
+          id: `specialty-weather-${idx}`,
+          type: 'weather' as InsightType,
+          text: `${pattern.season} Impact: ${pattern.pattern}`,
+          source: 'Seasonal Pattern',
+          relevanceScore: pattern.impact === 'high' ? 90 : pattern.impact === 'medium' ? 75 : 60,
+        });
+      });
+      console.log(`  - seasonal_patterns: ${seasonalPatterns.length} insights`);
+    }
+
+    console.log(`[V5 InsightLoader] Converted ${insights.length} total weather insights from specialty profile`);
+    return insights;
   }
 }
 

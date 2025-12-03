@@ -51,6 +51,8 @@ import { syncUVPProductsToCatalog } from '@/services/product-marketing/uvp-produ
 // Specialty Profile Detection - Phase 5 Integration
 import { specialtyDetector } from '@/services/specialty-detection.service';
 import type { SpecialtyDetectionInput } from '@/types/specialty-profile.types';
+// Specialty Profile Transform - Phase 6 Integration (UVP → V1 format)
+import { transformUVPToSpecialty } from '@/services/specialty/uvp-to-specialty.transform';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
 import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
@@ -743,10 +745,16 @@ export const OnboardingPageV5: React.FC = () => {
                 id: d.id || `solution-${i}-${Date.now()}`,
                 statement: d.statement || '',
                 outcomeStatement: d.outcomeStatement || d.statement || '',
-                evidence: d.evidence || '',
-                category: d.category || 'methodology',
-                strengthScore: d.strengthScore || 70,
-                differentiators: [d.statement],
+                // FIX: differentiators must be Differentiator[] not string[]
+                differentiators: [{
+                  id: d.id || `diff-${i}-${Date.now()}`,
+                  statement: d.statement || '',
+                  evidence: d.evidence || '',
+                  source: { type: 'website' as const, name: 'Website', confidence: d.strengthScore || 70 },
+                  strengthScore: d.strengthScore || 70,
+                }],
+                methodology: d.methodology || undefined,
+                proprietaryApproach: d.proprietaryApproach || undefined,
                 confidence: { overall: d.strengthScore || 70, dataQuality: 70, sourceCount: 1, modelAgreement: d.strengthScore || 70 },
                 sources: [],
                 isManualInput: false,
@@ -1813,6 +1821,301 @@ export const OnboardingPageV5: React.FC = () => {
     }
   };
 
+  // ============================================================================
+  // SPECIALTY PROFILE GENERATION (Phase 8)
+  // ============================================================================
+
+  /**
+   * Generate specialty profile from UVP data
+   * Called after UVP saves successfully - fire-and-forget async
+   *
+   * Flow:
+   * 1. Detect business profile type (local-b2c, regional-b2b, national-saas, etc.)
+   * 2. Transform UVP data to V1-compatible specialty profile fields
+   * 3. Create pending specialty profile in Supabase
+   * 4. Call hybrid Edge Function to generate missing fields (trends, seasonal, etc.)
+   * 5. Edge Function updates profile to 'complete' status
+   */
+  const generateSpecialtyProfileFromUVP = async (brandId: string, uvp: CompleteUVP) => {
+    console.log('[Specialty Profile] Starting generation from UVP data for brand:', brandId);
+
+    try {
+      // Step 1: Detect business profile type using UVP structured fields
+      // PHASE 18: Extract structured data from UVP for accurate profile type detection
+      const customerProfile = uvp.targetCustomer?.customerProfiles?.[0];
+
+      // Determine customerType from UVP data
+      // Check for B2B indicators in target customer
+      const targetCustomerText = [
+        customerProfile?.statement,
+        customerProfile?.industry,
+        customerProfile?.companySize,
+        customerProfile?.role
+      ].filter(Boolean).join(' ').toLowerCase();
+
+      const isB2BCustomer = targetCustomerText.includes('business') ||
+        targetCustomerText.includes('enterprise') ||
+        targetCustomerText.includes('company') ||
+        targetCustomerText.includes('organization') ||
+        targetCustomerText.includes('insurer') ||
+        targetCustomerText.includes('insurance') ||
+        targetCustomerText.includes('b2b') ||
+        (customerProfile?.companySize && customerProfile.companySize !== 'individual');
+
+      const customerType = isB2BCustomer ? 'b2b' : 'b2c';
+
+      // Detect SaaS from products
+      const productsText = uvp.productsServices?.categories?.flatMap(c =>
+        c.items.map(i => `${i.name} ${i.description || ''}`)
+      ).join(' ').toLowerCase() || '';
+
+      const isSaaS = productsText.includes('platform') ||
+        productsText.includes('software') ||
+        productsText.includes('saas') ||
+        productsText.includes('ai') ||
+        productsText.includes('api') ||
+        productsText.includes('cloud') ||
+        productsText.includes('automation');
+
+      const isService = productsText.includes('service') ||
+        productsText.includes('consulting') ||
+        productsText.includes('agency');
+
+      // =========================================================================
+      // GEOGRAPHIC SCOPE DETECTION - Analyze actual data, don't default
+      // =========================================================================
+      const detectGeographicScope = (): 'local' | 'regional' | 'national' | 'global' => {
+        // 1. If UVP has explicit marketGeography, use it
+        if (customerProfile?.marketGeography?.scope) {
+          console.log('[Specialty Profile] Using explicit marketGeography.scope:', customerProfile.marketGeography.scope);
+          return customerProfile.marketGeography.scope;
+        }
+
+        // 2. Analyze website URL TLD
+        const websiteUrl = websiteAnalysis?.websiteUrl || currentBrand?.website || '';
+        const tld = websiteUrl.match(/\.([a-z]{2,})(?:\/|$)/i)?.[1]?.toLowerCase();
+
+        // Country-specific TLDs indicate national/regional scope
+        const countryTLDs: Record<string, 'national' | 'regional'> = {
+          'uk': 'national', 'co.uk': 'national', 'de': 'national', 'fr': 'national',
+          'es': 'national', 'it': 'national', 'nl': 'national', 'au': 'national',
+          'ca': 'national', 'jp': 'national', 'kr': 'national', 'cn': 'national',
+          'in': 'national', 'br': 'national', 'mx': 'national', 'ru': 'national',
+        };
+
+        // Global TLDs
+        const globalTLDs = ['com', 'io', 'ai', 'co', 'net', 'org', 'app', 'dev', 'cloud'];
+
+        // 3. Aggregate all text for keyword analysis
+        const allText = [
+          websiteAnalysis?.businessDescription,
+          uvp.uniqueSolution?.uniqueness,
+          uvp.uniqueSolution?.statement,
+          uvp.keyBenefit?.statement,
+          targetCustomerText,
+          productsText,
+          customerProfile?.statement,
+          ...(customerProfile?.evidenceQuotes || []),
+        ].filter(Boolean).join(' ').toLowerCase();
+
+        // Global indicators
+        const globalIndicators = [
+          'global', 'worldwide', 'international', 'enterprise', 'fortune 500',
+          'multinational', 'cross-border', 'any country', 'around the world',
+          'globally', 'internationally', 'across the globe'
+        ];
+        const hasGlobalIndicators = globalIndicators.some(ind => allText.includes(ind));
+
+        // National indicators
+        const nationalIndicators = [
+          'nationwide', 'national', 'across the country', 'country-wide',
+          'united states', 'usa', 'uk-wide', 'australia-wide'
+        ];
+        const hasNationalIndicators = nationalIndicators.some(ind => allText.includes(ind));
+
+        // Regional indicators
+        const regionalIndicators = [
+          'regional', 'multi-state', 'east coast', 'west coast', 'midwest',
+          'northeast', 'southeast', 'southwest', 'pacific', 'tri-state',
+          'greater', 'metro area'
+        ];
+        const hasRegionalIndicators = regionalIndicators.some(ind => allText.includes(ind));
+
+        // Local indicators
+        const localIndicators = [
+          'local', 'neighborhood', 'community', 'city', 'town', 'nearby',
+          'serving', 'area', 'county', 'district', 'zip code'
+        ];
+        const hasLocalIndicators = localIndicators.some(ind => allText.includes(ind));
+
+        // Check for specific city/location mentions (strong local signal)
+        const cityPattern = /\b(serving|based in|located in|near)\s+[A-Z][a-z]+/;
+        const hasSpecificLocation = cityPattern.test(allText);
+
+        // Decision logic with priority
+        console.log('[Specialty Profile] Geographic analysis:', {
+          tld,
+          hasGlobalIndicators,
+          hasNationalIndicators,
+          hasRegionalIndicators,
+          hasLocalIndicators,
+          hasSpecificLocation,
+          isSaaS,
+          isB2BCustomer
+        });
+
+        // Explicit indicators take priority
+        if (hasLocalIndicators || hasSpecificLocation) {
+          return 'local';
+        }
+        if (hasRegionalIndicators) {
+          return 'regional';
+        }
+        if (hasNationalIndicators) {
+          return 'national';
+        }
+        if (hasGlobalIndicators) {
+          return 'global';
+        }
+
+        // TLD-based inference
+        if (tld && countryTLDs[tld]) {
+          return countryTLDs[tld];
+        }
+
+        // Business type inference (only when no other signals)
+        // B2B SaaS with .com/.io/.ai and no geographic restrictions = global
+        if (isSaaS && isB2BCustomer && globalTLDs.includes(tld || '')) {
+          console.log('[Specialty Profile] Inferring global scope for B2B SaaS with global TLD');
+          return 'global';
+        }
+
+        // B2B SaaS without geographic indicators = likely global (SaaS is inherently scalable)
+        if (isSaaS && isB2BCustomer) {
+          console.log('[Specialty Profile] Inferring global scope for B2B SaaS (no geographic restrictions found)');
+          return 'global';
+        }
+
+        // B2C or service without indicators = likely national
+        if (!isB2BCustomer || isService) {
+          return 'national';
+        }
+
+        // Default fallback for B2B non-SaaS = national
+        return 'national';
+      };
+
+      const geographicScope = detectGeographicScope();
+
+      console.log('[Specialty Profile] UVP-derived profile type data:', {
+        customerType,
+        geographicScope,
+        isSaaS,
+        isService,
+        targetCustomerText: targetCustomerText.substring(0, 100)
+      });
+
+      const detectionInput: SpecialtyDetectionInput = {
+        businessName: currentBrand?.name || websiteAnalysis?.businessName || 'Unknown Business',
+        websiteUrl: websiteAnalysis?.websiteUrl || undefined,
+        industry: websiteAnalysis?.industry?.primary || 'Technology',
+        naicsCode: websiteAnalysis?.industry?.naicsCode || undefined,
+        uvpDescription: uvp.uniqueSolution?.uniqueness || undefined,
+        targetCustomer: uvp.targetCustomer?.customerProfiles?.map(p => p.title).join(', ') || undefined,
+        productsServices: uvp.productsServices?.categories?.flatMap(c => c.items.map(i => i.name)).join(', ') || undefined,
+        // PHASE 18: Pass structured UVP data for accurate profile type detection
+        uvp: {
+          customerType,
+          geographicScope,
+          isSaaS,
+          isService
+        }
+      };
+
+      const detection = await specialtyDetector.detectSpecialtyEnhanced(detectionInput);
+      console.log('[Specialty Profile] Detection result:', {
+        isSpecialty: detection.isSpecialty,
+        businessProfileType: detection.businessProfileType,
+        confidence: detection.confidence,
+        hasExistingProfile: !!detection.existingProfile,
+      });
+
+      // If profile already exists and is complete, check if UVP data has changed
+      // Always regenerate to ensure latest UVP data (emotionalDrivers, functionalDrivers, differentiators) is used
+      if (detection.existingProfile && detection.existingProfile.generation_status === 'complete') {
+        console.log('[Specialty Profile] Existing complete profile found - regenerating with latest UVP data');
+        // Don't return - continue to regenerate with fresh UVP data
+      }
+
+      // Step 2: Transform UVP data to specialty profile fields (no LLM needed)
+      const transformResult = transformUVPToSpecialty({
+        uvp,
+        businessName: currentBrand?.name || websiteAnalysis?.businessName || 'Unknown Business',
+        industry: websiteAnalysis?.industry?.primary || 'Technology',
+        businessProfileType: detection.businessProfileType,
+      });
+
+      console.log('[Specialty Profile] Transform result:', {
+        percentComplete: transformResult.coverage.percentComplete + '%',
+        derivedFields: transformResult.coverage.derivedFields,
+        totalFields: transformResult.coverage.totalFields,
+      });
+
+      // Step 3: Build profile data for creation (will be created by Edge Function)
+      const specialtyHash = detection.specialtyHash || `${brandId}-${Date.now()}`;
+      const specialtyName = `${websiteAnalysis?.industry?.primary || 'Specialty'} - ${
+        uvp.targetCustomer?.customerProfiles?.[0]?.title || 'Custom'
+      }`;
+
+      // Profile data that will be stored
+      const profileData = {
+        specialty_name: specialtyName,
+        specialty_description: uvp.uniqueSolution?.uniqueness || '',
+        base_naics_code: websiteAnalysis?.industry?.naicsCode || null,
+        business_profile_type: detection.businessProfileType,
+        // UVP-derived fields
+        ...transformResult.derived,
+        // Metadata
+        uvp_source: true,
+        uvp_id: null,
+        created_from_uvp: new Date().toISOString(),
+      };
+
+      console.log('[Specialty Profile] Calling Edge Function to create and generate profile');
+
+      // Step 4: Call hybrid Edge Function - it will CREATE the profile (using service_role key)
+      // This bypasses RLS restrictions that block frontend anon key writes
+      const { data: result, error: invokeError } = await supabase.functions.invoke('generate-specialty-profile-hybrid', {
+        body: {
+          // No specialtyProfileId - Edge Function will create the profile
+          brandId,
+          specialtyHash,
+          specialtyName,
+          specialtyDescription: uvp.uniqueSolution?.uniqueness || '',
+          baseNaicsCode: websiteAnalysis?.industry?.naicsCode || null,
+          businessProfileType: detection.businessProfileType,
+          uvpDerived: transformResult.derived,
+          missingFields: transformResult.missing,
+          industry: websiteAnalysis?.industry?.primary || 'Technology',
+          targetCustomer: uvp.targetCustomer?.customerProfiles?.[0]?.title || undefined,
+          profileData, // Pass profile data for Edge Function to store
+        },
+      });
+
+      if (invokeError) {
+        console.error('[Specialty Profile] Edge Function invocation failed:', invokeError);
+        throw invokeError;
+      }
+
+      console.log('[Specialty Profile] Hybrid generation complete:', result);
+
+    } catch (error) {
+      console.error('[Specialty Profile] Generation failed:', error);
+      // Re-throw for caller to handle
+      throw error;
+    }
+  };
+
   // UVP Step 6: Synthesis
   const handleUVPComplete = async (uvp: CompleteUVP) => {
     console.log('[UVP Flow] UVP complete, saving to database');
@@ -1858,6 +2161,16 @@ export const OnboardingPageV5: React.FC = () => {
             completed_steps: finalSteps,
             progress_percentage: 100,
           });
+        }
+
+        // Phase 8: Generate specialty profile from UVP data (fire-and-forget)
+        // Don't await - the Edge Function takes 30+ seconds for LLM generation
+        // The profile is created immediately, LLM fills in missing fields async
+        if (brandId && uvpWithProducts) {
+          console.log('[Specialty Profile] Triggering profile generation in background...');
+          generateSpecialtyProfileFromUVP(brandId, uvpWithProducts)
+            .then(() => console.log('[Specialty Profile] Background generation complete'))
+            .catch(err => console.error('[Specialty Profile] Background generation failed:', err));
         }
 
         navigate('/v5');
@@ -2469,6 +2782,19 @@ export const OnboardingPageV5: React.FC = () => {
               });
             }
           }}
+          // FIX: Pass onProfilesSelected to capture full profile with emotionalDrivers/functionalDrivers
+          onProfilesSelected={(profiles) => {
+            console.log('[OnboardingPageV5] Customer profiles selected:', profiles.length);
+            if (profiles.length > 0) {
+              // Use first selected profile as primary (includes emotionalDrivers, functionalDrivers)
+              const primaryProfile = profiles[0];
+              console.log('[OnboardingPageV5] Setting primary profile with drivers:', {
+                emotionalDrivers: primaryProfile.emotionalDrivers?.length || 0,
+                functionalDrivers: primaryProfile.functionalDrivers?.length || 0,
+              });
+              setSelectedCustomerProfile(primaryProfile);
+            }
+          }}
           onNext={handleCustomerNext}
           onBack={() => setCurrentStep('uvp_products')}
           showProgress={true}
@@ -2493,13 +2819,21 @@ export const OnboardingPageV5: React.FC = () => {
           onChange={(value) => {
             // Update selected solution with new value
             if (selectedSolution) {
+              // Preserve existing differentiators, update statement
               setSelectedSolution({ ...selectedSolution, statement: value });
             } else {
-              // Create new solution if none exists
+              // Create new solution if none exists - include differentiator from statement
               setSelectedSolution({
                 id: `manual-${Date.now()}`,
                 statement: value,
-                differentiators: [],
+                // FIX: Create a proper Differentiator object from the manual input
+                differentiators: value ? [{
+                  id: `manual-diff-${Date.now()}`,
+                  statement: value,
+                  evidence: 'User-provided unique value proposition',
+                  source: { type: 'manual' as const, name: 'Manual Input', confidence: 100 },
+                  strengthScore: 80,
+                }] : [],
                 confidence: {
                   overall: 100,
                   dataQuality: 100,
@@ -2691,7 +3025,18 @@ export const OnboardingPageV5: React.FC = () => {
 
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
-                  // Navigate to V4 Content immediately - no blocking alert
+
+                  // Generate specialty profile from UVP data (fire-and-forget)
+                  // Don't await - the Edge Function takes 30+ seconds for LLM generation
+                  // The profile is created immediately, LLM fills in missing fields async
+                  if (brandId && uvpToDisplay) {
+                    console.log('[Specialty Profile] Triggering profile generation in background...');
+                    generateSpecialtyProfileFromUVP(brandId, uvpToDisplay)
+                      .then(() => console.log('[Specialty Profile] Background generation complete'))
+                      .catch(err => console.error('[Specialty Profile] Background generation failed:', err));
+                  }
+
+                  // Navigate to V4 Content immediately - no blocking
                   navigate('/v5');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);

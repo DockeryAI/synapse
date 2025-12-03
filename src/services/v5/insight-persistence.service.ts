@@ -84,15 +84,16 @@ export async function saveInsights(
     saveToLocalStorage(brandId, insights);
 
     // Transform insights to database rows
+    // Note: confidence/relevance/quality scores must be integers in the DB
     const rows = insights.map(insight => ({
       brand_id: brandId,
       insight_type: insight.type,
       text: insight.text,
       source: insight.source || null,
       category: insight.category || null,
-      confidence: insight.confidence || null,
-      relevance_score: (insight as any).relevanceScore || null,
-      quality_score: (insight as any).qualityScore || null,
+      confidence: insight.confidence != null ? Math.round(insight.confidence * 100) : null, // Convert 0-1 to 0-100
+      relevance_score: (insight as any).relevanceScore != null ? Math.round((insight as any).relevanceScore * 100) : null,
+      quality_score: (insight as any).qualityScore != null ? Math.round((insight as any).qualityScore * 100) : null,
       urgency: insight.urgency || null,
       metadata: extractMetadata(insight),
       api_source: apiSource || null,

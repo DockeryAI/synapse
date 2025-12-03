@@ -62,7 +62,7 @@ import { useBrandProfile } from '@/hooks/useBrandProfile';
 import { getUVPByBrand, updateUVPComponent, recoverDriversFromSession } from '@/services/database/marba-uvp.service';
 import { profileScannerService, type ProfileScanResult } from '@/services/intelligence/profile-scanner.service';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, Differentiator } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from '@/services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 import { CustomerTypeToggle } from '@/components/settings/CustomerTypeToggle';
 import { GeographicScopeSelector } from '@/components/settings/GeographicScopeSelector';
 import { RegionMultiSelect } from '@/components/settings/RegionMultiSelect';

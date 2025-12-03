@@ -64,6 +64,7 @@ export {
 } from './competitor-attribution.service';
 
 // Trigger Title Generator - Semantic, source-aware titles
+// DEPRECATED: Archived in V5 Simplified - titles now come directly from LLM synthesis
 export {
   triggerTitleGeneratorService,
   TriggerTitleGeneratorService,
@@ -71,7 +72,7 @@ export {
   type TitleGenerationContext,
   type GeneratedTitle,
   type TitleTemplate,
-} from './trigger-title-generator.service';
+} from './_archived/trigger-title-generator.service';
 
 // Confidence Scorer - Multi-signal confidence scoring
 export {
@@ -300,21 +301,35 @@ export {
   type TriggerConsolidationResult,
 } from './trigger-consolidation.service';
 
+// =============================================================================
+// ARCHIVED SERVICES (V5 Simplified)
+// Re-exported from _archived for backwards compatibility
+// =============================================================================
+
 // Source Quality - Profile-aware source tier weighting
+// DEPRECATED: Use trigger-synthesis.service.ts PROFILE_SOURCE_TIERS instead
 export {
   sourceQualityService,
   type SourceTier,
   type SourceQualityConfig,
   type ProfileSourceWeights,
   type SourceQualityResult,
-} from './source-quality.service';
+} from './_archived/source-quality.service';
 
 // Profile Detection - Business profile detection from UVP
+// DEPRECATED: Use trigger-synthesis.service.ts with profileType from BrandProfile
 export {
   profileDetectionService,
   type BusinessProfileType,
   type ProfileTriggerConfig,
-} from './profile-detection.service';
+  type BusinessProfileAnalysis,
+  type GatedApiType,
+  PROFILE_CONFIGS,
+  shouldRunApi,
+  getApiPriorityOrder,
+  getApiWeight,
+  getEnabledApis,
+} from './_archived/profile-detection.service';
 
 // Trigger Relevance Scorer
 export { triggerRelevanceScorerService } from './trigger-relevance-scorer.service';

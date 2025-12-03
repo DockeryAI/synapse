@@ -12,12 +12,14 @@
 
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from '../triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 import type { ReviewPlatformResult, PlatformSummary, ReviewPlatformReview } from './review-platform-scraper.service';
 import type { PressResult, PressMention } from './press-news-scraper.service';
 import type { DeepTestimonialResult, ExtractedTestimonial } from './deep-testimonial-scraper.service';
 import type { ClientLogoResult, ExtractedLogo } from './client-logo-extractor.service';
 import type { SocialProofResult, SocialMetric } from './social-proof-scraper.service';
+import type { SpecialtyProfileRow } from '@/types/specialty-profile.types';
+import { supabase } from '@/lib/supabase';
 
 // ============================================================================
 // TYPES
@@ -112,6 +114,10 @@ export interface ProofConsolidationResult {
   avgQualityScore: number;
   topProofTypes: ProofType[];
   sourceCoverage: Record<string, number>;
+  /** Raw count before deduplication */
+  rawCount?: number;
+  /** Whether specialty profile was used for V1-quality proofs */
+  hasSpecialtyProfile?: boolean;
 }
 
 // ============================================================================
@@ -1214,6 +1220,235 @@ class ProofConsolidationService {
    */
   filterByQuality(proofs: ConsolidatedProof[], minScore: number = 50): ConsolidatedProof[] {
     return proofs.filter(p => p.qualityScore >= minScore);
+  }
+
+  // ==========================================================================
+  // PHASE 10: SPECIALTY PROFILE INTEGRATION
+  // ==========================================================================
+
+  /**
+   * Look up specialty profile by brand_id
+   * Returns null if no specialty profile exists for this brand
+   */
+  private async lookupSpecialtyProfile(brandId: string): Promise<SpecialtyProfileRow | null> {
+    try {
+      console.log(`[ProofConsolidation] Looking up specialty profile for brand: ${brandId}`);
+
+      const { data, error } = await supabase
+        .from('specialty_profiles')
+        .select('*')
+        .eq('brand_id', brandId)
+        .eq('generation_status', 'complete')
+        .maybeSingle();
+
+      if (error) {
+        console.error('[ProofConsolidation] Error looking up specialty profile:', error);
+        return null;
+      }
+
+      if (!data) {
+        console.log('[ProofConsolidation] No specialty profile found for brand');
+        return null;
+      }
+
+      console.log(`[ProofConsolidation] ✅ Found specialty profile: ${data.specialty_name}`);
+      return data as SpecialtyProfileRow;
+    } catch (err) {
+      console.error('[ProofConsolidation] Failed to lookup specialty profile:', err);
+      return null;
+    }
+  }
+
+  /**
+   * Convert specialty profile data to proof points
+   * Uses: trust_builders, success_metrics, objection_handlers, risk_mitigation
+   */
+  private convertSpecialtyProfileToProofs(profile: SpecialtyProfileRow): ConsolidatedProof[] {
+    const proofs: ConsolidatedProof[] = [];
+    const now = new Date().toISOString();
+    const profileData = profile.profile_data as Record<string, unknown> | null;
+
+    console.log('[ProofConsolidation] Converting specialty profile to proofs');
+
+    // Convert trust_builders to testimonial/social proof
+    const trustBuilders = profileData?.trust_builders as string[] | undefined;
+    if (trustBuilders && Array.isArray(trustBuilders)) {
+      trustBuilders.forEach((trust, idx) => {
+        proofs.push({
+          id: `specialty-trust-${idx}`,
+          type: 'testimonial',
+          title: trust,
+          value: trust,
+          source: 'website',
+          qualityScore: 85,
+          recencyScore: 80,
+          authorityScore: 85,
+          specificityScore: 70,
+          verificationScore: 90, // From UVP extraction
+          confidence: 85,
+          isVerified: true,
+          profileRelevance: 95,
+          alignedClaims: [],
+          alignmentScore: 90,
+        });
+      });
+      console.log(`  - trust_builders: ${trustBuilders.length} proofs`);
+    }
+
+    // Convert success_metrics to metric proof
+    const successMetrics = profileData?.success_metrics as Array<{ metric: string; timeframe: string; measurable: boolean }> | undefined;
+    if (successMetrics && Array.isArray(successMetrics)) {
+      successMetrics.forEach((metric, idx) => {
+        proofs.push({
+          id: `specialty-metric-${idx}`,
+          type: 'metric',
+          title: metric.metric,
+          value: metric.metric,
+          source: 'website',
+          qualityScore: metric.measurable ? 90 : 75,
+          recencyScore: 80,
+          authorityScore: 80,
+          specificityScore: metric.measurable ? 95 : 60,
+          verificationScore: 85,
+          confidence: metric.measurable ? 90 : 75,
+          isVerified: true,
+          profileRelevance: 95,
+          alignedClaims: [],
+          alignmentScore: 90,
+        });
+      });
+      console.log(`  - success_metrics: ${successMetrics.length} proofs`);
+    }
+
+    // Convert objection_handlers to social proof (responses to common objections)
+    if (profile.objection_handlers && Array.isArray(profile.objection_handlers)) {
+      profile.objection_handlers.forEach((handler, idx) => {
+        if (handler.effectiveness >= 70) {
+          proofs.push({
+            id: `specialty-objection-${idx}`,
+            type: 'social',
+            title: `Addresses: ${handler.objection}`,
+            value: handler.response,
+            source: 'website',
+            qualityScore: handler.effectiveness,
+            recencyScore: 80,
+            authorityScore: 75,
+            specificityScore: 85,
+            verificationScore: 80,
+            confidence: handler.effectiveness,
+            isVerified: true,
+            profileRelevance: 90,
+            alignedClaims: [],
+            alignmentScore: 85,
+          });
+        }
+      });
+      console.log(`  - objection_handlers: ${profile.objection_handlers.filter(h => h.effectiveness >= 70).length} proofs`);
+    }
+
+    // Convert risk_mitigation to trust signal
+    const riskMitigation = profileData?.risk_mitigation as string | undefined;
+    if (riskMitigation && typeof riskMitigation === 'string') {
+      proofs.push({
+        id: 'specialty-risk-mitigation',
+        type: 'certification',
+        title: 'Risk Mitigation',
+        value: riskMitigation,
+        source: 'website',
+        qualityScore: 85,
+        recencyScore: 80,
+        authorityScore: 85,
+        specificityScore: 80,
+        verificationScore: 90,
+        confidence: 85,
+        isVerified: true,
+        profileRelevance: 95,
+        alignedClaims: [],
+        alignmentScore: 90,
+      });
+      console.log(`  - risk_mitigation: 1 proof`);
+    }
+
+    // Convert competitive_advantages to social proof
+    const competitiveAdvantages = profileData?.competitive_advantages as string[] | undefined;
+    if (competitiveAdvantages && Array.isArray(competitiveAdvantages)) {
+      competitiveAdvantages.slice(0, 5).forEach((adv, idx) => {
+        proofs.push({
+          id: `specialty-advantage-${idx}`,
+          type: 'social',
+          title: adv,
+          value: adv,
+          source: 'website',
+          qualityScore: 80,
+          recencyScore: 80,
+          authorityScore: 80,
+          specificityScore: 75,
+          verificationScore: 85,
+          confidence: 80,
+          isVerified: true,
+          profileRelevance: 90,
+          alignedClaims: [],
+          alignmentScore: 85,
+        });
+      });
+      console.log(`  - competitive_advantages: ${Math.min(competitiveAdvantages.length, 5)} proofs`);
+    }
+
+    console.log(`[ProofConsolidation] Converted ${proofs.length} total proofs from specialty profile`);
+    return proofs;
+  }
+
+  /**
+   * Consolidate proof with specialty profile lookup (async version)
+   * Use this when brandId is available for V1-quality proof from specialty profiles
+   */
+  async consolidateWithSpecialty(
+    deepContext: DeepContext | null,
+    uvp: CompleteUVP | null,
+    profileType: BusinessProfileType = 'national-saas-b2b',
+    brandId?: string
+  ): Promise<ProofConsolidationResult> {
+    console.log('[ProofConsolidation] Starting consolidation with specialty lookup');
+
+    // First, try to get specialty profile proofs
+    let specialtyProofs: ConsolidatedProof[] = [];
+    if (brandId) {
+      const specialtyProfile = await this.lookupSpecialtyProfile(brandId);
+      if (specialtyProfile) {
+        console.log('[ProofConsolidation] 🎯 SPECIALTY PROFILE FOUND - using V1-quality proofs');
+        specialtyProofs = this.convertSpecialtyProfileToProofs(specialtyProfile);
+      }
+    }
+
+    // Get regular proofs from API scraping
+    const regularResult = this.consolidate(deepContext, uvp, profileType);
+
+    // Merge specialty proofs with regular proofs (specialty proofs take priority)
+    if (specialtyProofs.length > 0) {
+      // Add specialty proofs to the beginning (higher priority)
+      const mergedProofs = [...specialtyProofs, ...regularResult.proofs];
+
+      // Deduplicate by title similarity
+      const seen = new Set<string>();
+      const dedupedProofs = mergedProofs.filter(p => {
+        const key = p.title.toLowerCase().slice(0, 50);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
+      return {
+        ...regularResult,
+        proofs: dedupedProofs,
+        rawCount: regularResult.rawCount + specialtyProofs.length,
+        hasSpecialtyProfile: true,
+      };
+    }
+
+    return {
+      ...regularResult,
+      hasSpecialtyProfile: false,
+    };
   }
 }
 

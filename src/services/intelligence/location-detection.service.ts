@@ -262,14 +262,15 @@ If you cannot detect a location with confidence > 0.5, respond with:
   "reasoning": "Could not detect location from URL"
 }`;
 
-      console.log('[LocationDetection] Calling OpenRouter AI...');
+      console.log('[LocationDetection] Calling OpenRouter AI (using fast model)...');
+      // 🚀 Use Sonnet for speed - location detection is a simple task
       const aiUrlResponse = await chat([
         {
           role: 'user',
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-sonnet-4-5-20250929',
+        model: 'anthropic/claude-sonnet-4',  // Fast model for simple extraction
         temperature: 0.3,
         maxTokens: 200
       });
@@ -518,27 +519,20 @@ If you cannot detect a location with confidence > 0.5, respond with:
 
     // Try common location page URLs first (highest quality data)
     const baseUrl = new URL(normalizedUrl).origin;
-    const locationPages = [
-      `${baseUrl}/locations`,
-      `${baseUrl}/locations-menus`,
-      `${baseUrl}/find-us`,
-      `${baseUrl}/contact`,
-      `${baseUrl}/store-locator`,
-      `${baseUrl}/our-locations`
-    ];
 
-    // Try each location page
-    for (const locationPageUrl of locationPages) {
-      console.log('[LocationDetection] Trying location page:', locationPageUrl);
-      const result = await this.scrapeAndAnalyze(locationPageUrl, industryHint);
-      if (result && result.confidence > 0.6) {
-        console.log('[LocationDetection] ✅ Found locations on dedicated page:', locationPageUrl);
-        return result;
-      }
+    // 🚀 OPTIMIZED: Only try /contact page (most reliable for location)
+    // Skip other pages to avoid wasting 60+ seconds on sequential AI calls
+    const contactPageUrl = `${baseUrl}/contact`;
+    console.log('[LocationDetection] Trying contact page only (optimized):', contactPageUrl);
+
+    const result = await this.scrapeAndAnalyze(contactPageUrl, industryHint);
+    if (result && result.confidence > 0.6) {
+      console.log('[LocationDetection] ✅ Found location on contact page');
+      return result;
     }
 
-    // Fallback to homepage if no location page found
-    console.log('[LocationDetection] No location page found, trying homepage...');
+    // If contact page fails, try homepage once
+    console.log('[LocationDetection] Contact page failed, trying homepage...');
     return await this.scrapeAndAnalyze(normalizedUrl, industryHint);
   }
 
@@ -658,16 +652,18 @@ If NO location found:
   "reasoning": "No location information found"
 }`;
 
-      console.log('[LocationDetection] Analyzing website content with AI...');
+      console.log('[LocationDetection] Analyzing website content with AI (using fast model)...');
+      // 🚀 Use Sonnet for speed - location detection is a simple task
+      // Main product/customer extraction still uses Opus for quality
       const aiResponse = await chat([
         {
           role: 'user',
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-sonnet-4',  // Fast model for simple extraction
         temperature: 0.2,
-        maxTokens: 500  // Increased to handle multiple locations
+        maxTokens: 500
       });
 
       console.log('[LocationDetection] Website analysis response:', aiResponse?.substring(0, 100));

@@ -10,7 +10,7 @@
 
 import { EventEmitter } from 'events';
 import { geoDetectionService } from './geo-detection.service';
-import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis } from '../triggers/profile-detection.service';
+import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis } from '@/services/triggers';
 import type { CompleteUVP, MarketGeography } from '@/types/uvp-flow.types';
 
 // ============================================================================

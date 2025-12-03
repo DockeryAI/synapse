@@ -251,9 +251,16 @@ Mitigation: Quality justifies cost. Each trigger defensible.
 - [x] Phase 2: V1 prompt structure ✅ Hard constraints: 2+ sampleIds, verbatimQuote, reasoning required
 - [ ] Phase 3: Profile-aware data collection
 - [x] Phase 4: Source-first flow ✅ Evidence built from cited sampleIds only
-- [ ] Phase 5: Remove confidence theater (simplified: source count only)
+- [x] Phase 5: Remove confidence theater ✅ UI shows "Backed by X sources", deprecated theater fields in type
 - [x] Phase 6: Fix V4 card rendering ✅ TriggerCardV4 on all tabs
 - [x] Phase 6B: Progressive loading UI ✅ `TriggerCardSkeleton` + `ProgressiveLoadingGrid` components
-- [ ] Phase 7: Simplified UI
+- [x] Phase 6C: InsightTabs integration ✅ `ProgressiveLoadingGrid` wired into InsightTabs with `triggerLoadingState` prop
+- [x] Phase 7: Simplified UI ✅ TriggerFilters removed, sort by source count, default sortBy='sources'
 - [x] Phase 8: Multi-pass orchestrator ✅ `runMultiPass()` with progressive callback
 - [ ] Phase 9: Archive dead services
+
+### Integration Complete (100% Expected)
+- ✅ TriggerSynthesisService exports from `@/services/triggers`
+- ✅ TriggerCardSkeleton + ProgressiveLoadingGrid exported from `@/components/v5`
+- ✅ InsightTabs now uses ProgressiveLoadingGrid for trigger loading with multi-pass state
+- ✅ triggerLoadingState prop added to InsightTabsProps for progressive loading control

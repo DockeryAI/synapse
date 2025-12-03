@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useBrand } from '@/hooks/useBrand';
+import { useSpecialtyProfile } from '@/hooks/useSpecialtyProfile';
 import { getUVPByBrand, recoverDriversFromSession, scanBrandWebsiteForVoice } from '@/services/database/marba-uvp.service';
 import { getGenerationStats } from '@/services/v5/ai-enhancer.service';
 
@@ -46,6 +47,9 @@ import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // V5 Insight Loader Service - connects to real data sources via edge functions
 import { insightLoaderService, type LoadedInsights } from '@/services/v5/insight-loader.service';
+
+// NOTE: Dead multi-pass trigger code has been removed.
+// Triggers now flow: StreamingApiManager -> LLMTriggerSynthesizer -> InsightLoaderService -> V5ContentPage
 
 // Default enabled tabs - will be overridden by industry profile
 const DEFAULT_ENABLED_TABS: EnabledTabs = {
@@ -143,6 +147,10 @@ function ContextStatusDisplay({ uvp, industrySlug, eqScore }: { uvp: CompleteUVP
 export function V5ContentPage() {
   const navigate = useNavigate();
   const { currentBrand: brand, loading: brandLoading } = useBrand();
+
+  // Phase 6: Load specialty profile enabledTabs dynamically
+  const { enabledTabs: specialtyEnabledTabs, businessProfileType, loading: profileLoading } = useSpecialtyProfile(brand?.id);
+
   const [uvp, setUvp] = useState<CompleteUVP | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -155,6 +163,7 @@ export function V5ContentPage() {
   const [insights, setInsights] = useState<Insight[]>([]);
   const [selectedInsightIds, setSelectedInsightIds] = useState<Set<string>>(new Set());
   const [isLoadingInsights, setIsLoadingInsights] = useState(true);
+  const [isLoadingTriggers, setIsLoadingTriggers] = useState(true); // Trigger-specific loading for BorderBeam animation
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastRefreshTime, setLastRefreshTime] = useState<Date | null>(null);
   const [refreshingTab, setRefreshingTab] = useState<string | null>(null);
@@ -162,6 +171,23 @@ export function V5ContentPage() {
   // Content generation state
   const [generatedContent, setGeneratedContent] = useState<GeneratedContentPreview | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // V5 Trigger loading state - now derived from insightLoaderService (not dead multi-pass)
+  // The actual triggers come from StreamingApiManager -> LLMTriggerSynthesizer -> InsightLoaderService
+  // CRITICAL: Uses isLoadingTriggers (trigger-specific) NOT isLoadingInsights (aggregate)
+  // This ensures BorderBeam shows while triggers are synthesizing even if other insights loaded from cache
+  const triggerLoadingState = useMemo(() => {
+    // Get trigger count to determine how many "passes" worth of data we have
+    const triggerCount = insights.filter(i => i.type === 'trigger').length;
+    const estimatedPasses = Math.min(4, Math.floor(triggerCount / 6)); // ~6 triggers per "pass"
+
+    return {
+      isLoading: isLoadingTriggers, // Use trigger-specific loading, not aggregate!
+      // currentPass is optional - omit since we're deriving from aggregated loading state
+      completedPasses: isLoadingTriggers ? estimatedPasses : 4, // Mark complete when not loading
+      totalPasses: 4, // Fixed number of conceptual "passes" for UI display
+    };
+  }, [isLoadingTriggers, insights]);
 
   // Toolbar state
   const [selectedPlatforms, setSelectedPlatforms] = useState<Set<Platform>>(new Set(['linkedin']));
@@ -230,9 +256,19 @@ export function V5ContentPage() {
       console.log('[V5ContentPage] Already initialized for this brand, just subscribing');
       // Still need to subscribe to get updates
       const unsubscribe = insightLoaderService.subscribe((data: LoadedInsights) => {
+        console.log(`[V5ContentPage] Subscription update: ${data.insights.length} insights, loading=${data.loading}, triggersLoading=${data.sources.triggers.loading}`);
         setInsights(data.insights);
         setIsLoadingInsights(data.loading);
+        setIsLoadingTriggers(data.sources.triggers.loading); // Trigger-specific for BorderBeam animation
       });
+      // IMPORTANT: Also immediately fetch current state in case we missed updates during HMR
+      const currentState = insightLoaderService.getState();
+      if (currentState.insights.length > 0) {
+        console.log(`[V5ContentPage] HMR recovery: loading ${currentState.insights.length} cached insights, triggersLoading=${currentState.sources.triggers.loading}`);
+        setInsights(currentState.insights);
+        setIsLoadingInsights(currentState.loading);
+        setIsLoadingTriggers(currentState.sources.triggers.loading); // Trigger-specific for BorderBeam animation
+      }
       return () => unsubscribe();
     }
 
@@ -240,17 +276,19 @@ export function V5ContentPage() {
     hasInitializedRef.current = brand.id;
 
     // Initialize the insight loader with brand and UVP context
+    // Phase 6: Use specialty profile enabledTabs (dynamically loaded) instead of defaults
     insightLoaderService.initialize({
       brandId: brand.id,
       brand,
       uvp,
-      enabledTabs: DEFAULT_ENABLED_TABS,
+      enabledTabs: specialtyEnabledTabs,
     });
 
     // Subscribe to insight updates
     const unsubscribe = insightLoaderService.subscribe((data: LoadedInsights) => {
       setInsights(data.insights);
       setIsLoadingInsights(data.loading);
+      setIsLoadingTriggers(data.sources.triggers.loading); // Trigger-specific for BorderBeam animation
     });
 
     // Start loading all insights - this will use cache if available
@@ -347,6 +385,10 @@ export function V5ContentPage() {
       setRefreshingTab(null);
     }
   }, [refreshingTab]);
+
+  // NOTE: Dead multi-pass code removed - triggers now flow through:
+  // StreamingApiManager -> LLMTriggerSynthesizer -> InsightLoaderService -> V5ContentPage
+  // The triggerLoadingState is now derived from isLoadingInsights (see useMemo above)
 
   if (loading) {
     return (
@@ -492,13 +534,14 @@ export function V5ContentPage() {
           <div className="flex-1 overflow-hidden">
             <InsightTabs
                 insights={insights}
-                enabledTabs={DEFAULT_ENABLED_TABS}
+                enabledTabs={specialtyEnabledTabs}
                 selectedInsights={selectedInsightIds}
                 onToggleInsight={handleToggleInsight}
                 onUseInsight={handleUseInsight}
                 isLoading={isLoadingInsights}
                 onRefreshTab={handleRefreshTab}
                 refreshingTab={refreshingTab as any}
+                triggerLoadingState={triggerLoadingState}
                 uvpData={{
                   target_customer: uvp?.targetCustomer?.statement,
                   key_benefit: uvp?.keyBenefit?.statement,

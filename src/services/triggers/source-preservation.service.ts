@@ -237,35 +237,122 @@ const sourceRegistry = new SourceRegistry();
 
 /**
  * Map platform string to SourcePlatform enum
+ * ENHANCED: Handles more platform variations, URLs, and Perplexity/Serper sources
  */
-function mapPlatform(platform: string): SourcePlatform {
+function mapPlatform(platform: string, url?: string): SourcePlatform {
   const platformMap: Record<string, SourcePlatform> = {
+    // Social/Community
     'reddit': 'reddit',
+    'r/': 'reddit', // subreddit format
     'twitter': 'twitter',
     'x': 'twitter',
+    'x.com': 'twitter',
     'youtube': 'youtube',
     'hackernews': 'hackernews',
     'hacker news': 'hackernews',
     'hn': 'hackernews',
-    'g2': 'g2',
-    'trustpilot': 'trustpilot',
-    'capterra': 'capterra',
-    'linkedin': 'linkedin',
+    'news.ycombinator': 'hackernews',
     'quora': 'quora',
+    'facebook': 'facebook',
+    'fb': 'facebook',
+    'instagram': 'instagram',
+    'ig': 'instagram',
+    'tiktok': 'tiktok',
     'producthunt': 'producthunt',
     'product hunt': 'producthunt',
+
+    // Review Platforms
+    'g2': 'g2',
+    'g2crowd': 'g2',
+    'trustpilot': 'trustpilot',
+    'capterra': 'capterra',
+    'trustradius': 'trustpilot', // Similar to trustpilot
+    'yelp': 'yelp',
     'google': 'google_reviews',
     'google reviews': 'google_reviews',
-    'yelp': 'yelp',
-    'facebook': 'facebook',
-    'instagram': 'instagram',
-    'tiktok': 'tiktok',
+    'google-reviews': 'google_reviews',
+    'google maps': 'google_reviews',
     'clutch': 'clutch',
+    'clutch.co': 'clutch',
     'gartner': 'gartner',
+    'gartner peer insights': 'gartner',
+
+    // Professional
+    'linkedin': 'linkedin',
+    'li': 'linkedin',
+
+    // AI/Research Sources (Perplexity, Serper, etc.)
+    'perplexity': 'unknown', // Will try to extract from URL
+    'serper': 'unknown', // Will try to extract from URL
+    'search': 'unknown', // Generic search result
+    'web': 'unknown',
   };
 
   const normalized = platform.toLowerCase().trim();
-  return platformMap[normalized] || 'unknown';
+
+  // Direct lookup
+  if (platformMap[normalized] && platformMap[normalized] !== 'unknown') {
+    return platformMap[normalized];
+  }
+
+  // Partial match for platforms containing keywords
+  for (const [key, value] of Object.entries(platformMap)) {
+    if (normalized.includes(key) && value !== 'unknown') {
+      return value;
+    }
+  }
+
+  // URL-based platform extraction as fallback
+  if (url) {
+    const extractedPlatform = extractPlatformFromUrl(url);
+    if (extractedPlatform !== 'unknown') {
+      return extractedPlatform;
+    }
+  }
+
+  return 'unknown';
+}
+
+/**
+ * Extract platform from URL hostname
+ * Used when platform string is generic (e.g., "Perplexity", "Web search")
+ */
+function extractPlatformFromUrl(url: string): SourcePlatform {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+
+    // Map hostname patterns to platforms
+    const urlPatterns: [RegExp, SourcePlatform][] = [
+      [/reddit\.com/, 'reddit'],
+      [/twitter\.com|x\.com/, 'twitter'],
+      [/youtube\.com|youtu\.be/, 'youtube'],
+      [/news\.ycombinator\.com/, 'hackernews'],
+      [/g2\.com/, 'g2'],
+      [/trustpilot\.com/, 'trustpilot'],
+      [/capterra\.com/, 'capterra'],
+      [/linkedin\.com/, 'linkedin'],
+      [/quora\.com/, 'quora'],
+      [/producthunt\.com/, 'producthunt'],
+      [/yelp\.com/, 'yelp'],
+      [/google\.com/, 'google_reviews'],
+      [/facebook\.com/, 'facebook'],
+      [/instagram\.com/, 'instagram'],
+      [/tiktok\.com/, 'tiktok'],
+      [/clutch\.co/, 'clutch'],
+      [/gartner\.com/, 'gartner'],
+      [/forbes\.com|techcrunch\.com|venturebeat\.com/, 'unknown'], // News sites - keep as unknown but valid
+    ];
+
+    for (const [pattern, platform] of urlPatterns) {
+      if (pattern.test(hostname)) {
+        return platform;
+      }
+    }
+  } catch {
+    // Invalid URL, return unknown
+  }
+
+  return 'unknown';
 }
 
 /**
@@ -304,9 +391,10 @@ class SourcePreservationService {
   /**
    * Convert RawDataSample to VerifiedSource
    * CRITICAL: Preserves original data exactly as scraped
+   * ENHANCED: Now uses URL to extract platform when platform string is generic
    */
   convertFromRawSample(sample: RawDataSample): VerifiedSource {
-    const platform = mapPlatform(sample.platform);
+    const platform = mapPlatform(sample.platform, sample.url);
 
     const verifiedSource: VerifiedSource = {
       id: sample.id || uuidv4(),

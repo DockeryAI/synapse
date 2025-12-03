@@ -57,7 +57,7 @@ import {
   profileDetectionService,
   type BusinessProfileType,
   PROFILE_CONFIGS,
-} from '@/services/triggers/profile-detection.service';
+} from '@/services/triggers';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 

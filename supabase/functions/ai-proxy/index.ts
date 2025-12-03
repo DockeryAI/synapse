@@ -156,12 +156,13 @@ function normalizeModelName(model: string, provider: Provider): string {
       'anthropic/claude-3-5-sonnet': 'anthropic/claude-sonnet-4',
       'anthropic/claude-3-5-sonnet-20241022': 'anthropic/claude-sonnet-4',
       'anthropic/claude-sonnet-4': 'anthropic/claude-sonnet-4',
-      // Sonnet 4.5 (Opus 4.5 / thinking model) - PREFERRED FOR SPEED + QUALITY
-      'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4-5-20250929',
-      'anthropic/claude-sonnet-4-5': 'anthropic/claude-sonnet-4-5-20250929',
-      'anthropic/claude-sonnet-4-5-20250514': 'anthropic/claude-sonnet-4-5-20250929',
-      'anthropic/claude-sonnet-4-5-20250929': 'anthropic/claude-sonnet-4-5-20250929',
-      'anthropic/claude-opus-4.5': 'anthropic/claude-sonnet-4-5-20250929', // Opus 4.5 IS Sonnet 4.5
+      // Sonnet 4.5
+      'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4.5',
+      'anthropic/claude-sonnet-4-5': 'anthropic/claude-sonnet-4.5',
+      'anthropic/claude-sonnet-4-5-20250514': 'anthropic/claude-sonnet-4.5',
+      'anthropic/claude-sonnet-4-5-20250929': 'anthropic/claude-sonnet-4.5',
+      // Opus 4.5 - HIGHEST QUALITY
+      'anthropic/claude-opus-4.5': 'anthropic/claude-opus-4.5',
       // Opus 4 variants (heavyweight)
       'anthropic/claude-opus-4': 'anthropic/claude-opus-4',
       'anthropic/claude-opus-4-5-20250514': 'anthropic/claude-opus-4',

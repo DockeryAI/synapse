@@ -16,9 +16,9 @@ import {
   profileDetectionService,
   type BusinessProfileType,
   type ProfileTriggerConfig
-} from './profile-detection.service';
+} from './_archived/profile-detection.service';
 import { triggerRelevanceScorerService } from './trigger-relevance-scorer.service';
-import { sourceQualityService } from './source-quality.service';
+import { sourceQualityService } from './_archived/source-quality.service';
 import { buyerProductFitService } from './buyer-product-fit.service';
 import { jtbdValidatorService } from './jtbd-validator.service';
 
@@ -86,23 +86,30 @@ export interface ConsolidatedTrigger {
   buyerProductFit?: number;
   /** Reasoning for why this trigger matches the target buyer (from fit validation) */
   buyerProductFitReasoning?: string;
-  /** PHASE D: Number of unique source types (voc, community, event, executive, news) */
+  // =========================================================================
+  // V5 SIMPLIFIED: DEPRECATED CONFIDENCE THEATER FIELDS
+  // These fields are kept for backwards compatibility but are no longer used.
+  // V5 displays only "Backed by X sources" - honest metric instead of misleading scores.
+  // See: TRIGGERS_V5_SIMPLIFIED_BUILD_PLAN.md Phase 5
+  // =========================================================================
+
+  /** @deprecated V5 Simplified: Use evidence.length instead */
   sourceTypeCount?: number;
-  /** PHASE D: Triangulation confidence multiplier (0.9x for single, 1.15x for 2, 1.3x for 3+) */
+  /** @deprecated V5 Simplified: Removed - misleading multiplier */
   triangulationMultiplier?: number;
-  /** PHASE F: Aggregate UVP alignment score (0-1) - average of all alignment match scores */
+  /** @deprecated V5 Simplified: Removed - misleading alignment score */
   uvpAlignmentScore?: number;
-  /** PHASE F: Number of UVP components this trigger aligns with (0-4) */
+  /** @deprecated V5 Simplified: Removed - use uvpAlignments.length instead */
   uvpAlignmentCount?: number;
-  /** PHASE F: Whether this is a high-alignment trigger (score > 0.5 with 2+ alignments) */
+  /** @deprecated V5 Simplified: Removed from UI - UVP Match badge deleted */
   isHighUVPAlignment?: boolean;
-  /** PHASE G: Weighted average source quality multiplier across all evidence */
+  /** @deprecated V5 Simplified: Removed - misleading quality multiplier */
   sourceQualityMultiplier?: number;
-  /** PHASE H: Category weight multiplier based on profile (1.25x primary, 1.1x secondary, 1.0x tertiary) */
+  /** @deprecated V5 Simplified: Removed - misleading category weighting */
   categoryWeightMultiplier?: number;
-  /** PHASE H: Whether this category is primary for the profile */
+  /** @deprecated V5 Simplified: Removed - not displayed in UI */
   isPrimaryCategory?: boolean;
-  /** PHASE H: Whether this trigger is a synthetic fill for underrepresented category */
+  /** @deprecated V5 Simplified: Removed - not displayed in UI */
   isCategoryFill?: boolean;
 }
 

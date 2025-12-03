@@ -81,6 +81,11 @@ const PLATFORM_NAMES: Record<string, string> = {
   tiktok: 'TikTok',
   clutch: 'Clutch',
   gartner: 'Gartner',
+  // Specialty triggers - honest source attribution
+  'uvp-analysis': 'UVP Analysis',
+  'uvpanalysis': 'UVP Analysis',
+  'industryprofile': 'Industry Profile',
+  'industry-profile': 'Industry Profile',
   unknown: 'Unknown',
 };
 

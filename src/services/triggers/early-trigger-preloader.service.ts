@@ -16,7 +16,7 @@
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { redditAPI } from '@/services/intelligence/reddit-apify-api';
 import { aiInsightSynthesizer } from '@/services/intelligence/ai-insight-synthesizer.service';
-import { profileDetectionService, type BusinessProfileType } from '@/services/triggers/profile-detection.service';
+import { profileDetectionService, type BusinessProfileType } from './_archived/profile-detection.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 

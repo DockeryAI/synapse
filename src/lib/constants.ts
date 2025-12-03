@@ -158,10 +158,11 @@ export const API_ENDPOINTS = {
 } as const;
 
 // OpenRouter Models
-// PREFERRED: claude-sonnet-4-5-20250929 (Opus 4.5 / "thinking" model) - best speed/quality ratio
+// PREFERRED: claude-opus-4.5 - highest quality
+// NOTE: OpenRouter uses short format (claude-opus-4.5), NOT dated format
 export const OPENROUTER_MODELS = {
-  // Opus 4.5 (Sonnet 4.5) - PREFERRED for speed + quality
-  claudeOpus45: 'anthropic/claude-sonnet-4-5-20250929',
+  // Opus 4.5 - HIGHEST QUALITY
+  claudeOpus45: 'anthropic/claude-opus-4.5',
   // Sonnet 4 - standard quality
   claudeSonnet4: 'anthropic/claude-sonnet-4',
   claude35Sonnet: 'anthropic/claude-sonnet-4', // Legacy alias

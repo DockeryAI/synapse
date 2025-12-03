@@ -23,7 +23,7 @@ import { proofStreamingManager, ProofUpdate } from '../services/proof/proof-stre
 import type { DeepContext } from '../types/synapse/deepContext.types';
 import type { CompleteUVP } from '../types/uvp-flow.types';
 import type { Brand } from '../contexts/BrandContext';
-import type { BusinessProfileType } from '../services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 
 export interface StreamingProofResult {
   proofs: ConsolidatedProof[];

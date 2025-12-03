@@ -13,7 +13,7 @@
  */
 
 import type { CompleteUVP } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 
 // ============================================================================
 // TYPES

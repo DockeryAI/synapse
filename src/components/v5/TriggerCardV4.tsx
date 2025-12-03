@@ -51,6 +51,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { BorderBeam } from '@/components/ui/border-beam';
 import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from '@/services/triggers/trigger-consolidation.service';
 import { useResolvedSources } from '@/hooks/v5/useResolvedSources';
 
@@ -190,8 +191,10 @@ function formatSourceAttribution(platform?: string, source?: string): string {
       'amazon': 'Amazon Review',
       'facebook': 'Facebook',
       'tiktok': 'TikTok',
+      'uvpanalysis': 'UVP Analysis', // PHASE 20: Honest source for specialty triggers
+      'industryprofile': 'Industry Profile',
     };
-    const cleanPlatform = platform.toLowerCase().replace(/[^a-z]/g, '');
+    const cleanPlatform = platform.toLowerCase().replace(/[^a-z-]/g, '').replace(/-/g, '');
     return platformMap[cleanPlatform] || platform;
   }
   if (source) {
@@ -207,11 +210,12 @@ function formatSourceAttribution(platform?: string, source?: string): string {
 }
 
 /**
- * Get confidence color based on score (dark theme)
+ * Get source count color based on number of sources (dark theme)
+ * Phase 5: Replace confidence theater with honest source count metric
  */
-function getConfidenceColor(confidence: number): string {
-  if (confidence >= 80) return 'text-green-400';
-  if (confidence >= 60) return 'text-yellow-400';
+function getSourceCountColor(sourceCount: number): string {
+  if (sourceCount >= 4) return 'text-green-400';
+  if (sourceCount >= 2) return 'text-yellow-400';
   return 'text-gray-400';
 }
 
@@ -249,8 +253,8 @@ export function TriggerCardV4({
   // Get best quote for preview
   const bestQuote = getBestQuote(trigger.evidence);
 
-  // Confidence display
-  const confidencePercent = Math.round(trigger.confidence * 100);
+  // Phase 5: Remove confidence theater - use source count only
+  // Confidence display removed in favor of honest "Backed by X sources"
 
   const handleCardClick = () => {
     if (onClick) {
@@ -260,6 +264,7 @@ export function TriggerCardV4({
 
   const handleExpandToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
+    console.log('[TriggerCardV4] Expand toggled:', !isExpanded);
     setIsExpanded(!isExpanded);
   };
 
@@ -297,31 +302,36 @@ export function TriggerCardV4({
           {trigger.title}
         </h3>
 
-        {/* Quote + Source Attribution - directly after title */}
-        {bestQuote && (
-          <div className="mt-auto">
-            <p className="text-[11px] text-gray-400 italic line-clamp-2 leading-tight">
-              "{bestQuote.quote.slice(0, 100)}{bestQuote.quote.length > 100 ? '...' : ''}"
-            </p>
-            <p className="text-[10px] text-gray-500 mt-0.5">
-              — {bestQuote.source}
-            </p>
-          </div>
-        )}
+        {/* Quote + Source Attribution - flex-1 to push expand button to bottom */}
+        <div className="flex-1">
+          {bestQuote && (
+            <div>
+              <p className="text-[11px] text-gray-400 italic line-clamp-2 leading-tight">
+                "{bestQuote.quote.slice(0, 100)}{bestQuote.quote.length > 100 ? '...' : ''}"
+              </p>
+              <p className="text-[10px] text-gray-500 mt-0.5">
+                — {bestQuote.source}
+              </p>
+            </div>
+          )}
+        </div>
 
-        {/* Bottom Stats Row */}
-        <div className="flex items-center justify-between text-[10px] mt-2 pt-2 border-t border-gray-600">
-          <span className={cn('font-semibold', getConfidenceColor(confidencePercent))}>
-            {confidencePercent}%
-          </span>
-          <span className="text-gray-500">
-            {sourceCount} src{sourceCount !== 1 ? 's' : ''}
-          </span>
+        {/* Bottom Stats Row - ALWAYS at bottom, clickable expand */}
+        <div
+          className="flex items-center justify-between text-[10px] mt-2 pt-2 border-t border-gray-600"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
+            type="button"
             onClick={handleExpandToggle}
-            className="text-gray-400 hover:text-gray-200 p-0.5 rounded hover:bg-gray-700/50"
+            className={cn(
+              'font-semibold cursor-pointer hover:underline py-2 px-3 -ml-3 -mb-1 rounded',
+              'hover:bg-gray-700/50 active:bg-gray-600/50',
+              'select-none',
+              getSourceCountColor(sourceCount)
+            )}
           >
-            <ChevronDown className="h-3.5 w-3.5" />
+            {isExpanded ? '▲ Collapse' : `▼ Backed by ${sourceCount} source${sourceCount !== 1 ? 's' : ''}`}
           </button>
         </div>
       </div>
@@ -346,7 +356,7 @@ export function TriggerCardV4({
       )}
       onClick={handleCardClick}
     >
-      {/* Category Header with Collapse Button */}
+      {/* Category Header with Collapse Button - Phase 5: Removed UVP Match badge */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <div className={cn('p-1.5 rounded', config.bgColor)}>
@@ -355,11 +365,6 @@ export function TriggerCardV4({
           <span className={cn('text-xs font-bold uppercase tracking-wider', config.color)}>
             {config.label}
           </span>
-          {trigger.isHighUVPAlignment && (
-            <span className="text-[9px] bg-emerald-900/50 text-emerald-400 px-1.5 py-0.5 rounded font-medium border border-emerald-700/50">
-              UVP Match
-            </span>
-          )}
         </div>
         <button
           onClick={handleExpandToggle}
@@ -435,13 +440,10 @@ export function TriggerCardV4({
         </div>
       </div>
 
-      {/* Bottom Stats */}
-      <div className="flex items-center justify-between text-xs mt-4 pt-3 border-t border-gray-700/50">
-        <span className={cn('font-semibold', getConfidenceColor(confidencePercent))}>
-          Confidence: {confidencePercent}%
-        </span>
-        <span className="text-gray-500">
-          {sourceCount} verified source{sourceCount !== 1 ? 's' : ''}
+      {/* Bottom Stats - Phase 5: Source count only, no confidence theater */}
+      <div className="flex items-center justify-end text-xs mt-4 pt-3 border-t border-gray-700/50">
+        <span className={cn('font-semibold', getSourceCountColor(sourceCount))}>
+          Backed by {sourceCount} verified source{sourceCount !== 1 ? 's' : ''}
         </span>
       </div>
     </div>
@@ -510,6 +512,7 @@ export interface TriggerCardSkeletonProps {
 /**
  * Dark-themed skeleton card that matches TriggerCardV4 layout.
  * Shows a centered spinner animation with optional pass label.
+ * Uses BorderBeam for premium animated border effect.
  */
 export function TriggerCardSkeleton({
   passLabel,
@@ -520,37 +523,49 @@ export function TriggerCardSkeleton({
       className={cn(
         // Match TriggerCardV4 collapsed styling
         'rounded-lg border transition-all duration-200',
-        'border-gray-700 bg-gray-900/80',
+        'border-gray-700/50 bg-gray-900/80',
         'flex flex-col h-auto min-h-[180px] p-3',
         'relative overflow-hidden',
         className
       )}
     >
+      {/* Premium animated border beam effect */}
+      <BorderBeam
+        size={120}
+        duration={8}
+        borderWidth={1.5}
+        colorFrom="#a855f7"
+        colorTo="#3b82f6"
+        delay={Math.random() * 4}
+      />
+
       {/* Shimmer overlay */}
       <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-gray-700/20 to-transparent" />
 
       {/* Category Header Skeleton */}
       <div className="flex items-center gap-2 mb-2">
-        <div className="w-6 h-6 rounded bg-gray-700/50" />
-        <div className="h-3 w-16 rounded bg-gray-700/50" />
+        <div className="w-6 h-6 rounded bg-gray-700/50 animate-pulse" />
+        <div className="h-3 w-16 rounded bg-gray-700/50 animate-pulse" />
       </div>
 
       {/* Title Skeleton */}
       <div className="space-y-1.5 mb-2">
-        <div className="h-4 w-full rounded bg-gray-700/50" />
-        <div className="h-4 w-3/4 rounded bg-gray-700/50" />
+        <div className="h-4 w-full rounded bg-gray-700/50 animate-pulse" />
+        <div className="h-4 w-3/4 rounded bg-gray-700/50 animate-pulse" />
       </div>
 
       {/* Center Spinner */}
       <div className="flex-1 flex flex-col items-center justify-center py-4">
         <div className="relative">
-          {/* Outer ring */}
-          <div className="w-8 h-8 rounded-full border-2 border-gray-700/50" />
-          {/* Spinning ring */}
-          <div className="absolute inset-0 w-8 h-8 rounded-full border-2 border-transparent border-t-purple-500 animate-spin" />
+          {/* Outer ring with glow */}
+          <div className="w-10 h-10 rounded-full border-2 border-gray-700/50 shadow-[0_0_15px_rgba(168,85,247,0.3)]" />
+          {/* Spinning ring with gradient */}
+          <div className="absolute inset-0 w-10 h-10 rounded-full border-2 border-transparent border-t-purple-500 border-r-blue-500 animate-spin" />
+          {/* Inner glow */}
+          <div className="absolute inset-2 rounded-full bg-gradient-to-br from-purple-500/10 to-blue-500/10" />
         </div>
         {passLabel && (
-          <span className="mt-2 text-[10px] text-gray-500 animate-pulse">
+          <span className="mt-3 text-[10px] text-gray-400 animate-pulse font-medium">
             {passLabel}
           </span>
         )}

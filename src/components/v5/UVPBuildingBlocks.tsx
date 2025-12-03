@@ -860,7 +860,7 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
         <SidebarSection
           title="Differentiators"
           icon={<Shield className="w-4 h-4" />}
-          defaultExpanded={false}
+          defaultExpanded={true}
           badgeCount={differentiatorData.length}
         >
           <div className="space-y-2">

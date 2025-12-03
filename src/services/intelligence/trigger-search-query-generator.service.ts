@@ -16,7 +16,7 @@
  */
 
 import type { CompleteUVP } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from '@/services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 
 // ============================================================================
 // TYPES

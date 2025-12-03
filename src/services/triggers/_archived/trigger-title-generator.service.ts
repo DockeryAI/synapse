@@ -15,8 +15,8 @@
  * Phase: Triggers 3.0 - Phase 1 (Foundation Layer)
  */
 
-import type { TriggerCategory, EvidenceItem } from './trigger-consolidation.service';
-import { competitorAttributionService } from './competitor-attribution.service';
+import type { TriggerCategory, EvidenceItem } from '../trigger-consolidation.service';
+import { competitorAttributionService } from '../competitor-attribution.service';
 
 // ============================================================================
 // TYPES

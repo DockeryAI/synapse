@@ -288,12 +288,11 @@ export class SpecialtyDetectionService {
   private async matchNAICSCode(keywords: string[]): Promise<NAICSCode | null> {
     try {
       // Search for NAICS codes that contain any of our keywords
-      // Prefer higher level (more specific) codes
+      // Order by popularity only (level column doesn't exist)
       const { data, error } = await supabase
         .from('naics_codes')
         .select('*')
         .order('popularity', { ascending: false })
-        .order('level', { ascending: false })
         .limit(50)
 
       if (error) {
@@ -770,12 +769,14 @@ export class SpecialtyDetectionService {
         .select('*')
         .eq('specialty_hash', specialtyHash)
         .eq('generation_status', 'complete')
-        .single()
+        .maybeSingle()
 
       if (error) {
-        if (error.code !== 'PGRST116') { // Not "no rows found"
-          log('lookupSpecialtyProfile', `DB error: ${error.message}`, 'warn')
-        }
+        log('lookupSpecialtyProfile', `DB error: ${error.message}`, 'warn')
+        return null
+      }
+
+      if (!data) {
         return null
       }
 

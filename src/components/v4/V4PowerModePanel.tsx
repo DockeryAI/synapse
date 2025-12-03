@@ -122,7 +122,7 @@ import { intelligenceCache } from '@/services/intelligence/intelligence-cache.se
 import { proofConsolidationService } from '@/services/proof/proof-consolidation.service';
 // AI-powered insight suggestion service
 import { insightSuggestionService, type SuggestionResult } from '@/services/intelligence/insight-suggestion.service';
-import { profileDetectionService } from '@/services/triggers/profile-detection.service';
+import { profileDetectionService } from '@/services/triggers';
 import type {
   GeneratedContent,
   PsychologyFramework,

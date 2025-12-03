@@ -15,7 +15,7 @@
  * Created: 2025-11-29
  */
 
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // ============================================================================

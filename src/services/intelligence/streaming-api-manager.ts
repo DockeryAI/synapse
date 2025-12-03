@@ -21,7 +21,7 @@ import {
   getApiPriorityOrder,
   getApiWeight,
   getEnabledApis,
-} from '../triggers/profile-detection.service';
+} from '@/services/triggers';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // API Event Types
@@ -1123,10 +1123,22 @@ class StreamingApiManager extends EventEmitter {
           profileType: this.currentProfileType,
           brandName: this.currentBrandName,
           industry: this.currentIndustry,
+          // PHASE 5: Pass brandId for specialty profile lookup
+          brandId: this.currentLoadBrandId || undefined,
+          // PROGRESSIVE LOADING: Emit triggers as each batch completes
+          onBatchComplete: (triggers, batchIndex, totalBatches) => {
+            console.log(`[StreamingAPI] 🔄 Progressive: Batch ${batchIndex + 1}/${totalBatches} with ${triggers.length} triggers`);
+            this.emit('trigger-batch', {
+              triggers,
+              batchIndex,
+              totalBatches,
+              isComplete: false,
+            });
+          },
         });
 
         if (synthesisResult.triggers.length > 0) {
-          console.log(`[StreamingAPI] Emitting ${synthesisResult.triggers.length} synthesized triggers`);
+          console.log(`[StreamingAPI] Emitting ${synthesisResult.triggers.length} synthesized triggers (final)`);
           this.emit('trigger-synthesis', synthesisResult);
         } else {
           console.log('[StreamingAPI] No triggers synthesized - falling back to regex consolidation');

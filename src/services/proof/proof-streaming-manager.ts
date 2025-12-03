@@ -9,7 +9,7 @@
  */
 
 import { EventEmitter } from 'events';
-import type { BusinessProfileType } from '../triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 import { reviewPlatformScraperService, ReviewPlatformResult } from './review-platform-scraper.service';
 import { pressNewsScraperService, PressResult } from './press-news-scraper.service';
 import { proofConsolidationService, ConsolidatedProof, ProofConsolidationResult } from './proof-consolidation.service';

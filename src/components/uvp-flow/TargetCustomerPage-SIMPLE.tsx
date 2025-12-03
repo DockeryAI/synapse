@@ -53,8 +53,12 @@ export function TargetCustomerPage({
 }: TargetCustomerPageProps) {
   const [profiles, setProfiles] = useState<CustomerProfile[]>([]);
   const [selectedProfiles, setSelectedProfiles] = useState<CustomerProfile[]>([]);
-  // Start as loading if we don't have data yet
-  const [isLoading, setIsLoading] = useState(!preloadedData || (preloadedData as any).loading === true);
+  // Start as loading if we don't have data OR if data has no profiles yet (background loading)
+  const [isLoading, setIsLoading] = useState(
+    !preloadedData ||
+    (preloadedData as any).loading === true ||
+    (preloadedData.profiles && preloadedData.profiles.length === 0)
+  );
   const hasLoadedPreloadedData = useRef(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newCustomerSegment, setNewCustomerSegment] = useState('');

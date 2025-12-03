@@ -16,7 +16,7 @@
  * Phase: Triggers 3.0 - Phase 2 (SMB Signal Pipeline)
  */
 
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 import { competitorAttributionService } from './competitor-attribution.service';
 
 // ============================================================================

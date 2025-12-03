@@ -19,7 +19,7 @@
  * Created: 2025-12-01
  */
 
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 import type { ConfidenceLevel } from './confidence-scorer.service';
 import type { UrgencyLevel } from './urgency-detector.service';
 

@@ -7,7 +7,7 @@
  * Created: 2025-11-28
  */
 
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 
 // ============================================================================
 // TYPES

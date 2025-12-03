@@ -21,7 +21,7 @@
 import { recencyCalculatorService, type RecencyResult } from './recency-calculator.service';
 import { competitorAttributionService, type CompetitorMention } from './competitor-attribution.service';
 import { confidenceScorerService, type ConfidenceLevel } from './confidence-scorer.service';
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 
 // ============================================================================
 // TYPES

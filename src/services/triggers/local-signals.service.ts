@@ -17,7 +17,7 @@
  * Created: 2025-12-01
  */
 
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 import { recencyCalculatorService, type RecencyResult } from './recency-calculator.service';
 import { competitorAttributionService, type CompetitorMention } from './competitor-attribution.service';
 import { reviewAggregatorService, type NormalizedReview, type ReviewPlatform } from './review-aggregator.service';

@@ -13,7 +13,7 @@
 import * as React from 'react';
 import { useBrand } from '@/hooks/useBrand';
 import { profileScannerService, type ProfileScanResult } from '@/services/intelligence/profile-scanner.service';
-import type { BusinessProfileType } from '@/services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 import type { MarketGeography, CompleteUVP } from '@/types/uvp-flow.types';
 
 // ============================================================================
@@ -260,7 +260,8 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
     }
   };
 
-  const value: BrandProfileContextValue = {
+  // Phase 15: Memoize context value to prevent unnecessary re-renders
+  const value = React.useMemo<BrandProfileContextValue>(() => ({
     profile,
     scanResult,
     isLoading,
@@ -270,7 +271,16 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
     updateProfile,
     resetToAutoDetected,
     refreshDetection
-  };
+  }), [
+    profile,
+    scanResult,
+    isLoading,
+    isScanning,
+    error,
+    updateProfile,
+    resetToAutoDetected,
+    refreshDetection
+  ]);
 
   return (
     <BrandProfileContext.Provider value={value}>

@@ -17,7 +17,7 @@ import type { TriggerSynthesisResult } from '../services/triggers/llm-trigger-sy
 import type { DeepContext } from '../types/synapse/deepContext.types';
 import type { CompleteUVP } from '../types/uvp-flow.types';
 import type { Brand } from '../types/brand';
-import type { BusinessProfileType } from '../services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 
 export interface StreamingTriggersResult {
   triggers: ConsolidatedTrigger[];

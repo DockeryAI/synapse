@@ -48,8 +48,8 @@ export const OPENROUTER_KEYS: OpenRouterKeyConfig[] = [
 // OpenRouter API configuration
 export const OPENROUTER_CONFIG = {
   baseUrl: 'https://openrouter.ai/api/v1',
-  // Opus 4.5 = claude-sonnet-4-5-20250929 (the "thinking" model)
-  model: 'anthropic/claude-sonnet-4-5-20250929', // Opus 4.5 for speed + quality
+  // Opus 4.5 - highest quality
+  model: 'anthropic/claude-opus-4.5',
 
   // Concurrency settings
   maxConcurrentPerKey: 4,

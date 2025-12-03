@@ -299,7 +299,8 @@ export const BrandProvider: React.FC<BrandProviderProps> = ({
     refreshBrands()
   }, [refreshBrands])
 
-  const value: BrandContextValue = {
+  // Phase 15: Memoize context value to prevent unnecessary re-renders
+  const value = React.useMemo<BrandContextValue>(() => ({
     currentBrand,
     brands,
     loading,
@@ -311,7 +312,18 @@ export const BrandProvider: React.FC<BrandProviderProps> = ({
     notifyTargetCustomerReady,
     notifyProductsReady,
     notifyFullUVPReady
-  }
+  }), [
+    currentBrand,
+    brands,
+    loading,
+    error,
+    setCurrentBrand,
+    refreshBrands,
+    refreshBrand,
+    notifyTargetCustomerReady,
+    notifyProductsReady,
+    notifyFullUVPReady
+  ])
 
   return <BrandContext.Provider value={value}>{children}</BrandContext.Provider>
 }

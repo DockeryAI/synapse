@@ -16,8 +16,8 @@
  * Created: 2025-12-01
  */
 
-import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis, type ProfileTriggerConfig } from './profile-detection.service';
-import { sourceQualityService, type ProfileSourceWeights } from './source-quality.service';
+import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis, type ProfileTriggerConfig } from './_archived/profile-detection.service';
+import { sourceQualityService, type ProfileSourceWeights } from './_archived/source-quality.service';
 import { recencyCalculatorService, type TriggerEventType } from './recency-calculator.service';
 import { confidenceScorerService, type ConfidenceLevel } from './confidence-scorer.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';

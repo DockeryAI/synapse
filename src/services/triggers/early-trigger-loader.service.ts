@@ -13,7 +13,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis } from './profile-detection.service';
+import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis } from './_archived/profile-detection.service';
 import { triggerSearchQueryGenerator, type TriggerSearchQueries } from '../intelligence/trigger-search-query-generator.service';
 import type { CompleteUVP, CustomerProfile, ProductServiceData } from '@/types/uvp-flow.types';
 

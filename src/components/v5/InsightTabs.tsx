@@ -26,7 +26,6 @@ import {
   MapPin,
   Cloud,
   Sparkles,
-  Filter,
   SortDesc,
   Search,
   RefreshCw,
@@ -34,10 +33,10 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { InsightCard, type Insight, type InsightType, type TriggerInsight } from './InsightCards';
 
-// Triggers 4.0 Components - Source-locked architecture
-import { TriggerCardGrid } from './TriggerCardV4';
-import { TriggerFilters, applyTriggerFilters, DEFAULT_FILTERS, type TriggerFilterState } from './TriggerFilters';
+// Triggers V5 Simplified - No filter complexity, sorted by source count
+import { TriggerCardGrid, ProgressiveLoadingGrid } from './TriggerCardV4';
 import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from '@/services/triggers/trigger-consolidation.service';
+import type { PassType } from '@/services/triggers/trigger-synthesis.service';
 
 // ============================================================================
 // TYPES
@@ -74,6 +73,13 @@ export interface InsightTabsProps {
   refreshingTab?: InsightType | null;
   /** Brand UVP data for alignment calculation */
   uvpData?: UVPData;
+  /** Multi-pass loading state for progressive trigger loading */
+  triggerLoadingState?: {
+    isLoading: boolean;
+    currentPass?: PassType;
+    completedPasses: number;
+    totalPasses: number;
+  };
 }
 
 // ============================================================================
@@ -153,14 +159,14 @@ const EXTENDED_TABS: TabConfig[] = [
 
 // ============================================================================
 // SORT OPTIONS
+// Phase 7 V5 Simplified: Sort by source count only (honest metric)
 // ============================================================================
 
-type SortOption = 'confidence' | 'recency' | 'relevance';
+type SortOption = 'sources' | 'recency';
 
 const SORT_OPTIONS: { id: SortOption; label: string }[] = [
-  { id: 'confidence', label: 'Confidence' },
+  { id: 'sources', label: 'Sources' },
   { id: 'recency', label: 'Recency' },
-  { id: 'relevance', label: 'Relevance' },
 ];
 
 // ============================================================================
@@ -255,63 +261,28 @@ function extractPlatformFromSource(source: string): string {
   if (lower.includes('trustpilot')) return 'trustpilot';
   if (lower.includes('hackernews') || lower.includes('ycombinator')) return 'hackernews';
   if (lower.includes('quora')) return 'quora';
+  // Specialty triggers - honest source attribution
+  if (lower.includes('uvp') || lower.includes('analysis')) return 'uvp-analysis';
+  if (lower.includes('industry') || lower.includes('profile')) return 'industry-profile';
   return 'unknown';
 }
 
 /**
- * Generate UVP alignment strings based on trigger text and UVP data.
- * Returns concise explanations: "Component - why it matches"
+ * PHASE 19: DISABLED - Naive keyword matching produces garbage like "mentions 'leader'"
+ *
+ * UVP alignments should come from:
+ * 1. Specialty profile triggers (already have proper uvpAlignments from consolidation service)
+ * 2. trigger-consolidation.service.ts addUVPAlignments() with real semantic matching
+ *
+ * This function is kept but DISABLED - always returns empty array.
+ * Real alignments come from the trigger.uvpAlignments field set by the backend.
  */
-function generateUVPAlignments(triggerText: string, uvpData?: UVPData): string[] {
-  if (!uvpData) return [];
-
-  const alignments: string[] = [];
-  const textLower = triggerText.toLowerCase();
-
-  // Stop words to exclude from matching
-  const stopWords = new Set(['the', 'and', 'for', 'that', 'with', 'this', 'from', 'your', 'they', 'have', 'been', 'more', 'will', 'into', 'their', 'when', 'what', 'which', 'about', 'are', 'was', 'were', 'been', 'being', 'has', 'had', 'does', 'did', 'could', 'would', 'should', 'may', 'might', 'must', 'can', 'need', 'want']);
-
-  // Helper to find matching keywords
-  const findMatchingWords = (text: string): string[] => {
-    const words = text.toLowerCase().split(/\s+/);
-    return words.filter(word =>
-      word.length > 3 && !stopWords.has(word) && textLower.includes(word)
-    ).slice(0, 2); // Max 2 matching words
-  };
-
-  // Check target customer alignment
-  if (uvpData.target_customer) {
-    const matches = findMatchingWords(uvpData.target_customer);
-    if (matches.length > 0) {
-      alignments.push(`Target Customer - mentions "${matches.join('", "')}"`);
-    }
-  }
-
-  // Check key benefit alignment
-  if (uvpData.key_benefit) {
-    const matches = findMatchingWords(uvpData.key_benefit);
-    if (matches.length > 0) {
-      alignments.push(`Key Benefit - references "${matches.join('", "')}"`);
-    }
-  }
-
-  // Check unique solution alignment
-  if (uvpData.unique_solution) {
-    const matches = findMatchingWords(uvpData.unique_solution);
-    if (matches.length > 0) {
-      alignments.push(`Differentiator - relates to "${matches.join('", "')}"`);
-    }
-  }
-
-  // Check transformation alignment
-  if (uvpData.transformation) {
-    const matches = findMatchingWords(uvpData.transformation);
-    if (matches.length > 0) {
-      alignments.push(`Transformation - addresses "${matches.join('", "')}"`);
-    }
-  }
-
-  return alignments;
+function generateUVPAlignments(_triggerText: string, _uvpData?: UVPData): string[] {
+  // PHASE 19: Return empty - don't generate fake alignments from keywords
+  // Real alignments should come from:
+  // - Specialty profile conversion (llm-trigger-synthesizer.service.ts)
+  // - Consolidation service (trigger-consolidation.service.ts addUVPAlignments)
+  return [];
 }
 
 // ============================================================================
@@ -366,14 +337,13 @@ export const InsightTabs = memo(function InsightTabs({
   onRefreshTab,
   refreshingTab,
   uvpData,
+  triggerLoadingState,
 }: InsightTabsProps) {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  // Default to 'triggers' tab so users see ProgressiveLoadingGrid with BorderBeam animation on load
+  const [activeFilter, setActiveFilter] = useState<FilterType>('triggers');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<SortOption>('confidence');
+  const [sortBy, setSortBy] = useState<SortOption>('sources');
   const [showFilters, setShowFilters] = useState(false);
-
-  // Triggers 4.0: Filter state for V4 trigger cards
-  const [triggerFilters, setTriggerFilters] = useState<TriggerFilterState>(DEFAULT_FILTERS);
 
   // Build available tabs based on enabledTabs
   const availableTabs = useMemo(() => {
@@ -424,13 +394,14 @@ export const InsightTabs = memo(function InsightTabs({
       );
     }
 
-    // Sort
+    // Sort - Phase 7 V5 Simplified: Sort by source count (honest metric)
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case 'confidence':
-          const aConf = 'confidence' in a ? (a as any).confidence : ('relevanceScore' in a ? (a as any).relevanceScore : ('qualityScore' in a ? (a as any).qualityScore : 50));
-          const bConf = 'confidence' in b ? (b as any).confidence : ('relevanceScore' in b ? (b as any).relevanceScore : ('qualityScore' in b ? (b as any).qualityScore : 50));
-          return bConf - aConf;
+        case 'sources':
+          // Sort by evidence/source count (higher is better)
+          const aSources = 'evidence' in a ? (a as any).evidence?.length || 0 : 0;
+          const bSources = 'evidence' in b ? (b as any).evidence?.length || 0 : 0;
+          return bSources - aSources;
         case 'recency':
           const aDays = 'recencyDays' in a ? (a as any).recencyDays : 999;
           const bDays = 'recencyDays' in b ? (b as any).recencyDays : 999;
@@ -456,12 +427,12 @@ export const InsightTabs = memo(function InsightTabs({
     };
   }, [insights]);
 
-  // Triggers 4.0: Convert insights to ConsolidatedTrigger format for V4 cards
+  // Triggers V5 Simplified: Convert insights to ConsolidatedTrigger format, sort by source count
   const consolidatedTriggers = useMemo(() => {
     const allTriggers = insightsToConsolidatedTriggers(insights, uvpData);
-    // Apply V4 trigger filters
-    return applyTriggerFilters(allTriggers, triggerFilters);
-  }, [insights, triggerFilters, uvpData]);
+    // Sort by source count (honest metric) - no filter complexity
+    return allTriggers.sort((a, b) => (b.evidence?.length || 0) - (a.evidence?.length || 0));
+  }, [insights, uvpData]);
 
   // Handler for trigger card click - toggles selection
   const handleTriggerClick = (trigger: ConsolidatedTrigger) => {
@@ -586,27 +557,24 @@ export const InsightTabs = memo(function InsightTabs({
       {/* Content Area */}
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-3">
-          {isLoading ? (
-            // Loading skeletons
+          {/* Triggers Tab - use ProgressiveLoadingGrid for multi-pass loading */}
+          {activeFilter === 'triggers' ? (
+            // TRIGGERS V5 SIMPLIFIED: No filter complexity, sorted by source count
             <>
-              <InsightSkeleton />
-              <InsightSkeleton />
-              <InsightSkeleton />
-              <InsightSkeleton />
-            </>
-          ) : activeFilter === 'triggers' ? (
-            // TRIGGERS 4.0: V4-style trigger cards with filters
-            <>
-              {/* V4 Trigger Filters */}
-              <TriggerFilters
-                triggers={insightsToConsolidatedTriggers(insights, uvpData)}
-                filters={triggerFilters}
-                onFiltersChange={setTriggerFilters}
-                className="mb-4"
-              />
-
-              {/* V4 Trigger Card Grid */}
-              {consolidatedTriggers.length === 0 ? (
+              {/* V4 Trigger Card Grid with Progressive Loading */}
+              {triggerLoadingState?.isLoading || isLoading ? (
+                // Progressive loading: show loaded triggers + skeletons for remaining
+                <ProgressiveLoadingGrid
+                  triggers={consolidatedTriggers}
+                  columns={3}
+                  variant="default"
+                  selectedIds={selectedInsights}
+                  onTriggerClick={handleTriggerClick}
+                  isLoading={true}
+                  currentPass={triggerLoadingState?.currentPass}
+                  skeletonCount={Math.max(6, (4 - (triggerLoadingState?.completedPasses || 0)) * 6)}
+                />
+              ) : consolidatedTriggers.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
                     <Heart className="w-8 h-8 text-gray-400" />
@@ -627,6 +595,14 @@ export const InsightTabs = memo(function InsightTabs({
                   onTriggerClick={handleTriggerClick}
                 />
               )}
+            </>
+          ) : isLoading ? (
+            // Loading skeletons for non-trigger tabs
+            <>
+              <InsightSkeleton />
+              <InsightSkeleton />
+              <InsightSkeleton />
+              <InsightSkeleton />
             </>
           ) : filteredInsights.length === 0 ? (
             // Empty state

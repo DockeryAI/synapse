@@ -21,8 +21,8 @@
 
 import { recencyCalculatorService, type RecencyResult, type TriggerEventType } from './recency-calculator.service';
 import { competitorAttributionService, type CompetitorAttributionResult } from './competitor-attribution.service';
-import { sourceQualityService, type SourceTier } from './source-quality.service';
-import type { BusinessProfileType } from './profile-detection.service';
+import { sourceQualityService, type SourceTier } from './_archived/source-quality.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 
 // ============================================================================
 // TYPES

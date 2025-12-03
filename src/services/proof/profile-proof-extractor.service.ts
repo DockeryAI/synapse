@@ -8,7 +8,7 @@
  */
 
 import type { DeepContext } from '@/types/synapse/deepContext.types';
-import type { BusinessProfileType } from '@/services/triggers/profile-detection.service';
+import type { BusinessProfileType } from '@/services/triggers';
 
 // ============================================================================
 // TYPES

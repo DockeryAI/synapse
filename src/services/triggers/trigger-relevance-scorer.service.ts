@@ -9,7 +9,7 @@
 
 import { uvpVocabularyService, type BrandVocabulary } from './uvp-vocabulary.service';
 import { profileRelevanceService } from './profile-relevance.service';
-import type { BusinessProfileType } from './profile-detection.service';
+import type { BusinessProfileType } from './_archived/profile-detection.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 // ============================================================================
