@@ -19,10 +19,32 @@ import {
   buildTabQuery,
   getQueryDepth,
 } from '@/services/synapse-v6/uvp-context-builder.service';
-import type { CompleteUVP } from '@/types/uvp-flow.types';
+// Simplified UVP type for testing (matches what V6 services expect)
+interface TestUVP {
+  targetCustomer?: {
+    primaryProfile?: string;
+    secondaryProfile?: string;
+    geographicFocus?: string;
+  };
+  keyBenefit?: {
+    headline?: string;
+    supportingPoints?: string[];
+    proofPoints?: string[];
+  };
+  uniqueSolution?: {
+    headline?: string;
+    proofPoints?: string[];
+    differentiators?: string[];
+  };
+  transformation?: {
+    beforeState?: string;
+    afterState?: string;
+    painPoints?: string[];
+  };
+}
 
 // Test UVPs for each profile type
-const TEST_UVPS: Record<BusinessProfileType, CompleteUVP> = {
+const TEST_UVPS: Record<BusinessProfileType, TestUVP> = {
   'local-b2c': {
     targetCustomer: {
       primaryProfile: 'local homeowners',
@@ -142,33 +164,33 @@ const TEST_UVPS: Record<BusinessProfileType, CompleteUVP> = {
 describe('V6 Profile Type Detection', () => {
   describe('detectProfileType', () => {
     it('should detect local-b2c from local consumer UVP', () => {
-      const result = detectProfileType(TEST_UVPS['local-b2c']);
+      const result = detectProfileType(TEST_UVPS['local-b2c'] as any);
       expect(result).toBe('local-b2c');
     });
 
     it('should detect local-b2b from local business UVP', () => {
-      const result = detectProfileType(TEST_UVPS['local-b2b']);
+      const result = detectProfileType(TEST_UVPS['local-b2b'] as any);
       expect(result).toBe('local-b2b');
     });
 
     it('should detect regional-agency from agency UVP', () => {
-      const result = detectProfileType(TEST_UVPS['regional-agency']);
+      const result = detectProfileType(TEST_UVPS['regional-agency'] as any);
       // Note: May detect as regional-agency or national-saas depending on keywords
       expect(['regional-agency', 'national-saas']).toContain(result);
     });
 
     it('should detect regional-retail from multi-location UVP', () => {
-      const result = detectProfileType(TEST_UVPS['regional-retail']);
+      const result = detectProfileType(TEST_UVPS['regional-retail'] as any);
       expect(result).toBe('regional-retail');
     });
 
     it('should detect national-saas from SaaS UVP', () => {
-      const result = detectProfileType(TEST_UVPS['national-saas']);
+      const result = detectProfileType(TEST_UVPS['national-saas'] as any);
       expect(result).toBe('national-saas');
     });
 
     it('should detect national-product from product UVP', () => {
-      const result = detectProfileType(TEST_UVPS['national-product']);
+      const result = detectProfileType(TEST_UVPS['national-product'] as any);
       // Note: May default to local-b2c without strong national signals
       expect(['national-product', 'local-b2c']).toContain(result);
     });
@@ -178,22 +200,22 @@ describe('V6 Profile Type Detection', () => {
 describe('V6 UVP Context Building', () => {
   describe('buildUVPContext', () => {
     it('should extract customer context from UVP', () => {
-      const context = buildUVPContext(TEST_UVPS['local-b2c']);
+      const context = buildUVPContext(TEST_UVPS['local-b2c'] as any);
       expect(context.customerContext).toContain('local homeowners');
     });
 
     it('should extract benefit context from UVP', () => {
-      const context = buildUVPContext(TEST_UVPS['national-saas']);
+      const context = buildUVPContext(TEST_UVPS['national-saas'] as any);
       expect(context.benefitContext).toContain('AI-powered');
     });
 
     it('should extract pain points from transformation', () => {
-      const context = buildUVPContext(TEST_UVPS['local-b2b']);
+      const context = buildUVPContext(TEST_UVPS['local-b2b'] as any);
       expect(context.painPoints).toContain('Dirty offices affecting employee morale');
     });
 
     it('should build full context string', () => {
-      const context = buildUVPContext(TEST_UVPS['regional-retail']);
+      const context = buildUVPContext(TEST_UVPS['regional-retail'] as any);
       expect(context.fullContext).toContain('Target Customer:');
       expect(context.fullContext).toContain('Key Benefit:');
     });
@@ -201,19 +223,19 @@ describe('V6 UVP Context Building', () => {
 
   describe('buildTabQuery', () => {
     it('should customize VOC queries with customer context', () => {
-      const context = buildUVPContext(TEST_UVPS['local-b2c']);
+      const context = buildUVPContext(TEST_UVPS['local-b2c'] as any);
       const query = buildTabQuery('plumber', 'voc', context);
       expect(query).toContain('customer feedback');
     });
 
     it('should customize competitive queries with differentiators', () => {
-      const context = buildUVPContext(TEST_UVPS['national-saas']);
+      const context = buildUVPContext(TEST_UVPS['national-saas'] as any);
       const query = buildTabQuery('DevOps tool', 'competitive', context);
       expect(query).toContain('competitors');
     });
 
     it('should customize local queries with geographic context', () => {
-      const context = buildUVPContext(TEST_UVPS['local-b2c']);
+      const context = buildUVPContext(TEST_UVPS['local-b2c'] as any);
       const query = buildTabQuery('plumbing', 'local_timing', context);
       expect(query).toContain('local');
     });
