@@ -76,7 +76,7 @@ class APITestSuiteService {
           'HTTP-Referer': 'https://synapse.app',
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-3.5-sonnet',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{ role: 'user', content: 'Test' }],
           max_tokens: 5
         })

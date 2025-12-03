@@ -305,7 +305,7 @@ class GapContentGeneratorService {
       ];
 
       const response = await chat(messages, {
-        model: 'anthropic/claude-sonnet-4',
+        model: 'anthropic/claude-opus-4.5',
         temperature: 0.7,
         maxTokens: 2000
       });

@@ -270,7 +270,7 @@ If you cannot detect a location with confidence > 0.5, respond with:
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-sonnet-4',  // Fast model for simple extraction
+        model: 'anthropic/claude-opus-4.5',  // Fast model for simple extraction
         temperature: 0.3,
         maxTokens: 200
       });
@@ -661,7 +661,7 @@ If NO location found:
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-sonnet-4',  // Fast model for simple extraction
+        model: 'anthropic/claude-opus-4.5',  // Fast model for simple extraction
         temperature: 0.2,
         maxTokens: 500
       });

@@ -1,0 +1,17 @@
+{
+  "model": "claude-sonnet-4-20250514",
+  "planningModel": "claude-opus-4-20250514",
+  "permissions": {
+    "allow": [
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(git:*)",
+      "Bash(supabase:*)",
+      "Read",
+      "Write",
+      "Edit"
+    ],
+    "deny": []
+  }
+}

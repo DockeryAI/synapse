@@ -100,7 +100,7 @@ async function callAIForAnalysis(prompt: string, systemPrompt: string, maxRetrie
           },
           body: JSON.stringify({
             provider: 'anthropic',
-            model: 'claude-3-haiku-20240307',
+            model: 'anthropic/claude-opus-4.5',
             messages: [
               { role: 'user', content: prompt }
             ],

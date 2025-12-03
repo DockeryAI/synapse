@@ -1,0 +1,446 @@
+{
+  "framework": {
+    "name": "React",
+    "version": "^18.3.1",
+    "ui_library": "Radix UI",
+    "styling_system": "Tailwind CSS"
+  },
+  "tokens": {
+    "colors": {
+      "tailwind-50": "#f5f7ff",
+      "tailwind-100": "#ebf0fe",
+      "tailwind-200": "#d6e0fd",
+      "tailwind-300": "#b3c7fb",
+      "tailwind-400": "#8aa6f8",
+      "tailwind-500": "#667eea",
+      "tailwind-600": "#5161ce",
+      "tailwind-700": "#3d49a5",
+      "tailwind-800": "#2f3a7c",
+      "tailwind-900": "#232d5a"
+    },
+    "color_palette": [],
+    "fonts": {},
+    "font_sizes": {},
+    "font_weights": {},
+    "line_heights": {},
+    "spacing": {},
+    "padding": {},
+    "margin": {},
+    "borders": {},
+    "border_radius": {},
+    "shadows": {},
+    "transitions": {},
+    "animations": {},
+    "breakpoints": {},
+    "z_index": {}
+  },
+  "components": [
+    {
+      "name": "App",
+      "type": "component",
+      "file_path": "src/App.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "main",
+      "type": "component",
+      "file_path": "src/main.tsx",
+      "naming_convention": "camelCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "BrandProfileContext",
+      "type": "component",
+      "file_path": "src/contexts/BrandProfileContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "SessionContext",
+      "type": "component",
+      "file_path": "src/contexts/SessionContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "UVPWizardContext",
+      "type": "component",
+      "file_path": "src/contexts/UVPWizardContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "BuyerJourneyContext",
+      "type": "component",
+      "file_path": "src/contexts/BuyerJourneyContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "BrandContext",
+      "type": "component",
+      "file_path": "src/contexts/BrandContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "MirrorContext",
+      "type": "component",
+      "file_path": "src/contexts/MirrorContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "SimplifiedJourneyContext",
+      "type": "component",
+      "file_path": "src/contexts/SimplifiedJourneyContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "UVPContext",
+      "type": "component",
+      "file_path": "src/contexts/UVPContext.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "lazy-dashboard.config",
+      "type": "component",
+      "file_path": "src/config/lazy-dashboard.config.tsx",
+      "naming_convention": "kebab-case",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "ErrorBoundary",
+      "type": "component",
+      "file_path": "src/components/ErrorBoundary.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "useOptimizedAPIData",
+      "type": "component",
+      "file_path": "src/hooks/useOptimizedAPIData.tsx",
+      "naming_convention": "camelCase",
+      "props_pattern": null,
+      "styling_method": "unknown"
+    },
+    {
+      "name": "V4ContentPage",
+      "type": "component",
+      "file_path": "src/_archive/V4ContentPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "LoginPage",
+      "type": "component",
+      "file_path": "src/pages/LoginPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "V5ContentPage",
+      "type": "component",
+      "file_path": "src/pages/V5ContentPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "SessionManagerPage",
+      "type": "component",
+      "file_path": "src/pages/SessionManagerPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "ProductMarketingPage",
+      "type": "component",
+      "file_path": "src/pages/ProductMarketingPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CampaignPage",
+      "type": "component",
+      "file_path": "src/pages/CampaignPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "ScraperDebugPage",
+      "type": "component",
+      "file_path": "src/pages/ScraperDebugPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "SocialPilotCallback",
+      "type": "component",
+      "file_path": "src/pages/SocialPilotCallback.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "UserSessionViewer",
+      "type": "component",
+      "file_path": "src/pages/UserSessionViewer.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CampaignBuilderPage",
+      "type": "component",
+      "file_path": "src/pages/CampaignBuilderPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "DashboardPageV2",
+      "type": "component",
+      "file_path": "src/pages/DashboardPageV2.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "SynapsePage",
+      "type": "component",
+      "file_path": "src/pages/SynapsePage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "BrandProfilePage",
+      "type": "component",
+      "file_path": "src/pages/BrandProfilePage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "OnboardingPageV5",
+      "type": "component",
+      "file_path": "src/pages/OnboardingPageV5.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "SignUpPage",
+      "type": "component",
+      "file_path": "src/pages/SignUpPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "ContentCalendarPage",
+      "type": "component",
+      "file_path": "src/pages/ContentCalendarPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "V2TestPage",
+      "type": "component",
+      "file_path": "src/pages/V2TestPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "DashboardPage",
+      "type": "component",
+      "file_path": "src/pages/DashboardPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "AdminDashboard",
+      "type": "component",
+      "file_path": "src/pages/AdminDashboard.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "HomePage",
+      "type": "component",
+      "file_path": "src/pages/HomePage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "TrendsDevPage",
+      "type": "component",
+      "file_path": "src/_archive/dev-pages/TrendsDevPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "LocalDevPage",
+      "type": "component",
+      "file_path": "src/_archive/dev-pages/LocalDevPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "WeatherDevPage",
+      "type": "component",
+      "file_path": "src/_archive/dev-pages/WeatherDevPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "TriggersDevPage",
+      "type": "component",
+      "file_path": "src/_archive/dev-pages/TriggersDevPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "ProofDevPage",
+      "type": "component",
+      "file_path": "src/_archive/dev-pages/ProofDevPage.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "TemplatePickerModal",
+      "type": "modal",
+      "file_path": "src/_archive/v4-components/TemplatePickerModal.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "GapContentActions",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/GapContentActions.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "WeatherTab",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/WeatherTab.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorGapsPanelV2",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorGapsPanelV2.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "V4ContentGenerationPanel",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/V4ContentGenerationPanel.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "GapSkeletonCards",
+      "type": "card",
+      "file_path": "src/_archive/v4-components/GapSkeletonCards.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorScanProgress",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorScanProgress.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorAlertsPanel",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorAlertsPanel.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorIntelligencePanel",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorIntelligencePanel.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorGapsPanel",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorGapsPanel.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "TrendsPanel",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/TrendsPanel.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    },
+    {
+      "name": "CompetitorChipsBar",
+      "type": "component",
+      "file_path": "src/_archive/v4-components/CompetitorChipsBar.tsx",
+      "naming_convention": "PascalCase",
+      "props_pattern": null,
+      "styling_method": "Tailwind CSS"
+    }
+  ],
+  "naming_conventions": {
+    "styling": "Tailwind CSS",
+    "component": "PascalCase"
+  },
+  "file_structure": {},
+  "design_system_file": null,
+  "confidence": 0.75
+}

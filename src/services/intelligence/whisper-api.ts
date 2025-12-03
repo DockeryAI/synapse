@@ -100,7 +100,7 @@ class WhisperAPI {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-3-haiku',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{
             role: 'system',
             content: `You are an expert at extracting psychological insights from business video transcriptions.

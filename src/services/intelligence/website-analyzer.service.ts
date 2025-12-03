@@ -426,7 +426,7 @@ Return ONLY valid JSON (no markdown, no explanations):
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4-5-20250929',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{
             role: 'user',
             content: prompt

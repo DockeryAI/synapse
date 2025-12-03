@@ -81,7 +81,7 @@ export async function extractBenefits(
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster extraction
+        model: 'anthropic/claude-opus-4.5', // Switched from Opus 4.1 for faster extraction
         messages: [{
           role: 'user',
           content: prompt

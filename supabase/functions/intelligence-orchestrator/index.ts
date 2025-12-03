@@ -41,10 +41,9 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 
 // Model IDs per provider
-// Phase 1 uses FAST model (Sonnet) for quick products page load (~5s vs ~18s)
-// Phase 2 uses QUALITY model (Opus) for deep insights in background
-const OPENROUTER_MODEL_FAST = 'anthropic/claude-sonnet-4'; // Fast for Phase 1
-const OPENROUTER_MODEL_QUALITY = 'anthropic/claude-opus-4.5'; // Quality for Phase 2
+// ALL UVP extraction uses Opus 4.5 for quality - NO SONNET
+const OPENROUTER_MODEL_FAST = 'anthropic/claude-opus-4.5'; // Opus 4.5 for ALL phases
+const OPENROUTER_MODEL_QUALITY = 'anthropic/claude-opus-4.5'; // Opus 4.5 for ALL phases
 const ANTHROPIC_MODEL = 'claude-opus-4-5-20251101'; // Anthropic direct API format for Opus 4.5
 
 // Provider type

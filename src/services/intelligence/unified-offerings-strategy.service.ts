@@ -361,7 +361,7 @@ REMEMBER:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4.5',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{ role: 'user', content: prompt }],
           max_tokens: 8000,
           temperature: 0.2

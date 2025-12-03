@@ -1,0 +1,17 @@
+{
+  "cron_jobs": [],
+  "celery_beat_tasks": [],
+  "apscheduler_jobs": [],
+  "cloud_scheduler_jobs": [],
+  "systemd_timers": [],
+  "background_jobs": [
+    {
+      "name": "sync:api-keys",
+      "type": "npm_script",
+      "command": "npm run sync:api-keys",
+      "trigger": "manual",
+      "configured_in": "package.json"
+    }
+  ],
+  "total_scheduled_tasks": 1
+}

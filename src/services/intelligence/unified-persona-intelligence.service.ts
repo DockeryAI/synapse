@@ -399,7 +399,7 @@ CRITICAL RULES:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4.5',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{
             role: 'user',
             content: prompt

@@ -1805,7 +1805,7 @@ Be specific and cite real sources. Do not make up quotes.`
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-3-haiku-20240307',
+            model: 'anthropic/claude-opus-4.5',
             messages: [
               {
                 role: 'user',

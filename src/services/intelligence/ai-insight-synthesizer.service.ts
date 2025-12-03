@@ -502,7 +502,7 @@ Analyze deeply. Find the non-obvious connections. Think like a breakthrough cont
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-sonnet-4', // Sonnet 4 for fast deep analysis
+        model: 'anthropic/claude-opus-4.5', // Opus 4.5 for quality analysis
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 4000,
         temperature: 0.7
@@ -599,7 +599,7 @@ async function generateInsightsWithSonnet(
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-3.5-sonnet', // 3.5 Sonnet is faster than Sonnet 4
+            model: 'anthropic/claude-opus-4.5', // 3.5 Sonnet is faster than Sonnet 4
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 4096, // Increased to prevent truncation
             temperature: 0.8

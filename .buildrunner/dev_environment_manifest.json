@@ -1,0 +1,91 @@
+{
+  "ide_configs": [],
+  "editor_config": null,
+  "git_hooks": [
+    {
+      "hook_name": "pre-commit",
+      "hook_file": ".git/hooks/pre-commit",
+      "enabled": true,
+      "commands": [
+        "set -e",
+        "echo \"\"",
+        "echo \"\ud83d\udd0d BuildRunner 3.0 - Composed Pre-Commit Validation\"",
+        "echo \"====================================================\"",
+        "echo \"\""
+      ]
+    },
+    {
+      "hook_name": "pre-push",
+      "hook_file": ".git/hooks/pre-push",
+      "enabled": true,
+      "commands": [
+        "set -e",
+        "echo \"\"",
+        "echo \"\ud83d\ude80 BuildRunner 3.0 - Complete Pre-Push Validation\"",
+        "echo \"==================================================\"",
+        "echo \"\""
+      ]
+    }
+  ],
+  "precommit_config": null,
+  "formatters": [],
+  "linters": [],
+  "test_frameworks": [],
+  "debug_configs": [],
+  "environment_variables": {
+    "defined": [
+      "VITE_SUPABASE_URL",
+      "VITE_SUPABASE_ANON_KEY",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_DB_PASSWORD",
+      "MARBA_SUPABASE_URL",
+      "MARBA_SUPABASE_ANON_KEY",
+      "MARBA_SUPABASE_SERVICE_ROLE_KEY",
+      "BRANDOCK_SUPABASE_URL",
+      "BRANDOCK_SUPABASE_KEY",
+      "OPENROUTER_API_KEY",
+      "OPENROUTER_API_KEY_2",
+      "OPENROUTER_API_KEY_3",
+      "OPENROUTER_API_KEY_4",
+      "OPENAI_API_KEY",
+      "HUME_API_KEY",
+      "HUME_SECRET_KEY",
+      "PERPLEXITY_API_KEY",
+      "APIFY_API_KEY",
+      "VITE_APIFY_API_KEY",
+      "VITE_APIFY_API_TOKEN",
+      "VITE_APIFY_TIMEOUT",
+      "VITE_MAX_COMPETITORS",
+      "VITE_MAX_PAGES_PER_COMPETITOR",
+      "OUTSCRAPER_API_KEY",
+      "SERPER_API_KEY",
+      "SEMRUSH_API_KEY",
+      "BUZZSUMO_API_KEY",
+      "YOUTUBE_API_KEY",
+      "NEWS_API_KEY",
+      "WEATHER_API_KEY",
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET",
+      "REDDIT_USER_AGENT",
+      "NODE_ENV",
+      "VITE_APP_NAME",
+      "VITE_APP_VERSION",
+      "VITE_DEBUG_MODE",
+      "VITE_USE_MOCK_DATA",
+      "VITE_PORT",
+      "VITE_USE_TEST_FIXTURES",
+      "VITE_LOG_LEVEL",
+      "VITE_LOG_NAMESPACES",
+      "VITE_ENABLE_LOGS",
+      "VITE_OPENROUTER_API_KEY",
+      "VITE_ANTHROPIC_API_KEY",
+      "VITE_OUTSCRAPER_API_KEY",
+      "VITE_SERPER_API_KEY",
+      "VITE_SEMRUSH_API_KEY",
+      "VITE_YOUTUBE_API_KEY",
+      "VITE_NEWS_API_KEY",
+      "VITE_WEATHER_API_KEY"
+    ],
+    "referenced_in_code": []
+  }
+}

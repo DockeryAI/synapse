@@ -1,0 +1,52 @@
+ui_libraries_path: ~/Projects/ui-libraries
+libraries:
+  shadcn:
+    path: shadcn/
+    components:
+    - button
+    - card
+    - dialog
+    - input
+    - form
+    - table
+    - tabs
+    use_for: Core UI components
+  aceternity:
+    path: aceternity/
+    components:
+    - animated-text
+    - spotlight
+    - parallax
+    use_for: Animated components, 3D effects
+  magic-ui:
+    path: magic-ui/
+    components:
+    - particles
+    - gradients
+    - marquee
+    use_for: Visual effects, particles
+  catalyst-ui:
+    path: catalyst-ui/
+    components:
+    - data-table
+    - sidebar
+    - command
+    use_for: Application components
+  radix-components:
+    path: radix-components/
+    components:
+    - dropdown
+    - popover
+    - tooltip
+    use_for: Primitive accessible components
+blocked_libraries:
+- '@chakra-ui'
+- '@mui/material'
+- '@mui/icons'
+- antd
+- '@nextui-org'
+- '@mantine'
+- '@headlessui'
+- react-bootstrap
+- semantic-ui-react
+- primereact

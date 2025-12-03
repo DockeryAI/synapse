@@ -341,6 +341,80 @@ class StreamingApiManager extends EventEmitter {
   }
 
   /**
+   * PHASE M: Extract buyer role from target customer statement
+   * Examples:
+   * - "Insurance agency COO/executive seeking..." → "COO"
+   * - "Enterprise IT directors looking for..." → "IT director"
+   * - "SMB business owners evaluating..." → "business owner"
+   */
+  private extractBuyerRole(targetCustomer: string): string {
+    if (!targetCustomer) return 'buyer';
+
+    const statement = targetCustomer.toLowerCase();
+
+    // C-suite patterns
+    const csuiteMatch = statement.match(/\b(coo|ceo|cto|cio|cfo|cmo|ciso)\b/i);
+    if (csuiteMatch) return csuiteMatch[1].toUpperCase();
+
+    // VP/Director patterns
+    const vpMatch = statement.match(/\b(vp|vice president|director)\s+(?:of\s+)?(\w+)/i);
+    if (vpMatch) return `${vpMatch[1]} ${vpMatch[2]}`;
+
+    // Manager/Lead patterns
+    const managerMatch = statement.match(/\b(manager|head|lead)\s+(?:of\s+)?(\w+)/i);
+    if (managerMatch) return `${managerMatch[1]} ${managerMatch[2]}`;
+
+    // Role patterns
+    const rolePatterns = [
+      /\b(executive|founder|owner|partner|decision maker)\b/i,
+      /\b(it director|operations manager|facilities manager)\b/i,
+      /\b(buyer|customer|user)\b/i,
+    ];
+
+    for (const pattern of rolePatterns) {
+      const match = statement.match(pattern);
+      if (match) return match[1];
+    }
+
+    return 'buyer'; // Fallback
+  }
+
+  /**
+   * PHASE M: Extract buyer industry from target customer statement
+   * Examples:
+   * - "Insurance agency COO/executive..." → "insurance"
+   * - "Healthcare IT directors..." → "healthcare"
+   * - "SaaS startup founders..." → "SaaS"
+   */
+  private extractBuyerIndustry(targetCustomer: string): string | null {
+    if (!targetCustomer) return null;
+
+    const statement = targetCustomer.toLowerCase();
+
+    const industryPatterns: Array<{ pattern: RegExp; industry: string }> = [
+      { pattern: /\b(insurance|insurtech)\b/i, industry: 'insurance' },
+      { pattern: /\b(healthcare|health\s*tech|medical)\b/i, industry: 'healthcare' },
+      { pattern: /\b(financial|fintech|banking|finance)\b/i, industry: 'financial services' },
+      { pattern: /\b(retail|ecommerce|e-commerce)\b/i, industry: 'retail' },
+      { pattern: /\b(saas|software|tech|technology)\b/i, industry: 'SaaS' },
+      { pattern: /\b(manufacturing|industrial)\b/i, industry: 'manufacturing' },
+      { pattern: /\b(legal|law\s*firm)\b/i, industry: 'legal' },
+      { pattern: /\b(real\s*estate|property)\b/i, industry: 'real estate' },
+      { pattern: /\b(education|edtech|university)\b/i, industry: 'education' },
+      { pattern: /\b(hospitality|hotel|restaurant)\b/i, industry: 'hospitality' },
+      { pattern: /\b(logistics|supply\s*chain|transportation)\b/i, industry: 'logistics' },
+    ];
+
+    for (const { pattern, industry } of industryPatterns) {
+      if (pattern.test(statement)) {
+        return industry;
+      }
+    }
+
+    return null; // No specific industry found
+  }
+
+  /**
    * Extract product category/industry from UVP instead of using NAICS codes
    * This ensures we use "conversational AI" instead of "Software Publishers"
    */
@@ -1016,11 +1090,14 @@ class StreamingApiManager extends EventEmitter {
     // apiCalls.set('competitor-voice', () => this.loadCompetitorVoiceData(brandId));
     console.log('[StreamingAPI] ⏭️ DISABLED competitor-voice cache - using only fresh Perplexity data');
 
-    // PHASE 4 RE-ENABLED: YouTube with parallel comment fetching
-    // Fixed youtube-api.ts to use Promise.all instead of sequential for loop
-    // 5 videos × 30 comments each, all fetched in parallel (~15s instead of ~75s)
-    apiCalls.set('youtube-trending', () => this.loadYouTubeApi(brand));
-    console.log(`[StreamingAPI] ✅ YouTube enabled for ${profileType} (parallel comment fetching)`);
+    // PHASE 4 DISABLED FOR B2B: YouTube comments are general public sentiment, not buyer intent
+    // Re-enable only for B2C profiles where consumer sentiment matters
+    if (!this.isB2BProfile(profileType)) {
+      apiCalls.set('youtube-trending', () => this.loadYouTubeApi(brand));
+      console.log(`[StreamingAPI] ✅ YouTube enabled for ${profileType} (B2C consumer sentiment)`);
+    } else {
+      console.log(`[StreamingAPI] ⏭️ Skipping YouTube for ${profileType} (B2B - no buyer intent signals)`);
+    }
 
     // Profile-gated Reddit - High value for B2B SaaS & tech, less relevant for local-only businesses
     if (apiGating.useReddit) {
@@ -1112,6 +1189,15 @@ class StreamingApiManager extends EventEmitter {
     if (this.currentUVP && this.rawDataBuffer.length > 0) {
       console.log(`[StreamingAPI] 🎯 Starting V1-style multi-pass synthesis with ${this.rawDataBuffer.length} samples`);
 
+      // PHASE M: Pre-filter raw data for relevance to UVP/industry before synthesis
+      // This prevents generic Twitter chatter from polluting the synthesis
+      const filteredBuffer = this.filterRawDataForRelevance(
+        this.rawDataBuffer,
+        this.currentUVP,
+        this.currentIndustry
+      );
+      console.log(`[StreamingAPI] 📊 After relevance filter: ${filteredBuffer.length}/${this.rawDataBuffer.length} samples`);
+
       // Build brand profile for V1 synthesis
       const brandProfile: BrandProfile = {
         uvp: this.currentUVP,
@@ -1122,9 +1208,10 @@ class StreamingApiManager extends EventEmitter {
 
       try {
         // V1-STYLE: 4 sequential passes with hard provenance constraints
+        // PHASE M: Pass brandId for mutex lock and use filtered buffer
         const synthesisResult = await triggerSynthesisService.runMultiPass(
           brandProfile,
-          this.rawDataBuffer,
+          filteredBuffer,
           // Progressive callback for each pass
           (passResult) => {
             console.log(`[StreamingAPI] 🔄 Pass ${passResult.passType}: ${passResult.triggers.length} triggers in ${passResult.duration.toFixed(0)}ms`);
@@ -1134,13 +1221,18 @@ class StreamingApiManager extends EventEmitter {
               totalBatches: 4,
               isComplete: false,
             });
-          }
+          },
+          brandId // Pass brandId for mutex
         );
 
         if (synthesisResult.triggers.length > 0) {
           console.log(`[StreamingAPI] ✅ V1 synthesis complete: ${synthesisResult.triggers.length} triggers (deduped ${synthesisResult.deduplicatedCount})`);
+
+          // Add UVP alignments to triggers
+          const triggersWithUVP = this.addUVPAlignments(synthesisResult.triggers, this.currentUVP);
+
           this.emit('trigger-synthesis', {
-            triggers: synthesisResult.triggers,
+            triggers: triggersWithUVP,
             source: 'v1-multipass',
             duration: synthesisResult.totalDuration,
           });
@@ -1566,16 +1658,32 @@ class StreamingApiManager extends EventEmitter {
       // Use this.currentIndustry which is already set via extractProductCategoryFromUVP()
       const productCategory = this.currentIndustry || brand.industry || 'AI software';
       const searchQueries = this.currentSearchQueries;
+      const targetCustomer = searchQueries?.targetCustomer || brand.targetCustomers || '';
 
-      // FIXED: Use product-specific keywords for Twitter/social, not generic NAICS
+      // PHASE M FIX: Use BUYER-FOCUSED keywords, not generic product terms
+      // The problem: Searching "conversational AI problems" returns generic AI chatter
+      // The fix: Search for what the TARGET BUYER complains about in THEIR industry context
+      //
+      // Example for OpenDialog (conversational AI for insurance):
+      // BAD:  ["conversational AI", "conversational AI problems", "conversational AI frustrated"]
+      // GOOD: ["insurance customer service automation", "insurance chatbot failing", "insurance agency COO frustrated"]
+
+      // Extract buyer role from target customer statement
+      const buyerRole = this.extractBuyerRole(targetCustomer);
+      const buyerIndustry = this.extractBuyerIndustry(targetCustomer) || productCategory;
+
       const keywords = [
-        productCategory, // e.g., "conversational AI" instead of "Software Publishers"
-        `${productCategory} problems`,
-        `${productCategory} frustrated`,
-        searchQueries?.targetCustomer || brand.targetCustomers || '',
+        // Primary: Buyer + industry + pain context
+        `${buyerIndustry} ${buyerRole} frustrated`,
+        `${buyerIndustry} ${buyerRole} switching`,
+        `${buyerIndustry} customer service problems`,
+        // Fallback: Product category with buyer context
+        `${productCategory} implementation failing`,
+        `why we left ${productCategory}`,
       ].filter(Boolean);
 
-      console.log('[StreamingAPI] Social search keywords (product-specific):', keywords.slice(0, 3));
+      console.log('[StreamingAPI] Social search keywords (BUYER-FOCUSED):', keywords.slice(0, 3));
+      console.log('[StreamingAPI] Extracted buyer role:', buyerRole, '| industry:', buyerIndustry);
 
       // Execute scrapers in parallel with proper error boundaries
       // PHASE 5: Increased limits for more data points (Twitter 30→50, Quora 20→35)
@@ -1590,10 +1698,15 @@ class StreamingApiManager extends EventEmitter {
           .catch(error => ({ type: quoraType, error })),
       ];
 
+      // PHASE M FIX: Use UVP-derived product category for review searches, NOT brand name
+      // Searching "OpenDialog" returns nothing - search "conversational AI platform" instead
+      const reviewSearchCategory = productCategory || buyerIndustry || brand.industry || 'AI software';
+      console.log(`[StreamingAPI] 🎯 Review search using UVP category: "${reviewSearchCategory}" (not brand name)`);
+
       // Add Trustpilot for B2C profiles (PHASE 5: 40→60)
       if (apiGating.useTrustpilot) {
         scrapers.push(
-          apifySocialScraper.scrapeTrustPilotReviews(brand.name, 60)
+          apifySocialScraper.scrapeTrustPilotReviews(reviewSearchCategory, 60)
             .then(data => ({ type: trustpilotType, data }))
             .catch(error => ({ type: trustpilotType, error }))
         );
@@ -1604,7 +1717,7 @@ class StreamingApiManager extends EventEmitter {
       // Add LinkedIn for B2B profiles
       if (apiGating.useLinkedIn) {
         scrapers.push(
-          apifySocialScraper.scrapeLinkedInB2B(brand.name, brand.industry, this.currentProfileType)
+          apifySocialScraper.scrapeLinkedInB2B(reviewSearchCategory, buyerIndustry || brand.industry, this.currentProfileType)
             .then(data => ({ type: linkedinType, data }))
             .catch(error => ({ type: linkedinType, error }))
         );
@@ -1614,15 +1727,25 @@ class StreamingApiManager extends EventEmitter {
       }
 
       // Add G2 for B2B SaaS profiles (PHASE 5: 40→60)
+      // PHASE M: Search by UVP product category, not brand name
       if (apiGating.useG2) {
         scrapers.push(
-          apifySocialScraper.scrapeG2Reviews(brand.name, brand.category || brand.industry, 60)
+          apifySocialScraper.scrapeG2Reviews(reviewSearchCategory, productCategory, 60)
             .then(data => ({ type: g2Type, data }))
             .catch(error => ({ type: g2Type, error }))
         );
       } else {
         console.log(`[StreamingAPI] Skipping G2 for ${brand.name} - ${this.currentProfileType} profile`);
         this.updateStatus(g2Type, 'success');
+      }
+
+      // PHASE M: Add Capterra for B2B SaaS (similar to G2)
+      if (apiGating.useG2) { // Same gating as G2
+        scrapers.push(
+          this.scrapeCapterraByCategory(reviewSearchCategory, 40)
+            .then(data => ({ type: 'apify-capterra-reviews' as ApiEventType, data }))
+            .catch(error => ({ type: 'apify-capterra-reviews' as ApiEventType, error }))
+        );
       }
 
       // Wait for all scrapers to complete
@@ -1820,11 +1943,34 @@ class StreamingApiManager extends EventEmitter {
       const targetCustomer = searchQueries?.targetCustomer || brand.targetCustomers || brand.industry || 'business decision makers';
       const industry = searchQueries?.industry || brand.industry || 'business services';
 
-      // PHASE 10: Extract product keywords from UVP to make queries product-specific
+      // PHASE M: Extract FULL UVP data for query generation
+      // This includes differentiators, benefits, products, emotional drivers, transformations
+      const uvpDerivedQueries = triggerSearchQueryGenerator.generateUVPDerivedQueries(
+        this.currentUVP,
+        this.currentProfileType
+      );
+      const fullUVPData = triggerSearchQueryGenerator.extractFullUVPData(this.currentUVP);
+
+      // Build rich context from ALL UVP components
       const productKeywords = this.extractProductKeywords(this.currentUVP);
       const productContext = productKeywords.length > 0
         ? productKeywords.slice(0, 3).join(', ')
         : industry;
+
+      // PHASE M: Build buyer psychology context from UVP
+      const emotionalDriversContext = fullUVPData.emotionalDrivers.slice(0, 3).join('; ') || 'business pain points';
+      const functionalDriversContext = fullUVPData.functionalDrivers.slice(0, 3).join('; ') || 'operational needs';
+      const transformationContext = fullUVPData.transformationBefore
+        ? `moving from "${fullUVPData.transformationBefore}" to "${fullUVPData.transformationAfter}"`
+        : 'business transformation';
+      const differentiatorContext = fullUVPData.differentiators.slice(0, 2).join('; ') || productContext;
+
+      console.log(`[StreamingAPI] PHASE M: Full UVP-derived search context:`, {
+        emotionalDrivers: emotionalDriversContext.substring(0, 60),
+        functionalDrivers: functionalDriversContext.substring(0, 60),
+        transformation: transformationContext.substring(0, 60),
+        differentiators: differentiatorContext.substring(0, 60),
+      });
 
       // PROFILE-AWARE SOURCE GUIDANCE: Tell Perplexity which platforms matter for this profile
       const sourceGuidance = this.getPerplexitySourceGuidance(this.currentProfileType);
@@ -1864,45 +2010,57 @@ CRITICAL RULES:
 - Each quote MUST have a real source_url (not just the platform homepage)
 `;
 
+      // Build buyer-focused context (not just product category)
+      const buyerContext = `${targetCustomer} evaluating ${productContext}`;
+      console.log(`[StreamingAPI] Perplexity buyer context: ${buyerContext}`);
+
+      // PHASE M: Use FULL UVP data for psychology queries
       const psychologyQueries = searchQueries ? [
-        // 1. SWITCHING INTENT - Highest value triggers
-        `Search for first-person quotes from people switching away from ${productContext} vendors.
+        // 1. EMOTIONAL DRIVER PAIN - People experiencing what our buyers feel
+        `Search for first-person quotes from ${targetCustomer} expressing: ${emotionalDriversContext}
+Context: Find quotes where people express these EXACT emotional pain points.
+Keywords: "frustrated", "worried", "overwhelmed", "can't keep up", "falling behind"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
+
+        // 2. TRANSFORMATION GAP - People stuck in the "before" state
+        `Search for quotes from ${targetCustomer} stuck in this situation: ${transformationContext}
+Context: Find people expressing frustration with their current state who want to transform.
+Keywords: "still using", "stuck with", "wish we could", "trying to move away from"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
+
+        // 3. FUNCTIONAL DRIVER NEEDS - People needing what our product does
+        `Search for quotes from ${targetCustomer} who need: ${functionalDriversContext}
+Context: Find buyers actively looking for solutions to these functional needs.
+Keywords: "need to", "looking for", "how do I", "requirement", "must have"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
+
+        // 4. DIFFERENTIATOR PAIN - People without what makes us unique
+        `Search for quotes from ${targetCustomer} frustrated by lack of: ${differentiatorContext}
+Context: Find people experiencing pain because existing solutions DON'T have our differentiators.
+Keywords: "doesn't have", "missing", "wish it had", "can't find", "no solution for"
+${sourceGuidance}
+${STRUCTURED_JSON_FORMAT}`,
+
+        // 5. SWITCHING INTENT - Highest value triggers (buyer-focused)
+        `Search for first-person quotes from ${targetCustomer} switching ${productContext} vendors.
+Context: Find quotes from actual buyers/users, NOT reviews of random companies.
 Keywords: "we switched", "migrating from", "why we left", "moving to"
 ${sourceGuidance}
 ${STRUCTURED_JSON_FORMAT}`,
 
-        // 2. FRUSTRATION QUOTES - Real pain points
-        `Search for first-person frustration quotes about ${productContext} tools.
-Keywords: "frustrated", "hate", "broken", "doesn't work", "wasted time"
-${sourceGuidance}
-${STRUCTURED_JSON_FORMAT}`,
-
-        // 3. IMPLEMENTATION FAILURES - Post-purchase reality
-        `Search for quotes about ${productContext} implementation problems.
+        // 6. IMPLEMENTATION FAILURES - Post-purchase reality from buyers
+        `Search for quotes from ${targetCustomer} about ${productContext} implementation problems.
+Context: Focus on buyer experiences, not generic software reviews.
 Keywords: "took longer", "hidden costs", "didn't work as expected", "regret"
 ${sourceGuidance}
 ${STRUCTURED_JSON_FORMAT}`,
 
-        // 4. SUPPORT NIGHTMARES - Service failures
-        `Search for quotes about terrible ${productContext} vendor support.
-Keywords: "no response", "weeks to reply", "unhelpful", "ghosted"
-${sourceGuidance}
-${STRUCTURED_JSON_FORMAT}`,
-
-        // 5. PRICING COMPLAINTS - Budget concerns
-        `Search for quotes complaining about ${productContext} pricing.
-Keywords: "too expensive", "hidden fees", "price increase", "not worth"
-${sourceGuidance}
-${STRUCTURED_JSON_FORMAT}`,
-
-        // 6. FEATURE GAPS - Missing capabilities
-        `Search for quotes about missing features in ${productContext} tools.
-Keywords: "I wish", "why doesn't it", "dealbreaker", "can't do"
-${sourceGuidance}
-${STRUCTURED_JSON_FORMAT}`,
-
-        // 7. COMPARISON DISCUSSIONS - Active evaluation
-        `Search for quotes comparing ${productContext} alternatives.
+        // 7. COMPARISON DISCUSSIONS - Active evaluation by target buyers
+        `Search for quotes from ${targetCustomer} comparing ${productContext} alternatives.
+Context: Buyers actively evaluating options, not generic comparisons.
 Keywords: "vs", "compared to", "evaluating", "which is better"
 ${sourceGuidance}
 ${STRUCTURED_JSON_FORMAT}`,
@@ -2327,6 +2485,181 @@ ${STRUCTURED_JSON_FORMAT}`
   }
 
   // Helper methods
+
+  /**
+   * PHASE M: Filter raw data samples for relevance AND prioritize by source quality
+   * 1. Filters out irrelevant Twitter chatter
+   * 2. Reorders: Perplexity/G2/Capterra FIRST, Twitter LAST
+   * 3. Caps Twitter to 10 samples max
+   */
+  private filterRawDataForRelevance(
+    samples: RawDataSample[],
+    uvp: CompleteUVP | null,
+    industry: string
+  ): RawDataSample[] {
+    if (!uvp) return samples;
+
+    // Build relevance keywords from UVP
+    const relevanceKeywords = this.buildRelevanceKeywords(uvp, industry);
+    console.log(`[StreamingAPI] Relevance filter keywords: ${relevanceKeywords.slice(0, 10).join(', ')}`);
+
+    // PHASE M: Source quality tiers
+    const SOURCE_PRIORITY: Record<string, number> = {
+      'perplexity': 1,      // Highest - AI-validated quotes
+      'g2': 2,              // B2B reviews
+      'capterra': 2,        // B2B reviews
+      'trustpilot': 2,      // Consumer reviews
+      'trustradius': 2,     // B2B reviews
+      'reddit': 3,          // Discussions
+      'hackernews': 3,      // Tech discussions
+      'linkedin': 3,        // B2B signals
+      'sec-edgar': 3,       // Enterprise signals
+      'quora': 4,           // Q&A
+      'twitter': 5,         // LOWEST - most noise
+      'x': 5,               // LOWEST
+    };
+
+    // Filter and categorize samples
+    const twitterSamples: RawDataSample[] = [];
+    const otherSamples: RawDataSample[] = [];
+
+    for (const sample of samples) {
+      const platform = sample.platform.toLowerCase();
+      const isTwitter = platform.includes('twitter') || platform.includes('x');
+      const content = sample.content.toLowerCase();
+
+      if (isTwitter) {
+        // PHASE M: Twitter requires 3+ relevance keywords (was 2)
+        const matchCount = relevanceKeywords.filter(kw => content.includes(kw)).length;
+        if (matchCount >= 3) {
+          twitterSamples.push(sample);
+        } else if (twitterSamples.length < 3) {
+          // Log first few rejections
+          console.log(`[StreamingAPI] 🚫 Rejected Twitter (${matchCount}/3 keywords): ${content.substring(0, 60)}...`);
+        }
+      } else {
+        // Non-Twitter: always keep
+        otherSamples.push(sample);
+      }
+    }
+
+    // PHASE M: Sort non-Twitter by source priority
+    otherSamples.sort((a, b) => {
+      const platformA = a.platform.toLowerCase();
+      const platformB = b.platform.toLowerCase();
+
+      const priorityA = Object.entries(SOURCE_PRIORITY).find(([key]) => platformA.includes(key))?.[1] || 4;
+      const priorityB = Object.entries(SOURCE_PRIORITY).find(([key]) => platformB.includes(key))?.[1] || 4;
+
+      return priorityA - priorityB;
+    });
+
+    // PHASE M: Cap Twitter to 10 samples max
+    const TWITTER_CAP = 10;
+    const cappedTwitter = twitterSamples.slice(0, TWITTER_CAP);
+
+    // Combine: quality sources FIRST, Twitter LAST
+    const filtered = [...otherSamples, ...cappedTwitter];
+
+    // Log results
+    const twitterRejected = twitterSamples.length - cappedTwitter.length;
+    console.log(`[StreamingAPI] 📊 Source prioritization:`, {
+      perplexity: otherSamples.filter(s => s.platform.toLowerCase().includes('perplexity')).length,
+      g2_capterra: otherSamples.filter(s => s.platform.toLowerCase().includes('g2') || s.platform.toLowerCase().includes('capterra')).length,
+      reddit: otherSamples.filter(s => s.platform.toLowerCase().includes('reddit')).length,
+      twitter: `${cappedTwitter.length} (capped from ${twitterSamples.length}, rejected ${samples.length - twitterSamples.length - otherSamples.length})`,
+      total: filtered.length,
+    });
+
+    return filtered;
+  }
+
+  /**
+   * PHASE M: Scrape Capterra by category (not brand name)
+   */
+  private async scrapeCapterraByCategory(category: string, limit: number = 40): Promise<any> {
+    try {
+      const { apifySocialScraper } = await import('./apify-social-scraper.service');
+
+      // Map category to Capterra URL
+      const categorySlug = category.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '-');
+
+      // Capterra category URLs follow pattern: capterra.com/categories/{slug}/
+      const capterraUrl = `https://www.capterra.com/categories/${categorySlug}/`;
+
+      console.log(`[StreamingAPI] Scraping Capterra category: ${capterraUrl}`);
+
+      // Use generic web scraper to get reviews from category page
+      const results = await apifySocialScraper.runSocialScraper('CAPTERRA', {
+        startUrls: [{ url: capterraUrl }],
+        maxRequestsPerCrawl: 30,
+        maxCrawlDepth: 2,
+      });
+
+      return {
+        reviews: results || [],
+        category,
+        source: 'capterra-category',
+      };
+    } catch (error) {
+      console.warn('[StreamingAPI] Capterra category scrape failed:', error);
+      return { reviews: [], category, error };
+    }
+  }
+
+  /**
+   * Build relevance keywords from UVP for filtering
+   */
+  private buildRelevanceKeywords(uvp: CompleteUVP, industry: string): string[] {
+    const keywords: Set<string> = new Set();
+
+    // Industry-specific keywords
+    keywords.add(industry.toLowerCase());
+
+    // From UVP components
+    const uvpTexts = [
+      uvp.uniqueSolution?.statement,
+      uvp.keyBenefit?.statement,
+      uvp.targetCustomer?.statement,
+      typeof uvp.whatYouDo === 'string' ? uvp.whatYouDo : (uvp.whatYouDo as any)?.statement,
+    ].filter(Boolean);
+
+    // Extract meaningful words (4+ chars, not common words)
+    const stopWords = new Set(['that', 'this', 'with', 'have', 'from', 'they', 'been', 'will', 'would', 'could', 'should', 'their', 'there', 'about', 'which', 'when', 'what', 'your', 'more', 'than', 'into', 'also', 'them', 'most', 'just', 'over', 'such', 'some', 'very', 'only', 'come', 'make', 'like', 'back', 'even', 'want', 'give', 'well', 'need', 'take', 'help', 'work', 'first', 'because', 'through', 'after', 'before', 'while', 'where', 'being', 'other', 'these', 'those', 'each', 'under', 'between']);
+
+    for (const text of uvpTexts) {
+      if (!text) continue;
+      const words = text.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
+      words.forEach(word => {
+        if (!stopWords.has(word)) {
+          keywords.add(word);
+        }
+      });
+    }
+
+    // Add industry-specific trigger words
+    const industryTriggerWords: Record<string, string[]> = {
+      'insurance': ['insurance', 'claims', 'policy', 'coverage', 'agent', 'broker', 'carrier', 'underwriting', 'risk', 'compliance'],
+      'healthcare': ['healthcare', 'patient', 'clinical', 'medical', 'health', 'hospital', 'provider', 'care', 'treatment'],
+      'financial': ['financial', 'banking', 'payment', 'transaction', 'compliance', 'fraud', 'account', 'lending'],
+      'saas': ['software', 'platform', 'integration', 'api', 'dashboard', 'subscription', 'enterprise', 'deployment'],
+      'retail': ['retail', 'customer', 'store', 'inventory', 'commerce', 'shopping', 'checkout', 'cart'],
+    };
+
+    // Add industry-specific words
+    for (const [key, words] of Object.entries(industryTriggerWords)) {
+      if (industry.toLowerCase().includes(key)) {
+        words.forEach(w => keywords.add(w));
+      }
+    }
+
+    // Always include buyer intent words
+    ['frustrated', 'switching', 'looking for', 'need', 'problem', 'issue', 'hate', 'love', 'amazing', 'terrible', 'compared to', 'versus', 'vs', 'alternative'].forEach(w => keywords.add(w));
+
+    return Array.from(keywords);
+  }
 
   /**
    * Buffer raw data samples for LLM trigger synthesis
@@ -2851,6 +3184,116 @@ ${STRUCTURED_JSON_FORMAT}`
       'local-service-b2b'
     ];
     return b2bProfiles.includes(profileType);
+  }
+
+  /**
+   * Add UVP alignment data to triggers for display in cards
+   * Matches trigger content against UVP components to show relevance
+   */
+  private addUVPAlignments(triggers: any[], uvp: any): any[] {
+    if (!uvp) return triggers;
+
+    // Extract UVP components for matching
+    const uvpComponents = {
+      uniqueSolution: uvp.uniqueSolution?.statement || '',
+      keyBenefit: uvp.keyBenefit?.statement || '',
+      targetCustomer: uvp.targetCustomer?.statement || '',
+      transformation: uvp.transformation?.statement || '',
+      differentiators: (uvp.differentiators || []).map((d: any) => d.statement || '').filter(Boolean),
+    };
+
+    return triggers.map(trigger => {
+      const alignments: Array<{ component: string; matchScore: number; matchReason: string }> = [];
+      const triggerText = `${trigger.title} ${trigger.executiveSummary}`.toLowerCase();
+
+      // Check against unique solution
+      if (uvpComponents.uniqueSolution && this.hasSemanticOverlap(triggerText, uvpComponents.uniqueSolution.toLowerCase())) {
+        alignments.push({
+          component: 'unique_solution',
+          matchScore: 0.85,
+          matchReason: uvpComponents.uniqueSolution.substring(0, 80)
+        });
+      }
+
+      // Check against key benefit
+      if (uvpComponents.keyBenefit && this.hasSemanticOverlap(triggerText, uvpComponents.keyBenefit.toLowerCase())) {
+        alignments.push({
+          component: 'key_benefit',
+          matchScore: 0.85,
+          matchReason: uvpComponents.keyBenefit.substring(0, 80)
+        });
+      }
+
+      // Check against target customer pain points
+      if (uvpComponents.targetCustomer && this.hasSemanticOverlap(triggerText, uvpComponents.targetCustomer.toLowerCase())) {
+        alignments.push({
+          component: 'target_customer',
+          matchScore: 0.85,
+          matchReason: `Addresses target: ${uvpComponents.targetCustomer.substring(0, 60)}`
+        });
+      }
+
+      // Check against transformation
+      if (uvpComponents.transformation && this.hasSemanticOverlap(triggerText, uvpComponents.transformation.toLowerCase())) {
+        alignments.push({
+          component: 'transformation',
+          matchScore: 0.85,
+          matchReason: uvpComponents.transformation.substring(0, 80)
+        });
+      }
+
+      // Check against differentiators
+      for (const diff of uvpComponents.differentiators.slice(0, 3)) {
+        if (this.hasSemanticOverlap(triggerText, diff.toLowerCase())) {
+          alignments.push({
+            component: 'differentiator',
+            matchScore: 0.8,
+            matchReason: diff.substring(0, 80)
+          });
+          break; // Only add one differentiator match
+        }
+      }
+
+      return {
+        ...trigger,
+        uvpAlignments: alignments.slice(0, 3) // Max 3 alignments per trigger
+      };
+    });
+  }
+
+  /**
+   * Check if two texts have semantic overlap (shared important keywords)
+   */
+  private hasSemanticOverlap(text1: string, text2: string): boolean {
+    // Extract important words (skip common words)
+    const stopWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
+      'must', 'shall', 'can', 'need', 'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from',
+      'as', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'under',
+      'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all',
+      'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
+      'same', 'so', 'than', 'too', 'very', 'just', 'and', 'but', 'if', 'or', 'because', 'while',
+      'this', 'that', 'these', 'those', 'they', 'them', 'their', 'what', 'which', 'who', 'whom']);
+
+    const getKeywords = (text: string): Set<string> => {
+      return new Set(
+        text.split(/\s+/)
+          .map(w => w.replace(/[^a-z0-9]/g, ''))
+          .filter(w => w.length > 3 && !stopWords.has(w))
+      );
+    };
+
+    const keywords1 = getKeywords(text1);
+    const keywords2 = getKeywords(text2);
+
+    // Count overlap
+    let overlap = 0;
+    for (const word of keywords1) {
+      if (keywords2.has(word)) overlap++;
+    }
+
+    // Need at least 2 shared keywords for alignment
+    return overlap >= 2;
   }
 
   /**

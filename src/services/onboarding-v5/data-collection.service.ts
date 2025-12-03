@@ -32,8 +32,7 @@ import type { CoreTruth, MessagingPillar } from '@/components/onboarding-v5/Core
 import type { Transformation } from '@/components/onboarding-v5/TransformationCascade';
 import type { ConfidenceScore } from '@/components/onboarding-v5/ConfidenceMeter';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
-import type { EQRecommendation, EQCalculationResult } from '@/types/eq-calculator.types';
-import type { EQScore } from '@/services/ai/eq-calculator.service';
+import type { EQRecommendation, EQCalculationResult, EQScore } from '@/types/eq-calculator.types';
 import type { ProductServiceExtractionResult, CustomerExtractionResult, DifferentiatorExtractionResult, BenefitExtractionResult } from '@/types/uvp-flow.types';
 import type { BuyerIntelligenceResult } from '@/types/buyer-persona.types';
 import type { SmartTransformationResult } from '@/services/uvp-extractors/smart-transformation-generator.service';

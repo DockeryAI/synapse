@@ -35,7 +35,7 @@ export interface AIConfig {
 }
 
 export const DEFAULT_AI_CONFIG: AIConfig = {
-  model: 'anthropic/claude-3.5-haiku', // Fast and cheap for enhancement (OpenRouter format)
+  model: 'anthropic/claude-opus-4.5', // Fast and cheap for enhancement (OpenRouter format)
   maxTokens: 500, // HARD LIMIT - forces concise content
   temperature: 0.7, // Balanced creativity
   apiEndpoint: import.meta.env?.VITE_SUPABASE_URL

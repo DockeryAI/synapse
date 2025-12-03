@@ -190,7 +190,7 @@ Focus on:
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-sonnet-4',
+            model: 'anthropic/claude-opus-4.5',
             messages: [
               {
                 role: 'system',

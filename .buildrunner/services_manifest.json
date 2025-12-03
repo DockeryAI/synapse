@@ -1,0 +1,338 @@
+{
+  "running_processes": [
+    {
+      "pid": 7522,
+      "name": "Python",
+      "cmdline": "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/byronhudson/Projects/buildrunner-oracle/venv/bin/uvicorn main:app --",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.5,
+      "memory_mb": 13.48,
+      "port_bindings": [
+        3003
+      ]
+    },
+    {
+      "pid": 13394,
+      "name": "contentlinkingd",
+      "cmdline": "/System/Library/PrivateFrameworks/Synapse.framework/Support/contentlinkingd",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.0,
+      "memory_mb": 9.41,
+      "port_bindings": []
+    },
+    {
+      "pid": 49171,
+      "name": "node",
+      "cmdline": "npm start --url=http://localhost:3001/project/testproject    ",
+      "user": "byronhudson",
+      "status": "sleeping",
+      "cpu_percent": 0.0,
+      "memory_mb": 51.81,
+      "port_bindings": []
+    },
+    {
+      "pid": 53876,
+      "name": "node",
+      "cmdline": "node /Users/byronhudson/Projects/Synapse/node_modules/.bin/vite",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.0,
+      "memory_mb": 223.38,
+      "port_bindings": [
+        3000
+      ]
+    },
+    {
+      "pid": 53877,
+      "name": "esbuild",
+      "cmdline": "/Users/byronhudson/Projects/Synapse/node_modules/@esbuild/darwin-arm64/bin/esbuild --service=0.21.5 --ping",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.0,
+      "memory_mb": 202.34,
+      "port_bindings": []
+    },
+    {
+      "pid": 56309,
+      "name": "zsh",
+      "cmdline": "/bin/zsh -c -l source /Users/byronhudson/.claude/shell-snapshots/snapshot-zsh-1764709059582-rya91r.sh && eval 'cd /Users/byronhudson/Projects/Synapse && echo synapse < /dev/null | br attach 2>&1 | gre",
+      "user": "byronhudson",
+      "status": "sleeping",
+      "cpu_percent": 0.0,
+      "memory_mb": 2.88,
+      "port_bindings": []
+    },
+    {
+      "pid": 78584,
+      "name": "tail",
+      "cmdline": "tail -f /Users/byronhudson/Projects/Synapse/e2e-tests-FINAL-WITH-FIXES.txt",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.0,
+      "memory_mb": 0.39,
+      "port_bindings": []
+    },
+    {
+      "pid": 95403,
+      "name": "Python",
+      "cmdline": "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/byronhudson/Library/Caches/pypoetry/virtualenvs/cias-api-UQtSqTCB-py",
+      "user": "byronhudson",
+      "status": "running",
+      "cpu_percent": 0.0,
+      "memory_mb": 8.41,
+      "port_bindings": [
+        8000
+      ]
+    }
+  ],
+  "service_configs": [
+    {
+      "name": "supabase_db_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": false,
+      "config_file": null,
+      "command": "\"sh -c '\\ncat <<'EOF'\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "stoic_lehmann",
+      "type": "docker",
+      "enabled": true,
+      "running": false,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "compassionate_wilson",
+      "type": "docker",
+      "enabled": true,
+      "running": false,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "upbeat_dhawan",
+      "type": "docker",
+      "enabled": true,
+      "running": false,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_studio_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_pg_meta_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_edge_runtime_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_storage_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_rest_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"postgrest\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_realtime_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": false,
+      "config_file": null,
+      "command": "\"/usr/bin/tini -s -g\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_inbucket_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"/mailpit\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_auth_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"auth\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_kong_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_vector_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_analytics_Synapse",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_edge_runtime_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_studio_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_pg_meta_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_storage_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"docker-entrypoint.s\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_rest_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"postgrest\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_realtime_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"/usr/bin/tini -s -g\u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_inbucket_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"/mailpit\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_auth_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"auth\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_kong_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_vector_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_analytics_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c 'cat <<'EOF' \u2026\"",
+      "user": "docker"
+    },
+    {
+      "name": "supabase_db_sales-assistant",
+      "type": "docker",
+      "enabled": true,
+      "running": true,
+      "config_file": null,
+      "command": "\"sh -c '\\ncat <<'EOF'\u2026\"",
+      "user": "docker"
+    }
+  ],
+  "port_bindings": [],
+  "background_workers": [],
+  "total_services": 27
+}

@@ -63,7 +63,7 @@ class InsightSynthesisService {
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.5',
         messages: [
           {
             role: 'user',

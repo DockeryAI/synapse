@@ -678,10 +678,31 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
   };
 
   // Parse customer profiles from UVP statement
+  // Also check alternative data structures (industry, role, companySize for fallback display)
   const parsedProfiles = useMemo(() => {
-    if (!uvp?.targetCustomer?.statement) return [];
-    return parseCustomerProfiles(uvp.targetCustomer.statement);
-  }, [uvp?.targetCustomer?.statement]);
+    // Primary: parse from statement field
+    if (uvp?.targetCustomer?.statement && uvp.targetCustomer.statement.trim().length > 0) {
+      console.log('[UVPBuildingBlocks] Parsing customer from statement:', uvp.targetCustomer.statement.slice(0, 100));
+      return parseCustomerProfiles(uvp.targetCustomer.statement);
+    }
+
+    // Fallback: construct from individual fields if statement is empty
+    const tc = uvp?.targetCustomer;
+    if (tc?.role || tc?.industry || tc?.companySize) {
+      console.log('[UVPBuildingBlocks] Constructing customer from fields:', { role: tc.role, industry: tc.industry, companySize: tc.companySize });
+      const parts = [tc.role, tc.industry, tc.companySize].filter(Boolean);
+      if (parts.length > 0) {
+        return [{
+          title: tc.role || 'Target Customer',
+          description: parts.join(' - '),
+          roleCategory: classifyRole(tc.role || '')
+        }];
+      }
+    }
+
+    console.log('[UVPBuildingBlocks] No customer data found:', { targetCustomer: uvp?.targetCustomer });
+    return [];
+  }, [uvp?.targetCustomer]);
 
   // Group profiles by role category
   const groupedProfiles = useMemo(() => {
@@ -815,7 +836,7 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
         <SidebarSection
           title="Customer Profile"
           icon={<Users className="w-4 h-4" />}
-          defaultExpanded={true}
+          defaultExpanded={false}
           badgeCount={parsedProfiles.length}
         >
           <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
@@ -860,7 +881,7 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
         <SidebarSection
           title="Differentiators"
           icon={<Shield className="w-4 h-4" />}
-          defaultExpanded={true}
+          defaultExpanded={false}
           badgeCount={differentiatorData.length}
         >
           <div className="space-y-2">

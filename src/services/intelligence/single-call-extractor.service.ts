@@ -112,7 +112,7 @@ class SingleCallExtractorService {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4', // Fast + capable
+          model: 'anthropic/claude-opus-4.5', // Fast + capable
           messages: [{ role: 'user', content: prompt }],
           max_tokens: 8000,
           temperature: 0.3

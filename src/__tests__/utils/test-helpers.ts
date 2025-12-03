@@ -7,7 +7,7 @@
 
 import { expect } from 'vitest';
 import type { WebsiteData } from '@/services/scraping/websiteScraper';
-import type { EQScore } from '@/services/ai/eq-calculator.service';
+import type { EQScore } from '@/types/eq-calculator.types';
 
 /**
  * Create mock scraped website data

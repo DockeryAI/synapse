@@ -1,0 +1,20 @@
+#!/bin/bash
+# BR3 Pre-push Hook
+# Runs tests before push
+
+set -e
+
+echo "🔍 BR3 Pre-push checks..."
+
+# Run tests if they exist
+if [ -f "package.json" ] && grep -q '"test"' package.json; then
+    echo "Running tests..."
+    npm test || { echo "❌ Tests failed"; exit 1; }
+fi
+
+if [ -f "pytest.ini" ] || [ -f "pyproject.toml" ]; then
+    echo "Running pytest..."
+    pytest || { echo "❌ Tests failed"; exit 1; }
+fi
+
+echo "✅ Pre-push checks passed"

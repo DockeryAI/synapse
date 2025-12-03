@@ -37,6 +37,8 @@ export interface TwitterSentiment {
     author: string
     timestamp: string
     engagement_rate: number
+    url: string // Tweet URL for source attribution
+    tweetId: string // Tweet ID for reference
   }>
   trending_topics: string[]
   pain_points: PsychologicalTrigger[]
@@ -387,16 +389,27 @@ class ApifySocialScraperService {
         proxyConfiguration: { useApifyProxy: true }
       })
 
-      const tweets = results.map((tweet: any) => ({
-        text: tweet.text || '',
-        likes: tweet.likeCount || 0,
-        retweets: tweet.retweetCount || 0,
-        replies: tweet.replyCount || 0,
-        sentiment: this.analyzeSentiment(tweet.text || ''),
-        author: tweet.author?.userName || '',
-        timestamp: tweet.createdAt || new Date().toISOString(),
-        engagement_rate: this.calculateEngagementRate(tweet)
-      }))
+      const tweets = results.map((tweet: any) => {
+        const authorUsername = tweet.author?.userName || tweet.user?.screen_name || '';
+        const tweetId = tweet.id || tweet.id_str || '';
+        // Build tweet URL: https://x.com/{username}/status/{tweetId}
+        const url = authorUsername && tweetId
+          ? `https://x.com/${authorUsername}/status/${tweetId}`
+          : tweet.url || '';
+
+        return {
+          text: tweet.text || tweet.full_text || '',
+          likes: tweet.likeCount || tweet.favorite_count || 0,
+          retweets: tweet.retweetCount || tweet.retweet_count || 0,
+          replies: tweet.replyCount || tweet.reply_count || 0,
+          sentiment: this.analyzeSentiment(tweet.text || tweet.full_text || ''),
+          author: authorUsername,
+          timestamp: tweet.createdAt || tweet.created_at || new Date().toISOString(),
+          engagement_rate: this.calculateEngagementRate(tweet),
+          url, // Add URL for source attribution
+          tweetId // Keep ID for reference
+        };
+      })
 
       const allTexts = tweets.map(t => t.text)
       const pain_points = this.extractPsychologicalTriggers(allTexts, 'Twitter')
@@ -436,7 +449,7 @@ class ApifySocialScraperService {
    * Scrape Quora for deep questions revealing desires and fears
    * V3: Added retry logic with exponential backoff + Serper fallback
    */
-  async scrapeQuoraInsights(keywords: string[], limit: number = 10): Promise<QuoraInsights> {
+  async scrapeQuoraInsights(keywords: string[], limit: number = 20): Promise<QuoraInsights> {
     // V3: Try Apify first with retry, then fallback to Serper
     let results: any[] = [];
     let apifyFailed = false;
@@ -681,7 +694,7 @@ class ApifySocialScraperService {
    */
   async scrapeTrustPilotReviews(
     companyName: string,
-    limit: number = 10
+    limit: number = 20
   ): Promise<TrustPilotReviews> {
     try {
       // Build TrustPilot URL for the generic web-scraper
@@ -764,15 +777,22 @@ class ApifySocialScraperService {
   async scrapeG2Reviews(
     productName: string,
     category: string,
-    limit: number = 10
+    limit: number = 20
   ): Promise<G2Reviews> {
     try {
-      // Build G2 URL for the generic web-scraper
-      const slug = productName.toLowerCase().replace(/[^a-z0-9]/g, '-')
-      // Only use 1 URL to reduce crawl time
+      // PHASE M FIX: Search by CATEGORY, not just product name
+      // The product page may not exist, but category pages always have reviews
+      // This gets reviews from the entire product category (competitors too = better triggers)
+      const productSlug = productName.toLowerCase().replace(/[^a-z0-9]/g, '-')
+      const categorySlug = this.getG2CategorySlug(category)
+
+      // Try category page first (more reliable), then product page as fallback
       const startUrls = [
-        { url: `https://www.g2.com/products/${slug}/reviews` }
+        { url: `https://www.g2.com/categories/${categorySlug}` }, // Category has ALL products
+        { url: `https://www.g2.com/products/${productSlug}/reviews` } // Product-specific (may 404)
       ]
+
+      console.log(`[G2] Scraping category: ${categorySlug} and product: ${productSlug}`)
 
       const results = await this.runSocialScraper('G2', {
         startUrls,
@@ -844,6 +864,49 @@ class ApifySocialScraperService {
       console.error('[Apify Social] G2 scraping error:', error)
       throw error
     }
+  }
+
+  /**
+   * PHASE M: Map industry/category to G2 category slugs
+   * G2 uses specific category slugs like "conversational-ai-platform", "chatbots", etc.
+   */
+  private getG2CategorySlug(category: string): string {
+    const lowerCategory = category.toLowerCase()
+
+    // Map common categories to G2 slugs
+    const categoryMap: Record<string, string> = {
+      // AI/Chatbot
+      'ai agent': 'conversational-ai-platform',
+      'conversational ai': 'conversational-ai-platform',
+      'chatbot': 'chatbots',
+      'virtual assistant': 'virtual-assistant-software',
+      'customer service automation': 'help-desk-software',
+
+      // CRM/Sales
+      'crm': 'crm-software',
+      'sales automation': 'sales-automation-software',
+      'marketing automation': 'marketing-automation-software',
+
+      // Insurance specific
+      'insurance': 'insurance-agency-management-software',
+      'insurtech': 'insurance-agency-management-software',
+      'claims': 'claims-processing-software',
+
+      // Generic software
+      'software publishers': 'all-in-one-marketing-platform',
+      'saas': 'subscription-management-software',
+      'enterprise software': 'enterprise-resource-planning-erp-software',
+    }
+
+    // Check for matches
+    for (const [key, slug] of Object.entries(categoryMap)) {
+      if (lowerCategory.includes(key)) {
+        return slug
+      }
+    }
+
+    // Fallback: convert to slug format
+    return lowerCategory.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   }
 
   /**

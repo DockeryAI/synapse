@@ -650,7 +650,7 @@ export class ContentSynthesisOrchestrator {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4', // Fast model for re-synthesis (OpenRouter format)
+          model: 'anthropic/claude-opus-4.5', // Opus 4.5 for quality (OpenRouter format)
           messages: [{ role: 'user', content: prompt }],
           max_tokens: 1000,
           temperature: 0.7
@@ -862,7 +862,7 @@ Keep the core insight but reframe for ${targetStage} stage mindset.`;
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{ role: 'user', content: prompt }],
           max_tokens: 4000,
           temperature: 0.7
@@ -1124,7 +1124,7 @@ Return JSON:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4',
+          model: 'anthropic/claude-opus-4.5',
           messages: [{ role: 'user', content: prompt }],
           max_tokens: 1500,
           temperature: 0.7

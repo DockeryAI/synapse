@@ -293,7 +293,7 @@ Focus on EVIDENCE from actual customer quotes and testimonials.`;
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-sonnet-4-5-20250929',
+        model: 'anthropic/claude-opus-4.5',
         messages: [{
           role: 'user',
           content: prompt
@@ -913,7 +913,7 @@ Make each transformation SPECIFIC and RESONANT, not generic.`;
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-sonnet-4-5-20250929',
+        model: 'anthropic/claude-opus-4.5',
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 3000,
         temperature: 0.3

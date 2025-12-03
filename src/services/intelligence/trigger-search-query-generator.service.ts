@@ -626,14 +626,34 @@ Search patterns to use:
   // ============================================================================
 
   private extractTargetCustomer(uvp?: CompleteUVP | null, brand?: QueryGeneratorInput['brand']): string {
-    // Priority 1: UVP target customer statement
+    // Priority 1: UVP target customer statement - extract the ROLE, not the company type
     if (uvp?.targetCustomer?.statement) {
-      // Extract key noun phrase from statement
       const statement = uvp.targetCustomer.statement;
-      // "Enterprise companies with 500+ employees" -> "Enterprise companies"
-      const match = statement.match(/^([A-Za-z]+\s+[A-Za-z]+)/);
-      if (match) return match[1];
-      return statement.substring(0, 50);
+
+      // Look for role patterns first (COO, CEO, VP, Director, Manager, etc.)
+      // "Insurance agency COO/executive seeking..." -> "COO/executive"
+      const roleMatch = statement.match(/\b(C[A-Z]O|CEO|CFO|COO|CTO|CIO|CMO|VP|Vice President|Director|Manager|Head of|Executive|Owner|Founder|Partner)\b[\/\w\s]*/i);
+      if (roleMatch) {
+        // Include context like "COO/executive" or "VP of Sales"
+        const rolePhrase = roleMatch[0].trim();
+        // Get surrounding industry context
+        const industryMatch = statement.match(/\b(insurance|healthcare|fintech|saas|software|retail|banking|legal|accounting)\b/i);
+        if (industryMatch) {
+          return `${industryMatch[0]} ${rolePhrase}`;
+        }
+        return rolePhrase;
+      }
+
+      // Fallback: Look for buyer persona patterns like "enterprise buyers" or "SMB owners"
+      const buyerMatch = statement.match(/\b(enterprise|SMB|small business|mid-market|startup)\s*(buyers?|customers?|companies|organizations?|teams?|leaders?)/i);
+      if (buyerMatch) {
+        return buyerMatch[0];
+      }
+
+      // Last resort: take first 60 chars but try to end at a word boundary
+      const truncated = statement.substring(0, 60);
+      const lastSpace = truncated.lastIndexOf(' ');
+      return lastSpace > 30 ? truncated.substring(0, lastSpace) : truncated;
     }
 
     // Priority 2: Brand target customers field
@@ -684,6 +704,276 @@ Search patterns to use:
     }
 
     return painPoints;
+  }
+
+  // ============================================================================
+  // PHASE M: FULL UVP DATA EXTRACTION
+  // ============================================================================
+
+  /**
+   * PHASE M: Extract ALL UVP components for comprehensive search queries
+   * This is the key missing piece - we weren't using differentiators, benefits, products
+   */
+  extractFullUVPData(uvp?: CompleteUVP | null): {
+    differentiators: string[];
+    benefits: string[];
+    products: string[];
+    painPoints: string[];
+    transformationBefore: string;
+    transformationAfter: string;
+    targetCustomer: string;
+    functionalDrivers: string[];
+    emotionalDrivers: string[];
+  } {
+    const result = {
+      differentiators: [] as string[],
+      benefits: [] as string[],
+      products: [] as string[],
+      painPoints: [] as string[],
+      transformationBefore: '',
+      transformationAfter: '',
+      targetCustomer: '',
+      functionalDrivers: [] as string[],
+      emotionalDrivers: [] as string[],
+    };
+
+    if (!uvp) return result;
+
+    // DIFFERENTIATORS - what makes us unique
+    if (uvp.differentiators && Array.isArray(uvp.differentiators)) {
+      result.differentiators = uvp.differentiators
+        .map((d: any) => d.statement || d)
+        .filter(Boolean)
+        .slice(0, 5);
+    }
+    if (uvp.uniqueSolution?.statement) {
+      result.differentiators.push(uvp.uniqueSolution.statement);
+    }
+
+    // BENEFITS - what customers get
+    if (uvp.keyBenefit?.statement) {
+      result.benefits.push(uvp.keyBenefit.statement);
+    }
+    if (uvp.benefits && Array.isArray(uvp.benefits)) {
+      result.benefits.push(...uvp.benefits.map((b: any) => b.statement || b).filter(Boolean).slice(0, 5));
+    }
+
+    // PRODUCTS - what we sell
+    if (uvp.whatYouDo) {
+      const whatYouDo = typeof uvp.whatYouDo === 'string' ? uvp.whatYouDo : (uvp.whatYouDo as any)?.statement;
+      if (whatYouDo) result.products.push(whatYouDo);
+    }
+    if (uvp.products && Array.isArray(uvp.products)) {
+      result.products.push(...uvp.products.map((p: any) => p.name || p.statement || p).filter(Boolean).slice(0, 5));
+    }
+
+    // TRANSFORMATION - before/after states
+    if (uvp.transformation?.statement) {
+      result.transformationAfter = uvp.transformation.statement;
+    }
+    if (uvp.transformationGoal?.before) {
+      result.transformationBefore = uvp.transformationGoal.before;
+    }
+    if (uvp.transformationGoal?.after) {
+      result.transformationAfter = uvp.transformationGoal.after;
+    }
+
+    // TARGET CUSTOMER
+    if (uvp.targetCustomer?.statement) {
+      result.targetCustomer = uvp.targetCustomer.statement;
+    }
+
+    // DRIVERS - what motivates buyers
+    if (uvp.targetCustomer?.emotionalDrivers) {
+      result.emotionalDrivers = uvp.targetCustomer.emotionalDrivers.slice(0, 5);
+    }
+    if (uvp.targetCustomer?.functionalDrivers) {
+      result.functionalDrivers = uvp.targetCustomer.functionalDrivers.slice(0, 5);
+    }
+
+    // Pain points = emotional drivers + transformation before state
+    result.painPoints = [
+      ...result.emotionalDrivers,
+      result.transformationBefore,
+    ].filter(Boolean);
+
+    console.log('[QueryGenerator] PHASE M: Extracted full UVP data:', {
+      differentiators: result.differentiators.length,
+      benefits: result.benefits.length,
+      products: result.products.length,
+      painPoints: result.painPoints.length,
+      functionalDrivers: result.functionalDrivers.length,
+      emotionalDrivers: result.emotionalDrivers.length,
+    });
+
+    return result;
+  }
+
+  /**
+   * PHASE M: Generate UVP-derived search queries for ALL source types
+   * This replaces the generic pattern-based queries with UVP-specific ones
+   */
+  generateUVPDerivedQueries(uvp: CompleteUVP | null, profileType: BusinessProfileType): {
+    differentiatorPainQueries: string[];  // Find people with pain our differentiators solve
+    benefitDesireQueries: string[];       // Find people wanting what our benefits provide
+    productProblemQueries: string[];      // Find people with problems our products solve
+    transformationGapQueries: string[];   // Find people stuck in "before" state
+    g2CapterraCategories: string[];       // Categories to search on review sites
+    redditKeywords: string[];             // Keywords for Reddit search
+    twitterKeywords: string[];            // Keywords for Twitter search
+  } {
+    const uvpData = this.extractFullUVPData(uvp);
+
+    // DIFFERENTIATOR PAIN QUERIES
+    // If differentiator is "Purpose-built for regulated industries with compliance focus"
+    // Search: "compliance nightmare chatbot", "regulated industry AI problems"
+    const differentiatorPainQueries = uvpData.differentiators.flatMap(diff => {
+      const keywords = this.extractKeywords(diff);
+      return [
+        `"${keywords.slice(0, 3).join(' ')}" problems`,
+        `frustrated with ${keywords[0] || 'software'}`,
+        `why is ${keywords.slice(0, 2).join(' ')} so hard`,
+      ];
+    }).slice(0, 6);
+
+    // BENEFIT DESIRE QUERIES
+    // If benefit is "Measurable customer satisfaction improvement"
+    // Search: "how to improve customer satisfaction", "need better customer satisfaction metrics"
+    const benefitDesireQueries = uvpData.benefits.flatMap(benefit => {
+      const keywords = this.extractKeywords(benefit);
+      return [
+        `how to ${keywords.slice(0, 3).join(' ')}`,
+        `need to improve ${keywords[0] || 'results'}`,
+        `looking for ${keywords.slice(0, 2).join(' ')} solution`,
+      ];
+    }).slice(0, 6);
+
+    // PRODUCT PROBLEM QUERIES
+    // If product is "AI Agent Management System"
+    // Search: "AI agent management chaos", "managing multiple AI agents nightmare"
+    const productProblemQueries = uvpData.products.flatMap(product => {
+      const keywords = this.extractKeywords(product);
+      return [
+        `${keywords.slice(0, 2).join(' ')} problems`,
+        `${keywords[0] || 'software'} not working`,
+        `${keywords.slice(0, 2).join(' ')} frustrating`,
+      ];
+    }).slice(0, 6);
+
+    // TRANSFORMATION GAP QUERIES
+    // If before-state is "Manual customer service processes killing efficiency"
+    // Search: "manual customer service taking too long", "can't scale customer service"
+    const transformationGapQueries: string[] = [];
+    if (uvpData.transformationBefore) {
+      const beforeKeywords = this.extractKeywords(uvpData.transformationBefore);
+      transformationGapQueries.push(
+        `stuck with ${beforeKeywords.slice(0, 2).join(' ')}`,
+        `${beforeKeywords[0] || 'manual'} process taking too long`,
+        `can't scale ${beforeKeywords.slice(0, 2).join(' ')}`,
+      );
+    }
+
+    // G2/CAPTERRA CATEGORIES - derived from product type
+    const g2CapterraCategories = this.deriveReviewCategories(uvpData.products, profileType);
+
+    // REDDIT KEYWORDS - combine differentiators + pain points
+    const redditKeywords = [
+      ...uvpData.differentiators.flatMap(d => this.extractKeywords(d).slice(0, 2)),
+      ...uvpData.painPoints.flatMap(p => this.extractKeywords(p).slice(0, 2)),
+    ].filter(Boolean).slice(0, 10);
+
+    // TWITTER KEYWORDS - buyer role + industry + pain
+    const twitterKeywords = [
+      ...uvpData.functionalDrivers.flatMap(d => this.extractKeywords(d).slice(0, 2)),
+      ...uvpData.emotionalDrivers.flatMap(d => this.extractKeywords(d).slice(0, 2)),
+    ].filter(Boolean).slice(0, 10);
+
+    console.log('[QueryGenerator] PHASE M: Generated UVP-derived queries:', {
+      differentiatorPainQueries: differentiatorPainQueries.length,
+      benefitDesireQueries: benefitDesireQueries.length,
+      productProblemQueries: productProblemQueries.length,
+      transformationGapQueries: transformationGapQueries.length,
+      g2CapterraCategories,
+      redditKeywords: redditKeywords.slice(0, 5),
+      twitterKeywords: twitterKeywords.slice(0, 5),
+    });
+
+    return {
+      differentiatorPainQueries,
+      benefitDesireQueries,
+      productProblemQueries,
+      transformationGapQueries,
+      g2CapterraCategories,
+      redditKeywords,
+      twitterKeywords,
+    };
+  }
+
+  /**
+   * Extract meaningful keywords from a statement (4+ chars, no stop words)
+   */
+  private extractKeywords(statement: string): string[] {
+    if (!statement) return [];
+
+    const stopWords = new Set([
+      'that', 'this', 'with', 'have', 'from', 'they', 'been', 'will', 'would',
+      'could', 'should', 'their', 'there', 'about', 'which', 'when', 'what',
+      'your', 'more', 'than', 'into', 'also', 'them', 'most', 'just', 'over',
+      'such', 'some', 'very', 'only', 'come', 'make', 'like', 'back', 'even',
+      'want', 'give', 'well', 'need', 'take', 'help', 'work', 'first', 'built',
+      'focused', 'seeking', 'looking', 'using', 'based', 'through', 'between',
+    ]);
+
+    return statement
+      .toLowerCase()
+      .replace(/[^a-z\s]/g, ' ')
+      .split(/\s+/)
+      .filter(word => word.length >= 4 && !stopWords.has(word))
+      .slice(0, 10);
+  }
+
+  /**
+   * Derive G2/Capterra categories from product descriptions
+   */
+  private deriveReviewCategories(products: string[], profileType: BusinessProfileType): string[] {
+    const productText = products.join(' ').toLowerCase();
+    const categories: string[] = [];
+
+    // Map product keywords to G2 category slugs
+    const categoryMappings: Array<{ keywords: string[]; category: string }> = [
+      { keywords: ['ai agent', 'conversational ai', 'chatbot'], category: 'conversational-ai-platform' },
+      { keywords: ['customer service', 'help desk', 'support'], category: 'help-desk-software' },
+      { keywords: ['crm', 'customer relationship'], category: 'crm-software' },
+      { keywords: ['marketing automation', 'email marketing'], category: 'marketing-automation-software' },
+      { keywords: ['sales', 'sales automation'], category: 'sales-automation-software' },
+      { keywords: ['insurance', 'claims', 'policy'], category: 'insurance-agency-management-software' },
+      { keywords: ['accounting', 'bookkeeping'], category: 'accounting-software' },
+      { keywords: ['project management', 'task'], category: 'project-management-software' },
+      { keywords: ['hr', 'human resources', 'payroll'], category: 'hr-software' },
+      { keywords: ['ecommerce', 'online store'], category: 'ecommerce-platforms' },
+    ];
+
+    for (const mapping of categoryMappings) {
+      if (mapping.keywords.some(kw => productText.includes(kw))) {
+        categories.push(mapping.category);
+      }
+    }
+
+    // Fallback based on profile type
+    if (categories.length === 0) {
+      const profileCategoryMap: Record<string, string> = {
+        'national-saas-b2b': 'business-software',
+        'local-service-b2b': 'local-services',
+        'local-service-b2c': 'local-services',
+        'regional-b2b-agency': 'marketing-agencies',
+        'regional-retail-b2c': 'retail',
+        'national-product-b2c': 'consumer-products',
+        'global-saas-b2b': 'enterprise-software',
+      };
+      categories.push(profileCategoryMap[profileType] || 'business-software');
+    }
+
+    return categories.slice(0, 3);
   }
 
   // ============================================================================

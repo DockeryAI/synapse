@@ -1,0 +1,93 @@
+project:
+  name: Synapse
+  version: 1.0.0
+  governance_version: '1.0'
+workflow:
+  rules:
+    allowed_states:
+    - planned
+    - in_progress
+    - built
+    - integrated
+    - complete
+    - blocked
+    transitions:
+      planned:
+      - in_progress
+      - blocked
+      in_progress:
+      - built
+      - blocked
+      - planned
+      built:
+      - integrated
+      - in_progress
+      - blocked
+      integrated:
+      - complete
+      - built
+      - blocked
+      blocked:
+      - planned
+      - in_progress
+      complete: []
+    branch_patterns:
+      feature: feature/{feature_id}-{description}
+      hotfix: hotfix/{feature_id}-{description}
+      release: release/v{version}
+    commit_rules:
+      require_semantic_versioning: true
+      allowed_types:
+      - feat
+      - fix
+      - refactor
+      - test
+      - docs
+      - chore
+      - style
+      require_feature_id: false
+validation:
+  required_checks:
+  - tests_pass
+  - lint_pass
+  - no_merge_conflicts
+  coverage_threshold: 80
+  pre_commit:
+  - validate_features_json
+  - run_lint
+  pre_push:
+  - run_tests
+  - check_coverage
+enforcement:
+  policy: strict
+  on_violation:
+    pre_commit: block
+    pre_push: block
+    coverage: warn
+  blocked_imports:
+  - '@chakra-ui'
+  - '@mui/material'
+  - '@mui/icons'
+  - antd
+  - '@nextui-org'
+  - '@mantine'
+  - '@headlessui'
+  blocked_patterns:
+  - DISABLE ROW LEVEL SECURITY
+  - SET row_security = OFF
+quality:
+  enabled: true
+  thresholds:
+    overall: 70
+    structure: 60
+    testing: 80
+    documentation: 50
+    security: 90
+    performance: 60
+  enforcement:
+    block_commit: false
+    block_push: true
+security:
+  rls_required: true
+  no_direct_api_calls: true
+  secrets_in_env_only: true

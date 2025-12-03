@@ -326,7 +326,7 @@ Return ONLY valid JSON (no markdown, no explanations):
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for 3x speed
+          model: 'anthropic/claude-opus-4.5', // Switched from Opus 4.1 for 3x speed
           messages: [{
             role: 'user',
             content: prompt

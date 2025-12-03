@@ -35,8 +35,7 @@ import type { ValueProposition } from '@/components/onboarding-v5/ValuePropositi
 import type { CustomerTrigger, BuyerPersona } from '@/components/onboarding-v5/BuyerIntelligencePage';
 import type { CoreTruth, MessagingPillar } from '@/components/onboarding-v5/CoreTruthPage';
 import type { Transformation } from '@/components/onboarding-v5/TransformationCascade';
-import type { EQCalculationResult } from '@/types/eq-calculator.types';
-import type { EQScore } from '@/services/ai/eq-calculator.service';
+import type { EQCalculationResult, EQScore } from '@/types/eq-calculator.types';
 
 import {
   unifiedPersonaIntelligence,
@@ -47,7 +46,7 @@ import {
   type UnifiedOfferingsResult
 } from './unified-offerings-strategy.service';
 import { jtbdTransformer } from './jtbd-transformer.service';
-import { eqCalculator } from '@/services/ai/eq-calculator.service';
+import { eqIntegration } from '@/services/eq-v2/eq-integration.service';
 
 /**
  * Complete intelligence package from parallel extraction
@@ -205,13 +204,18 @@ class ParallelIntelligenceOrchestratorService {
         valuePropositions = this.enrichWithJTBD(valuePropositions, jtbdResult);
       }
 
-      // Calculate EQ score (local, fast)
+      // Calculate EQ score using V2
       const industryContent = [
         ...websiteData.content.headings,
         ...websiteData.content.paragraphs
       ].join(' ');
 
-      const eqScore = eqCalculator.calculateEQ(industryContent);
+      const eqResult = await eqIntegration.calculateEQ({
+        businessName,
+        websiteContent: [industryContent],
+        industry
+      });
+      const eqScore = eqResult.eq_score;
       console.log(`[Orchestrator] EQ Score: ${eqScore.overall}% (${eqScore.classification})`);
 
       const synthesisDuration = Date.now() - synthesisStartTime;

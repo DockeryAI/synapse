@@ -223,12 +223,24 @@ class SECEdgarAPIService {
 
     console.log(`[SEC-EDGAR] Mining intelligence for industry: ${industry}`);
 
-    // Build search queries for different insight types
+    // Broaden narrow industry terms for SEC search
+    // SEC filings use formal industry terminology, not product-specific terms
+    const broadenedTerms = this.broadenIndustryTerms(industry);
+    const searchIndustry = broadenedTerms.length > 0
+      ? `(${broadenedTerms.map(t => `"${t}"`).join(' OR ')})`
+      : `"${industry}"`;
+
+    console.log(`[SEC-EDGAR] Broadened search: ${searchIndustry}`);
+
+    // PHASE M FIX: Simpler queries that SEC full-text search can handle
+    // The AND clause with long phrases was returning 0 results
+    // SEC EDGAR full-text search is primitive - use simpler terms
     const searchQueries = [
-      `"${industry}" AND ("risk factor" OR "challenge" OR "competitive pressure")`,
-      `"${industry}" AND ("strategic priority" OR "initiative" OR "investment")`,
-      `"${industry}" AND ("market trend" OR "growth opportunity" OR "demand")`,
-      ...keywords.map(kw => `"${industry}" AND "${kw}"`),
+      // Simple industry term searches (no complex AND)
+      searchIndustry,
+      // Add common risk keywords that appear in 10-Ks
+      `${broadenedTerms[0] || industry} risk`,
+      `${broadenedTerms[0] || industry} competition`,
     ];
 
     const allInsights: SECInsight[] = [];
@@ -239,8 +251,8 @@ class SECEdgarAPIService {
     for (const query of searchQueries.slice(0, 3)) { // Limit to 3 queries for speed
       const results = await this.searchFilings({
         query,
-        formTypes: ['10-K'], // Focus on annual reports for richest data
-        limit: Math.ceil(limit / 3),
+        formTypes: ['10-K', '10-Q'], // Include quarterly reports too for more results
+        limit: Math.ceil(limit / 2), // More per query since we have fewer queries
       });
 
       totalFilings += results.filings.length;
@@ -314,6 +326,118 @@ class SECEdgarAPIService {
   // ============================================================================
   // Helper Methods
   // ============================================================================
+
+  /**
+   * Broaden narrow industry terms to SEC-friendly terminology
+   * SEC filings use formal industry categories, not product-specific jargon
+   */
+  private broadenIndustryTerms(industry: string): string[] {
+    const lowerIndustry = industry.toLowerCase();
+    const broadTerms: string[] = [];
+
+    // AI/ML related
+    if (lowerIndustry.includes('ai') || lowerIndustry.includes('artificial intelligence') ||
+        lowerIndustry.includes('agent') || lowerIndustry.includes('machine learning')) {
+      broadTerms.push(
+        'artificial intelligence',
+        'machine learning',
+        'automation',
+        'digital transformation',
+        'enterprise software'
+      );
+    }
+
+    // Insurance related
+    if (lowerIndustry.includes('insurance') || lowerIndustry.includes('insurtech')) {
+      broadTerms.push(
+        'insurance',
+        'insurtech',
+        'property and casualty',
+        'claims processing',
+        'underwriting'
+      );
+    }
+
+    // Fintech/Finance
+    if (lowerIndustry.includes('fintech') || lowerIndustry.includes('financial') ||
+        lowerIndustry.includes('banking') || lowerIndustry.includes('payment')) {
+      broadTerms.push(
+        'financial technology',
+        'fintech',
+        'banking',
+        'payment processing',
+        'financial services'
+      );
+    }
+
+    // Healthcare
+    if (lowerIndustry.includes('health') || lowerIndustry.includes('medical') ||
+        lowerIndustry.includes('pharma') || lowerIndustry.includes('biotech')) {
+      broadTerms.push(
+        'healthcare',
+        'medical technology',
+        'pharmaceuticals',
+        'biotechnology',
+        'health information'
+      );
+    }
+
+    // SaaS/Software
+    if (lowerIndustry.includes('saas') || lowerIndustry.includes('software') ||
+        lowerIndustry.includes('cloud') || lowerIndustry.includes('platform')) {
+      broadTerms.push(
+        'software',
+        'cloud computing',
+        'enterprise software',
+        'software as a service',
+        'technology'
+      );
+    }
+
+    // E-commerce/Retail
+    if (lowerIndustry.includes('ecommerce') || lowerIndustry.includes('retail') ||
+        lowerIndustry.includes('commerce')) {
+      broadTerms.push(
+        'e-commerce',
+        'retail',
+        'consumer',
+        'digital commerce',
+        'online retail'
+      );
+    }
+
+    // Cybersecurity
+    if (lowerIndustry.includes('security') || lowerIndustry.includes('cyber')) {
+      broadTerms.push(
+        'cybersecurity',
+        'information security',
+        'data protection',
+        'network security',
+        'security software'
+      );
+    }
+
+    // Marketing/Advertising
+    if (lowerIndustry.includes('marketing') || lowerIndustry.includes('advertising') ||
+        lowerIndustry.includes('martech')) {
+      broadTerms.push(
+        'digital marketing',
+        'advertising',
+        'marketing technology',
+        'customer acquisition',
+        'media'
+      );
+    }
+
+    // If no specific match, use the original term plus generic tech terms
+    if (broadTerms.length === 0) {
+      broadTerms.push(industry);
+      // Add generic enterprise terms for fallback
+      broadTerms.push('technology', 'software', 'enterprise');
+    }
+
+    return broadTerms;
+  }
 
   private buildFilingUrl(cik: string, accession: string): string {
     if (!cik || !accession) return '';

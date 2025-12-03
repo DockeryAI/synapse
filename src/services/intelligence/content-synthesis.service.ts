@@ -529,7 +529,7 @@ class ContentSynthesisService {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-3-5-sonnet-20241022', // Fixed model name for OpenRouter
+          model: 'anthropic/claude-opus-4.5', // Fixed model name for OpenRouter
           messages: [{
             role: 'user',
             content: prompt
@@ -647,7 +647,7 @@ OUTPUT FORMAT (JSON only, no markdown):
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-3-haiku-20240307', // Fast model for variants
+            model: 'anthropic/claude-opus-4.5', // Fast model for variants
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 1000,
             temperature: 0.8

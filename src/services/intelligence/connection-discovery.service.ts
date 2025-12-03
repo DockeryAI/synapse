@@ -105,7 +105,7 @@ class ConnectionDiscoveryService {
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-3.5-haiku',
+            model: 'anthropic/claude-opus-4.5',
             messages: [
               {
                 role: 'system',
@@ -855,7 +855,7 @@ Return JSON array with ${batch.length} objects, one per connection.`
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-3-haiku',
+            model: 'anthropic/claude-opus-4.5',
             messages: [
               {
                 role: 'system',

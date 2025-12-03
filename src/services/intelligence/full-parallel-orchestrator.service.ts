@@ -51,7 +51,7 @@ import { extractBenefits } from '@/services/uvp-extractors/benefit-extractor.ser
 import { buyerIntelligenceExtractor } from '@/services/intelligence/buyer-intelligence-extractor.service';
 import { generateSmartTransformations } from '@/services/uvp-extractors/smart-transformation-generator.service';
 import { jtbdTransformer } from '@/services/intelligence/jtbd-transformer.service';
-import { eqCalculator } from '@/services/ai/eq-calculator.service';
+import { eqIntegration } from '@/services/eq-v2/eq-integration.service';
 
 /**
  * Complete intelligence package with ALL extracted data
@@ -278,9 +278,14 @@ class FullParallelOrchestratorService {
         details: 'Building UI data structures'
       });
 
-      // Calculate EQ score (local, fast)
+      // Calculate EQ score using V2 (async)
       const industryContent = contentArray.join(' ');
-      const eqScore = eqCalculator.calculateEQ(industryContent);
+      const eqResult = await eqIntegration.calculateEQ({
+        businessName,
+        websiteContent: [industryContent],
+        industry
+      });
+      const eqScore = { overall: eqResult.eq_score.overall };
       console.log(`[FullParallelOrchestrator] EQ Score: ${eqScore.overall}%`);
 
       // Transform to UI formats
