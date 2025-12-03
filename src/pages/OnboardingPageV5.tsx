@@ -504,12 +504,15 @@ export const OnboardingPageV5: React.FC = () => {
   };
 
   // Handle URL submission - START Track E MARBA data collection
-  const handleUrlSubmit = async (url: string, industry: IndustryOption) => {
+  // V6: Industry is now optional - will auto-detect from website if not provided
+  const handleUrlSubmit = async (url: string, industry: IndustryOption | null) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
-    console.log('[OnboardingPageV5] Industry selected:', industry.displayName);
+    console.log('[OnboardingPageV5] Industry selected:', industry?.displayName || 'AUTO-DETECT');
 
-    // Save selected industry to state
-    setSelectedIndustry(industry);
+    // Save selected industry to state (may be null for auto-detection)
+    if (industry) {
+      setSelectedIndustry(industry);
+    }
 
     // Validate URL format
     try {

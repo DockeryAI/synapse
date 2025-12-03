@@ -24,7 +24,7 @@ import { urlPreloader } from '@/services/onboarding-v5/url-preloader.service';
 
 interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
-  onUrlSubmit?: (url: string, industry: IndustryOption) => void;
+  onUrlSubmit?: (url: string, industry: IndustryOption | null) => void;
   error?: string | null;
   websiteUrl?: string;
   selectedIndustry?: IndustryOption | null;
@@ -105,10 +105,12 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
       return;
     }
 
-    if (!selectedIndustry) {
-      setLocalError('Please select your business type');
-      return;
-    }
+    // V6: Industry selection is now optional - auto-match happens in background
+    // If no industry selected, we'll detect it from website analysis
+    // if (!selectedIndustry) {
+    //   setLocalError('Please select your business type');
+    //   return;
+    // }
 
     // Validate URL format
     const fullUrl = url.startsWith('http') ? url : `https://${url}`;
@@ -122,6 +124,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
     setLocalError(null);
 
     // If onUrlSubmit is provided, use that (new flow with real extraction)
+    // V6: Pass null industry if not selected - will auto-detect
     if (onUrlSubmit) {
       onUrlSubmit(fullUrl, selectedIndustry);
       return;
