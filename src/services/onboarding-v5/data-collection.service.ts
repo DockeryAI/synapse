@@ -372,17 +372,6 @@ class DataCollectionService {
   }
 
   /**
-   * Get Phase 2 results (await if still loading)
-   */
-  async getPhase2Results(): Promise<any | null> {
-    if (!this.phase2Promise) {
-      console.warn('[DataCollection] Phase 2 not started');
-      return null;
-    }
-    return this.phase2Promise;
-  }
-
-  /**
    * Merge Phase 2 results into existing data package
    */
   async mergePhase2Data(existingPackage: OnboardingDataPackage): Promise<OnboardingDataPackage> {

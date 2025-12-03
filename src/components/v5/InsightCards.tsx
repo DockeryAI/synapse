@@ -51,18 +51,25 @@ const DARK_CARD_BASE = 'flex flex-col rounded-lg border p-3 transition-all durat
 
 export type InsightType = 'trigger' | 'proof' | 'trend' | 'competitor' | 'local' | 'weather';
 
+// V6 source tabs - where the data came from
+export type V6SourceTab = 'voc' | 'community' | 'competitive' | 'trends' | 'search' | 'local_timing';
+
 // Base insight with all optional fields to handle loose data from API
 export interface BaseInsight {
   id: string;
   type: InsightType;
   text: string;
-  source?: string;
+  source?: string | { name?: string; url?: string; verified?: boolean };
   sourceUrl?: string; // URL to the original source (for clickable links)
   timestamp?: string;
   // Common scores that may be present
   confidence?: number;
   urgency?: number;
   category?: string;
+  // V6: Source tab this insight came from (for filtering)
+  sourceTab?: V6SourceTab;
+  // V6: Title for display
+  title?: string;
 }
 
 // All insight types now extend BaseInsight with OPTIONAL type-specific fields

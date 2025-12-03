@@ -15,7 +15,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Briefcase } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { brandApiService } from '@/services/api/brand.service';
 
 export interface IndustrySelectorProps {
   brandId: string;
@@ -65,14 +65,9 @@ export function IndustrySelector({
     if (autoSave && brandId) {
       setIsSaving(true);
       try {
-        const { error } = await supabase
-          .from('brands')
-          .update({ industry })
-          .eq('id', brandId);
-
-        if (error) {
-          console.error('Failed to save industry:', error);
-        }
+        await brandApiService.updateBrand(brandId, {
+          industry
+        });
       } catch (error) {
         console.error('Error saving industry:', error);
       } finally {

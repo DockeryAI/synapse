@@ -230,7 +230,7 @@ ${bridge}`;
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): string[] {
-    const industry = business.industry.toLowerCase().replace(/\s+/g, '');
+    const industry = (business.industry || '').toLowerCase().replace(/\s+/g, '');
 
     return [
       industry,

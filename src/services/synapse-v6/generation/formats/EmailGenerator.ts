@@ -60,13 +60,15 @@ export class EmailGenerator {
       },
 
       psychology: {
+        // V1 Psychology Principles - NOT emotion labels
         principle: framework.id === 'email-pas' ? 'Loss Aversion' : 'Curiosity Gap',
         trigger: {
-          type: framework.id === 'email-pas' ? 'fear' : 'curiosity',
+          // Use psychology principle names, not emotion labels
+          type: framework.id === 'email-pas' ? 'loss_aversion' : 'curiosity_gap',
           strength: 0.85,
           target: 'conversion'
         },
-        persuasionTechnique: framework.id === 'email-pas' ? 'Problem Amplification' : 'AIDA',
+        persuasionTechnique: framework.id === 'email-pas' ? 'Pattern Interrupt' : 'Storytelling',
         expectedReaction: 'I need to click this and learn more'
       },
 

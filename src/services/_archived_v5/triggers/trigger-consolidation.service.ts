@@ -33,7 +33,14 @@ export type TriggerCategory =
   | 'objection'
   | 'motivation'
   | 'trust'
-  | 'urgency';
+  | 'urgency'
+  // V6 source-based categories
+  | 'voc'
+  | 'community'
+  | 'competitive'
+  | 'trends'
+  | 'search'
+  | 'local_timing';
 
 export interface EvidenceItem {
   id: string;

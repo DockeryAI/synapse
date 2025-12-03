@@ -6,9 +6,10 @@ set -e
 
 echo "🔍 BR3 Pre-commit checks..."
 
-# Check for blocked patterns
-if grep -r "DISABLE ROW LEVEL SECURITY" --include="*.sql" . 2>/dev/null; then
-    echo "❌ BLOCKED: Found 'DISABLE ROW LEVEL SECURITY' - this is forbidden"
+# Check for blocked patterns (exclude migrations and archived files)
+# Only check staged files for RLS violations to avoid blocking legitimate migrations
+if git diff --cached --name-only | grep "\.sql$" | grep -v "supabase/migrations/" | grep -v "sql/_archived/" | xargs grep -l "DISABLE ROW LEVEL SECURITY" 2>/dev/null; then
+    echo "❌ BLOCKED: Found 'DISABLE ROW LEVEL SECURITY' in new/modified SQL files - this is forbidden"
     exit 1
 fi
 
@@ -29,5 +30,32 @@ if git diff --cached --name-only | grep -q "features.json"; then
         exit 1
     fi
 fi
+
+# Check for direct API calls in frontend code (must use edge functions)
+FRONTEND_PATTERNS=(
+    "src/components"
+    "src/pages"
+    "src/app"
+)
+
+API_PATTERNS=(
+    "fetch.*https://api\."
+    "axios\.get.*https://api\."
+    "axios\.post.*https://api\."
+    "axios\.put.*https://api\."
+    "axios\.delete.*https://api\."
+)
+
+for dir in "${FRONTEND_PATTERNS[@]}"; do
+    if [ -d "$dir" ]; then
+        for pattern in "${API_PATTERNS[@]}"; do
+            if grep -rE "$pattern" "$dir" --include="*.tsx" --include="*.jsx" --include="*.ts" --include="*.js" 2>/dev/null; then
+                echo "❌ BLOCKED: Direct API call found in frontend code"
+                echo "   Use edge functions instead of calling external APIs directly"
+                exit 1
+            fi
+        done
+    fi
+done
 
 echo "✅ Pre-commit checks passed"

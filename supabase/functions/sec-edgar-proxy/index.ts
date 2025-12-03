@@ -70,7 +70,11 @@ serve(async (req) => {
 
       default:
         return new Response(
-          JSON.stringify({ error: 'Invalid action' }),
+          JSON.stringify({
+            success: false,
+            error: 'Invalid action',
+            source: 'sec-edgar'
+          }),
           { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
     }
@@ -78,22 +82,41 @@ serve(async (req) => {
     if (!response.ok) {
       console.error(`[SEC-EDGAR-PROXY] SEC API error: ${response.status}`);
       return new Response(
-        JSON.stringify({ error: `SEC API error: ${response.status}` }),
+        JSON.stringify({
+          success: false,
+          error: `SEC API error: ${response.status}`,
+          source: 'sec-edgar'
+        }),
         { status: response.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const data = await response.json();
 
+    // Transform to standardized format
+    const result = {
+      success: true,
+      data,
+      source: 'sec-edgar',
+      metadata: {
+        action,
+        params
+      }
+    };
+
     return new Response(
-      JSON.stringify(data),
+      JSON.stringify(result),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
     console.error('[SEC-EDGAR-PROXY] Error:', error);
     return new Response(
-      JSON.stringify({ error: error.message || 'Internal server error' }),
+      JSON.stringify({
+        success: false,
+        error: error.message || 'Internal server error',
+        source: 'sec-edgar'
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

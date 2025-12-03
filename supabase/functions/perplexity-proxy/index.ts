@@ -64,8 +64,19 @@ serve(async (req) => {
 
     const data = await response.json()
 
+    // Transform response to standardized format
+    const result = {
+      success: true,
+      data: data.choices?.[0]?.message?.content || '',
+      source: 'perplexity',
+      metadata: {
+        model: data.model || requestBody.model,
+        usage: data.usage
+      }
+    }
+
     return new Response(
-      JSON.stringify(data),
+      JSON.stringify(result),
       {
         headers: {
           ...corsHeaders,
@@ -78,7 +89,9 @@ serve(async (req) => {
     console.error('[Perplexity Proxy] Error:', error)
     return new Response(
       JSON.stringify({
-        error: error.message || String(error)
+        success: false,
+        error: error.message || String(error),
+        source: 'perplexity'
       }),
       {
         status: 500,

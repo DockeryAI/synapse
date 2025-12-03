@@ -5,7 +5,7 @@
 
 import * as React from 'react'
 import { useBrand } from '@/hooks/useBrand'
-import { supabase } from '@/lib/supabase'
+import { brandApiService } from '@/services/api/brand.service'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -39,15 +39,10 @@ export const BrandHeader: React.FC<{ className?: string }> = ({ className }) => 
 
     setIsSaving(true)
     try {
-      const { error } = await supabase
-        .from('brands')
-        .update({
-          name: editedName,
-          logo_url: editedLogo || null,
-        })
-        .eq('id', currentBrand.id)
-
-      if (error) throw error
+      await brandApiService.updateBrand(currentBrand.id, {
+        name: editedName,
+        logo_url: editedLogo || null,
+      })
 
       await refreshBrand?.()
       setIsEditing(false)

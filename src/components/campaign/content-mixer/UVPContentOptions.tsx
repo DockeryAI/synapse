@@ -55,7 +55,7 @@ interface LocalKeywordBatchResult {
   generatedAt: Date;
 }
 import type { DeepContext } from '@/types/synapse/deepContext.types';
-import type { InsightCard } from '@/components/dashboard/intelligence-v2/types';
+import type { InsightCard } from '@/components/dashboard/_archived/intelligence-v2/types';
 import type { CategorizedInsight } from '@/types/content-mixer.types';
 
 interface UVPContentOptionsProps {
@@ -116,11 +116,10 @@ export function UVPContentOptions({
       id: insight.id,
       type: insight.category as any,
       title: insight.displayTitle || insight.insight,
-      subtitle: insight.dataSource,
-      content: insight.insight,
+      category: insight.dataSource,
       confidence: insight.confidence,
-      source: insight.dataSource,
-      metrics: [],
+      isTimeSensitive: false,
+      description: insight.insight,
     };
   }, []);
 
@@ -230,14 +229,38 @@ export function UVPContentOptions({
 
     setIsLoading(true);
     try {
-      // Get industry trends and data for thought leadership
-      const industryData = {
-        trends: context.industry?.trends || [],
-        competitorInsights: context.competitiveIntel?.opportunities || [],
-        customerPainPoints: context.customerPsychology?.unarticulated || [],
-      };
+      // Get industry trends and data for thought leadership - convert to InsightCard format
+      const trends = (context.industry?.trends || []).map((trend: any) => convertToInsightCard({
+        id: trend.id || Math.random().toString(),
+        category: 'market',
+        insight: trend.trend || trend.title || '',
+        displayTitle: trend.title || trend.trend || '',
+        confidence: trend.confidence || 0.8,
+        dataSource: 'industry-trends'
+      } as unknown as CategorizedInsight));
 
-      const result = contentSynthesis.generateThoughtLeadershipAngles(industryData, context);
+      const competitorInsights = (context.competitiveIntel?.opportunities || []).map((opp: any) => convertToInsightCard({
+        id: opp.id || Math.random().toString(),
+        category: 'competition',
+        insight: opp.opportunity || opp.insight || '',
+        displayTitle: opp.title || opp.opportunity || '',
+        confidence: opp.confidence || 0.8,
+        dataSource: 'competitive-intel'
+      } as unknown as CategorizedInsight));
+
+      const customerPainPoints = (context.customerPsychology?.unarticulated || []).map((pain: any) => convertToInsightCard({
+        id: pain.id || Math.random().toString(),
+        category: 'customer',
+        insight: pain.need || pain.insight || '',
+        displayTitle: pain.title || pain.need || '',
+        confidence: pain.confidence || 0.8,
+        dataSource: 'customer-psychology'
+      } as unknown as CategorizedInsight));
+
+      // Combine all insights into a flat array
+      const allInsights = [...trends, ...competitorInsights, ...customerPainPoints];
+
+      const result = contentSynthesis.generateThoughtLeadershipAngles(allInsights, context);
       setThoughtLeadership(result);
     } catch (error) {
       console.error('[UVPContentOptions] Thought leadership error:', error);
@@ -538,13 +561,13 @@ export function UVPContentOptions({
               {angle.type.replace('_', ' ')}
             </Badge>
             <span className="text-xs text-gray-500">
-              Uniqueness: {Math.round(angle.uniquenessScore * 100)}%
+              Confidence: {Math.round(angle.confidence * 100)}%
             </span>
           </div>
-          <h4 className="font-medium text-gray-900">{angle.headline}</h4>
-          <p className="text-sm text-gray-700">{angle.angle}</p>
+          <h4 className="font-medium text-gray-900">{angle.title}</h4>
+          <p className="text-sm text-gray-700">{angle.hook}</p>
           <div className="flex flex-wrap gap-2">
-            {angle.talkingPoints.slice(0, 3).map((point, pointIdx) => (
+            {angle.supportingPoints.slice(0, 3).map((point, pointIdx) => (
               <Badge key={pointIdx} variant="secondary" className="text-xs">
                 {point}
               </Badge>

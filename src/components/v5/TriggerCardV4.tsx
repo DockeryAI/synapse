@@ -49,6 +49,10 @@ import {
   ChevronUp,
   ExternalLink,
   CheckCircle,
+  Users,
+  TrendingUp,
+  Search,
+  MapPin,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { BorderBeam } from '@/components/ui/border-beam';
@@ -139,6 +143,55 @@ const CATEGORY_CONFIG: Record<TriggerCategory, CategoryConfig> = {
     bgColor: 'bg-purple-950/80',
     borderColor: 'border-purple-700',
     ringColor: 'ring-purple-500',
+  },
+  // V6 Source-Based Categories
+  voc: {
+    icon: Heart,
+    label: 'Voice of Customer',
+    color: 'text-red-400',
+    bgColor: 'bg-red-950/80',
+    borderColor: 'border-red-700',
+    ringColor: 'ring-red-500',
+  },
+  community: {
+    icon: Users,
+    label: 'Community',
+    color: 'text-green-400',
+    bgColor: 'bg-green-950/80',
+    borderColor: 'border-green-700',
+    ringColor: 'ring-green-500',
+  },
+  competitive: {
+    icon: Target,
+    label: 'Competitive',
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-950/80',
+    borderColor: 'border-orange-700',
+    ringColor: 'ring-orange-500',
+  },
+  trends: {
+    icon: TrendingUp,
+    label: 'Industry Trends',
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-950/80',
+    borderColor: 'border-blue-700',
+    ringColor: 'ring-blue-500',
+  },
+  search: {
+    icon: Search,
+    label: 'Search Intent',
+    color: 'text-cyan-400',
+    bgColor: 'bg-cyan-950/80',
+    borderColor: 'border-cyan-700',
+    ringColor: 'ring-cyan-500',
+  },
+  local_timing: {
+    icon: MapPin,
+    label: 'Local/Timing',
+    color: 'text-sky-400',
+    bgColor: 'bg-sky-950/80',
+    borderColor: 'border-sky-700',
+    ringColor: 'ring-sky-500',
   },
 };
 

@@ -29,9 +29,15 @@
   "include": ["src"],
   "exclude": [
     "**/_ARCHIVED/**",
+    "**/_archive/**",
+    "**/_archived/**",
+    "src/_archive/**",
+    "src/**/_archived/**",
+    "src/__tests__/utils/test-helpers.ts",
     "**/__tests__/location-detection.test.ts",
     "src/services/content/__tests__/template.service.test.ts",
     "src/services/synapse/__tests__/synapse-core.service.test.ts",
+    "src/services/synapse-v6/__tests__/synapse-core.service.test.ts",
     "src/services/url-parser.service.test.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]

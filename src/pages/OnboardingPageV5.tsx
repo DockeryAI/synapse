@@ -50,6 +50,8 @@ import { urlPreloader } from '@/services/onboarding-v5/url-preloader.service';
 import { syncUVPProductsToCatalog } from '@/services/product-marketing/uvp-product-sync.service';
 // Specialty Profile Detection - Phase 5 Integration
 import { specialtyDetector } from '@/services/specialty-detection.service';
+// NAICS Silent Auto-Detection - New Profile System
+import { NAICSDetectorService } from '@/services/industry/NAICSDetector.service';
 import type { SpecialtyDetectionInput } from '@/types/specialty-profile.types';
 // Specialty Profile Transform - Phase 6 Integration (UVP → V1 format)
 import { transformUVPToSpecialty } from '@/services/specialty/uvp-to-specialty.transform';
@@ -397,6 +399,7 @@ export const OnboardingPageV5: React.FC = () => {
   const [extractedBusinessName, setExtractedBusinessName] = useState<string>('');
   const [extractedLocation, setExtractedLocation] = useState<string>('');
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
+  const [autoDetectedNAICS, setAutoDetectedNAICS] = useState<{ code: string; name: string; confidence: number } | null>(null);
 
   // Debug: Log when selectedIndustry changes
   React.useEffect(() => {
@@ -658,7 +661,7 @@ export const OnboardingPageV5: React.FC = () => {
       (async () => {
         console.log('[OnboardingPageV5] Detecting location (background, non-blocking)...');
         try {
-          const locationResult = await locationDetectionService.detectLocation(url, industry.displayName);
+          const locationResult = await locationDetectionService.detectLocation(url, industry?.displayName || 'General Business');
           if (locationResult) {
             const loc = locationDetectionService.formatLocation(locationResult);
             console.log('[OnboardingPageV5] Location detected:', loc, `(${locationResult.method}, confidence: ${locationResult.confidence})`);
@@ -668,6 +671,69 @@ export const OnboardingPageV5: React.FC = () => {
           }
         } catch (err) {
           console.error('[OnboardingPageV5] Location detection failed:', err);
+        }
+      })();
+
+      // 🔄 NON-BLOCKING: Silent NAICS industry auto-detection from website content
+      (async () => {
+        console.log('[OnboardingPageV5] 🏭 Auto-detecting NAICS industry (background, non-blocking)...');
+        try {
+          // Build industry description from scraped content
+          const industryHints: string[] = [];
+
+          // Use business name
+          if (businessName && businessName !== 'Your Business') {
+            industryHints.push(businessName);
+          }
+
+          // Use page title/description
+          if (scrapedData?.metadata?.title) {
+            industryHints.push(scrapedData.metadata.title);
+          }
+          if (scrapedData?.metadata?.description) {
+            industryHints.push(scrapedData.metadata.description);
+          }
+
+          // Use headings
+          if (scrapedData?.content?.headings?.length > 0) {
+            industryHints.push(...scrapedData.content.headings.slice(0, 3));
+          }
+
+          // Combine into industry description
+          const industryDescription = industryHints.join(' ').slice(0, 500);
+
+          if (industryDescription.length > 20) {
+            const naicsResult = await NAICSDetectorService.detectNAICSCode(industryDescription);
+
+            console.log('[OnboardingPageV5] 🏭 NAICS auto-detected:', {
+              code: naicsResult.naics_code,
+              name: naicsResult.display_name,
+              confidence: naicsResult.confidence,
+              reasoning: naicsResult.reasoning
+            });
+
+            setAutoDetectedNAICS({
+              code: naicsResult.naics_code,
+              name: naicsResult.display_name,
+              confidence: naicsResult.confidence
+            });
+
+            // Also set as selectedIndustry for compatibility (optional - can be null)
+            if (naicsResult.confidence >= 0.6) {
+              setSelectedIndustry({
+                naicsCode: naicsResult.naics_code,
+                displayName: naicsResult.display_name,
+                category: naicsResult.category,
+                keywords: naicsResult.keywords,
+                source: 'auto-detected'
+              });
+            }
+          } else {
+            console.log('[OnboardingPageV5] 🏭 Not enough content for NAICS detection');
+          }
+        } catch (err) {
+          console.error('[OnboardingPageV5] 🏭 NAICS detection failed (non-blocking):', err);
+          // Non-blocking - continue without industry match
         }
       })();
 
@@ -927,7 +993,7 @@ export const OnboardingPageV5: React.FC = () => {
       // 🚀🚀🚀 PARALLEL OPTIMIZATION: Start Phase 1 (Customers) IMMEDIATELY alongside Phase 0 (Products)
       // This cuts total loading time from ~80s to ~40s by running both phases concurrently
       console.log('🚀🚀🚀 PARALLEL: Starting Phase 1 (Customers) IMMEDIATELY - no waiting for Phase 0! 🚀🚀🚀');
-      dataCollectionService.startPhase1Immediately(scrapedData, businessName, industry.displayName);
+      dataCollectionService.startPhase1Immediately(scrapedData, businessName, industry?.displayName || 'General Business');
 
       // 🔄 NON-BLOCKING: Phase 0 extraction runs in background while skeleton shows
       (async () => {
@@ -936,7 +1002,7 @@ export const OnboardingPageV5: React.FC = () => {
           const collectedOnboardingData = await dataCollectionService.collectPhase1Data(
             scrapedData,
             businessName,
-            industry.displayName,
+            industry?.displayName || 'General Business',
             (progress) => {
               addProgressStep(
                 progress.message,
@@ -1135,12 +1201,12 @@ export const OnboardingPageV5: React.FC = () => {
       console.log('[OnboardingPageV5] Brand set in context');
 
       // Step 5: Navigate to V5 Dashboard
-      console.log('[OnboardingPageV5] Onboarding complete - redirecting to V5 Dashboard');
-      navigate('/v5');
+      console.log('[OnboardingPageV5] Onboarding complete - redirecting to V6 Content Engine');
+      navigate('/v6');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save insights:', error);
       // Navigate to V5 Dashboard anyway to prevent blocking the user
-      navigate('/v5');
+      navigate('/v6');
     }
   };
 
@@ -1239,7 +1305,7 @@ export const OnboardingPageV5: React.FC = () => {
 
     if (!collectedData || !businessData || !refinedData) {
       console.error('[OnboardingPageV5] Missing required data for saving');
-      navigate('/v5');
+      navigate('/v6');
       return;
     }
 
@@ -1291,11 +1357,11 @@ export const OnboardingPageV5: React.FC = () => {
 
       // Step 6: Navigate to V4 Content Engine
       console.log('[OnboardingPageV5] Track E onboarding complete - redirecting to V4 Content');
-      navigate('/v5');
+      navigate('/v6');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save Track E data:', error);
       // Navigate to V4 Content anyway to prevent blocking the user
-      navigate('/v5');
+      navigate('/v6');
     }
   };
 
@@ -2176,7 +2242,7 @@ export const OnboardingPageV5: React.FC = () => {
             .catch(err => console.error('[Specialty Profile] Background generation failed:', err));
         }
 
-        navigate('/v5');
+        navigate('/v6');
       } else {
         throw new Error(result.error || 'Failed to save UVP');
       }
@@ -3040,7 +3106,7 @@ export const OnboardingPageV5: React.FC = () => {
                   }
 
                   // Navigate to V4 Content immediately - no blocking
-                  navigate('/v5');
+                  navigate('/v6');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);
                   alert(`Failed to save UVP: ${result.error}\n\nPlease check the console for more details.`);

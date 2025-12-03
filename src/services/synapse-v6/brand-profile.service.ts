@@ -66,7 +66,7 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'local-b2c': {
     voc: ['outscraper', 'apify-facebook', 'serper'],
     community: ['apify-facebook', 'reddit', 'apify-nextdoor'],
-    competitive: ['semrush', 'meta-ads'],
+    competitive: ['semrush', 'serper'],
     trends: ['newsapi-local', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['openweather', 'serper-events', 'google-places'],
@@ -74,7 +74,7 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'local-b2b': {
     voc: ['outscraper', 'apify-linkedin', 'serper'],
     community: ['linkedin', 'reddit', 'apify-twitter'],
-    competitive: ['semrush', 'meta-ads'],
+    competitive: ['semrush', 'serper'],
     trends: ['newsapi', 'perplexity'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['newsapi', 'serper-events'],
@@ -82,7 +82,7 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'regional-agency': {
     voc: ['apify-clutch', 'apify-upwork', 'linkedin'],
     community: ['reddit-marketing', 'apify-twitter', 'linkedin'],
-    competitive: ['semrush', 'meta-ads'],
+    competitive: ['semrush', 'serper'],
     trends: ['newsapi-marketing', 'apify-twitter'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['newsapi-budgets', 'serper'],
@@ -90,24 +90,24 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'regional-retail': {
     voc: ['outscraper-multi', 'apify-yelp', 'google-places'],
     community: ['reddit-regional', 'facebook-groups'],
-    competitive: ['semrush', 'meta-ads'],
+    competitive: ['semrush', 'serper'],
     trends: ['newsapi-regional', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['openweather', 'google-places', 'newsapi'],
   },
   'national-saas': {
-    voc: ['apify-g2', 'apify-capterra', 'apify-trustradius'],
+    voc: ['reddit', 'apify-twitter', 'apify-g2', 'apify-capterra'],
     community: ['reddit', 'hackernews', 'apify-twitter'],
-    competitive: ['semrush', 'meta-ads'],
-    trends: ['newsapi-tech', 'hackernews', 'perplexity'],
+    competitive: ['semrush', 'serper'],
+    trends: ['buzzsumo', 'newsapi-tech', 'hackernews', 'perplexity'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['newsapi-funding', 'sec-edgar'],
   },
   'national-product': {
     voc: ['apify-amazon', 'reddit', 'apify-tiktok'],
     community: ['reddit', 'apify-tiktok', 'apify-instagram'],
-    competitive: ['semrush', 'meta-ads'],
-    trends: ['newsapi', 'youtube', 'apify-tiktok'],
+    competitive: ['semrush', 'buzzsumo'],
+    trends: ['buzzsumo', 'newsapi', 'youtube', 'apify-tiktok'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['newsapi-holidays', 'openweather'],
   },
@@ -119,33 +119,44 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
 export function detectProfileType(uvp: CompleteUVP): BusinessProfileType {
   const { targetCustomer, uniqueSolution } = uvp;
 
+  console.log('[BrandProfileService] Detecting profile for:', {
+    targetCustomer: targetCustomer?.statement,
+    uniqueSolution: uniqueSolution?.statement
+  });
+
   // Check for SaaS indicators
   const saasKeywords = ['software', 'saas', 'platform', 'app', 'subscription', 'cloud'];
   const isSaas = saasKeywords.some(
     (kw) =>
-      uniqueSolution?.headline?.toLowerCase().includes(kw) ||
-      targetCustomer?.primaryProfile?.toLowerCase().includes(kw)
+      uniqueSolution?.statement?.toLowerCase().includes(kw) ||
+      targetCustomer?.statement?.toLowerCase().includes(kw)
   );
 
   // Check for B2B indicators
-  const b2bKeywords = ['business', 'enterprise', 'company', 'organization', 'team'];
+  const b2bKeywords = ['business', 'enterprise', 'company', 'organization', 'team', 'broker', 'agency', 'owner', 'professional'];
   const isB2B = b2bKeywords.some(
-    (kw) => targetCustomer?.primaryProfile?.toLowerCase().includes(kw)
+    (kw) => targetCustomer?.statement?.toLowerCase().includes(kw)
   );
 
   // Check for local indicators
   const localKeywords = ['local', 'nearby', 'neighborhood', 'community'];
+  const geographicScope = targetCustomer?.marketGeography?.scope || '';
   const isLocal =
-    localKeywords.some((kw) => targetCustomer?.primaryProfile?.toLowerCase().includes(kw)) ||
-    targetCustomer?.geographicFocus?.toLowerCase().includes('local');
+    localKeywords.some((kw) => targetCustomer?.statement?.toLowerCase().includes(kw)) ||
+    geographicScope === 'local';
 
   // Check for multi-location
   const isMultiLocation =
-    targetCustomer?.geographicFocus?.toLowerCase().includes('regional') ||
-    targetCustomer?.geographicFocus?.toLowerCase().includes('multi');
+    geographicScope === 'regional' ||
+    (targetCustomer?.marketGeography?.primaryRegions?.length || 0) > 1;
+
+  console.log('[BrandProfileService] Detection flags:', {
+    isSaas, isB2B, isLocal, isMultiLocation
+  });
 
   // Decision tree
   if (isSaas) {
+    console.log('[BrandProfileService] Detected: national-saas (SaaS indicators found)');
     return 'national-saas';
   }
 
@@ -172,10 +183,10 @@ export function detectProfileType(uvp: CompleteUVP): BusinessProfileType {
  */
 function generateProfileHash(uvp: CompleteUVP): string {
   const hashInput = JSON.stringify({
-    customer: uvp.targetCustomer?.primaryProfile,
-    benefit: uvp.keyBenefit?.headline,
-    solution: uvp.uniqueSolution?.headline,
-    transformation: uvp.transformation?.beforeState,
+    customer: uvp.targetCustomer?.statement,
+    benefit: uvp.keyBenefit?.statement,
+    solution: uvp.uniqueSolution?.statement,
+    transformation: uvp.transformationGoal?.before,
   });
 
   // Use simple hash since crypto might not be available in browser
@@ -189,33 +200,10 @@ function generateProfileHash(uvp: CompleteUVP): string {
 }
 
 /**
- * Get or create brand profile from UVP
+ * Create in-memory profile (fallback when DB unavailable)
  */
-export async function getOrCreateBrandProfile(
-  brandId: string,
-  uvp: CompleteUVP
-): Promise<BrandProfile | null> {
+function createInMemoryProfile(brandId: string, uvp: CompleteUVP): BrandProfile {
   const profileHash = generateProfileHash(uvp);
-
-  // Check for existing profile with same hash
-  const { data: existing, error: fetchError } = await supabase
-    .from('brand_profiles')
-    .select('*')
-    .eq('brand_id', brandId)
-    .eq('profile_hash', profileHash)
-    .maybeSingle();
-
-  if (fetchError) {
-    console.error('[BrandProfileService] Error fetching profile:', fetchError);
-    return null;
-  }
-
-  if (existing) {
-    console.log('[BrandProfileService] Found existing profile:', existing.profile_type);
-    return existing as BrandProfile;
-  }
-
-  // Detect profile type
   const profileType = detectProfileType(uvp);
   const apiPriorities = PROFILE_API_PRIORITIES[profileType];
 
@@ -229,29 +217,94 @@ export async function getOrCreateBrandProfile(
     'local_timing',
   ];
 
-  // Create new profile
-  const newProfile = {
+  return {
+    id: `local-${brandId}-${profileHash}`,
     brand_id: brandId,
     profile_hash: profileHash,
     profile_type: profileType,
     uvp_data: uvp,
     enabled_tabs: enabledTabs,
     api_priorities: apiPriorities,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
   };
+}
 
-  const { data: created, error: createError } = await supabase
-    .from('brand_profiles')
-    .insert(newProfile)
-    .select()
-    .single();
+/**
+ * Get or create brand profile from UVP
+ */
+export async function getOrCreateBrandProfile(
+  brandId: string,
+  uvp: CompleteUVP
+): Promise<BrandProfile> {
+  const profileHash = generateProfileHash(uvp);
 
-  if (createError) {
-    console.error('[BrandProfileService] Error creating profile:', createError);
-    return null;
+  try {
+    // Check for existing profile with same hash
+    const { data: existing, error: fetchError } = await supabase
+      .from('brand_profiles')
+      .select('*')
+      .eq('brand_id', brandId)
+      .eq('profile_hash', profileHash)
+      .maybeSingle();
+
+    // Handle missing table gracefully
+    if (fetchError) {
+      if (fetchError.code === '42P01' || fetchError.code === 'PGRST205' ||
+          fetchError.message?.includes('relation') || fetchError.message?.includes('brand_profiles')) {
+        console.log('[BrandProfileService] brand_profiles table not found - using in-memory profile');
+        return createInMemoryProfile(brandId, uvp);
+      }
+      console.error('[BrandProfileService] Error fetching profile:', fetchError);
+      return createInMemoryProfile(brandId, uvp);
+    }
+
+    if (existing) {
+      console.log('[BrandProfileService] Found existing profile:', existing.profile_type);
+      return existing as BrandProfile;
+    }
+
+    // Detect profile type
+    const profileType = detectProfileType(uvp);
+    const apiPriorities = PROFILE_API_PRIORITIES[profileType];
+
+    // All tabs enabled by default
+    const enabledTabs: InsightTab[] = [
+      'voc',
+      'community',
+      'competitive',
+      'trends',
+      'search',
+      'local_timing',
+    ];
+
+    // Create new profile
+    const newProfile = {
+      brand_id: brandId,
+      profile_hash: profileHash,
+      profile_type: profileType,
+      uvp_data: uvp,
+      enabled_tabs: enabledTabs,
+      api_priorities: apiPriorities,
+    };
+
+    const { data: created, error: createError } = await supabase
+      .from('brand_profiles')
+      .insert(newProfile)
+      .select()
+      .single();
+
+    if (createError) {
+      console.error('[BrandProfileService] Error creating profile (using in-memory):', createError);
+      return createInMemoryProfile(brandId, uvp);
+    }
+
+    console.log('[BrandProfileService] Created new profile:', created.profile_type);
+    return created as BrandProfile;
+  } catch (err) {
+    console.error('[BrandProfileService] Unexpected error (using in-memory):', err);
+    return createInMemoryProfile(brandId, uvp);
   }
-
-  console.log('[BrandProfileService] Created new profile:', created.profile_type);
-  return created as BrandProfile;
 }
 
 /**

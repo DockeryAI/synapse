@@ -17,7 +17,7 @@ import { ProfileGenerationLoading } from './ProfileGenerationLoading';
 import { DetailedResearchAnimation } from './DetailedResearchAnimation';
 import { ConfirmCodeDetectionDialog } from './ConfirmCodeDetectionDialog';
 import type { GenerationProgress } from '../../services/industry/OnDemandProfileGeneration';
-import { supabase } from '@/lib/supabase';
+import { industryApiService } from '@/services/api/industry.service';
 
 export interface IndustryOption {
   naicsCode: string;
@@ -127,22 +127,16 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   useEffect(() => {
     const loadIndustries = async () => {
       try {
-        // Load from naics_codes table
-        const { data, error } = await supabase
-          .from('naics_codes')
-          .select('code, title, keywords, category, has_full_profile, popularity');
+        // Load from industry API service
+        const industryData = await industryApiService.getIndustryData();
 
-        if (error) {
-          // Silently fall back to static data - RLS policy errors are expected for non-authenticated users
-          // console.warn('[IndustrySelector] Failed to load from database, using static data:', error.message);
+        if (!industryData.naics || industryData.naics.length === 0) {
+          // Silently fall back to static data - API errors are expected in some cases
           return;
         }
 
-        // Also check industry_profiles to see which profiles actually exist
-        const { data: profileData } = await supabase
-          .from('industry_profiles')
-          .select('id, name')
-          .eq('is_active', true);
+        const data = industryData.naics;
+        const profileData = industryData.profiles;
 
         const profileIds = new Set(profileData?.map(p => p.id) || []);
 

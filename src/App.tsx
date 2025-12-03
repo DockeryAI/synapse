@@ -4,6 +4,7 @@ import { BrandProvider } from './contexts/BrandContext'
 import { BrandProfileProvider } from './contexts/BrandProfileContext'
 import { LoadingSpinner } from './components/ui/LoadingSpinner'
 import { AppLayout } from './components/layout/AppLayout'
+import { BRLogger } from '../.buildrunner/components/br-logger'
 
 // Lazy-loaded pages for code splitting
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
@@ -15,8 +16,8 @@ const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').the
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
 const BrandProfilePage = lazy(() => import('./pages/BrandProfilePage').then(m => ({ default: m.BrandProfilePage })))
-// V5 Content Engine - Full Synapse, UVP, Industry, EQ integration
-const V5ContentPage = lazy(() => import('./pages/V5ContentPage').then(m => ({ default: m.V5ContentPage })))
+// V6 Content Engine - Profile-based API orchestration
+const V6ContentPage = lazy(() => import('./pages/V6ContentPage').then(m => ({ default: m.V6ContentPage })))
 // V4ContentPage archived - V5 hooks available at @/hooks/v5
 // const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ default: m.V4ContentPage })))
 // Dev pages archived - V5 hooks available at @/hooks/v5
@@ -37,6 +38,7 @@ function App() {
   return (
     <BrandProvider>
       <BrandProfileProvider>
+        <BRLogger />
         <div className="min-h-screen bg-gray-50">
         {/* Accessibility: Skip to main content link */}
         <a
@@ -80,9 +82,10 @@ function App() {
                 {/* Brand Profile / UVP Settings */}
                 <Route path="/brand-profile" element={<BrandProfilePage />} />
 
-                {/* V5 Content Engine - Full Synapse, UVP, Industry, EQ integration */}
-                <Route path="/v5" element={<V5ContentPage />} />
-                <Route path="/v5-content" element={<V5ContentPage />} />
+                {/* V6 Content Engine - Profile-based API orchestration */}
+                <Route path="/v6" element={<V6ContentPage />} />
+                <Route path="/v6-content" element={<V6ContentPage />} />
+                <Route path="/synapse-v6" element={<V6ContentPage />} />
 
                 {/* Catch-all route - redirect unknown paths to dashboard */}
                 <Route path="*" element={<DashboardPage />} />

@@ -292,7 +292,7 @@ export class DataPostGenerator {
    * Checks INDUSTRY FIRST to prevent content keywords from triggering wrong CTAs
    */
   private buildActionStage(business: BusinessProfile, targetAudience: string): string {
-    const industry = business.industry.toLowerCase();
+    const industry = (business.industry || '').toLowerCase();
 
     // Industry-specific CTAs - check business type FIRST
     if (industry.includes('cleaning') || industry.includes('janitorial') || industry.includes('facility')) {
@@ -386,7 +386,7 @@ export class DataPostGenerator {
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): string[] {
-    const industry = business.industry.toLowerCase().replace(/\s+/g, '');
+    const industry = (business.industry || '').toLowerCase().replace(/\s+/g, '');
 
     return [
       industry,
@@ -401,7 +401,7 @@ export class DataPostGenerator {
    * Explain why a specific CTA was chosen
    */
   private explainCTAChoice(business: BusinessProfile): string {
-    const industry = business.industry.toLowerCase();
+    const industry = (business.industry || '').toLowerCase();
 
     if (industry.includes('cleaning') || industry.includes('janitorial') || industry.includes('facility')) {
       return 'Cleaning service CTA emphasizes professional results and reliability - key factors for commercial clients';

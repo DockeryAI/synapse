@@ -116,51 +116,38 @@ export function createMockScrapedDataWithTestimonials(): WebsiteData {
  * Assert EQ score structure is valid
  */
 export function assertEQScoreValid(score: EQScore): void {
-  // Check all required fields exist
+  // Check all required V6 fields exist
   expect(score).toHaveProperty('overall');
-  expect(score).toHaveProperty('emotional_resonance');
-  expect(score).toHaveProperty('identity_alignment');
-  expect(score).toHaveProperty('urgency_signals');
-  expect(score).toHaveProperty('breakdown');
-  expect(score).toHaveProperty('classification');
-  expect(score).toHaveProperty('reasoning');
+  expect(score).toHaveProperty('emotional');
+  expect(score).toHaveProperty('rational');
+  expect(score).toHaveProperty('confidence');
+  expect(score).toHaveProperty('calculation_method');
 
   // Check types
   expect(typeof score.overall).toBe('number');
-  expect(typeof score.emotional_resonance).toBe('number');
-  expect(typeof score.identity_alignment).toBe('number');
-  expect(typeof score.urgency_signals).toBe('number');
-  expect(typeof score.classification).toBe('string');
-  expect(typeof score.reasoning).toBe('string');
+  expect(typeof score.emotional).toBe('number');
+  expect(typeof score.rational).toBe('number');
+  expect(typeof score.confidence).toBe('number');
+  expect(typeof score.calculation_method).toBe('string');
 
   // Check ranges (0-100)
   expect(score.overall).toBeGreaterThanOrEqual(0);
   expect(score.overall).toBeLessThanOrEqual(100);
-  expect(score.emotional_resonance).toBeGreaterThanOrEqual(0);
-  expect(score.emotional_resonance).toBeLessThanOrEqual(100);
-  expect(score.identity_alignment).toBeGreaterThanOrEqual(0);
-  expect(score.identity_alignment).toBeLessThanOrEqual(100);
-  expect(score.urgency_signals).toBeGreaterThanOrEqual(0);
-  expect(score.urgency_signals).toBeLessThanOrEqual(100);
+  expect(score.emotional).toBeGreaterThanOrEqual(0);
+  expect(score.emotional).toBeLessThanOrEqual(100);
+  expect(score.rational).toBeGreaterThanOrEqual(0);
+  expect(score.rational).toBeLessThanOrEqual(100);
+  expect(score.confidence).toBeGreaterThanOrEqual(0);
+  expect(score.confidence).toBeLessThanOrEqual(100);
 
-  // Check breakdown structure
-  expect(score.breakdown).toHaveProperty('emotionalWords');
-  expect(score.breakdown).toHaveProperty('totalWords');
-  expect(score.breakdown).toHaveProperty('identityPhrases');
-  expect(score.breakdown).toHaveProperty('urgencyPhrases');
-
-  // Check classification is valid
-  const validClassifications = [
-    'highly-emotional',
-    'emotional',
-    'balanced',
-    'rational',
-    'highly-rational'
+  // Check calculation method is valid
+  const validMethods = [
+    'specialty_based',
+    'pattern_based',
+    'content_only',
+    'hybrid'
   ];
-  expect(validClassifications).toContain(score.classification);
-
-  // Check reasoning is not empty
-  expect(score.reasoning.length).toBeGreaterThan(0);
+  expect(validMethods).toContain(score.calculation_method);
 }
 
 /**

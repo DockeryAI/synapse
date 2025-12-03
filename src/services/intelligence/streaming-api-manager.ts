@@ -2322,9 +2322,19 @@ ${STRUCTURED_JSON_FORMAT}`
       const searchQueries = this.currentSearchQueries;
       const targetCustomer = searchQueries?.targetCustomer || brand.targetCustomers || 'users';
 
-      // Build psychology-focused search query using PRODUCT CATEGORY
-      // FIXED: Use productCategory (from UVP) instead of generic NAICS industry
-      const searchQuery = `${productCategory} ${targetCustomer} problems frustrated`;
+      // Build V1-aligned search query for B2B vs B2C
+      // V1 FIX: For B2B, search for END CUSTOMER problems, not target customer problems
+      let searchQuery: string;
+
+      if (this.isB2BProfile(this.currentProfileType)) {
+        // B2B: Search for what the target customer's customers are saying
+        // Example: OpenDialog sells to insurance brokers → search for insurance buyer problems
+        const endCustomerContext = this.extractEndCustomerContext(targetCustomer, productCategory);
+        searchQuery = `${endCustomerContext} problems frustrated shopping buying`;
+      } else {
+        // B2C: Search for direct customer problems
+        searchQuery = `${productCategory} ${targetCustomer} problems frustrated`;
+      }
 
       console.log('[StreamingAPI] Reddit search query (product-specific):', searchQuery);
 
@@ -3181,9 +3191,52 @@ ${STRUCTURED_JSON_FORMAT}`
       'national-saas-b2b',
       'global-saas-b2b',
       'regional-b2b-agency',
-      'local-service-b2b'
+      'local-service-b2b',
+      // New types from brand-profile.service
+      'local-b2b',
+      'national-saas'
     ];
     return b2bProfiles.includes(profileType);
+  }
+
+  /**
+   * Extract end customer context for B2B query construction
+   * Converts target customer to their customer's problems
+   *
+   * Example: "Insurance broker/agency owner" → "insurance buyers customers"
+   */
+  private extractEndCustomerContext(targetCustomer: string, productCategory: string): string {
+    // B2B industry mappings to end customer contexts
+    const industryMappings: Record<string, string> = {
+      'insurance': 'insurance buyers customers shopping for coverage',
+      'real estate': 'home buyers sellers real estate customers',
+      'automotive': 'car buyers auto customers vehicle shoppers',
+      'healthcare': 'patients healthcare customers medical',
+      'finance': 'financial services customers banking clients',
+      'legal': 'legal clients law firm customers',
+      'accounting': 'small business owners tax clients',
+      'marketing': 'marketing clients business owners',
+      'consulting': 'consulting clients business executives',
+      'software': 'software users technology customers'
+    };
+
+    // Extract industry from target customer or product category
+    const targetLower = targetCustomer.toLowerCase();
+
+    for (const [industry, endCustomer] of Object.entries(industryMappings)) {
+      if (targetLower.includes(industry) || productCategory.toLowerCase().includes(industry)) {
+        return endCustomer;
+      }
+    }
+
+    // Default fallback: extract the industry and add "customers"
+    const industryWords = targetCustomer.match(/(\w+)\s+(broker|agent|owner|professional|consultant)/i);
+    if (industryWords && industryWords[1]) {
+      return `${industryWords[1]} customers buyers clients`;
+    }
+
+    // Final fallback
+    return `customers buyers clients shopping`;
   }
 
   /**

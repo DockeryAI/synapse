@@ -16,7 +16,7 @@
  * Created: 2025-12-01
  */
 
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo, memo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart,
@@ -29,13 +29,17 @@ import {
   SortDesc,
   Search,
   RefreshCw,
+  Users,
+  Zap,
+  Loader2,
 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { InsightCard, type Insight, type InsightType, type TriggerInsight } from './InsightCards';
+import { InsightCard, type Insight, type InsightType, type TriggerInsight, type V6SourceTab } from './InsightCards';
 
-// Triggers V5 Simplified - No filter complexity, sorted by source count
-import { TriggerCardGrid, ProgressiveLoadingGrid } from './TriggerCardV4';
-import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from '@/services/triggers/trigger-consolidation.service';
+// V6: Use new V6 insight types and components (no emotion pipeline)
+import { V6InsightGrid } from '@/components/v6/V6InsightCard';
+import { toV6Insight, type V6Insight } from '@/services/synapse-v6/v6-insight-types';
+import { useV6ConnectionDiscovery } from '@/hooks/useV6ConnectionDiscovery';
 import type { PassType } from '@/services/triggers/trigger-synthesis.service';
 
 // ============================================================================
@@ -95,6 +99,7 @@ interface TabConfig {
   description: string;
 }
 
+// V6 Tab Configuration - Per Build Plan Phase 4
 const BASE_TABS: TabConfig[] = [
   {
     id: 'all',
@@ -106,54 +111,55 @@ const BASE_TABS: TabConfig[] = [
   },
   {
     id: 'triggers',
-    label: 'Triggers',
+    label: 'Voice of Customer',
     icon: Heart,
     color: 'text-red-600',
     activeColor: 'bg-red-600',
-    description: 'Psychological hooks and emotional drivers',
+    description: 'Direct customer language from reviews & testimonials',
   },
   {
     id: 'proof',
-    label: 'Proof',
+    label: 'Community',
     icon: CheckCircle2,
     color: 'text-green-600',
     activeColor: 'bg-green-600',
-    description: 'Social proof, testimonials, metrics',
-  },
-  {
-    id: 'trends',
-    label: 'Trends',
-    icon: TrendingUp,
-    color: 'text-blue-600',
-    activeColor: 'bg-blue-600',
-    description: 'Timely topics and industry shifts',
+    description: 'Organic conversations from Reddit, forums, social',
   },
   {
     id: 'competition',
-    label: 'Competition',
+    label: 'Competitive',
     icon: Target,
     color: 'text-orange-600',
     activeColor: 'bg-orange-600',
-    description: 'Competitor gaps and opportunities',
+    description: 'Competitor positioning and gaps',
+  },
+  {
+    id: 'trends',
+    label: 'Industry Trends',
+    icon: TrendingUp,
+    color: 'text-blue-600',
+    activeColor: 'bg-blue-600',
+    description: 'Emerging patterns and market shifts',
   },
 ];
 
+// V6 Extended Tabs - Search Intent + Local/Timing
 const EXTENDED_TABS: TabConfig[] = [
   {
     id: 'local',
-    label: 'Local',
-    icon: MapPin,
+    label: 'Search Intent',
+    icon: Search,
     color: 'text-cyan-600',
     activeColor: 'bg-cyan-600',
-    description: 'Community events and local news',
+    description: 'What prospects are searching for',
   },
   {
     id: 'weather',
-    label: 'Weather',
-    icon: Cloud,
+    label: 'Local/Timing',
+    icon: MapPin,
     color: 'text-sky-600',
     activeColor: 'bg-sky-600',
-    description: 'Weather-triggered opportunities',
+    description: 'Weather, events, seasonal signals',
   },
 ];
 
@@ -170,119 +176,15 @@ const SORT_OPTIONS: { id: SortOption; label: string }[] = [
 ];
 
 // ============================================================================
-// INSIGHT TO CONSOLIDATED TRIGGER ADAPTER
+// V6 INSIGHT ADAPTER
 // ============================================================================
 
 /**
- * Converts Insight[] (trigger type) to ConsolidatedTrigger[] format
- * for use with the V4 TriggerCardGrid component.
- *
- * This adapter bridges the generic Insight format from the API
- * to the rich ConsolidatedTrigger format expected by the V4 components.
+ * V6: Convert generic Insights to V6Insight format
+ * NO emotion categorization - just source-based tabs
  */
-function insightsToConsolidatedTriggers(insights: Insight[], uvpData?: UVPData): ConsolidatedTrigger[] {
-  return insights
-    .filter((insight): insight is TriggerInsight => insight.type === 'trigger')
-    .map((insight): ConsolidatedTrigger => {
-      // Map category - normalize to valid TriggerCategory
-      const categoryMap: Record<string, TriggerCategory> = {
-        fear: 'fear',
-        desire: 'desire',
-        'pain-point': 'pain-point',
-        objection: 'objection',
-        motivation: 'motivation',
-        trust: 'trust',
-        urgency: 'urgency',
-      };
-      const category = categoryMap[insight.category?.toLowerCase() || 'motivation'] || 'motivation';
-
-      // Build evidence array from the insight's source
-      const evidence: EvidenceItem[] = [];
-      if (insight.source || insight.sourceUrl) {
-        evidence.push({
-          id: `${insight.id}-evidence-1`,
-          source: insight.source || 'Unknown',
-          platform: extractPlatformFromSource(insight.source || insight.sourceUrl || ''),
-          quote: insight.text,
-          url: insight.sourceUrl,
-          sentiment: 'neutral',
-          confidence: (insight.confidence ?? 50) / 100,
-          // verifiedSourceId would be set by the source preservation system
-          // For now, we don't have it from the generic Insight format
-        });
-      }
-
-      // Create concise title: first sentence or ~60 chars
-      const fullText = insight.text;
-      let title = fullText;
-      // Try to get first sentence
-      const sentenceMatch = fullText.match(/^[^.!?]+[.!?]/);
-      if (sentenceMatch && sentenceMatch[0].length <= 80) {
-        title = sentenceMatch[0].trim();
-      } else if (fullText.length > 60) {
-        // Truncate at word boundary around 60 chars
-        const truncated = fullText.substring(0, 65);
-        const lastSpace = truncated.lastIndexOf(' ');
-        title = (lastSpace > 40 ? truncated.substring(0, lastSpace) : truncated) + '...';
-      }
-
-      // Generate UVP alignments based on trigger content and brand UVP
-      const uvpAlignments = generateUVPAlignments(fullText, uvpData);
-      const isHighUVPAlignment = uvpAlignments.length >= 2;
-
-      return {
-        id: insight.id,
-        category,
-        title,
-        executiveSummary: fullText,
-        confidence: (insight.confidence ?? 50) / 100,
-        evidenceCount: evidence.length,
-        evidence,
-        uvpAlignments,
-        isHighUVPAlignment,
-        isTimeSensitive: insight.isSurge || false,
-        profileRelevance: 0.5,
-        rawSourceIds: [insight.id],
-        buyerJourneyStage: insight.buyingStage as any,
-      };
-    });
-}
-
-/**
- * Extract platform name from source string or URL
- */
-function extractPlatformFromSource(source: string): string {
-  const lower = source.toLowerCase();
-  if (lower.includes('reddit')) return 'reddit';
-  if (lower.includes('twitter') || lower.includes('x.com')) return 'twitter';
-  if (lower.includes('youtube')) return 'youtube';
-  if (lower.includes('linkedin')) return 'linkedin';
-  if (lower.includes('g2')) return 'g2';
-  if (lower.includes('trustpilot')) return 'trustpilot';
-  if (lower.includes('hackernews') || lower.includes('ycombinator')) return 'hackernews';
-  if (lower.includes('quora')) return 'quora';
-  // Specialty triggers - honest source attribution
-  if (lower.includes('uvp') || lower.includes('analysis')) return 'uvp-analysis';
-  if (lower.includes('industry') || lower.includes('profile')) return 'industry-profile';
-  return 'unknown';
-}
-
-/**
- * PHASE 19: DISABLED - Naive keyword matching produces garbage like "mentions 'leader'"
- *
- * UVP alignments should come from:
- * 1. Specialty profile triggers (already have proper uvpAlignments from consolidation service)
- * 2. trigger-consolidation.service.ts addUVPAlignments() with real semantic matching
- *
- * This function is kept but DISABLED - always returns empty array.
- * Real alignments come from the trigger.uvpAlignments field set by the backend.
- */
-function generateUVPAlignments(_triggerText: string, _uvpData?: UVPData): string[] {
-  // PHASE 19: Return empty - don't generate fake alignments from keywords
-  // Real alignments should come from:
-  // - Specialty profile conversion (llm-trigger-synthesizer.service.ts)
-  // - Consolidation service (trigger-consolidation.service.ts addUVPAlignments)
-  return [];
+function insightsToV6(insights: Insight[]): V6Insight[] {
+  return insights.map(insight => toV6Insight(insight));
 }
 
 // ============================================================================
@@ -345,6 +247,18 @@ export const InsightTabs = memo(function InsightTabs({
   const [sortBy, setSortBy] = useState<SortOption>('sources');
   const [showFilters, setShowFilters] = useState(false);
 
+  // V6 Connection Discovery - V1 engine integration
+  const {
+    isAnalyzing: isAnalyzingConnections,
+    insights: connectedInsights,
+    stats: connectionStats,
+    threeWayConnections,
+    error: connectionError,
+    analyzeConnections,
+    clearConnections,
+  } = useV6ConnectionDiscovery();
+  const [showConnections, setShowConnections] = useState(false);
+
   // Build available tabs based on enabledTabs
   const availableTabs = useMemo(() => {
     const tabs = [...BASE_TABS];
@@ -361,6 +275,20 @@ export const InsightTabs = memo(function InsightTabs({
   }, [enabledTabs]);
 
   // Map filter type to insight type
+  // V6: Map UI filter tabs to sourceTab values
+  const filterToSourceTab = (filter: FilterType): V6SourceTab | null => {
+    switch (filter) {
+      case 'triggers': return 'voc';
+      case 'proof': return 'community';
+      case 'competition': return 'competitive';
+      case 'trends': return 'trends';
+      case 'local': return 'search';
+      case 'weather': return 'local_timing';
+      default: return null;
+    }
+  };
+
+  // Legacy: Map to insight type for V5 fallback
   const filterToInsightType = (filter: FilterType): InsightType | null => {
     switch (filter) {
       case 'triggers': return 'trigger';
@@ -377,21 +305,33 @@ export const InsightTabs = memo(function InsightTabs({
   const filteredInsights = useMemo(() => {
     let filtered = [...insights];
 
-    // Filter by tab
+    // Filter by tab - V6 uses sourceTab, fallback to type for V5
     if (activeFilter !== 'all') {
+      const sourceTab = filterToSourceTab(activeFilter);
       const insightType = filterToInsightType(activeFilter);
-      if (insightType) {
-        filtered = filtered.filter(i => i.type === insightType);
-      }
+
+      filtered = filtered.filter(i => {
+        // V6: Check sourceTab first
+        if (i.sourceTab) {
+          return i.sourceTab === sourceTab;
+        }
+        // V5 fallback: Check insight type
+        return i.type === insightType;
+      });
     }
 
     // Filter by search
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(i =>
-        i.text.toLowerCase().includes(query) ||
-        i.source?.toLowerCase().includes(query)
-      );
+      filtered = filtered.filter(i => {
+        const textMatch = i.text?.toLowerCase().includes(query);
+        // Handle source as string or object
+        const sourceStr = typeof i.source === 'object'
+          ? (i.source as any)?.name || ''
+          : i.source || '';
+        const sourceMatch = sourceStr.toLowerCase().includes(query);
+        return textMatch || sourceMatch;
+      });
     }
 
     // Sort - Phase 7 V5 Simplified: Sort by source count (honest metric)
@@ -414,30 +354,40 @@ export const InsightTabs = memo(function InsightTabs({
     return filtered;
   }, [insights, activeFilter, searchQuery, sortBy]);
 
-  // Count insights by type
+  // Count insights by sourceTab (V6) with fallback to type (V5)
   const insightCounts = useMemo(() => {
+    const countBySourceTab = (sourceTab: V6SourceTab, fallbackType: InsightType) => {
+      return insights.filter(i => i.sourceTab ? i.sourceTab === sourceTab : i.type === fallbackType).length;
+    };
+
     return {
       all: insights.length,
-      triggers: insights.filter(i => i.type === 'trigger').length,
-      proof: insights.filter(i => i.type === 'proof').length,
-      trends: insights.filter(i => i.type === 'trend').length,
-      competition: insights.filter(i => i.type === 'competitor').length,
-      local: insights.filter(i => i.type === 'local').length,
-      weather: insights.filter(i => i.type === 'weather').length,
+      triggers: countBySourceTab('voc', 'trigger'),
+      proof: countBySourceTab('community', 'proof'),
+      trends: countBySourceTab('trends', 'trend'),
+      competition: countBySourceTab('competitive', 'competitor'),
+      local: countBySourceTab('search', 'local'),
+      weather: countBySourceTab('local_timing', 'weather'),
     };
   }, [insights]);
 
-  // Triggers V5 Simplified: Convert insights to ConsolidatedTrigger format, sort by source count
-  const consolidatedTriggers = useMemo(() => {
-    const allTriggers = insightsToConsolidatedTriggers(insights, uvpData);
-    // Sort by source count (honest metric) - no filter complexity
-    return allTriggers.sort((a, b) => (b.evidence?.length || 0) - (a.evidence?.length || 0));
-  }, [insights, uvpData]);
+  // V6: Convert all insights to V6 format (no emotion categorization)
+  // Use connected insights when available (after connection analysis)
+  const v6Insights = useMemo(() => {
+    if (showConnections && connectedInsights.length > 0) {
+      // Filter connected insights by current tab/search
+      const filteredIds = new Set(filteredInsights.map(i => i.id));
+      return connectedInsights.filter(ci => filteredIds.has(ci.id));
+    }
+    return insightsToV6(filteredInsights);
+  }, [filteredInsights, showConnections, connectedInsights]);
 
-  // Handler for trigger card click - toggles selection
-  const handleTriggerClick = (trigger: ConsolidatedTrigger) => {
-    onToggleInsight(trigger.id);
-  };
+  // Handler for Find Connections button
+  const handleFindConnections = useCallback(async () => {
+    const allV6 = insightsToV6(insights);
+    await analyzeConnections(allV6);
+    setShowConnections(true);
+  }, [insights, analyzeConnections]);
 
   return (
     <div className="flex flex-col h-full">
@@ -546,6 +496,28 @@ export const InsightTabs = memo(function InsightTabs({
           </AnimatePresence>
         </div>
 
+        {/* V6: Find Connections Button */}
+        <button
+          onClick={handleFindConnections}
+          disabled={isAnalyzingConnections || insights.length < 2}
+          className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border transition-all ${
+            showConnections
+              ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400'
+              : 'border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300'
+          } ${isAnalyzingConnections ? 'opacity-70' : ''}`}
+          title="Find cross-domain connections using V1 engine"
+        >
+          {isAnalyzingConnections ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Zap className="w-4 h-4" />
+          )}
+          <span>{showConnections ? 'Connections On' : 'Find Connections'}</span>
+          {connectionStats && (
+            <span className="text-xs opacity-70">({connectionStats.totalConnections})</span>
+          )}
+        </button>
+
         {/* Selected Count */}
         {selectedInsights.size > 0 && (
           <div className="px-2.5 py-1 text-xs font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
@@ -554,57 +526,47 @@ export const InsightTabs = memo(function InsightTabs({
         )}
       </div>
 
-      {/* Content Area */}
+      {/* V6: Connection Stats Bar (when connections active) */}
+      {showConnections && connectionStats && (
+        <div className="flex-shrink-0 flex items-center gap-4 px-4 py-2 border-b border-yellow-500/30 bg-yellow-500/10">
+          <div className="flex items-center gap-1.5 text-sm text-yellow-400">
+            <Zap className="w-4 h-4" />
+            <span className="font-medium">{connectionStats.totalConnections} connections</span>
+          </div>
+          <div className="text-xs text-yellow-400/70">
+            {connectionStats.crossDomainConnections} cross-domain
+          </div>
+          {threeWayConnections.length > 0 && (
+            <div className="text-xs text-yellow-300 font-medium">
+              ⚡ {threeWayConnections.length} breakthrough{threeWayConnections.length !== 1 ? 's' : ''}!
+            </div>
+          )}
+          <button
+            onClick={() => {
+              setShowConnections(false);
+              clearConnections();
+            }}
+            className="ml-auto text-xs text-yellow-400/70 hover:text-yellow-300"
+          >
+            Clear
+          </button>
+        </div>
+      )}
+
+      {/* Content Area - V6: All tabs use V6InsightGrid (no emotion pipeline) */}
       <ScrollArea className="flex-1">
-        <div className="p-4 space-y-3">
-          {/* Triggers Tab - use ProgressiveLoadingGrid for multi-pass loading */}
-          {activeFilter === 'triggers' ? (
-            // TRIGGERS V5 SIMPLIFIED: No filter complexity, sorted by source count
-            <>
-              {/* V4 Trigger Card Grid with Progressive Loading */}
-              {triggerLoadingState?.isLoading || isLoading ? (
-                // Progressive loading: show loaded triggers + skeletons for remaining
-                <ProgressiveLoadingGrid
-                  triggers={consolidatedTriggers}
-                  columns={3}
-                  variant="default"
-                  selectedIds={selectedInsights}
-                  onTriggerClick={handleTriggerClick}
-                  isLoading={true}
-                  currentPass={triggerLoadingState?.currentPass}
-                  skeletonCount={Math.max(6, (4 - (triggerLoadingState?.completedPasses || 0)) * 6)}
-                />
-              ) : consolidatedTriggers.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
-                    <Heart className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">
-                    No triggers match filters
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Try adjusting your filter settings
-                  </p>
-                </div>
-              ) : (
-                <TriggerCardGrid
-                  triggers={consolidatedTriggers}
-                  columns={3}
-                  variant="default"
-                  selectedId={Array.from(selectedInsights)[0]}
-                  onTriggerClick={handleTriggerClick}
-                />
-              )}
-            </>
-          ) : isLoading ? (
-            // Loading skeletons for non-trigger tabs
-            <>
+        <div className="p-4">
+          {isLoading ? (
+            // Loading skeletons
+            <div className="grid grid-cols-3 gap-3">
               <InsightSkeleton />
               <InsightSkeleton />
               <InsightSkeleton />
               <InsightSkeleton />
-            </>
-          ) : filteredInsights.length === 0 ? (
+              <InsightSkeleton />
+              <InsightSkeleton />
+            </div>
+          ) : v6Insights.length === 0 ? (
             // Empty state
             <div className="text-center py-12">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
@@ -622,40 +584,14 @@ export const InsightTabs = memo(function InsightTabs({
               </p>
             </div>
           ) : (
-            // Mixed insight cards - use TriggerCardV4 for triggers, InsightCard for others
-            <>
-              {/* Trigger insights - use V4 cards with UVP alignment */}
-              {filteredInsights.some(i => i.type === 'trigger') && (
-                <div className="mb-4">
-                  <TriggerCardGrid
-                    triggers={insightsToConsolidatedTriggers(
-                      filteredInsights.filter(i => i.type === 'trigger'),
-                      uvpData
-                    )}
-                    columns={3}
-                    variant="default"
-                    selectedId={Array.from(selectedInsights)[0]}
-                    onTriggerClick={handleTriggerClick}
-                  />
-                </div>
-              )}
-              {/* Non-trigger insights - use InsightCard */}
-              {filteredInsights.some(i => i.type !== 'trigger') && (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {filteredInsights
-                    .filter(i => i.type !== 'trigger')
-                    .map((insight) => (
-                      <InsightCard
-                        key={insight.id}
-                        insight={insight}
-                        isSelected={selectedInsights.has(insight.id)}
-                        onToggleSelect={onToggleInsight}
-                        onUseInsight={onUseInsight}
-                      />
-                    ))}
-                </div>
-              )}
-            </>
+            // V6: Single unified grid for all tabs - source-based, no emotion categories
+            <V6InsightGrid
+              insights={v6Insights}
+              selectedIds={selectedInsights}
+              onSelect={onToggleInsight}
+              columns={3}
+              showConnections={showConnections}
+            />
           )}
         </div>
       </ScrollArea>

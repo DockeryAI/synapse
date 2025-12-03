@@ -13,7 +13,7 @@ import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
  * Updated: 2025-11-29 - Migrated from WeatherAPI.com to OpenWeather
  */
 
-const WEATHER_API_KEY = Deno.env.get('WEATHER_API_KEY') || Deno.env.get('VITE_WEATHER_API_KEY')
+const WEATHER_API_KEY = Deno.env.get('WEATHER_API_KEY')
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',

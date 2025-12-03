@@ -88,38 +88,51 @@ const POWER_WORDS: PowerWord[] = [
 ];
 
 // ============================================================================
-// EMOTIONAL TRIGGER PATTERNS
+// V1 PSYCHOLOGY PRINCIPLE PATTERNS (NOT emotion labels)
+// Based on Cialdini's principles + cognitive psychology
 // ============================================================================
 
-const EMOTIONAL_PATTERNS: Array<{ pattern: RegExp; type: EmotionalTriggerType; intensity: number }> = [
-  // Curiosity
-  { pattern: /you won't believe|won't believe|secret to|find out|discover how/i, type: 'curiosity', intensity: 8 },
-  { pattern: /how to|learn|the truth about|revealed/i, type: 'curiosity', intensity: 6 },
+const PSYCHOLOGY_PATTERNS: Array<{ pattern: RegExp; type: EmotionalTriggerType; intensity: number; principle: string }> = [
+  // CURIOSITY GAP - Creates information gap brain wants to close
+  { pattern: /you won't believe|won't believe|secret to|find out|discover how/i, type: 'curiosity', intensity: 8, principle: 'curiosity_gap' },
+  { pattern: /how to|learn|the truth about|revealed|what.*don't.*know/i, type: 'curiosity', intensity: 6, principle: 'curiosity_gap' },
 
-  // Fear
-  { pattern: /avoid|mistake|warning|don't|never|stop/i, type: 'fear', intensity: 7 },
-  { pattern: /risk|danger|problem|lose/i, type: 'fear', intensity: 6 },
+  // LOSS AVERSION - Framing potential loss (2.5x stronger than gain)
+  { pattern: /avoid|mistake|warning|don't miss|losing|miss out/i, type: 'urgency', intensity: 7, principle: 'loss_aversion' },
+  { pattern: /risk|danger|problem|cost you|before it's too late/i, type: 'urgency', intensity: 6, principle: 'loss_aversion' },
 
-  // Desire
-  { pattern: /imagine|dream|achieve|get|want|wish/i, type: 'desire', intensity: 7 },
-  { pattern: /enjoy|experience|feel/i, type: 'desire', intensity: 5 },
+  // NARRATIVE TRANSPORTATION - Story structure bypasses resistance
+  { pattern: /imagine|picture this|here's what happened|story of/i, type: 'curiosity', intensity: 7, principle: 'narrative_transportation' },
+  { pattern: /journey|transformation|before and after/i, type: 'curiosity', intensity: 5, principle: 'narrative_transportation' },
 
-  // Belonging
-  { pattern: /join us|community|together|family|belong/i, type: 'belonging', intensity: 8 },
-  { pattern: /we|our|us|everyone/i, type: 'belonging', intensity: 4 },
+  // SOCIAL PROOF - Others like me are doing this
+  { pattern: /join \d+|thousands of|most.*people|everyone is/i, type: 'belonging', intensity: 8, principle: 'social_proof' },
+  { pattern: /top performers|successful.*do|industry leaders/i, type: 'trust', intensity: 7, principle: 'social_proof' },
 
-  // Achievement
-  { pattern: /success|victory|accomplished|winner|champion/i, type: 'achievement', intensity: 8 },
-  { pattern: /reach|goal|milestone|succeed/i, type: 'achievement', intensity: 6 },
+  // AUTHORITY - Credibility through expertise
+  { pattern: /research shows|studies prove|data reveals|experts say/i, type: 'trust', intensity: 8, principle: 'authority' },
+  { pattern: /certified|award-winning|recognized|proven/i, type: 'trust', intensity: 7, principle: 'authority' },
 
-  // Trust
-  { pattern: /honest|transparent|authentic|real|genuine/i, type: 'trust', intensity: 7 },
-  { pattern: /promise|commitment|dedicated/i, type: 'trust', intensity: 6 },
+  // SCARCITY - Limited availability creates urgency
+  { pattern: /last chance|running out|limited time|only \d+ left/i, type: 'urgency', intensity: 9, principle: 'scarcity' },
+  { pattern: /exclusive|limited|rare|while supplies last/i, type: 'urgency', intensity: 7, principle: 'scarcity' },
 
-  // Urgency
-  { pattern: /last chance|running out|limited time|act now|don't miss/i, type: 'urgency', intensity: 9 },
-  { pattern: /today|now|immediately|hurry/i, type: 'urgency', intensity: 7 },
+  // PATTERN INTERRUPT - Breaks expectation, activates attention
+  { pattern: /stop doing|everything.*wrong|backwards|unpopular opinion/i, type: 'curiosity', intensity: 8, principle: 'pattern_interrupt' },
+  { pattern: /controversial|against.*grain|counterintuitive/i, type: 'curiosity', intensity: 7, principle: 'pattern_interrupt' },
+
+  // COGNITIVE DISSONANCE - Challenges beliefs
+  { pattern: /myth|wrong about|actually|not what you think/i, type: 'curiosity', intensity: 7, principle: 'cognitive_dissonance' },
+
+  // RECIPROCITY - Value first creates obligation
+  { pattern: /free|gift|bonus|complimentary|no strings/i, type: 'trust', intensity: 6, principle: 'reciprocity' },
+
+  // COMMITMENT & CONSISTENCY - Small steps lead to big
+  { pattern: /if you.*then|since you|you already/i, type: 'belonging', intensity: 5, principle: 'commitment' },
 ];
+
+// Backwards compatibility alias
+const EMOTIONAL_PATTERNS = PSYCHOLOGY_PATTERNS;
 
 // ============================================================================
 // DEFAULT CONFIG

@@ -305,8 +305,8 @@ export class ControversialPostGenerator {
     business: BusinessProfile,
     targetAudience: string
   ): string {
-    const industry = business.industry.toLowerCase();
-    const angle = (insight.contentAngle || insight.insight).toLowerCase();
+    const industry = (business.industry || '').toLowerCase();
+    const angle = (insight.contentAngle || insight.insight || '').toLowerCase();
 
     // INDUSTRY FIRST - check business type before content matching
     // This prevents "office" content from triggering wrong CTAs for cleaning services
@@ -408,7 +408,7 @@ export class ControversialPostGenerator {
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): string[] {
-    const industry = business.industry.toLowerCase().replace(/\s+/g, '');
+    const industry = (business.industry || '').toLowerCase().replace(/\s+/g, '');
 
     return [
       industry,
@@ -474,7 +474,7 @@ export class ControversialPostGenerator {
    * Explain why a specific CTA was chosen
    */
   private explainCTAChoice(business: BusinessProfile, insight: BreakthroughInsight): string {
-    const industry = business.industry.toLowerCase();
+    const industry = (business.industry || '').toLowerCase();
 
     if (industry.includes('cleaning') || industry.includes('janitorial') || industry.includes('facility')) {
       return 'Cleaning service CTA emphasizes professionalism and reliability - key trust factors for commercial clients';

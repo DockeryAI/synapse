@@ -86,7 +86,7 @@ export function detectTargetAudience(
     'facility services': 'property managers and business owners maintaining professional spaces'
   };
 
-  const industry = business.industry.toLowerCase();
+  const industry = (business.industry || '').toLowerCase();
 
   // Check for exact match
   if (industryToAudience[industry]) {
@@ -101,7 +101,7 @@ export function detectTargetAudience(
   }
 
   // Generic fallback (should rarely hit this)
-  return `people interested in ${business.industry}`;
+  return `people interested in ${business.industry || 'your products and services'}`;
 }
 
 /**

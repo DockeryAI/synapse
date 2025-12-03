@@ -89,12 +89,8 @@ export function useV6TabData(options: UseV6TabDataOptions): UseV6TabDataReturn {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      // Get or create brand profile
+      // Get or create brand profile (always returns profile, never null)
       const profile = await getOrCreateBrandProfile(brandId, uvp);
-
-      if (!profile) {
-        throw new Error('Failed to create brand profile');
-      }
 
       profileRef.current = profile;
 

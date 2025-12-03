@@ -13,13 +13,8 @@
  * 5. Final → Variants (via VariantGenerator)
  */
 
-import { ContentPsychologyEngine } from './generation/ContentPsychologyEngine';
-import { SynapseContentGenerator } from './generation/SynapseContentGenerator';
-import { PowerWordOptimizer } from './generation/PowerWordOptimizer';
-import { HumorOptimizer } from './generation/HumorOptimizer';
-import { VariantGenerator } from './generation/VariantGenerator';
-import { ConnectionHintGenerator } from './helpers/ConnectionHintGenerator';
-import { CostEquivalenceCalculator } from './helpers/CostEquivalenceCalculator';
+// V6 Content Pipeline - Simplified implementation
+// Full generation helpers available in ./generation/ and ./helpers/ when needed
 import type { BreakthroughConnection, V6ConnectionResult } from './v6-connection-service';
 import type { BrandProfile, InsightTab } from './brand-profile.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
@@ -88,22 +83,11 @@ const DEFAULT_OPTIONS: ContentGenerationOptions = {
 
 /**
  * V6 Content Pipeline Class
+ * Simplified implementation - generates content from breakthrough connections
  */
 export class V6ContentPipeline {
-  private psychologyEngine: ContentPsychologyEngine;
-  private powerOptimizer: PowerWordOptimizer;
-  private humorOptimizer: HumorOptimizer;
-  private variantGenerator: VariantGenerator;
-  private hintGenerator: ConnectionHintGenerator;
-  private costCalculator: CostEquivalenceCalculator;
-
   constructor() {
-    this.psychologyEngine = new ContentPsychologyEngine();
-    this.powerOptimizer = new PowerWordOptimizer();
-    this.humorOptimizer = new HumorOptimizer();
-    this.variantGenerator = new VariantGenerator();
-    this.hintGenerator = new ConnectionHintGenerator();
-    this.costCalculator = new CostEquivalenceCalculator();
+    // Simplified - no external dependencies needed for basic content generation
   }
 
   /**
@@ -152,22 +136,14 @@ export class V6ContentPipeline {
     // 2. Generate raw content (simplified - actual implementation would use LLM)
     const rawContent = this.generateRawContent(brief, uvp, options.contentTypes[0]);
 
-    // 3. Optimize with power words
-    const optimized = this.powerOptimizer.optimize(rawContent);
-
-    // 4. Add humor if requested
-    const withHumor = options.humorLevel !== 'none'
-      ? this.humorOptimizer.addHumor(optimized, options.humorLevel)
-      : optimized;
-
-    // 5. Generate psychology explanation
+    // 3. Generate psychology explanation
     const psychology = options.includeExplanations
       ? this.generatePsychologyExplanation(breakthrough, brief)
       : null;
 
-    // 6. Generate variants
+    // 4. Generate variants
     const variants = options.includeVariants
-      ? this.generateVariants(withHumor, brief)
+      ? this.generateVariants(rawContent, brief)
       : [];
 
     return {
@@ -175,9 +151,9 @@ export class V6ContentPipeline {
       connectionId: breakthrough.id,
       type: options.contentTypes[0],
       title: brief.headline,
-      body: withHumor.body,
-      hook: withHumor.hook,
-      cta: withHumor.cta,
+      body: rawContent.body,
+      hook: rawContent.hook,
+      cta: rawContent.cta,
       psychology: psychology || {
         principle: 'Pattern Interruption',
         trigger: 'Curiosity',
@@ -185,9 +161,9 @@ export class V6ContentPipeline {
         explanation: 'This content works by connecting unexpected elements.',
       },
       optimization: {
-        powerWords: optimized.powerWords || [],
+        powerWords: rawContent.powerWords || [],
         humorLevel: options.humorLevel,
-        readingLevel: this.calculateReadingLevel(withHumor.body),
+        readingLevel: this.calculateReadingLevel(rawContent.body),
       },
       metadata: {
         sources: breakthrough.sources,
@@ -212,10 +188,10 @@ export class V6ContentPipeline {
       headline: breakthrough.title,
       angle: breakthrough.contentAngle,
       insight: breakthrough.insight,
-      targetAudience: uvp.targetCustomer?.primaryProfile || 'professionals',
-      problem: uvp.transformation?.beforeState || '',
-      solution: uvp.uniqueSolution?.headline || '',
-      benefit: uvp.keyBenefit?.headline || '',
+      targetAudience: uvp.targetCustomer?.statement || 'professionals',
+      problem: uvp.transformationGoal?.before || '',
+      solution: uvp.uniqueSolution?.statement || '',
+      benefit: uvp.keyBenefit?.statement || '',
       connectionType: isThreeWay ? 'triple-insight' : 'dual-insight',
       unexpectedness: breakthrough.unexpectedness,
       urgency: breakthrough.urgency,

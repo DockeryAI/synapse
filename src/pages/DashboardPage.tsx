@@ -35,7 +35,7 @@ import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-buil
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
-import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibraryV2';
+// IntelligenceLibraryV2 archived - V6 uses V6ContentPage at /v6 route
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
 import type { SmartPick } from '@/types/smart-picks.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
@@ -1010,17 +1010,16 @@ export function DashboardPage() {
         {viewMode === 'dashboard' ? (
           /* Command Center Layout */
           <div key="dashboard" className="h-screen flex flex-col">
-            {/* Full-Width Intelligence Library - AI Picks now in tab */}
+            {/* V6 Engine Link - Intelligence Library archived */}
             <div className="flex-1 p-4 pt-0 overflow-hidden">
-              <div className="h-full rounded-xl shadow-lg overflow-hidden">
-                {deepContext && (
-                  <IntelligenceLibraryV2
-                    context={deepContext}
-                    onGenerateCampaign={handleCreateCampaign}
-                    onRefreshIntelligence={handleRefreshIntelligence}
-                    isRefreshing={isRefreshingIntelligence}
-                  />
-                )}
+              <div className="h-full rounded-xl shadow-lg overflow-hidden bg-white dark:bg-slate-800 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Synapse V6 Engine</h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">Profile-based API orchestration with UVP context injection</p>
+                  <a href="/v6" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors">
+                    Launch V6 Content Engine →
+                  </a>
+                </div>
               </div>
             </div>
 

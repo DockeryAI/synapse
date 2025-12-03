@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { IndustrySelector, type IndustryOption } from './IndustrySelector';
+import { type IndustryOption } from './IndustrySelector';
 import { Link } from 'react-router-dom';
 import type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
 import { urlPreloader } from '@/services/onboarding-v5/url-preloader.service';
@@ -244,28 +244,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                     />
                   </div>
 
-                  {/* Industry Selector */}
-                  <div>
-                    <IndustrySelector
-                      websiteUrl={url}
-                      defaultSelectedIndustry={selectedIndustry}
-                      onIndustrySelected={(industry, skipScanning) => {
-                        setSelectedIndustry(industry);
-                        setLocalError(null);
-
-                        // If skipScanning is true, profile is ready - proceed immediately
-                        // This happens when:
-                        // 1. Profile generation completes (DetailedResearchAnimation already shown)
-                        // 2. Cached profile found (no generation needed)
-                        if (skipScanning && onUrlSubmit) {
-                          const fullUrl = url.startsWith('http') ? url : `https://${url}`;
-                          // Proceed immediately - no timeout needed since profile is ready
-                          onUrlSubmit(fullUrl, industry);
-                        }
-                      }}
-                      className="industry-selector-inline"
-                    />
-                  </div>
+                  {/* Industry auto-detected silently after URL analysis - no dropdown needed */}
 
                   {error && (
                     <motion.p

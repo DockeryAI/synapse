@@ -20,11 +20,12 @@ export type { ClusterPatternCardProps } from './ClusterPatternCard';
 // ============================================================================
 
 /**
- * BreakthroughCard - Displays breakthrough insights with quality scoring
+ * BreakthroughCard - ARCHIVED (V5 types, replaced by V6InsightCard)
+ * Displays breakthrough insights with quality scoring
  * Includes quality breakdown, confidence score, and Synapse generation button
  */
-export { BreakthroughCard } from './BreakthroughCard';
-export type { BreakthroughCardProps } from './BreakthroughCard';
+export { BreakthroughCard } from './_archived/BreakthroughCard';
+export type { BreakthroughCardProps } from './_archived/BreakthroughCard';
 
 // ============================================================================
 // QUALITY & SCORING COMPONENTS

@@ -225,7 +225,7 @@ export function ContentGenerator({
         pillarId,
         mode,
         // V3.2: Pass orchestrator context for EQ-aware generation
-        synthesisContext: enrichedContext ? {
+        context: enrichedContext ? {
           eqProfile: enrichedContext.eqProfile,
           segmentGuidelines: enrichedContext.segmentGuidelines,
           recommendedFramework,

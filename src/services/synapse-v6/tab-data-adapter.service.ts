@@ -21,15 +21,30 @@ import type { Insight, TriggerInsight, ProofInsight, TrendInsight, CompetitionIn
 export function adaptTabToInsights(tabData: TabData): Insight[] {
   const insights: Insight[] = [];
 
+  console.log(`[TabDataAdapter] Processing ${tabData.tab} with ${tabData.results.length} results`);
+
   for (const result of tabData.results) {
-    if (!result.success || !result.data) continue;
+    if (!result.success) {
+      console.log(`[TabDataAdapter] Skipping failed result: ${result.apiName}`);
+      continue;
+    }
+    if (!result.data) {
+      console.log(`[TabDataAdapter] Skipping empty data: ${result.apiName}`);
+      continue;
+    }
+
+    console.log(`[TabDataAdapter] Adapting ${result.apiName} data:`, JSON.stringify(result.data).substring(0, 200));
 
     const adapted = adaptApiResult(result, tabData.tab);
-    if (adapted) {
+    if (adapted && adapted.length > 0) {
+      console.log(`[TabDataAdapter] ${result.apiName} produced ${adapted.length} insights`);
       insights.push(...adapted);
+    } else {
+      console.log(`[TabDataAdapter] ${result.apiName} produced no insights`);
     }
   }
 
+  console.log(`[TabDataAdapter] Total insights for ${tabData.tab}: ${insights.length}`);
   return insights;
 }
 
@@ -58,34 +73,86 @@ function adaptApiResult(result: ApiResult, tab: InsightTab): Insight[] | null {
 }
 
 /**
+ * Extract items from nested API response data
+ * Handles various response formats: { success, data: [...] }, { results: [...] }, direct array, etc.
+ */
+function extractItems(data: unknown): unknown[] {
+  if (!data || typeof data !== 'object') return [];
+
+  // Direct array
+  if (Array.isArray(data)) return data;
+
+  const obj = data as Record<string, unknown>;
+
+  // Nested response formats
+  if (obj.success && obj.data) {
+    return extractItems(obj.data);
+  }
+
+  // Common array field names
+  const arrayFields = ['items', 'results', 'reviews', 'posts', 'articles', 'organic', 'searchResults', 'news', 'discussions', 'data', 'suggestions', 'queries', 'relatedSearches'];
+  for (const field of arrayFields) {
+    if (Array.isArray(obj[field])) {
+      return obj[field] as unknown[];
+    }
+  }
+
+  // Serper-specific formats
+  if (obj.organic && Array.isArray(obj.organic)) return obj.organic as unknown[];
+  if (obj.news && Array.isArray(obj.news)) return obj.news as unknown[];
+  if (obj.places && Array.isArray(obj.places)) return obj.places as unknown[];
+
+  // Weather-specific - single object response, wrap it
+  if (obj.location || obj.weather || obj.temperature || obj.current) {
+    return [obj];
+  }
+
+  // Filter out "no results" responses
+  if (obj.noResults === true || obj.noResults === 'true') {
+    return [];
+  }
+
+  // If object has meaningful content fields, treat as single item
+  if (obj.title || obj.name || obj.description || obj.text) {
+    return [obj];
+  }
+
+  return [];
+}
+
+/**
  * Adapt Voice of Customer data to Trigger insights
  */
 function adaptVoCData(data: unknown, apiName: string): TriggerInsight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptVoCData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: TriggerInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).items || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    // Extract meaningful content
+    const title = String(record.title || record.headline || record.name || record.query || 'Customer Insight');
+    const content = String(record.content || record.text || record.review || record.snippet || record.description || record.body || '');
+
+    // Skip items with no meaningful content
+    if (!content && !title) continue;
+
     insights.push({
       id: `voc-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'trigger',
-      title: String(record.title || record.headline || 'Customer Insight'),
-      content: String(record.content || record.text || record.review || ''),
-      category: mapToTriggerCategory(record.sentiment as string || 'neutral'),
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'voc',
       source: {
-        name: String(record.source || record.platform || apiName),
+        name: String(record.source || record.platform || record.site || apiName),
         url: String(record.url || record.link || ''),
         verified: Boolean(record.verified),
-      },
-      metrics: {
-        views: Number(record.views || record.impressions || 0),
-        engagement: Number(record.engagement || record.reactions || 0),
-        recency: parseRecency(record.date as string || record.timestamp as string),
       },
       timestamp: new Date().toISOString(),
     });
@@ -98,31 +165,33 @@ function adaptVoCData(data: unknown, apiName: string): TriggerInsight[] {
  * Adapt Community data to Proof insights
  */
 function adaptCommunityData(data: unknown, apiName: string): ProofInsight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptCommunityData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: ProofInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).posts || (data as Record<string, unknown>).discussions || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    const title = String(record.title || record.headline || record.name || 'Community Discussion');
+    const content = String(record.content || record.text || record.body || record.snippet || record.description || '');
+
+    if (!content && !title) continue;
+
     insights.push({
       id: `community-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'proof',
-      title: String(record.title || record.headline || 'Community Discussion'),
-      content: String(record.content || record.text || record.body || ''),
-      proofType: mapToProofType(record.type as string || 'discussion'),
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'community',
       source: {
-        name: String(record.subreddit || record.community || record.platform || apiName),
+        name: String(record.subreddit || record.community || record.platform || record.source || apiName),
         url: String(record.url || record.link || record.permalink || ''),
         verified: Boolean(record.verified),
-      },
-      metrics: {
-        upvotes: Number(record.upvotes || record.score || record.likes || 0),
-        comments: Number(record.comments || record.replies || 0),
-        recency: parseRecency(record.date as string || record.created as string),
       },
       timestamp: new Date().toISOString(),
     });
@@ -135,27 +204,31 @@ function adaptCommunityData(data: unknown, apiName: string): ProofInsight[] {
  * Adapt Competitive data to Competition insights
  */
 function adaptCompetitiveData(data: unknown, apiName: string): CompetitionInsight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptCompetitiveData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: CompetitionInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).competitors || (data as Record<string, unknown>).results || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    const title = String(record.competitor || record.name || record.domain || record.title || 'Competitor');
+    const content = String(record.insight || record.gap || record.opportunity || record.description || record.snippet || '');
+
     insights.push({
       id: `competitive-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      type: 'competition',
-      title: String(record.competitor || record.name || record.domain || 'Competitor'),
-      content: String(record.insight || record.gap || record.opportunity || ''),
-      competitorName: String(record.competitor || record.name || ''),
-      gap: String(record.gap || record.weakness || ''),
-      opportunity: String(record.opportunity || record.differentiator || ''),
+      type: 'competitor',
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'competitive',
+      competitorName: String(record.competitor || record.name || record.domain || ''),
       source: {
         name: String(record.source || apiName),
-        url: String(record.url || ''),
+        url: String(record.url || record.link || ''),
         verified: true,
       },
       timestamp: new Date().toISOString(),
@@ -169,25 +242,31 @@ function adaptCompetitiveData(data: unknown, apiName: string): CompetitionInsigh
  * Adapt Trends data to Trend insights
  */
 function adaptTrendsData(data: unknown, apiName: string): TrendInsight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptTrendsData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: TrendInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).articles || (data as Record<string, unknown>).trends || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    const title = String(record.title || record.headline || record.name || 'Industry Trend');
+    const content = String(record.description || record.summary || record.content || record.snippet || record.text || '');
+
+    if (!content && !title) continue;
+
     insights.push({
       id: `trends-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'trend',
-      title: String(record.title || record.headline || 'Industry Trend'),
-      content: String(record.description || record.summary || record.content || ''),
-      trendType: mapToTrendType(record.category as string || 'industry'),
-      momentum: mapToMomentum(record.growth as number || record.momentum as number),
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'trends',
       source: {
-        name: String(record.source || record.publication || apiName),
+        name: String(record.source || record.publication || record.author || apiName),
         url: String(record.url || record.link || ''),
         verified: Boolean(record.verified),
       },
@@ -202,31 +281,31 @@ function adaptTrendsData(data: unknown, apiName: string): TrendInsight[] {
  * Adapt Search data (for now, treat as general insights)
  */
 function adaptSearchData(data: unknown, apiName: string): Insight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptSearchData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: TriggerInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).results || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    const title = String(record.query || record.keyword || record.title || record.name || 'Search Intent');
+    const content = String(record.intent || record.description || record.snippet || record.text || '');
+
     insights.push({
       id: `search-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'trigger',
-      title: String(record.query || record.keyword || 'Search Intent'),
-      content: String(record.intent || record.description || ''),
-      category: 'motivation',
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'search',
       source: {
         name: apiName,
-        url: '',
+        url: String(record.url || record.link || ''),
         verified: true,
-      },
-      metrics: {
-        views: Number(record.volume || record.searches || 0),
-        engagement: 0,
-        recency: 'recent',
       },
       timestamp: new Date().toISOString(),
     });
@@ -239,24 +318,51 @@ function adaptSearchData(data: unknown, apiName: string): Insight[] {
  * Adapt Local/Timing data to Local insights
  */
 function adaptLocalTimingData(data: unknown, apiName: string): LocalInsight[] {
-  if (!data || typeof data !== 'object') return [];
+  const items = extractItems(data);
+  console.log(`[adaptLocalTimingData] ${apiName}: extracted ${items.length} items`);
+
+  if (items.length === 0) return [];
 
   const insights: LocalInsight[] = [];
-  const items = Array.isArray(data) ? data : (data as Record<string, unknown>).events || (data as Record<string, unknown>).signals || [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
+    // Handle weather data specially
+    if (apiName === 'openweather' || record.weather || record.temperature) {
+      const weatherDesc = record.weather
+        ? (Array.isArray(record.weather) ? (record.weather[0] as Record<string, unknown>)?.description : record.weather)
+        : record.description;
+
+      insights.push({
+        id: `local-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'local',
+        title: `Weather: ${String(weatherDesc || 'Current conditions')}`,
+        text: `Temperature: ${record.temperature || (record.main as Record<string, unknown>)?.temp || 'N/A'}. ${String(record.description || '')}`,
+        sourceTab: 'local_timing',
+        location: String(record.location || record.name || record.city || ''),
+        source: {
+          name: 'OpenWeather',
+          url: '',
+          verified: true,
+        },
+        timestamp: new Date().toISOString(),
+      });
+      continue;
+    }
+
+    const title = String(record.title || record.event || record.name || 'Local Signal');
+    const content = String(record.description || record.details || record.snippet || record.text || '');
+
     insights.push({
       id: `local-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'local',
-      title: String(record.title || record.event || record.name || 'Local Signal'),
-      content: String(record.description || record.details || ''),
-      location: String(record.location || record.city || record.area || ''),
-      timing: String(record.date || record.timing || record.when || ''),
-      localType: mapToLocalType(record.type as string || 'event'),
+      title: title.substring(0, 200),
+      text: content.substring(0, 500),
+      sourceTab: 'local_timing',
+      location: String(record.location || record.city || record.area || record.address || ''),
       source: {
         name: String(record.source || apiName),
         url: String(record.url || record.link || ''),

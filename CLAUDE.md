@@ -914,3 +914,174 @@ External API calls must go through edge functions, never directly from frontend 
 <!-- /ENFORCE -->
 
 ---
+
+## 🔍 BROWSER DEBUGGING - AUTOMATIC LOG ACCESS
+
+**When debugging frontend issues, ALWAYS read the browser log first.**
+
+The browser logger captures ALL console output and network requests automatically when the dev server is running.
+
+### Trigger Words
+When the user mentions ANY of these, immediately read `.buildrunner/browser.log`:
+- "debug", "error", "bug", "broken", "not working", "issue", "problem"
+- "console", "network", "request", "response", "API"
+- Any screenshot showing an error or unexpected behavior
+- "what happened", "why isn't", "check the logs"
+
+### How to Debug
+1. **FIRST:** Read `.buildrunner/browser.log` to see full browser session
+2. **THEN:** Look at the screenshot or error description
+3. **CORRELATE:** Match timestamps in logs to the issue
+
+### Log Format
+```
+[timestamp] [session] [TYPE] message
+  {full JSON with request/response bodies}
+```
+
+Types: `[LOG]`, `[WARN]`, `[ERROR]`, `[NET]`, `[INFO]`, `[DEBUG]`
+
+### Example Workflow
+User: "The dashboard isn't loading, here's a screenshot"
+You:
+1. Read `.buildrunner/browser.log`
+2. Find network requests around the time of the error
+3. Check for failed API calls (status >= 400)
+4. Check for console errors
+5. Correlate with screenshot
+6. Diagnose and fix
+
+**DO NOT ask the user to paste console output. The logs are already captured.**
+
+---
+
+## 📋 CONTEXT PRESERVATION - DECISIONS LOG
+
+**Critical for maintaining context across sessions and compactions.**
+
+### Automatic Decision Logging
+When you make ANY of these decisions, log them with `br decision log "message"`:
+- Architectural decisions (e.g., "Using Redis for caching instead of in-memory")
+- Bug fixes and their root causes (e.g., "Fixed race condition in auth flow - added mutex")
+- Why something was done a certain way (e.g., "Chose JWT over sessions for stateless scaling")
+- Trade-offs made (e.g., "Sacrificed X for Y because...")
+- API design choices
+- Database schema decisions
+- Security decisions
+
+### Decision Log Format
+```
+[2024-01-15T14:30:00] [DECISION] Using Redis for session storage
+[2024-01-15T15:45:00] [BUGFIX] Fixed N+1 query in dashboard - added eager loading
+[2024-01-15T16:00:00] [ARCHITECTURE] Switched to event sourcing for audit trail
+```
+
+### Context Save Triggers
+**Run `br context save` BEFORE:**
+- Session ends or context gets low (~80-90%)
+- Switching to a different major task
+- Before any git commit with significant changes
+- When asked to summarize progress
+
+### How Context Save Works
+**CRITICAL INSIGHT:** Before auto-compact (~95%), you have FULL ACCESS to the entire conversation. After compaction, details are lost. `br context save` tells you to:
+1. **SCAN the full conversation** still in your context
+2. **EXTRACT every decision** - architectural choices, bug fixes, trade-offs
+3. **LOG each one** with `br decision log "description" --type TYPE`
+4. **UPDATE progress files** with current state
+
+### Low Context Warning
+**⚠️ CRITICAL: When context usage exceeds 80-90%:**
+1. IMMEDIATELY run `br context save`
+2. SCAN the conversation for ALL decisions made
+3. Run `br decision` for EACH decision found
+4. Update claude-progress.txt with session summary
+5. Inform user: "Context is high. Extracting decisions before compaction."
+
+**You have full conversation access NOW - use it before compaction loses the details.**
+
+### Context Commands - HOW TO USE THEM
+
+## ⚡ SLASH COMMANDS (PREFERRED)
+
+**Use these instead of CLI commands - they inject content directly into your prompt:**
+
+### `/cl` - Context Load (Start of Session)
+**When to use:** Beginning of a new session or after compaction
+**What happens:** ALL 13 context sections injected directly into your prompt:
+1. Project Background (`additional-context.md` - includes V1 vs V5 analysis)
+2. Recent Decisions (`decisions.log`)
+3. Session Progress (`claude-progress.txt`)
+4. Current Work (`current-work.md`)
+5. Blockers (`blockers.md`)
+6. Vision (`VISION.md`)
+7. Architecture (`ARCHITECTURE.md`)
+8. Governance Rules (`governance.yaml`)
+9. Build Plans (`br build plans`)
+10. Feature Status (`br feature list`)
+11. Active Hooks
+12. Blocked Libraries
+13. Key Constraints
+
+**What YOU must do:** Read ALL injected content and announce:
+> "Session loaded. Current build: [BUILD_NAME]. Last decision: [DECISION]. Governance: [KEY_RULES]. Ready to continue with [NEXT_TASK]."
+
+### `/cs` - Context Save (Before Compaction)
+**When to use:** When context is getting high (70-80%) or before ending session
+**What happens:** Last timestamp shown, you must extract decisions since then
+**What YOU must do:**
+1. SCAN the full conversation for all decisions since the timestamp shown
+2. Run `br decision log "description" --type TYPE` for EACH decision found
+3. Edit `claude-progress.txt` with current state
+4. Confirm: "Extracted [N] decisions. Progress file updated. Safe to /compact."
+
+**⚠️ DO NOT ask what to do. EXECUTE the steps immediately.**
+
+---
+
+## CLI Commands (For humans and automation)
+
+**IMPORTANT:** These commands output instructions to terminal. You MUST follow the displayed instructions, not just acknowledge them.
+
+#### `br context load` - Start of Session
+**What YOU must do after running it:**
+1. Use the Read tool to read `.buildrunner/context/additional-context.md` (contains V1 vs V5 analysis)
+2. Use the Read tool to read the current build plan (shown in output)
+3. Announce your understanding to the user: "Current build: X. Last decision: Y."
+
+#### `br context save` - Before Compaction
+**What YOU must do after running it:**
+1. SCAN the full conversation for all decisions since the timestamp shown
+2. Use Bash to run `br decision log "description" --type TYPE` for EACH decision
+3. Use Edit to update `claude-progress.txt` with current state
+4. DO NOT ask the user what to do - EXECUTE the steps
+
+#### `br rules` - Mid-Session Refresh
+**What YOU must do after running it:**
+1. Read any referenced files for full context
+2. Acknowledge the constraints that apply
+
+#### `br decision log "message"` - Log Decisions
+**When to run:** After making any architectural decision, bug fix, or design choice
+**Example:** `br decision log "Chose PostgreSQL over MongoDB for ACID compliance" --type ARCHITECTURE`
+**Types:** DECISION, FIX, ARCHITECTURE, REFACTOR, DEBUG
+
+### Context Files
+- `decisions.log` - Timestamped architectural decisions and rationale
+- `claude-progress.txt` - Session progress and handoff notes
+- `additional-context.md` - Project background, V1 vs V5 analysis, guiding principles (persists across build plans)
+- `current-work.md` - Current task in progress
+- `blockers.md` - Active blockers
+- `architecture.md` - Architecture notes
+
+### Additional Context File
+The `additional-context.md` file in `.buildrunner/context/` is for **persistent project knowledge** that applies across all build plans:
+- Why previous approaches failed (V5 emotion architecture)
+- Lessons learned from past attempts
+- Core principles guiding decisions (V1 vision)
+- Domain knowledge critical to understand
+- V1's 8 unique mechanics (Connection Hint Generator, Cost Equivalence, etc.)
+
+This file should be updated when major strategic insights are gained, not for individual decisions (use `br decision` for those).
+
+---

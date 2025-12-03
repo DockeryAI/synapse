@@ -42,6 +42,7 @@ import {
   Quote
 } from 'lucide-react';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
+import type { BuyerPersona } from '@/types/buyer-persona.types';
 
 // ============================================================================
 // TYPES
@@ -52,6 +53,8 @@ interface UVPBuildingBlocksProps {
   deepContext?: any | null;
   onSelectItem?: (item: { type: string; text: string }) => void;
   brandId?: string;
+  /** Optional: Pre-loaded buyer personas from database (10 detailed profiles) */
+  buyerPersonas?: BuyerPersona[];
 }
 
 interface SidebarSectionProps {
@@ -69,6 +72,8 @@ interface ParsedCustomerProfile {
   title: string;
   description: string;
   roleCategory: RoleCategory;
+  emotionalDrivers?: string[];
+  functionalDrivers?: string[];
 }
 
 // ============================================================================
@@ -309,8 +314,8 @@ const RoleCategoryGroup = memo(function RoleCategoryGroup({
                   key={`${category}-profile-${index}`}
                   title={profile.title}
                   description={profile.description}
-                  emotionalDrivers={emotionalDrivers}
-                  functionalDrivers={functionalDrivers}
+                  emotionalDrivers={profile.emotionalDrivers?.length ? profile.emotionalDrivers : emotionalDrivers}
+                  functionalDrivers={profile.functionalDrivers?.length ? profile.functionalDrivers : functionalDrivers}
                   onSelectItem={onSelectItem}
                 />
               ))}
@@ -660,7 +665,8 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
   uvp,
   deepContext,
   onSelectItem,
-  brandId
+  brandId,
+  buyerPersonas
 }: UVPBuildingBlocksProps) {
   // Defensive check
   if (!uvp) {
@@ -677,16 +683,34 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
     }
   };
 
-  // Parse customer profiles from UVP statement
-  // Also check alternative data structures (industry, role, companySize for fallback display)
+  // Parse customer profiles from buyerPersonas (preferred) or UVP statement (fallback)
   const parsedProfiles = useMemo(() => {
-    // Primary: parse from statement field
+    // PRIMARY: Use buyerPersonas from database if available (10 detailed profiles)
+    if (buyerPersonas && buyerPersonas.length > 0) {
+      console.log('[UVPBuildingBlocks] Using buyerPersonas from DB:', buyerPersonas.length);
+      return buyerPersonas.map((persona) => ({
+        title: persona.persona_name || persona.role?.title || 'Customer',
+        description: [
+          persona.role?.title,
+          persona.industry?.primary_industry,
+          persona.company_type,
+          // Include pain points summary if available
+          persona.pain_points?.length ? `Pain: ${persona.pain_points[0]?.pain || persona.pain_points[0]}` : null,
+        ].filter(Boolean).join(' • '),
+        roleCategory: classifyRole(persona.role?.title || persona.persona_name || ''),
+        // Preserve full persona data for drivers
+        emotionalDrivers: persona.pain_points?.map((p: any) => typeof p === 'string' ? p : p.pain || p.emotional_impact) || [],
+        functionalDrivers: persona.desired_outcomes?.map((o: any) => typeof o === 'string' ? o : o.outcome || o.functional_benefit) || [],
+      }));
+    }
+
+    // FALLBACK: Parse from statement field
     if (uvp?.targetCustomer?.statement && uvp.targetCustomer.statement.trim().length > 0) {
       console.log('[UVPBuildingBlocks] Parsing customer from statement:', uvp.targetCustomer.statement.slice(0, 100));
       return parseCustomerProfiles(uvp.targetCustomer.statement);
     }
 
-    // Fallback: construct from individual fields if statement is empty
+    // LAST RESORT: Construct from individual fields if statement is empty
     const tc = uvp?.targetCustomer;
     if (tc?.role || tc?.industry || tc?.companySize) {
       console.log('[UVPBuildingBlocks] Constructing customer from fields:', { role: tc.role, industry: tc.industry, companySize: tc.companySize });
@@ -700,9 +724,9 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
       }
     }
 
-    console.log('[UVPBuildingBlocks] No customer data found:', { targetCustomer: uvp?.targetCustomer });
+    console.log('[UVPBuildingBlocks] No customer data found:', { targetCustomer: uvp?.targetCustomer, buyerPersonas: buyerPersonas?.length || 0 });
     return [];
-  }, [uvp?.targetCustomer]);
+  }, [uvp?.targetCustomer, buyerPersonas]);
 
   // Group profiles by role category
   const groupedProfiles = useMemo(() => {

@@ -36,49 +36,49 @@ export interface UVPQueryContext {
  * Build query context from UVP data
  */
 export function buildUVPContext(uvp: CompleteUVP): UVPQueryContext {
-  const { targetCustomer, keyBenefit, transformation, uniqueSolution } = uvp;
+  const { targetCustomer, keyBenefit, transformationGoal, uniqueSolution } = uvp;
 
-  // Extract customer context
+  // Extract customer context (using correct CompleteUVP property names)
   const customerContext = [
-    targetCustomer?.primaryProfile,
-    targetCustomer?.secondaryProfile,
-    targetCustomer?.geographicFocus,
+    targetCustomer?.statement,
+    targetCustomer?.industry,
+    targetCustomer?.marketGeography?.scope,
   ]
     .filter(Boolean)
     .join(', ');
 
   // Extract benefit context
   const benefitContext = [
-    keyBenefit?.headline,
-    keyBenefit?.supportingPoints?.join(', '),
+    keyBenefit?.statement,
+    keyBenefit?.metrics?.map(m => m.metric)?.join(', '),
   ]
     .filter(Boolean)
     .join(' - ');
 
   // Extract solution context
   const solutionContext = [
-    uniqueSolution?.headline,
-    uniqueSolution?.proofPoints?.join(', '),
+    uniqueSolution?.statement,
+    uniqueSolution?.differentiators?.map(d => d.statement)?.join(', '),
   ]
     .filter(Boolean)
     .join(' - ');
 
   // Extract pain points from transformation
   const painPoints: string[] = [];
-  if (transformation?.beforeState) {
-    painPoints.push(transformation.beforeState);
+  if (transformationGoal?.before) {
+    painPoints.push(transformationGoal.before);
   }
-  if (transformation?.painPoints) {
-    painPoints.push(...transformation.painPoints);
+  if (targetCustomer?.emotionalDrivers) {
+    painPoints.push(...targetCustomer.emotionalDrivers);
   }
 
   // Extract differentiators
   const differentiators: string[] = [];
   if (uniqueSolution?.differentiators) {
-    differentiators.push(...uniqueSolution.differentiators);
+    differentiators.push(...uniqueSolution.differentiators.map(d => d.statement));
   }
-  if (keyBenefit?.proofPoints) {
-    differentiators.push(...keyBenefit.proofPoints);
+  if (keyBenefit?.metrics) {
+    differentiators.push(...keyBenefit.metrics.map(m => `${m.metric}: ${m.value}`));
   }
 
   // Build query prefix (who we're searching for)
@@ -255,10 +255,239 @@ export function getQueryDepth(profile: BrandProfile): {
   }
 }
 
+/**
+ * Extract short query keywords for search APIs (max 100 chars)
+ * Used for Serper, Reddit, NewsAPI - APIs that expect short keyword queries
+ */
+export function extractShortQuery(
+  uvp: CompleteUVP,
+  tab: InsightTab
+): string {
+  const keywords: string[] = [];
+
+  // Extract industry/role from target customer
+  const customerStatement = uvp.targetCustomer?.statement || '';
+  const industry = uvp.targetCustomer?.industry || '';
+
+  // Extract 2-3 key words from customer statement (first meaningful words)
+  const customerWords = customerStatement
+    .replace(/^(for|the|a|an)\s+/i, '')
+    .split(/\s+/)
+    .filter(w => w.length > 3 && !['who', 'that', 'with', 'seeking', 'looking', 'want', 'need'].includes(w.toLowerCase()))
+    .slice(0, 2);
+
+  if (customerWords.length > 0) {
+    keywords.push(...customerWords);
+  }
+
+  // Add industry if present
+  if (industry && !keywords.some(k => industry.toLowerCase().includes(k.toLowerCase()))) {
+    keywords.push(industry.split(/\s+/)[0]); // First word of industry
+  }
+
+  // Tab-specific keyword additions - V1 approach: Focus on business signals, not just emotions
+  switch (tab) {
+    case 'voc':
+      // V1 B2B FIX: Search for business signals and buying triggers
+      if (isB2BTargetCustomer(customerStatement)) {
+        if (isDirectB2B(customerStatement)) {
+          // Direct B2B: Target customers ARE the end customers - search for buying signals
+          // Example: OpenDialog sells TO brokers (brokers are the customers)
+          keywords.push('looking for', 'need', 'solution', 'software', 'tool');
+        } else {
+          // Indirect B2B: Target customers sell to end customers - search end customer problems
+          // Example: Selling through brokers to their customers
+          const endCustomerContext = extractEndCustomerContext(customerStatement, industry);
+          keywords.length = 0;
+          keywords.push(...endCustomerContext.split(' '));
+          keywords.push('shopping', 'buying', 'need', 'looking for');
+        }
+      } else {
+        // B2C: Voice of Customer = customer needs, desires, buying signals
+        keywords.push('looking for', 'need', 'want', 'reviews');
+      }
+      break;
+    case 'community':
+      // V1 approach: Community discussions about industry topics and questions
+      keywords.push('discussion', 'advice', 'recommend');
+      break;
+    case 'competitive':
+      // V1 approach: Competitive landscape and comparisons
+      keywords.push('vs', 'compare', 'alternative', 'best');
+      break;
+    case 'trends':
+      // V1 approach: Industry trends and market movements
+      keywords.push('trends', 'future', 'growth', '2025');
+      break;
+    case 'search':
+      // V1 approach: Search intent and demand signals
+      keywords.push('how to', 'best', 'guide');
+      break;
+    case 'local_timing':
+      // V1 approach: Local market timing and opportunities
+      keywords.push('market', 'local', 'opportunities');
+      break;
+  }
+
+  // Join and limit to 100 chars
+  const query = keywords.slice(0, 5).join(' ');
+  return query.length > 100 ? query.substring(0, 97) + '...' : query;
+}
+
+/**
+ * Extract location for weather/local APIs
+ * Pulls from UVP geography or defaults to brand location
+ */
+export function extractLocation(
+  uvp: CompleteUVP,
+  brandLocation?: string
+): string {
+  // Try UVP geography first
+  const geography = uvp.targetCustomer?.marketGeography;
+
+  if (geography?.primaryRegions && geography.primaryRegions.length > 0) {
+    // Return first region (most specific)
+    return geography.primaryRegions[0];
+  }
+
+  // Check for location in customer statement
+  const statement = uvp.targetCustomer?.statement || '';
+  // Look for city/state patterns like "San Francisco", "New York", etc.
+  const locationMatch = statement.match(/(?:in|near|around)\s+([A-Z][a-zA-Z\s]+(?:,\s*[A-Z]{2})?)/);
+  if (locationMatch) {
+    return locationMatch[1].trim();
+  }
+
+  // Fall back to brand location
+  if (brandLocation) {
+    return brandLocation;
+  }
+
+  // Default fallback
+  return 'United States';
+}
+
+/**
+ * Extract domain for SEMrush/competitive APIs
+ */
+export function extractDomain(
+  uvp: CompleteUVP,
+  brandWebsite?: string
+): string {
+  // Use brand website if provided
+  if (brandWebsite) {
+    // Strip protocol and www
+    return brandWebsite.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+  }
+
+  // Try to find domain in UVP solution statement
+  const solution = uvp.uniqueSolution?.statement || '';
+  const domainMatch = solution.match(/([a-zA-Z0-9-]+\.(com|io|ai|co|net|org))/i);
+  if (domainMatch) {
+    return domainMatch[1];
+  }
+
+  // No domain found
+  return '';
+}
+
+/**
+ * Check if target customer indicates B2B business
+ */
+function isB2BTargetCustomer(customerStatement: string): boolean {
+  const b2bIndicators = [
+    'broker', 'agency', 'owner', 'professional', 'business', 'enterprise',
+    'company', 'organization', 'team', 'consultant', 'manager', 'executive'
+  ];
+
+  return b2bIndicators.some(indicator =>
+    customerStatement.toLowerCase().includes(indicator)
+  );
+}
+
+/**
+ * Check if B2B business is direct (target customers ARE end customers)
+ * vs indirect (target customers sell to end customers)
+ */
+function isDirectB2B(customerStatement: string): boolean {
+  // Direct B2B indicators - the target customer is the actual end user
+  const directB2BIndicators = [
+    'seeking', 'looking to', 'wanting to', 'modernize', 'improve', 'streamline',
+    'scale', 'grow', 'automate', 'optimize', 'enhance', 'upgrade'
+  ];
+
+  // Indirect B2B indicators - target customer serves other customers
+  const indirectB2BIndicators = [
+    'serving', 'helping', 'providing to', 'selling to', 'clients of',
+    'customers of', 'buyers through'
+  ];
+
+  const statement = customerStatement.toLowerCase();
+
+  // Check for indirect indicators first (more specific)
+  const hasIndirectIndicators = indirectB2BIndicators.some(indicator =>
+    statement.includes(indicator)
+  );
+
+  if (hasIndirectIndicators) {
+    return false; // Indirect B2B
+  }
+
+  // If direct indicators present, it's direct B2B
+  const hasDirectIndicators = directB2BIndicators.some(indicator =>
+    statement.includes(indicator)
+  );
+
+  // Default to direct B2B for most business customers
+  return hasDirectIndicators || true;
+}
+
+/**
+ * Extract end customer context for B2B query construction
+ * Converts target customer to their customer's problems
+ */
+function extractEndCustomerContext(customerStatement: string, industry: string): string {
+  // B2B industry mappings to end customer contexts
+  const industryMappings: Record<string, string> = {
+    'insurance': 'insurance buyers customers shopping for coverage',
+    'real estate': 'home buyers sellers real estate customers',
+    'automotive': 'car buyers auto customers vehicle shoppers',
+    'healthcare': 'patients healthcare customers medical',
+    'finance': 'financial services customers banking clients',
+    'legal': 'legal clients law firm customers',
+    'accounting': 'small business owners tax clients',
+    'marketing': 'marketing clients business owners',
+    'consulting': 'consulting clients business executives',
+    'software': 'software users technology customers'
+  };
+
+  // Extract industry from target customer or industry field
+  const targetLower = customerStatement.toLowerCase();
+  const industryLower = industry.toLowerCase();
+
+  for (const [industryKey, endCustomer] of Object.entries(industryMappings)) {
+    if (targetLower.includes(industryKey) || industryLower.includes(industryKey)) {
+      return endCustomer;
+    }
+  }
+
+  // Default fallback: extract the industry and add "customers"
+  const industryWords = customerStatement.match(/(\w+)\s+(broker|agent|owner|professional|consultant)/i);
+  if (industryWords && industryWords[1]) {
+    return `${industryWords[1]} customers buyers clients`;
+  }
+
+  // Final fallback
+  return 'customers buyers clients shopping';
+}
+
 // Export service
 export const uvpContextBuilder = {
   buildUVPContext,
   buildTabQuery,
   formatContextForPrompt,
   getQueryDepth,
+  extractShortQuery,
+  extractLocation,
+  extractDomain,
 };

@@ -196,19 +196,37 @@ something as a potential loss ("don't miss") is more motivating than gain framin
   }
 
   /**
-   * Explain emotional trigger
+   * Explain psychological trigger (V1 psychology principles, NOT emotions)
+   * Maps to Cialdini's principles + cognitive psychology
    */
   private explainTrigger(trigger: { type: string; strength: number }): string {
-    const triggers: Record<string, string> = {
-      curiosity: 'Makes readers want to know "what happens next?" or "what is the secret?"',
-      fear: 'Taps into concerns about missing out, making mistakes, or facing negative outcomes',
-      anger: 'Activates sense of injustice or frustration with the status quo',
-      surprise: 'Disrupts expectations and creates memorable moments',
-      aspiration: 'Connects to desire for improvement, success, or transformation',
-      validation: 'Confirms existing beliefs or experiences, creating connection'
+    // V1 Psychology Principles - NOT emotion labels
+    const principles: Record<string, string> = {
+      // Cialdini's 6 Principles
+      'social_proof': 'Leverages "others like me are doing this" to reduce decision uncertainty',
+      'authority': 'Establishes credibility through expertise, data, or recognized sources',
+      'scarcity': 'Creates urgency through limited availability or time-sensitive opportunity',
+      'reciprocity': 'Triggers obligation by providing value first',
+      'commitment': 'Uses small agreements to build toward larger action',
+      'liking': 'Creates connection through relatability and shared values',
+
+      // Cognitive Psychology Principles
+      'curiosity_gap': 'Creates information gap that the brain feels compelled to close',
+      'pattern_interrupt': 'Breaks expected flow, switching from autopilot to active attention',
+      'loss_aversion': 'Frames potential loss (2.5x stronger than equivalent gain)',
+      'cognitive_dissonance': 'Challenges existing beliefs, creating mental tension that demands resolution',
+      'narrative_transportation': 'Uses story structure to bypass logical resistance',
+
+      // Legacy mapping for backwards compatibility
+      curiosity: 'Creates information gap that the brain feels compelled to close',
+      fear: 'Frames as potential loss to leverage loss aversion (2.5x stronger than gain)',
+      anger: 'Activates cognitive dissonance against status quo',
+      surprise: 'Pattern interrupt - switches brain from autopilot to active processing',
+      aspiration: 'Narrative transportation toward desired transformation',
+      validation: 'Social proof - confirms through shared experience'
     };
 
-    return triggers[trigger.type] || 'Creates emotional resonance with the audience';
+    return principles[trigger.type] || 'Activates psychological principle for engagement';
   }
 
   /**

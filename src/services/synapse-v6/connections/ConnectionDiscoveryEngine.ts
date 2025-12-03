@@ -177,6 +177,12 @@ export class ConnectionDiscoveryEngine {
 
     const generateId = () => `dp-${Date.now()}-${idCounter++}`;
 
+    // V6 Integration: Check for raw data points passed directly from V6 service
+    if ((context as any).rawDataPoints && Array.isArray((context as any).rawDataPoints)) {
+      console.log(`[ConnectionDiscoveryEngine] Using ${(context as any).rawDataPoints.length} raw data points from V6`);
+      return (context as any).rawDataPoints;
+    }
+
     // Extract from cultural intelligence
     if (context.realTimeCultural) {
       const cultural = context.realTimeCultural;
