@@ -695,11 +695,11 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
           persona.industry?.primary_industry,
           persona.company_type,
           // Include pain points summary if available
-          persona.pain_points?.length ? `Pain: ${persona.pain_points[0]?.pain || persona.pain_points[0]}` : null,
+          persona.pain_points?.length ? `Pain: ${persona.pain_points[0]?.description || persona.pain_points[0]}` : null,
         ].filter(Boolean).join(' • '),
         roleCategory: classifyRole(persona.role?.title || persona.persona_name || ''),
         // Preserve full persona data for drivers
-        emotionalDrivers: persona.pain_points?.map((p: any) => typeof p === 'string' ? p : p.pain || p.emotional_impact) || [],
+        emotionalDrivers: persona.pain_points?.map((p: any) => typeof p === 'string' ? p : p.description || p.emotional_impact) || [],
         functionalDrivers: persona.desired_outcomes?.map((o: any) => typeof o === 'string' ? o : o.outcome || o.functional_benefit) || [],
       }));
     }
@@ -966,5 +966,8 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
     </div>
   );
 });
+
+// Export for use in other services
+export { parseCustomerProfiles };
 
 export default UVPBuildingBlocks;
