@@ -305,6 +305,7 @@ export interface EnhancedIndustryProfile {
   ugc_prompts: EnhancedUGCPrompt[];
   viral_triggers: EnhancedViralTrigger[];
   freshness_metadata: EnhancedFreshnessMetadata;
+  call_to_action_templates?: string[];
 
   // Tab visibility configuration - determines which tabs show for this industry
   enabledTabs?: EnabledTabs;

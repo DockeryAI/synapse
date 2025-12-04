@@ -72,26 +72,24 @@ import { AddEditProductModal } from '@/components/settings/AddEditProductModal';
 import { useProducts } from '@/hooks/useProducts';
 import type { BrandProduct, BrandProductInput } from '@/types/product.types';
 
-// Profile type labels
+// Profile type labels (V6)
 const PROFILE_LABELS: Record<BusinessProfileType, string> = {
-  'local-service-b2b': 'Local B2B Service',
-  'local-service-b2c': 'Local B2C Service',
-  'regional-b2b-agency': 'Regional B2B Agency',
-  'regional-retail-b2c': 'Regional Retail',
-  'national-saas-b2b': 'National SaaS B2B',
-  'national-product-b2c': 'National Product B2C',
-  'global-saas-b2b': 'Global SaaS B2B'
+  'local-b2b': 'Local B2B Service',
+  'local-b2c': 'Local B2C Service',
+  'regional-agency': 'Regional Agency',
+  'regional-retail': 'Regional Retail',
+  'national-saas': 'National SaaS',
+  'national-product': 'National Product'
 };
 
-// Profile type colors
+// Profile type colors (V6)
 const PROFILE_COLORS: Record<BusinessProfileType, string> = {
-  'local-service-b2b': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'local-service-b2c': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-  'regional-b2b-agency': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-  'regional-retail-b2c': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  'national-saas-b2b': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
-  'national-product-b2c': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
-  'global-saas-b2b': 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+  'local-b2b': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+  'local-b2c': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+  'regional-agency': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+  'regional-retail': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+  'national-saas': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
+  'national-product': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300'
 };
 
 // ============================================================================
@@ -911,7 +909,7 @@ export function BrandProfilePage() {
       customerType: profile?.customerType || profileScan?.profileAnalysis.customerType || 'b2b',
       geographicScope: profile?.geographicScope || profileScan?.geography.scope || 'national',
       primaryRegions: profile?.primaryRegions || profileScan?.geography.primaryRegions || [],
-      profileType: profile?.profileType || profileScan?.profileType || 'national-saas-b2b',
+      profileType: profile?.profileType || profileScan?.profileType || 'national-saas',
     });
     setIsEditingMarket(true);
   };

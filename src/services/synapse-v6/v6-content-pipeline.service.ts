@@ -18,6 +18,12 @@
 import type { BreakthroughConnection, V6ConnectionResult } from './v6-connection-service';
 import type { BrandProfile, InsightTab } from './brand-profile.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
+import {
+  ContentPsychologyEngine,
+  type PsychologyPrincipleAnalysis,
+  type BatchPsychologyAnalysis,
+  type VoCInsight,
+} from './generation/ContentPsychologyEngine';
 
 // Content output types
 export interface V6ContentPiece {
@@ -33,6 +39,7 @@ export interface V6ContentPiece {
     trigger: string;
     technique: string;
     explanation: string;
+    psychology_analysis?: PsychologyPrincipleAnalysis; // NEW: Full 9-principle analysis
   };
   optimization: {
     powerWords: string[];
@@ -86,8 +93,10 @@ const DEFAULT_OPTIONS: ContentGenerationOptions = {
  * Simplified implementation - generates content from breakthrough connections
  */
 export class V6ContentPipeline {
+  private psychologyEngine: ContentPsychologyEngine;
+
   constructor() {
-    // Simplified - no external dependencies needed for basic content generation
+    this.psychologyEngine = new ContentPsychologyEngine();
   }
 
   /**
@@ -123,6 +132,15 @@ export class V6ContentPipeline {
   }
 
   /**
+   * Analyze VoC insights for psychology principles without generating content
+   * Useful for understanding which insights have the highest psychological impact
+   */
+  async analyzeVoCPsychology(vocInsights: VoCInsight[]): Promise<BatchPsychologyAnalysis> {
+    console.log(`[V6ContentPipeline] Analyzing ${vocInsights.length} VoC insights for psychology principles`);
+    return this.psychologyEngine.analyzeVoCInsightsBatch(vocInsights);
+  }
+
+  /**
    * Generate content from a single breakthrough
    */
   private async generateFromBreakthrough(
@@ -133,15 +151,18 @@ export class V6ContentPipeline {
     // 1. Generate content brief from connection
     const brief = this.createContentBrief(breakthrough, uvp);
 
-    // 2. Select optimal format based on connection characteristics (V1 connection-aware logic)
+    // 2. Analyze VoC insights with psychology engine
+    const vocPsychologyAnalyses = this.analyzeVoCInsightsForPsychology(breakthrough);
+
+    // 3. Select optimal format based on connection characteristics (V1 connection-aware logic)
     const selectedFormat = this.selectOptimalFormat(breakthrough, brief, options.contentTypes);
 
-    // 3. Generate raw content (simplified - actual implementation would use LLM)
+    // 4. Generate raw content (simplified - actual implementation would use LLM)
     const rawContent = this.generateRawContent(brief, uvp, selectedFormat);
 
-    // 3. Generate psychology explanation
+    // 5. Generate psychology explanation with full 9-principle analysis
     const psychology = options.includeExplanations
-      ? this.generatePsychologyExplanation(breakthrough, brief)
+      ? this.generatePsychologyExplanation(breakthrough, brief, vocPsychologyAnalyses)
       : null;
 
     // 4. Generate variants
@@ -336,13 +357,41 @@ export class V6ContentPipeline {
   }
 
   /**
-   * Generate psychology explanation
+   * Analyze VoC insights with ContentPsychologyEngine
+   * Returns array of psychology analyses for all VoC insights in the breakthrough
+   */
+  private analyzeVoCInsightsForPsychology(
+    breakthrough: BreakthroughConnection
+  ): PsychologyPrincipleAnalysis[] {
+    // Filter for VoC sources only
+    if (!breakthrough.sources.includes('voc')) {
+      return [];
+    }
+
+    // In production, this would pull actual VoC insight data
+    // For now, analyze the breakthrough insight text itself
+    const vocInsight = {
+      id: breakthrough.id,
+      text: breakthrough.insight,
+      title: breakthrough.title,
+    };
+
+    const analysis = this.psychologyEngine.analyzeVoCInsight(vocInsight);
+    return [analysis];
+  }
+
+  /**
+   * Generate psychology explanation with full 9-principle analysis
    */
   private generatePsychologyExplanation(
     breakthrough: BreakthroughConnection,
-    brief: ContentBrief
+    brief: ContentBrief,
+    vocAnalyses: PsychologyPrincipleAnalysis[]
   ): V6ContentPiece['psychology'] {
-    // Map connection type to psychology principle
+    // If we have VoC psychology analysis, use it
+    const primaryAnalysis = vocAnalyses.length > 0 ? vocAnalyses[0] : null;
+
+    // Map connection type to psychology principle (fallback)
     const principles: Record<string, string> = {
       'voc': 'Social Proof',
       'community': 'Bandwagon Effect',
@@ -353,18 +402,39 @@ export class V6ContentPipeline {
     };
 
     const primarySource = breakthrough.sources[0];
-    const principle = principles[primarySource] || 'Pattern Interruption';
+    const basePrinciple = principles[primarySource] || 'Pattern Interruption';
+
+    // Use top principle from VoC analysis if available
+    const principle = primaryAnalysis
+      ? primaryAnalysis.top_principles[0].principle
+      : basePrinciple;
 
     const techniques: Record<string, string> = {
       'two-way': 'Unexpected Association',
       'three-way': 'Triangulation Effect',
     };
 
+    // Build detailed explanation using VoC analysis
+    let explanation = `This content works because it connects ${breakthrough.sources.length} unexpected data sources, creating a ${breakthrough.unexpectedness}% unexpectedness score that breaks pattern expectations.`;
+
+    if (primaryAnalysis) {
+      const topPrinciple = primaryAnalysis.top_principles[0];
+      explanation += `\n\n**Psychology Deep-Dive:**\n`;
+      explanation += `Top Principle: ${topPrinciple.principle} (${topPrinciple.score}/10)\n`;
+      explanation += `${topPrinciple.explanation}\n\n`;
+      explanation += `**Detected Triggers:**\n`;
+      topPrinciple.triggers.forEach(trigger => {
+        explanation += `- ${trigger}\n`;
+      });
+      explanation += `\n**Content Strategy:** ${topPrinciple.content_application}`;
+    }
+
     return {
       principle,
       trigger: brief.unexpectedness > 70 ? 'Surprise' : 'Curiosity',
       technique: techniques[breakthrough.type],
-      explanation: `This content works because it connects ${breakthrough.sources.length} unexpected data sources, creating a ${breakthrough.unexpectedness}% unexpectedness score that breaks pattern expectations.`,
+      explanation,
+      psychology_analysis: primaryAnalysis || undefined,
     };
   }
 

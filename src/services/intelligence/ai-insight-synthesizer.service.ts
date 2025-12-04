@@ -190,7 +190,7 @@ export function generateFallbackInsights(
       validation: {
         sourceCount,
         crossPlatform: sourceCount > 1,
-        uvpMatch: uvpData?.target_customer ? 0.7 : undefined,
+        uvpMatch: uvpData?.target_customer ? 'target_customer' : undefined,
         validationLabel: getValidationLabel(sourceCount)
       },
       scores: {

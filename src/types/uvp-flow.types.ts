@@ -93,6 +93,10 @@ export interface TransformationGoal {
   how?: string; // Solution approach
   why?: string; // Emotional + functional benefit
 
+  // Pain points and desired outcomes (for buyer persona generation)
+  painPoints?: Array<string | { description: string; [key: string]: any }>;
+  desiredOutcomes?: Array<string | { description: string; [key: string]: any }>;
+
   emotionalDrivers: string[];
   functionalDrivers: string[];
   eqScore: {
@@ -146,6 +150,7 @@ export interface Differentiator {
 export interface KeyBenefit {
   id: string;
   statement: string; // What's the key benefit?
+  description?: string; // Alternative description field (used in some contexts)
   outcomeStatement?: string; // JTBD-transformed outcome-focused version
   outcomeType: 'quantifiable' | 'qualitative' | 'mixed';
   metrics?: BenefitMetric[];

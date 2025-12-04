@@ -71,6 +71,7 @@ type RoleCategory = 'C-Suite' | 'Operations' | 'Technology' | 'Sales & Marketing
 interface ParsedCustomerProfile {
   title: string;
   description: string;
+  role?: string;
   roleCategory: RoleCategory;
   emotionalDrivers?: string[];
   functionalDrivers?: string[];
@@ -688,20 +689,25 @@ export const UVPBuildingBlocks = memo(function UVPBuildingBlocks({
     // PRIMARY: Use buyerPersonas from database if available (10 detailed profiles)
     if (buyerPersonas && buyerPersonas.length > 0) {
       console.log('[UVPBuildingBlocks] Using buyerPersonas from DB:', buyerPersonas.length);
-      return buyerPersonas.map((persona) => ({
-        title: persona.persona_name || persona.role?.title || 'Customer',
-        description: [
-          persona.role?.title,
-          persona.industry?.primary_industry,
-          persona.company_type,
-          // Include pain points summary if available
-          persona.pain_points?.length ? `Pain: ${persona.pain_points[0]?.description || persona.pain_points[0]}` : null,
-        ].filter(Boolean).join(' • '),
-        roleCategory: classifyRole(persona.role?.title || persona.persona_name || ''),
-        // Preserve full persona data for drivers
-        emotionalDrivers: persona.pain_points?.map((p: any) => typeof p === 'string' ? p : p.description || p.emotional_impact) || [],
-        functionalDrivers: persona.desired_outcomes?.map((o: any) => typeof o === 'string' ? o : o.outcome || o.functional_benefit) || [],
-      }));
+      return buyerPersonas.map((persona) => {
+        const roleTitle = typeof persona.role === 'string' ? persona.role : persona.role?.title;
+        const industryName = typeof persona.industry === 'string' ? persona.industry : persona.industry?.primary_industry;
+
+        return {
+          title: persona.persona_name || roleTitle || 'Customer',
+          description: [
+            roleTitle,
+            industryName,
+            persona.company_type,
+            // Include pain points summary if available
+            persona.pain_points?.length ? `Pain: ${typeof persona.pain_points[0] === 'string' ? persona.pain_points[0] : persona.pain_points[0]?.description}` : null,
+          ].filter(Boolean).join(' • '),
+          roleCategory: classifyRole(roleTitle || persona.persona_name || ''),
+          // Preserve full persona data for drivers
+          emotionalDrivers: persona.pain_points?.map((p: any) => typeof p === 'string' ? p : p.description || p.emotional_impact) || [],
+          functionalDrivers: persona.desired_outcomes?.map((o: any) => typeof o === 'string' ? o : o.outcome || o.functional_benefit) || [],
+        };
+      });
     }
 
     // FALLBACK: Parse from statement field

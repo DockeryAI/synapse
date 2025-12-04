@@ -7,6 +7,7 @@ export interface AnalyticsEvent {
   event: string;
   properties?: Record<string, any>;
   timestamp: Date;
+  userId?: string;
 }
 
 class AnalyticsService {

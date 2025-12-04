@@ -16,10 +16,10 @@
  * Created: 2025-12-01
  */
 
-import React, { useState, useMemo, memo, useCallback } from 'react';
+import React, { useState, useMemo, memo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Heart,
+  MessageSquare,
   CheckCircle2,
   TrendingUp,
   Target,
@@ -112,7 +112,7 @@ const BASE_TABS: TabConfig[] = [
   {
     id: 'triggers',
     label: 'Voice of Customer',
-    icon: Heart,
+    icon: MessageSquare,
     color: 'text-red-600',
     activeColor: 'bg-red-600',
     description: 'Direct customer language from reviews & testimonials',
@@ -259,6 +259,10 @@ export const InsightTabs = memo(function InsightTabs({
   } = useV6ConnectionDiscovery();
   const [showConnections, setShowConnections] = useState(false);
 
+  // Auto-trigger state - track if we've already analyzed VoC tab
+  const [vocAnalyzed, setVocAnalyzed] = useState(false);
+  const [autoAnalysisInProgress, setAutoAnalysisInProgress] = useState(false);
+
   // Build available tabs based on enabledTabs
   const availableTabs = useMemo(() => {
     const tabs = [...BASE_TABS];
@@ -384,10 +388,52 @@ export const InsightTabs = memo(function InsightTabs({
 
   // Handler for Find Connections button
   const handleFindConnections = useCallback(async () => {
+    // If already analyzed in background, just toggle display
+    if (vocAnalyzed && connectionStats) {
+      setShowConnections(true);
+      return;
+    }
+
+    // Otherwise, run analysis
     const allV6 = insightsToV6(insights);
     await analyzeConnections(allV6);
     setShowConnections(true);
-  }, [insights, analyzeConnections]);
+  }, [insights, analyzeConnections, vocAnalyzed, connectionStats]);
+
+  // Auto-trigger connection discovery when VoC tab finishes loading
+  // Only runs once when VoC insights are first available and not already processed
+  useEffect(() => {
+    // Skip if already analyzed, in progress, or loading
+    if (vocAnalyzed || autoAnalysisInProgress || isLoading) {
+      return;
+    }
+
+    // Check if we have VoC insights (activeFilter === 'triggers' means VoC tab)
+    const vocInsights = insights.filter(i => i.sourceTab === 'voc' || i.type === 'trigger');
+
+    // Need at least 3 VoC insights to make connections worthwhile
+    if (vocInsights.length < 3) {
+      return;
+    }
+
+    // Auto-trigger connection discovery in background
+    console.log('[InsightTabs] Auto-triggering connection discovery for', vocInsights.length, 'VoC insights');
+    setAutoAnalysisInProgress(true);
+
+    // Run async without blocking UI
+    (async () => {
+      try {
+        const allV6 = insightsToV6(insights);
+        await analyzeConnections(allV6);
+        setVocAnalyzed(true); // Mark as analyzed to prevent re-running
+        console.log('[InsightTabs] Background connection analysis complete');
+      } catch (error) {
+        console.error('[InsightTabs] Auto connection analysis failed:', error);
+      } finally {
+        setAutoAnalysisInProgress(false);
+      }
+    })();
+  }, [insights, vocAnalyzed, autoAnalysisInProgress, isLoading, analyzeConnections]);
 
   return (
     <div className="flex flex-col h-full">
@@ -444,6 +490,22 @@ export const InsightTabs = memo(function InsightTabs({
           })}
         </div>
       </div>
+
+      {/* Background Analysis Indicator */}
+      {autoAnalysisInProgress && !showConnections && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="flex-shrink-0 flex items-center gap-2 px-4 py-2 border-b border-purple-500/30 bg-purple-500/10"
+        >
+          <Loader2 className="w-4 h-4 animate-spin text-purple-400" />
+          <span className="text-sm text-purple-400">Discovering connections in background...</span>
+          <div className="ml-auto text-xs text-purple-400/70">
+            AI analyzing {insights.length} insights
+          </div>
+        </motion.div>
+      )}
 
       {/* Filter Bar */}
       <div className="flex-shrink-0 flex items-center gap-2 p-2 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900">
@@ -503,16 +565,28 @@ export const InsightTabs = memo(function InsightTabs({
           className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border transition-all ${
             showConnections
               ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400'
-              : 'border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300'
+              : vocAnalyzed && !showConnections
+                ? 'border-green-500/50 bg-green-500/10 text-green-400 hover:bg-green-500/20'
+                : 'border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300'
           } ${isAnalyzingConnections ? 'opacity-70' : ''}`}
-          title="Find cross-domain connections using V1 engine"
+          title={
+            vocAnalyzed && !showConnections
+              ? 'Connections analyzed in background - click to view'
+              : 'Find cross-domain connections using V1 engine'
+          }
         >
           {isAnalyzingConnections ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
-            <Zap className="w-4 h-4" />
+            <Zap className={`w-4 h-4 ${vocAnalyzed && !showConnections ? 'animate-pulse' : ''}`} />
           )}
-          <span>{showConnections ? 'Connections On' : 'Find Connections'}</span>
+          <span>
+            {showConnections
+              ? 'Connections On'
+              : vocAnalyzed
+                ? 'View Connections'
+                : 'Find Connections'}
+          </span>
           {connectionStats && (
             <span className="text-xs opacity-70">({connectionStats.totalConnections})</span>
           )}

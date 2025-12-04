@@ -8,8 +8,6 @@ export interface ConsolidatedTrigger {
   strength: number; // 0-100
   evidence: EvidenceItem[];
   sources: string[];
-  title?: string;           // V5 compatibility - trigger title
-  executiveSummary?: string; // V5 compatibility - executive summary
 }
 
 export type TriggerCategory =
@@ -24,10 +22,7 @@ export type TriggerCategory =
   | 'curiosity'
   | 'convenience'
   | 'value'
-  | 'status'
-  | 'pain-point'   // V5 compatibility
-  | 'objection'    // V5 compatibility
-  | 'motivation';  // V5 compatibility
+  | 'status';
 
 export interface EvidenceItem {
   id: string;
@@ -35,9 +30,6 @@ export interface EvidenceItem {
   source: string;
   confidence: number; // 0-1
   type: 'quote' | 'data' | 'observation';
-  quote?: string;     // V5 compatibility - alternate quote text
-  platform?: string;  // V5 compatibility - source platform
-  url?: string;       // V5 compatibility - source URL
 }
 
 export interface ConsolidationResult {

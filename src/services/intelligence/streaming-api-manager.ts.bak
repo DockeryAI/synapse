@@ -3170,9 +3170,9 @@ ${STRUCTURED_JSON_FORMAT}`
    */
   private isTechProfile(profileType: BusinessProfileType): boolean {
     const techProfiles: BusinessProfileType[] = [
-      'national-saas',
-      'national-saas',
-      'regional-agency'  // Tech agencies benefit from HN too
+      'national-saas-b2b',
+      'global-saas-b2b',
+      'regional-b2b-agency'  // Tech agencies benefit from HN too
     ];
     return techProfiles.includes(profileType);
   }
@@ -3182,10 +3182,10 @@ ${STRUCTURED_JSON_FORMAT}`
    */
   private isB2BProfile(profileType: BusinessProfileType): boolean {
     const b2bProfiles: BusinessProfileType[] = [
-      'national-saas',
-      'national-saas',
-      'regional-agency',
-      'local-b2b',
+      'national-saas-b2b',
+      'global-saas-b2b',
+      'regional-b2b-agency',
+      'local-service-b2b',
       // New types from brand-profile.service
       'local-b2b',
       'national-saas'

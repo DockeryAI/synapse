@@ -534,7 +534,15 @@ export interface PowerWordAnalysis {
   warning?: string;
 }
 
-// V5 Emotion Types REMOVED - Use PsychologyPrincipleType instead
+// V5 Emotion Types - Kept for backwards compatibility with reddit-api and other services
+export type EmotionalTriggerType =
+  | 'curiosity'
+  | 'fear'
+  | 'desire'
+  | 'belonging'
+  | 'achievement'
+  | 'trust'
+  | 'urgency';
 
 // V6 Psychology Principles (V1-correct format)
 export type PsychologyPrincipleType =

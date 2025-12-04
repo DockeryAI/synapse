@@ -175,10 +175,10 @@ export function SourceLink({
     setIsVerifying(true);
 
     try {
-      const verifiedSource = sourcePreservationService.getSource(source.id);
+      const verifiedSource = await sourcePreservationService.getSource(source.id);
       if (verifiedSource) {
-        const status = await sourcePreservationService.verifySourceUrl(verifiedSource);
-        setVerificationStatus(status);
+        const isValid = await sourcePreservationService.verifySourceUrl(verifiedSource.originalUrl);
+        setVerificationStatus(isValid ? 'verified' : 'invalid');
         setHasVerified(true);
       }
     } catch (err) {
@@ -284,13 +284,22 @@ export function SourceList({
   // Batch verify on mount if requested
   useEffect(() => {
     if (verifyOnMount && sources.length > 0) {
-      const verifiedSources = sources
-        .map(s => sourcePreservationService.getSource(s.id))
-        .filter((s): s is NonNullable<typeof s> => !!s);
+      const verifyBatch = async () => {
+        const verifiedSourcePromises = sources.map(s => sourcePreservationService.getSource(s.id));
+        const verifiedSources = await Promise.all(verifiedSourcePromises);
 
-      if (verifiedSources.length > 0) {
-        sourcePreservationService.verifySourceUrls(verifiedSources);
-      }
+        const validSources = verifiedSources
+          .filter((s): s is NonNullable<typeof s> => !!s);
+
+        if (validSources.length > 0) {
+          const urls = validSources.map(s => s.originalUrl);
+          await sourcePreservationService.verifySourceUrls(urls);
+        }
+      };
+
+      verifyBatch().catch(err => {
+        console.warn('[SourceList] Batch verification failed:', err);
+      });
     }
   }, [verifyOnMount, sources]);
 

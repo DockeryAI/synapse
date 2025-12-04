@@ -53,6 +53,8 @@ import {
   TrendingUp,
   Search,
   MapPin,
+  Zap,
+  Star,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { BorderBeam } from '@/components/ui/border-beam';
@@ -104,29 +106,13 @@ const CATEGORY_CONFIG: Record<TriggerCategory, CategoryConfig> = {
     borderColor: 'border-pink-700',
     ringColor: 'ring-pink-500',
   },
-  'pain-point': {
+  pain: {
     icon: Flame,
-    label: 'Pain Point',
+    label: 'Pain',
     color: 'text-orange-400',
     bgColor: 'bg-orange-950/80',
     borderColor: 'border-orange-700',
     ringColor: 'ring-orange-500',
-  },
-  objection: {
-    icon: ShieldQuestion,
-    label: 'Objection',
-    color: 'text-yellow-400',
-    bgColor: 'bg-yellow-950/80',
-    borderColor: 'border-yellow-700',
-    ringColor: 'ring-yellow-500',
-  },
-  motivation: {
-    icon: Target,
-    label: 'Motivation',
-    color: 'text-green-400',
-    bgColor: 'bg-green-950/80',
-    borderColor: 'border-green-700',
-    ringColor: 'ring-green-500',
   },
   trust: {
     icon: Shield,
@@ -144,54 +130,61 @@ const CATEGORY_CONFIG: Record<TriggerCategory, CategoryConfig> = {
     borderColor: 'border-purple-700',
     ringColor: 'ring-purple-500',
   },
-  // V6 Source-Based Categories
-  voc: {
-    icon: Heart,
-    label: 'Voice of Customer',
-    color: 'text-red-400',
-    bgColor: 'bg-red-950/80',
-    borderColor: 'border-red-700',
-    ringColor: 'ring-red-500',
+  authority: {
+    icon: Shield,
+    label: 'Authority',
+    color: 'text-indigo-400',
+    bgColor: 'bg-indigo-950/80',
+    borderColor: 'border-indigo-700',
+    ringColor: 'ring-indigo-500',
   },
-  community: {
+  social_proof: {
     icon: Users,
-    label: 'Community',
+    label: 'Social Proof',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-950/80',
+    borderColor: 'border-emerald-700',
+    ringColor: 'ring-emerald-500',
+  },
+  scarcity: {
+    icon: Clock,
+    label: 'Scarcity',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-950/80',
+    borderColor: 'border-amber-700',
+    ringColor: 'ring-amber-500',
+  },
+  curiosity: {
+    icon: Search,
+    label: 'Curiosity',
+    color: 'text-violet-400',
+    bgColor: 'bg-violet-950/80',
+    borderColor: 'border-violet-700',
+    ringColor: 'ring-violet-500',
+  },
+  convenience: {
+    icon: Zap,
+    label: 'Convenience',
+    color: 'text-lime-400',
+    bgColor: 'bg-lime-950/80',
+    borderColor: 'border-lime-700',
+    ringColor: 'ring-lime-500',
+  },
+  value: {
+    icon: Target,
+    label: 'Value',
     color: 'text-green-400',
     bgColor: 'bg-green-950/80',
     borderColor: 'border-green-700',
     ringColor: 'ring-green-500',
   },
-  competitive: {
-    icon: Target,
-    label: 'Competitive',
-    color: 'text-orange-400',
-    bgColor: 'bg-orange-950/80',
-    borderColor: 'border-orange-700',
-    ringColor: 'ring-orange-500',
-  },
-  trends: {
-    icon: TrendingUp,
-    label: 'Industry Trends',
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-950/80',
-    borderColor: 'border-blue-700',
-    ringColor: 'ring-blue-500',
-  },
-  search: {
-    icon: Search,
-    label: 'Search Intent',
-    color: 'text-cyan-400',
-    bgColor: 'bg-cyan-950/80',
-    borderColor: 'border-cyan-700',
-    ringColor: 'ring-cyan-500',
-  },
-  local_timing: {
-    icon: MapPin,
-    label: 'Local/Timing',
-    color: 'text-sky-400',
-    bgColor: 'bg-sky-950/80',
-    borderColor: 'border-sky-700',
-    ringColor: 'ring-sky-500',
+  status: {
+    icon: Star,
+    label: 'Status',
+    color: 'text-yellow-400',
+    bgColor: 'bg-yellow-950/80',
+    borderColor: 'border-yellow-700',
+    ringColor: 'ring-yellow-500',
   },
 };
 
@@ -202,110 +195,27 @@ const CATEGORY_CONFIG: Record<TriggerCategory, CategoryConfig> = {
 /**
  * Get the best quote from evidence items for preview
  */
-function getBestQuote(evidence: EvidenceItem[]): { quote: string; source: string } | null {
+function getBestQuote(evidence: EvidenceItem[]): { text: string; source: string } | null {
   if (evidence.length === 0) return null;
 
   // Sort by length and pick the most substantive (50-200 chars ideal)
   const sorted = [...evidence].sort((a, b) => {
-    const aLen = a.quote.length;
-    const bLen = b.quote.length;
+    const aLen = a.text.length;
+    const bLen = b.text.length;
     const aScore = aLen >= 50 && aLen <= 200 ? 100 : Math.abs(125 - aLen);
     const bScore = bLen >= 50 && bLen <= 200 ? 100 : Math.abs(125 - bLen);
     return bScore - aScore;
   });
 
   const best = sorted[0];
-  if (!best?.quote) return null;
+  if (!best?.text) return null;
 
-  // Format the source attribution - V1-STYLE: pass URL for reliable platform extraction
-  const source = formatSourceAttribution(best.platform, best.source, best.url);
+  // V6 format - just use source directly
+  const source = best.source;
 
-  return { quote: best.quote, source };
+  return { text: best.text, source };
 }
 
-/**
- * Format source attribution for display
- * V1-STYLE: Extract platform from URL if available, with intelligent fallbacks
- */
-function formatSourceAttribution(platform?: string, source?: string, url?: string): string {
-  // Platform mapping
-  const platformMap: Record<string, string> = {
-    'reddit': 'Reddit',
-    'g2': 'G2',
-    'capterra': 'Capterra',
-    'hackernews': 'HackerNews',
-    'twitter': 'X',
-    'x': 'X',
-    'linkedin': 'LinkedIn',
-    'youtube': 'YouTube',
-    'trustpilot': 'Trustpilot',
-    'google': 'Google Reviews',
-    'yelp': 'Yelp',
-    'amazon': 'Amazon',
-    'facebook': 'Facebook',
-    'tiktok': 'TikTok',
-    'quora': 'Quora',
-    'glassdoor': 'Glassdoor',
-    'producthunt': 'ProductHunt',
-    'clutch': 'Clutch',
-    'perplexity': 'Perplexity',
-  };
-
-  // 1. Try to extract platform from URL first (most reliable)
-  if (url) {
-    const urlLower = url.toLowerCase();
-    if (urlLower.includes('reddit.com') || urlLower.includes('redd.it')) return 'Reddit';
-    if (urlLower.includes('twitter.com') || urlLower.includes('x.com')) return 'X';
-    if (urlLower.includes('linkedin.com')) return 'LinkedIn';
-    if (urlLower.includes('g2.com') || urlLower.includes('g2crowd')) return 'G2';
-    if (urlLower.includes('capterra.com')) return 'Capterra';
-    if (urlLower.includes('trustpilot.com')) return 'Trustpilot';
-    if (urlLower.includes('yelp.com')) return 'Yelp';
-    if (urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) return 'YouTube';
-    if (urlLower.includes('tiktok.com')) return 'TikTok';
-    if (urlLower.includes('instagram.com')) return 'Instagram';
-    if (urlLower.includes('facebook.com') || urlLower.includes('fb.com')) return 'Facebook';
-    if (urlLower.includes('news.ycombinator.com')) return 'HackerNews';
-    if (urlLower.includes('quora.com')) return 'Quora';
-    if (urlLower.includes('amazon.com')) return 'Amazon';
-    if (urlLower.includes('glassdoor.com')) return 'Glassdoor';
-    if (urlLower.includes('producthunt.com')) return 'ProductHunt';
-    if (urlLower.includes('clutch.co')) return 'Clutch';
-    // Extract domain as fallback
-    try {
-      const domain = new URL(url).hostname.replace('www.', '');
-      return domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1);
-    } catch {}
-  }
-
-  // 2. Use platform if provided
-  if (platform && platform.toLowerCase() !== 'unknown') {
-    const cleanPlatform = platform.toLowerCase().replace(/[^a-z]/g, '');
-    for (const [key, value] of Object.entries(platformMap)) {
-      if (cleanPlatform.includes(key)) return value;
-    }
-    // Capitalize first letter
-    return platform.charAt(0).toUpperCase() + platform.slice(1);
-  }
-
-  // 3. Use source string
-  if (source && source.toLowerCase() !== 'unknown') {
-    // Try to parse as URL
-    try {
-      const parsedUrl = new URL(source);
-      return parsedUrl.hostname.replace('www.', '');
-    } catch {
-      // Check if source contains a known platform name
-      const sourceLower = source.toLowerCase();
-      for (const [key, value] of Object.entries(platformMap)) {
-        if (sourceLower.includes(key)) return value;
-      }
-      return source.slice(0, 20);
-    }
-  }
-
-  return 'Source';
-}
 
 /**
  * Get source count color based on number of sources (dark theme)
@@ -331,7 +241,7 @@ export function TriggerCardV4({
   const [isExpanded, setIsExpanded] = useState(variant === 'expanded');
 
   // Get category config
-  const config = CATEGORY_CONFIG[trigger.category] || CATEGORY_CONFIG['pain-point'];
+  const config = CATEGORY_CONFIG[trigger.category] || CATEGORY_CONFIG['pain'];
   const CategoryIcon = config.icon;
 
   // V1-STYLE: Use evidence directly, no registry lookup
@@ -387,7 +297,7 @@ export function TriggerCardV4({
 
         {/* Title - no flex-1, natural height */}
         <h3 className="text-sm font-semibold text-gray-100 line-clamp-3 leading-snug mb-2">
-          {trigger.title}
+          {trigger.text}
         </h3>
 
         {/* Quote + Source Attribution - flex-1 to push expand button to bottom */}
@@ -395,7 +305,7 @@ export function TriggerCardV4({
           {bestQuote && (
             <div>
               <p className="text-[11px] text-gray-400 italic line-clamp-2 leading-tight">
-                "{bestQuote.quote.slice(0, 100)}{bestQuote.quote.length > 100 ? '...' : ''}"
+                "{bestQuote.text.slice(0, 100)}{bestQuote.text.length > 100 ? '...' : ''}"
               </p>
               <p className="text-[10px] text-gray-500 mt-0.5">
                 — {bestQuote.source}
@@ -464,37 +374,9 @@ export function TriggerCardV4({
 
       {/* Title */}
       <h3 className="text-base font-semibold text-gray-100 mb-3 leading-snug">
-        {trigger.title}
+        {trigger.text}
       </h3>
 
-      {/* Executive Summary - always show if exists and longer than title */}
-      {trigger.executiveSummary && trigger.executiveSummary.length > trigger.title.length && (
-        <div className="mb-4">
-          <h4 className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">
-            Executive Summary
-          </h4>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            {trigger.executiveSummary}
-          </p>
-        </div>
-      )}
-
-      {/* UVP Alignments */}
-      {trigger.uvpAlignments && trigger.uvpAlignments.length > 0 && (
-        <div className="mb-4">
-          <h4 className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-2">
-            UVP Alignment
-          </h4>
-          <div className="space-y-1">
-            {trigger.uvpAlignments.map((alignment, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-sm text-gray-300">
-                <CheckCircle className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
-                <span>{alignment.matchReason}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Full Provenance */}
       <div>
@@ -505,23 +387,12 @@ export function TriggerCardV4({
           {trigger.evidence.map((evidence, idx) => (
             <div key={evidence.id || idx} className="border-l-2 border-gray-700 pl-3">
               <p className="text-sm text-gray-300 italic leading-relaxed">
-                "{evidence.quote}"
+                "{evidence.text}"
               </p>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-[10px] text-gray-500">
-                  — {formatSourceAttribution(evidence.platform, evidence.source, evidence.url)}
+                  — {evidence.source}
                 </span>
-                {evidence.url && (
-                  <a
-                    href={evidence.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-gray-500 hover:text-gray-300"
-                  >
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                )}
               </div>
             </div>
           ))}

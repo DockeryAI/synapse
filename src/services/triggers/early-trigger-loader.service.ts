@@ -53,16 +53,16 @@ class EarlyTriggerLoaderService extends EventEmitter {
   }
 
   // Callback registration methods for BrandContext compatibility
-  onTargetCustomerAvailable(callback: (data: any) => void): void {
-    this.on('target-customer-available', callback);
+  onTargetCustomerAvailable(customer: any, brandId: string, context: any): void {
+    this.emit('target-customer-available', { customer, brandId, context });
   }
 
-  onProductsServicesAvailable(callback: (data: any) => void): void {
-    this.on('products-services-available', callback);
+  onProductsServicesAvailable(products: any, customer?: any): void {
+    this.emit('products-services-available', { products, customer });
   }
 
-  onFullUVPAvailable(callback: (data: any) => void): void {
-    this.on('full-uvp-available', callback);
+  onFullUVPAvailable(uvp: any, brandId: string): void {
+    this.emit('full-uvp-available', { uvp, brandId });
   }
 }
 

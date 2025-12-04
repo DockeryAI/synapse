@@ -161,10 +161,10 @@ interface InsightCardProps {
  * This allows legacy TriggerInsight data to render in the new V4 card format
  */
 function triggerInsightToConsolidatedTrigger(insight: TriggerInsight): ConsolidatedTrigger {
-  const validCategories: TriggerCategory[] = ['fear', 'desire', 'pain-point', 'objection', 'motivation', 'trust', 'urgency'];
+  const validCategories: TriggerCategory[] = ['fear', 'desire', 'pain', 'trust', 'urgency', 'authority', 'social_proof', 'scarcity', 'curiosity', 'convenience', 'value', 'status'];
   const category = (validCategories.includes(insight.category as TriggerCategory)
     ? insight.category
-    : 'motivation') as TriggerCategory;
+    : 'value') as TriggerCategory;
 
   // Normalize confidence: could be 0-1 or 0-100, convert to 0-1
   const rawConfidence = insight.confidence ?? 50;
@@ -180,30 +180,19 @@ function triggerInsightToConsolidatedTrigger(insight: TriggerInsight): Consolida
 
   const evidence: EvidenceItem[] = [{
     id: insight.id,
+    text: insight.text,
     source: sourceString,
-    quote: insight.text,
-    platform: sourceString,
-    url: insight.sourceUrl || '',
-    author: '',
-    timestamp: insight.timestamp || new Date().toISOString(),
-    sentiment: 'neutral' as const,
-    confidence: Math.round(confidence * 100), // Store as 0-100 for evidence
-    verifiedSourceId: undefined,
+    confidence: confidence, // V6 uses 0-1 range
+    type: 'quote' as const,
   }];
 
   return {
     id: insight.id,
+    text: insight.text,
     category,
-    title: insight.text.slice(0, 100) + (insight.text.length > 100 ? '...' : ''),
-    executiveSummary: insight.text,
-    confidence, // Already 0-1
-    evidenceCount: 1,
+    strength: Math.round(confidence * 100), // V6 uses 0-100 for strength
     evidence,
-    uvpAlignments: [],
-    isTimeSensitive: insight.isSurge || false,
-    profileRelevance: 0.5,
-    rawSourceIds: [insight.id],
-    buyerJourneyStage: insight.buyingStage as any,
+    sources: [sourceString],
   };
 }
 
@@ -212,7 +201,7 @@ function triggerInsightToConsolidatedTrigger(insight: TriggerInsight): Consolida
 // ============================================================================
 
 // Dark theme category styles - more visible borders
-const triggerCategoryStyles: Record<TriggerInsight['category'], {
+const triggerCategoryStyles: Record<string, {
   color: string;
   bg: string;
   border: string;
@@ -233,26 +222,12 @@ const triggerCategoryStyles: Record<TriggerInsight['category'], {
     icon: Heart,
     ringColor: 'ring-pink-500',
   },
-  'pain-point': {
+  pain: {
     color: 'text-orange-400',
     bg: 'bg-orange-950/80',
     border: 'border-orange-700',
     icon: Target,
     ringColor: 'ring-orange-500',
-  },
-  objection: {
-    color: 'text-amber-400',
-    bg: 'bg-amber-950/80',
-    border: 'border-amber-700',
-    icon: Shield,
-    ringColor: 'ring-amber-500',
-  },
-  motivation: {
-    color: 'text-green-400',
-    bg: 'bg-green-950/80',
-    border: 'border-green-700',
-    icon: Zap,
-    ringColor: 'ring-green-500',
   },
   trust: {
     color: 'text-blue-400',
@@ -268,6 +243,13 @@ const triggerCategoryStyles: Record<TriggerInsight['category'], {
     icon: Clock,
     ringColor: 'ring-purple-500',
   },
+  value: {
+    color: 'text-green-400',
+    bg: 'bg-green-950/80',
+    border: 'border-green-700',
+    icon: Zap,
+    ringColor: 'ring-green-500',
+  },
 };
 
 
@@ -282,8 +264,8 @@ export const TriggerCard = memo(function TriggerCard({
   onUseInsight,
 }: InsightCardProps & { insight: TriggerInsight }) {
   // Use defaults for missing fields
-  const category = (insight.category?.toLowerCase() || 'motivation') as keyof typeof triggerCategoryStyles;
-  const style = triggerCategoryStyles[category] || triggerCategoryStyles.motivation;
+  const category = insight.category?.toLowerCase() || 'value';
+  const style = triggerCategoryStyles[category] || triggerCategoryStyles.value;
   const IconComponent = style.icon;
   const confidence = insight.confidence ?? 50;
 

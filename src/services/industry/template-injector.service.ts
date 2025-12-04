@@ -121,8 +121,11 @@ const TOKEN_RESOLVERS: Record<string, TokenResolver> = {
     if (urgencyDrivers && Array.isArray(urgencyDrivers) && urgencyDrivers.length > 0) {
       return urgencyDrivers[0];
     }
-    return ctx.uvp?.transformationGoal?.urgencyFactor ||
-           'the need for change';
+    const urgencyFactor = ctx.uvp?.transformationGoal?.urgencyFactor;
+    if (urgencyFactor !== undefined) {
+      return urgencyFactor > 75 ? 'critical urgency' : urgencyFactor > 50 ? 'high urgency' : 'the need for change';
+    }
+    return 'the need for change';
   },
 
   '[PROOF]': (ctx) => {

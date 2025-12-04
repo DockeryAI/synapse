@@ -5,7 +5,6 @@ import { BrandProfileProvider } from './contexts/BrandProfileContext'
 import { LoadingSpinner } from './components/ui/LoadingSpinner'
 import { AppLayout } from './components/layout/AppLayout'
 import { ErrorBoundary } from './components/ErrorBoundary'
-import { BRLogger } from '../.buildrunner/components/br-logger'
 
 // Lazy-loaded pages for code splitting
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
@@ -39,7 +38,6 @@ function App() {
   return (
     <BrandProvider>
       <BrandProfileProvider>
-        <BRLogger />
         <div className="min-h-screen bg-gray-50">
         {/* Accessibility: Skip to main content link */}
         <a

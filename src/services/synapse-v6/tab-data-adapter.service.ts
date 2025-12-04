@@ -13,7 +13,7 @@
 
 import type { TabData, ApiResult } from './api-orchestrator.service';
 import type { InsightTab } from './brand-profile.service';
-import type { Insight, TriggerInsight, ProofInsight, TrendInsight, CompetitionInsight, LocalInsight } from '@/components/v5/InsightCards';
+import type { Insight, TriggerInsight, ProofInsight, TrendInsight, CompetitorInsight, LocalInsight } from '@/components/v5/InsightCards';
 
 /**
  * Convert V6 tab data to legacy Insight format
@@ -203,13 +203,13 @@ function adaptCommunityData(data: unknown, apiName: string): ProofInsight[] {
 /**
  * Adapt Competitive data to Competition insights
  */
-function adaptCompetitiveData(data: unknown, apiName: string): CompetitionInsight[] {
+function adaptCompetitiveData(data: unknown, apiName: string): CompetitorInsight[] {
   const items = extractItems(data);
   console.log(`[adaptCompetitiveData] ${apiName}: extracted ${items.length} items`);
 
   if (items.length === 0) return [];
 
-  const insights: CompetitionInsight[] = [];
+  const insights: CompetitorInsight[] = [];
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;

@@ -10,8 +10,38 @@
 
 import { EventEmitter } from 'events';
 import { geoDetectionService } from './geo-detection.service';
-import { profileDetectionService, type BusinessProfileType, type BusinessProfileAnalysis } from '@/services/triggers';
+import type { BusinessProfileType } from '@/services/synapse-v6/brand-profile.service';
 import type { CompleteUVP, MarketGeography } from '@/types/uvp-flow.types';
+
+// V6: Simplified profile detection - no longer using V5 profileDetectionService
+interface BusinessProfileAnalysis {
+  profileType: BusinessProfileType;
+  customerType: 'b2b' | 'b2c' | 'b2b2c';
+  signals: string[];
+  confidence: number;
+}
+
+// Simple profile detector using V6 brand-profile service
+const profileDetectionService = {
+  detectProfile: (uvp: CompleteUVP, brandData?: any): BusinessProfileAnalysis => {
+    // Import V6 detection logic
+    const { detectProfileType } = require('@/services/synapse-v6/brand-profile.service');
+    const profileType = detectProfileType(uvp);
+
+    // Determine customer type from profile
+    let customerType: 'b2b' | 'b2c' | 'b2b2c' = 'b2c';
+    if (profileType.includes('b2b')) customerType = 'b2b';
+    else if (profileType.includes('b2c')) customerType = 'b2c';
+    else if (profileType.includes('agency')) customerType = 'b2b';
+
+    return {
+      profileType,
+      customerType,
+      signals: [`Detected from UVP: ${profileType}`],
+      confidence: 0.8
+    };
+  }
+};
 
 // ============================================================================
 // TYPES
@@ -158,58 +188,13 @@ class ProfileScannerService extends EventEmitter {
         };
         profileAnalysis = profileDetectionService.detectProfile(uvpWithGeo, options.brandData);
       } else {
-        // Create minimal UVP for detection
-        profileAnalysis = profileDetectionService.detectProfile(
-          {
-            id: 'temp',
-            targetCustomer: {
-              id: 'tc',
-              statement: options.brandData?.description || '',
-              industry: options.brandData?.industry || '',
-              confidence: { level: 50, explanation: '' },
-              sources: [],
-              evidenceQuotes: [],
-              isManualInput: false,
-              marketGeography: geography
-            },
-            transformationGoal: {
-              id: 'tg',
-              statement: '',
-              emotionalDrivers: [],
-              functionalDrivers: [],
-              eqScore: { emotional: 50, rational: 50, overall: 50 },
-              confidence: { level: 50, explanation: '' },
-              sources: [],
-              customerQuotes: [],
-              isManualInput: false
-            },
-            uniqueSolution: {
-              id: 'us',
-              statement: '',
-              differentiators: [],
-              confidence: { level: 50, explanation: '' },
-              sources: [],
-              isManualInput: false
-            },
-            keyBenefit: {
-              id: 'kb',
-              statement: '',
-              outcomeType: 'mixed',
-              eqFraming: 'balanced',
-              confidence: { level: 50, explanation: '' },
-              sources: [],
-              isManualInput: false
-            },
-            valuePropositionStatement: '',
-            whyStatement: '',
-            whatStatement: '',
-            howStatement: '',
-            overallConfidence: { level: 50, explanation: '' },
-            createdAt: new Date(),
-            updatedAt: new Date()
-          } as CompleteUVP,
-          options.brandData
-        );
+        // V6: Use simplified detection without full UVP
+        profileAnalysis = {
+          profileType: 'national-saas',
+          customerType: 'b2b',
+          signals: ['No UVP provided - using defaults'],
+          confidence: 0.5
+        };
       }
 
       // Add profile signals

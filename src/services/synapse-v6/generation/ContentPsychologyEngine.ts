@@ -593,4 +593,564 @@ Expected outcomes:
 
     return Number(score.toFixed(1));
   }
+
+  /**
+   * Analyze VoC insight against all 9 psychology principles
+   * Returns scored analysis with explanations
+   */
+  analyzeVoCInsight(insight: VoCInsight): PsychologyPrincipleAnalysis {
+    const content = insight.text || insight.title || '';
+    const contentLower = content.toLowerCase();
+
+    const principleScores: PrincipleScore[] = [
+      this.scoreCuriosityGap(contentLower, content),
+      this.scoreLossAversion(contentLower, content),
+      this.scoreSocialProof(contentLower, content),
+      this.scoreAuthority(contentLower, content),
+      this.scoreScarcity(contentLower, content),
+      this.scoreReciprocity(contentLower, content),
+      this.scoreCommitmentConsistency(contentLower, content),
+      this.scoreLikingSimilarity(contentLower, content),
+      this.scoreContrast(contentLower, content),
+    ];
+
+    // Sort by score descending
+    principleScores.sort((a, b) => b.score - a.score);
+
+    return {
+      insight_id: insight.id,
+      insight_text: content.substring(0, 200),
+      principle_scores: principleScores,
+      top_principles: principleScores.slice(0, 3),
+      overall_psychology_score: this.calculateOverallScore(principleScores),
+      recommended_content_angle: this.generateContentAngle(principleScores[0]),
+    };
+  }
+
+  /**
+   * Batch analyze multiple VoC insights
+   * Returns array of analyses sorted by overall psychology score
+   */
+  analyzeVoCInsightsBatch(insights: VoCInsight[]): BatchPsychologyAnalysis {
+    console.log(`[ContentPsychologyEngine] Analyzing ${insights.length} VoC insights for psychology principles`);
+
+    const analyses = insights.map(insight => this.analyzeVoCInsight(insight));
+
+    // Sort by overall score descending
+    analyses.sort((a, b) => b.overall_psychology_score - a.overall_psychology_score);
+
+    // Calculate aggregate statistics
+    const principleFrequency = this.calculatePrincipleFrequency(analyses);
+    const avgOverallScore = analyses.reduce((sum, a) => sum + a.overall_psychology_score, 0) / analyses.length;
+
+    return {
+      total_analyzed: insights.length,
+      analyses,
+      top_performers: analyses.slice(0, 5),
+      average_psychology_score: Number(avgOverallScore.toFixed(1)),
+      principle_frequency: principleFrequency,
+      recommendations: this.generateBatchRecommendations(principleFrequency, analyses),
+    };
+  }
+
+  /**
+   * Calculate which principles appear most frequently as top scorers
+   */
+  private calculatePrincipleFrequency(analyses: PsychologyPrincipleAnalysis[]): Record<string, number> {
+    const frequency: Record<string, number> = {};
+
+    analyses.forEach(analysis => {
+      const topPrinciple = analysis.top_principles[0].principle;
+      frequency[topPrinciple] = (frequency[topPrinciple] || 0) + 1;
+    });
+
+    return frequency;
+  }
+
+  /**
+   * Generate strategic recommendations based on batch analysis
+   */
+  private generateBatchRecommendations(
+    principleFrequency: Record<string, number>,
+    analyses: PsychologyPrincipleAnalysis[]
+  ): string[] {
+    const recommendations: string[] = [];
+
+    // Sort principles by frequency
+    const sortedPrinciples = Object.entries(principleFrequency)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 3);
+
+    // Recommendation 1: Top principle focus
+    if (sortedPrinciples.length > 0) {
+      const [topPrinciple, count] = sortedPrinciples[0];
+      const percentage = ((count / analyses.length) * 100).toFixed(0);
+      recommendations.push(
+        `${percentage}% of insights trigger ${topPrinciple}. Create content series focused on this principle for maximum resonance.`
+      );
+    }
+
+    // Recommendation 2: Diversification opportunity
+    if (sortedPrinciples.length > 1) {
+      const topThree = sortedPrinciples.map(([p]) => p).join(', ');
+      recommendations.push(
+        `Create content variety using your top 3 principles: ${topThree}. This ensures broad audience appeal.`
+      );
+    }
+
+    // Recommendation 3: Low-hanging fruit
+    const highScorers = analyses.filter(a => a.overall_psychology_score >= 7);
+    if (highScorers.length > 0) {
+      recommendations.push(
+        `${highScorers.length} insights scored 7+ overall. Prioritize these for immediate content creation.`
+      );
+    }
+
+    // Recommendation 4: Underutilized principles
+    const allPrinciples = [
+      'Curiosity Gap', 'Loss Aversion', 'Social Proof', 'Authority',
+      'Scarcity', 'Reciprocity', 'Commitment & Consistency',
+      'Liking/Similarity', 'Contrast'
+    ];
+    const unusedPrinciples = allPrinciples.filter(p => !principleFrequency[p]);
+    if (unusedPrinciples.length > 0) {
+      recommendations.push(
+        `Underutilized principles: ${unusedPrinciples.join(', ')}. Consider gathering VoC data that triggers these angles.`
+      );
+    }
+
+    return recommendations;
+  }
+
+  /**
+   * Score: Curiosity Gap (0-10)
+   */
+  private scoreCuriosityGap(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Questions create curiosity
+    if (contentLower.includes('?')) {
+      score += 3;
+      triggers.push('Contains question that creates information gap');
+    }
+
+    // Incomplete information
+    const gapWords = ['wondering', 'confused', 'don\'t understand', 'how does', 'why does', 'what is', 'curious'];
+    gapWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" signals missing information`);
+      }
+    });
+
+    // Mystery/hidden info
+    const mysteryWords = ['secret', 'hidden', 'surprising', 'unexpected', 'discover', 'reveal'];
+    mysteryWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1;
+        triggers.push(`"${word}" hints at undisclosed information`);
+      }
+    });
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Curiosity Gap',
+      score: Number(score.toFixed(1)),
+      explanation: this.explainCuriosityGap(triggers, score),
+      triggers,
+      content_application: `Use open loops: "What if I told you..." or "The surprising reason why..." to amplify curiosity`,
+    };
+  }
+
+  private explainCuriosityGap(triggers: string[], score: number): string {
+    if (score >= 7) return 'High curiosity potential - customer is actively seeking missing information. Creates strong drive to close the gap.';
+    if (score >= 4) return 'Moderate curiosity - some information gaps present that content can expand on.';
+    return 'Low curiosity signal - customer statement is more declarative than inquisitive.';
+  }
+
+  /**
+   * Score: Loss Aversion (0-10)
+   */
+  private scoreLossAversion(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Direct loss language
+    const lossWords = ['losing', 'lose', 'lost', 'miss out', 'missing', 'waste', 'wasting', 'behind', 'falling behind'];
+    lossWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 2;
+        triggers.push(`"${word}" expresses fear of loss`);
+      }
+    });
+
+    // Negative consequences
+    const negativeWords = ['problem', 'issue', 'struggle', 'failing', 'worried', 'concerned', 'frustrat', 'annoying'];
+    negativeWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1;
+        triggers.push(`"${word}" indicates pain that could worsen`);
+      }
+    });
+
+    // Competitor advantage
+    if (contentLower.includes('competitor') || contentLower.includes('others are')) {
+      score += 2;
+      triggers.push('Competitor comparison triggers loss aversion');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Loss Aversion',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'Strong loss aversion trigger - customer fears falling behind or losing ground. Frame solutions as preventing loss first, gains second.'
+        : 'Moderate loss aversion - some fear present but not dominant motivator.',
+      triggers,
+      content_application: `Frame as: "Don't let [current pain] cost you [specific loss]" or "Stop losing [metric] to [alternative]"`,
+    };
+  }
+
+  /**
+   * Score: Social Proof (0-10)
+   */
+  private scoreSocialProof(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Peer references
+    const peerWords = ['everyone', 'others', 'people', 'colleagues', 'peers', 'competitors', 'industry'];
+    peerWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" references peer behavior`);
+      }
+    });
+
+    // Popularity indicators
+    const popularWords = ['popular', 'common', 'standard', 'typical', 'most', 'many', 'all'];
+    popularWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1;
+        triggers.push(`"${word}" signals bandwagon effect`);
+      }
+    });
+
+    // Recommendations/reviews
+    if (contentLower.includes('recommend') || contentLower.includes('review') || contentLower.includes('rating')) {
+      score += 2;
+      triggers.push('Mentions recommendations or reviews');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Social Proof',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'High social proof sensitivity - customer values what others do/think. Lead with testimonials and peer comparisons.'
+        : 'Low social proof indicators - customer may be more independent in decision-making.',
+      triggers,
+      content_application: `Use: "Join [X number] who already..." or "Top performers in [industry] use..."`,
+    };
+  }
+
+  /**
+   * Score: Authority (0-10)
+   */
+  private scoreAuthority(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Expert references
+    const expertWords = ['expert', 'professional', 'certified', 'research', 'study', 'data', 'proven'];
+    expertWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" seeks authoritative sources`);
+      }
+    });
+
+    // Credential indicators
+    if (contentLower.includes('credential') || contentLower.includes('licensed') || contentLower.includes('accredited')) {
+      score += 2;
+      triggers.push('Values credentials and certifications');
+    }
+
+    // Numbers/statistics
+    if (/\d+%|\d+ year|\d+x/.test(content)) {
+      score += 1;
+      triggers.push('References data or statistics');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Authority',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'High authority orientation - customer values expertise and credentials. Lead with data, certifications, and expert positioning.'
+        : 'Moderate authority signals - customer may prioritize other factors over expertise.',
+      triggers,
+      content_application: `Position as: "Industry experts recommend..." or "[X%] data shows..." or "Certified in..."`,
+    };
+  }
+
+  /**
+   * Score: Scarcity (0-10)
+   */
+  private scoreScarcity(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Time pressure
+    const timeWords = ['urgent', 'asap', 'soon', 'quickly', 'immediately', 'deadline', 'running out'];
+    timeWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 2;
+        triggers.push(`"${word}" indicates time sensitivity`);
+      }
+    });
+
+    // Limited availability
+    const limitWords = ['limited', 'only', 'few', 'rare', 'exclusive', 'hard to find'];
+    limitWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" signals scarcity awareness`);
+      }
+    });
+
+    // Seasonal/event-driven
+    if (contentLower.includes('season') || contentLower.includes('before')) {
+      score += 1;
+      triggers.push('Time-bound context mentioned');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Scarcity',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'High scarcity sensitivity - customer responds to urgency and limited availability. Use time-bound offers and limited slots.'
+        : 'Low scarcity indicators - customer may not be motivated by urgency.',
+      triggers,
+      content_application: `Frame as: "Only [X] spots left" or "Available until [date]" or "Before [season/event]"`,
+    };
+  }
+
+  /**
+   * Score: Reciprocity (0-10)
+   */
+  private scoreReciprocity(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Value-first language
+    const valueWords = ['free', 'help', 'advice', 'guide', 'tip', 'resource', 'share'];
+    valueWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" indicates receptivity to value-first approach`);
+      }
+    });
+
+    // Looking for support
+    if (contentLower.includes('looking for') || contentLower.includes('need') || contentLower.includes('want')) {
+      score += 1;
+      triggers.push('Expresses need where value can be provided first');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Reciprocity',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 5
+        ? 'Good reciprocity opportunity - customer open to value exchange. Offer free resources/audit/consultation first.'
+        : 'Low reciprocity signals present.',
+      triggers,
+      content_application: `Offer: "Get free [resource]" or "Free audit/consultation" or "Here's how to [solve] (no strings)"`,
+    };
+  }
+
+  /**
+   * Score: Commitment & Consistency (0-10)
+   */
+  private scoreCommitmentConsistency(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Past behavior/identity
+    const identityWords = ['always', 'never', 'usually', 'typically', 'believe in', 'value', 'important to me'];
+    identityWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 2;
+        triggers.push(`"${word}" reveals identity or past pattern`);
+      }
+    });
+
+    // Stated preferences
+    if (contentLower.includes('prefer') || contentLower.includes('like to')) {
+      score += 1.5;
+      triggers.push('Stated preference creates consistency pressure');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Commitment & Consistency',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'Strong identity/pattern indicator - customer has established preferences. Align with their stated identity.'
+        : 'Low commitment signals - customer may not have strong established patterns yet.',
+      triggers,
+      content_application: `Frame as: "Since you value [X], you'll want..." or "People who believe in [X] typically..."`,
+    };
+  }
+
+  /**
+   * Score: Liking & Similarity (0-10)
+   */
+  private scoreLikingSimilarity(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Relatable language
+    const relateWords = ['like me', 'similar', 'same', 'understand', 'relate', 'us', 'we'];
+    relateWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 1.5;
+        triggers.push(`"${word}" seeks similarity or understanding`);
+      }
+    });
+
+    // Shared experience
+    if (contentLower.includes('also') || contentLower.includes('too')) {
+      score += 1;
+      triggers.push('References shared experiences');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Liking/Similarity',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 5
+        ? 'Good similarity opportunity - customer values relatability. Use "we understand because we\'ve been there" messaging.'
+        : 'Low similarity signals.',
+      triggers,
+      content_application: `Use: "Other [persona type] tell us..." or "We understand [pain] because we've experienced..."`,
+    };
+  }
+
+  /**
+   * Score: Contrast (0-10)
+   */
+  private scoreContrast(contentLower: string, content: string): PrincipleScore {
+    let score = 0;
+    const triggers: string[] = [];
+
+    // Comparison language
+    const compareWords = ['vs', 'versus', 'compared to', 'better than', 'worse than', 'instead of', 'rather than'];
+    compareWords.forEach(word => {
+      if (contentLower.includes(word)) {
+        score += 2;
+        triggers.push(`"${word}" makes direct comparisons`);
+      }
+    });
+
+    // Before/after
+    if (contentLower.includes('before') || contentLower.includes('after') || contentLower.includes('used to')) {
+      score += 1.5;
+      triggers.push('References before/after states');
+    }
+
+    // Alternatives
+    if (contentLower.includes('alternative') || contentLower.includes('option')) {
+      score += 1;
+      triggers.push('Considers alternatives (contrast opportunity)');
+    }
+
+    score = Math.min(score, 10);
+
+    return {
+      principle: 'Contrast',
+      score: Number(score.toFixed(1)),
+      explanation: score >= 6
+        ? 'Strong contrast sensitivity - customer actively comparing options. Use side-by-side comparisons and stark before/after.'
+        : 'Moderate contrast indicators.',
+      triggers,
+      content_application: `Show: "[Old way] vs [New way]" or "Before: [pain] → After: [benefit]" or comparison charts`,
+    };
+  }
+
+  /**
+   * Calculate overall psychology score from all principles
+   */
+  private calculateOverallScore(scores: PrincipleScore[]): number {
+    // Top 3 principles weighted most heavily
+    const top3Avg = scores.slice(0, 3).reduce((sum, s) => sum + s.score, 0) / 3;
+    const allAvg = scores.reduce((sum, s) => sum + s.score, 0) / scores.length;
+
+    // Weight top 3 at 70%, all others at 30%
+    const overall = top3Avg * 0.7 + allAvg * 0.3;
+    return Number(overall.toFixed(1));
+  }
+
+  /**
+   * Generate content angle recommendation based on top principle
+   */
+  private generateContentAngle(topPrinciple: PrincipleScore): string {
+    const angles: Record<string, string> = {
+      'Curiosity Gap': 'Open with unanswered question or surprising statistic, reveal answer incrementally',
+      'Loss Aversion': 'Lead with what they\'re losing/missing, then show how to prevent further loss',
+      'Social Proof': 'Open with testimonial or "X people already doing this", create FOMO',
+      'Authority': 'Lead with expert data, credentials, or research findings',
+      'Scarcity': 'Time-bound or limited-availability offer, create urgency',
+      'Reciprocity': 'Give valuable resource/audit/tool first, no strings attached',
+      'Commitment & Consistency': 'Reference their stated values/identity, align solution with who they are',
+      'Liking/Similarity': 'Show you understand their exact situation, use relatable story',
+      'Contrast': 'Stark before/after or us-vs-them comparison',
+    };
+
+    return angles[topPrinciple.principle] || 'Create content that addresses customer need directly';
+  }
+}
+
+// New types for psychology analysis
+export interface VoCInsight {
+  id: string;
+  text: string;
+  title: string;
+}
+
+export interface PrincipleScore {
+  principle: string;
+  score: number;
+  explanation: string;
+  triggers: string[];
+  content_application: string;
+}
+
+export interface PsychologyPrincipleAnalysis {
+  insight_id: string;
+  insight_text: string;
+  principle_scores: PrincipleScore[];
+  top_principles: PrincipleScore[];
+  overall_psychology_score: number;
+  recommended_content_angle: string;
+}
+
+export interface BatchPsychologyAnalysis {
+  total_analyzed: number;
+  analyses: PsychologyPrincipleAnalysis[];
+  top_performers: PsychologyPrincipleAnalysis[];
+  average_psychology_score: number;
+  principle_frequency: Record<string, number>;
+  recommendations: string[];
 }

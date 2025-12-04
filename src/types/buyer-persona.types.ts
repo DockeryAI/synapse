@@ -110,30 +110,37 @@ export interface SuccessMetrics {
 
 export interface BuyerPersona {
   id: string                           // Unique persona ID
+  brand_id?: string                    // Brand this persona belongs to (for database compatibility)
 
   // Identity
+  name?: string                        // Alternative name field (for database compatibility)
   persona_name: string                 // Descriptive name (e.g., "Time-Starved Agency Owners")
-  role: BuyerRole                      // Job role and seniority
-  company_type: CompanyType            // Type of company they work for
-  company_size: CompanySize            // Size of company
-  industry: IndustryContext            // Industry details
+  role: BuyerRole | string             // Job role and seniority (can be string for simplified storage)
+  company_type: CompanyType | string   // Type of company they work for
+  company_size?: CompanySize           // Size of company
+  industry?: IndustryContext | string  // Industry details
 
   // Pain & Desire
-  pain_points: PainPoint[]             // Top 3-7 pain points
-  desired_outcomes: DesiredOutcome[]   // What they want to achieve
-  urgency_signals: UrgencySignal[]     // What drives urgency
+  pain_points: PainPoint[] | string[]  // Top 3-7 pain points (can be simple strings)
+  desired_outcomes: DesiredOutcome[] | string[]   // What they want to achieve
+  urgency_signals?: UrgencySignal[]    // What drives urgency
 
   // Behavioral Patterns
-  buying_behavior: BuyingBehavior      // How they buy
-  success_metrics: SuccessMetrics[]    // How they measure success
+  buying_behavior?: BuyingBehavior     // How they buy
+  success_metrics?: SuccessMetrics[]   // How they measure success
+
+  // Drivers (for UVP compatibility)
+  emotional_drivers?: string[]         // Emotional motivations
+  functional_drivers?: string[]        // Functional needs
 
   // Intelligence Metadata
-  confidence_score: number             // How confident are we? (0-100)
-  sample_size: number                  // How many testimonials/case studies contributed
-  evidence_sources: EvidenceSource[]   // Where did we find this data
+  confidence_score?: number            // How confident are we? (0-100)
+  sample_size?: number                 // How many testimonials/case studies contributed
+  evidence_sources?: EvidenceSource[]  // Where did we find this data
+  source?: string                      // Source of persona data (e.g., 'uvp_flow', 'website')
 
   // Extracted Quotes (for validation)
-  representative_quotes: string[]      // 2-3 quotes that exemplify this persona
+  representative_quotes?: string[]     // 2-3 quotes that exemplify this persona
 }
 
 export interface EvidenceSource {

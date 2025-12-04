@@ -356,9 +356,9 @@ export class GMBService {
       // Mock implementation for media upload
       console.warn('[GMBService] Media upload not implemented - returning mock response');
       return {
-        success: true,
-        mediaId: `mock-media-${Date.now()}`,
-        url: 'https://example.com/mock-media.jpg'
+        mediaFormat: 'PHOTO',
+        sourceUrl: 'https://example.com/mock-media.jpg',
+        mediaId: `mock-media-${Date.now()}`
       };
     } catch (error) {
       throw this.handleError(error);
@@ -372,11 +372,8 @@ export class GMBService {
     try {
       // Implementation depends on API version
       // Mock implementation for post deletion
-      console.warn('[GMBService] Post deletion not implemented - returning mock success');
-      return {
-        success: true,
-        message: 'Post deletion mocked'
-      };
+      console.warn('[GMBService] Post deletion not implemented - mock success');
+      return;
     } catch (error) {
       throw this.handleError(error);
     }
@@ -390,6 +387,10 @@ export class GMBService {
       // Use Business Profile Performance API for insights
       // Mock implementation for post insights
       console.warn('[GMBService] Post insights not implemented - returning mock data');
+
+      const startTime = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      const endTime = new Date().toISOString();
+
       return {
         views: Math.floor(Math.random() * 1000) + 100,
         clicks: Math.floor(Math.random() * 100) + 10,

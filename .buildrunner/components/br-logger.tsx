@@ -1,15 +1,14 @@
-'use client'
-
 /**
- * BR3 Browser Logger
+ * BR3 Browser Logger - Universal
  *
- * Captures all console output and network requests for Claude to read.
- * Only active in development mode.
+ * Captures console output, network requests, and errors for debugging.
+ * Works with Next.js, Vite, CRA, and any other React setup.
  *
- * Usage: Add <BRLogger /> to your root App component.
+ * Usage:
+ *   - Next.js: Add <BRLogger /> to your root layout
+ *   - Vite: Call initBRLogger() in main.tsx
  *
- * For Vite: Uses the Vite dev server proxy or writes to a log endpoint
- * For Next.js: Uses /api/br-logger route
+ * The logger auto-detects the framework and uses the appropriate endpoint.
  */
 
 import { useEffect, useRef } from 'react'
@@ -17,58 +16,49 @@ import { useEffect, useRef } from 'react'
 interface LogEntry {
   timestamp: string
   sessionId: string
-  type: 'console' | 'network' | 'error'
-  level?: 'log' | 'warn' | 'error' | 'info' | 'debug'
-  method?: string
-  url?: string
-  status?: number
-  duration?: number
-  message?: string
-  stack?: string
-  request?: {
-    method: string
-    url: string
-    headers?: Record<string, string>
-    body?: unknown
-  }
-  response?: {
-    status: number
-    statusText: string
-    headers?: Record<string, string>
-    body?: unknown
-  }
-  args?: unknown[]
+  type: 'LOG' | 'WARN' | 'ERROR' | 'INFO' | 'DEBUG' | 'NET'
+  message: string
+  details?: unknown
 }
 
 // Generate session ID once per page load
 const SESSION_ID = typeof window !== 'undefined'
-  ? `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+  ? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
   : 'ssr'
 
-// Buffer for batching logs
 let logBuffer: LogEntry[] = []
 let flushTimeout: ReturnType<typeof setTimeout> | null = null
+let initialized = false
 
-const FLUSH_INTERVAL = 2000 // Flush every 2 seconds
-const MAX_BUFFER_SIZE = 50 // Or when buffer hits 50 entries
-const MAX_BODY_SIZE = 10000 // Truncate large request/response bodies
-
-function truncate(value: unknown, maxLength: number = MAX_BODY_SIZE): unknown {
-  if (typeof value === 'string' && value.length > maxLength) {
-    return value.slice(0, maxLength) + `... [truncated ${value.length - maxLength} chars]`
-  }
-  if (typeof value === 'object' && value !== null) {
-    try {
-      const str = JSON.stringify(value)
-      if (str.length > maxLength) {
-        return str.slice(0, maxLength) + '...'
-      }
-      return value
-    } catch {
-      return '[Object]'
+// Auto-detect endpoint based on framework
+function getLoggerEndpoint(): string {
+  // Vite uses /__br_logger (handled by vite plugin)
+  // Next.js uses /api/br-logger (handled by API route)
+  if (typeof window !== 'undefined') {
+    // Check if we're in Vite by looking for Vite-specific globals
+    if ((import.meta as any)?.env?.DEV !== undefined) {
+      return '/__br_logger'
     }
   }
-  return value
+  return '/api/br-logger'
+}
+
+const FLUSH_INTERVAL = 1000
+const MAX_BUFFER_SIZE = 20
+const MAX_BODY_SIZE = 2000
+
+function formatEntry(entry: LogEntry): string {
+  const time = entry.timestamp.split('T')[1]?.split('.')[0] || entry.timestamp
+  let line = `[${time}] [${entry.sessionId}] [${entry.type}] ${entry.message}`
+  if (entry.details) {
+    try {
+      const detailStr = JSON.stringify(entry.details, null, 2)
+      line += `\n  ${detailStr.split('\n').join('\n  ')}`
+    } catch {
+      line += `\n  [unserializable details]`
+    }
+  }
+  return line
 }
 
 async function flushLogs() {
@@ -77,42 +67,45 @@ async function flushLogs() {
   const logsToSend = [...logBuffer]
   logBuffer = []
 
+  const endpoint = getLoggerEndpoint()
+  const isVite = endpoint === '/__br_logger'
+
   try {
-    // Try the API endpoint (works for Next.js and Vite with proxy)
-    await fetch('/api/br-logger', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ logs: logsToSend }),
-    })
-  } catch {
-    // Fallback: store in sessionStorage for manual retrieval
-    try {
-      const existing = sessionStorage.getItem('br3_logs') || '[]'
-      const logs = JSON.parse(existing)
-      logs.push(...logsToSend)
-      // Keep only last 500 entries
-      if (logs.length > 500) {
-        logs.splice(0, logs.length - 500)
-      }
-      sessionStorage.setItem('br3_logs', JSON.stringify(logs))
-    } catch {
-      // Silently fail
+    if (isVite) {
+      // Vite: send plain text
+      const formatted = logsToSend.map(formatEntry).join('\n') + '\n'
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: formatted,
+      })
+    } else {
+      // Next.js: send JSON
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ logs: logsToSend }),
+      })
     }
+  } catch {
+    // Silently fail - don't log errors about logging
   }
 }
 
-function queueLog(entry: Omit<LogEntry, 'timestamp' | 'sessionId'>) {
+function queueLog(type: LogEntry['type'], message: string, details?: unknown) {
+  if (typeof window === 'undefined') return
+
   logBuffer.push({
-    ...entry,
     timestamp: new Date().toISOString(),
     sessionId: SESSION_ID,
+    type,
+    message,
+    details,
   })
 
-  // Flush if buffer is full
   if (logBuffer.length >= MAX_BUFFER_SIZE) {
     flushLogs()
   } else if (!flushTimeout) {
-    // Schedule flush
     flushTimeout = setTimeout(() => {
       flushTimeout = null
       flushLogs()
@@ -120,26 +113,49 @@ function queueLog(entry: Omit<LogEntry, 'timestamp' | 'sessionId'>) {
   }
 }
 
+function truncateBody(body: unknown, maxLen = MAX_BODY_SIZE): unknown {
+  if (typeof body === 'string') {
+    return body.length > maxLen ? body.slice(0, maxLen) + '...[truncated]' : body
+  }
+  if (typeof body === 'object' && body !== null) {
+    try {
+      const str = JSON.stringify(body)
+      if (str.length > maxLen) {
+        return str.slice(0, maxLen) + '...[truncated]'
+      }
+      return body
+    } catch {
+      return '[unserializable]'
+    }
+  }
+  return body
+}
+
 function interceptConsole() {
   const methods = ['log', 'warn', 'error', 'info', 'debug'] as const
+  const typeMap: Record<string, LogEntry['type']> = {
+    log: 'LOG',
+    warn: 'WARN',
+    error: 'ERROR',
+    info: 'INFO',
+    debug: 'DEBUG',
+  }
   const original: Record<string, typeof console.log> = {}
 
   methods.forEach(method => {
     original[method] = console[method].bind(console)
-
     console[method] = (...args: unknown[]) => {
-      // Call original
       original[method](...args)
 
-      // Queue log entry
-      queueLog({
-        type: 'console',
-        level: method,
-        message: args.map(arg =>
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-        ).join(' '),
-        args: args.map(arg => truncate(arg)),
-      })
+      const message = args.map(arg => {
+        try {
+          return typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+        } catch {
+          return '[unserializable]'
+        }
+      }).join(' ')
+
+      queueLog(typeMap[method], message)
     }
   })
 
@@ -158,80 +174,52 @@ function interceptFetch() {
     const method = init?.method || 'GET'
     const startTime = Date.now()
 
-    // Skip logging our own logger requests
-    if (url.includes('/api/br-logger') || url.includes('br3_logs')) {
+    // Skip our own logger endpoints
+    if (url.includes('__br_logger') || url.includes('/api/br-logger')) {
       return originalFetch(input, init)
     }
 
-    let requestBody: unknown = undefined
+    let requestBody: unknown
     if (init?.body) {
       try {
-        requestBody = typeof init.body === 'string'
-          ? JSON.parse(init.body)
-          : init.body
+        requestBody = typeof init.body === 'string' ? JSON.parse(init.body) : init.body
       } catch {
-        requestBody = String(init.body)
+        requestBody = String(init.body).slice(0, 500)
       }
     }
 
     try {
       const response = await originalFetch(input, init)
       const duration = Date.now() - startTime
+      const cloned = response.clone()
 
-      // Clone response to read body
-      const clonedResponse = response.clone()
-      let responseBody: unknown = undefined
-
+      let responseBody: unknown
       try {
-        const contentType = response.headers.get('content-type')
-        if (contentType?.includes('application/json')) {
-          responseBody = await clonedResponse.json()
+        const ct = response.headers.get('content-type')
+        if (ct?.includes('application/json')) {
+          responseBody = await cloned.json()
         } else {
-          const text = await clonedResponse.text()
-          responseBody = text.length > 1000 ? text.slice(0, 1000) + '...' : text
+          responseBody = await cloned.text()
         }
       } catch {
-        responseBody = '[Could not read response body]'
+        responseBody = '[unreadable]'
       }
 
-      queueLog({
-        type: 'network',
-        method,
-        url,
-        status: response.status,
-        duration,
-        request: {
-          method,
-          url,
-          headers: init?.headers as Record<string, string>,
-          body: truncate(requestBody),
-        },
-        response: {
-          status: response.status,
-          statusText: response.statusText,
-          body: truncate(responseBody),
-        },
+      const status = response.status
+      const statusIcon = status >= 400 ? 'ERR' : status >= 300 ? 'REDIR' : 'OK'
+
+      queueLog('NET', `${statusIcon} ${method} ${url} ${status} (${duration}ms)`, {
+        request: truncateBody(requestBody),
+        response: truncateBody(responseBody),
       })
 
       return response
     } catch (error) {
       const duration = Date.now() - startTime
-
-      queueLog({
-        type: 'network',
-        method,
-        url,
-        duration,
-        request: {
-          method,
-          url,
-          headers: init?.headers as Record<string, string>,
-          body: truncate(requestBody),
-        },
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined,
+      queueLog('NET', `FAIL ${method} ${url} (${duration}ms)`, {
+        request: truncateBody(requestBody),
+        error: error instanceof Error ? error.message : String(error),
       })
-
       throw error
     }
   }
@@ -243,78 +231,91 @@ function interceptFetch() {
 
 function interceptErrors() {
   const handleError = (event: ErrorEvent) => {
-    queueLog({
-      type: 'error',
-      level: 'error',
-      message: event.message,
+    queueLog('ERROR', `Uncaught: ${event.message}`, {
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
       stack: event.error?.stack,
     })
   }
 
-  const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-    queueLog({
-      type: 'error',
-      level: 'error',
-      message: `Unhandled Promise Rejection: ${event.reason}`,
+  const handleRejection = (event: PromiseRejectionEvent) => {
+    queueLog('ERROR', `Unhandled Promise: ${event.reason}`, {
       stack: event.reason?.stack,
     })
   }
 
   window.addEventListener('error', handleError)
-  window.addEventListener('unhandledrejection', handleUnhandledRejection)
+  window.addEventListener('unhandledrejection', handleRejection)
 
   return () => {
     window.removeEventListener('error', handleError)
-    window.removeEventListener('unhandledrejection', handleUnhandledRejection)
+    window.removeEventListener('unhandledrejection', handleRejection)
   }
 }
 
-// Export logs from sessionStorage (for manual retrieval)
-;(window as unknown as { br3ExportLogs: () => void }).br3ExportLogs = () => {
-  const logs = sessionStorage.getItem('br3_logs') || '[]'
-  console.log('[BR3] Logs:', JSON.parse(logs))
-  return JSON.parse(logs)
+function isDev(): boolean {
+  // Check various ways to detect development mode
+  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') {
+    return true
+  }
+  if ((import.meta as any)?.env?.DEV) {
+    return true
+  }
+  if ((import.meta as any)?.env?.MODE === 'development') {
+    return true
+  }
+  // Fallback: check if we're on localhost
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname
+    return host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.')
+  }
+  return false
 }
 
+/**
+ * Initialize BR Logger (for Vite/non-React usage)
+ * Call this once at app startup
+ */
+export function initBRLogger(): (() => void) | undefined {
+  if (typeof window === 'undefined') return
+  if (initialized) return
+  if (!isDev()) return
+
+  initialized = true
+
+  queueLog('INFO', `=== Browser session started: ${SESSION_ID} ===`)
+
+  const cleanupConsole = interceptConsole()
+  const cleanupFetch = interceptFetch()
+  const cleanupErrors = interceptErrors()
+
+  window.addEventListener('beforeunload', flushLogs)
+
+  return () => {
+    cleanupConsole()
+    cleanupFetch()
+    cleanupErrors()
+    window.removeEventListener('beforeunload', flushLogs)
+    flushLogs()
+  }
+}
+
+/**
+ * BR Logger React Component (for Next.js usage)
+ * Add <BRLogger /> to your root layout
+ */
 export function BRLogger() {
-  const initialized = useRef(false)
+  const initRef = useRef(false)
 
   useEffect(() => {
-    // Only run in development
-    if (import.meta.env?.MODE !== 'development' && process.env.NODE_ENV !== 'development') return
+    if (initRef.current) return
+    initRef.current = true
 
-    // Only initialize once
-    if (initialized.current) return
-    initialized.current = true
-
-    // Log session start
-    queueLog({
-      type: 'console',
-      level: 'info',
-      message: `[BR3] Browser logger started - Session: ${SESSION_ID}`,
-    })
-
-    // Set up interceptors
-    const cleanupConsole = interceptConsole()
-    const cleanupFetch = interceptFetch()
-    const cleanupErrors = interceptErrors()
-
-    // Flush on page unload
-    const handleUnload = () => {
-      flushLogs()
-    }
-    window.addEventListener('beforeunload', handleUnload)
-
-    return () => {
-      cleanupConsole()
-      cleanupFetch()
-      cleanupErrors()
-      window.removeEventListener('beforeunload', handleUnload)
-      flushLogs()
-    }
+    const cleanup = initBRLogger()
+    return cleanup
   }, [])
 
-  // Render nothing
   return null
 }
 

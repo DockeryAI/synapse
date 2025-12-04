@@ -21,8 +21,8 @@
  * Created: 2025-12-01
  */
 
-import { useMemo, useCallback } from 'react';
-import { sourcePreservationService } from '@/services/triggers/source-preservation.service';
+import { useMemo, useCallback, useState, useEffect } from 'react';
+import { sourcePreservationService, type PreservedSource } from '@/services/triggers/source-preservation.service';
 import type { VerifiedSource, SourcePlatform } from '@/types/verified-source.types';
 
 // ============================================================================
@@ -78,10 +78,10 @@ export interface UseResolvedSourcesReturn {
   /** Resolved sources ready for display */
   sources: ResolvedSource[];
 
-  /** Look up a single source by ID */
+  /** Look up a single source by ID (synchronous - uses cached sources) */
   getSource: (id: string) => ResolvedSource | null;
 
-  /** Check if a source ID exists in registry */
+  /** Check if a source ID exists in registry (synchronous - uses cached sources) */
   hasSource: (id: string) => boolean;
 
   /** Get sources grouped by platform */
@@ -102,11 +102,11 @@ export interface UseResolvedSourcesReturn {
 // ============================================================================
 
 /**
- * Convert VerifiedSource to ResolvedSource for display
+ * Convert PreservedSource to ResolvedSource for display
  */
-function toResolvedSource(source: VerifiedSource): ResolvedSource {
+function toResolvedSource(source: PreservedSource): ResolvedSource {
   // Check freshness (< 90 days)
-  const timestamp = source.publishedAt || source.scrapedAt;
+  const timestamp = source.metadata.timestamp;
   let isFresh = false;
   if (timestamp) {
     const date = new Date(timestamp);
@@ -117,16 +117,12 @@ function toResolvedSource(source: VerifiedSource): ResolvedSource {
   return {
     id: source.id,
     url: source.originalUrl,
-    author: source.originalAuthor,
-    quote: source.originalContent,
-    platform: source.platform,
-    communityName: source.communityName,
-    threadTitle: source.threadTitle,
-    engagement: source.engagement,
-    isVerified: source.verificationStatus === 'verified',
+    author: source.metadata.title || 'Unknown',
+    quote: source.metadata.excerpt,
+    platform: 'unknown',
+    isVerified: source.status === 'active',
     isFresh,
     timestamp,
-    competitorName: source.competitorName,
   };
 }
 
@@ -163,25 +159,44 @@ function toResolvedSource(source: VerifiedSource): ResolvedSource {
  */
 export function useResolvedSources(sourceIds: string[]): UseResolvedSourcesReturn {
   // Memoize the resolved sources
-  const resolved = useMemo(() => {
-    const sources: ResolvedSource[] = [];
-    const unresolvedIds: string[] = [];
+  const [resolved, setResolved] = useState<{ sources: ResolvedSource[]; unresolvedIds: string[] }>({
+    sources: [],
+    unresolvedIds: [],
+  });
 
-    for (const id of sourceIds) {
-      if (!id) {
-        continue;
+  useEffect(() => {
+    let isMounted = true;
+
+    const resolveSources = async () => {
+      const sources: ResolvedSource[] = [];
+      const unresolvedIds: string[] = [];
+
+      for (const id of sourceIds) {
+        if (!id) {
+          continue;
+        }
+
+        const verifiedSource = await sourcePreservationService.getSource(id);
+        if (verifiedSource) {
+          sources.push(toResolvedSource(verifiedSource));
+        } else {
+          unresolvedIds.push(id);
+          console.warn(`[useResolvedSources] Source not found in registry: ${id}`);
+        }
       }
 
-      const verifiedSource = sourcePreservationService.getSource(id);
-      if (verifiedSource) {
-        sources.push(toResolvedSource(verifiedSource));
-      } else {
-        unresolvedIds.push(id);
-        console.warn(`[useResolvedSources] Source not found in registry: ${id}`);
+      if (isMounted) {
+        setResolved({ sources, unresolvedIds });
       }
-    }
+    };
 
-    return { sources, unresolvedIds };
+    resolveSources().catch(err => {
+      console.error('[useResolvedSources] Failed to resolve sources:', err);
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [sourceIds]);
 
   // Group sources by platform
@@ -214,16 +229,15 @@ export function useResolvedSources(sourceIds: string[]): UseResolvedSourcesRetur
     return grouped;
   }, [resolved.sources]);
 
-  // Single source lookup
+  // Single source lookup (synchronous - uses cached sources)
   const getSource = useCallback((id: string): ResolvedSource | null => {
-    const verifiedSource = sourcePreservationService.getSource(id);
-    return verifiedSource ? toResolvedSource(verifiedSource) : null;
-  }, []);
+    return resolved.sources.find(s => s.id === id) || null;
+  }, [resolved.sources]);
 
-  // Check if source exists
+  // Check if source exists (synchronous - uses cached sources)
   const hasSource = useCallback((id: string): boolean => {
-    return !!sourcePreservationService.getSource(id);
-  }, []);
+    return resolved.sources.some(s => s.id === id);
+  }, [resolved.sources]);
 
   return {
     sources: resolved.sources,
@@ -241,11 +255,36 @@ export function useResolvedSources(sourceIds: string[]): UseResolvedSourcesRetur
  * Convenience hook for components that only need one source
  */
 export function useResolvedSource(sourceId: string | undefined): ResolvedSource | null {
-  return useMemo(() => {
-    if (!sourceId) return null;
-    const verifiedSource = sourcePreservationService.getSource(sourceId);
-    return verifiedSource ? toResolvedSource(verifiedSource) : null;
+  const [resolved, setResolved] = useState<ResolvedSource | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const resolveSource = async () => {
+      if (!sourceId) {
+        setResolved(null);
+        return;
+      }
+
+      const verifiedSource = await sourcePreservationService.getSource(sourceId);
+      if (isMounted) {
+        setResolved(verifiedSource ? toResolvedSource(verifiedSource) : null);
+      }
+    };
+
+    resolveSource().catch(err => {
+      console.error('[useResolvedSource] Failed to resolve source:', err);
+      if (isMounted) {
+        setResolved(null);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [sourceId]);
+
+  return resolved;
 }
 
 export default useResolvedSources;

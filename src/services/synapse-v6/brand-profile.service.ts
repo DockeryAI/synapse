@@ -101,13 +101,18 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
     local_timing: ['openweather', 'newsapi'],
   },
   'national-saas': {
-    // V5 FIX: Use apify-g2, apify-capterra (now Serper site: searches)
-    voc: ['apify-g2', 'apify-capterra', 'reddit', 'hackernews'],
-    community: ['reddit', 'hackernews', 'apify-twitter'],
-    competitive: ['semrush', 'serper'],
-    trends: ['buzzsumo', 'newsapi', 'hackernews', 'perplexity'],
+    // V6 ENTERPRISE FIX: Focus on B2B enterprise content, not consumer
+    // VoC: Enterprise software review platforms + professional tech communities
+    voc: ['apify-g2', 'apify-capterra', 'hackernews', 'apify-linkedin', 'producthunt'],
+    // Community: Enterprise/B2B focused subreddits (r/saas, r/enterprise, r/devops, r/artificial)
+    // Twitter for B2B SaaS discussions, LinkedIn for professional discourse
+    community: ['reddit-enterprise', 'hackernews', 'apify-linkedin', 'apify-twitter'],
+    competitive: ['semrush', 'serper', 'apify-g2'],
+    // Trends: Tech/enterprise news + professional analysis
+    trends: ['perplexity', 'hackernews', 'newsapi', 'apify-linkedin'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi', 'sec-edgar'],
+    // Timing: Industry news + regulatory/compliance updates
+    local_timing: ['newsapi', 'sec-edgar', 'perplexity'],
   },
   'national-product': {
     // V5 FIX: Use apify-amazon (now Serper site: search)
@@ -255,10 +260,12 @@ export async function getOrCreateBrandProfile(
       .eq('profile_hash', profileHash)
       .maybeSingle();
 
-    // Handle missing table gracefully
+    // Handle missing table or column gracefully
     if (fetchError) {
-      if (fetchError.code === '42P01' || fetchError.code === 'PGRST205' ||
-          fetchError.message?.includes('relation') || fetchError.message?.includes('brand_profiles')) {
+      if (fetchError.code === '42P01' || fetchError.code === 'PGRST205' || fetchError.code === '42703' ||
+          fetchError.message?.includes('relation') || fetchError.message?.includes('brand_profiles') ||
+          fetchError.message?.includes('profile_hash') || fetchError.message?.includes('column') ||
+          fetchError.message?.includes('does not exist')) {
         console.log('[BrandProfileService] brand_profiles table not found - using in-memory profile');
         return createInMemoryProfile(brandId, uvp);
       }

@@ -91,6 +91,12 @@ export async function matchIndustryProfile(
     .limit(10);
 
   if (error || !matches || matches.length === 0) {
+    // Handle missing column gracefully
+    if (error?.code === '42703' || error?.message?.includes('has_full_profile') ||
+        error?.message?.includes('column') || error?.message?.includes('does not exist')) {
+      console.log('[IndustryBooster] has_full_profile column not found - using empty booster');
+      return createEmptyBooster();
+    }
     console.log('[IndustryBooster] No industry matches found');
     return createEmptyBooster();
   }

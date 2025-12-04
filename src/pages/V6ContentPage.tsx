@@ -46,8 +46,8 @@ import { adaptBuyerPersonasToTargetPersonas, buildSynapseContext, getIndustryEQS
 import { UVPBuildingBlocks } from '@/components/v5/UVPBuildingBlocks';
 import { InsightTabs, type EnabledTabs, type UVPData } from '@/components/v5/InsightTabs';
 import { type Insight } from '@/components/v5/InsightCards';
-import { YourMixPreview, type GeneratedContentPreview, type PsychologyFramework } from '@/components/v5/YourMixPreview';
-import { ContentToolbar, type Platform, type FunnelStage, type InsightRecipe } from '@/components/v5/ContentToolbar';
+import { YourMixPreview, type GeneratedContentPreview } from '@/components/v5/YourMixPreview';
+import { ContentToolbar, type Platform, type FunnelStage, type InsightRecipe, type PsychologyFramework } from '@/components/v5/ContentToolbar';
 
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
@@ -542,7 +542,7 @@ export function V6ContentPage() {
             selectedPlatforms={selectedPlatforms}
             onPlatformChange={setSelectedPlatforms}
             framework={framework}
-            onFrameworkChange={(framework) => setFramework(framework)}
+            onFrameworkChange={(fw) => setFramework(fw)}
             funnelStage={funnelStage}
             onFunnelStageChange={setFunnelStage}
             recipes={TEMPLATE_RECIPES}

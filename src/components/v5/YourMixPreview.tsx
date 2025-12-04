@@ -29,6 +29,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { Insight } from './InsightCards';
+import { type PsychologyFramework } from './ContentToolbar';
 
 // ============================================================================
 // TYPES
@@ -56,7 +57,8 @@ export interface SuggestionItem {
   insight: Insight;
 }
 
-export type PsychologyFramework = 'AIDA' | 'PAS' | 'BAB' | 'FAB' | '4Ps';
+// Re-export PsychologyFramework for backwards compatibility
+export type { PsychologyFramework };
 
 export interface YourMixPreviewProps {
   selectedInsights: Insight[];

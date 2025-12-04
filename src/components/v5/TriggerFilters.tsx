@@ -63,11 +63,9 @@ interface CategoryOption {
 }
 
 const CATEGORY_OPTIONS: CategoryOption[] = [
-  { value: 'pain-point', label: 'Pain Point', icon: Flame, color: 'text-orange-600' },
+  { value: 'pain', label: 'Pain', icon: Flame, color: 'text-orange-600' },
   { value: 'fear', label: 'Fear', icon: AlertTriangle, color: 'text-red-600' },
   { value: 'desire', label: 'Desire', icon: Heart, color: 'text-pink-600' },
-  { value: 'objection', label: 'Objection', icon: ShieldQuestion, color: 'text-yellow-600' },
-  { value: 'motivation', label: 'Motivation', icon: Target, color: 'text-green-600' },
   { value: 'trust', label: 'Trust', icon: Shield, color: 'text-blue-600' },
   { value: 'urgency', label: 'Urgency', icon: Clock, color: 'text-purple-600' },
 ];
@@ -107,31 +105,31 @@ export function applyTriggerFilters(
       return false;
     }
 
-    // Confidence filter
+    // Strength filter (V6 uses strength 0-100, not confidence)
     if (filters.minConfidence > 0) {
-      const confidencePercent = trigger.confidence * 100;
-      if (confidencePercent < filters.minConfidence) {
+      if (trigger.strength < filters.minConfidence) {
         return false;
       }
     }
 
-    // Platform filter
+    // Source filter (V6 uses source, not platform)
     if (filters.platforms.length > 0) {
-      const triggerPlatforms = new Set(
-        trigger.evidence.map((e) => e.platform.toLowerCase())
+      const triggerSources = new Set(
+        trigger.evidence.map((e) => e.source.toLowerCase())
       );
-      const hasMatchingPlatform = filters.platforms.some((p) =>
-        triggerPlatforms.has(p)
+      const hasMatchingSource = filters.platforms.some((p) =>
+        triggerSources.has(p) || Array.from(triggerSources).some(s => s.includes(p))
       );
-      if (!hasMatchingPlatform) {
+      if (!hasMatchingSource) {
         return false;
       }
     }
 
-    // Time sensitive filter
-    if (filters.showTimeSensitiveOnly && !trigger.isTimeSensitive) {
-      return false;
-    }
+    // Time sensitive filter (V6 doesn't have isTimeSensitive property)
+    // Commenting out until V6 adds this field
+    // if (filters.showTimeSensitiveOnly && !trigger.isTimeSensitive) {
+    //   return false;
+    // }
 
     return true;
   });
@@ -154,9 +152,9 @@ function getCategoryCounts(triggers: ConsolidatedTrigger[]): Record<TriggerCateg
 function getPlatformCounts(triggers: ConsolidatedTrigger[]): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const trigger of triggers) {
-    const platforms = new Set(trigger.evidence.map((e) => e.platform.toLowerCase()));
-    for (const platform of platforms) {
-      counts[platform] = (counts[platform] || 0) + 1;
+    const sources = new Set(trigger.evidence.map((e) => e.source.toLowerCase()));
+    for (const source of sources) {
+      counts[source] = (counts[source] || 0) + 1;
     }
   }
   return counts;
@@ -177,8 +175,9 @@ export function TriggerFilters({
   // Calculate counts
   const categoryCounts = useMemo(() => getCategoryCounts(triggers), [triggers]);
   const platformCounts = useMemo(() => getPlatformCounts(triggers), [triggers]);
+  // V6 doesn't have isTimeSensitive property yet
   const timeSensitiveCount = useMemo(
-    () => triggers.filter((t) => t.isTimeSensitive).length,
+    () => 0,
     [triggers]
   );
 

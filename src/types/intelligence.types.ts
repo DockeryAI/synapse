@@ -1,5 +1,8 @@
 // Type definitions for Intelligence features (Industry data, Synapse, Opportunities)
 
+// Re-export DataSource from connections.types for convenience
+export type { DataSource } from './connections.types';
+
 // Industry Intelligence Types
 export interface IndustryProfile {
   naics_code: string;
