@@ -307,6 +307,16 @@ export interface EnhancedIndustryProfile {
   freshness_metadata: EnhancedFreshnessMetadata;
   call_to_action_templates?: string[];
 
+  // Additional enhanced fields
+  campaign_templates?: Record<string, unknown>;
+  research_brief?: {
+    overview: string;
+    key_insights: string[];
+    market_trends: string[];
+    competitive_landscape: string;
+  };
+  competitive_advantages?: string[];
+
   // Tab visibility configuration - determines which tabs show for this industry
   enabledTabs?: EnabledTabs;
 }

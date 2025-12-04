@@ -261,6 +261,9 @@ export interface CompetitiveIntelligence {
 
   /** Weak positioning angles */
   positioningWeaknesses: string[];
+
+  /** Perplexity-specific gaps analysis */
+  perplexityGaps?: string[];
 }
 
 // ============================================================================

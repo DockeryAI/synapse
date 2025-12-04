@@ -201,9 +201,9 @@ class APICacheService {
     return removed
   }
 
-  // Private methods
+  // Public methods for direct cache access
 
-  private get<T>(key: string): T | null {
+  public get<T>(key: string): T | null {
     const entry = this.cache.get(key)
     if (!entry) return null
 
@@ -211,11 +211,11 @@ class APICacheService {
     return entry.data as T
   }
 
-  private has(key: string): boolean {
+  public has(key: string): boolean {
     return this.cache.has(key)
   }
 
-  private set<T>(key: string, data: T, ttl?: number): void {
+  public set<T>(key: string, data: T, ttl?: number): void {
     // Enforce max entries with LRU eviction
     if (this.cache.size >= this.config.maxEntries) {
       const firstKey = this.cache.keys().next().value

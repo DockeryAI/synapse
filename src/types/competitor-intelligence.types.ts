@@ -121,6 +121,11 @@ export interface CompetitorProfile {
   pricing_model: string | null;
   target_audience: string | null;
 
+  // Additional optional fields
+  description?: string;
+  domain?: string;
+  positioning?: string;
+
   // Metadata
   metadata: Record<string, unknown>;
   created_at: string;
@@ -828,6 +833,8 @@ export interface FeatureVelocity {
     gaps: string[];
   }>;
   opportunities: string;
+  cadence?: 'weekly' | 'monthly' | 'quarterly' | 'yearly' | 'unknown';
+  momentum?: 'accelerating' | 'steady' | 'decelerating' | 'stalled';
 }
 
 /**
@@ -866,6 +873,7 @@ export interface SEOMetrics {
   authority_score: number;
   top_keywords: string[];
   traffic_trend: 'up' | 'down' | 'stable';
+  keywords?: string[]; // Additional keywords data
 }
 
 /**
@@ -921,6 +929,7 @@ export interface EnhancedCompetitorInsights {
  * Battlecard - auto-generated competitive positioning
  */
 export interface CompetitorBattlecard {
+  competitor_id: string;
   competitor_name: string;
   our_advantages: string[];
   their_advantages: string[];
