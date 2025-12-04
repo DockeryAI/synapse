@@ -17,7 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
-import type { BusinessProfileType } from '@/services/triggers';
+import type { BusinessProfileType } from '@/services/synapse-v6/brand-profile.service';
 
 interface ProfileTypeOverrideProps {
   value: BusinessProfileType;

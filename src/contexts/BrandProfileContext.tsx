@@ -13,7 +13,7 @@
 import * as React from 'react';
 import { useBrand } from '@/hooks/useBrand';
 import { profileScannerService, type ProfileScanResult } from '@/services/intelligence/profile-scanner.service';
-import type { BusinessProfileType } from '@/services/triggers';
+import type { BusinessProfileType } from '@/services/synapse-v6/brand-profile.service';
 import type { MarketGeography, CompleteUVP } from '@/types/uvp-flow.types';
 
 // ============================================================================
@@ -104,7 +104,6 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
       if (fetchError) {
         // Handle missing table gracefully (PGRST205 = table not in schema cache)
         if (fetchError.code === '42P01' || fetchError.code === 'PGRST205' || fetchError.message?.includes('relation') || fetchError.message?.includes('brand_profiles')) {
-          console.log('[BrandProfileContext] brand_profiles table not found - using auto-detection only');
           setProfile(null);
           setIsLoading(false);
           return;
@@ -115,15 +114,12 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
 
       if (data) {
         setProfile(mapDbToProfile(data));
-        console.log('[BrandProfileContext] Loaded profile for brand:', brandId);
       } else {
         // No profile exists yet - will be created on first scan
         setProfile(null);
-        console.log('[BrandProfileContext] No profile found for brand:', brandId);
       }
     } catch (err) {
       // Gracefully handle missing table or network errors
-      console.log('[BrandProfileContext] Profile load failed (using auto-detection):', err);
       setProfile(null);
       // Don't set error state for missing table - just use auto-detection
     } finally {
@@ -187,7 +183,6 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
       }
 
       setProfile(mapDbToProfile(data));
-      console.log('[BrandProfileContext] Profile updated for brand:', currentBrand.id);
     } catch (err) {
       console.error('[BrandProfileContext] Failed to update profile:', err);
       setError(err instanceof Error ? err.message : 'Failed to update profile');
@@ -236,7 +231,6 @@ export const BrandProfileProvider: React.FC<BrandProfileProviderProps> = ({ chil
       });
 
       setScanResult(result);
-      console.log('[BrandProfileContext] Profile scan complete:', result.profileType);
 
       // If auto-detected, update the profile
       if (!profile || profile.isAutoDetected) {
