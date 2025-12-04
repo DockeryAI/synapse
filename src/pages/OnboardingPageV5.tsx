@@ -21,7 +21,8 @@ import { GenerationProgressComponent } from '@/components/onboarding-v5/Generati
 import { OnboardingCampaignPreview } from '@/components/onboarding-v5/OnboardingCampaignPreview';
 import { OnboardingSinglePostPreview } from '@/components/onboarding-v5/OnboardingSinglePostPreview';
 import { ValuePropositionPage, type ValueProposition } from '@/components/onboarding-v5/ValuePropositionPage';
-import { BuyerIntelligencePage, type CustomerTrigger, type BuyerPersona } from '@/components/onboarding-v5/BuyerIntelligencePage';
+// ARCHIVED: Complex buyer persona system - using customer profiles instead
+// import { BuyerIntelligencePage, type CustomerTrigger, type BuyerPersona } from '@/components/onboarding-v5/BuyerIntelligencePage';
 import { CoreTruthPage, type CoreTruth } from '@/components/onboarding-v5/CoreTruthPage';
 import type { Transformation } from '@/components/onboarding-v5/TransformationCascade';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +35,7 @@ import { locationDetectionService } from '@/services/intelligence/location-detec
 import { productScannerService } from '@/services/intelligence/product-scanner.service';
 import { comprehensiveProductScannerService } from '@/services/intelligence/comprehensive-product-scanner.service';
 import { dataCollectionService, type OnboardingDataPackage } from '@/services/onboarding-v5/data-collection.service';
-import { onboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
+import { onboardingV5DataService, OnboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
 import { saveCompleteUVP } from '@/services/database/marba-uvp.service';
 import { hasPendingUVP, migratePendingUVP } from '@/services/database/marba-uvp-migration.service';
 import { synthesizeCompleteUVP } from '@/services/uvp-extractors/uvp-synthesis.service';
@@ -907,9 +908,9 @@ export const OnboardingPageV5: React.FC = () => {
           if (!brandId) {
             const { data: { user } } = await supabase.auth.getUser();
             const brandResult = await getOrCreateBrand({
-              website: normalizedUrl,
-              name: bizName || 'My Business',
-              industry: ind?.displayName || 'General',
+              website: 'https://opendialog.ai', // Always use OpenDialog
+              name: 'OpenDialog',
+              industry: 'Software Publishers',
               userId: user?.id || null,
             });
 
@@ -1134,9 +1135,9 @@ export const OnboardingPageV5: React.FC = () => {
 
       // PERMANENT FIX: Use centralized brand service
       const brandResult = await getOrCreateBrand({
-        website: businessData.url,
-        name: refinedData.businessName,
-        industry: businessData.industry,
+        website: 'https://opendialog.ai', // Always use OpenDialog
+        name: 'OpenDialog',
+        industry: 'Software Publishers',
       });
 
       if (!brandResult.success || !brandResult.brand) {
@@ -1284,8 +1285,25 @@ export const OnboardingPageV5: React.FC = () => {
   };
 
   const handleValidatePersona = (id: string) => {
-    console.log('[OnboardingPageV5] Validating persona:', id);
-    setValidatedPersonas(prev => new Set(prev).add(id));
+    console.log('[OnboardingPageV5] ✅ PERSONA VALIDATION CLICKED - ID:', id);
+    console.log('[OnboardingPageV5] Previous validated personas:', Array.from(validatedPersonas));
+
+    if (!collectedData) return;
+
+    // Update the validated property on the persona object (like value props)
+    setCollectedData({
+      ...collectedData,
+      buyerPersonas: collectedData.buyerPersonas.map(persona =>
+        persona.id === id ? { ...persona, validated: true } : persona
+      ),
+    });
+
+    // Also track in the Set for convenience
+    setValidatedPersonas(prev => {
+      const updated = new Set(prev).add(id);
+      console.log('[OnboardingPageV5] Updated validated personas:', Array.from(updated));
+      return updated;
+    });
   };
 
   const handleBuyerIntelNext = () => {
@@ -1301,7 +1319,8 @@ export const OnboardingPageV5: React.FC = () => {
 
   // Track E Navigation Handlers - Core Truth Page
   const handleCoreTruthComplete = async () => {
-    console.log('[OnboardingPageV5] Completing core truth and saving to database');
+    console.log('[OnboardingPageV5] 🏁 CORE TRUTH COMPLETE - Starting database save...');
+    console.log('[OnboardingPageV5] Current validated personas state:', Array.from(validatedPersonas));
 
     if (!collectedData || !businessData || !refinedData) {
       console.error('[OnboardingPageV5] Missing required data for saving');
@@ -1312,9 +1331,9 @@ export const OnboardingPageV5: React.FC = () => {
     try {
       // PERMANENT FIX: Use centralized brand service
       const brandResult = await getOrCreateBrand({
-        website: businessData.url,
-        name: refinedData.businessName,
-        industry: businessData.industry,
+        website: 'https://opendialog.ai', // Always use OpenDialog
+        name: 'OpenDialog',
+        industry: 'Software Publishers',
       });
 
       if (!brandResult.success || !brandResult.brand) {
@@ -1336,6 +1355,11 @@ export const OnboardingPageV5: React.FC = () => {
       const validatedPersonasData = collectedData.buyerPersonas.filter(persona =>
         validatedPersonas.has(persona.id)
       );
+
+      console.log('[OnboardingPageV5] DEBUG - Validated personas count:', validatedPersonas.size);
+      console.log('[OnboardingPageV5] DEBUG - Validated persona IDs:', Array.from(validatedPersonas));
+      console.log('[OnboardingPageV5] DEBUG - Available personas:', collectedData.buyerPersonas.map(p => ({ id: p.id, name: p.name })));
+
       await onboardingV5DataService.saveBuyerPersonas(brandId, validatedPersonasData as any);
       console.log('[OnboardingPageV5] Saved', validatedPersonasData.length, 'buyer personas');
 
@@ -1837,10 +1861,23 @@ export const OnboardingPageV5: React.FC = () => {
 
         // Save complete UVP to session
         if (currentSessionId) {
-          await saveImmediately({
+          // Include buyer personas in session save
+          const sessionData: any = {
             session_id: currentSessionId,
             complete_uvp: synthesizedUVP,
-          });
+          };
+
+          // Add buyer personas if available
+          if (collectedData?.buyerPersonas && collectedData.buyerPersonas.length > 0) {
+            console.log('[UVP Flow] Including', collectedData.buyerPersonas.length, 'buyer personas in session save');
+            sessionData.customer_data = {
+              ...sessionData.customer_data,
+              buyerPersonas: collectedData.buyerPersonas,
+              validatedPersonaIds: Array.from(validatedPersonas)
+            };
+          }
+
+          await saveImmediately(sessionData);
         }
 
         // AUTO-SAVE: Persist UVP to marba_uvps immediately (don't wait for button click)
@@ -1857,6 +1894,95 @@ export const OnboardingPageV5: React.FC = () => {
             const result = await saveCompleteUVP(synthesizedUVP, brandId);
             if (result.success) {
               console.log('[UVP Flow] UVP auto-saved successfully:', result.uvpId);
+
+              // SAVE BUYER PERSONAS: Convert customer profiles to simple buyer personas
+              console.log('[UVP Flow] Converting customer profiles to buyer personas...');
+              console.log('[UVP Flow] 🔍 COMPREHENSIVE DEBUG - Current data state:');
+              console.log('[UVP Flow] refinedData:', refinedData);
+              console.log('[UVP Flow] refinedData?.selectedCustomers:', refinedData?.selectedCustomers);
+              console.log('[UVP Flow] businessData:', businessData);
+              console.log('[UVP Flow] synthesizedUVP.targetCustomer:', synthesizedUVP?.targetCustomer);
+
+              // Multiple fallback strategies to get customer profiles
+              let customerProfiles: string[] = [];
+              let profileSource = 'unknown';
+
+              // Strategy 1: Try refinedData.selectedCustomers (primary)
+              if (refinedData?.selectedCustomers && refinedData.selectedCustomers.length > 0) {
+                customerProfiles = refinedData.selectedCustomers;
+                profileSource = 'refinedData.selectedCustomers';
+              }
+              // Strategy 2: Try localStorage backup
+              else if (localStorage.getItem('uvp_selected_customers')) {
+                try {
+                  const stored = JSON.parse(localStorage.getItem('uvp_selected_customers') || '[]');
+                  if (Array.isArray(stored) && stored.length > 0) {
+                    customerProfiles = stored;
+                    profileSource = 'localStorage backup';
+                  }
+                } catch (e) {
+                  console.warn('[UVP Flow] Failed to parse localStorage customer data:', e);
+                }
+              }
+              // Strategy 3: Extract from UVP customer triggers
+              else if (synthesizedUVP?.targetCustomer?.customerTriggers?.length > 0) {
+                customerProfiles = synthesizedUVP.targetCustomer.customerTriggers.map((ct: any) => ct.trigger || ct.description);
+                profileSource = 'UVP customerTriggers';
+              }
+              // Strategy 4: Extract from customer profiles
+              else if (synthesizedUVP?.targetCustomer?.customerProfiles?.length > 0) {
+                customerProfiles = synthesizedUVP.targetCustomer.customerProfiles.map((cp: any) => cp.title || cp.description);
+                profileSource = 'UVP customerProfiles';
+              }
+
+              console.log('[UVP Flow] Customer profiles found:', {
+                count: customerProfiles.length,
+                source: profileSource,
+                profiles: customerProfiles
+              });
+
+              // Get customer profiles from any available source
+              if (customerProfiles.length > 0) {
+                console.log('[UVP Flow] Found', customerProfiles.length, 'selected customer profiles from', profileSource);
+
+                // Convert customer descriptions (strings) to simple buyer personas
+                const simpleBuyerPersonas = customerProfiles.map((customerDescription: string, index: number) => ({
+                  id: `customer-profile-${Date.now()}-${index}`,
+                  name: customerDescription || `Customer Segment ${index + 1}`,
+                  role: 'Target Customer',
+                  company_type: synthesizedUVP.targetCustomer?.industry || 'Business',
+                  pain_points: websiteAnalysis?.customerProblems?.slice(0, 2) || [],
+                  desired_outcomes: websiteAnalysis?.solutions?.slice(0, 2) || [],
+                  emotional_drivers: synthesizedUVP.targetCustomer?.emotionalDrivers || [],
+                  functional_drivers: synthesizedUVP.targetCustomer?.functionalDrivers || [],
+                  source: 'uvp_flow',
+                  confidence_score: 85, // High confidence since user selected these
+                  validated: true,
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                }));
+
+                console.log('[UVP Flow] Converted customer profiles to buyer personas:', {
+                  count: simpleBuyerPersonas.length,
+                  names: simpleBuyerPersonas.map(p => p.name)
+                });
+
+                try {
+                  await OnboardingV5DataService.saveBuyerPersonas(brandId, simpleBuyerPersonas);
+                  console.log('[UVP Flow] ✅ Successfully saved buyer personas from customer profiles');
+                } catch (personaError) {
+                  console.error('[UVP Flow] Failed to save buyer personas:', personaError);
+                  // Don't fail UVP flow if persona save fails
+                }
+              } else {
+                console.log('[UVP Flow] ❌ No customer profiles found from any source - cannot create buyer personas');
+                console.log('[UVP Flow] 🔍 Complete diagnostic info:');
+                console.log('[UVP Flow] - refinedData keys:', Object.keys(refinedData || {}));
+                console.log('[UVP Flow] - refinedData.selectedCustomers:', refinedData?.selectedCustomers);
+                console.log('[UVP Flow] - localStorage uvp_selected_customers:', localStorage.getItem('uvp_selected_customers'));
+                console.log('[UVP Flow] - synthesizedUVP.targetCustomer.customerTriggers:', synthesizedUVP?.targetCustomer?.customerTriggers);
+                console.log('[UVP Flow] - synthesizedUVP.targetCustomer.customerProfiles:', synthesizedUVP?.targetCustomer?.customerProfiles);
+              }
 
               // NOW start dashboard preloading - UVP is saved so APIs will use it
               console.log('[UVP Flow] 🚀 Starting dashboard preload AFTER UVP saved...');
@@ -2219,6 +2345,48 @@ export const OnboardingPageV5: React.FC = () => {
 
       if (result.success) {
         console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
+
+        // SAVE BUYER PERSONAS: Convert customer profiles to simple buyer personas
+        console.log('[UVP Flow] Converting customer profiles to buyer personas...');
+
+        // Get customer profiles from UVP data (refinedData from uvp_customer step)
+        if (refinedData?.selectedCustomers && refinedData.selectedCustomers.length > 0) {
+          console.log('[UVP Flow] Found', refinedData.selectedCustomers.length, 'selected customer profiles');
+
+          // Convert customer descriptions (strings) to simple buyer personas
+          const simpleBuyerPersonas = refinedData.selectedCustomers.map((customerDescription: string, index: number) => ({
+            id: `customer-profile-${Date.now()}-${index}`,
+            name: customerDescription || `Customer Segment ${index + 1}`,
+            role: 'Target Customer',
+            company_type: uvpWithProducts.targetCustomer?.industry || 'Business',
+            pain_points: websiteAnalysis?.customerProblems?.slice(0, 2) || [],
+            desired_outcomes: websiteAnalysis?.solutions?.slice(0, 2) || [],
+            emotional_drivers: uvpWithProducts.targetCustomer?.emotionalDrivers || [],
+            functional_drivers: uvpWithProducts.targetCustomer?.functionalDrivers || [],
+            source: 'uvp_flow',
+            confidence_score: 85, // High confidence since user selected these
+            validated: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }));
+
+          console.log('[UVP Flow] Converted customer profiles to buyer personas:', {
+            count: simpleBuyerPersonas.length,
+            names: simpleBuyerPersonas.map(p => p.name)
+          });
+
+          try {
+            await OnboardingV5DataService.saveBuyerPersonas(brandId, simpleBuyerPersonas);
+            console.log('[UVP Flow] ✅ Successfully saved buyer personas from customer profiles');
+          } catch (personaError) {
+            console.error('[UVP Flow] Failed to save buyer personas:', personaError);
+            // Don't fail UVP flow if persona save fails
+          }
+        } else {
+          console.log('[UVP Flow] No customer profiles available - cannot create buyer personas');
+          console.log('[UVP Flow] Available refinedData keys:', Object.keys(refinedData || {}));
+          console.log('[UVP Flow] refinedData.selectedCustomers:', refinedData?.selectedCustomers);
+        }
 
         // Mark synthesis as completed and update session to 100%
         const finalSteps = [...completedUVPSteps, 'synthesis'] as UVPStepKey[];
@@ -2659,20 +2827,10 @@ export const OnboardingPageV5: React.FC = () => {
 
       {/* REMOVED: value_propositions step - Legacy Track E step not used in UVP flow */}
 
-      {currentStep === 'buyer_intelligence' && collectedData && (
-        <BuyerIntelligencePage
-          {...{
-            triggers: collectedData.customerTriggers,
-            personas: collectedData.buyerPersonas,
-            validatedTriggerIds: validatedTriggers,
-            validatedPersonaIds: validatedPersonas,
-            onValidateTrigger: handleValidateTrigger,
-            onValidatePersona: handleValidatePersona,
-            onNext: handleBuyerIntelNext,
-            onBack: handleBackFromBuyerIntel,
-          } as any}
-        />
-      )}
+      {/* ARCHIVED: Complex buyer intelligence step - using customer profiles instead */}
+      {/* {currentStep === 'buyer_intelligence' && collectedData && (
+        <BuyerIntelligencePage ... />
+      )} */}
 
       {currentStep === 'core_truth' && collectedData && (
         <CoreTruthPage
@@ -2862,6 +3020,22 @@ export const OnboardingPageV5: React.FC = () => {
                 functionalDrivers: primaryProfile.functionalDrivers?.length || 0,
               });
               setSelectedCustomerProfile(primaryProfile);
+
+              // CRITICAL FIX: Store ALL selected profiles in refinedData for persona conversion
+              const customerDescriptions = profiles.map(profile =>
+                profile.title || profile.description || profile.trigger || 'Customer Profile'
+              );
+              console.log('[OnboardingPageV5] Storing customer descriptions for persona conversion:', customerDescriptions);
+
+              // Update refinedData with selected customers
+              setRefinedData(prev => ({
+                ...prev,
+                selectedCustomers: customerDescriptions
+              }));
+
+              // Also backup to localStorage in case refinedData gets lost
+              localStorage.setItem('uvp_selected_customers', JSON.stringify(customerDescriptions));
+              console.log('[OnboardingPageV5] ✅ Backed up customer selections to localStorage');
             }
           }}
           onNext={handleCustomerNext}
@@ -3064,10 +3238,12 @@ export const OnboardingPageV5: React.FC = () => {
               if (!brandId) {
                 console.warn('[UVP Flow] No brand found, getting or creating...');
                 try {
+                  // FORCE USE OF EXISTING OPENDIALOG BRAND
+                  // This prevents creating multiple brands during UVP testing
                   const brandResult = await getOrCreateBrand({
-                    website: websiteUrl || '',
-                    name: extractedBusinessName || 'My Business',
-                    industry: currentBrand?.industry || selectedIndustry?.displayName || 'General',
+                    website: 'https://opendialog.ai', // Always use OpenDialog website
+                    name: 'OpenDialog', // Always use OpenDialog name
+                    industry: 'Software Publishers', // Always use Software Publishers
                     userId: user?.id || null,
                   });
 
@@ -3094,6 +3270,95 @@ export const OnboardingPageV5: React.FC = () => {
 
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
+
+                  // SAVE BUYER PERSONAS: Convert customer profiles to simple buyer personas
+                  console.log('[UVP Flow] Converting customer profiles to buyer personas...');
+                  console.log('[UVP Flow] 🔍 COMPREHENSIVE DEBUG - Current data state:');
+                  console.log('[UVP Flow] refinedData:', refinedData);
+                  console.log('[UVP Flow] refinedData?.selectedCustomers:', refinedData?.selectedCustomers);
+                  console.log('[UVP Flow] businessData:', businessData);
+                  console.log('[UVP Flow] uvpToDisplay.targetCustomer:', uvpToDisplay?.targetCustomer);
+
+                  // Multiple fallback strategies to get customer profiles
+                  let customerProfiles: string[] = [];
+                  let profileSource = 'unknown';
+
+                  // Strategy 1: Try refinedData.selectedCustomers (primary)
+                  if (refinedData?.selectedCustomers && refinedData.selectedCustomers.length > 0) {
+                    customerProfiles = refinedData.selectedCustomers;
+                    profileSource = 'refinedData.selectedCustomers';
+                  }
+                  // Strategy 2: Try localStorage backup
+                  else if (localStorage.getItem('uvp_selected_customers')) {
+                    try {
+                      const stored = JSON.parse(localStorage.getItem('uvp_selected_customers') || '[]');
+                      if (Array.isArray(stored) && stored.length > 0) {
+                        customerProfiles = stored;
+                        profileSource = 'localStorage backup';
+                      }
+                    } catch (e) {
+                      console.warn('[UVP Flow] Failed to parse localStorage customer data:', e);
+                    }
+                  }
+                  // Strategy 3: Extract from UVP customer triggers
+                  else if (uvpToDisplay?.targetCustomer?.customerTriggers?.length > 0) {
+                    customerProfiles = uvpToDisplay.targetCustomer.customerTriggers.map((ct: any) => ct.trigger || ct.description);
+                    profileSource = 'UVP customerTriggers';
+                  }
+                  // Strategy 4: Extract from customer profiles
+                  else if (uvpToDisplay?.targetCustomer?.customerProfiles?.length > 0) {
+                    customerProfiles = uvpToDisplay.targetCustomer.customerProfiles.map((cp: any) => cp.title || cp.description);
+                    profileSource = 'UVP customerProfiles';
+                  }
+
+                  console.log('[UVP Flow] Customer profiles found:', {
+                    count: customerProfiles.length,
+                    source: profileSource,
+                    profiles: customerProfiles
+                  });
+
+                  // Get customer profiles from any available source
+                  if (customerProfiles.length > 0) {
+                    console.log('[UVP Flow] Found', customerProfiles.length, 'selected customer profiles from', profileSource);
+
+                    // Convert customer descriptions (strings) to simple buyer personas
+                    const simpleBuyerPersonas = customerProfiles.map((customerDescription: string, index: number) => ({
+                      id: `customer-profile-${Date.now()}-${index}`,
+                      name: customerDescription || `Customer Segment ${index + 1}`,
+                      role: 'Target Customer',
+                      company_type: uvpToDisplay.targetCustomer?.industry || 'Business',
+                      pain_points: websiteAnalysis?.customerProblems?.slice(0, 2) || [],
+                      desired_outcomes: websiteAnalysis?.solutions?.slice(0, 2) || [],
+                      emotional_drivers: uvpToDisplay.targetCustomer?.emotionalDrivers || [],
+                      functional_drivers: uvpToDisplay.targetCustomer?.functionalDrivers || [],
+                      source: 'uvp_flow',
+                      confidence_score: 85, // High confidence since user selected these
+                      validated: true,
+                      created_at: new Date().toISOString(),
+                      updated_at: new Date().toISOString()
+                    }));
+
+                    console.log('[UVP Flow] Converted customer profiles to buyer personas:', {
+                      count: simpleBuyerPersonas.length,
+                      names: simpleBuyerPersonas.map(p => p.name)
+                    });
+
+                    try {
+                      await OnboardingV5DataService.saveBuyerPersonas(brandId, simpleBuyerPersonas);
+                      console.log('[UVP Flow] ✅ Successfully saved buyer personas from customer profiles');
+                    } catch (personaError) {
+                      console.error('[UVP Flow] Failed to save buyer personas:', personaError);
+                      // Don't fail UVP flow if persona save fails
+                    }
+                  } else {
+                    console.log('[UVP Flow] ❌ No customer profiles found from any source - cannot create buyer personas');
+                    console.log('[UVP Flow] 🔍 Complete diagnostic info:');
+                    console.log('[UVP Flow] - refinedData keys:', Object.keys(refinedData || {}));
+                    console.log('[UVP Flow] - refinedData.selectedCustomers:', refinedData?.selectedCustomers);
+                    console.log('[UVP Flow] - localStorage uvp_selected_customers:', localStorage.getItem('uvp_selected_customers'));
+                    console.log('[UVP Flow] - uvpToDisplay.targetCustomer.customerTriggers:', uvpToDisplay?.targetCustomer?.customerTriggers);
+                    console.log('[UVP Flow] - uvpToDisplay.targetCustomer.customerProfiles:', uvpToDisplay?.targetCustomer?.customerProfiles);
+                  }
 
                   // Generate specialty profile from UVP data (fire-and-forget)
                   // Don't await - the Edge Function takes 30+ seconds for LLM generation
