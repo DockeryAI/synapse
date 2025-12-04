@@ -8,7 +8,7 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { streamingApiManager, ApiEventType, ApiUpdate, ApiStatus } from '../services/intelligence/streaming-api-manager';
-import { Brand } from '../types/brand';
+import type { Brand } from '@/types';
 
 // Individual API data states
 interface ApiDataStates {
@@ -61,6 +61,13 @@ interface ApiDataStates {
   // Synapse 2.0 - Hidden data sources
   secEdgarIntelligence: any | null;  // SEC filings - risk factors, executive priorities
   buzzsumoPerformance: any | null;   // Content performance + trend timing
+
+  // Additional data sources
+  competitorVoice: any | null;       // Competitor Voice of Customer data
+  hackernewsTriggers: any | null;    // Tech community switching signals
+  newsEventTriggers: any | null;     // Funding, acquisitions, leadership changes
+  redditConversations: any | null;   // UVP pain point community validation
+  linkedinExecutiveSignals: any | null; // B2B executive/hiring signals
 }
 
 // Loading states for each API
@@ -120,6 +127,12 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     // Synapse 2.0 - Hidden data sources
     secEdgarIntelligence: null,
     buzzsumoPerformance: null,
+    // Additional data sources
+    competitorVoice: null,
+    hackernewsTriggers: null,
+    newsEventTriggers: null,
+    redditConversations: null,
+    linkedinExecutiveSignals: null,
   });
 
   const [loading, setLoading] = useState<ApiLoadingStates>({});
@@ -162,6 +175,12 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     // Synapse 2.0 - Hidden data sources
     'sec-edgar-intelligence': 'secEdgarIntelligence',
     'buzzsumo-performance': 'buzzsumoPerformance',
+    // Additional sources
+    'competitor-voice': 'competitorVoice',
+    'hackernews-triggers': 'hackernewsTriggers',
+    'news-event-triggers': 'newsEventTriggers',
+    'reddit-conversations': 'redditConversations',
+    'linkedin-executive-signals': 'linkedinExecutiveSignals',
   };
 
   // Handle API updates - update ONLY the specific state slice
@@ -323,7 +342,7 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
   }, [brand, handleCacheLoaded, handleApiUpdate, handleStatusUpdate, handleApiError]);
 
   // Calculate metrics
-  const totalApis = 25; // 23 original + 2 Synapse 2.0 (SEC EDGAR + BuzzSumo)
+  const totalApis = 30; // 23 original + 2 Synapse 2.0 + 5 additional sources
   const loadedApis = Object.values(data).filter(d => d !== null).length;
   const failedApis = Object.values(errors).filter(e => e !== null).length;
   const percentComplete = Math.round((loadedApis / totalApis) * 100);

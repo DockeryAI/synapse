@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 import { customerTitleGenerator } from '@/services/content/CustomerTitleGenerator.service';
 import { titleQualityValidator } from '@/services/content/TitleQualityValidator.service';
 import { frameworkSelector } from '@/services/content/FrameworkSelector.service';
-import { frameworkLibrary } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import { frameworkLibrary } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import type { DataPoint } from '@/types/connections.types';
 
 describe('Phase 2: Customer-First Title Generation', () => {

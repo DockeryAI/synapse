@@ -153,6 +153,9 @@ export type {
   WebhookResponse,
 } from './api.types';
 
+// Brand types
+export type { Brand } from '../contexts/BrandContext';
+
 // Analytics types
 export type {
   OnTrackStatus,

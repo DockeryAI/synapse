@@ -71,8 +71,10 @@ export interface UpdateApiConfigInput {
 function encryptApiKey(key: string): string {
   if (isDemoMode) return `encrypted_${key}`;
 
-  // TODO: Implement proper encryption (e.g., using Web Crypto API or library)
-  // For now, using simple base64 encoding as placeholder
+  // SECURITY NOTE: In production, API keys should be stored as environment variables
+  // on the server side and never sent to the client. This client-side storage
+  // is only for development/demo purposes. For production, implement server-side
+  // encryption with a proper key management system.
   return btoa(key);
 }
 
@@ -82,7 +84,7 @@ function encryptApiKey(key: string): string {
 function decryptApiKey(encryptedKey: string): string {
   if (isDemoMode) return encryptedKey.replace('encrypted_', '');
 
-  // TODO: Implement proper decryption
+  // SECURITY NOTE: See encryption note above - production should use server-side decryption
   try {
     return atob(encryptedKey);
   } catch {

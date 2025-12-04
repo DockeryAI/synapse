@@ -62,6 +62,7 @@ import { SourceCitation } from '@/components/onboarding-v5/SourceCitation';
 import { InfoTooltip } from '@/components/onboarding-v5/InfoTooltip';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
+import { validateCompleteUVP, type ValidatedCompleteUVP } from '@/schemas/uvp-validation.schemas';
 
 interface UVPSynthesisPageProps {
   completeUVP: CompleteUVP;
@@ -82,6 +83,9 @@ export function UVPSynthesisPage({
   completedSteps = [],
   onStepClick
 }: UVPSynthesisPageProps) {
+  // Validate and provide safe defaults for UVP data
+  const safeUVP = validateCompleteUVP(completeUVP);
+
   const [showConfetti, setShowConfetti] = useState(true);
   const [copiedVP, setCopiedVP] = useState(false);
   const [copiedWhy, setCopiedWhy] = useState(false);
@@ -93,10 +97,10 @@ export function UVPSynthesisPage({
   const [isEditingHow, setIsEditingHow] = useState(false);
   const [isGeneratingStatements, setIsGeneratingStatements] = useState(false);
   const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
-  const [editedVP, setEditedVP] = useState(completeUVP.valuePropositionStatement);
-  const [editedWhy, setEditedWhy] = useState(completeUVP.whyStatement);
-  const [editedWhat, setEditedWhat] = useState(completeUVP.whatStatement);
-  const [editedHow, setEditedHow] = useState(completeUVP.howStatement);
+  const [editedVP, setEditedVP] = useState(safeUVP.valuePropositionStatement);
+  const [editedWhy, setEditedWhy] = useState(safeUVP.whyStatement);
+  const [editedWhat, setEditedWhat] = useState(safeUVP.whatStatement);
+  const [editedHow, setEditedHow] = useState(safeUVP.howStatement);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 1200,
@@ -127,10 +131,10 @@ export function UVPSynthesisPage({
     const generateStatements = async () => {
       // Check if statements are missing
       const needsGeneration =
-        !completeUVP.valuePropositionStatement ||
-        !completeUVP.whyStatement ||
-        !completeUVP.whatStatement ||
-        !completeUVP.howStatement;
+        !safeUVP.valuePropositionStatement ||
+        !safeUVP.whyStatement ||
+        !safeUVP.whatStatement ||
+        !safeUVP.howStatement;
 
       if (!needsGeneration) return;
 
@@ -139,15 +143,15 @@ export function UVPSynthesisPage({
 
       try {
         // Generate simple fallback statements from components with null safety
-        const customerStatement = completeUVP.targetCustomer?.statement || 'our customers';
-        const solutionStatement = completeUVP.uniqueSolution?.statement || 'provide solutions';
-        const benefitStatement = completeUVP.keyBenefit?.statement || 'achieve your goals';
+        const customerStatement = safeUVP.targetCustomer?.statement || 'our customers';
+        const solutionStatement = safeUVP.uniqueSolution?.statement || 'provide solutions';
+        const benefitStatement = safeUVP.keyBenefit?.statement || 'achieve your goals';
 
         const vp = `For ${customerStatement}, we ${solutionStatement} so you can ${benefitStatement}.`;
 
-        const why = completeUVP.transformationGoal?.statement || 'We believe in creating transformation through exceptional service.';
-        const what = completeUVP.uniqueSolution?.statement || 'We provide comprehensive solutions tailored to your needs.';
-        const how = completeUVP.uniqueSolution?.differentiators?.[0]?.statement || 'We deliver through our proven methodology and expertise.';
+        const why = safeUVP.transformationGoal?.statement || 'We believe in creating transformation through exceptional service.';
+        const what = safeUVP.uniqueSolution?.statement || 'We provide comprehensive solutions tailored to your needs.';
+        const how = safeUVP.uniqueSolution?.differentiators?.[0]?.statement || 'We deliver through our proven methodology and expertise.';
 
         setEditedVP(vp);
         setEditedWhy(why);
@@ -197,10 +201,10 @@ export function UVPSynthesisPage({
 
   // Safely collect all sources with null checks
   const allSources = [
-    ...(completeUVP.targetCustomer?.sources || []),
-    ...(completeUVP.transformationGoal?.sources || []),
-    ...(completeUVP.uniqueSolution?.sources || []),
-    ...(completeUVP.keyBenefit?.sources || []),
+    ...(safeUVP.targetCustomer?.sources || []),
+    ...(safeUVP.transformationGoal?.sources || []),
+    ...(safeUVP.uniqueSolution?.sources || []),
+    ...(safeUVP.keyBenefit?.sources || []),
   ];
 
   // Calculate aggregate confidence with null checks
@@ -208,22 +212,22 @@ export function UVPSynthesisPage({
 
   const aggregateConfidence = {
     overall: Math.round(
-      (safeConfidence(completeUVP.targetCustomer).overall +
-        safeConfidence(completeUVP.transformationGoal).overall +
-        safeConfidence(completeUVP.uniqueSolution).overall +
-        safeConfidence(completeUVP.keyBenefit).overall) / 4
+      (safeConfidence(safeUVP.targetCustomer).overall +
+        safeConfidence(safeUVP.transformationGoal).overall +
+        safeConfidence(safeUVP.uniqueSolution).overall +
+        safeConfidence(safeUVP.keyBenefit).overall) / 4
     ),
     dataQuality: Math.round(
-      (safeConfidence(completeUVP.targetCustomer).dataQuality +
-        safeConfidence(completeUVP.transformationGoal).dataQuality +
-        safeConfidence(completeUVP.uniqueSolution).dataQuality +
-        safeConfidence(completeUVP.keyBenefit).dataQuality) / 4
+      (safeConfidence(safeUVP.targetCustomer).dataQuality +
+        safeConfidence(safeUVP.transformationGoal).dataQuality +
+        safeConfidence(safeUVP.uniqueSolution).dataQuality +
+        safeConfidence(safeUVP.keyBenefit).dataQuality) / 4
     ),
     modelAgreement: Math.round(
-      (safeConfidence(completeUVP.targetCustomer).modelAgreement +
-        safeConfidence(completeUVP.transformationGoal).modelAgreement +
-        safeConfidence(completeUVP.uniqueSolution).modelAgreement +
-        safeConfidence(completeUVP.keyBenefit).modelAgreement) / 4
+      (safeConfidence(safeUVP.targetCustomer).modelAgreement +
+        safeConfidence(safeUVP.transformationGoal).modelAgreement +
+        safeConfidence(safeUVP.uniqueSolution).modelAgreement +
+        safeConfidence(safeUVP.keyBenefit).modelAgreement) / 4
     ),
     sourceCount: allSources.length,
     reasoning: 'Aggregate confidence across all UVP components based on data quality, source reliability, and model agreement.',
@@ -289,7 +293,7 @@ export function UVPSynthesisPage({
         </motion.div>
 
         {/* UVP Variations Selector (if multiple variations available) */}
-        {completeUVP.variations && completeUVP.variations.length > 1 && (
+        {safeUVP.variations && safeUVP.variations.length > 1 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -308,7 +312,7 @@ export function UVPSynthesisPage({
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
-              {completeUVP.variations.map((variation, index) => (
+              {safeUVP.variations.map((variation, index) => (
                 <motion.button
                   key={index}
                   onClick={() => {
@@ -653,18 +657,18 @@ export function UVPSynthesisPage({
             isExpanded={expandedSections.has('customer')}
             onToggle={() => toggleSection('customer')}
             onEdit={() => onEdit('customer')}
-            confidence={completeUVP.targetCustomer.confidence}
+            confidence={safeUVP.targetCustomer.confidence}
           >
             <FormattedStatement
-              text={completeUVP.targetCustomer.statement}
+              text={safeUVP.targetCustomer.statement}
               className="text-gray-900 dark:text-white font-medium"
             />
-            {completeUVP.targetCustomer.evidenceQuotes.length > 0 && (
+            {safeUVP.targetCustomer?.evidenceQuotes?.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Evidence:
                 </p>
-                {completeUVP.targetCustomer.evidenceQuotes.map((quote, idx) => (
+                {safeUVP.targetCustomer?.evidenceQuotes?.map((quote, idx) => (
                   <p key={idx} className="text-sm text-gray-600 dark:text-gray-400 italic pl-4 border-l-2 border-gray-300 dark:border-slate-600">
                     "{quote}"
                   </p>
@@ -679,22 +683,22 @@ export function UVPSynthesisPage({
             isExpanded={expandedSections.has('transformation')}
             onToggle={() => toggleSection('transformation')}
             onEdit={() => onEdit('transformation')}
-            confidence={completeUVP.transformationGoal.confidence}
+            confidence={safeUVP.transformationGoal.confidence}
           >
             <FormattedStatement
-              text={completeUVP.transformationGoal.statement}
+              text={safeUVP.transformationGoal.statement}
               className="text-gray-900 dark:text-white font-medium"
             />
-            {(completeUVP.transformationGoal.emotionalDrivers.length > 0 ||
-              completeUVP.transformationGoal.functionalDrivers.length > 0) && (
+            {(safeUVP.transformationGoal?.emotionalDrivers?.length > 0 ||
+              safeUVP.transformationGoal?.functionalDrivers?.length > 0) && (
               <div className="mt-3 grid md:grid-cols-2 gap-4">
-                {completeUVP.transformationGoal.emotionalDrivers.length > 0 && (
+                {safeUVP.transformationGoal?.emotionalDrivers?.length > 0 && (
                   <div>
                     <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       Emotional Drivers:
                     </p>
                     <ul className="space-y-1">
-                      {completeUVP.transformationGoal.emotionalDrivers.map((driver, idx) => (
+                      {safeUVP.transformationGoal?.emotionalDrivers?.map((driver, idx) => (
                         <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
                           <Heart className="w-3 h-3 text-pink-500 mt-0.5 flex-shrink-0" />
                           {driver}
@@ -703,13 +707,13 @@ export function UVPSynthesisPage({
                     </ul>
                   </div>
                 )}
-                {completeUVP.transformationGoal.functionalDrivers.length > 0 && (
+                {safeUVP.transformationGoal?.functionalDrivers?.length > 0 && (
                   <div>
                     <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       Functional Drivers:
                     </p>
                     <ul className="space-y-1">
-                      {completeUVP.transformationGoal.functionalDrivers.map((driver, idx) => (
+                      {safeUVP.transformationGoal?.functionalDrivers?.map((driver, idx) => (
                         <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
                           <Target className="w-3 h-3 text-blue-500 mt-0.5 flex-shrink-0" />
                           {driver}
@@ -728,18 +732,18 @@ export function UVPSynthesisPage({
             isExpanded={expandedSections.has('solution')}
             onToggle={() => toggleSection('solution')}
             onEdit={() => onEdit('solution')}
-            confidence={completeUVP.uniqueSolution.confidence}
+            confidence={safeUVP.uniqueSolution.confidence}
           >
             <FormattedStatement
-              text={completeUVP.uniqueSolution.statement}
+              text={safeUVP.uniqueSolution.statement}
               className="text-gray-900 dark:text-white font-medium"
             />
-            {completeUVP.uniqueSolution.differentiators.length > 0 && (
+            {safeUVP.uniqueSolution?.differentiators?.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Differentiators:
                 </p>
-                {completeUVP.uniqueSolution.differentiators.map((diff) => (
+                {safeUVP.uniqueSolution?.differentiators?.map((diff) => (
                   <div key={diff.id} className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3">
                     <p className="text-sm text-gray-900 dark:text-white font-medium">
                       {diff.statement}
@@ -759,19 +763,19 @@ export function UVPSynthesisPage({
             isExpanded={expandedSections.has('benefit')}
             onToggle={() => toggleSection('benefit')}
             onEdit={() => onEdit('benefit')}
-            confidence={completeUVP.keyBenefit.confidence}
+            confidence={safeUVP.keyBenefit.confidence}
           >
             <FormattedStatement
-              text={completeUVP.keyBenefit.statement}
+              text={safeUVP.keyBenefit.statement}
               className="text-gray-900 dark:text-white font-medium"
             />
-            {completeUVP.keyBenefit.metrics && completeUVP.keyBenefit.metrics.length > 0 && (
+            {safeUVP.keyBenefit?.metrics?.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Metrics:
                 </p>
                 <div className="grid md:grid-cols-2 gap-2">
-                  {completeUVP.keyBenefit.metrics.map((metric, idx) => (
+                  {safeUVP.keyBenefit?.metrics?.map((metric, idx) => (
                     <div key={typeof metric === 'object' && metric.id ? metric.id : `metric-${idx}`} className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
                       {typeof metric === 'string' ? (
                         <p className="text-sm text-gray-900 dark:text-white font-medium">
@@ -822,25 +826,25 @@ export function UVPSynthesisPage({
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Target Customer:</span>
               <span className="font-semibold text-gray-900 dark:text-white">
-                {completeUVP.targetCustomer.confidence.overall}%
+                {safeUVP.targetCustomer?.confidence?.overall ?? 0}%
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Transformation:</span>
               <span className="font-semibold text-gray-900 dark:text-white">
-                {completeUVP.transformationGoal.confidence.overall}%
+                {safeUVP.transformationGoal?.confidence?.overall ?? 0}%
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Solution:</span>
               <span className="font-semibold text-gray-900 dark:text-white">
-                {completeUVP.uniqueSolution.confidence.overall}%
+                {safeUVP.uniqueSolution?.confidence?.overall ?? 0}%
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Benefit:</span>
               <span className="font-semibold text-gray-900 dark:text-white">
-                {completeUVP.keyBenefit.confidence.overall}%
+                {safeUVP.keyBenefit?.confidence?.overall ?? 0}%
               </span>
             </div>
           </div>
@@ -933,7 +937,7 @@ function CollapsibleSection({
             {title}
           </h3>
           <span className="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded">
-            {confidence.overall}% confidence
+            {confidence?.overall ?? 0}% confidence
           </span>
         </div>
         <div className="flex items-center gap-2">

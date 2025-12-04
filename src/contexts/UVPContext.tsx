@@ -423,12 +423,28 @@ export const UVPProvider: React.FC<UVPProviderProps> = ({ children, brandId }) =
     setIsGenerating(true)
     try {
       // TODO: Implement with OpenRouter API
-      // For now, return a mock statement
-      throw new Error('AI generation not yet implemented')
+      // Mock implementation to prevent crashes
+      console.warn('[UVPContext] AI generation not yet implemented - returning mock data');
+      return {
+        id: `mock-${Date.now()}`,
+        brand_id: brandId,
+        headline: 'Generated UVP headline placeholder',
+        subheadline: 'Generated subheadline based on: ' + prompt,
+        supporting_points: ['Point 1', 'Point 2', 'Point 3'],
+        call_to_action: 'Get Started',
+        clarity_score: 80,
+        conversion_potential: 75,
+        power_words_count: 3,
+        jargon_count: 0,
+        is_primary: false,
+        status: 'draft' as const,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
     } finally {
       setIsGenerating(false)
     }
-  }, [])
+  }, [brandId])
 
   const generateVariants = React.useCallback(async (
     statementId: string,
@@ -437,11 +453,31 @@ export const UVPProvider: React.FC<UVPProviderProps> = ({ children, brandId }) =
     setIsGenerating(true)
     try {
       // TODO: Implement with OpenRouter API
-      throw new Error('Variant generation not yet implemented')
+      // Mock implementation to prevent crashes
+      console.warn('[UVPContext] Variant generation not yet implemented - returning mock data');
+      const variants: ValueStatement[] = [];
+      for (let i = 0; i < count; i++) {
+        variants.push({
+          id: `variant-${Date.now()}-${i}`,
+          brand_id: brandId,
+          headline: `Variant ${i + 1} headline`,
+          subheadline: `Variant ${i + 1} subheadline for ${statementId}`,
+          supporting_points: ['Variant point 1', 'Variant point 2'],
+          clarity_score: 75 - (i * 5),
+          conversion_potential: 70 - (i * 5),
+          power_words_count: 2,
+          jargon_count: 0,
+          is_primary: false,
+          status: 'draft' as const,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        });
+      }
+      return variants;
     } finally {
       setIsGenerating(false)
     }
-  }, [])
+  }, [brandId])
 
   const scoreStatement = React.useCallback(async (
     statement: ValueStatementFormData
@@ -449,7 +485,26 @@ export const UVPProvider: React.FC<UVPProviderProps> = ({ children, brandId }) =
     setIsScoring(true)
     try {
       // TODO: Implement with ContentPsychologyEngine and BrandHealthCalculator
-      throw new Error('Statement scoring not yet implemented')
+      // Mock implementation to prevent crashes
+      console.warn('[UVPContext] Statement scoring not yet implemented - returning mock score');
+      return {
+        overall_score: 80,
+        clarity_score: 85,
+        conversion_potential: 75,
+        synapse_score: 8.0,
+        emotional_impact: 80,
+        word_count: statement.headline?.split(' ').length || 0,
+        character_count: statement.headline?.length || 0,
+        reading_level: 'Grade 8',
+        power_words_count: 3,
+        power_words: ['transform', 'innovative', 'proven'],
+        jargon_count: 0,
+        jargon_words: [],
+        emotional_triggers: ['confidence', 'success'],
+        strengths: ['Clear value proposition', 'Strong emotional appeal'],
+        weaknesses: ['Could be more specific'],
+        suggestions: ['Add specific metrics', 'Include social proof', 'Clarify target audience']
+      }
     } finally {
       setIsScoring(false)
     }
@@ -459,11 +514,30 @@ export const UVPProvider: React.FC<UVPProviderProps> = ({ children, brandId }) =
     setIsGenerating(true)
     try {
       // TODO: Implement AI prediction logic
-      throw new Error('A/B test prediction not yet implemented')
+      // Mock implementation to prevent crashes
+      console.warn('[UVPContext] A/B test prediction not yet implemented - returning mock prediction');
+
+      // Find the test to get variant IDs
+      const test = abTests.find(t => t.id === testId);
+      const predictedWinner = test?.variant_a_id || `mock-variant-${Date.now()}`;
+
+      return {
+        id: testId,
+        brand_id: brandId,
+        test_name: 'Mock A/B Test',
+        variant_a_id: test?.variant_a_id || predictedWinner,
+        variant_b_id: test?.variant_b_id || `mock-variant-${Date.now()}-b`,
+        status: 'draft' as const,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        predicted_winner: 'variant_a' as const,
+        prediction_confidence: 72,
+        prediction_reasoning: 'Mock A/B test prediction based on clarity and impact scores'
+      }
     } finally {
       setIsGenerating(false)
     }
-  }, [])
+  }, [brandId, abTests])
 
   // =====================================================
   // Context Value

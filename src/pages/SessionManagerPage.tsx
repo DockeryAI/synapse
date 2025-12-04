@@ -26,7 +26,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { sessionManager } from '@/services/uvp/session-manager.service';
 import { useBrand } from '@/hooks/useBrand';
 import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
-import { supabase } from '@/lib/supabase';
+import { brandPersistence } from '@/services/brand/brand-persistence.service';
 import type { SessionListItem } from '@/types/session.types';
 import type { Brand } from '@/contexts/BrandContext';
 
@@ -134,15 +134,11 @@ export function SessionManagerPage() {
     // Load and set the brand for this session
     if (session?.brand_id) {
       try {
-        const { data: brandData, error: brandError } = await supabase
-          .from('brands')
-          .select('*')
-          .eq('id', session.brand_id)
-          .single();
+        const result = await brandPersistence.getBrandById(session.brand_id);
 
-        if (brandData && !brandError) {
-          console.log('[SessionManagerPage] Setting brand for session:', brandData.name);
-          setCurrentBrand(brandData as Brand);
+        if (result.success && result.brand) {
+          console.log('[SessionManagerPage] Setting brand for session:', result.brand.name);
+          setCurrentBrand(result.brand as Brand);
         }
       } catch (err) {
         console.error('[SessionManagerPage] Failed to load brand:', err);

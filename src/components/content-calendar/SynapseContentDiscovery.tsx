@@ -13,8 +13,8 @@ import { Loader2, Sparkles, TrendingUp, MapPin, Building2, Zap } from 'lucide-re
 import { IndustrySelector } from './IndustrySelector';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service';
-import { generateSynapses } from '@/services/synapse/SynapseGenerator';
-import { SynapseContentGenerator } from '@/services/synapse/generation/SynapseContentGenerator';
+import { generateSynapses } from '@/services/synapse-v6/SynapseGenerator';
+import { SynapseContentGenerator } from '@/services/synapse-v6/generation/SynapseContentGenerator';
 import type { SynapseInsight } from '@/types/synapse/synapse.types';
 import type { SynapseContent } from '@/types/synapse/synapseContent.types';
 import type { LocationResult } from '@/services/intelligence/location-detection.service';

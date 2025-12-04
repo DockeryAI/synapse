@@ -13,7 +13,7 @@ import {
   type ContentChannel,
   type ContentGoal,
   frameworkLibrary
-} from '@/services/synapse/generation/ContentFrameworkLibrary';
+} from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 
 import type { DataPoint } from '@/types/connections.types';
 

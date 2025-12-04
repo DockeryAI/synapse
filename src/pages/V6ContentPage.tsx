@@ -34,12 +34,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useBrand } from '@/hooks/useBrand';
 import { getUVPByBrand, recoverDriversFromSession, scanBrandWebsiteForVoice } from '@/services/database/marba-uvp.service';
 import { OnboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
-import type { BuyerPersona } from '@/types/buyer-persona.types';
+import type { BuyerPersona, PainPoint, DesiredOutcome, UrgencySignal, BuyerRole, IndustryContext, BuyingBehavior, SuccessMetrics } from '@/types/buyer-persona.types';
 
 // V6 Data Layer
 import { useV6TabData } from '@/hooks/useV6TabData';
 import { adaptTabToInsights } from '@/services/synapse-v6/tab-data-adapter.service';
 import type { InsightTab } from '@/services/synapse-v6/brand-profile.service';
+import { adaptBuyerPersonasToTargetPersonas, buildSynapseContext, getIndustryEQScore } from '@/services/synapse-v6/persona-adapter.service';
 
 // V5 UI Components (reused)
 import { UVPBuildingBlocks } from '@/components/v5/UVPBuildingBlocks';
@@ -130,10 +131,13 @@ function ContextStatusDisplay({ uvp, profileType }: { uvp: CompleteUVP | null; p
   );
 }
 
+
 // Main Page Component
 export function V6ContentPage() {
   const navigate = useNavigate();
   const { currentBrand: brand, loading: brandLoading } = useBrand();
+
+  console.log('[V6ContentPage] Component rendered - brandLoading:', brandLoading, 'brand:', brand);
 
   const [uvp, setUvp] = useState<CompleteUVP | null>(null);
   const [buyerPersonas, setBuyerPersonas] = useState<BuyerPersona[]>([]);
@@ -143,6 +147,9 @@ export function V6ContentPage() {
   const [scanningVoice, setScanningVoice] = useState(false);
   const [leftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
   const [voiceScanResult, setVoiceScanResult] = useState<{ success: boolean; tone?: string[]; error?: string } | null>(null);
+
+  // Synapse Context for V1 engine
+  const [synapseContext, setSynapseContext] = useState<any>(null);
 
   // V6 Data Layer
   const {
@@ -210,8 +217,21 @@ export function V6ContentPage() {
   // Load UVP and buyer personas
   useEffect(() => {
     async function loadUVPAndPersonas() {
-      if (brandLoading) return;
-      if (!brand?.id) { setError('No brand selected'); setLoading(false); return; }
+      console.log('[V6ContentPage] Starting loadUVPAndPersonas, brandLoading:', brandLoading, 'brand ID:', brand?.id);
+      if (brandLoading) {
+        console.log('[V6ContentPage] Skipping - brand still loading');
+        return;
+      }
+
+      if (!brand?.id) {
+        console.log('[V6ContentPage] Skipping - no brand ID');
+        setError('No brand selected');
+        setLoading(false);
+        return;
+      }
+
+      console.log('[V6ContentPage] About to call getUVPByBrand and loadBuyerPersonas');
+      setLoading(true);
 
       try {
         // Load UVP and buyer personas in parallel
@@ -220,7 +240,12 @@ export function V6ContentPage() {
           OnboardingV5DataService.loadBuyerPersonas(brand.id).catch(() => [] as BuyerPersona[]),
         ]);
 
-        if (!uvpData) { setError('No UVP found. Please complete onboarding first.'); setLoading(false); return; }
+        console.log('[V6ContentPage] getUVPByBrand result:', uvpData ? 'Found UVP' : 'No UVP');
+        if (!uvpData) {
+          setError('No UVP found. Please complete onboarding first.');
+          setLoading(false);
+          return;
+        }
 
         const hasDrivers = (uvpData.targetCustomer?.emotionalDrivers?.length || 0) > 0;
         if (!hasDrivers) {
@@ -236,10 +261,21 @@ export function V6ContentPage() {
         }
 
         // Set buyer personas (10 detailed profiles from database)
-        if (personas.length > 0) {
-          console.log('[V6ContentPage] Loaded', personas.length, 'buyer personas from database');
-          setBuyerPersonas(personas);
+        console.log('[V6ContentPage] Loaded', personas.length, 'buyer personas from database');
+
+        // Buyer personas MUST come from UVP process - no fallbacks
+        if (personas.length === 0) {
+          console.error('[V6ContentPage] ❌ NO BUYER PERSONAS FOUND FROM UVP PROCESS');
+          console.error('[V6ContentPage] User must complete UVP onboarding to generate buyer personas');
+
+          setError('No buyer personas found. Please complete the UVP onboarding process to generate buyer personas.');
+          setLoading(false);
+          return;
         }
+
+        console.log('[V6ContentPage] ✅ Using buyer personas from UVP onboarding process');
+        console.log(`[V6ContentPage] Found ${personas.length} UVP-generated buyer personas`);
+        setBuyerPersonas(personas);
 
         setLoading(false);
       } catch (err) {
@@ -257,6 +293,45 @@ export function V6ContentPage() {
       loadAllTabs();
     }
   }, [uvp, brand?.id, v6State.profile, loadAllTabs]);
+
+  // Build synapse context when UVP and buyer personas are ready
+  useEffect(() => {
+    if (uvp && buyerPersonas.length > 0) {
+      console.log('[V6ContentPage] Building synapse context with', buyerPersonas.length, 'buyer personas');
+
+      // Extract data from UVP for context
+      const industry = uvp.targetCustomer?.industry || 'General Business';
+      const archetype = 'Expert'; // Default archetype
+      const brandVoice = uvp.brandVoice?.tone?.join(', ') || 'Professional';
+      const keywords = uvp.brandVoice?.vocabularyPatterns || [];
+
+      // Extract emotional triggers from UVP
+      const emotionalTriggers = [
+        ...(uvp.targetCustomer?.emotionalDrivers || []),
+        ...(uvp.transformationGoal?.emotionalDrivers || [])
+      ].slice(0, 10); // Limit to top 10
+
+      // Build context using adapter
+      const context = buildSynapseContext({
+        industry,
+        archetype,
+        brandVoice,
+        keywords,
+        emotionalTriggers,
+        buyerPersonas,
+        competitors: [], // Could extract from competitive analysis
+        contentGaps: [], // Could extract from V6 insights
+        opportunities: [] // Could extract from V6 insights
+      });
+
+      setSynapseContext(context);
+      console.log('[V6ContentPage] Synapse context built:', {
+        targetPersonasCount: context.target_personas.length,
+        emotionalTriggersCount: context.triggers.length,
+        industry: context.industry
+      });
+    }
+  }, [uvp, buyerPersonas]);
 
   // Handlers
   const handleToggleInsight = useCallback((insightId: string) => {
@@ -467,7 +542,7 @@ export function V6ContentPage() {
             selectedPlatforms={selectedPlatforms}
             onPlatformChange={setSelectedPlatforms}
             framework={framework}
-            onFrameworkChange={setFramework}
+            onFrameworkChange={(framework) => setFramework(framework)}
             funnelStage={funnelStage}
             onFunnelStageChange={setFunnelStage}
             recipes={TEMPLATE_RECIPES}

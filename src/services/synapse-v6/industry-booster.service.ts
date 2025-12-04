@@ -67,14 +67,14 @@ export async function matchIndustryProfile(
   // Build search terms from UVP
   const searchTerms: string[] = [];
 
-  if (uvp.uniqueSolution?.headline) {
-    searchTerms.push(uvp.uniqueSolution.headline);
+  if (uvp.uniqueSolution?.statement) {
+    searchTerms.push(uvp.uniqueSolution.statement);
   }
-  if (uvp.targetCustomer?.primaryProfile) {
-    searchTerms.push(uvp.targetCustomer.primaryProfile);
+  if (uvp.targetCustomer?.statement) {
+    searchTerms.push(uvp.targetCustomer.statement);
   }
-  if (uvp.keyBenefit?.headline) {
-    searchTerms.push(uvp.keyBenefit.headline);
+  if (uvp.keyBenefit?.statement) {
+    searchTerms.push(uvp.keyBenefit.statement);
   }
 
   if (searchTerms.length === 0) {

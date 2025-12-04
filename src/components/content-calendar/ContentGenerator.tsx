@@ -25,7 +25,7 @@ import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanne
 import { ContentCalendarService } from '@/services/content-calendar.service';
 import { EdginessSlider } from '@/components/synapse/EdginessSlider';
 import { CharacterCountBadge } from '@/components/synapse/CharacterCountBadge';
-import { CharacterValidator } from '@/services/synapse/validation/CharacterValidator';
+import { CharacterValidator } from '@/services/synapse-v6/validation/CharacterValidator';
 import { useContentSynthesis } from '@/hooks/useContentSynthesis';
 import type { BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 import type {

@@ -98,7 +98,6 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
           })
 
           setLastSaved(new Date())
-          console.log('[SessionContext] Auto-save successful')
         } catch (error) {
           console.error('[SessionContext] Auto-save failed:', error)
         } finally {
@@ -118,7 +117,6 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
       if (session) {
         setCurrentSession(session)
         setUrlSlug(session.url_slug)
-        console.log('[SessionContext] Session loaded:', session.session_name)
       }
     },
     [currentBrand?.id]
@@ -129,7 +127,6 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     async (sessionId: string) => {
       await SessionService.deleteSession(sessionId)
       await refreshSessions()
-      console.log('[SessionContext] Session deleted:', sessionId)
     },
     [refreshSessions]
   )

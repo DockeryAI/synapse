@@ -1,23 +1,28 @@
 # Current Work
 
-Last updated: 2025-12-03
+**Session Started:** [NEXT SESSION WILL FILL THIS]
+**Last Cleared:** 2025-12-04T10:10:00 (context saved via /cs)
 
-## Active Feature
+## Active Task
 
-V6 Gap Detection & Code Quality Cleanup
+[Empty - will be filled when new work begins]
 
-## Current Phase
+## Status
 
-Analysis Complete - Comprehensive gaps audit complete, ready for fixing
+Ready for new session.
 
-## Files Analyzed This Session
+---
 
-- Full codebase TypeScript analysis (47 errors found)
-- Test suite audit (57/70 files failing)
-- Build plan compliance verification (all phases 1-12 complete)
-- Security audit (direct DB calls found in 4+ components)
-- Code quality analysis (45+ TODOs, 30+ any types)
+## Usage Rules
 
-## Immediate Next Step
+**This file is SESSION-SCOPED:**
+- Write what you're doing RIGHT NOW
+- Clear when you finish or run `/cs`
+- Never let it accumulate across days
 
-Fix critical gaps: test failures (V5→V6 type drift) and direct database calls in frontend components
+**Long-term work goes in:**
+- Build plans (`.buildrunner/builds/BUILD_*.md`)
+- Decisions log (`decisions.log`)
+- Progress file (`claude-progress.txt`)
+
+**NOT here.** This is scratch space for current session only.

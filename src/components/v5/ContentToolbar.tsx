@@ -45,7 +45,9 @@ export interface InsightRecipe {
   id: string;
   name: string;
   description: string;
+  emoji?: string;
   insightTypes: string[];
+  minInsights?: number;
   maxInsights: number;
   primaryFramework: PsychologyFramework;
   targetFunnelStage: FunnelStage;
@@ -53,6 +55,7 @@ export interface InsightRecipe {
     b2b: Platform[];
     b2c: Platform[];
   };
+  compatibleTemplates?: string[];
 }
 
 // ============================================================================

@@ -489,7 +489,7 @@ export function TriggerCardV4({
             {trigger.uvpAlignments.map((alignment, idx) => (
               <div key={idx} className="flex items-center gap-2 text-sm text-gray-300">
                 <CheckCircle className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
-                <span>{alignment}</span>
+                <span>{alignment.matchReason}</span>
               </div>
             ))}
           </div>

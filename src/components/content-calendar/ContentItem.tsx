@@ -44,8 +44,8 @@ import type {
   BusinessProfile,
 } from '@/types/synapse/synapseContent.types';
 import type { BreakthroughInsight } from '@/types/synapse/breakthrough.types';
-import { VariantGenerator } from '@/services/synapse/generation/VariantGenerator';
-import { SectionRegenerator } from '@/services/synapse/generation/SectionRegenerator';
+import { VariantGenerator } from '@/services/synapse-v6/generation/VariantGenerator';
+import { SectionRegenerator } from '@/services/synapse-v6/generation/SectionRegenerator';
 
 interface ContentItemProps {
   item: ContentItemType;

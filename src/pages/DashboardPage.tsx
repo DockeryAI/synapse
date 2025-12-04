@@ -15,7 +15,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
 import {
   Sparkles,
   Lightbulb,
@@ -32,7 +31,9 @@ import { Button } from '@/components/ui/button';
 import { useBrand } from '@/hooks/useBrand';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
+import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
+import { brandPersistence } from '@/services/brand/brand-persistence.service';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
 // IntelligenceLibraryV2 archived - V6 uses V6ContentPage at /v6 route
@@ -241,28 +242,25 @@ export function DashboardPage() {
       if (brandParam && !brand) {
         console.log('[DashboardPage] DEV: Loading brand by name from URL param:', brandParam);
         try {
-          const { data: brandData, error } = await supabase
-            .from('brands')
-            .select('*')
-            .ilike('name', `%${brandParam}%`)
-            .limit(1)
-            .single();
+          // Use service method to search by website or fallback
+          // Note: brandPersistence doesn't have search by name, so we'll search by website
+          // For now, assume brandParam is a website URL
+          const result = await brandPersistence.getBrandByWebsite(brandParam);
 
-          if (brandData && !error) {
-            console.log('[DashboardPage] DEV: Found brand:', brandData.name, brandData.id);
+          if (result.success && result.brand) {
+            console.log('[DashboardPage] DEV: Found brand:', result.brand.name, result.brand.id);
             setCurrentBrand({
-              id: brandData.id,
-              name: brandData.name,
-              industry: brandData.industry || 'Unknown',
-              naicsCode: brandData.naics_code,
-              website: brandData.website,
-              location: brandData.city ? `${brandData.city}, ${brandData.state}` : undefined,
+              id: result.brand.id,
+              name: result.brand.name,
+              industry: result.brand.industry || 'Unknown',
+              website: result.brand.website,
+              location: result.brand.location,
             });
             // Force re-run after setting brand
             hasLoadedRef.current = false;
             return;
           } else {
-            console.log('[DashboardPage] DEV: Brand not found:', brandParam, error);
+            console.log('[DashboardPage] DEV: Brand not found:', brandParam, result.error);
           }
         } catch (err) {
           console.error('[DashboardPage] DEV: Error loading brand:', err);
@@ -339,15 +337,8 @@ export function DashboardPage() {
 
           // AGGRESSIVE CACHE CLEAR - Delete ALL cached data for this brand
           console.log('[DashboardPage] CLEARING ALL CACHED DATA for brand:', brand.id);
-          const { error: cacheError } = await supabase
-            .from('intelligence_cache')
-            .delete()
-            .eq('brand_id', brand.id);
-          if (cacheError) {
-            console.warn('[DashboardPage] Cache clear error (might not exist):', cacheError);
-          } else {
-            console.log('[DashboardPage] Cache cleared successfully');
-          }
+          await intelligenceCache.invalidateByBrand(brand.id);
+          console.log('[DashboardPage] Cache cleared successfully');
 
           // Use TRUE Progressive Loading - each API updates UI immediately when done
           console.log('[DashboardPage] Building DeepContext with TRUE progressive loading (no timeouts)...');
@@ -950,7 +941,7 @@ export function DashboardPage() {
     try {
       // Clear cache first
       console.log('[DashboardPage] Clearing cache for brand:', brand.id);
-      await supabase.from('intelligence_cache').delete().eq('brand_id', brand.id);
+      await intelligenceCache.invalidateByBrand(brand.id);
 
       // Rebuild with fresh data
       console.log('[DashboardPage] Rebuilding DeepContext with forceFresh: true...');

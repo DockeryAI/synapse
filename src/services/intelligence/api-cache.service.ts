@@ -281,5 +281,6 @@ class APICacheService {
 // Export singleton instance
 export const apiCache = new APICacheService()
 
-// Export types
+// Export class and types
+export { APICacheService }
 export type { CacheEntry, CacheConfig }

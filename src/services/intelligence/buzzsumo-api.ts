@@ -295,13 +295,6 @@ class BuzzSumoAPIService {
     }
   }
 
-  /**
-   * Extract headline patterns from titles array
-   * Public method for streaming-api-manager compatibility
-   */
-  extractHeadlinePatterns(titles: string[]): string[] {
-    return this.extractHeadlinePatternsFromTitles(titles);
-  }
 
   // ============================================================================
   // Private Methods

@@ -62,7 +62,7 @@ import { useBrandProfile } from '@/hooks/useBrandProfile';
 import { getUVPByBrand, updateUVPComponent, recoverDriversFromSession } from '@/services/database/marba-uvp.service';
 import { profileScannerService, type ProfileScanResult } from '@/services/intelligence/profile-scanner.service';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, Differentiator } from '@/types/uvp-flow.types';
-import type { BusinessProfileType } from '@/services/triggers';
+import type { BusinessProfileType } from '@/services/synapse-v6/brand-profile.service';
 import { CustomerTypeToggle } from '@/components/settings/CustomerTypeToggle';
 import { GeographicScopeSelector } from '@/components/settings/GeographicScopeSelector';
 import { RegionMultiSelect } from '@/components/settings/RegionMultiSelect';
@@ -387,7 +387,11 @@ interface CustomerCardProps {
   };
   index: number;
   isEditing: boolean;
-  onUpdate: (updated: typeof customer) => void;
+  onUpdate: (updated: {
+    statement: string;
+    emotionalDrivers: string[];
+    functionalDrivers: string[];
+  }) => void;
   onDelete: () => void;
 }
 
@@ -1506,16 +1510,16 @@ export function BrandProfilePage() {
               {(() => {
                 const sources = new Set<string>();
                 if (uvp.targetCustomer?.sources) {
-                  uvp.targetCustomer.sources.filter(s => s).forEach(s => sources.add(s.platform || s.type || 'Unknown'));
+                  uvp.targetCustomer.sources.filter(s => s).forEach(s => sources.add((s as any).platform || (s as any).type || 'Unknown'));
                 }
                 if (uvp.transformationGoal?.sources) {
-                  uvp.transformationGoal.sources.filter(s => s).forEach(s => sources.add(s.platform || s.type || 'Unknown'));
+                  uvp.transformationGoal.sources.filter(s => s).forEach(s => sources.add((s as any).platform || (s as any).type || 'Unknown'));
                 }
                 if (uvp.uniqueSolution?.sources) {
-                  uvp.uniqueSolution.sources.filter(s => s).forEach(s => sources.add(s.platform || s.type || 'Unknown'));
+                  uvp.uniqueSolution.sources.filter(s => s).forEach(s => sources.add((s as any).platform || (s as any).type || 'Unknown'));
                 }
                 if (uvp.keyBenefit?.sources) {
-                  uvp.keyBenefit.sources.filter(s => s).forEach(s => sources.add(s.platform || s.type || 'Unknown'));
+                  uvp.keyBenefit.sources.filter(s => s).forEach(s => sources.add((s as any).platform || (s as any).type || 'Unknown'));
                 }
 
                 if (sources.size === 0) {

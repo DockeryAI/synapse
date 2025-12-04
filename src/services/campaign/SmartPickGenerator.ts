@@ -24,7 +24,7 @@ import type {
   DataSourceInfo
 } from '@/types/smart-picks.types'
 import { DEFAULT_SCORING_WEIGHTS } from '@/types/smart-picks.types'
-import { generateSynapses, type SynapseInput } from '@/services/synapse/SynapseGenerator'
+import { generateSynapses, type SynapseInput } from '@/services/synapse-v6/SynapseGenerator'
 import { chat } from '@/lib/openrouter'
 import { ErrorHandlerService, logError } from '../errors/error-handler.service'
 

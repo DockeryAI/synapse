@@ -133,8 +133,11 @@ export class V6ContentPipeline {
     // 1. Generate content brief from connection
     const brief = this.createContentBrief(breakthrough, uvp);
 
-    // 2. Generate raw content (simplified - actual implementation would use LLM)
-    const rawContent = this.generateRawContent(brief, uvp, options.contentTypes[0]);
+    // 2. Select optimal format based on connection characteristics (V1 connection-aware logic)
+    const selectedFormat = this.selectOptimalFormat(breakthrough, brief, options.contentTypes);
+
+    // 3. Generate raw content (simplified - actual implementation would use LLM)
+    const rawContent = this.generateRawContent(brief, uvp, selectedFormat);
 
     // 3. Generate psychology explanation
     const psychology = options.includeExplanations
@@ -149,7 +152,7 @@ export class V6ContentPipeline {
     return {
       id: `content-${breakthrough.id}`,
       connectionId: breakthrough.id,
-      type: options.contentTypes[0],
+      type: selectedFormat,
       title: brief.headline,
       body: rawContent.body,
       hook: rawContent.hook,
@@ -173,6 +176,79 @@ export class V6ContentPipeline {
       },
       variants,
     };
+  }
+
+  /**
+   * Select optimal content format based on connection characteristics
+   * V1 connection-aware format selection logic
+   */
+  private selectOptimalFormat(
+    breakthrough: BreakthroughConnection,
+    brief: ContentBrief,
+    availableTypes: ContentType[]
+  ): ContentType {
+    // Connection-aware format selection based on V1 principles
+
+    // 1. Urgency-based selection
+    if (breakthrough.urgency === 'immediate') {
+      // Immediate urgency favors social posts for rapid engagement
+      if (availableTypes.includes('social-post')) return 'social-post';
+      if (availableTypes.includes('email-hook')) return 'email-hook';
+    }
+
+    // 2. Source-based selection (based on data sources contributing to connection)
+    const sources = breakthrough.sources;
+
+    // VoC (customer voice) + Community → Customer stories work best
+    if (sources.includes('voc') && sources.includes('community')) {
+      if (availableTypes.includes('customer-story')) return 'customer-story';
+    }
+
+    // Competitive + Trends → Thought leadership for authority
+    if (sources.includes('competitive') && sources.includes('trends')) {
+      if (availableTypes.includes('thought-leadership')) return 'thought-leadership';
+    }
+
+    // Search intent → Ad copy for conversion
+    if (sources.includes('search')) {
+      if (availableTypes.includes('ad-copy')) return 'ad-copy';
+    }
+
+    // 3. Three-way connections are complex → Longer formats
+    if (breakthrough.type === 'three-way') {
+      // Three-way insights need explanation space
+      if (availableTypes.includes('blog-intro')) return 'blog-intro';
+      if (availableTypes.includes('thought-leadership')) return 'thought-leadership';
+    }
+
+    // 4. High unexpectedness → Social posts for viral potential
+    if (breakthrough.unexpectedness > 75) {
+      if (availableTypes.includes('social-post')) return 'social-post';
+    }
+
+    // 5. Low unexpectedness but high score → Email for nurturing
+    if (breakthrough.unexpectedness <= 50 && breakthrough.score > 80) {
+      if (availableTypes.includes('email-hook')) return 'email-hook';
+    }
+
+    // 6. Default fallback: prioritize by format effectiveness
+    const priorityOrder: ContentType[] = [
+      'thought-leadership', // Best for authority
+      'social-post',       // Best for engagement
+      'email-hook',        // Best for conversion
+      'customer-story',    // Best for trust
+      'ad-copy',          // Best for acquisition
+      'blog-intro'        // Best for education
+    ];
+
+    for (const preferredType of priorityOrder) {
+      if (availableTypes.includes(preferredType)) {
+        return preferredType;
+      }
+    }
+
+    // Final fallback
+    return availableTypes[0];
   }
 
   /**

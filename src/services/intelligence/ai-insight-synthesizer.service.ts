@@ -15,7 +15,7 @@
  */
 
 import type { DataPoint } from '@/types/connections.types';
-import { ContentFrameworkLibrary, type FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import { ContentFrameworkLibrary, type FrameworkType } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import type { EnrichedContext } from './content-synthesis-orchestrator.service';
 
 export interface SynthesizedInsight {

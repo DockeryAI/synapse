@@ -14,7 +14,7 @@
  * Created: Nov 17, 2025 - Week 1 Workstream A
  */
 
-import { SynapseContentGenerator } from '../synapse/generation/SynapseContentGenerator';
+import { SynapseContentGenerator } from '../synapse-v6/generation/SynapseContentGenerator';
 import { bannerbearService } from '../visuals/bannerbear.service';
 import { campaignDB } from './CampaignDB';
 import type {

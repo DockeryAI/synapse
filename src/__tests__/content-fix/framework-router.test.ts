@@ -6,7 +6,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { frameworkRouter } from '@/services/content/FrameworkRouter.service';
-import { frameworkLibrary } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import { frameworkLibrary } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import type { DataPoint } from '@/types/connections.types';
 
 describe('FrameworkRouter', () => {

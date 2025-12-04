@@ -18,6 +18,7 @@ import { DetailedResearchAnimation } from './DetailedResearchAnimation';
 import { ConfirmCodeDetectionDialog } from './ConfirmCodeDetectionDialog';
 import type { GenerationProgress } from '../../services/industry/OnDemandProfileGeneration';
 import { industryApiService } from '@/services/api/industry.service';
+import { supabase } from '@/lib/supabase';
 
 export interface IndustryOption {
   naicsCode: string;
@@ -27,6 +28,7 @@ export interface IndustryOption {
   popularity?: number;
   category: string;
   hasFullProfile?: boolean;
+  source?: 'auto-detected' | 'manual' | 'default';
 }
 
 interface IndustrySelectorProps {
@@ -145,10 +147,13 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           const profileId = row.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           const hasProfile = profileIds.has(profileId) || row.has_full_profile;
 
+          // Ensure keywords is always an array
+          const keywords = Array.isArray(row.keywords) ? row.keywords : [];
+
           return {
             naicsCode: row.code,
             displayName: row.title,
-            keywords: row.keywords || [],
+            keywords,
             icon: '🏢',
             popularity: row.popularity || 1,
             category: row.category,

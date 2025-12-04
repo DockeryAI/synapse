@@ -13,7 +13,7 @@ export {
   type PowerModeOptions,
   type PowerModeResult,
   type UseV5PowerModeGenerationReturn,
-} from '../useV5PowerModeGeneration';
+} from '../_archived/useV5PowerModeGeneration';
 
 // Easy Mode - One-click campaign and quick post generation
 export {
@@ -25,7 +25,7 @@ export {
   type QuickPostResult,
   type ContextStatus,
   type UseV5EasyModeGenerationReturn,
-} from '../useV5EasyModeGeneration';
+} from '../_archived/useV5EasyModeGeneration';
 
 // Campaign Mode - Structured campaign generation
 export {
@@ -37,7 +37,7 @@ export {
   type CampaignGenerationOptions,
   type CampaignState,
   type UseV5CampaignGenerationReturn,
-} from '../useV5CampaignGeneration';
+} from '../_archived/useV5CampaignGeneration';
 
 // Live Preview - Real-time preview with suggestions
 export {
@@ -46,12 +46,12 @@ export {
   type PreviewContent,
   type InsightSuggestion,
   type UseV5LivePreviewReturn,
-} from '../useV5LivePreview';
+} from '../_archived/useV5LivePreview';
 
 // Original V5 Content Generation (Phase 5)
 export {
   default as useV5ContentGeneration,
-} from '../useV5ContentGeneration';
+} from '../_archived/useV5ContentGeneration';
 
 // Resolved Sources - Triggers 4.0 Display Layer Separation
 export {

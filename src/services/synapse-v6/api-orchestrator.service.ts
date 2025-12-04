@@ -61,76 +61,99 @@ interface EdgeFunctionConfig {
 // API to Edge Function mapping - queryType determines which query format is used
 const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
   // Voice of Customer APIs - use short queries for search
+  // V5 FIX: OutScraper expects query param, not business_name
   'outscraper': {
     functionName: 'fetch-outscraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
-      business_name: query,
-      limit: 20,
-      sort: 'newest',
+      query: query,
+      limit: 10,
     }),
   },
+  // V5 FIX: Use Serper site: searches for review platforms (working config)
+  // These fake Apify actors don't exist - Serper site: searches actually work
   'apify-g2': {
-    functionName: 'apify-scraper',
-    timeout: 15000,
+    functionName: 'fetch-serper',
+    timeout: 10000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'drobnikj/g2-reviews-scraper',
-      input: { searchQuery: query, maxReviews: 20 },
+      endpoint: '/search',
+      params: { q: `"${query}" site:g2.com reviews`, num: 10 },
     }),
   },
   'apify-capterra': {
-    functionName: 'apify-scraper',
-    timeout: 15000,
+    functionName: 'fetch-serper',
+    timeout: 10000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'emastra/capterra-scraper',
-      input: { searchQuery: query, maxReviews: 20 },
+      endpoint: '/search',
+      params: { q: `"${query}" site:capterra.com reviews`, num: 10 },
     }),
   },
   'apify-trustpilot': {
-    functionName: 'apify-scraper',
-    timeout: 15000,
+    functionName: 'fetch-serper',
+    timeout: 10000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'vaclavrut/trustpilot-scraper',
-      input: { searchQuery: query, maxReviews: 20 },
+      endpoint: '/search',
+      params: { q: `"${query}" site:trustpilot.com`, num: 10 },
     }),
   },
+  // V5 FIX: Use Serper site: searches for review platforms
   'apify-amazon': {
-    functionName: 'apify-scraper',
-    timeout: 15000,
+    functionName: 'fetch-serper',
+    timeout: 10000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'junglee/amazon-reviews-scraper',
-      input: { searchQuery: query, maxReviews: 20 },
+      endpoint: '/search',
+      params: { q: `"${query}" site:amazon.com reviews`, num: 10 },
     }),
   },
   'apify-yelp': {
-    functionName: 'apify-scraper',
-    timeout: 15000,
+    functionName: 'fetch-serper',
+    timeout: 10000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'yin/yelp-scraper',
-      input: { searchQuery: query, maxResults: 20 },
+      endpoint: '/search',
+      params: { q: `"${query}" site:yelp.com reviews`, num: 10 },
     }),
   },
+  // V5 FIX: Add Google Maps reviews (verified in edge function SOCIAL_ACTORS)
+  // Uses compass/google-maps-reviews-scraper for local business reviews
+  'google-maps': {
+    functionName: 'apify-scraper',
+    timeout: 20000, // Slower actor, needs more time
+    queryType: 'short',
+    transform: (query) => ({
+      actorId: 'compass/google-maps-reviews-scraper',
+      scraperType: 'GOOGLE_MAPS',
+      input: {
+        searchQuery: query,
+        maxReviews: 10,
+        reviewsCount: 10,
+      },
+    }),
+  },
+  // V5 FIX: Use correct Facebook actor (verified in edge function SOCIAL_ACTORS)
   'apify-facebook': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'apify/facebook-pages-scraper',
+      actorId: 'apify/facebook-posts-scraper',
+      scraperType: 'FACEBOOK',
       input: { searchQuery: query, maxPosts: 20 },
     }),
   },
+  // V5 FIX: Use correct Twitter scraper config (verified 2025-11-26)
   'apify-twitter': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
       actorId: 'apidojo/tweet-scraper',
+      scraperType: 'TWITTER',
       input: {
         searchTerms: [query],
         maxTweets: 50,
@@ -138,30 +161,37 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       },
     }),
   },
+  // V5 FIX: Use correct TikTok actor (verified in edge function SOCIAL_ACTORS)
   'apify-tiktok': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
       actorId: 'clockworks/tiktok-scraper',
+      scraperType: 'TIKTOK',
       input: { searchQuery: query, maxVideos: 20 },
     }),
   },
+  // V5 FIX: Use correct Instagram actor (verified in edge function SOCIAL_ACTORS)
   'apify-instagram': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
       actorId: 'apify/instagram-scraper',
+      scraperType: 'INSTAGRAM',
       input: { search: query, resultsLimit: 20 },
     }),
   },
+  // V5 FIX: Use correct LinkedIn actor (verified in edge function SOCIAL_ACTORS)
+  // Note: LinkedIn requires cookie param - may not work without session cookie
   'apify-linkedin': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'anchor/linkedin-scraper',
+      actorId: 'curious_coder/linkedin-post-search-scraper',
+      scraperType: 'LINKEDIN',
       input: { searchQuery: query, maxResults: 20 },
     }),
   },
@@ -195,16 +225,20 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
   },
 
   // Community APIs - short queries
+  // V5 FIX: Use trudax/reddit-scraper with REDDIT scraperType (working config)
   'reddit': {
     functionName: 'apify-scraper',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
-      actorId: 'perchance/reddit-scraper',
+      actorId: 'trudax/reddit-scraper',
+      scraperType: 'REDDIT',
       input: {
-        searches: [query],
-        maxItems: 25,
-        sort: 'relevance'
+        startUrls: [{ url: `https://www.reddit.com/search/?q=${encodeURIComponent(query)}&sort=hot&t=month` }],
+        maxItems: 15,
+        includeComments: true,
+        maxCommentsPerPost: 10,
+        extendedData: true
       },
     }),
   },
@@ -257,21 +291,22 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
     timeout: 25000,
     queryType: 'llm', // Full context for LLM
     transform: (query, context) => ({
-      model: 'llama-3.1-sonar-small-128k-online',
+      model: 'sonar',
       messages: [
         { role: 'system', content: `Research assistant. Context: ${context}` },
         { role: 'user', content: query },
       ],
     }),
   },
+  // V5 FIX: YouTube edge function expects action: 'search' format
   'youtube': {
     functionName: 'fetch-youtube',
     timeout: 15000,
     queryType: 'short',
     transform: (query) => ({
-      query,
+      action: 'search',
+      query: query,
       maxResults: 20,
-      type: 'video',
     }),
   },
   'buzzsumo': {

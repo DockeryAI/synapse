@@ -48,6 +48,19 @@ class SourcePreservationService {
     // V6 simplified implementation - always return true
     return true;
   }
+
+  // V5 compatibility methods
+  async getSource(sourceId: string): Promise<PreservedSource | null> {
+    return this.getPreservedSource(sourceId);
+  }
+
+  async verifySourceUrl(url: string): Promise<boolean> {
+    return this.validateSourceAccess(url);
+  }
+
+  async verifySourceUrls(urls: string[]): Promise<boolean[]> {
+    return Promise.all(urls.map(url => this.validateSourceAccess(url)));
+  }
 }
 
 export const sourcePreservationService = new SourcePreservationService();

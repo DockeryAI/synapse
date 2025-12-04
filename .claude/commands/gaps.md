@@ -1,263 +1,265 @@
 ---
-description: Comprehensive gap detection and self-healing - analyzes build plan, detects issues, fixes them iteratively
+description: Gap detection with safeguards - analyzes build plan, reports issues, fixes only with confirmation
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
 # Gap Detection & Self-Healing
 
-You are performing a comprehensive audit of the codebase against the current build plan.
+**⚠️ SAFETY-FIRST GAP ANALYSIS**
 
 ---
 
-## Step 1: Read Current Build Plan
+## CRITICAL SAFEGUARDS (READ FIRST)
 
-@.buildrunner/builds/BUILD_synapse6.md
+### Rule 1: Verify App Loads BEFORE Any Fixes
+```bash
+# For JS/TS projects
+npm run dev &
+sleep 5
+curl -s http://localhost:3000 > /dev/null && echo "✅ App loads" || echo "❌ App broken - DO NOT proceed with fixes"
+kill %1 2>/dev/null
+```
+
+**If app doesn't load: STOP. Do not run gap fixes. Help user restore working state first.**
+
+### Rule 2: Report-Only by Default
+- Default mode is **REPORT ONLY** - no automatic fixes
+- User must explicitly say "fix" to enable any changes
+- Always ask before fixing anything
+
+### Rule 3: Maximum 2 Fix Rounds Per Session
+- After 2 rounds of fixes, STOP and verify app still works
+- If issues remain after 2 rounds, escalate to user - don't keep fixing
+
+### Rule 4: Only Fix CRITICAL Issues Automatically
+- **CRITICAL** = Security breaches, build failures, app won't start
+- **Everything else** = Report only, ask user before fixing
+
+### Rule 5: Ignore Cosmetic Issues
+These are NOT gaps - do not report or fix:
+- TODOs in working code
+- Console.logs that don't break anything
+- TypeScript warnings (not errors)
+- Code style issues
+- "Could be better" suggestions
 
 ---
 
-## Step 2: Determine Current Phase
+## Step 1: Verify App Health First
 
-Based on the build plan above, identify:
-- Which phases are COMPLETE
-- Which phase is IN PROGRESS
-- Which phases are NOT STARTED
+**BEFORE any analysis, confirm the app works:**
 
-**Only check items up to and including the current phase.** Don't flag missing items from future phases.
+```bash
+# Check if dev server starts
+timeout 10 npm run dev 2>&1 | head -20 || timeout 10 npm start 2>&1 | head -20
+```
+
+```bash
+# Check for build errors
+npm run build 2>&1 | tail -20 || npx tsc --noEmit 2>&1 | head -30
+```
+
+**If either fails with real errors (not warnings):**
+> "⚠️ App has build errors. Fixing those first before gap analysis. Do you want me to focus on build errors only?"
+
+**If app builds successfully:**
+> "✅ App builds successfully. Proceeding with gap analysis in REPORT-ONLY mode."
 
 ---
 
-## Step 3: Run Automated Detection Checks
+## Step 2: Find Current Build Plan
 
-Execute these checks and collect results:
-
-### 3.1 TODOs/FIXMEs Left Behind
 ```bash
-grep -rn "TODO\|FIXME\|HACK\|XXX" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -50
+ls -t .buildrunner/builds/BUILD_*.md 2>/dev/null | head -1
 ```
 
-### 3.2 Stub Functions
-```bash
-grep -rn "throw.*[Nn]ot.*[Ii]mplement\|NotImplementedError\|// stub\|// TODO: implement" src/ --include="*.ts" --include="*.tsx" 2>/dev/null
-```
-
-### 3.3 TypeScript Errors
-```bash
-npx tsc --noEmit 2>&1 | head -50
-```
-
-### 3.4 Type Safety Violations
-```bash
-grep -rn "@ts-ignore\|@ts-expect-error\|: any\|as any" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -30
-```
-
-### 3.5 Console.logs in Production Code
-```bash
-grep -rn "console\.log\|console\.error\|console\.warn" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "// debug\|// TODO: remove" | head -30
-```
-
-### 3.6 Direct Database Calls in Frontend (Should Use Edge Functions)
-```bash
-grep -rn "supabase\.from\|\.from(" src/components src/app src/pages --include="*.tsx" 2>/dev/null | head -20
-```
-
-### 3.7 Components Not Connected to Routes
-```bash
-# List components that might be orphaned
-ls src/components/**/*.tsx 2>/dev/null | head -20
-```
-
-### 3.8 Missing Error Handling
-```bash
-grep -rn "await.*fetch\|await.*supabase" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "try\|catch\|error" | head -20
-```
-
-### 3.9 Security: Exposed Secrets
-```bash
-grep -rn "sk_live\|sk_test\|apikey.*=.*['\"]" src/ --include="*.ts" --include="*.tsx" --include="*.env*" 2>/dev/null
-```
-
-### 3.10 LLM Model Changes (Unauthorized)
-```bash
-grep -rn "model.*=\|model:\|\"model\":" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -20
-```
+Read the build plan to understand what phase we're in.
 
 ---
 
-## Step 4: Check Build Plan Compliance
+## Step 3: Run MINIMAL Detection Checks
 
-Compare what EXISTS in codebase vs what the build plan REQUIRES for completed phases:
+**Only check for REAL problems, not perfectionism:**
 
-For each completed phase in the build plan:
-1. List required deliverables
-2. Verify each exists in codebase
-3. Flag any missing items as CRITICAL gaps
-
----
-
-## Step 5: Run Tests
-
+### 3.1 Build-Breaking Errors Only
 ```bash
-npm test 2>&1 | tail -50
+# TypeScript ERRORS only (not warnings)
+npx tsc --noEmit 2>&1 | grep -E "^src/.*error TS" | head -20
 ```
 
-Check for:
-- Failing tests (CRITICAL)
-- Missing test coverage for new features (HIGH)
-
----
-
-## Step 6: Check RLS Policies (If Database Phase Complete)
-
-If database schema exists, verify RLS:
+### 3.2 Security Issues (CRITICAL)
 ```bash
-# Check if RLS tests exist
-ls supabase/tests/*.sql 2>/dev/null || ls tests/*rls* 2>/dev/null || echo "No RLS tests found"
+# Exposed secrets
+grep -rn "sk_live\|sk_test\|apikey.*=.*['\"][a-zA-Z0-9]" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "process.env\|import.meta.env"
 ```
 
+### 3.3 Failing Tests (CRITICAL)
+```bash
+npm test 2>&1 | grep -E "FAIL|Error:|failed" | head -20
+```
+
+### 3.4 Missing Build Plan Requirements (CRITICAL)
+Compare completed phases against what actually exists in code.
+
 ---
 
-## Step 7: Generate Gap Report
-
-Create a prioritized report using this format:
+## Step 4: Generate CONCISE Gap Report
 
 ```markdown
-# Gap Report - Synapse V6
-Generated: [current date/time]
-Build Phase: [current phase from build plan]
-Completeness Score: [calculate based on findings]
+# Gap Report - [Project Name]
+
+## App Health: ✅ Builds / ❌ Broken
 
 ## Summary
-- Critical: [count]
-- High: [count]
-- Medium: [count]
-- Low: [count]
+- 🔴 CRITICAL (must fix): [count]
+- 🟡 Should fix: [count]
+- ⚪ Cosmetic (ignore): [count]
 
-## 🔴 CRITICAL (Fix Immediately)
+## 🔴 CRITICAL Issues (Blocking)
 
-[For each critical gap:]
-### [Gap Title]
+[Only list issues that BREAK the app or are security risks]
+
+### Issue 1: [Title]
 - **File:** [path:line]
-- **Issue:** [description]
-- **Required by:** [which phase/requirement]
-- **Fix:** [suggested action]
+- **Why critical:** [app won't start / security risk / tests fail]
+- **Fix:** [specific action]
 
-## 🟠 HIGH (Fix Soon)
+## 🟡 Should Fix (Not Blocking)
 
-[List high priority gaps]
+[Issues worth fixing but app works without them]
 
-## 🟡 MEDIUM (Fix Before Review)
+## ⚪ Cosmetic (Ignored)
 
-[List medium priority gaps]
-
-## 🟢 LOW (Nice to Have)
-
-[List low priority gaps]
-
-## Phase Compliance
-
-| Phase | Status | Gaps |
-|-------|--------|------|
-| Phase 1 | ✓/✗ | [count] |
-| Phase 2 | ✓/✗ | [count] |
-...
-
-## Action Plan
-
-1. [First gap to fix - most critical]
-2. [Second gap to fix]
-3. [Continue in priority order]
+[List count only - do not fix these]
+- TODOs: [X] found (not blocking)
+- Console.logs: [X] found (not blocking)
+- Type warnings: [X] found (not errors)
 ```
 
 ---
 
-## Step 8: Offer Self-Healing
+## Step 5: Present Options (ALWAYS ASK)
 
-After presenting the report, ask:
-
-> "Found [N] gaps ([critical] critical, [high] high priority). Options:
+> "**Gap Analysis Complete**
 >
-> 1. **Fix all** - I'll work through gaps in priority order, testing after each fix
-> 2. **Fix critical only** - Address only blocking issues
-> 3. **Review first** - Let's discuss specific gaps before fixing
-> 4. **Export report** - Save to .buildrunner/gap-report.md
+> **App Status:** ✅ Working / ❌ Broken
 >
-> Which approach?"
+> **Found:**
+> - 🔴 [X] critical issues (blocking)
+> - 🟡 [Y] should-fix issues (not blocking)
+> - ⚪ [Z] cosmetic issues (ignoring)
+>
+> **Options:**
+> 1. **Fix critical only** - Just the [X] blocking issues
+> 2. **Report only** - Save report, fix nothing (default)
+> 3. **Review each** - Go through issues one by one
+>
+> **What would you like to do?**"
+
+**DO NOT offer "fix all" option.** That's what caused the problem.
 
 ---
 
-## Step 9: Self-Healing Loop (If User Chooses Fix)
+## Step 6: Fix Mode (Only If User Confirms)
 
-For each gap in priority order:
+### Before EACH Fix:
+1. Read the file
+2. Show the specific change
+3. Ask: "Apply this fix? (yes/no)"
 
-1. **Read** the affected file(s)
-2. **Implement** the fix
-3. **Run tests** to verify
-4. **If tests pass:** Mark resolved, move to next gap
-5. **If tests fail:**
-   - Analyze failure
-   - Try alternative fix (max 2 more attempts)
-   - If still failing after 3 attempts: Document and skip, escalate to user
+### After EACH Fix:
+1. Verify app still builds: `npm run build` or `npx tsc --noEmit`
+2. If build fails: **IMMEDIATELY REVERT** and stop
+3. If build passes: Continue to next fix
 
-After fixing all gaps:
-- Re-run full gap detection
-- Compare before/after scores
-- Report: "Resolved [X] gaps. Score improved from [Y] to [Z]. [Remaining issues if any]."
-
----
-
-## Severity Classification
-
-| Issue Type | Severity | Why |
-|------------|----------|-----|
-| Build plan requirement missing | CRITICAL | Blocks phase completion |
-| Direct DB calls in frontend | CRITICAL | Security risk |
-| RLS policy failures | CRITICAL | Data exposure risk |
-| Failing tests | CRITICAL | Broken functionality |
-| LLM model unauthorized change | CRITICAL | User explicitly chose model |
-| Exposed secrets in code | CRITICAL | Security breach |
-| Stub functions in completed phase | HIGH | Incomplete implementation |
-| Components not connected | HIGH | Dead code |
-| Missing error handling | HIGH | Poor UX, crashes |
-| TypeScript errors | MEDIUM | Type safety |
-| @ts-ignore usage | MEDIUM | Hidden type issues |
-| TODO comments | MEDIUM | Technical debt |
-| Console.logs | LOW | Clean code |
-| Missing tests for new code | MEDIUM | Regression risk |
+### After ALL Fixes (Max 2 Rounds):
+1. Verify app loads in browser
+2. Run tests
+3. Report what was fixed
+4. **STOP** - do not start another round automatically
 
 ---
 
-## Completeness Score Calculation
+## Step 7: Completion Report
 
-```
-Score = (
-  (Requirements Coverage × 0.25) +
-  (Code Quality × 0.20) +
-  (Integration × 0.20) +
-  (Security × 0.20) +
-  (Test Coverage × 0.15)
-) × 100
+```markdown
+## Fix Session Complete
 
-Where:
-- Requirements: % of build plan items implemented
-- Code Quality: 100 - (TODOs + stubs + type errors) penalties
-- Integration: % of components properly connected
-- Security: RLS + no secrets + edge functions
-- Test Coverage: % from test runner
+**Rounds:** [1-2] of 2 max
+**App Status:** ✅ Still working / ❌ Broken (reverted)
 
-Thresholds:
-- 90+: Production ready ✅
-- 70-89: Needs work ⚠️
-- <70: Not ready ❌
+**Fixed:**
+- [List specific fixes made]
+
+**Not Fixed (by design):**
+- [X] cosmetic issues (TODOs, console.logs)
+- [Y] warnings that don't break anything
+
+**Remaining Critical:** [0 or list]
+
+**Next Steps:**
+- Test the app manually
+- If issues found, run /gaps again (counts as new session)
 ```
 
 ---
 
-## IMPORTANT RULES
+## Severity Classification (STRICT)
 
-1. **Phase-aware:** Only check up to current phase
-2. **Be specific:** Include file paths and line numbers
-3. **Prioritize correctly:** Critical = blocking/security, not just annoying
-4. **Max 3 fix attempts:** Then escalate, don't spin forever
-5. **Test after every fix:** Verify before moving on
-6. **Track progress:** Update checklist as you go
-7. **Re-run detection:** After fixes, confirm gaps resolved
+| Issue | Severity | Auto-Fix? |
+|-------|----------|-----------|
+| App won't build | 🔴 CRITICAL | Ask first |
+| App won't start | 🔴 CRITICAL | Ask first |
+| Exposed secrets | 🔴 CRITICAL | Ask first |
+| Failing tests | 🔴 CRITICAL | Ask first |
+| Security vulnerabilities | 🔴 CRITICAL | Ask first |
+| Missing required feature | 🟡 SHOULD FIX | Report only |
+| TypeScript errors (real) | 🟡 SHOULD FIX | Report only |
+| Missing error handling | 🟡 SHOULD FIX | Report only |
+| TypeScript warnings | ⚪ COSMETIC | **IGNORE** |
+| TODOs | ⚪ COSMETIC | **IGNORE** |
+| Console.logs | ⚪ COSMETIC | **IGNORE** |
+| @ts-ignore | ⚪ COSMETIC | **IGNORE** |
+| Code style | ⚪ COSMETIC | **IGNORE** |
+
+---
+
+## ABSOLUTE RULES
+
+1. **App health first** - Verify it works before touching anything
+2. **Report by default** - Never auto-fix without explicit permission
+3. **Max 2 rounds** - Stop after 2 fix rounds, reassess
+4. **Revert on break** - If any fix breaks the build, revert immediately
+5. **Ignore cosmetic** - TODOs, console.logs, warnings are NOT gaps
+6. **Ask before each fix** - No batch fixing without confirmation
+7. **Critical only by default** - Only offer to fix blocking issues
+
+---
+
+## What This Command Does NOT Do
+
+- ❌ Auto-fix hundreds of issues
+- ❌ Chase perfectionism
+- ❌ Fix cosmetic issues
+- ❌ Run multiple rounds without checking app health
+- ❌ Treat warnings as errors
+- ❌ Break working code to make it "cleaner"
+
+---
+
+## Emergency: App Broken After Fixes
+
+If app stopped working after gap fixes:
+
+```bash
+# Check git status
+git status
+
+# Revert all uncommitted changes
+git checkout -- .
+
+# Or revert to last commit
+git reset --hard HEAD
+```
+
+Then tell user: "Reverted changes. App should work again. Let's be more careful with fixes."

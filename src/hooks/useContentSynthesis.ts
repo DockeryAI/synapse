@@ -81,7 +81,7 @@ export interface UseContentSynthesisReturn {
   contextError: string | null;
 
   // Scoring and ranking
-  scoreInsights: (insights: SynthesizedInsight[]) => OrchestratedInsight[];
+  scoreInsights: (insights: SynthesizedInsight[]) => Promise<OrchestratedInsight[]>;
 
   // Dynamic re-synthesis
   reSynthesizeForStage: (
@@ -203,7 +203,7 @@ export function useContentSynthesis(options: UseContentSynthesisOptions): UseCon
   }, [options.brandName, options.industry, options.naicsCode, options.segment, options.uvpData, enrichedContext, cacheKey]);
 
   // Score insights based on EQ alignment
-  const scoreInsights = useCallback((insights: SynthesizedInsight[]): OrchestratedInsight[] => {
+  const scoreInsights = useCallback(async (insights: SynthesizedInsight[]): Promise<OrchestratedInsight[]> => {
     if (!enrichedContext) {
       // Return insights with default scores if no context
       return insights.map(insight => ({
@@ -216,7 +216,10 @@ export function useContentSynthesis(options: UseContentSynthesisOptions): UseCon
       }));
     }
 
-    const scored = contentSynthesisOrchestrator.scoreInsights(insights, enrichedContext);
+    const scoredPromise = contentSynthesisOrchestrator.scoreInsights(insights, enrichedContext);
+
+    // scoreInsights returns a Promise, await it
+    const scored = await scoredPromise;
 
     // Track EQ score distribution
     if (scored.length > 0) {

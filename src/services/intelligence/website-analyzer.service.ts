@@ -56,6 +56,15 @@ export interface WebsiteMessagingAnalysis {
     certifications: string[];  // Professional certifications
     socialProof: string[];     // Follower counts, review counts
   }
+
+  // Extracted business info (optional, populated if available)
+  businessName?: string
+  websiteUrl?: string
+  businessDescription?: string
+  industry?: {
+    primary: string
+    naicsCode?: string
+  }
 }
 
 class WebsiteAnalyzerService {

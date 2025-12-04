@@ -164,6 +164,7 @@ Return ONLY valid JSON:
       const completeUVP: CompleteUVP = {
         id: `uvp-${Date.now()}`,
         targetCustomer: primaryCustomer,
+        customerProfiles: customers,
         transformationGoal: input.transformation,
         uniqueSolution: input.solution,
         keyBenefit: input.benefit,
@@ -368,6 +369,7 @@ Return ONLY valid JSON:
     const completeUVP: CompleteUVP = {
       id: `uvp-${Date.now()}`,
       targetCustomer: primaryCustomer,
+      customerProfiles: customers,
       transformationGoal: input.transformation,
       uniqueSolution: input.solution,
       keyBenefit: input.benefit,
@@ -565,7 +567,8 @@ function generateFallbackSynthesis(input: UVPSynthesisInput): CompleteUVP {
   console.warn('[UVPSynthesis] Falling back - extracted data too generic for unique positioning');
 
   // Handle multiple customers
-  const primaryCustomer = Array.isArray(input.customer) ? input.customer[0] : input.customer;
+  const customers = Array.isArray(input.customer) ? input.customer : [input.customer];
+  const primaryCustomer = customers[0];
 
   // Instead of generating more generic content, be honest
   const vpStatement = `Unable to extract unique value proposition from website. ${input.businessName} uses industry-standard ${input.industry} messaging.`;
@@ -573,6 +576,7 @@ function generateFallbackSynthesis(input: UVPSynthesisInput): CompleteUVP {
   return {
     id: `uvp-${Date.now()}`,
     targetCustomer: primaryCustomer,
+    customerProfiles: customers,
     transformationGoal: input.transformation,
     uniqueSolution: input.solution,
     keyBenefit: input.benefit,

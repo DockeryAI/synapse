@@ -26,7 +26,7 @@ import {
 } from '../../types/content-generation.types';
 
 import { templateService } from './template.service';
-import { synapseCoreService } from '../synapse/synapse-core.service';
+import { synapseCoreService } from '../synapse-v6/synapse-core.service';
 import { synapseToUserFacing } from '../../utils/synapse-helpers';
 import { industryRegistry } from '../../data/industries';
 import { chat } from '../../lib/openrouter';

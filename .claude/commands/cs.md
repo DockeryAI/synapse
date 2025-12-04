@@ -55,12 +55,21 @@ For EVERY decision found, run this command:
 br decision log "description of decision" --type TYPE
 ```
 
+**⚠️ CRITICAL: The command is `br decision log` (with "log" subcommand), NOT `br decision`**
+
 **Types available:**
 - `DECISION` - General architectural/design decisions
 - `FIX` - Bug fixes and their solutions
 - `ARCHITECTURE` - Structural/system design choices
 - `REFACTOR` - Code restructuring decisions
 - `DEBUG` - Debugging discoveries and root causes
+
+**Examples:**
+```bash
+br decision log "Switched from REST to GraphQL for better type safety" --type ARCHITECTURE
+br decision log "Fixed race condition in auth by adding mutex" --type FIX
+br decision log "Removed unused EmotionalTrigger import" --type DEBUG
+```
 
 ### Step 3: Update Current Work File
 

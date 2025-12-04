@@ -4,6 +4,7 @@ import { BrandProvider } from './contexts/BrandContext'
 import { BrandProfileProvider } from './contexts/BrandProfileContext'
 import { LoadingSpinner } from './components/ui/LoadingSpinner'
 import { AppLayout } from './components/layout/AppLayout'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { BRLogger } from '../.buildrunner/components/br-logger'
 
 // Lazy-loaded pages for code splitting
@@ -56,11 +57,23 @@ function App() {
               {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
               {/* Default route - Onboarding (UVP Flow) */}
-              <Route path="/" element={<OnboardingPageV5 />} />
+              <Route path="/" element={
+                <ErrorBoundary>
+                  <OnboardingPageV5 />
+                </ErrorBoundary>
+              } />
 
               {/* Routes without sidebar (onboarding flow) */}
-              <Route path="/onboarding" element={<OnboardingPageV5 />} />
-              <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
+              <Route path="/onboarding" element={
+                <ErrorBoundary>
+                  <OnboardingPageV5 />
+                </ErrorBoundary>
+              } />
+              <Route path="/onboarding-v5" element={
+                <ErrorBoundary>
+                  <OnboardingPageV5 />
+                </ErrorBoundary>
+              } />
 
               {/* OAuth callbacks */}
               <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />

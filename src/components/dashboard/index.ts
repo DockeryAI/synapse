@@ -66,14 +66,16 @@ export type { CampaignTimelineProps } from './CampaignTimeline';
 
 /**
  * DashboardHeader - Main dashboard navigation header
+ * ARCHIVED: Moved to _archived folder
  */
-export { DashboardHeader } from './DashboardHeader';
+// export { DashboardHeader } from './DashboardHeader';
 
 /**
  * IntelligenceLibraryV2 - Main intelligence library with Easy/Power modes
+ * ARCHIVED: Moved to _archived folder
  */
-export { IntelligenceLibraryV2 } from './IntelligenceLibraryV2';
-export type { IntelligenceLibraryV2Props } from './IntelligenceLibraryV2';
+// export { IntelligenceLibraryV2 } from './IntelligenceLibraryV2';
+// export type { IntelligenceLibraryV2Props } from './IntelligenceLibraryV2';
 
 /**
  * AI Picks Panel - Smart content suggestions

@@ -204,20 +204,28 @@ export function IntelligenceLibrary({
         scores: { breakthrough: (insight.confidence || 0.5) * 100 }
       }));
 
-      // Score insights with orchestrator
-      const scored = scoreInsights(insightsForScoring as any);
+      // Score insights with orchestrator (async)
+      const runScoring = async () => {
+        try {
+          const scored = await scoreInsights(insightsForScoring as any);
 
-      // Map EQ scores back to InsightCards
-      const insightsWithEQ = allInsights.map(insight => {
-        const scoredInsight = scored.find(s => s.id === insight.id);
-        return {
-          ...insight,
-          eqAlignment: scoredInsight?.eqAlignment || 50
-        };
-      });
+          // Map EQ scores back to InsightCards
+          const insightsWithEQ = allInsights.map(insight => {
+            const scoredInsight = scored.find(s => s.id === insight.id);
+            return {
+              ...insight,
+              eqAlignment: scoredInsight?.eqAlignment || 50
+            };
+          });
 
-      setScoredInsights(insightsWithEQ);
-      console.log('[IntelligenceLibrary] V3.2: Insights scored with EQ alignment');
+          setScoredInsights(insightsWithEQ);
+          console.log('[IntelligenceLibrary] V3.2: Insights scored with EQ alignment');
+        } catch (err) {
+          console.error('[IntelligenceLibrary] Error scoring insights:', err);
+          setScoredInsights(allInsights);
+        }
+      };
+      runScoring();
     } else {
       setScoredInsights(allInsights);
     }

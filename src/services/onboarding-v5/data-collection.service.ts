@@ -391,7 +391,7 @@ class DataCollectionService {
     const emotionalWeight = industryEQ?.emotional_weight || 50;
 
     // Convert to UI format
-    const newBuyerPersonas: BuyerPersona[] = buyerPersonas.slice(0, 5).map((p: any, i: number) => ({
+    const newBuyerPersonas: BuyerPersona[] = buyerPersonas.slice(0, 10).map((p: any, i: number) => ({
       id: `persona-${i}`,
       name: p.name,
       archetype: `${p.title} seeking ${p.desiredOutcomes?.[0] || 'better solutions'}`,
@@ -416,7 +416,8 @@ class DataCollectionService {
         sourceCount: 1,
         modelAgreement: p.confidence || 70,
         reasoning: 'Phase 2 extraction'
-      }
+      },
+      validated: false // Default to not validated until user clicks
     }));
 
     const newTriggers: CustomerTrigger[] = buyerPersonas.flatMap((p: any, i: number) => [
@@ -653,7 +654,7 @@ class DataCollectionService {
         }))
       ]).slice(0, 10);
 
-      const buyerPersonas: BuyerPersona[] = serverResult.buyerPersonas.slice(0, 5).map((p, i) => ({
+      const buyerPersonas: BuyerPersona[] = serverResult.buyerPersonas.slice(0, 10).map((p, i) => ({
         id: `persona-${i}`,
         name: p.name,
         archetype: `${p.title} seeking ${p.desiredOutcomes[0] || 'better solutions'}`,
@@ -678,7 +679,8 @@ class DataCollectionService {
           sourceCount: 1,
           modelAgreement: p.confidence,
           reasoning: 'Server-side AI extraction'
-        }
+        },
+        validated: false // Default to not validated until user clicks
       }));
 
       const transformations = serverResult.transformations.slice(0, 5).map((t, i) => ({

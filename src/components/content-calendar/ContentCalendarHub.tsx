@@ -45,9 +45,10 @@ import { IndustrySelector } from './IndustrySelector';
 import { ContentCalendarService } from '@/services/content-calendar.service';
 import { analyticsService } from '@/services/analytics.service';
 import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service';
-import { generateSynapses } from '@/services/synapse/SynapseGenerator';
-import { SynapseContentGenerator } from '@/services/synapse/generation/SynapseContentGenerator';
-import { supabase } from '@/lib/supabase';
+import { generateSynapses } from '@/services/synapse-v6/SynapseGenerator';
+import { SynapseContentGenerator } from '@/services/synapse-v6/generation/SynapseContentGenerator';
+import { brandApiService } from '@/services/api/brand.service';
+import { contentCalendarApiService } from '@/services/api/content-calendar.service';
 import type { ContentItem, ContentPillar, Platform } from '@/types/content-calendar.types';
 import type { SynapseContent } from '@/types/synapse/synapseContent.types';
 
@@ -118,14 +119,9 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
   useEffect(() => {
     const loadBrandIndustry = async () => {
       try {
-        const { data } = await supabase
-          .from('brands')
-          .select('industry')
-          .eq('id', brandId)
-          .single();
-
-        if (data?.industry) {
-          setBrandIndustry(data.industry);
+        const brand = await brandApiService.getBrand(brandId);
+        if (brand?.industry) {
+          setBrandIndustry(brand.industry);
         }
       } catch (error) {
         console.error('Failed to load brand industry:', error);
@@ -390,12 +386,7 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
     }
 
     try {
-      const { error } = await supabase
-        .from('content_calendar_items')
-        .delete()
-        .eq('brand_id', brandId);
-
-      if (error) throw error;
+      await contentCalendarApiService.clearAllContentForBrand(brandId);
 
       console.log('[ContentCalendarHub] Cleared all content for brand:', brandId);
       handleRefresh();

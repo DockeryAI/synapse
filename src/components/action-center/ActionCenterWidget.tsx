@@ -103,10 +103,8 @@ export const ActionCenterWidget: React.FC<ActionCenterWidgetProps> = ({ classNam
 
   // Make handleAddAction available globally for other components
   React.useEffect(() => {
-    // @ts-ignore - Add to window for global access
     window.addToActionCenter = handleAddAction
     return () => {
-      // @ts-ignore
       delete window.addToActionCenter
     }
   }, [])

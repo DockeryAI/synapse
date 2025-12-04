@@ -237,14 +237,11 @@ export class OnboardingV5DataService {
             name: personaName,
             role: occupation,
             company_type: persona.company_type || incomeRange,
-            industry: persona.industry?.category || '',
-            pain_points: persona.pain_points ? persona.pain_points.map(p => p.description || p.title || p) : [],
-            desires: persona.desired_outcomes ? persona.desired_outcomes.map(d => d.description || d.title || d) : [],
-            decision_factors: persona.urgency_signals ? persona.urgency_signals.map(u => u.signal || u.description || u) : [],
-            preferred_channels: persona.buying_behavior?.preferred_channels || [],
-            decision_timeline: persona.buying_behavior?.timeline || '',
-            budget_range: persona.company_size || '',
-            influence_level: persona.role?.seniority || ''
+            industry: persona.industry?.primary_industry || persona.industry?.category || '',
+            pain_points: persona.pain_points ? persona.pain_points.map((p: any) => p.description || p.title || p) : [],
+            desired_outcomes: persona.desired_outcomes ? persona.desired_outcomes.map((d: any) => d.description || d.title || d) : [],
+            urgency_signals: persona.urgency_signals ? persona.urgency_signals.map((u: any) => u.signal || u.description || u) : [],
+            buying_behavior: persona.buying_behavior || null
           };
         });
 

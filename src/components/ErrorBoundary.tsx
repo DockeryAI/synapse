@@ -43,7 +43,22 @@ export class ErrorBoundary extends Component<Props, State> {
       errorInfo
     });
 
-    // TODO: Log to error tracking service
+    // Log error to analytics service
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+      console.error('ErrorBoundary caught error:', error, errorInfo);
+
+      // Send to analytics if available
+      try {
+        if ((window as any).gtag) {
+          (window as any).gtag('event', 'exception', {
+            description: error?.toString(),
+            fatal: false,
+          });
+        }
+      } catch (e) {
+        console.error('Failed to log error to analytics:', e);
+      }
+    }
   }
 
   handleReset = (): void => {
@@ -92,6 +107,21 @@ export class ErrorBoundary extends Component<Props, State> {
             >
               <RefreshCw className="h-4 w-4" />
               Refresh Page
+            </button>
+
+            <button
+              onClick={() => {
+                // Clear onboarding session state to reset UVP flow
+                try {
+                  sessionStorage.removeItem('onboarding_v5_state');
+                  window.location.href = '/';
+                } catch (e) {
+                  window.location.reload();
+                }
+              }}
+              className="w-full mt-2 px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900/20 dark:hover:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg transition-colors"
+            >
+              Reset Session & Start Over
             </button>
 
             <button

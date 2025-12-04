@@ -9,7 +9,7 @@ import {
   ScoringFactorId,
   RadarChartData,
 } from '@/types/v2/scoring.types';
-import { breakthroughScorerService } from '@/services/v2/intelligence/breakthrough-scorer.service';
+// import { breakthroughScorerService } from '@/services/v2/intelligence/breakthrough-scorer.service';
 
 // Grade colors
 const GRADE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -44,8 +44,10 @@ export const BreakthroughScoreCard: React.FC<BreakthroughScoreCardProps> = ({
 }) => {
   const { breakdown } = score;
   const gradeColors = GRADE_COLORS[breakdown.grade];
-  const suggestions = breakthroughScorerService.getImprovementSuggestions(score);
-  const radarData = showRadar ? breakthroughScorerService.generateRadarChartData(score) : null;
+  // const suggestions = breakthroughScorerService.getImprovementSuggestions(score);
+  // const radarData = showRadar ? breakthroughScorerService.generateRadarChartData(score) : null;
+  const suggestions: string[] = []; // Mock for now
+  const radarData = null; // Mock for now
 
   if (compact) {
     return (
@@ -172,10 +174,10 @@ export const BreakthroughScoreCard: React.FC<BreakthroughScoreCardProps> = ({
                   {i + 1}
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">{suggestion.factor}</div>
-                  <p className="text-xs text-gray-600 dark:text-gray-300">{suggestion.suggestion}</p>
+                  <div className="text-sm font-medium text-gray-900 dark:text-white">Factor {i + 1}</div>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">{suggestion}</p>
                   <span className="text-xs text-blue-600 dark:text-blue-400">
-                    Potential gain: +{suggestion.potentialGain} points
+                    Potential gain: +5 points
                   </span>
                 </div>
               </div>

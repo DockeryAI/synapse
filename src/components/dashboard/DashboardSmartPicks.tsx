@@ -15,7 +15,7 @@ import { Sparkles, TrendingUp, FileText, ArrowRight, Loader2, AlertCircle, Refre
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { SmartPick } from '@/types/smart-picks.types';
 import { generateSmartPicks } from '@/services/campaign/SmartPickGenerator';
-import { generateSynapses } from '@/services/synapse/SynapseGenerator';
+import { generateSynapses } from '@/services/synapse-v6/SynapseGenerator';
 import { synapseCache } from '@/services/cache/synapse-cache.service';
 
 export interface DashboardSmartPicksProps {

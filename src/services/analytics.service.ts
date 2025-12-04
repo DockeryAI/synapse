@@ -241,17 +241,30 @@ class AnalyticsService {
    * Send to analytics service (production)
    */
   private sendToAnalytics(event: AnalyticsEvent): void {
-    // TODO: Implement actual analytics integration
-    // Example: Mixpanel
-    // mixpanel.track(event.event, event.properties);
+    try {
+      // Send to Google Analytics if available
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', event.event, {
+          event_category: event.properties.category || 'general',
+          ...event.properties
+        });
+      }
 
-    // Example: PostHog
-    // posthog.capture(event.event, event.properties);
+      // Log structured analytics for potential future integration
+      console.log('[Analytics] Event:', {
+        event: event.event,
+        timestamp: new Date().toISOString(),
+        userId: event.userId,
+        properties: event.properties
+      });
 
-    // Example: Amplitude
-    // amplitude.track(event.event, event.properties);
-
-    // For now, just log in production
+      // Future integrations can be added here:
+      // mixpanel.track(event.event, event.properties);
+      // posthog.capture(event.event, event.properties);
+      // amplitude.track(event.event, event.properties);
+    } catch (error) {
+      console.error('[Analytics] Failed to send event:', error);
+    }
     console.log('[Analytics - Production]', event.event, event.properties);
   }
 }

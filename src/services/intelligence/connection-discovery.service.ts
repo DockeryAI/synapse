@@ -14,7 +14,7 @@
 import type { DataPoint, DataSource } from '@/types/connections.types';
 import type {
   JourneyStage,
-  EmotionTrigger,
+  // EmotionTrigger, // V5 REMOVED
   ContentFormat,
   TargetPersona,
   ObjectionType,
@@ -959,7 +959,7 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
 
     return {
       journeyStage: this.detectJourneyStage(conn) || sourceDefaults.journeyStage || defaults.journeyStage || 'CONSIDERATION',
-      emotion: this.detectEmotion(conn) || sourceDefaults.emotion || defaults.emotion || 'TRUST',
+      // emotion: V5 REMOVED - use V1 psychology principles
       format: this.detectFormat(conn) || sourceDefaults.format || defaults.format || 'HOWTO',
       persona: this.detectPersona(conn) || sourceDefaults.persona || defaults.persona || 'USER',
       objection: this.detectObjection(conn),
@@ -1054,68 +1054,9 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
   }
 
   /**
-   * Detect primary emotion trigger from content
+   * V5 REMOVED - detectEmotion()
+   * Use V1 psychology principles instead
    */
-  private detectEmotion(conn: Connection): EmotionTrigger {
-    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
-    const sentiment = conn.dataPoints.find(dp => dp.metadata?.sentiment)?.metadata?.sentiment;
-
-    // FEAR: Worry, risk, danger, avoid, problem
-    if (/worry|risk|danger|avoid|problem|issue|mistake|fail|lose|threat/.test(content) ||
-        sentiment === 'negative') {
-      return 'FEAR';
-    }
-
-    // ANGER: Frustrated, hate, terrible, worst, annoyed
-    if (/frustrated|hate|terrible|worst|annoyed|angry|furious|unacceptable/.test(content)) {
-      return 'ANGER';
-    }
-
-    // JOY: Happy, love, amazing, great, excellent
-    if (/happy|love|amazing|great|excellent|wonderful|fantastic|perfect/.test(content) ||
-        sentiment === 'positive') {
-      return 'JOY';
-    }
-
-    // CURIOSITY: How, why, what if, discover, secret
-    if (/how\s+to|why\s+do|what\s+if|discover|secret|hidden|unknown|surprising/.test(content)) {
-      return 'CURIOSITY';
-    }
-
-    // ANTICIPATION: Trend, upcoming, future, soon, new
-    if (/trend|upcoming|future|soon|new|launching|coming|expect/.test(content) ||
-        conn.dataPoints.some(dp => dp.type === 'trending_topic')) {
-      return 'ANTICIPATION';
-    }
-
-    // LOSS_AVERSION: Miss out, limited, only, deadline
-    if (/miss\s+out|limited|only\s+\d|deadline|last\s+chance|expires|ending/.test(content)) {
-      return 'LOSS_AVERSION';
-    }
-
-    // TRUST: Reliable, proven, expert, certified
-    if (/reliable|proven|expert|certified|trusted|years\s+of|guarantee/.test(content)) {
-      return 'TRUST';
-    }
-
-    // BELONGING: Community, together, join, member
-    if (/community|together|join|member|family|team|part\s+of/.test(content)) {
-      return 'BELONGING';
-    }
-
-    // ACHIEVEMENT: Success, accomplish, goal, win
-    if (/success|accomplish|goal|win|achieve|improve|grow|boost/.test(content)) {
-      return 'ACHIEVEMENT';
-    }
-
-    // SURPRISE: Unexpected, shocking, incredible
-    if (/unexpected|shocking|incredible|unbelievable|never\s+thought/.test(content)) {
-      return 'SURPRISE';
-    }
-
-    // Default based on timing relevance
-    return conn.timingRelevance > 0.5 ? 'ANTICIPATION' : 'TRUST';
-  }
 
   /**
    * Detect optimal content format

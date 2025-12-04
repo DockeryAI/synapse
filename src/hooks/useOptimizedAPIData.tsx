@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { optimizedAPILoader } from '@/services/intelligence/optimized-api-loader.service.ts'
-import { apiCache } from '@/services/intelligence/api-cache.service.ts'
+import { apiCache, APICacheService } from '@/services/intelligence/api-cache.service.ts'
 import type { Brand } from '@/types'
 
 interface APIDataState {
@@ -270,9 +270,9 @@ export function useOptimizedAPIData(
   const refreshAPI = useCallback(async (apiType: string) => {
     if (!brand) return
 
-    const cacheKey = apiCache.generateKey(apiType, {
+    const cacheKey = APICacheService.generateKey(apiType, {
       brand: brand.name,
-      industry: brand.industry?.code
+      industry: brand.industry
     })
 
     // Force refresh

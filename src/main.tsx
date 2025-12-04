@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import './utils/clear-cache' // Auto-clears cache if URL has ?clear-cache=true
+import { initBRLogger } from './lib/br-logger'
+
+initBRLogger()
 // import { publishingAutomation } from './services/publishing-automation.service'
 
 // Start publishing automation

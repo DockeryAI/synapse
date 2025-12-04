@@ -203,6 +203,10 @@ export const ProductsTab: React.FC<ProductsTabProps> = ({
 
       setLoading(true);
       try {
+        // ARCHIVED COMPONENT - Direct database call disabled for security compliance
+        // This component is in _archived folder and should not be used in production
+        // If needed, implement proper data fetching through approved service layer
+        /*
         const { data, error } = await supabase
           .from('pm_products')
           .select('*')
@@ -217,6 +221,10 @@ export const ProductsTab: React.FC<ProductsTabProps> = ({
           setProducts([]);
         } else {
           setProducts((data || []).map(mapRowToProduct));
+        */
+
+        // Return empty state for archived component
+        setProducts([]);
         }
       } catch (err) {
         console.error('[ProductsTab] Error:', err);

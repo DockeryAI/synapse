@@ -62,54 +62,61 @@ export interface BrandProfile {
 }
 
 // Default API priorities by profile type
+// V5 FIX: Updated to use working API configs
 const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'local-b2c': {
-    voc: ['outscraper', 'apify-facebook', 'serper'],
-    community: ['apify-facebook', 'reddit', 'apify-nextdoor'],
+    // V5 FIX: Added google-maps for local reviews, use apify-yelp
+    voc: ['google-maps', 'outscraper', 'apify-yelp', 'serper'],
+    community: ['apify-facebook', 'reddit', 'serper'],
     competitive: ['semrush', 'serper'],
-    trends: ['newsapi-local', 'openweather'],
+    trends: ['newsapi', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['openweather', 'serper-events', 'google-places'],
+    local_timing: ['openweather', 'serper-events'],
   },
   'local-b2b': {
-    voc: ['outscraper', 'apify-linkedin', 'serper'],
-    community: ['linkedin', 'reddit', 'apify-twitter'],
+    // V5 FIX: Added google-maps for local reviews
+    voc: ['google-maps', 'outscraper', 'apify-linkedin', 'serper'],
+    community: ['apify-linkedin', 'reddit', 'apify-twitter'],
     competitive: ['semrush', 'serper'],
     trends: ['newsapi', 'perplexity'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['newsapi', 'serper-events'],
   },
   'regional-agency': {
-    voc: ['apify-clutch', 'apify-upwork', 'linkedin'],
-    community: ['reddit-marketing', 'apify-twitter', 'linkedin'],
+    // V5 FIX: Use apify-g2 for Clutch (Serper site: search)
+    voc: ['apify-g2', 'apify-linkedin', 'serper'],
+    community: ['reddit', 'apify-twitter', 'apify-linkedin'],
     competitive: ['semrush', 'serper'],
-    trends: ['newsapi-marketing', 'apify-twitter'],
+    trends: ['newsapi', 'apify-twitter'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi-budgets', 'serper'],
+    local_timing: ['newsapi', 'serper'],
   },
   'regional-retail': {
-    voc: ['outscraper-multi', 'apify-yelp', 'google-places'],
-    community: ['reddit-regional', 'facebook-groups'],
+    // V5 FIX: Use google-maps and apify-yelp
+    voc: ['google-maps', 'apify-yelp', 'outscraper', 'serper'],
+    community: ['reddit', 'apify-facebook'],
     competitive: ['semrush', 'serper'],
-    trends: ['newsapi-regional', 'openweather'],
+    trends: ['newsapi', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['openweather', 'google-places', 'newsapi'],
+    local_timing: ['openweather', 'newsapi'],
   },
   'national-saas': {
-    voc: ['reddit', 'apify-twitter', 'apify-g2', 'apify-capterra'],
+    // V5 FIX: Use apify-g2, apify-capterra (now Serper site: searches)
+    voc: ['apify-g2', 'apify-capterra', 'reddit', 'hackernews'],
     community: ['reddit', 'hackernews', 'apify-twitter'],
     competitive: ['semrush', 'serper'],
-    trends: ['buzzsumo', 'newsapi-tech', 'hackernews', 'perplexity'],
+    trends: ['buzzsumo', 'newsapi', 'hackernews', 'perplexity'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi-funding', 'sec-edgar'],
+    local_timing: ['newsapi', 'sec-edgar'],
   },
   'national-product': {
-    voc: ['apify-amazon', 'reddit', 'apify-tiktok'],
+    // V5 FIX: Use apify-amazon (now Serper site: search)
+    voc: ['apify-amazon', 'apify-trustpilot', 'reddit', 'apify-tiktok'],
     community: ['reddit', 'apify-tiktok', 'apify-instagram'],
     competitive: ['semrush', 'buzzsumo'],
     trends: ['buzzsumo', 'newsapi', 'youtube', 'apify-tiktok'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi-holidays', 'openweather'],
+    local_timing: ['newsapi', 'openweather'],
   },
 };
 

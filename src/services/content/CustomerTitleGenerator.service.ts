@@ -8,7 +8,7 @@
  */
 
 import type { DataPoint } from '@/types/connections.types';
-import type { ContentFramework } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import type { ContentFramework } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import { frameworkRouter } from './FrameworkRouter.service';
 
 export interface DataPattern {

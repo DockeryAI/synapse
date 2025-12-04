@@ -6,6 +6,16 @@
  * and competitive monitoring.
  */
 
+// ==================== Analytics Event Types ====================
+
+export interface AnalyticsEvent {
+  userId: string;           // Required - who performed the action
+  eventName: string;        // The event name
+  timestamp: string;        // ISO timestamp
+  sessionId?: string;       // Optional session tracking
+  properties?: Record<string, any>;
+}
+
 // ==================== Goal Progress Types ====================
 
 export type OnTrackStatus = 'ahead' | 'on-track' | 'slightly-behind' | 'behind'

@@ -27,7 +27,7 @@ import {
   Clock,
   Copy
 } from 'lucide-react';
-import type { CampaignPost } from '@/hooks/useV5EasyModeGeneration';
+import type { CampaignPost } from '@/types/ai-commands.types';
 import { ContentCalendarService } from '@/services/content-calendar.service';
 import type { Platform } from '@/types/content-calendar.types';
 
@@ -43,6 +43,7 @@ export interface CampaignPreviewModalProps {
   onSaveComplete?: (savedCount: number) => void;
 }
 
+// Extended interface for local editing state
 interface EditablePost extends CampaignPost {
   isEditing?: boolean;
   editedContent?: string;

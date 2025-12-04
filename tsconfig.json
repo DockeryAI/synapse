@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -26,13 +26,32 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": [
+    "node_modules/**",
+    "dist/**",
     "**/_ARCHIVED/**",
     "**/_archive/**",
     "**/_archived/**",
-    "src/_archive/**",
-    "src/**/_archived/**",
+    "src/**/_archived*/**",
+    "src/components/_archived/**",
+    "src/components/dashboard/_archived/**",
+    "src/components/v5/_archived/**",
+    "src/__tests__/_archived/**",
+    "src/__tests__/services/_archived/**",
+    "src/hooks/_archived/**",
+    "src/data/_archived/**",
+    "src/pages/_archived/**",
+    "src/services/_archived_v5/**",
+    "src/services/triggers/_archived/**",
+    "src/services/_archived/**",
+    "src/services/ai/_archived/**",
+    "src/pages/DashboardPageV2.tsx",
+    "src/pages/CampaignBuilderPage.tsx",
+    "src/pages/V2TestPage.tsx",
     "src/__tests__/utils/test-helpers.ts",
     "**/__tests__/location-detection.test.ts",
     "src/services/content/__tests__/template.service.test.ts",

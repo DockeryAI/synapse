@@ -273,20 +273,7 @@ export type JourneyStage =
   | 'RETENTION'
   | 'ADVOCACY';
 
-// Psychological Emotion (Plutchik's 8 + Extensions)
-export type EmotionTrigger =
-  | 'JOY'
-  | 'TRUST'
-  | 'FEAR'
-  | 'SURPRISE'
-  | 'SADNESS'
-  | 'DISGUST'
-  | 'ANGER'
-  | 'ANTICIPATION'
-  | 'CURIOSITY'
-  | 'BELONGING'
-  | 'ACHIEVEMENT'
-  | 'LOSS_AVERSION';
+// V5 EmotionTrigger removed - use V1 psychology principles instead
 
 // Content Format
 export type ContentFormat =
@@ -409,7 +396,7 @@ export type ContentPillar =
 // Complete Insight Dimensions (12 dimensions + pillar)
 export interface InsightDimensions {
   journeyStage: JourneyStage;
-  emotion: EmotionTrigger;
+  // emotion: EmotionTrigger; // V5 DEPRECATED - use V1 psychology principles
   format: ContentFormat;
   persona: TargetPersona;
   objection?: ObjectionType;
@@ -427,15 +414,15 @@ export interface InsightDimensions {
 // Source-to-Dimension Default Mappings
 export const SOURCE_DIMENSION_DEFAULTS: Record<DataSource, Partial<InsightDimensions>> = {
   youtube: { journeyStage: 'AWARENESS', format: 'HOWTO', pillar: 'PILLAR_EXPERTISE' },
-  outscraper: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST', emotion: 'TRUST' },
-  news: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
+  outscraper: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' }, // V5 emotion removed
+  news: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' }, // V5 emotion removed
   weather: { lifecycle: 'LIFE_SEASONAL', urgency: 'URGENT_HIGH', pillar: 'PILLAR_COMMUNITY' },
   serper: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
-  reddit: { journeyStage: 'AWARENESS', emotion: 'CURIOSITY', pillar: 'PILLAR_COMMUNITY' },
+  reddit: { journeyStage: 'AWARENESS', pillar: 'PILLAR_COMMUNITY' }, // V5 emotion removed
   quora: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
   g2: { journeyStage: 'DECISION', format: 'COMPARISON', pillar: 'PILLAR_DIFFERENTIATION', persona: 'INFLUENCER' },
   trustpilot: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' },
-  twitter: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
+  twitter: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' }, // V5 emotion removed
   apify: { journeyStage: 'CONSIDERATION', pillar: 'PILLAR_EXPERTISE' },
   perplexity: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
   semrush: { journeyStage: 'CONSIDERATION', format: 'DATA', pillar: 'PILLAR_DIFFERENTIATION', angle: 'DATA_DRIVEN' },
@@ -481,20 +468,7 @@ export const REQUIRED_DISTRIBUTION: VarietyDistribution = {
     RETENTION: { min: 0.05, max: 0.10 },
     ADVOCACY: { min: 0.05, max: 0.10 },
   },
-  emotion: {
-    JOY: { min: 0.10 },
-    TRUST: { min: 0.15 },
-    FEAR: { min: 0.15 },
-    SURPRISE: { min: 0.05 },
-    SADNESS: { min: 0.02 },
-    DISGUST: { min: 0.02 },
-    ANGER: { min: 0.08 },
-    ANTICIPATION: { min: 0.12 },
-    CURIOSITY: { min: 0.12 },
-    BELONGING: { min: 0.05 },
-    ACHIEVEMENT: { min: 0.05 },
-    LOSS_AVERSION: { min: 0.10 },
-  },
+  // V5 emotion distribution removed - use V1 psychology principles
   format: {
     HOWTO: { min: 0.15 },
     COMPARISON: { min: 0.12 },

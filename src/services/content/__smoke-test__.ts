@@ -6,7 +6,7 @@
  */
 
 // Import core services (no OpenRouter dependency)
-import { synapseCoreService } from '../synapse/synapse-core.service';
+import { synapseCoreService } from '../synapse-v6/synapse-core.service';
 import { industryRegistry } from '../../data/industries';
 import { templateService } from './template.service';
 // Skip: contentGenerationService - requires OpenRouter/Vite env

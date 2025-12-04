@@ -16,10 +16,12 @@
 
 import { supabase } from '@/lib/supabase';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, ProductServiceData } from '@/types/uvp-flow.types';
+import type { BuyerPersona } from '@/types/buyer-persona.types';
 import { getOrCreateTempBrand } from '@/services/onboarding/temp-brand.service';
 import { contentSynthesisOrchestrator } from '@/services/intelligence/content-synthesis-orchestrator.service';
 import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
 import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
+import { parseCustomerProfiles } from '@/components/v5/UVPBuildingBlocks';
 
 // ============================================================================
 // Database Row Types
@@ -66,17 +68,38 @@ export async function saveCompleteUVP(
   });
 
   try {
-    // If no brandId, save to localStorage for onboarding
-    if (!brandId) {
-      console.log('[MarbaUVPService] No brand ID - saving to localStorage for onboarding');
+    // CRITICAL FIX: Always attempt to get or create a brand ID for database persistence
+    let effectiveBrandId = brandId;
 
-      // Save to localStorage
+    if (!effectiveBrandId) {
+      console.log('[MarbaUVPService] No brand ID provided - attempting to get or create brand');
+
+      try {
+        // Try to get or create a temp brand for database persistence
+        const { getOrCreateTempBrand } = await import('@/services/onboarding/temp-brand.service');
+        const brandResult = await getOrCreateTempBrand();
+
+        if (brandResult.success && brandResult.brandId) {
+          effectiveBrandId = brandResult.brandId;
+          console.log('[MarbaUVPService] ✅ Created/found brand for database save:', effectiveBrandId);
+        }
+      } catch (tempBrandError) {
+        console.warn('[MarbaUVPService] Failed to create temp brand:', tempBrandError);
+      }
+    }
+
+    // If we still don't have a brandId, use localStorage as TEMPORARY fallback only
+    if (!effectiveBrandId) {
+      console.warn('[MarbaUVPService] ⚠️ No brand ID available - using localStorage as TEMPORARY fallback');
+      console.warn('[MarbaUVPService] ⚠️ This UVP will need to be migrated to database later');
+
+      // Save to localStorage temporarily
       const sessionId = localStorage.getItem('marba_session_id') || crypto.randomUUID();
       localStorage.setItem('marba_session_id', sessionId);
       localStorage.setItem(`marba_uvp_${sessionId}`, JSON.stringify(uvp));
       localStorage.setItem('marba_uvp_pending', 'true');
 
-      console.log('[MarbaUVPService] Saved to localStorage with session:', sessionId);
+      console.log('[MarbaUVPService] Saved to localStorage (TEMPORARY) with session:', sessionId);
 
       return {
         success: true,
@@ -85,8 +108,8 @@ export async function saveCompleteUVP(
       };
     }
 
-    // If we have a brandId, save to database normally
-    const effectiveBrandId = brandId;
+    // We have a brandId - proceed with database save
+    console.log('[MarbaUVPService] Proceeding with database save for brand:', effectiveBrandId);
 
     if (!uvp.targetCustomer || !uvp.transformationGoal || !uvp.uniqueSolution || !uvp.keyBenefit) {
       return {
@@ -185,6 +208,15 @@ export async function saveCompleteUVP(
 
     console.log('[MarbaUVPService] UVP saved successfully:', uvpId);
 
+    // CRITICAL FIX: Clean up any pending localStorage UVP data since we successfully saved to database
+    try {
+      const { clearPendingUVP } = await import('./marba-uvp-migration.service');
+      clearPendingUVP();
+      console.log('[MarbaUVPService] ✅ Cleaned up localStorage after successful database save');
+    } catch (cleanupError) {
+      console.warn('[MarbaUVPService] Failed to clean up localStorage (non-fatal):', cleanupError);
+    }
+
     // V3 FIX: Invalidate caches when UVP is saved
     // This ensures next insight generation uses fresh UVP data
     try {
@@ -193,6 +225,20 @@ export async function saveCompleteUVP(
       console.log('[MarbaUVPService] Caches invalidated after UVP save');
     } catch (cacheError) {
       console.warn('[MarbaUVPService] Cache invalidation failed (non-fatal):', cacheError);
+    }
+
+    // CRITICAL FIX: Generate buyer personas from UVP customer profiles
+    // This creates individual buyer_personas records for V6ContentPage to load
+    console.log('[MarbaUVPService] Generating buyer personas from UVP customer profiles...');
+    try {
+      const personaResult = await generateBuyerPersonasFromUVP(effectiveBrandId);
+      if (personaResult.success) {
+        console.log('[MarbaUVPService] ✅ Generated', personaResult.personasCreated, 'buyer personas');
+      } else {
+        console.error('[MarbaUVPService] ❌ Failed to generate buyer personas:', personaResult.error);
+      }
+    } catch (personaError) {
+      console.error('[MarbaUVPService] ❌ Error generating buyer personas:', personaError);
     }
 
     return {
@@ -257,9 +303,9 @@ export async function getUVPByBrand(brandId: string): Promise<CompleteUVP | null
       },
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
-      // Brand voice and customer stories (may be null if not yet scanned)
-      brandVoice: parseJSON(row.brand_voice, undefined),
-      customerStories: parseJSON(row.customer_stories, undefined),
+      // Brand voice and customer stories (columns removed from schema - set to undefined)
+      brandVoice: undefined,
+      customerStories: undefined,
     };
 
     console.log('[MarbaUVPService] UVP retrieved successfully:', row.id);
@@ -734,6 +780,123 @@ export async function scanBrandWebsiteForVoice(brandId: string): Promise<{
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error scanning website'
+    };
+  }
+}
+
+/**
+ * Generate and save buyer personas from UVP customer profiles
+ *
+ * Extracts individual customer profiles from UVP targetCustomer.statement
+ * and creates separate buyer_personas database records for each one.
+ *
+ * @param brandId - Brand ID to generate personas for
+ * @returns Success status and count of personas created
+ */
+export async function generateBuyerPersonasFromUVP(brandId: string): Promise<{
+  success: boolean;
+  personasCreated: number;
+  error?: string;
+}> {
+  console.log('[MarbaUVPService] Generating buyer personas from UVP for brand:', brandId);
+
+  try {
+    // 1. Get the UVP data
+    const uvp = await getUVPByBrand(brandId);
+    if (!uvp || !uvp.targetCustomer?.statement) {
+      return {
+        success: false,
+        personasCreated: 0,
+        error: 'No UVP data found or missing customer statement'
+      };
+    }
+
+    console.log('[MarbaUVPService] Found UVP with customer statement:', uvp.targetCustomer.statement);
+
+    // 2. Parse individual customer profiles from semicolon-separated statement
+    const customerProfiles = parseCustomerProfiles(uvp.targetCustomer.statement);
+    console.log('[MarbaUVPService] Parsed', customerProfiles.length, 'customer profiles');
+
+    if (customerProfiles.length === 0) {
+      return {
+        success: false,
+        personasCreated: 0,
+        error: 'No customer profiles found in UVP statement'
+      };
+    }
+
+    // 3. Delete existing buyer personas for this brand
+    const { error: deleteError } = await supabase
+      .from('buyer_personas')
+      .delete()
+      .eq('brand_id', brandId);
+
+    if (deleteError) {
+      console.error('[MarbaUVPService] Error deleting existing personas:', deleteError);
+      // Continue anyway - this might be first time
+    }
+
+    // 4. Create BuyerPersona records for each customer profile
+    const buyerPersonas: Partial<BuyerPersona>[] = customerProfiles.map((profile, index) => ({
+      brand_id: brandId,
+      name: profile.title || `Customer Profile ${index + 1}`,
+      persona_name: profile.title || `Customer Profile ${index + 1}`,
+      role: profile.role || 'Target Customer',
+      company_type: uvp.targetCustomer?.industry || 'Business',
+
+      // Pain points from UVP transformation goal or defaults
+      pain_points: uvp.transformationGoal?.painPoints?.map(p => typeof p === 'string' ? p : p.description) || [
+        'Struggling with current solutions',
+        'Looking for better alternatives'
+      ],
+
+      // Desired outcomes from UVP transformation goal or defaults
+      desired_outcomes: uvp.transformationGoal?.desiredOutcomes?.map(o => typeof o === 'string' ? o : o.description) || [
+        'Improved efficiency',
+        'Better results'
+      ],
+
+      // Drivers from UVP target customer
+      emotional_drivers: uvp.targetCustomer?.emotionalDrivers || [],
+      functional_drivers: uvp.targetCustomer?.functionalDrivers || [],
+
+      source: 'uvp_flow',
+      confidence_score: 85,
+      validated: true,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    }));
+
+    console.log('[MarbaUVPService] Created', buyerPersonas.length, 'buyer persona objects');
+
+    // 5. Save all buyer personas to database
+    const { data, error } = await supabase
+      .from('buyer_personas')
+      .insert(buyerPersonas)
+      .select('id, name');
+
+    if (error) {
+      console.error('[MarbaUVPService] Error saving buyer personas:', error);
+      return {
+        success: false,
+        personasCreated: 0,
+        error: error.message
+      };
+    }
+
+    console.log('[MarbaUVPService] Successfully saved', data?.length || 0, 'buyer personas');
+
+    return {
+      success: true,
+      personasCreated: data?.length || 0
+    };
+
+  } catch (error) {
+    console.error('[MarbaUVPService] Error generating buyer personas:', error);
+    return {
+      success: false,
+      personasCreated: 0,
+      error: error instanceof Error ? error.message : 'Unknown error'
     };
   }
 }

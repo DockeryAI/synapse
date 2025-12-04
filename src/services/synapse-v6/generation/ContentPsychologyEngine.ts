@@ -215,15 +215,7 @@ something as a potential loss ("don't miss") is more motivating than gain framin
       'pattern_interrupt': 'Breaks expected flow, switching from autopilot to active attention',
       'loss_aversion': 'Frames potential loss (2.5x stronger than equivalent gain)',
       'cognitive_dissonance': 'Challenges existing beliefs, creating mental tension that demands resolution',
-      'narrative_transportation': 'Uses story structure to bypass logical resistance',
-
-      // Legacy mapping for backwards compatibility
-      curiosity: 'Creates information gap that the brain feels compelled to close',
-      fear: 'Frames as potential loss to leverage loss aversion (2.5x stronger than gain)',
-      anger: 'Activates cognitive dissonance against status quo',
-      surprise: 'Pattern interrupt - switches brain from autopilot to active processing',
-      aspiration: 'Narrative transportation toward desired transformation',
-      validation: 'Social proof - confirms through shared experience'
+      'narrative_transportation': 'Uses story structure to bypass logical resistance'
     };
 
     return principles[trigger.type] || 'Activates psychological principle for engagement';

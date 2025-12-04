@@ -115,12 +115,14 @@ export type ContentPacing = 'fast' | 'medium' | 'slow';
 export type BrandImpact = 'positive' | 'neutral' | 'risky';
 
 /**
- * Emotional trigger
+ * Emotional trigger (V5 DEPRECATED - use PsychologicalPrinciple instead)
+ * Kept for backward compatibility only
  */
 export interface EmotionalTrigger {
   type: 'curiosity' | 'fear' | 'anger' | 'surprise' | 'aspiration' | 'validation';
   strength: number; // 0-1
   description?: string;
+  target?: string; // V6 addition
 }
 
 /**

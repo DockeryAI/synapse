@@ -79,7 +79,7 @@ export function detectSegment(context: DeepContext | null): BusinessSegment {
   // Check for B2B indicators
   const b2bKeywords = ['software', 'saas', 'enterprise', 'b2b', 'consulting', 'technology', 'services', 'solutions'];
   const isB2B = b2bKeywords.some(kw => industry.includes(kw)) ||
-                context.synthesis?.industryClassification?.type === 'b2b';
+                (context.synthesis as any)?.industryClassification?.type === 'b2b';
 
   // Check location scope
   const hasLocation = location?.city || location?.state;
@@ -101,8 +101,8 @@ export function detectSegment(context: DeepContext | null): BusinessSegment {
                    // UK-based companies are typically global
                    locationCountry.includes('uk') || locationCountry.includes('united kingdom') ||
                    // Check business description for global signals
-                   profile?.description?.toLowerCase().includes('enterprise') ||
-                   profile?.description?.toLowerCase().includes('global') ||
+                   (profile as any)?.description?.toLowerCase().includes('enterprise') ||
+                   (profile as any)?.description?.toLowerCase().includes('global') ||
                    context.competitiveIntel?.blindSpots?.some(bs =>
                      bs.topic?.toLowerCase().includes('international') ||
                      bs.topic?.toLowerCase().includes('global') ||

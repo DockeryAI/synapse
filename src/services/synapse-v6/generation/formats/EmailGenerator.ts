@@ -63,8 +63,8 @@ export class EmailGenerator {
         // V1 Psychology Principles - NOT emotion labels
         principle: framework.id === 'email-pas' ? 'Loss Aversion' : 'Curiosity Gap',
         trigger: {
-          // Use psychology principle names, not emotion labels
-          type: framework.id === 'email-pas' ? 'loss_aversion' : 'curiosity_gap',
+          // Use V1 psychology principle names (proper case with spaces)
+          type: framework.id === 'email-pas' ? 'Loss Aversion' : 'Curiosity Gap',
           strength: 0.85,
           target: 'conversion'
         },

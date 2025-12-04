@@ -20,7 +20,7 @@ import {
   Globe,
   AlertCircle,
 } from 'lucide-react';
-import type { DeepContext } from '@/types/v2/intelligence.types';
+import type { DeepContext } from '@/types/synapse/deepContext.types';
 
 export interface YourMixPreviewProps {
   context: DeepContext | null;

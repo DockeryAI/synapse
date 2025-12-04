@@ -20,7 +20,7 @@ import {
   ChevronRight,
   AlertCircle,
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { productsApiService } from '@/services/api/products.service';
 import type { Product } from '@/features/product-marketing/types/product.types';
 import type { ProductRecommendation } from '@/services/product-marketing/product-recommendation.service';
 
@@ -184,23 +184,10 @@ export const ProductSelector: React.FC<ProductSelectorProps> = ({
       setError(null);
 
       try {
-        const { data, error: dbError } = await supabase
-          .from('pm_products')
-          .select('*')
-          .eq('brand_id', brandId)
-          .eq('status', 'active')
-          .order('is_featured', { ascending: false })
-          .order('is_bestseller', { ascending: false })
-          .order('created_at', { ascending: false })
-          .limit(50);
+        const data = await productsApiService.getActiveProducts(brandId);
 
-        if (dbError) {
-          console.error('[ProductSelector] Failed to load products:', dbError);
-          setError('Failed to load products');
-          setProducts([]);
-        } else {
-          setProducts((data || []).map(mapRowToProduct));
-        }
+        console.log('[ProductSelector] Loaded products:', data.length);
+        setProducts((data || []).map(mapRowToProduct));
       } catch (err) {
         console.error('[ProductSelector] Error:', err);
         setError('Failed to load products');

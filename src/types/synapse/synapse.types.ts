@@ -9,6 +9,7 @@
 
 import { Connection } from '../connections.types';
 import { DeepContext } from './deepContext.types';
+import type { FrameworkType } from '../../services/synapse-v6/generation/ContentFrameworkLibrary';
 
 // ============================================================================
 // THINKING STYLES
@@ -132,6 +133,29 @@ export interface SynapseInsight {
 
   /** Raw model output */
   rawOutput?: any;
+
+  /** Quality score breakdown (0-50 total) */
+  qualityScore?: {
+    total: number;  // 0-50
+    passed: boolean;  // >= 35
+    breakdown: {
+      customerRelevance: number;  // 0-10
+      actionability: number;  // 0-10
+      uniqueness: number;  // 0-10
+      frameworkAlignment: number;  // 0-10
+      emotionalPull: number;  // 0-10
+    };
+    reasons: string[];
+    rejectionReasons?: string[];
+  };
+
+  /** Framework used to structure this insight */
+  frameworkUsed?: {
+    id: FrameworkType;
+    name: string;
+    confidence: number;  // 0-1
+    channel?: 'social' | 'email' | 'blog' | 'landing-page';
+  };
 
   /** Metadata */
   metadata: {
@@ -510,14 +534,19 @@ export interface PowerWordAnalysis {
   warning?: string;
 }
 
-export type EmotionalTriggerType =
-  | 'curiosity'
-  | 'fear'
-  | 'desire'
-  | 'belonging'
-  | 'achievement'
-  | 'trust'
-  | 'urgency';
+// V5 Emotion Types REMOVED - Use PsychologyPrincipleType instead
+
+// V6 Psychology Principles (V1-correct format)
+export type PsychologyPrincipleType =
+  | 'Curiosity Gap'
+  | 'Narrative Transportation'
+  | 'Social Proof + Authority'
+  | 'Cognitive Dissonance'
+  | 'Pattern Interrupt'
+  | 'Scarcity'
+  | 'Reciprocity'
+  | 'Commitment & Consistency'
+  | 'Loss Aversion';
 
 export interface EmotionalTrigger {
   type: EmotionalTriggerType;
@@ -526,10 +555,25 @@ export interface EmotionalTrigger {
   position: number;
 }
 
+export interface PsychologyTrigger {
+  type: PsychologyPrincipleType;
+  text: string;
+  intensity: number;
+  position: number;
+  principle: string; // Human-readable explanation
+}
+
 export interface EmotionalTriggerAnalysis {
   triggers: EmotionalTrigger[];
   dominantEmotion: EmotionalTriggerType | null;
   emotionalBalance: Record<EmotionalTriggerType, number>;
+  score: number;
+}
+
+export interface PsychologyTriggerAnalysis {
+  triggers: PsychologyTrigger[];
+  dominantPrinciple: PsychologyPrincipleType | null;
+  principleBalance: Record<PsychologyPrincipleType, number>;
   score: number;
 }
 

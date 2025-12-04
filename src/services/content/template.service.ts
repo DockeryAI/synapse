@@ -18,7 +18,7 @@ import type {
 } from '../../types/template.types';
 
 import { UNIVERSAL_TEMPLATES } from '../../data/templates/universal-templates';
-import { synapseCoreService } from '../synapse/synapse-core.service';
+import { synapseCoreService } from '../synapse-v6/synapse-core.service';
 import { industryRegistry } from '../../data/industries';
 
 // ============================================================================

@@ -14,9 +14,12 @@ import type {
   PowerWord,
   PowerWordCategory,
   PowerWordAnalysis,
-  EmotionalTrigger,
-  EmotionalTriggerType,
-  EmotionalTriggerAnalysis,
+  // EmotionalTrigger, // V5 REMOVED
+  // EmotionalTriggerType, // V5 REMOVED
+  // EmotionalTriggerAnalysis, // V5 REMOVED - use PsychologyTriggerAnalysis
+  PsychologyTrigger,
+  PsychologyPrincipleType,
+  PsychologyTriggerAnalysis,
   ReadabilityScore,
   CallToActionAnalysis,
   CTAType,
@@ -25,6 +28,8 @@ import type {
   SynapseConfig,
   ContentQualityIndicator,
 } from '../../types/synapse.types';
+
+import type { PsychologicalPrinciple } from '../../types/synapse/synapseContent.types';
 
 import { synapseToUserFacing } from '../../types/synapse.types';
 
@@ -92,43 +97,44 @@ const POWER_WORDS: PowerWord[] = [
 // Based on Cialdini's principles + cognitive psychology
 // ============================================================================
 
-const PSYCHOLOGY_PATTERNS: Array<{ pattern: RegExp; type: EmotionalTriggerType; intensity: number; principle: string }> = [
+// V6 Psychology Patterns (V1-correct principles) - reusing existing V1 types
+const PSYCHOLOGY_PATTERNS: Array<{ pattern: RegExp; type: PsychologicalPrinciple; intensity: number; description: string }> = [
   // CURIOSITY GAP - Creates information gap brain wants to close
-  { pattern: /you won't believe|won't believe|secret to|find out|discover how/i, type: 'curiosity', intensity: 8, principle: 'curiosity_gap' },
-  { pattern: /how to|learn|the truth about|revealed|what.*don't.*know/i, type: 'curiosity', intensity: 6, principle: 'curiosity_gap' },
+  { pattern: /you won't believe|won't believe|secret to|find out|discover how/i, type: 'Curiosity Gap', intensity: 8, description: 'Creates information gap that compels closure' },
+  { pattern: /how to|learn|the truth about|revealed|what.*don't.*know/i, type: 'Curiosity Gap', intensity: 6, description: 'Opens knowledge gap requiring resolution' },
 
   // LOSS AVERSION - Framing potential loss (2.5x stronger than gain)
-  { pattern: /avoid|mistake|warning|don't miss|losing|miss out/i, type: 'urgency', intensity: 7, principle: 'loss_aversion' },
-  { pattern: /risk|danger|problem|cost you|before it's too late/i, type: 'urgency', intensity: 6, principle: 'loss_aversion' },
+  { pattern: /avoid|mistake|warning|don't miss|losing|miss out/i, type: 'Loss Aversion', intensity: 7, description: 'Frames potential loss (2.5x stronger than gain)' },
+  { pattern: /risk|danger|problem|cost you|before it's too late/i, type: 'Loss Aversion', intensity: 6, description: 'Emphasizes negative consequences of inaction' },
 
   // NARRATIVE TRANSPORTATION - Story structure bypasses resistance
-  { pattern: /imagine|picture this|here's what happened|story of/i, type: 'curiosity', intensity: 7, principle: 'narrative_transportation' },
-  { pattern: /journey|transformation|before and after/i, type: 'curiosity', intensity: 5, principle: 'narrative_transportation' },
+  { pattern: /imagine|picture this|here's what happened|story of/i, type: 'Narrative Transportation', intensity: 7, description: 'Uses story structure to bypass logical resistance' },
+  { pattern: /journey|transformation|before and after/i, type: 'Narrative Transportation', intensity: 5, description: 'Creates narrative arc for engagement' },
 
-  // SOCIAL PROOF - Others like me are doing this
-  { pattern: /join \d+|thousands of|most.*people|everyone is/i, type: 'belonging', intensity: 8, principle: 'social_proof' },
-  { pattern: /top performers|successful.*do|industry leaders/i, type: 'trust', intensity: 7, principle: 'social_proof' },
+  // SOCIAL PROOF + AUTHORITY - Others like me are doing this
+  { pattern: /join \d+|thousands of|most.*people|everyone is/i, type: 'Social Proof + Authority', intensity: 8, description: 'Shows others like me are taking action' },
+  { pattern: /top performers|successful.*do|industry leaders/i, type: 'Social Proof + Authority', intensity: 7, description: 'Demonstrates successful people use this approach' },
 
-  // AUTHORITY - Credibility through expertise
-  { pattern: /research shows|studies prove|data reveals|experts say/i, type: 'trust', intensity: 8, principle: 'authority' },
-  { pattern: /certified|award-winning|recognized|proven/i, type: 'trust', intensity: 7, principle: 'authority' },
+  // SOCIAL PROOF + AUTHORITY - Credibility through expertise
+  { pattern: /research shows|studies prove|data reveals|experts say/i, type: 'Social Proof + Authority', intensity: 8, description: 'Leverages scientific/expert credibility' },
+  { pattern: /certified|award-winning|recognized|proven/i, type: 'Social Proof + Authority', intensity: 7, description: 'Establishes credibility through credentials' },
 
   // SCARCITY - Limited availability creates urgency
-  { pattern: /last chance|running out|limited time|only \d+ left/i, type: 'urgency', intensity: 9, principle: 'scarcity' },
-  { pattern: /exclusive|limited|rare|while supplies last/i, type: 'urgency', intensity: 7, principle: 'scarcity' },
+  { pattern: /last chance|running out|limited time|only \d+ left/i, type: 'Scarcity', intensity: 9, description: 'Creates urgency through limited availability' },
+  { pattern: /exclusive|limited|rare|while supplies last/i, type: 'Scarcity', intensity: 7, description: 'Emphasizes exclusivity and limited access' },
 
   // PATTERN INTERRUPT - Breaks expectation, activates attention
-  { pattern: /stop doing|everything.*wrong|backwards|unpopular opinion/i, type: 'curiosity', intensity: 8, principle: 'pattern_interrupt' },
-  { pattern: /controversial|against.*grain|counterintuitive/i, type: 'curiosity', intensity: 7, principle: 'pattern_interrupt' },
+  { pattern: /stop doing|everything.*wrong|backwards|unpopular opinion/i, type: 'Pattern Interrupt', intensity: 8, description: 'Challenges conventional wisdom to grab attention' },
+  { pattern: /controversial|against.*grain|counterintuitive/i, type: 'Pattern Interrupt', intensity: 7, description: 'Breaks expected patterns to activate focus' },
 
   // COGNITIVE DISSONANCE - Challenges beliefs
-  { pattern: /myth|wrong about|actually|not what you think/i, type: 'curiosity', intensity: 7, principle: 'cognitive_dissonance' },
+  { pattern: /myth|wrong about|actually|not what you think/i, type: 'Cognitive Dissonance', intensity: 7, description: 'Creates discomfort between beliefs and new information' },
 
   // RECIPROCITY - Value first creates obligation
-  { pattern: /free|gift|bonus|complimentary|no strings/i, type: 'trust', intensity: 6, principle: 'reciprocity' },
+  { pattern: /free|gift|bonus|complimentary|no strings/i, type: 'Reciprocity', intensity: 6, description: 'Triggers reciprocity through upfront value' },
 
   // COMMITMENT & CONSISTENCY - Small steps lead to big
-  { pattern: /if you.*then|since you|you already/i, type: 'belonging', intensity: 5, principle: 'commitment' },
+  { pattern: /if you.*then|since you|you already/i, type: 'Commitment & Consistency', intensity: 5, description: 'Leverages existing commitments to drive action' },
 ];
 
 // Backwards compatibility alias
@@ -181,7 +187,7 @@ export class SynapseCoreService {
    */
   scoreContent(content: string): SynapseScore {
     const powerWordsAnalysis = this.analyzePowerWords(content);
-    const emotionalAnalysis = this.detectEmotionalTriggers(content);
+    const emotionalAnalysis = this.detectPsychologyTriggers(content);
     const readability = this.calculateReadability(content);
     const ctaAnalysis = this.analyzeCallToAction(content);
 
@@ -314,22 +320,24 @@ export class SynapseCoreService {
   }
 
   /**
-   * Detect emotional triggers
+   * Detect V1 psychology triggers (NEW - V6 uses this)
    */
-  detectEmotionalTriggers(content: string): EmotionalTriggerAnalysis {
-    const triggers: EmotionalTrigger[] = [];
-    const emotionalBalance: Record<EmotionalTriggerType, number> = {
-      curiosity: 0,
-      fear: 0,
-      desire: 0,
-      belonging: 0,
-      achievement: 0,
-      trust: 0,
-      urgency: 0,
+  detectPsychologyTriggers(content: string): PsychologyTriggerAnalysis {
+    const triggers: PsychologyTrigger[] = [];
+    const principleBalance: Record<PsychologyPrincipleType, number> = {
+      'Curiosity Gap': 0,
+      'Narrative Transportation': 0,
+      'Social Proof + Authority': 0,
+      'Cognitive Dissonance': 0,
+      'Pattern Interrupt': 0,
+      'Scarcity': 0,
+      'Reciprocity': 0,
+      'Commitment & Consistency': 0,
+      'Loss Aversion': 0,
     };
 
-    // Detect patterns
-    for (const pattern of EMOTIONAL_PATTERNS) {
+    // Detect V1 psychology patterns
+    for (const pattern of PSYCHOLOGY_PATTERNS) {
       const match = content.match(pattern.pattern);
       if (match) {
         triggers.push({
@@ -337,18 +345,19 @@ export class SynapseCoreService {
           text: match[0],
           intensity: pattern.intensity,
           position: match.index || 0,
+          principle: pattern.description,
         });
-        emotionalBalance[pattern.type]++;
+        principleBalance[pattern.type]++;
       }
     }
 
-    // Find dominant emotion
-    let dominantEmotion: EmotionalTriggerType | null = null;
+    // Find dominant principle
+    let dominantPrinciple: PsychologyPrincipleType | null = null;
     let maxCount = 0;
-    for (const [emotion, count] of Object.entries(emotionalBalance)) {
+    for (const [principle, count] of Object.entries(principleBalance)) {
       if (count > maxCount) {
         maxCount = count;
-        dominantEmotion = emotion as EmotionalTriggerType;
+        dominantPrinciple = principle as PsychologyPrincipleType;
       }
     }
 
@@ -358,11 +367,16 @@ export class SynapseCoreService {
 
     return {
       triggers,
-      dominantEmotion,
-      emotionalBalance,
+      dominantPrinciple,
+      principleBalance,
       score: Math.round(score),
     };
   }
+
+  /**
+   * V5 REMOVED - detectEmotionalTriggers()
+   * Use detectPsychologyTriggers() instead (V1 psychology principles)
+   */
 
   /**
    * Calculate readability score
@@ -417,7 +431,7 @@ export class SynapseCoreService {
   analyzeCallToAction(content: string): CallToActionAnalysis {
     const ctaPatterns = {
       soft: /learn more|find out|read more|see more|discover|explore/i,
-      medium: /get started|try now|sign up|join now|start|begin/i,
+      medium: /get started|try now|sign up|join now|start|begin|click here|shop now/i,
       hard: /buy now|book today|order now|purchase|reserve|claim/i,
       social: /share|follow|like|comment|tag|subscribe/i,
     };
@@ -546,21 +560,24 @@ export class SynapseCoreService {
     return Math.round(overall);
   }
 
-  private calculateUrgencyScore(emotional: EmotionalTriggerAnalysis, powerWords: PowerWordAnalysis): number {
-    const urgencyTriggers = emotional.emotionalBalance.urgency;
+  private calculateUrgencyScore(emotional: PsychologyTriggerAnalysis, powerWords: PowerWordAnalysis): number {
+    // V1 Psychology: Urgency comes from Scarcity + Loss Aversion principles
+    const scarcityTriggers = emotional.principleBalance['Scarcity'] || 0;
+    const lossAversionTriggers = emotional.principleBalance['Loss Aversion'] || 0;
     const urgencyWords = powerWords.byCategory.urgency;
-    return Math.min(100, (urgencyTriggers * 20 + urgencyWords * 15));
+    return Math.min(100, (scarcityTriggers * 15 + lossAversionTriggers * 15 + urgencyWords * 15));
   }
 
   private calculateTrustScore(
-    emotional: EmotionalTriggerAnalysis,
+    emotional: PsychologyTriggerAnalysis,
     powerWords: PowerWordAnalysis,
     readability: ReadabilityScore
   ): number {
-    const trustTriggers = emotional.emotionalBalance.trust;
+    // V1 Psychology: Trust comes from Social Proof + Authority principle
+    const socialProofTriggers = emotional.principleBalance['Social Proof + Authority'] || 0;
     const trustWords = powerWords.byCategory.trust;
     const readabilityBonus = readability.score > 70 ? 10 : 0;
-    return Math.min(100, trustTriggers * 20 + trustWords * 15 + readabilityBonus);
+    return Math.min(100, socialProofTriggers * 20 + trustWords * 15 + readabilityBonus);
   }
 
   private calculateSentenceComplexity(content: string): number {

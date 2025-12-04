@@ -1,7 +1,44 @@
-import { defineConfig } from 'vite'
+import { defineConfig, Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { brLoggerPlugin } from './.buildrunner/components/vite-br-logger-plugin'
+import fs from 'fs'
+
+// BR Logger Plugin - captures browser logs for /dbg command
+function brLoggerPlugin(): Plugin {
+  const logFile = path.resolve(__dirname, '.buildrunner/browser.log')
+  const logDir = path.dirname(logFile)
+  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true })
+
+  return {
+    name: 'br-logger',
+    configureServer(server) {
+      server.middlewares.use('/__br_logger', (req, res) => {
+        if (req.method === 'POST') {
+          let body = ''
+          req.on('data', (chunk: Buffer) => { body += chunk })
+          req.on('end', () => {
+            try {
+              if (fs.existsSync(logFile) && fs.statSync(logFile).size > 500 * 1024) {
+                const backup = logFile.replace('.log', '.old.log')
+                if (fs.existsSync(backup)) fs.unlinkSync(backup)
+                fs.renameSync(logFile, backup)
+              }
+              fs.appendFileSync(logFile, body)
+              res.statusCode = 200
+              res.end('ok')
+            } catch (e) {
+              res.statusCode = 500
+              res.end('error')
+            }
+          })
+        } else {
+          res.statusCode = 405
+          res.end('Method not allowed')
+        }
+      })
+    },
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({

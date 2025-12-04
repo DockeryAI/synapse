@@ -19,3 +19,16 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+// Action Center Widget - Global window interface
+interface ActionItem {
+  type: 'content' | 'task' | 'idea'
+  title: string
+  description?: string
+  source: string
+}
+
+interface Window {
+  addToActionCenter?: (action: ActionItem) => void
+  gtag?: (...args: any[]) => void
+}

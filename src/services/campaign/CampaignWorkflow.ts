@@ -7,7 +7,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { campaignStateMachine } from './CampaignState';
 import { campaignDB } from './CampaignDB';
-import { PremiumContentWriter } from '../synapse/generation/formats/PremiumContentWriter';
+import { SynapseContentGenerator } from '../synapse-v6/generation/SynapseContentGenerator';
 import { campaignGenerator } from './CampaignGenerator';
 import type {
   CampaignSession,
@@ -402,15 +402,14 @@ export class CampaignWorkflowService {
 
   /**
    * Generate mock content for testing
-   * TODO: Replace with actual content generation service calls
+   * Uses V6 SynapseContentGenerator
    */
   private async generateMockContent(
     campaignType: CampaignType,
     insights: BreakthroughInsight[],
     context?: DeepContext
   ): Promise<GeneratedCampaignContent> {
-    // Use real content generation with PremiumContentWriter
-    const contentWriter = new PremiumContentWriter();
+    const contentGenerator = new SynapseContentGenerator();
 
     // Extract business profile from context
     const businessProfile: BusinessProfile = context ? {
@@ -456,41 +455,49 @@ export class CampaignWorkflowService {
       'twitter'
     ];
 
-    // Generate content for each platform in parallel
-    const platformContentPromises = platformsToGenerate.map(async (platform) => {
-      try {
-        const content = await contentWriter.generatePremiumContent(
-          primaryInsight,
-          businessProfile,
-          platform
-        );
+    // Use V6 generator to create content
+    let generatedContent;
+    try {
+      const generationResult = await contentGenerator.generate(
+        [primaryInsight as BreakthroughInsight],
+        businessProfile,
+        { formats: ['hook-post'], maxContent: 1 }
+      );
+      generatedContent = generationResult.content[0];
+    } catch (error) {
+      this.log('Error generating content:', error);
+      generatedContent = null;
+    }
 
-        const fullText = `${content.headline}\n\n${content.hook}\n\n${content.body}\n\n${content.cta}`;
-        const characterCount = fullText.length;
-
-        return {
-          platform,
-          content,
-          characterCount
-        };
-      } catch (error) {
-        this.log(`Error generating content for ${platform}:`, error);
-        // Fallback to basic content if generation fails
+    // Map generated content to platform format
+    const platforms = platformsToGenerate.map((platform) => {
+      if (generatedContent) {
+        const fullText = `${generatedContent.headline || ''}\n\n${generatedContent.hook}\n\n${generatedContent.body.join('\n')}\n\n${generatedContent.cta}`;
         return {
           platform,
           content: {
-            headline: `${campaignType} Campaign - ${platform}`,
-            hook: primaryInsight.insight,
-            body: 'Generated body content based on your business insights and industry expertise.',
-            cta: 'Learn more',
-            hashtags: ['business', 'growth']
+            headline: generatedContent.headline || `${campaignType} Campaign - ${platform}`,
+            hook: generatedContent.hook,
+            body: generatedContent.body.join('\n\n'),
+            cta: generatedContent.cta,
+            hashtags: generatedContent.hashtags || ['business', 'growth']
           },
-          characterCount: 200
+          characterCount: fullText.length
         };
       }
+      // Fallback if no content generated
+      return {
+        platform,
+        content: {
+          headline: `${campaignType} Campaign - ${platform}`,
+          hook: primaryInsight.insight,
+          body: 'Generated body content based on your business insights and industry expertise.',
+          cta: 'Learn more',
+          hashtags: ['business', 'growth']
+        },
+        characterCount: 200
+      };
     });
-
-    const platforms = await Promise.all(platformContentPromises);
 
     return {
       campaignId: uuidv4(),

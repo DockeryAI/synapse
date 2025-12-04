@@ -48,7 +48,8 @@ import type {
   DiscoveredCompetitor,
   ScanPhase,
   EnhancedCompetitorInsights,
-  CustomerVoice
+  CustomerVoice,
+  CompetitorBattlecard
 } from '@/types/competitor-intelligence.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 
@@ -682,9 +683,9 @@ export function useCompetitorIntelligence(
 
     // Extract UVP data for enhanced identification
     const uvpData = deepContext.business?.uvp;
-    const uniqueSolution = uvpData?.uniqueSolution?.statement || '';
-    const keyBenefit = uvpData?.keyBenefit?.statement || '';
-    const targetCustomer = (uvpData as any)?.targetCustomer || brandProfile.targetCustomer || '';
+    const uniqueSolution = uvpData?.uniqueSolution || '';
+    const keyBenefit = uvpData?.keyBenefit || '';
+    const targetCustomer = uvpData?.targetCustomer || '';
 
     // Get existing competitor names for caliber reference
     const existingCompetitorNames = competitors.map(c => c.name);
@@ -750,7 +751,7 @@ export function useCompetitorIntelligence(
       // Now extract Customer Voice + Battlecard (Phase 13)
       onProgress?.('Extracting customer voice...', 75);
 
-      const brandInfo = deepContext.business?.brand;
+      const brandInfo = deepContext.business?.profile;
       const uvp = deepContext.business?.uvp;
 
       try {
@@ -766,10 +767,24 @@ export function useCompetitorIntelligence(
           review_data: '' // Will trigger Perplexity fallback for customer complaints
         });
 
-        if (voiceResult.success && voiceResult.data) {
+        if (voiceResult) {
+          // Convert CustomerVoiceResult to CustomerVoice (map to expected type)
+          const customerVoice: CustomerVoice = {
+            pain_points: voiceResult.pain_points,
+            desires: voiceResult.desires,
+            objections: voiceResult.objections,
+            switching_triggers: voiceResult.switching_triggers,
+            common_phrases: [], // Not extracted in current implementation
+            source_quotes: voiceResult.source_quotes.map(sq => ({
+              quote: sq.quote,
+              source: sq.source,
+              sentiment: sq.sentiment,
+              relevance: sq.relevance
+            }))
+          };
           setCustomerVoiceByCompetitor(prev => {
             const newMap = new Map(prev);
-            newMap.set(result.profile.id, voiceResult.data!);
+            newMap.set(result.profile.id, customerVoice);
             return newMap;
           });
           console.log('[useCompetitorIntelligence] Customer voice extracted for', result.profile.name);
@@ -786,16 +801,26 @@ export function useCompetitorIntelligence(
           unique_solution: uvp?.uniqueSolution || '',
           key_benefit: uvp?.keyBenefit || '',
           target_customer: uvp?.targetCustomer || '',
-          products: brandInfo?.products || [],
+          products: [],
           competitor_positioning: result.profile.positioning_summary || undefined,
           gaps: result.gaps
         });
 
-        if (battlecardResult.success && battlecardResult.data) {
+        if (battlecardResult) {
+          // Convert BattlecardResult to CompetitorBattlecard (add competitor_name)
+          const battlecard: CompetitorBattlecard = {
+            competitor_name: result.profile.name,
+            our_advantages: battlecardResult.our_advantages,
+            their_advantages: battlecardResult.their_advantages,
+            key_objection_handlers: battlecardResult.key_objection_handlers,
+            win_themes: battlecardResult.win_themes,
+            loss_reasons: battlecardResult.loss_reasons,
+            ideal_icp_overlap: battlecardResult.ideal_icp_overlap
+          };
           setEnhancedInsights(prev => {
             const newMap = new Map(prev);
             const existing = newMap.get(result.profile.id) || {};
-            newMap.set(result.profile.id, { ...existing, battlecard: battlecardResult.data });
+            newMap.set(result.profile.id, { ...existing, battlecard });
             return newMap;
           });
           console.log('[useCompetitorIntelligence] Battlecard generated for', result.profile.name);
@@ -888,7 +913,7 @@ export function useCompetitorIntelligence(
 
       // Extract Customer Voice + Battlecard (Phase 13)
       if (deepContext) {
-        const brandInfo = deepContext.business?.brand;
+        const brandInfo = deepContext.business?.profile;
         const uvp = deepContext.business?.uvp;
 
         try {
@@ -905,10 +930,24 @@ export function useCompetitorIntelligence(
             review_data: '' // Will trigger Perplexity fallback
           });
 
-          if (voiceResult.success && voiceResult.data) {
+          if (voiceResult) {
+            // Convert CustomerVoiceResult to CustomerVoice (map to expected type)
+            const customerVoice: CustomerVoice = {
+              pain_points: voiceResult.pain_points,
+              desires: voiceResult.desires,
+              objections: voiceResult.objections,
+              switching_triggers: voiceResult.switching_triggers,
+              common_phrases: [], // Not extracted in current implementation
+              source_quotes: voiceResult.source_quotes.map(sq => ({
+                quote: sq.quote,
+                source: sq.source,
+                sentiment: sq.sentiment,
+                relevance: sq.relevance
+              }))
+            };
             setCustomerVoiceByCompetitor(prev => {
               const newMap = new Map(prev);
-              newMap.set(competitor.id, voiceResult.data!);
+              newMap.set(competitor.id, customerVoice);
               return newMap;
             });
             console.log('[useCompetitorIntelligence] Customer voice extracted for', competitor.name);
@@ -924,16 +963,26 @@ export function useCompetitorIntelligence(
             unique_solution: uvp?.uniqueSolution || '',
             key_benefit: uvp?.keyBenefit || '',
             target_customer: uvp?.targetCustomer || '',
-            products: brandInfo?.products || [],
+            products: [],
             competitor_positioning: competitor.positioning_summary || undefined,
             gaps: savedGaps
           });
 
-          if (battlecardResult.success && battlecardResult.data) {
+          if (battlecardResult) {
+            // Convert BattlecardResult to CompetitorBattlecard (add competitor_name)
+            const battlecard: CompetitorBattlecard = {
+              competitor_name: competitor.name,
+              our_advantages: battlecardResult.our_advantages,
+              their_advantages: battlecardResult.their_advantages,
+              key_objection_handlers: battlecardResult.key_objection_handlers,
+              win_themes: battlecardResult.win_themes,
+              loss_reasons: battlecardResult.loss_reasons,
+              ideal_icp_overlap: battlecardResult.ideal_icp_overlap
+            };
             setEnhancedInsights(prev => {
               const newMap = new Map(prev);
               const existing = newMap.get(competitor.id) || {};
-              newMap.set(competitor.id, { ...existing, battlecard: battlecardResult.data });
+              newMap.set(competitor.id, { ...existing, battlecard });
               return newMap;
             });
             console.log('[useCompetitorIntelligence] Battlecard generated for', competitor.name);

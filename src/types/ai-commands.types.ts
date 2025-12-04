@@ -313,6 +313,9 @@ export interface CampaignIdea {
  * Single post in a campaign
  */
 export interface CampaignPost {
+  /** Week number (1-4 for 4-week campaign) */
+  week: number;
+
   /** Day of campaign (1-indexed) */
   day: number;
 
@@ -328,11 +331,24 @@ export interface CampaignPost {
   /** Content format */
   format: 'post' | 'story' | 'reel' | 'video' | 'carousel';
 
+  /** Content type (educational, promotional, etc.) */
+  contentType: string;
+
   /** Key message */
   message: string;
 
   /** CTA */
   callToAction?: string;
+
+  /** Generated content with scoring */
+  content?: {
+    score?: {
+      total: number;
+    };
+    headline?: string;
+    body?: string;
+    cta?: string;
+  };
 }
 
 /**

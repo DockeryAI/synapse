@@ -8,7 +8,7 @@ export interface ValueForgeSession {
   id: string
   brandId: string
   status: 'active' | 'completed' | 'paused'
-  data: any
+  data: Record<string, unknown>
 }
 
 // ============================================================================
@@ -20,7 +20,7 @@ export interface ValueForgeContext {
   businessIntel?: {
     marba_score?: number
     competitive?: {
-      keywordGaps?: any[]
+      keywordGaps?: Array<Record<string, unknown>>
       commonApproaches?: string[]
       weaknesses?: string[]
     }
@@ -30,16 +30,16 @@ export interface ValueForgeContext {
       problems?: string[]
       solutions?: string[]
       targetAudience?: string[]
-      proofPoints?: any[]
+      proofPoints?: Array<Record<string, unknown>>
     }
     reviews?: {
       positive?: string[]
       negative?: string[]
     }
-    culturalSignals?: any[]
-    trendingTopics?: any[]
-    timingSignals?: any
-    analysis?: any
+    culturalSignals?: Array<Record<string, unknown>>
+    trendingTopics?: Array<Record<string, unknown>>
+    timingSignals?: Record<string, unknown>
+    analysis?: Record<string, unknown>
     business?: {
       name?: string
       url?: string
@@ -52,14 +52,14 @@ export interface ValueForgeContext {
   industryProfile?: {
     industryName?: string
     marketSize?: number
-    idealCustomerProfiles?: any[]
-    competitive_advantages?: any[]
-    transformations?: any[]
-    customerTriggers?: any[]
-    customer_triggers?: any[]
-    quality_indicators?: any[]
-    value_propositions?: any[]
-    service_packages?: any[]
+    idealCustomerProfiles?: Array<Record<string, unknown>>
+    competitive_advantages?: Array<Record<string, unknown>>
+    transformations?: Array<Record<string, unknown>>
+    customerTriggers?: Array<Record<string, unknown>>
+    customer_triggers?: Array<Record<string, unknown>>
+    quality_indicators?: Array<Record<string, unknown>>
+    value_propositions?: Array<Record<string, unknown>>
+    service_packages?: Array<Record<string, unknown>>
     powerWords?: string[]
     directories?: string[]
   }
@@ -74,11 +74,11 @@ export interface ValueForgeContext {
   detectedArchetype?: string
   detectedValueProps?: string[]
   detectedDifferentiators?: string[]
-  competitiveGaps?: any
-  culturalSignals?: any[]
-  trendingTopics?: any[]
-  timingSignals?: any
-  analysis?: any
+  competitiveGaps?: Record<string, unknown>
+  culturalSignals?: Array<Record<string, unknown>>
+  trendingTopics?: Array<Record<string, unknown>>
+  timingSignals?: Record<string, unknown>
+  analysis?: Record<string, unknown>
 }
 
 export interface ValueForgeState {
@@ -93,8 +93,8 @@ export interface ValueForgeState {
       userInput?: string
     }
     brandTasks: BrandTask[]
-    painPoints: any[]
-    pleasureGoals: any[]
+    painPoints: Array<Record<string, unknown>>
+    pleasureGoals: Array<Record<string, unknown>>
     transformationPower?: number
   }
 
@@ -110,15 +110,15 @@ export interface ValueForgeState {
   }
 
   discoveryPaths?: {
-    paths?: any
-    strategy?: any
+    paths?: Record<string, unknown>
+    strategy?: Record<string, unknown>
   }
 
   customerJourney?: {
-    stages?: any
+    stages?: Record<string, unknown>
   }
 
-  generatedUVPs?: any[]
+  generatedUVPs?: Array<Record<string, unknown>>
 
   // Metadata
   completionPercentage?: number
@@ -211,7 +211,7 @@ export interface DiscoveryPath {
 
 export interface DiscoveryPathsModule {
   paths: Record<string, DiscoveryPath>
-  strategy?: any
+  strategy?: Record<string, unknown>
 }
 
 // ============================================================================
@@ -219,7 +219,7 @@ export interface DiscoveryPathsModule {
 // ============================================================================
 
 export interface CustomerJourney {
-  stages: Record<string, any>
+  stages: Record<string, Record<string, unknown>>
 }
 
 // ============================================================================
@@ -228,8 +228,8 @@ export interface CustomerJourney {
 
 export interface ReAnalysisRequest {
   customizationPoint: string
-  oldValue: any
-  newValue: any
+  oldValue: unknown
+  newValue: unknown
   context: ValueForgeState
 }
 
@@ -254,8 +254,8 @@ export interface BrandDefinition {
     userInput?: string
   }
   brandTasks: BrandTask[]
-  painPoints: any[]
-  pleasureGoals: any[]
+  painPoints: Array<Record<string, unknown>>
+  pleasureGoals: Array<Record<string, unknown>>
   transformationPower?: number
 }
 

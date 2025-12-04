@@ -13,7 +13,7 @@
 import React, { useState } from 'react';
 import { RefreshCw, Sparkles, TrendingUp, Copy } from 'lucide-react';
 import { CharacterCountBadge } from './CharacterCountBadge';
-import { SynapseContentGenerator } from '@/services/synapse/generation/SynapseContentGenerator';
+import { SynapseContentGenerator } from '@/services/synapse-v6/generation/SynapseContentGenerator';
 import type {
   SynapseContent,
   BusinessProfile,

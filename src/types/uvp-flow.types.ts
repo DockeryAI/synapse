@@ -63,6 +63,7 @@ export interface MarketGeography {
 export interface CustomerProfile {
   id: string;
   statement: string; // Who is your target customer?
+  description?: string; // Detailed description of customer profile
   industry?: string;
   companySize?: string;
   role?: string;
@@ -99,6 +100,7 @@ export interface TransformationGoal {
     rational: number; // 0-100
     overall: number; // 0-100
   };
+  urgencyFactor?: number; // 0-100 indicating how urgent/time-sensitive the transformation is
   confidence: ConfidenceScore;
   sources: DataSource[];
   customerQuotes: CustomerQuote[];
@@ -119,10 +121,12 @@ export interface CustomerQuote {
 export interface UniqueSolution {
   id: string;
   statement: string; // How do you solve it differently?
+  uniqueness?: string; // Alias for statement, for backward compatibility
   outcomeStatement?: string; // JTBD-transformed outcome-focused version
   differentiators: Differentiator[];
   methodology?: string;
   proprietaryApproach?: string;
+  approach?: string; // High-level solution approach description
   confidence: ConfidenceScore;
   sources: DataSource[];
   isManualInput: boolean;
@@ -147,6 +151,8 @@ export interface KeyBenefit {
   metrics?: BenefitMetric[];
   industryComparison?: IndustryBenchmark;
   eqFraming: 'emotional' | 'rational' | 'balanced';
+  painAddressed?: string; // Specific pain point addressed by this benefit
+  proofPoints?: string[]; // Evidence or data supporting the benefit claim
   confidence: ConfidenceScore;
   sources: DataSource[];
   isManualInput: boolean;
@@ -177,6 +183,7 @@ export interface CompleteUVP {
   // Core components
   productsServices?: ProductServiceData; // Products/services confirmed by user
   targetCustomer: CustomerProfile;
+  customerProfiles?: CustomerProfile[]; // All 10 generated customer profiles
   transformationGoal: TransformationGoal;
   uniqueSolution: UniqueSolution;
   keyBenefit: KeyBenefit;

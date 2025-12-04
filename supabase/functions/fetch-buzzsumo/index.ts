@@ -27,7 +27,7 @@ serve(async (req) => {
     console.log('[BuzzSumo] Fetching content performance for:', topic)
 
     // BuzzSumo API endpoint for content analysis
-    const url = new URL('https://app.buzzsumo.com/api/content/search')
+    const url = new URL('https://api.buzzsumo.com/search/articles.json')
     url.searchParams.set('q', topic)
     url.searchParams.set('num_results', limit.toString())
     url.searchParams.set('sort', sortBy) // shares, engagement, links
@@ -37,7 +37,7 @@ serve(async (req) => {
     const response = await fetch(url.toString(), {
       headers: {
         'X-API-Key': BUZZSUMO_API_KEY,
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'User-Agent': 'Synapse/1.0'
       }
     })

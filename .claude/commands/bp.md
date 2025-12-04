@@ -71,28 +71,49 @@ Present in this EXACT format:
 ## Build Plan: [Name]
 
 **Mode:** Create New / Update Existing
+**Target Release:** [X.X] (now/next/later)
 **Based on:** [Brief description of what was discussed]
 
 ---
 
-### Features
+### Features (Triage Before "go")
 
-| # | Feature | Description | Priority |
-|---|---------|-------------|----------|
-| 1 | [Name] | [What it does] | High/Med/Low |
-| 2 | [Name] | [What it does] | High/Med/Low |
+| # | Feature | Description | Priority | Horizon |
+|---|---------|-------------|----------|---------|
+| 1 | [Name] | [What it does] | High/Med/Low | now |
+| 2 | [Name] | [What it does] | High/Med/Low | now |
+| 3 | [Name] | [What it does] | High/Med/Low | now |
+
+**💡 Before saying "go", you can move features to later releases:**
+- "move 2,3 to next" → moves to next release
+- "move 3 to 4.0" → moves to specific release
+- "2 is later" → moves #2 to later horizon
+
+Features moved to later will be added to ROADMAP.md instead of current build.
 
 ---
 
 ### Phases
 
-| Phase | Name | Deliverables | Estimate |
-|-------|------|--------------|----------|
-| 1 | [Name] | [What's delivered] | [X hours/days] |
-| 2 | [Name] | [What's delivered] | [X hours/days] |
-| 3 | [Name] | [What's delivered] | [X hours/days] |
+| Phase | Name | Deliverables | Parallel? |
+|-------|------|--------------|-----------|
+| 1 | [Name] | [What's delivered] | [Yes/No - why] |
+| 2 | [Name] | [What's delivered] | [Yes/No - why] |
+| 3 | [Name] | [What's delivered] | [Yes/No - why] |
 
-**Total Estimate:** [Sum of phases]
+### Parallel Execution Plan
+
+For each phase, analyze which features can run in parallel:
+
+| Phase | Parallel Groups | Sequential Items | Reason |
+|-------|-----------------|------------------|--------|
+| 1 | [Features A,B] | [Feature C after A,B] | [A,B independent, C needs their output] |
+| 2 | [All] | [None] | [No dependencies] |
+
+**Parallelization Summary:**
+- **Parallel-safe:** [N] features across [X] groups
+- **Sequential-required:** [N] features (have dependencies)
+- **Estimated speedup:** [X]x faster than sequential
 
 ---
 
@@ -127,11 +148,24 @@ Present in this EXACT format:
 
 ---
 
-## Step 5: Wait for "go"
+## Step 5: Wait for "go" - Handle Triage
 
 **DO NOT PROCEED until user says "go" or equivalent (yes, do it, proceed, etc.)**
 
-If user provides feedback:
+### Handle Feature Triage Commands
+If user says things like:
+- "move 2,3 to next" → Update features 2,3 horizon to "next"
+- "move 3 to 4.0" → Update feature 3 release to "4.0", horizon to "later"
+- "2 is later" → Update feature 2 horizon to "later"
+- "keep 1,4 only" → Move all others to later
+
+After processing triage:
+1. Update the feature table with new horizons
+2. Re-present the summary showing changes
+3. Wait for "go" again
+
+### Handle Other Feedback
+If user provides other feedback:
 1. Adjust the plan based on feedback
 2. Re-present the summary
 3. Wait for "go" again
@@ -139,6 +173,35 @@ If user provides feedback:
 ---
 
 ## Step 6: Execute (Only After "go")
+
+### 6.0 Execute with Parallel Subagents
+
+**Before building, apply the parallel execution plan:**
+
+For each phase:
+1. **Identify parallel groups** from the Parallel Execution Plan
+2. **Spawn subagents** for independent features:
+   - Each subagent gets ONE feature
+   - Max 5 subagents at once (optimal based on research)
+   - Each subagent inherits CLAUDE.md governance rules
+3. **Wait for parallel group to complete**
+4. **Run /gaps** to verify integration before next group
+5. **Execute sequential items** (if any) after dependencies complete
+6. **Repeat** for next parallel group or phase
+
+**Subagent Spawn Pattern:**
+```
+"Build [Feature A] as a subagent - focus only on this feature, follow all CLAUDE.md rules"
+"Build [Feature B] as a subagent - focus only on this feature, follow all CLAUDE.md rules"
+[Wait for completion]
+[Run /gaps]
+[Continue to dependent features or next phase]
+```
+
+**Quality Gates Between Parallel Groups:**
+- All subagent work must pass /gaps before proceeding
+- If /gaps finds issues, fix before spawning next group
+- Never start Phase N+1 until Phase N passes /gaps
 
 ### 6.1 Create/Update Build Plan
 
@@ -154,6 +217,22 @@ Write to `.buildrunner/builds/BUILD_[name].md`:
 ## Overview
 
 [Brief description of what this build accomplishes]
+
+## Parallel Execution Summary
+
+| Phase | Parallel Groups | Sequential | Speedup |
+|-------|-----------------|------------|---------|
+| 1 | [Features A,B] | [Feature C] | ~2x |
+| 2 | [All] | [None] | ~3x |
+
+**Execution Pattern:**
+1. Spawn subagents for parallel group (max 5)
+2. Wait for completion
+3. Run /gaps to verify
+4. Execute sequential items
+5. Repeat for next phase
+
+**Quality Gates:** Run /gaps between every parallel group. Never proceed if gaps found.
 
 ## Features
 
@@ -172,12 +251,16 @@ Write to `.buildrunner/builds/BUILD_[name].md`:
 ## Phases
 
 ### Phase 1: [Name]
-**Estimate:** [X hours/days]
 **Status:** not_started
 
 **Deliverables:**
 - [ ] [Deliverable 1]
 - [ ] [Deliverable 2]
+
+**Parallel Execution:**
+- **Group 1 (parallel):** [Features A, B] - spawn subagents
+- **Sequential:** [Feature C] - after Group 1 completes
+- **Quality gate:** Run /gaps before Phase 2
 
 [Repeat for each phase]
 
@@ -205,13 +288,25 @@ Then edit to add new features in the Features section.
 
 ### 6.3 Update features.json
 
+For features staying in current build (horizon: now):
 ```bash
-br feature add "[Feature Name]" --priority [high/medium/low] --status planned
+br feature add "[Feature Name]" --priority [high/medium/low] --status planned --horizon now --release [X.X]
+```
+
+For features moved to later (horizon: next/later):
+```bash
+br feature add "[Feature Name]" --priority [high/medium/low] --status planned --horizon [next/later] --release [X.X]
 ```
 
 Run for each feature in the plan.
 
-### 6.4 Log Decision
+### 6.4 Update ROADMAP.md
+
+For any features with horizon next/later:
+- Add them to appropriate section in ROADMAP.md
+- Don't include them in BUILD_*.md (they're on the roadmap, not current build)
+
+### 6.5 Log Decision
 
 ```bash
 br decision log "Created build plan: [Name] with [X] features across [Y] phases" --type ARCHITECTURE
@@ -241,8 +336,181 @@ Tell the user:
 ## Rules
 
 1. **Always show summary first** - Never write without user confirmation
-2. **Include time estimates** - Give realistic estimates for each phase
+2. **Analyze parallelization** - Every build plan must include parallel execution analysis
 3. **Be concise** - Summary should fit on one screen
 4. **Detect mode** - Auto-detect create vs update, confirm with user
 5. **Ask if unclear** - Don't guess on ambiguous requirements
 6. **Sync all files** - Build plan, PROJECT_SPEC, features.json must stay in sync
+7. **Use subagents for parallel work** - Spawn subagents for independent features (max 5)
+8. **Quality gates** - Run /gaps between parallel groups, never skip
+9. **No parallel for dependencies** - Features that depend on each other run sequentially
+
+## Parallel Execution Guidelines
+
+**Spawn subagents when:**
+- 2+ features in a phase have zero dependencies
+- Features don't modify the same files
+- Each feature is self-contained
+
+**Don't parallelize when:**
+- Feature B needs Feature A's output
+- Features share database tables being created
+- Features modify the same components
+- Single feature (nothing to parallelize)
+
+**Dependency indicators:**
+- "after X is done" = sequential
+- "uses the X component" = check if X exists first
+- "extends X" = sequential
+- "independent module" = parallel-safe
+- "new endpoint" = usually parallel-safe
+- "new component" = usually parallel-safe
+
+---
+
+## Conflict Detection
+
+**CRITICAL: Before spawning subagents, detect conflicts.**
+
+### File Overlap Analysis
+For each pair of features in a parallel group:
+1. List files each feature will create/modify
+2. Check for overlaps:
+   - Same component files
+   - Same API routes
+   - Same database tables/migrations
+   - Same utility functions
+   - Shared configuration files
+
+### Build Conflict Map
+Include in summary:
+```
+| Feature A | Feature B | Conflict | Resolution |
+|-----------|-----------|----------|------------|
+| Auth | Profile | src/api/user.ts | Sequential |
+| Dashboard | Settings | None | Parallel OK |
+```
+
+**If conflicts detected:** Move conflicting features to sequential queue.
+
+---
+
+## Context Injection for Subagents
+
+**Every subagent MUST receive project context.**
+
+### Required Context Package:
+```
+## Governance Rules (MUST FOLLOW)
+[Extract from governance.yaml:]
+- Blocked libraries list
+- RLS requirements
+- No direct API calls in frontend
+- No console.logs in production
+
+## Architecture Patterns
+[Extract from ARCHITECTURE.md:]
+- Directory structure
+- Component patterns
+- API conventions
+- State management approach
+
+## Relevant Decisions
+[Extract from decisions.log:]
+- Decisions affecting this feature
+- Past choices to maintain consistency
+
+## File Conventions
+[Infer from codebase:]
+- Naming patterns (camelCase, kebab-case, etc.)
+- Import styles
+- Export patterns
+```
+
+### Subagent Prompt Template:
+```
+You are building [FEATURE_NAME] for [PROJECT_NAME].
+
+## Your Task
+[SPECIFIC DELIVERABLES - files to create, functions to implement]
+
+## Governance Rules (MUST FOLLOW)
+- Never disable RLS
+- Use components from ~/Projects/ui-libraries/ only
+- No direct API calls in frontend - use edge functions
+- No console.logs in production code
+- [Other rules from governance.yaml]
+
+## Architecture
+[Patterns from ARCHITECTURE.md relevant to this feature]
+
+## Relevant Decisions
+[Past decisions that affect this feature]
+
+## Quality Requirements
+- Code must pass: npx tsc --noEmit
+- No @ts-ignore or any types
+- Include error handling
+
+## Instructions
+1. Read existing files to understand patterns
+2. Implement the feature following conventions
+3. Verify no TypeScript errors
+4. Report what you created/modified
+
+Do NOT:
+- Run the full test suite (parent will do this)
+- Modify files outside your assigned scope
+- Make architectural decisions without noting them
+
+Return: List of files created/modified and any decisions made.
+```
+
+---
+
+## Progress Checkpoints
+
+**Update BUILD_*.md after each parallel group completes.**
+
+### After Each Parallel Group:
+1. Check off completed deliverables in build plan
+2. Add session progress entry:
+
+```markdown
+## Session Progress Log
+
+### [TODAY'S DATE] - Build Session
+**Parallel Group 1:**
+- ✅ Feature A completed - [files created]
+- ✅ Feature B completed - [files created]
+- Tests: ✅ Passed
+
+**Parallel Group 2:**
+- ✅ Feature C completed
+- ⚠️ Feature D - moved to sequential (test failure)
+- Tests: ⚠️ 1 failure, fixed in sequential
+
+**Sequential:**
+- ✅ Feature D completed (after fix)
+
+**Phase Status:** Complete
+**Next:** Phase 2
+```
+
+### Progress Update Commands:
+After each group, run:
+```bash
+# Update feature status
+br feature update [FEATURE_ID] --status in_progress
+br feature update [FEATURE_ID] --status complete
+
+# Log significant decisions from subagent work
+br decision log "[Decision made during build]" --type DECISION
+```
+
+### Checkpoint Before Next Phase:
+Before starting next phase:
+1. Verify all previous phase deliverables checked off
+2. Run /gaps to ensure no regressions
+3. Update phase status in BUILD_*.md
+4. Only proceed if /gaps passes

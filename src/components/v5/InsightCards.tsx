@@ -45,6 +45,15 @@ import type { ConsolidatedTrigger, TriggerCategory, EvidenceItem } from '@/servi
  */
 const DARK_CARD_BASE = 'flex flex-col rounded-lg border p-3 transition-all duration-200 cursor-pointer hover:brightness-110 min-h-[180px]';
 
+/**
+ * Helper function to normalize source to a string for rendering
+ */
+function normalizeSource(source?: string | { name?: string; url?: string; verified?: boolean }): string {
+  if (!source) return '';
+  if (typeof source === 'string') return source;
+  return source.name || '';
+}
+
 // ============================================================================
 // TYPES
 // ============================================================================
@@ -125,7 +134,7 @@ export interface LocalInsight extends BaseInsight {
   eventDate?: string;
 }
 
-export interface WeatherInsight extends BaseInsight {
+export interface WeatherInsight extends Omit<BaseInsight, 'urgency'> {
   type: 'weather';
   weatherType?: string; // Made optional, defaults to 'forecast-alert'
   urgency?: number | string; // Can be number or string
@@ -164,11 +173,16 @@ function triggerInsightToConsolidatedTrigger(insight: TriggerInsight): Consolida
   const confidence = Math.max(0, Math.min(1, normalizedConfidence || 0.5));
 
   // Create a single evidence item from the insight
+  // Normalize source to string
+  const sourceString = typeof insight.source === 'string'
+    ? insight.source
+    : insight.source?.name || 'unknown';
+
   const evidence: EvidenceItem[] = [{
     id: insight.id,
-    source: insight.source || 'unknown',
+    source: sourceString,
     quote: insight.text,
-    platform: insight.source || 'unknown',
+    platform: sourceString,
     url: insight.sourceUrl || '',
     author: '',
     timestamp: insight.timestamp || new Date().toISOString(),
@@ -312,9 +326,9 @@ export const TriggerCard = memo(function TriggerCard({
         <span className={`font-semibold ${confidence >= 70 ? 'text-green-400' : confidence >= 45 ? 'text-yellow-400' : 'text-gray-400'}`}>
           {confidence}%
         </span>
-        {insight.source && (
+        {normalizeSource(insight.source) && (
           <span className="text-gray-500 truncate max-w-[60%]">
-            {insight.source}
+            {normalizeSource(insight.source)}
           </span>
         )}
       </div>
@@ -387,9 +401,9 @@ export const ProofCard = memo(function ProofCard({
         <span className={`font-semibold ${qualityScore >= 70 ? 'text-green-400' : qualityScore >= 45 ? 'text-yellow-400' : 'text-gray-400'}`}>
           {qualityScore}%
         </span>
-        {insight.source && (
+        {normalizeSource(insight.source) && (
           <span className="text-gray-500 truncate max-w-[60%]">
-            {insight.source}
+            {normalizeSource(insight.source)}
           </span>
         )}
       </div>
@@ -524,9 +538,9 @@ export const CompetitorCard = memo(function CompetitorCard({
             {insight.sentiment}
           </span>
         )}
-        {insight.source && (
+        {normalizeSource(insight.source) && (
           <span className="text-gray-500 truncate max-w-[60%]">
-            {insight.source}
+            {normalizeSource(insight.source)}
           </span>
         )}
       </div>

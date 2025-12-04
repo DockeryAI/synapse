@@ -30,39 +30,34 @@ interface ProfileTypeOverrideProps {
 
 const PROFILE_OPTIONS: { value: BusinessProfileType; label: string; description: string }[] = [
   {
-    value: 'local-service-b2b',
+    value: 'local-b2b',
     label: 'Local B2B Service',
     description: 'Commercial HVAC, IT services, local consulting',
   },
   {
-    value: 'local-service-b2c',
+    value: 'local-b2c',
     label: 'Local B2C Service',
     description: 'Dental, salon, restaurant, local retail',
   },
   {
-    value: 'regional-b2b-agency',
-    label: 'Regional B2B Agency',
+    value: 'regional-agency',
+    label: 'Regional Agency',
     description: 'Marketing agency, accounting firm, consulting',
   },
   {
-    value: 'regional-retail-b2c',
+    value: 'regional-retail',
     label: 'Regional Retail',
     description: 'Multi-location retail, franchise',
   },
   {
-    value: 'national-saas-b2b',
-    label: 'National SaaS B2B',
+    value: 'national-saas',
+    label: 'National SaaS',
     description: 'US-focused software, enterprise tools',
   },
   {
-    value: 'national-product-b2c',
-    label: 'National Product B2C',
+    value: 'national-product',
+    label: 'National Product',
     description: 'Consumer brand, e-commerce, manufacturer',
-  },
-  {
-    value: 'global-saas-b2b',
-    label: 'Global SaaS B2B',
-    description: 'International software, multi-region enterprise',
   },
 ];
 

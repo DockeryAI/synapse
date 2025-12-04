@@ -60,7 +60,7 @@ export interface ContentItem {
   generation_mode: GenerationMode;
   synapse_score?: number;
   engagement_metrics?: EngagementMetrics;
-  design_data?: any;
+  design_data?: Record<string, unknown>;
   platform_post_id?: string;
   error_message?: string;
   intelligence_badges?: string[];
@@ -80,7 +80,7 @@ export interface ContentGenerationParams {
   topic: string;
   pillarId?: string;
   mode: GenerationMode;
-  context?: any;
+  context?: Record<string, unknown>;
   opportunityId?: string;
   tone?: string;
   length?: 'short' | 'medium' | 'long';
@@ -134,7 +134,7 @@ export interface Opportunity {
   description: string;
   urgency: UrgencyLevel;
   expires_at: string;
-  context: any;
+  context: Record<string, unknown>;
   status: 'active' | 'dismissed' | 'used';
   impact_score?: number;
   suggested_actions?: string[];
@@ -252,7 +252,7 @@ export interface ContentPillar {
   name: string;
   description: string;
   color?: string;
-  trigger_data?: any;
+  trigger_data?: Record<string, unknown>;
   synapse_score?: number;
 }
 

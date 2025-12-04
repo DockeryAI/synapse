@@ -216,14 +216,8 @@ export interface IndustryProfile {
   };
 }
 
-export type EmotionalTriggerType =
-  | 'curiosity'
-  | 'fear'
-  | 'desire'
-  | 'belonging'
-  | 'achievement'
-  | 'trust'
-  | 'urgency';
+// V5 EmotionalTriggerType removed - use V1 psychology principles instead
+// export type EmotionalTriggerType = ... (DEPRECATED)
 
 // ============================================================================
 // CONTENT THEMES

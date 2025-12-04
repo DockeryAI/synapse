@@ -6,18 +6,6 @@
 import { lazy } from 'react';
 
 // Dashboard Intelligence Components (Heavy - loaded on demand)
-export const LazyPowerMode = lazy(() =>
-  import('@/components/dashboard/intelligence-v2/PowerMode').then(module => ({
-    default: module.PowerMode,
-  }))
-);
-
-export const LazyEasyMode = lazy(() =>
-  import('@/components/dashboard/intelligence-v2/EasyMode').then(module => ({
-    default: module.EasyMode,
-  }))
-);
-
 export const LazyOpportunityRadar = lazy(() =>
   import('@/components/dashboard/OpportunityRadar').then(module => ({
     default: module.OpportunityRadar,
@@ -32,12 +20,8 @@ export const LazyBreakthroughScoreCard = lazy(() =>
 
 // Calendar & Content Components
 export const LazyContentCalendar = lazy(() =>
-  import('@/components/content-calendar/ContentCalendarHub')
-);
-
-export const LazyCampaignBuilder = lazy(() =>
-  import('@/components/v2/campaign-builder/CampaignBuilder').then(module => ({
-    default: module.CampaignBuilder,
+  import('@/components/content-calendar/ContentCalendarHub').then(module => ({
+    default: module.ContentCalendarHub,
   }))
 );
 

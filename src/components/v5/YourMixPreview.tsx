@@ -359,7 +359,7 @@ export const YourMixPreview = memo(function YourMixPreview({
                             </span>
                             {insight.source && (
                               <span className="text-xs text-gray-500 dark:text-gray-400">
-                                {insight.source}
+                                {typeof insight.source === 'string' ? insight.source : insight.source.name || ''}
                               </span>
                             )}
                           </div>

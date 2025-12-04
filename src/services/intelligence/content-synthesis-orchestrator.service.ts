@@ -14,7 +14,7 @@ import type { CategorizedInsight } from '@/types/content-mixer.types';
 import type { SynthesizedInsight } from './ai-insight-synthesizer.service';
 import { getIndustryEQ, INDUSTRY_EQ_MAP } from '@/services/uvp-wizard/emotional-quotient';
 import { IndustryProfileGenerator } from '@/services/industry/IndustryProfileGenerator.service';
-import { ContentFrameworkLibrary, type FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import { ContentFrameworkLibrary, type FrameworkType } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import { embeddingService } from './embedding.service';
 
 // ============================================================================

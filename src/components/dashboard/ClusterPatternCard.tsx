@@ -66,11 +66,11 @@ export function ClusterPatternCard({
               </h3>
 
               {/* Framework Badge */}
-              {cluster.frameworkUsed && (
+              {(cluster as any).frameworkUsed && (
                 <div className="flex items-center gap-2 mb-2">
                   <Badge variant="outline" className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800">
                     <Sparkles className="w-3 h-3 mr-1" />
-                    {cluster.frameworkUsed.name}
+                    {(cluster as any).frameworkUsed.name}
                   </Badge>
                 </div>
               )}

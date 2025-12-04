@@ -895,6 +895,7 @@ export interface EnhancedCompetitorInsights {
 
   // NEW: Strategic Intelligence
   customer_voice?: CustomerVoice;
+  battlecard?: CompetitorBattlecard;
   narrative_dissonance?: NarrativeDissonance;
   feature_velocity?: FeatureVelocity;
   pricing_intel?: PricingIntel;
