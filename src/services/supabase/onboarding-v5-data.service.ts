@@ -230,26 +230,21 @@ export class OnboardingV5DataService {
 
           // Extract additional fields from BuyerPersona interface
           const occupation = persona.role?.title || persona.role?.seniority || '';
-          const ageRange = persona.role?.experience || ''; // Map experience to age range for now
-          const incomeRange = persona.company_size || ''; // Map company size to income range for now
-
-          // Convert complex objects to JSONB
-          const goals = persona.desired_outcomes ? { desired_outcomes: persona.desired_outcomes } : null;
-          const painPoints = persona.pain_points ? { pain_points: persona.pain_points } : null;
-          const buyingMotivations = persona.urgency_signals ? { urgency_signals: persona.urgency_signals } : null;
-          const preferredChannels = persona.buying_behavior ? { buying_behavior: persona.buying_behavior } : null;
+          const incomeRange = persona.company_size || ''; // Map company size to budget range
 
           return {
             brand_id: brandId,
-            persona_name: personaName,
-            age_range: ageRange,
-            income_range: incomeRange,
-            occupation: occupation,
-            goals: goals,
-            pain_points: painPoints,
-            buying_motivations: buyingMotivations,
-            preferred_channels: preferredChannels,
-            is_primary: index === 0 // First persona is primary
+            name: personaName,
+            role: occupation,
+            company_type: persona.company_type || incomeRange,
+            industry: persona.industry?.category || '',
+            pain_points: persona.pain_points ? persona.pain_points.map(p => p.description || p.title || p) : [],
+            desires: persona.desired_outcomes ? persona.desired_outcomes.map(d => d.description || d.title || d) : [],
+            decision_factors: persona.urgency_signals ? persona.urgency_signals.map(u => u.signal || u.description || u) : [],
+            preferred_channels: persona.buying_behavior?.preferred_channels || [],
+            decision_timeline: persona.buying_behavior?.timeline || '',
+            budget_range: persona.company_size || '',
+            influence_level: persona.role?.seniority || ''
           };
         });
 
