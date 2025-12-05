@@ -526,6 +526,12 @@ export interface DeepContext {
   /** Correlated insights - multi-source validated opportunities */
   correlatedInsights?: CorrelatedInsight[];
 
+  /** UVP data for business purpose detection (PHASE 15 FIX) */
+  uvpData?: any;
+
+  /** V1 WIRING: Detected customer outcomes for query targeting */
+  detectedOutcomes?: import('@/services/synapse-v6/outcome-detection.service').DetectedOutcome[];
+
   /** Metadata */
   metadata: {
     aggregatedAt: Date;

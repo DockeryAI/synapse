@@ -17,6 +17,8 @@
 import type { DataPoint } from '@/types/connections.types';
 import { ContentFrameworkLibrary, type FrameworkType } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
 import type { EnrichedContext } from './content-synthesis-orchestrator.service';
+import { OutcomeDetectionService, type DetectedOutcome, type OutcomeDifferentiatorMapping } from '@/services/synapse-v6/outcome-detection.service';
+import { businessPurposeDetector, type BusinessPurpose } from './business-purpose-detector.service';
 
 export interface SynthesizedInsight {
   id: string;
@@ -73,6 +75,9 @@ export interface SynthesisInput {
   targetCount?: number;
   // V3.1: Enriched context from orchestrator
   enrichedContext?: EnrichedContext;
+  // V6: Outcome detection instead of V5 emotional filtering
+  detectedOutcomes?: DetectedOutcome[];
+  outcomeMappings?: OutcomeDifferentiatorMapping[];
   // Synapse 2.0: BuzzSumo content benchmarks
   buzzsumoData?: {
     topHeadlinePatterns?: string[];
@@ -84,6 +89,14 @@ export interface SynthesisInput {
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// V6: Live Signal Detection Types (V1-style)
+interface LiveSignals {
+  buyingSignals: Array<{ signal: string; source: string; urgency: 'low' | 'medium' | 'high' | 'critical'; confidence: number }>;
+  temporalOpportunities: Array<{ opportunity: string; source: string; timing: string; relevance: number }>;
+  competitorGaps: Array<{ gap: string; competitor: string; source: string; advantage: number }>;
+  customerConversations: Array<{ conversation: string; source: string; sentiment: 'positive' | 'negative' | 'neutral'; intent: string }>;
+}
 
 /**
  * V3: Assign validation label based on source count
@@ -98,15 +111,41 @@ function getValidationLabel(sourceCount: number): SynthesizedInsight['validation
 }
 
 /**
- * Main synthesis function - orchestrates Opus + Sonnet models
- * V3.1: Now accepts enriched context with EQ, Industry Profile, and Segment data
+ * Main synthesis function - orchestrates V6 outcome detection with AI synthesis
+ * V6: Now uses outcome detection instead of V5 emotional filtering
  */
 export async function synthesizeInsights(input: SynthesisInput): Promise<SynthesizedInsight[]> {
-  const { connections, dataPoints, uvpData, brandData, targetCount = 100, enrichedContext } = input;
+  const { connections, dataPoints, uvpData, brandData, targetCount = 100, enrichedContext, detectedOutcomes, outcomeMappings } = input;
   const startTime = Date.now();
 
-  console.log(`[AI-Synthesizer] Starting synthesis for ${connections.length} connections, ${dataPoints.length} data points`);
+  console.log(`[AI-Synthesizer] V6: Starting outcome-driven synthesis for ${connections.length} connections, ${dataPoints.length} data points`);
   console.log(`[AI-Synthesizer] Target: ${targetCount} unique insights`);
+
+  // V6: Extract live signals with business purpose context
+  console.log(`[AI-Synthesizer] V6: Detecting live signals from ${dataPoints.length} data points...`);
+
+  // First detect business purpose to guide signal extraction
+  let businessPurpose: BusinessPurpose | null = null;
+  if (uvpData) {
+    try {
+      businessPurpose = businessPurposeDetector.detectBusinessPurpose(uvpData);
+      console.log(`[AI-Synthesizer] V6: Business purpose detected - ${businessPurpose.productFunction.primary} for ${businessPurpose.customerRole.department} (${businessPurpose.confidence}% confidence)`);
+      console.log(`[AI-Synthesizer] V6: Generated ${businessPurpose.contextualQueries.length} contextual queries: ${businessPurpose.contextualQueries.slice(0, 3).join(', ')}...`);
+    } catch (error) {
+      console.warn('[AI-Synthesizer] V6: Business purpose detection failed:', error);
+    }
+  }
+
+  const liveSignals = extractLiveSignals(dataPoints, brandData, uvpData, businessPurpose);
+  console.log(`[AI-Synthesizer] V6: Found ${liveSignals.buyingSignals.length} buying signals, ${liveSignals.temporalOpportunities.length} temporal opportunities, ${liveSignals.competitorGaps.length} competitor gaps`);
+
+  // Use live signals instead of static UVP outcomes
+  const signalContext = {
+    buyingSignals: liveSignals.buyingSignals,
+    temporalOpportunities: liveSignals.temporalOpportunities,
+    competitorGaps: liveSignals.competitorGaps,
+    customerConversations: liveSignals.customerConversations
+  };
 
   // V3.1: Log enriched context if available
   if (enrichedContext) {
@@ -117,16 +156,18 @@ export async function synthesizeInsights(input: SynthesisInput): Promise<Synthes
   }
 
   // Step 1: Use Opus 4.5 to analyze connections and identify breakthrough patterns
-  // V3 FIX: Increased from 30 to 100 for more comprehensive analysis
+  // V6: Use live signals from API data instead of static UVP outcomes
   const breakthroughAnalysis = await analyzeBreakthroughsWithOpus(
     connections.slice(0, 100),
     dataPoints,
     uvpData,
     brandData,
-    enrichedContext // V3.1: Pass enriched context
+    enrichedContext, // V3.1: Pass enriched context
+    signalContext // V6: Pass live signal context
   );
 
   // Step 2: Use Sonnet 4.5 to generate titles/hooks at scale
+  // V6: Pass outcomes for outcome-driven content generation
   const generatedInsights = await generateInsightsWithSonnet(
     breakthroughAnalysis,
     connections,
@@ -135,7 +176,9 @@ export async function synthesizeInsights(input: SynthesisInput): Promise<Synthes
     brandData,
     targetCount,
     enrichedContext, // V3.1: Pass enriched context
-    input.buzzsumoData // Synapse 2.0: Pass BuzzSumo benchmarks
+    input.buzzsumoData, // Synapse 2.0: Pass BuzzSumo benchmarks
+    outcomes, // V6: Pass detected outcomes
+    mappings // V6: Pass outcome-differentiator mappings
   );
 
   // Step 3: V3 - Apply ContentFrameworkLibrary post-synthesis
@@ -366,16 +409,39 @@ function applyContentFrameworks(insights: SynthesizedInsight[]): SynthesizedInsi
 
 /**
  * Step 1: Use Opus 4.5 for deep breakthrough analysis
- * V3.1: Enhanced with EQ Profile, Industry Profile, and Segment context
+ * V6: Enhanced with live signal detection (V1-style) instead of static UVP parsing
  */
 async function analyzeBreakthroughsWithOpus(
   topConnections: any[],
   dataPoints: DataPoint[],
   uvpData: any,
   brandData: any,
-  enrichedContext?: EnrichedContext
+  enrichedContext?: EnrichedContext,
+  signalContext?: any
 ): Promise<any> {
-  console.log('[AI-Synthesizer/Opus] Analyzing breakthroughs with Opus 4.5...');
+  console.log('[AI-Synthesizer/Opus] V6: Analyzing breakthroughs with live signal detection...');
+
+  // V6: Build live signal context for Opus (V1-style)
+  const signalContextBlock = signalContext ? `
+V6 LIVE MARKET SIGNALS DETECTED:
+
+BUYING SIGNALS (${signalContext.buyingSignals.length} found):
+${signalContext.buyingSignals.slice(0, 8).map((s, i) => `${i+1}. [${s.urgency.toUpperCase()}] ${s.signal}
+   - Source: ${s.source}
+   - Confidence: ${(s.confidence * 100).toFixed(0)}%`).join('\n')}
+
+TEMPORAL OPPORTUNITIES (${signalContext.temporalOpportunities.length} found):
+${signalContext.temporalOpportunities.slice(0, 5).map((t, i) => `${i+1}. ${t.opportunity}
+   - Timing: ${t.timing}
+   - Source: ${t.source}`).join('\n')}
+
+COMPETITOR GAPS (${signalContext.competitorGaps.length} found):
+${signalContext.competitorGaps.slice(0, 5).map((c, i) => `${i+1}. ${c.gap}
+   - Competitor: ${c.competitor}
+   - Source: ${c.source}`).join('\n')}
+
+CRITICAL: Use these LIVE signals from actual customer conversations and market intelligence, not static business descriptions.
+` : '';
 
   // Build context for Opus
   const connectionSummary = topConnections.slice(0, 15).map((conn, i) => ({
@@ -444,7 +510,7 @@ UVP DATA:
 - Target Customer: ${uvpData?.target_customer?.substring(0, 300) || 'Not specified'}
 - Key Benefit: ${uvpData?.key_benefit?.substring(0, 200) || 'Not specified'}
 - Transformation: ${uvpData?.transformation?.substring(0, 200) || 'Not specified'}
-${eqContextBlock}${industryContextBlock}${segmentContextBlock}
+${signalContextBlock}${eqContextBlock}${industryContextBlock}${segmentContextBlock}
 TOP CROSS-PLATFORM CONNECTIONS (sorted by breakthrough score):
 ${JSON.stringify(connectionSummary, null, 2)}
 
@@ -453,20 +519,23 @@ ${JSON.stringify(dataPointSample, null, 2)}
 
 YOUR TASK: Identify the top 10 breakthrough content opportunities that:
 1. Connect insights from 3+ different sources
-2. Address the TARGET CUSTOMER's problems (not the business owner's)
-3. ALIGN with the EQ profile above - use the TOP decision drivers
-4. Match the SEGMENT tone and language guidelines
-5. Use INDUSTRY power words and avoid forbidden words
-6. Can be actioned immediately with specific content angles
+2. Address LIVE MARKET SIGNALS from actual customer conversations above
+3. Focus on BUYING SIGNALS and TEMPORAL OPPORTUNITIES with high urgency
+4. Exploit COMPETITOR GAPS where we have clear advantages
+5. Match the SEGMENT tone and language guidelines
+6. Use INDUSTRY power words and avoid forbidden words
+7. Can be actioned immediately with specific content angles
 
-CRITICAL - CUSTOMER-FIRST FOCUS:
-- The customer is the HERO. The business is the GUIDE.
-- Content should help the TARGET CUSTOMER achieve THEIR goals
-- Example: For insurance software, write for "Insurance Operations Directors" not "OpenDialog"
+V6 CRITICAL - SIGNAL-FIRST FOCUS (V1-style):
+- Use LIVE customer conversations, not static business descriptions
+- Address ACTUAL buying intent: "looking for alternatives", "budget approved", "evaluating options"
+- Leverage TEMPORAL opportunities: Q4 pressure, renewals, seasonal trends
+- Exploit COMPETITOR weaknesses: "Salesforce too complex", "missing features"
+- Example: "Q4 insurance agencies struggling with quote abandonment - here's what Salesforce users are missing"
 
 For each breakthrough, provide:
 1. Breakthrough Theme (2-5 words)
-2. Why It's Powerful (what psychological lever does it pull - MUST align with top EQ drivers)
+2. Why It's Powerful (which customer outcome does it address and which differentiator delivers it)
 3. Sources That Validate It (which platforms confirm this pattern)
 4. Content Angles (3 different ways to write about this)
 5. Best Framework (AIDA for rational, PAS for fear-driven, BAB for transformation, Hook-Story-Offer for emotional)
@@ -545,9 +614,11 @@ async function generateInsightsWithSonnet(
   brandData: any,
   targetCount: number,
   enrichedContext?: EnrichedContext,
-  buzzsumoData?: SynthesisInput['buzzsumoData']
+  buzzsumoData?: SynthesisInput['buzzsumoData'],
+  detectedOutcomes?: DetectedOutcome[],
+  outcomeMappings?: OutcomeDifferentiatorMapping[]
 ): Promise<SynthesizedInsight[]> {
-  console.log('[AI-Synthesizer/Sonnet] Generating insights with Sonnet 4.5...');
+  console.log('[AI-Synthesizer/Sonnet] V6: Generating outcome-driven insights with Sonnet 4.5...');
 
   const insights: SynthesizedInsight[] = [];
 
@@ -585,7 +656,9 @@ async function generateInsightsWithSonnet(
       batch,
       batchSize,
       enrichedContext,
-      buzzsumoData
+      buzzsumoData,
+      detectedOutcomes, // V6: Pass outcomes
+      outcomeMappings // V6: Pass mappings
     );
 
     // Create promise for this batch
@@ -599,7 +672,7 @@ async function generateInsightsWithSonnet(
           },
           body: JSON.stringify({
             provider: 'openrouter',
-            model: 'anthropic/claude-opus-4.5', // 3.5 Sonnet is faster than Sonnet 4
+            model: 'anthropic/claude-opus-4.5', // All synthesis with Opus 4.5
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 4096, // Increased to prevent truncation
             temperature: 0.8
@@ -752,8 +825,7 @@ async function generateInsightsWithSonnet(
 
 /**
  * Build the Sonnet prompt for batch generation
- * V3.1: Enhanced with EQ, Industry Profile, and Segment context
- * Synapse 2.0: Now includes BuzzSumo content performance benchmarks
+ * V6: Enhanced with outcome detection instead of V5 emotional filtering
  */
 function buildSonnetPrompt(
   breakthroughs: any[],
@@ -764,7 +836,9 @@ function buildSonnetPrompt(
   batchNumber: number,
   batchSize: number,
   enrichedContext?: EnrichedContext,
-  buzzsumoData?: SynthesisInput['buzzsumoData']
+  buzzsumoData?: SynthesisInput['buzzsumoData'],
+  detectedOutcomes?: DetectedOutcome[],
+  outcomeMappings?: OutcomeDifferentiatorMapping[]
 ): string {
   const targetCustomer = uvpData?.target_customer || 'business professionals';
   const keyBenefit = uvpData?.key_benefit || 'improved outcomes';
@@ -822,6 +896,18 @@ SEGMENT TONE (${enrichedContext.segment.toUpperCase().replace('_', ' ')}):
 - NEVER mention: ${enrichedContext.segmentGuidelines.avoidAreas.slice(0, 3).join(', ')}
 ` : '';
 
+  // V6: Build outcome context for content generation
+  const outcomeContextBlock = detectedOutcomes ? `
+V6 OUTCOME-DRIVEN CONTENT REQUIREMENTS:
+${detectedOutcomes.map((o, i) => `${i+1}. [${o.type.toUpperCase()}] "${o.statement}" (Urgency: ${o.urgencyScore}/100, Impact: ${o.impactScore}/100)`).join('\n')}
+
+OUTCOME-DIFFERENTIATOR MAPPINGS (USE THESE FOR INSIGHTS):
+${outcomeMappings?.slice(0, 8).map((m, i) => `- Outcome "${detectedOutcomes.find(o => o.id === m.outcomeId)?.statement || 'Unknown'}" → Differentiator (${m.strengthScore}/100 strength)
+  Reasoning: ${m.reasoning}`).join('\n') || 'No mappings available'}
+
+CRITICAL: Every insight MUST address one of these specific customer outcomes. NO generic emotional content.
+` : '';
+
   // V3.1: Build UVP-aligned CTA guidance
   const ctaGuidance = transformation ? `
 UVP-ALIGNED CTAs:
@@ -852,7 +938,7 @@ ${keyBenefit.substring(0, 300)}
 
 TRANSFORMATION PROMISE:
 ${transformation.substring(0, 200)}
-${eqGuidance}${industryGuidance}${segmentGuidance}${ctaGuidance}${buzzsumoGuidance}
+${outcomeContextBlock}${eqGuidance}${industryGuidance}${segmentGuidance}${ctaGuidance}${buzzsumoGuidance}
 BREAKTHROUGH PATTERNS IDENTIFIED:
 ${JSON.stringify(breakthroughs.slice(0, 5), null, 2)}
 
@@ -866,14 +952,15 @@ BATCH INSTRUCTIONS:
 - Each insight MUST have a unique angle - no repetition
 - Psychological triggers MUST align with EQ drivers above
 
-CRITICAL RULES:
-1. CUSTOMER IS HERO - Write for the TARGET CUSTOMER, not the business
-2. NO TEMPLATES - Each title/hook must be completely unique
-3. SPECIFIC > GENERIC - Use actual data points, not vague claims
-4. EQ-ALIGNED - Use psychological triggers that match the EQ profile
-5. INDUSTRY LANGUAGE - Use power words, avoid forbidden words
-6. SEGMENT APPROPRIATE - Match the tone and focus areas
-7. UVP CTAs - Connect every CTA to the transformation promise
+V6 CRITICAL RULES:
+1. OUTCOME-FIRST - Every insight MUST address a specific detected customer outcome above
+2. CUSTOMER IS HERO - Write for the TARGET CUSTOMER achieving THEIR outcomes, not the business
+3. NO TEMPLATES - Each title/hook must be completely unique
+4. SPECIFIC > GENERIC - Use actual data points, not vague claims
+5. MAP TO DIFFERENTIATORS - Connect insights to the strongest outcome-differentiator mappings
+6. INDUSTRY LANGUAGE - Use power words, avoid forbidden words
+7. SEGMENT APPROPRIATE - Match the tone and focus areas
+8. UVP CTAs - Connect every CTA to the transformation promise
 
 FRAMEWORK GUIDELINES:
 - AIDA: Attention → Interest → Desire → Action (best for rational buyers)
@@ -1143,6 +1230,259 @@ export function enhanceInsightsWithVOC(
 
     return insight;
   });
+}
+
+/**
+ * V6: Extract live signals from API data (V1-style approach)
+ * Now enhanced with business purpose context to target the right signals
+ */
+function extractLiveSignals(dataPoints: DataPoint[], brandData: any, uvpData: any, businessPurpose?: BusinessPurpose | null): LiveSignals {
+  const signals: LiveSignals = {
+    buyingSignals: [],
+    temporalOpportunities: [],
+    competitorGaps: [],
+    customerConversations: []
+  };
+
+  // V6: Business purpose-aware buying signal patterns
+  let buyingPatterns = [
+    /looking for.*(?:alternative|replacement|new|better)/i,
+    /switching from|migrating from|moving away from/i,
+    /need(?:s)?\s+(?:a|an|to)/i,
+    /budget.*(?:approved|allocated|available)/i,
+    /evaluating|comparing|considering/i,
+    /quote|proposal|pricing|cost/i,
+    /implementation|deployment|rollout/i,
+    /trial|demo|pilot|poc/i
+  ];
+
+  // Add business purpose-specific patterns
+  if (businessPurpose) {
+    const purposePatterns = getBuyingPatternsForPurpose(businessPurpose);
+    buyingPatterns = [...buyingPatterns, ...purposePatterns];
+  }
+
+  // Temporal opportunity patterns (V1's timing-based triggers)
+  const temporalPatterns = [
+    /q[1-4]|quarter|quarterly/i,
+    /year.?end|eoy|fiscal/i,
+    /deadline|urgent|asap/i,
+    /season|holiday|summer|winter/i,
+    /renewal|contract.*expir/i,
+    /budget.*cycle|planning/i
+  ];
+
+  // Competitor gap patterns (what competitors are missing)
+  const competitorPatterns = [
+    /(?:salesforce|hubspot|pipedrive).*(?:too|difficult|expensive|complex)/i,
+    /wish.*(?:had|offered|supported)/i,
+    /missing|lacking|doesn't have/i,
+    /better.*than/i,
+    /unlike.*competitor/i
+  ];
+
+  dataPoints.forEach(dp => {
+    if (!dp.content || dp.content.length < 20) return;
+
+    const content = dp.content.toLowerCase();
+    const source = dp.source || 'unknown';
+
+    // Extract buying signals (V1 approach: rational intent, not emotional filtering)
+    buyingPatterns.forEach(pattern => {
+      const matches = content.match(pattern);
+      if (matches) {
+        signals.buyingSignals.push({
+          signal: dp.content.substring(0, 200),
+          source,
+          urgency: getSignalUrgency(content),
+          confidence: 0.8
+        });
+      }
+    });
+
+    // Extract temporal opportunities
+    temporalPatterns.forEach(pattern => {
+      const matches = content.match(pattern);
+      if (matches) {
+        signals.temporalOpportunities.push({
+          opportunity: dp.content.substring(0, 200),
+          source,
+          timing: extractTiming(content),
+          relevance: 0.7
+        });
+      }
+    });
+
+    // Extract competitor gaps
+    competitorPatterns.forEach(pattern => {
+      const matches = content.match(pattern);
+      if (matches) {
+        signals.competitorGaps.push({
+          gap: dp.content.substring(0, 200),
+          competitor: extractCompetitor(content),
+          source,
+          advantage: 0.8
+        });
+      }
+    });
+
+    // All meaningful conversations (not filtered by emotion like V5)
+    if (dp.type === 'review' || dp.type === 'forum' || dp.type === 'social') {
+      signals.customerConversations.push({
+        conversation: dp.content.substring(0, 300),
+        source,
+        sentiment: dp.metadata?.sentiment || 'neutral',
+        intent: detectIntent(content)
+      });
+    }
+  });
+
+  return signals;
+}
+
+// Helper functions for signal detection
+function getSignalUrgency(content: string): 'low' | 'medium' | 'high' | 'critical' {
+  if (/urgent|asap|immediate|deadline/i.test(content)) return 'critical';
+  if (/soon|quick|fast|priority/i.test(content)) return 'high';
+  if (/plan|consider|thinking/i.test(content)) return 'medium';
+  return 'low';
+}
+
+function extractTiming(content: string): string {
+  const timingMatch = content.match(/(q[1-4]|quarter|year.?end|fiscal|season|holiday|\d+\s*months?)/i);
+  return timingMatch ? timingMatch[0] : 'general';
+}
+
+function extractCompetitor(content: string): string {
+  const competitorMatch = content.match(/(salesforce|hubspot|pipedrive|marketo|pardot)/i);
+  return competitorMatch ? competitorMatch[0] : 'competitor';
+}
+
+function detectIntent(content: string): string {
+  if (/buy|purchase|price|quote/i.test(content)) return 'purchase';
+  if (/problem|issue|trouble|help/i.test(content)) return 'support';
+  if (/compare|versus|alternative/i.test(content)) return 'evaluation';
+  if (/how.*work|feature|demo/i.test(content)) return 'research';
+  return 'general';
+}
+
+// V6: Generate business purpose-specific buying patterns
+function getBuyingPatternsForPurpose(businessPurpose: BusinessPurpose): RegExp[] {
+  const patterns: RegExp[] = [];
+
+  // Patterns based on product function
+  switch (businessPurpose.productFunction.primary) {
+    case 'automation':
+      patterns.push(
+        /automat.*(?:process|workflow|task)/i,
+        /streamline.*(?:operations|workflow)/i,
+        /reduce.*(?:manual|repetitive)/i,
+        /ai.*(?:agent|assistant)/i
+      );
+      break;
+
+    case 'compliance':
+      patterns.push(
+        /compliance.*(?:solution|software|tool)/i,
+        /regulatory.*(?:requirement|mandate)/i,
+        /audit.*(?:trail|report)/i,
+        /risk.*(?:management|mitigation)/i
+      );
+      break;
+
+    case 'analytics':
+      patterns.push(
+        /analytics.*(?:platform|dashboard)/i,
+        /reporting.*(?:tool|solution)/i,
+        /insight.*(?:platform|engine)/i,
+        /data.*(?:visualization|analysis)/i
+      );
+      break;
+
+    case 'communication':
+      patterns.push(
+        /customer.*(?:service|support)/i,
+        /contact.*(?:center|management)/i,
+        /chat.*(?:bot|platform)/i,
+        /engagement.*(?:platform|tool)/i
+      );
+      break;
+  }
+
+  // Patterns based on customer role
+  switch (businessPurpose.customerRole.department) {
+    case 'sales':
+      patterns.push(
+        /sales.*(?:automation|tool|platform|crm)/i,
+        /lead.*(?:generation|qualification|management)/i,
+        /pipeline.*(?:management|automation)/i,
+        /quota.*(?:attainment|management)/i,
+        /crm.*(?:alternative|replacement|integration)/i
+      );
+      break;
+
+    case 'operations':
+      patterns.push(
+        /operations.*(?:automation|efficiency)/i,
+        /process.*(?:improvement|automation)/i,
+        /workflow.*(?:management|optimization)/i,
+        /productivity.*(?:tool|solution)/i
+      );
+      break;
+
+    case 'marketing':
+      patterns.push(
+        /marketing.*(?:automation|platform)/i,
+        /campaign.*(?:management|automation)/i,
+        /customer.*(?:acquisition|engagement)/i,
+        /attribution.*(?:tracking|analysis)/i
+      );
+      break;
+  }
+
+  // Patterns based on business outcome
+  switch (businessPurpose.businessOutcome.primary) {
+    case 'increase_revenue':
+      patterns.push(
+        /increase.*(?:revenue|sales|conversion)/i,
+        /grow.*(?:business|revenue)/i,
+        /boost.*(?:sales|performance)/i,
+        /revenue.*(?:growth|optimization)/i
+      );
+      break;
+
+    case 'improve_efficiency':
+      patterns.push(
+        /improve.*(?:efficiency|productivity)/i,
+        /save.*(?:time|effort)/i,
+        /optimize.*(?:process|workflow)/i,
+        /eliminate.*(?:waste|manual)/i
+      );
+      break;
+
+    case 'reduce_costs':
+      patterns.push(
+        /reduce.*(?:cost|expense)/i,
+        /save.*(?:money|budget)/i,
+        /cost.*(?:reduction|optimization)/i,
+        /roi.*(?:improvement|optimization)/i
+      );
+      break;
+  }
+
+  // Add industry-specific patterns
+  const industry = businessPurpose.targetIndustry.toLowerCase();
+  if (industry.includes('insurance')) {
+    patterns.push(
+      /insurance.*(?:agent|broker|agency)/i,
+      /policy.*(?:management|administration)/i,
+      /claims.*(?:processing|management)/i,
+      /underwriting.*(?:automation|support)/i,
+      /quote.*(?:generation|management)/i
+    );
+  }
+
+  return patterns;
 }
 
 export const aiInsightSynthesizer = {

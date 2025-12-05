@@ -220,7 +220,7 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
       updateProgress(0, 'Gathering intelligence from multiple APIs...');
 
       const result = await deepContextBuilder.buildDeepContext({
-        brandId,
+        brandId, // Use real brand ID to access actual UVP data for business purpose detection
         brandData: {
           name: businessName,
           industry: brandIndustry,
@@ -243,7 +243,8 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
             state: 'NY'
           }
         },
-        intelligence: intelligence
+        intelligence: intelligence,
+        uvpData: result.context.uvpData // PHASE 15 FIX: Pass UVP data for business purpose detection
       });
 
       console.log(`[Synapse] Found ${insights.synapses.length} breakthrough insights`);

@@ -269,7 +269,10 @@ class BattlecardGeneratorService {
   ): Promise<CompetitorBattlecard | null> {
     const { data, error } = await supabase
       .from('brand_competitor_battlecards')
-      .select('*')
+      .select(`
+        *,
+        competitor_profiles!brand_competitor_battlecards_competitor_id_fkey(name)
+      `)
       .eq('brand_id', brand_id)
       .eq('competitor_id', competitor_id)
       .single();
@@ -278,8 +281,12 @@ class BattlecardGeneratorService {
       return null;
     }
 
+    // Extract competitor name from joined data
+    const competitorName = (data.competitor_profiles as any)?.name || 'Unknown Competitor';
+
     return {
       competitor_id: data.competitor_id,
+      competitor_name: competitorName,
       our_advantages: data.our_advantages || [],
       their_advantages: data.their_advantages || [],
       key_objection_handlers: data.key_objection_handlers || [],
@@ -295,7 +302,10 @@ class BattlecardGeneratorService {
   async loadAllBattlecards(brand_id: string): Promise<Map<string, CompetitorBattlecard>> {
     const { data, error } = await supabase
       .from('brand_competitor_battlecards')
-      .select('*')
+      .select(`
+        *,
+        competitor_profiles!brand_competitor_battlecards_competitor_id_fkey(name)
+      `)
       .eq('brand_id', brand_id);
 
     const map = new Map<string, CompetitorBattlecard>();
@@ -305,8 +315,12 @@ class BattlecardGeneratorService {
     }
 
     for (const row of data) {
+      // Extract competitor name from joined data
+      const competitorName = (row.competitor_profiles as any)?.name || 'Unknown Competitor';
+
       map.set(row.competitor_id, {
         competitor_id: row.competitor_id,
+        competitor_name: competitorName,
         our_advantages: row.our_advantages || [],
         their_advantages: row.their_advantages || [],
         key_objection_handlers: row.key_objection_handlers || [],

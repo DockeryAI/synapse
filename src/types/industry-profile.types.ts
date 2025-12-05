@@ -207,8 +207,8 @@ export interface IndustryProfile {
 
   // Psychology profile (hidden from users)
   psychologyProfile: {
-    primaryTriggers: EmotionalTriggerType[]; // Most effective triggers
-    secondaryTriggers: EmotionalTriggerType[];
+    primaryTriggers: string[]; // V5 REMOVED: EmotionalTriggerType[] - use V1 psychology principles
+    secondaryTriggers: string[]; // V5 REMOVED: EmotionalTriggerType[] - use V1 psychology principles
     buyerJourneyStage: 'awareness' | 'consideration' | 'decision'; // Typical stage
     decisionDrivers: string[]; // What makes them choose
     urgencyLevel: 'low' | 'medium' | 'high'; // How much urgency to use
@@ -231,7 +231,7 @@ export interface ContentTheme {
   examples: string[];
 
   // Psychology (hidden)
-  primaryEmotion: EmotionalTriggerType;
+  primaryEmotion: string; // V5 REMOVED: EmotionalTriggerType - use V1 psychology principles
   conversionPotential: 'low' | 'medium' | 'high';
 }
 

@@ -29,6 +29,7 @@ import { connectionDiscoveryService } from './connection-discovery.service';
 import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import { redditAPI } from './reddit-apify-api';
 import { aiInsightSynthesizer } from './ai-insight-synthesizer.service';
+import { generateTrendQueries, getQueriesForType, type GeneratedQuery } from '@/services/trends/uvp-query-generator.service';
 // V3 FIX: Atomizer DISABLED - it creates fake title variations, not genuine insights
 // import { insightAtomizer } from './insight-atomizer.service';
 import { apifySocialScraper } from './apify-social-scraper.service';
@@ -36,6 +37,8 @@ import { competitorStreamingManager } from './competitor-streaming-manager';
 import { contentSynthesisOrchestrator, type BusinessSegment as OrchestratorSegment, type EnrichedContext } from './content-synthesis-orchestrator.service';
 import { generateSynapses, type SynapseInput } from '@/services/synapse-v6/SynapseGenerator';
 import { frameworkLibrary, type FrameworkType } from '@/services/synapse-v6/generation/ContentFrameworkLibrary';
+// V1 WIRING: Import outcome detection for customer-outcome-aware queries
+import { outcomeDetectionService, type DetectedOutcome, type OutcomeDetectionResult } from '@/services/synapse-v6/outcome-detection.service';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
 import type { DataPoint, DataSource, DataPointType, BusinessSegment, InsightDimensions, ContentPillar } from '@/types/connections.types';
 
@@ -44,6 +47,7 @@ export interface StreamingConfig {
   businessType?: 'local' | 'b2b-national' | 'b2b-global';
   cacheResults?: boolean;
   forceFresh?: boolean;
+  clearCache?: boolean; // PHASE 15: Clear cache before starting
 }
 
 export interface StreamingProgress {
@@ -96,6 +100,10 @@ export class StreamingDeepContextBuilder {
   private sourceValidationCounts: Map<string, Map<string, number>> = new Map(); // painPoint -> source -> count
   private competitorMentions: Map<string, { count: number; sentiment: 'positive' | 'negative' | 'neutral'; mentions: string[] }> = new Map();
   private timingContext: { season?: string; events?: string[]; weather?: string; urgencyReason?: string } = {};
+  // PHASE 15: Business Purpose-Aware Queries
+  private contextualQueries: GeneratedQuery[] = []; // Business purpose detection queries
+  // V1 WIRING: Store detected customer outcomes for query building
+  private detectedOutcomes: DetectedOutcome[] = [];
 
   // FREEZE FIX: Batch progress notifications to prevent 15+ context rebuilds
   // Problem: Each API completion was calling buildContextFromDataPoints (expensive ~500ms each)
@@ -237,6 +245,37 @@ export class StreamingDeepContextBuilder {
       console.log(`[Streaming/uvp] ✅ UVP LOADED SUCCESSFULLY - APIs will use targeted searches`);
       console.log(`[Streaming/uvp] Target Customer: "${this.uvpData.target_customer?.substring(0, 80)}..."`);
       console.log(`[Streaming/uvp] Pain Points Available: ${this.uvpData.transformation ? 'YES' : 'NO'}`);
+
+      // PHASE 15: Generate Business Purpose-Aware Queries
+      try {
+        // Convert legacy UVP format to CompleteUVP format for business purpose detection
+        const completeUVP = this.convertLegacyUVPToComplete(this.uvpData);
+        this.contextualQueries = generateTrendQueries(completeUVP);
+
+        console.log(`[Streaming/uvp] ✅ GENERATED ${this.contextualQueries.length} BUSINESS PURPOSE-AWARE QUERIES`);
+        console.log(`[Streaming/uvp] Sample queries:`,
+          this.contextualQueries.slice(0, 3).map(q => q.query)
+        );
+
+        // V1 WIRING: Detect customer outcomes from UVP profiles
+        const outcomeResult = outcomeDetectionService.detectOutcomes(completeUVP);
+        this.detectedOutcomes = outcomeResult.outcomes;
+
+        console.log(`[V1 WIRING] ✅ DETECTED ${this.detectedOutcomes.length} CUSTOMER OUTCOMES`);
+        if (this.detectedOutcomes.length > 0) {
+          console.log(`[V1 WIRING] Top 3 outcomes by impact:`);
+          const topOutcomes = [...this.detectedOutcomes]
+            .sort((a, b) => b.impactScore - a.impactScore)
+            .slice(0, 3);
+          topOutcomes.forEach((o, i) => {
+            console.log(`  ${i + 1}. [${o.type}] ${o.statement.substring(0, 60)}... (impact: ${o.impactScore}, urgency: ${o.urgencyScore})`);
+          });
+        }
+      } catch (err) {
+        console.warn(`[Streaming/uvp] ⚠️ Business purpose query generation failed:`, err);
+        this.contextualQueries = []; // Fall back to empty array
+        this.detectedOutcomes = []; // V1 WIRING: Clear outcomes on error
+      }
     } else {
       console.warn(`[Streaming/uvp] ⚠️ NO UVP DATA FOUND - Attempting recovery from session table...`);
 
@@ -424,8 +463,9 @@ export class StreamingDeepContextBuilder {
 
           console.log(`[Streaming] V3 PARALLEL: Enriched context built - EQ: ${enrichedContext.eqProfile.emotional_weight}%`);
 
-          // Run AI Insight Synthesizer with enriched context
-          // V3 FIX: No slice limits - pass ALL connections
+          // V6: AI Insight Synthesizer now uses live signal detection internally
+          // No static UVP parsing needed - signals extracted from API data points
+
           const synthesizedInsights = await aiInsightSynthesizer.synthesizeInsights({
             connections: allConnections,
             dataPoints: this.dataPoints,
@@ -433,6 +473,7 @@ export class StreamingDeepContextBuilder {
             brandData: this.brandData,
             targetCount: 500,
             enrichedContext
+            // V6: No static outcomes passed - synthesizer detects live signals from dataPoints
           });
           return synthesizedInsights;
         } catch (err) {
@@ -606,6 +647,12 @@ export class StreamingDeepContextBuilder {
       this.currentContext!.synthesis.hiddenPatterns = preservedHiddenPatterns;
 
       console.log(`[Streaming] ✓ Preserved after rebuild: ${preservedRawDataPoints.length} rawDataPoints, ${preservedCorrelatedInsights.length} correlatedInsights, ${preservedBreakthroughs.length} breakthroughs, ${preservedHiddenPatterns.length} patterns`);
+
+      // PHASE 15 FIX: Include UVP data for business purpose detection
+      this.currentContext!.uvpData = this.uvpData;
+
+      // V1 WIRING: Include detected outcomes for query targeting
+      this.currentContext!.detectedOutcomes = this.detectedOutcomes;
     }
 
     // Final progress update
@@ -1177,6 +1224,82 @@ export class StreamingDeepContextBuilder {
     return words || 'business';
   }
 
+  /**
+   * PHASE 15: Convert legacy UVP format to CompleteUVP format for business purpose detection
+   */
+  private convertLegacyUVPToComplete(uvpData: any): any {
+    return {
+      // Core value proposition
+      valuePropositionStatement: uvpData.complete_statement || '',
+
+      // Target customer information
+      targetCustomer: {
+        statement: uvpData.target_customer || '',
+        role: uvpData.target_customer || '',
+        industry: this.brandData.industry || '',
+        companySize: '', // Not available in legacy format
+        emotionalDrivers: [],
+        functionalDrivers: [],
+        evidenceQuotes: [],
+        marketGeography: {
+          headquarters: '',
+          primaryRegions: [],
+          focusMarkets: []
+        }
+      },
+
+      // Key benefit
+      keyBenefit: {
+        statement: uvpData.key_benefit || '',
+        outcomeStatement: uvpData.transformation?.split('→')[1]?.trim() || ''
+      },
+
+      // Transformation goal
+      transformationGoal: {
+        statement: uvpData.transformation || '',
+        who: uvpData.target_customer || '',
+        before: uvpData.transformation?.split('→')[0]?.trim() || '',
+        after: uvpData.transformation?.split('→')[1]?.trim() || '',
+        how: uvpData.unique_solution || '',
+        why: uvpData.key_benefit || '',
+        emotionalDrivers: [],
+        functionalDrivers: [],
+        customerQuotes: []
+      },
+
+      // Unique solution
+      uniqueSolution: {
+        statement: uvpData.unique_solution || '',
+        methodology: uvpData.unique_mechanism || '',
+        proprietaryApproach: '',
+        differentiators: uvpData.proof_points ? [
+          {
+            statement: uvpData.proof_points,
+            evidence: '',
+            category: 'proof'
+          }
+        ] : []
+      },
+
+      // Products/Services - construct from brand data
+      productsServices: {
+        categories: [
+          {
+            name: this.brandData.name || 'Product',
+            description: uvpData.unique_solution || this.brandData.description || '',
+            items: [
+              {
+                name: this.brandData.name || 'Primary Product',
+                description: uvpData.key_benefit || '',
+                category: this.brandData.industry || 'Business Solution'
+              }
+            ]
+          }
+        ]
+      }
+    };
+  }
+
   // ============================================================================
   // API FETCH METHODS - Each runs independently
   // ============================================================================
@@ -1208,11 +1331,28 @@ export class StreamingDeepContextBuilder {
       customerProblem: customerProblem.substring(0, 100)
     });
 
+    // PHASE 15: Use business purpose-aware queries for Serper search
+    let searchTerms: string[];
+    if (this.contextualQueries.length > 0) {
+      // Use search and news contextual queries from business purpose detection
+      const searchQueries = getQueriesForType(this.contextualQueries, 'search');
+      const newsQueries = getQueriesForType(this.contextualQueries, 'news');
+      searchTerms = [
+        ...searchQueries.slice(0, 2).map(q => q.query),
+        ...newsQueries.slice(0, 1).map(q => q.query)
+      ];
+      console.log(`[Streaming/serper] ✅ Using BUSINESS PURPOSE-AWARE search terms:`, searchTerms);
+    } else {
+      // Fallback to old method
+      searchTerms = [`${customerSearchTerm} challenges problems`, customerSearchTerm, `${customerSearchTerm} how to`];
+      console.log(`[Streaming/serper] ⚠️ Fallback to legacy search terms:`, searchTerms);
+    }
+
     // Parallel Serper calls - searching for CUSTOMER pain points and needs
     const [newsResult, trendsResult, autocompleteResult] = await Promise.allSettled([
-      SerperAPI.getNews(`${customerSearchTerm} challenges problems`, undefined),
-      SerperAPI.getTrends(customerSearchTerm),
-      SerperAPI.getAutocomplete(`${customerSearchTerm} how to`)
+      SerperAPI.getNews(searchTerms[0] || `${customerSearchTerm} challenges problems`, undefined),
+      SerperAPI.getTrends(searchTerms[1] || customerSearchTerm),
+      SerperAPI.getAutocomplete(searchTerms[2] || `${customerSearchTerm} how to`)
     ]);
 
     if (newsResult.status === 'fulfilled') {
@@ -3218,8 +3358,18 @@ export class StreamingDeepContextBuilder {
       const relevantSubreddits = await this.getRelevantSubredditsForUVP(uvpIndustry);
       console.log(`[Streaming/reddit] Mining ${relevantSubreddits.length} subreddits for customer pain points:`, relevantSubreddits);
 
-      // Build search queries from UVP pain points
-      const searchQueries = this.buildRedditSearchQueries(customerTerm, transformation, uvpIndustry);
+      // PHASE 15: Use business purpose-aware queries for Reddit search
+      let searchQueries: string[];
+      if (this.contextualQueries.length > 0) {
+        // Use social/reddit contextual queries from business purpose detection
+        const socialQueries = getQueriesForType(this.contextualQueries, 'social');
+        searchQueries = socialQueries.map(q => q.query).slice(0, 3);
+        console.log(`[Streaming/reddit] ✅ Using BUSINESS PURPOSE-AWARE queries:`, searchQueries);
+      } else {
+        // Fallback to old method
+        searchQueries = this.buildRedditSearchQueries(customerTerm, transformation, uvpIndustry);
+        console.log(`[Streaming/reddit] ⚠️ Fallback to legacy queries:`, searchQueries.slice(0, 3));
+      }
       console.log(`[Streaming/reddit] Running ${Math.min(3, searchQueries.length)} targeted searches IN PARALLEL`);
 
       // CRITICAL FIX: Run all 3 Reddit queries in PARALLEL instead of sequential

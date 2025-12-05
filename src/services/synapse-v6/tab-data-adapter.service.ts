@@ -16,6 +16,38 @@ import type { InsightTab } from './brand-profile.service';
 import type { Insight, TriggerInsight, ProofInsight, TrendInsight, CompetitorInsight, LocalInsight } from '@/components/v5/InsightCards';
 
 /**
+ * V6 VOC FIX: Source weighting - prioritize real customer reviews over articles
+ * Reviews from G2/Capterra/Yelp get highest weight, then Twitter execs, then Reddit, then articles
+ */
+function getSourceWeight(apiName: string): number {
+  const weights: Record<string, number> = {
+    // Review platforms - highest priority (actual customer quotes)
+    'apify-g2': 100,
+    'apify-capterra': 100,
+    'apify-trustradius': 100,
+    'apify-trustpilot': 95,
+    'apify-yelp': 95,
+    'apify-amazon': 90,
+    'google-maps': 90,
+    'outscraper': 85,
+    // Twitter/social exec voices - high priority
+    'apify-twitter': 85,
+    'apify-linkedin': 80,
+    // Professional communities - medium-high
+    'reddit-professional': 75,
+    'hackernews': 70,
+    // Generic Reddit (can have noise)
+    'reddit': 50,
+    // Articles/research - lower priority for VoC
+    'perplexity': 40,
+    'newsapi': 30,
+    'serper': 25,
+    // Default for unknown sources
+  };
+  return weights[apiName] ?? 20;
+}
+
+/**
  * Convert V6 tab data to legacy Insight format
  */
 export function adaptTabToInsights(tabData: TabData): Insight[] {
@@ -37,14 +69,26 @@ export function adaptTabToInsights(tabData: TabData): Insight[] {
 
     const adapted = adaptApiResult(result, tabData.tab);
     if (adapted && adapted.length > 0) {
-      console.log(`[TabDataAdapter] ${result.apiName} produced ${adapted.length} insights`);
+      // V6 VOC FIX: Add source weight to each insight for sorting
+      const weight = getSourceWeight(result.apiName);
+      adapted.forEach((insight) => {
+        (insight as Insight & { _sourceWeight?: number })._sourceWeight = weight;
+      });
+      console.log(`[TabDataAdapter] ${result.apiName} produced ${adapted.length} insights (weight: ${weight})`);
       insights.push(...adapted);
     } else {
       console.log(`[TabDataAdapter] ${result.apiName} produced no insights`);
     }
   }
 
-  console.log(`[TabDataAdapter] Total insights for ${tabData.tab}: ${insights.length}`);
+  // V6 VOC FIX: Sort by source weight (reviews first, articles last)
+  insights.sort((a, b) => {
+    const weightA = (a as Insight & { _sourceWeight?: number })._sourceWeight ?? 0;
+    const weightB = (b as Insight & { _sourceWeight?: number })._sourceWeight ?? 0;
+    return weightB - weightA;
+  });
+
+  console.log(`[TabDataAdapter] Total insights for ${tabData.tab}: ${insights.length} (sorted by source weight)`);
   return insights;
 }
 
@@ -121,7 +165,138 @@ function extractItems(data: unknown): unknown[] {
 }
 
 /**
+ * Check if content is relevant to business/enterprise topics
+ * Filters out random consumer garbage (neighbors, landlords, personal issues)
+ */
+function isRelevantVoCContent(title: string, content: string): boolean {
+  const combined = `${title} ${content}`.toLowerCase();
+
+  // Garbage patterns - definitely NOT business-relevant
+  const garbagePatterns = [
+    /\b(landlord|tenant|neighbor|neighbour|roommate|apartment)\b/,
+    /\b(bass|guitar|music|noise|loud)\b/,
+    /\b(police|arrest|crime|murder|killed)\b/,
+    /\b(boyfriend|girlfriend|husband|wife|married|dating|relationship)\b/,
+    /\b(kids|children|baby|toddler|school|homework)\b/,
+    /\b(food|recipe|cooking|restaurant|dinner|lunch)\b/,
+    /\b(movie|show|tv|netflix|game|gaming|anime)\b/,
+    /\b(pet|dog|cat|animal)\b/,
+    /\b(reddit|subreddit|upvote|downvote|karma)\b/,
+    /\[removed\]|\[deleted\]/,
+  ];
+
+  // Check for garbage
+  for (const pattern of garbagePatterns) {
+    if (pattern.test(combined)) {
+      return false;
+    }
+  }
+
+  // Business relevance signals (at least one should be present)
+  const businessPatterns = [
+    /\b(software|saas|platform|tool|solution|product|service)\b/,
+    /\b(business|company|enterprise|startup|agency|firm)\b/,
+    /\b(customer|client|user|buyer|prospect|lead)\b/,
+    /\b(sales|marketing|revenue|growth|roi|conversion)\b/,
+    /\b(automation|ai|artificial intelligence|machine learning)\b/,
+    /\b(compliance|regulation|audit|security|privacy)\b/,
+    /\b(insurance|healthcare|finance|legal|tech|technology)\b/,
+    /\b(workflow|process|efficiency|productivity)\b/,
+    /\b(review|feedback|testimonial|experience)\b/,
+    /\b(problem|challenge|issue|pain point|frustration)\b/,
+  ];
+
+  for (const pattern of businessPatterns) {
+    if (pattern.test(combined)) {
+      return true;
+    }
+  }
+
+  // If no business signal and content is too short, reject
+  if (combined.length < 100) {
+    return false;
+  }
+
+  // Default: allow if no garbage detected (might be relevant)
+  return true;
+}
+
+/**
+ * V6 VOC FIX: Extract meaningful theme/topic from customer quote content
+ * Creates a descriptive title like "Integration Frustration" or "Pricing Concerns"
+ */
+function extractQuoteTheme(content: string): string {
+  const lowerContent = content.toLowerCase();
+
+  // Pain point themes
+  if (/\b(hate|frustrat|annoying|terrible|awful|worst)\b/i.test(lowerContent)) {
+    if (/\b(integrat|api|connect)\b/i.test(lowerContent)) return 'Integration Frustration';
+    if (/\b(slow|speed|performance|lag)\b/i.test(lowerContent)) return 'Performance Issues';
+    if (/\b(support|help|response)\b/i.test(lowerContent)) return 'Support Frustration';
+    if (/\b(price|cost|expensive|billing)\b/i.test(lowerContent)) return 'Pricing Concerns';
+    if (/\b(ui|ux|interface|design|confus)\b/i.test(lowerContent)) return 'UX Frustration';
+    return 'Customer Frustration';
+  }
+
+  // Switching signals
+  if (/\b(switch|moved? from|replaced?|migrat)\b/i.test(lowerContent)) {
+    return 'Switching Decision';
+  }
+
+  // Wish/unmet needs
+  if (/\b(wish|would be nice|if only|lacks?|missing|need)\b/i.test(lowerContent)) {
+    return 'Unmet Need';
+  }
+
+  // Positive themes
+  if (/\b(love|amazing|best|great|excellent|fantastic)\b/i.test(lowerContent)) {
+    if (/\b(support|team|help)\b/i.test(lowerContent)) return 'Support Praise';
+    if (/\b(easy|simple|intuitive)\b/i.test(lowerContent)) return 'Ease of Use';
+    if (/\b(save|time|efficient)\b/i.test(lowerContent)) return 'Time Savings';
+    return 'Customer Success';
+  }
+
+  // Topic-based themes
+  if (/\b(onboard|setup|implement)\b/i.test(lowerContent)) return 'Onboarding Experience';
+  if (/\b(feature|functionality|capability)\b/i.test(lowerContent)) return 'Feature Feedback';
+  if (/\b(roi|value|worth|investment)\b/i.test(lowerContent)) return 'ROI Assessment';
+  if (/\b(ai|automat|chatbot|agent)\b/i.test(lowerContent)) return 'AI Capability';
+  if (/\b(enterprise|scale|growth)\b/i.test(lowerContent)) return 'Enterprise Experience';
+
+  return 'Customer Insight';
+}
+
+/**
+ * V6 VOC FIX: Extract the actual quote portion from content
+ * Looks for quoted text or uses first sentence as the quote
+ */
+function extractQuoteText(content: string): { quote: string; context: string } {
+  // Look for text in quotation marks
+  const quoteMatch = content.match(/"([^"]{20,300})"/);
+  if (quoteMatch) {
+    const beforeQuote = content.substring(0, content.indexOf(quoteMatch[0])).trim();
+    const afterQuote = content.substring(content.indexOf(quoteMatch[0]) + quoteMatch[0].length).trim();
+    return {
+      quote: quoteMatch[1],
+      context: (beforeQuote || afterQuote).substring(0, 100),
+    };
+  }
+
+  // Fallback: Use first meaningful sentence as quote
+  const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 30);
+  if (sentences.length > 0) {
+    return {
+      quote: sentences[0].trim(),
+      context: sentences.slice(1).join('. ').substring(0, 100),
+    };
+  }
+
+  return { quote: content.substring(0, 300), context: '' };
+}
+
+/**
  * Adapt Voice of Customer data to Trigger insights
+ * V6 VOC FIX: Now extracts actual customer quotes with descriptive titles
  */
 function adaptVoCData(data: unknown, apiName: string): TriggerInsight[] {
   const items = extractItems(data);
@@ -130,24 +305,51 @@ function adaptVoCData(data: unknown, apiName: string): TriggerInsight[] {
   if (items.length === 0) return [];
 
   const insights: TriggerInsight[] = [];
+  let filtered = 0;
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
 
     const record = item as Record<string, unknown>;
 
-    // Extract meaningful content
-    const title = String(record.title || record.headline || record.name || record.query || 'Customer Insight');
-    const content = String(record.content || record.text || record.review || record.snippet || record.description || record.body || '');
+    // Extract raw content - prioritize review/quote text over title
+    const rawContent = String(
+      record.review || // Actual review text (G2, Capterra)
+      record.text || // Generic text field
+      record.content || // Content field
+      record.snippet || // Search snippet
+      record.description || // Description
+      record.body || // Body text
+      ''
+    );
+
+    // Get source title as fallback
+    const sourceTitle = String(record.title || record.headline || record.name || '');
 
     // Skip items with no meaningful content
-    if (!content && !title) continue;
+    if (!rawContent && !sourceTitle) continue;
 
+    // The actual content to analyze
+    const contentToUse = rawContent || sourceTitle;
+
+    // V6 FIX: Filter out irrelevant consumer garbage
+    if (!isRelevantVoCContent(sourceTitle, contentToUse)) {
+      filtered++;
+      continue;
+    }
+
+    // V6 VOC FIX: Extract quote and generate descriptive title
+    const { quote, context } = extractQuoteText(contentToUse);
+    const themeTitle = extractQuoteTheme(contentToUse);
+
+    // Build the insight with quote-focused display
+    // Title = Descriptive theme (e.g., "Integration Frustration")
+    // Text = Actual customer quote
     insights.push({
       id: `voc-${apiName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'trigger',
-      title: title.substring(0, 200),
-      text: content.substring(0, 500),
+      title: themeTitle,
+      text: `"${quote}"${context ? `\n\n${context}` : ''}`,
       sourceTab: 'voc',
       source: {
         name: String(record.source || record.platform || record.site || apiName),
@@ -158,6 +360,11 @@ function adaptVoCData(data: unknown, apiName: string): TriggerInsight[] {
     });
   }
 
+  if (filtered > 0) {
+    console.log(`[adaptVoCData] ${apiName}: filtered ${filtered} irrelevant items`);
+  }
+
+  console.log(`[adaptVoCData] ${apiName}: returning ${insights.length} quote insights`);
   return insights;
 }
 

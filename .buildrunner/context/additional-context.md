@@ -370,8 +370,122 @@ The V1 mechanics work identically for B2B, but data sources change:
 
 ---
 
+## VoC Intelligence Drift Analysis
+
+### Where We're Aligned
+- **Psychology principles exist** - V6 has the 9 principles from V1
+- **Industry intelligence present** - V6 has industry profiles and customer data
+- **UVP extraction working** - V6 captures business differentiators
+
+### Critical Drift Points
+
+#### 1. Signal Detection Replacement
+**V1 Good**: 50+ real-time signals (weather alerts, trending topics, Reddit discussions, competitor gaps)
+**V6 Bad**: Static keyword matching from UVP fields
+**Loss**: No temporal relevance, no competitive opportunities, no customer conversations
+
+#### 2. Outcome vs Framework Priority
+**V1 Good**: "Customer wants to avoid freeze damage" → Generate preventive content
+**V6 Bad**: "Customer fits B2B segment" → Route to Hook-Story-Offer framework
+**Loss**: Content answers framework requirements, not customer needs
+
+#### 3. Buying Signal Detection
+**V1 Good**: Extracted pain points and desired outcomes from reviews, discussions, search data
+**V6 Bad**: Extracts keywords from business description and routes through psychology patterns
+**Loss**: We generate psychology-enhanced keywords instead of addressing real customer goals
+
+#### 4. VoC Intelligence Purpose
+**V1 Good**: 4 distinct categories feeding different content needs (SEO, Social, Reviews, Thought Leadership)
+**V6 Bad**: Unified orchestrator returning generic "Voice of Customer" insights
+**Loss**: Context-specific intelligence for different marketing channels
+
+### The Core Problem
+**V1 Good**: Asked "What outcome is this customer trying to achieve?"
+**V6 Bad**: Asks "What framework should we use for this segment?"
+
+### How We Get Back on Course
+
+#### 1. Restore Outcome Detection (Immediate)
+- Parse VoC for actual customer goals ("increase revenue", "reduce costs", "avoid compliance issues")
+- Map outcomes to business differentiators
+- Generate content addressing the outcome, not the keyword
+
+#### 2. Resurrect Signal Processing (Next)
+- Add real-time signals: trending topics, local news, competitive gaps
+- Score signals by urgency and customer match
+- Use signals to identify buying moments, not content frameworks
+
+### Recovery Strategy: Outcome-First Architecture
+
+**Core Strategy**: Outcomes First → Map to Differentiators → Generate Targeted Content
+
+**Implementation Flow**:
+1. **Parse Customer Profiles** - Extract actual goals ("reduce audit time", "increase conversion rates")
+2. **Map to UVP Differentiators** - Connect outcomes to unique advantages with strength scores
+3. **Add Industry Context** - Layer urgency triggers, seasonal patterns, competitive gaps
+4. **Generate Outcome Queries** - API calls targeting conversations about specific business outcomes
+5. **Store in Database** - Persist outcome mappings to customer profile for future content
+
+**Database Schema**:
+- `customer_outcomes` table - Core outcome data, UVP alignment, query generation
+- `outcome_signal_mapping` table - Track which APIs/signals match which outcomes
+- `buyer_personas` updates - Add desired outcomes and differentiator match scores
+
+**VoC Tab Experience**: Single tab with outcome-based insights:
+- Industry badges (Professional Services, Local, E-commerce, etc.)
+- Outcome categories (Efficiency, Revenue, Compliance, Cost Reduction)
+- Signal cards showing: Customer Goal → Your Advantage → Content Opportunity
+
+**Key Difference**:
+- **Before**: "Insurance CRM software" (keywords)
+- **After**: "Reduce quote abandonment" (outcome) + "AI lead recovery" (differentiator) = targeted business conversations
+
+**Bottom Line**: We turned V1's customer-outcome engine into V6's framework-routing system. We need to flip it back - signals first, outcomes second, frameworks last.
+
+---
+
+## VoC Query Targeting Crisis: Business Purpose Detection Gap
+
+### The Core Issue
+OpenDialog's VoC tab shows compliance content instead of sales automation signals because the system lacks a **business purpose detection layer**.
+
+**Current Broken Flow:**
+```
+UVP Text → Industry Detection ("insurance") → Query Generation ("insurance trends")
+Result: Compliance/regulatory content ❌
+```
+
+**Required Fix:**
+```
+UVP Text → Industry + Product Function → Business Purpose → Contextual Queries
+Result: Sales automation content for insurance companies ✅
+```
+
+### Root Cause Analysis
+The query generation system (uvp-query-generator.service.ts, serper-collector.ts, reddit-collector.ts) has a critical gap:
+
+1. **Missing Business Context**: System sees "insurance" and searches for "insurance news" - doesn't understand OpenDialog sells TO insurance companies
+2. **No Product Function Detection**: Doesn't distinguish between "compliance software FOR insurance" vs "sales automation sold TO insurance companies"
+3. **Customer Role Blindness**: Searches for industry trends instead of operational challenges faced by insurance sales teams
+
+### The Fix Required
+Add business purpose detection that determines:
+- **Product Function**: What does this software actually DO? (automation, compliance, analytics, etc.)
+- **Customer Role**: Who in the organization buys this? (sales teams, compliance officers, operations)
+- **Business Outcome**: What customer problem does it solve? (increase revenue, reduce costs, ensure compliance)
+
+For OpenDialog specifically:
+- Product Function: Conversational AI (automation/efficiency)
+- Customer Role: Insurance sales teams (not compliance officers)
+- Business Purpose: Help insurance companies sell more (not manage compliance)
+- Correct Queries: "insurance sales automation", "AI agents insurance sales", "contact center efficiency"
+
+This pattern applies to all B2B vertical SaaS - without business purpose detection, the system will always find industry compliance content instead of operational improvement signals.
+
+---
+
 ## Current Build Plan
-See: `.buildrunner/synapse6-build-plan.md`
+See: `.buildrunner/builds/BUILD_synapse6.md`
 
 ---
 *This file persists across build plans and provides background context for Claude.*

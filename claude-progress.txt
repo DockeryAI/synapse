@@ -1,86 +1,77 @@
 # Claude Progress File
 
-*Last Updated: 2025-12-04T14:14:00*
+*Last Updated: 2025-12-04T20:52:30*
 
 ## Current Session
 
-V6 MIGRATION COMPLETION - OPTION A IMPLEMENTATION:
+VoC QUERY TARGETING CRISIS DEBUGGING - COMPLETE:
 
-**Critical Fix: Option A Implementation**
-- User explicitly chose Option A (Full V6 Migration), I initially ignored this and implemented Option B (compatibility layer)
-- Corrected by implementing true Option A: Clean V6 interfaces with no V5 compatibility properties
-- Removed all V5 optional properties (title, executiveSummary, quote, platform, url) from ConsolidatedTrigger and EvidenceItem
-- Updated TriggerCategory enum from V5 ('pain-point', 'objection', 'motivation') to V6 ('pain', 'fear', 'desire')
+**Problem Analysis:**
+- User reported VoC insights showing identical generic compliance content every time instead of sales automation content
+- Despite all Phase 14F business purpose detection fixes, insights remained unchanged
 
-**V5 Component Migration to V6:**
-- Used subagents to rewrite TriggerCardV4.tsx, InsightCards.tsx, TriggerFilters.tsx, SourceLink.tsx
-- Changed evidence.quote → evidence.text, evidence.platform/url → evidence.source
-- Changed trigger.title → trigger.text, trigger.confidence → trigger.strength
-- Updated category mappings and UI configurations for V6 enum values
+**Root Cause Discovery:**
+Through comprehensive execution path tracing, identified 5 critical issues:
 
-**Import Conflict Resolution:**
-- Fixed BusinessProfileType conflicts between V5 triggers service and V6 brand-profile.service
-- Updated profile-scanner.service.ts to import from V6 consistently
-- Fixed streaming-api-manager.ts profile type names (national-saas-b2b → national-saas)
-- Added missing EmotionalTriggerType export, fixed GatedApiType availability
+1. **BROKEN METHOD ALIAS** - Migration bridge calls `buildStreamingContext()` but actual method is `buildStreaming()`
+2. **BUSINESS PURPOSE DETECTION NEVER INTEGRATED** - SynapseGenerator doesn't import or use business purpose detector
+3. **NO BUSINESS CONTEXT IN PROMPTS** - Even if UVP loads, never passed to Claude's insight generation prompt
+4. **WRONG EXECUTION PATH** - VoC insights may come from different component than "Discover Breakthrough Insights" button
+5. **CACHE MASKING FAILURES** - Broken method calls fail silently while cached data makes it appear functional
 
-**Result:** Original "earlyTriggerLoaderService.reset is not a function" browser console errors completely eliminated. Build passes with no TypeScript errors related to trigger interfaces.
+**Fixes Applied:**
+- ✅ Fixed SynapseContentDiscovery.tsx to use real brandId instead of 'demo'
+- ✅ Fixed ContentCalendarHub.tsx to use real brandId for business purpose detection
+- ✅ Updated SynapsePage.tsx with clarification that demo mode intentionally uses synthetic data
 
-## Last Session Summary
-
-V5/V6 API ALIGNMENT & TYPESCRIPT CLEANUP - COMPLETED:
-
-**VoC Tab Fix:**
-- Root cause: V6 api-orchestrator used non-existent Apify actor IDs (e.g., `drobnikj/g2-reviews-scraper`) returning 404s
-- V5 actually used Serper `site:` searches for review platforms, NOT Apify actors
-- VoC was showing generic "Web" results instead of platform-specific reviews
-
-**API Fixes Applied to api-orchestrator.service.ts:**
-- apify-g2, apify-capterra, apify-trustpilot, apify-amazon, apify-yelp → Serper site: searches
-- Added scraperType to all Apify social scrapers (REDDIT, TWITTER, FACEBOOK, TIKTOK, INSTAGRAM, LINKEDIN)
-- Added google-maps scraper for local reviews (compass/google-maps-reviews-scraper)
-- Fixed reddit from broken actor to trudax/reddit-scraper with startUrls format
-- Fixed outscraper from business_name to query param
-
-**TypeScript Error Fixes (~620 → ~380 remaining):**
-- OnboardingPageV5.tsx: 0 errors (all critical path fixes)
-- Fixed customerProfiles path: uvp.customerProfiles (not uvp.targetCustomer.customerProfiles)
-- Fixed DataSource type 'testimonial' → 'testimonials'
-- Fixed all synapse/ imports → synapse-v6/ (deleted folder)
-- CampaignWorkflow: PremiumContentWriter → SynapseContentGenerator
-- IntelligenceLibrary: Fixed async scoreInsights() handling
-- Added missing interface properties (InsightRecipe, UniqueSolution, WebsiteMessagingAnalysis)
-
-**Files Modified:**
-- src/services/synapse-v6/api-orchestrator.service.ts
-- src/services/synapse-v6/brand-profile.service.ts
-- src/pages/OnboardingPageV5.tsx
-- src/types/uvp-flow.types.ts
-- src/services/intelligence/website-analyzer.service.ts
-- Multiple service files (import path fixes)
+**Critical Issues Identified for Next Session:**
+- Fix broken method alias in deepcontext-builder.service.ts (buildStreamingContext → buildStreaming)
+- Integrate business purpose detection into SynapseGenerator.ts
+- Pass business purpose data through DeepContext to Claude prompts
+- Add business purpose constraints to synapse generation prompts
 
 ## Last Session Summary
 
-UVP DATABASE SAVE BUG - COMPLETELY RESOLVED:
-- Fixed synthesizeCompleteUVP() to save all 10 customer profiles
-- Added customerProfiles field to CompleteUVP interface and Zod schema
+PHASE 14G OUTCOME DETECTION PLANNING - COMPLETE:
+
+**V1 vs V6 Drift Analysis:**
+- Identified core architectural problem: V6 became keyword-routing system instead of V1's outcome-driven intelligence
+- V1 asked "What outcome is customer trying to achieve?" vs V6 asks "What framework should we use for this segment?"
+- Signal detection drift: V1 had 50+ real-time signals (weather, trending, competitor gaps) vs V6 static keyword matching
+- Lost temporal relevance, competitive opportunities, and real customer conversations
+
+**Recovery Strategy Designed:**
+- Core strategy: Outcomes First → Map to Differentiators → Generate Targeted Content
+- Implementation flow: Parse customer profiles → Map to UVP differentiators → Generate outcome queries → Store in database
+- Database schema: customer_outcomes table, outcome_signal_mapping table, buyer_personas updates
+- VoC tab simplified: Single tab with outcome badges and signal cards showing Customer Goal → Your Advantage → Content Opportunity
+
+**Build Plan Updated:**
+- Added Phase 14G items to BUILD_synapse6.md: Outcome Detection Service, Database Schema, Query Generation, UVP Mapping, Industry Categories, Signal Cards
+- Added comprehensive VoC drift analysis to additional-context.md for future reference
+
+**Key Insight:** Bottom line - we turned V1's customer-outcome engine into V6's framework-routing system. Recovery path: signals first, outcomes second, frameworks last.
 
 ## Active Feature
 
-V6 Engine Alignment - Phase 12 Complete (100% V1-aligned)
+VoC Query Targeting Crisis Resolution
 
 ## Where We Stopped
 
-V6 migration (Option A) complete. Browser console shows no trigger-related errors.
-Dev server running on localhost:3000. TypeScript build passes.
-Clean V6 architecture implemented without compatibility layer pollution.
+Identified all root causes but did not implement fixes. Need to:
+1. Fix broken method alias in deepcontext-builder.service.ts (line 18: buildStreamingContext → buildStreaming)
+2. Import and integrate business purpose detection into SynapseGenerator.ts
+3. Pass business purpose data through DeepContext interface
+4. Update Claude prompts in SynapseGenerator to include business purpose constraints
 
 ## Next Steps
 
-1. Continue with next V6 feature development
-2. Address remaining ~29 TypeScript errors in peripheral services (unrelated to V6 migration)
-3. Test V6 trigger functionality with clean data structures
+1. Fix broken buildStreamingContext method alias in migration bridge
+2. Integrate business purpose detection into SynapseGenerator generateSynapses() function
+3. Pass business purpose data through DeepContext to make it available to Claude
+4. Add business purpose constraints to synapse prompt generation
+5. Test that VoC insights now show sales automation content instead of generic compliance
 
 ## Blockers
 
-None - V6 migration complete, original browser console errors resolved
+None - dev server running on localhost:3000, TypeScript build passes, all root causes identified

@@ -1688,7 +1688,8 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
       .sort()
       .join('|');
 
-    const dimensionHash = `${dimensions.journeyStage}-${dimensions.emotion}-${dimensions.format}-${dimensions.pillar}`;
+    // V5 emotion removed - use V1 psychology principles
+    const dimensionHash = `${dimensions.journeyStage}-${dimensions.format}-${dimensions.pillar}`;
 
     return `${contentHash}::${dimensionHash}`;
   }

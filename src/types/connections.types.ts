@@ -414,24 +414,24 @@ export interface InsightDimensions {
 // Source-to-Dimension Default Mappings
 export const SOURCE_DIMENSION_DEFAULTS: Record<DataSource, Partial<InsightDimensions>> = {
   youtube: { journeyStage: 'AWARENESS', format: 'HOWTO', pillar: 'PILLAR_EXPERTISE' },
-  outscraper: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' }, // V5 emotion removed
-  news: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' }, // V5 emotion removed
+  outscraper: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' },
+  news: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' },
   weather: { lifecycle: 'LIFE_SEASONAL', urgency: 'URGENT_HIGH', pillar: 'PILLAR_COMMUNITY' },
   serper: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
-  reddit: { journeyStage: 'AWARENESS', pillar: 'PILLAR_COMMUNITY' }, // V5 emotion removed
+  reddit: { journeyStage: 'AWARENESS', pillar: 'PILLAR_COMMUNITY' },
   quora: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
   g2: { journeyStage: 'DECISION', format: 'COMPARISON', pillar: 'PILLAR_DIFFERENTIATION', persona: 'INFLUENCER' },
   trustpilot: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' },
-  twitter: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' }, // V5 emotion removed
+  twitter: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' },
   apify: { journeyStage: 'CONSIDERATION', pillar: 'PILLAR_EXPERTISE' },
   perplexity: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
   semrush: { journeyStage: 'CONSIDERATION', format: 'DATA', pillar: 'PILLAR_DIFFERENTIATION', angle: 'DATA_DRIVEN' },
   website: { journeyStage: 'CONSIDERATION', pillar: 'PILLAR_EXPERTISE' },
   linkedin: { journeyStage: 'CONSIDERATION', persona: 'DECISION_MAKER', pillar: 'PILLAR_TRENDS' },
   tiktok: { journeyStage: 'AWARENESS', lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_COMMUNITY' },
-  google_trends: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
-  whisper: { format: 'STORY', pillar: 'PILLAR_COMMUNITY', emotion: 'BELONGING' },
-  yelp: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST', emotion: 'TRUST' },
+  google_trends: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS' }, // V5 emotion removed
+  whisper: { format: 'STORY', pillar: 'PILLAR_COMMUNITY' }, // V5 emotion removed
+  yelp: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' }, // V5 emotion removed
 };
 
 // Hook Templates for Title Generation
@@ -456,7 +456,7 @@ export const HOOK_TEMPLATES: Record<HookFormula, string> = {
 // Dimension Distribution Requirements (for variety enforcement)
 export interface VarietyDistribution {
   journeyStage: Record<JourneyStage, { min: number; max: number }>;
-  emotion: Record<EmotionTrigger, { min: number }>;
+  // emotion: Record<EmotionTrigger, { min: number }>; // V5 REMOVED - use V1 psychology principles
   format: Record<ContentFormat, { min: number }>;
 }
 
@@ -487,7 +487,7 @@ export const REQUIRED_DISTRIBUTION: VarietyDistribution = {
 export const SEGMENT_DEFAULTS: Record<BusinessSegment, Partial<InsightDimensions>> = {
   SMB_LOCAL: {
     journeyStage: 'AWARENESS',
-    emotion: 'TRUST',
+    // emotion: 'TRUST', // V5 REMOVED - use V1 psychology principles
     format: 'FAQ',
     persona: 'DECISION_MAKER',
     cta: 'CTA_CALL',
@@ -496,7 +496,7 @@ export const SEGMENT_DEFAULTS: Record<BusinessSegment, Partial<InsightDimensions
   },
   SMB_REGIONAL: {
     journeyStage: 'CONSIDERATION',
-    emotion: 'TRUST',
+    // emotion: 'TRUST', // V5 REMOVED - use V1 psychology principles
     format: 'COMPARISON',
     persona: 'DECISION_MAKER',
     cta: 'CTA_BOOK',
@@ -505,7 +505,7 @@ export const SEGMENT_DEFAULTS: Record<BusinessSegment, Partial<InsightDimensions
   },
   B2B_NATIONAL: {
     journeyStage: 'CONSIDERATION',
-    emotion: 'FEAR',
+    // emotion: 'FEAR', // V5 REMOVED - use V1 psychology principles
     format: 'CASE_STUDY',
     persona: 'INFLUENCER',
     cta: 'CTA_DEMO',
@@ -514,7 +514,7 @@ export const SEGMENT_DEFAULTS: Record<BusinessSegment, Partial<InsightDimensions
   },
   B2B_GLOBAL: {
     journeyStage: 'CONSIDERATION',
-    emotion: 'ANTICIPATION',
+    // emotion: 'ANTICIPATION', // V5 REMOVED - use V1 psychology principles
     format: 'DATA',
     persona: 'DECISION_MAKER',
     cta: 'CTA_CONSULT',

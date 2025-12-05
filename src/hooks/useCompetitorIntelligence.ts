@@ -807,8 +807,9 @@ export function useCompetitorIntelligence(
         });
 
         if (battlecardResult) {
-          // Convert BattlecardResult to CompetitorBattlecard (add competitor_name)
+          // Convert BattlecardResult to CompetitorBattlecard (add competitor_id and competitor_name)
           const battlecard: CompetitorBattlecard = {
+            competitor_id: result.profile.id,
             competitor_name: result.profile.name,
             our_advantages: battlecardResult.our_advantages,
             their_advantages: battlecardResult.their_advantages,
@@ -969,8 +970,9 @@ export function useCompetitorIntelligence(
           });
 
           if (battlecardResult) {
-            // Convert BattlecardResult to CompetitorBattlecard (add competitor_name)
+            // Convert BattlecardResult to CompetitorBattlecard (add competitor_id and competitor_name)
             const battlecard: CompetitorBattlecard = {
+              competitor_id: competitor.id,
               competitor_name: competitor.name,
               our_advantages: battlecardResult.our_advantages,
               their_advantages: battlecardResult.their_advantages,

@@ -20,6 +20,8 @@ import {
   createDataSourcesFromIntelligence
 } from './helpers/ConnectionHintGenerator';
 
+import { businessPurposeDetector } from '@/services/intelligence/business-purpose-detector.service';
+import type { BusinessPurpose } from '@/services/intelligence/business-purpose-detector.service';
 import type { SynapseInsight } from '@/types/synapse/synapse.types';
 
 export interface SynapseInput {
@@ -33,6 +35,8 @@ export interface SynapseInput {
     services?: ServiceCost[];
   };
   intelligence: any; // BusinessIntelligence or similar
+  businessPurpose?: BusinessPurpose; // Business purpose detection data for targeted insights
+  uvpData?: any; // UVP data for business purpose detection
 }
 
 export interface SynapseResult {
@@ -136,6 +140,22 @@ export async function generateSynapses(
   console.log(`[Synapse] Found ${costEquivalences.length} cost equivalence sets`);
 
   // ==========================================================================
+  // STEP 1.5: Detect Business Purpose (PHASE 15 FIX)
+  // ==========================================================================
+  console.log('[Synapse] Step 1.5: Detecting business purpose...');
+
+  let businessPurpose = input.businessPurpose;
+  if (!businessPurpose && input.uvpData) {
+    // Business purpose not provided, detect it from UVP data
+    businessPurpose = businessPurposeDetector.detectBusinessPurpose(input.uvpData);
+    console.log(`[Synapse] Detected business purpose: ${businessPurpose.productFunction} for ${businessPurpose.customerRole} targeting ${businessPurpose.businessOutcome}`);
+  } else if (businessPurpose) {
+    console.log(`[Synapse] Using provided business purpose: ${businessPurpose.productFunction}`);
+  } else {
+    console.log(`[Synapse] No business purpose data available - using generic approach`);
+  }
+
+  // ==========================================================================
   // STEP 2: Generate Semantic Connection Hints
   // ==========================================================================
   console.log('[Synapse] Step 2: Generating connection hints...');
@@ -166,7 +186,8 @@ export async function generateSynapses(
     business: input.business,
     dataContext,
     costEquivalenceText,
-    connectionHintText
+    connectionHintText,
+    businessPurpose
   });
 
   // ==========================================================================
@@ -272,6 +293,7 @@ function buildSynapsePrompt(params: {
   dataContext: string;
   costEquivalenceText: string;
   connectionHintText: string;
+  businessPurpose?: BusinessPurpose;
 }): string {
   // Get current date for seasonal context
   const now = new Date();
@@ -286,6 +308,16 @@ Your job: Find insights that are BOTH engaging AND business-focused, with clear 
 BUSINESS: ${params.business.name} (${params.business.industry})
 LOCATION: ${params.business.location.city}, ${params.business.location.state}
 TODAY'S DATE: ${currentDate}
+
+${params.businessPurpose ? `
+BUSINESS PURPOSE CONTEXT (CRITICAL - USE THIS TO TARGET INSIGHTS):
+- Product Function: ${params.businessPurpose.productFunction}
+- Target Customer Role: ${params.businessPurpose.customerRole}
+- Business Outcome: ${params.businessPurpose.businessOutcome}
+- Target Industry: ${params.businessPurpose.targetIndustry}
+- Focus on: ${params.businessPurpose.contextualQueries.slice(0, 3).join(', ')}
+
+IMPORTANT: This business ${params.businessPurpose.productFunction === 'automation' ? 'SELLS AUTOMATION TO' : params.businessPurpose.productFunction === 'analytics' ? 'SELLS ANALYTICS TO' : 'SERVES'} ${params.businessPurpose.targetIndustry} companies to help them ${params.businessPurpose.businessOutcome}. Generate insights that target ${params.businessPurpose.customerRole} looking to ${params.businessPurpose.businessOutcome}, NOT generic ${params.businessPurpose.targetIndustry} trends.` : ''}
 
 ${params.dataContext}
 

@@ -263,6 +263,10 @@ export const InsightTabs = memo(function InsightTabs({
   const [vocAnalyzed, setVocAnalyzed] = useState(false);
   const [autoAnalysisInProgress, setAutoAnalysisInProgress] = useState(false);
 
+  // Phase 14C + 14E: Psychology analysis and auto-execution
+  const [psychologyResults, setPsychologyResults] = useState<any[]>([]);
+  const [psychologyLoading, setPsychologyLoading] = useState(false);
+
   // Build available tabs based on enabledTabs
   const availableTabs = useMemo(() => {
     const tabs = [...BASE_TABS];
@@ -399,6 +403,30 @@ export const InsightTabs = memo(function InsightTabs({
     await analyzeConnections(allV6);
     setShowConnections(true);
   }, [insights, analyzeConnections, vocAnalyzed, connectionStats]);
+
+  // Phase 14E: Auto-execute psychology analysis when VoC insights load
+  useEffect(() => {
+    async function autoAnalyzePsychology() {
+      const vocInsights = insights.filter(i => i.sourceTab === 'voc' || i.type === 'trigger');
+
+      if (vocInsights.length >= 2 && !psychologyLoading) {
+        setPsychologyLoading(true);
+        try {
+          const { vocPsychologyService } = await import('@/services/synapse-v6/voc-psychology-integration.service');
+          const v6Insights = insightsToV6(vocInsights);
+          const results = await vocPsychologyService.autoAnalyzeOnLoad(v6Insights);
+          setPsychologyResults(results);
+          console.log(`[Phase14E] Auto-analyzed ${results.length} VoC insights with psychology principles`);
+        } catch (error) {
+          console.error('[Phase14E] Psychology analysis failed:', error);
+        } finally {
+          setPsychologyLoading(false);
+        }
+      }
+    }
+
+    autoAnalyzePsychology();
+  }, [insights.length]); // Re-run when new insights arrive
 
   // Auto-trigger connection discovery when VoC tab finishes loading
   // Only runs once when VoC insights are first available and not already processed

@@ -78,8 +78,8 @@ export function SynapseContentDiscovery({
       // Step 2.1: Gather intelligence
       setProgress('Gathering intelligence from 5 APIs...');
 
-      const intelligence = await deepContextBuilder.buildDeepContext({
-        brandId: 'demo',
+      const result = await deepContextBuilder.buildDeepContext({
+        brandId, // Use real brand ID to get actual UVP data for business purpose detection
         brandData: {
           name: businessName,
           industry,
@@ -87,6 +87,7 @@ export function SynapseContentDiscovery({
         }
       });
 
+      const intelligence = result.context;
       setProgress(`Collected intelligence data`);
 
       // Step 2.2: Generate breakthrough insights
@@ -99,7 +100,8 @@ export function SynapseContentDiscovery({
           industry,
           location: location || { city: 'New York', state: 'NY' }
         },
-        intelligence: intelligence
+        intelligence: intelligence,
+        uvpData: intelligence?.uvpData // PHASE 15 FIX: Pass UVP data for business purpose detection
       });
 
       if (discoveredInsights.synapses.length === 0) {

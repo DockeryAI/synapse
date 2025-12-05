@@ -241,6 +241,79 @@ export async function saveCompleteUVP(
       console.error('[MarbaUVPService] ❌ Error generating buyer personas:', personaError);
     }
 
+    // SYNAPSE-V6: Persist customer outcomes to database
+    // Detect and save outcomes when UVP is completed
+    console.log('[MarbaUVPService] Persisting customer outcomes to database...');
+    try {
+      const { outcomePersistenceService } = await import('@/services/synapse-v6/outcome-persistence.service');
+
+      // Find or create UVP session for this brand
+      const { data: sessionData } = await supabase
+        .from('uvp_sessions')
+        .select('id')
+        .eq('brand_id', effectiveBrandId)
+        .order('updated_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      let sessionId = sessionData?.id;
+
+      // If no session exists, create one
+      if (!sessionId) {
+        const { data: newSession, error: sessionError } = await supabase
+          .from('uvp_sessions')
+          .insert({
+            brand_id: effectiveBrandId,
+            session_name: 'UVP Session',
+            website_url: '',
+            current_step: 'synthesis',
+            complete_uvp: uvp,
+            progress_percentage: 100,
+          })
+          .select('id')
+          .single();
+
+        if (!sessionError && newSession) {
+          sessionId = newSession.id;
+        }
+      }
+
+      if (sessionId) {
+        const outcomeResult = await outcomePersistenceService.saveOutcomesToSession(
+          sessionId,
+          uvp
+        );
+
+        if (outcomeResult.success) {
+          console.log('[MarbaUVPService] ✅ Persisted', outcomeResult.count, 'customer outcomes');
+        } else {
+          console.error('[MarbaUVPService] ❌ Failed to persist outcomes:', outcomeResult.error);
+        }
+      } else {
+        console.warn('[MarbaUVPService] ⚠️ No UVP session found - outcomes not persisted');
+      }
+    } catch (outcomeError) {
+      console.error('[MarbaUVPService] ❌ Error persisting outcomes:', outcomeError);
+    }
+
+    // V1 FIX: Sync UVP to brand_profiles.uvp_data for api-orchestrator
+    // This ensures outcome detection has access to UVP data
+    console.log('[MarbaUVPService] Syncing UVP to brand_profiles.uvp_data...');
+    try {
+      const { error: syncError } = await supabase
+        .from('brand_profiles')
+        .update({ uvp_data: uvp })
+        .eq('id', effectiveBrandId);
+
+      if (syncError) {
+        console.error('[MarbaUVPService] ❌ Failed to sync UVP to brand_profiles:', syncError);
+      } else {
+        console.log('[MarbaUVPService] ✅ UVP synced to brand_profiles.uvp_data');
+      }
+    } catch (syncErr) {
+      console.error('[MarbaUVPService] ❌ Error syncing UVP:', syncErr);
+    }
+
     return {
       success: true,
       uvpId,

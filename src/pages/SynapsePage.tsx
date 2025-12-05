@@ -244,7 +244,7 @@ export function SynapsePage() {
       };
 
       const deepContextResult = await deepContextBuilder.buildDeepContext({
-        brandId: 'demo',
+        brandId: 'demo', // Demo page - uses synthetic brand data for real-time analysis
         brandData: syntheticBrand, // Pass brand data directly (demo mode, no database lookup)
         includeYouTube: true,
         includeOutScraper: true,

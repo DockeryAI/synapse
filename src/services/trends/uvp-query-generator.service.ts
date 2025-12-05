@@ -20,6 +20,7 @@
  */
 
 import type { CompleteUVP } from '@/types/uvp-flow.types';
+import { businessPurposeDetector, type BusinessPurpose } from '@/services/intelligence/business-purpose-detector.service';
 
 // ============================================================================
 // TYPES
@@ -953,118 +954,143 @@ export function extractUVPKeywords(uvp: CompleteUVP): UVPKeywords {
 // ============================================================================
 
 /**
- * Generate brand-specific trend queries
+ * Generate business purpose-aware trend queries
+ *
+ * PHASE 15: VoC Query Targeting Fix
+ * Now uses business purpose detection to generate contextual queries
+ * instead of generic industry-based queries.
+ *
+ * For OpenDialog: "insurance sales automation" NOT "insurance trends"
  */
 export function generateTrendQueries(uvp: CompleteUVP): GeneratedQuery[] {
-  const keywords = extractUVPKeywords(uvp);
   const queries: GeneratedQuery[] = [];
   const currentYear = new Date().getFullYear();
 
-  // Primary industry terms (the most important!)
-  const primaryIndustry = keywords.industry[0] || 'technology';
-  const secondaryIndustry = keywords.industry[1];
+  // PHASE 15: Business Purpose Detection Integration
+  const businessPurpose = businessPurposeDetector.detectBusinessPurpose(uvp);
 
-  // Product keywords for queries (legacy - still used for some queries)
-  const productKeywords = keywords.products.length > 0
-    ? extractKeywordsFromText(keywords.products.join(' ')).slice(0, 5)
-    : [];
-
-  // Phase 7: Product use cases for targeted queries
-  const productUseCases = keywords.productUseCases.slice(0, 3); // Top 3 products
-
-  console.log('[UVPQueryGen] Building queries with:', {
-    primaryIndustry,
-    secondaryIndustry,
-    productKeywords,
-    productUseCases: productUseCases.map(p => `${p.name} → ${p.useCase}`)
+  console.log('[UVPQueryGen:BusinessPurpose] Detected purpose:', {
+    productFunction: businessPurpose.productFunction.primary,
+    customerRole: businessPurpose.customerRole.department,
+    businessOutcome: businessPurpose.businessOutcome.primary,
+    targetIndustry: businessPurpose.targetIndustry,
+    confidence: businessPurpose.confidence
   });
 
+  // Use contextual queries from business purpose detection
+  // These are already formatted as "insurance sales automation" etc.
+  const contextualQueries = businessPurpose.contextualQueries;
+
+  // Legacy keywords for fallback
+  const keywords = extractUVPKeywords(uvp);
+  const productUseCases = keywords.productUseCases.slice(0, 3);
+
+  console.log('[UVPQueryGen:BusinessPurpose] Building queries with contextual queries:',
+    contextualQueries.slice(0, 5)
+  );
+
   // =========================================================================
-  // PHASE 7: PRODUCT USE CASE QUERIES (40% of queries - highest priority)
+  // PHASE 15: BUSINESS PURPOSE-AWARE QUERIES (60% - highest priority)
   // =========================================================================
 
-  // For each major product, generate use case + industry queries
-  productUseCases.forEach((product, idx) => {
-    const useCase = product.useCase;
-    const productName = product.name;
-
-    // 1. Use case + industry trend query (e.g., "AI sales insurance trends 2025")
+  // Generate queries from contextual queries (business purpose detection)
+  contextualQueries.slice(0, 8).forEach((contextualQuery, idx) => {
+    // Core contextual trend queries (e.g., "insurance sales automation trends 2025")
     queries.push({
-      query: `${useCase} ${primaryIndustry} trends ${currentYear}`,
+      query: `${contextualQuery} trends ${currentYear}`,
       type: 'search',
-      priority: 100 - idx * 2, // Highest priority
-      sourceKeywords: [useCase, primaryIndustry],
+      priority: 100 - idx, // Highest priority
+      sourceKeywords: contextualQuery.split(' '),
       intent: 'product'
     });
 
-    // 2. Product category + industry (e.g., "sales automation insurance trends")
-    if (product.category) {
+    // Contextual news queries
+    if (idx < 5) { // Top 5 get news
       queries.push({
-        query: `${product.category} ${primaryIndustry} trends ${currentYear}`,
-        type: 'search',
-        priority: 98 - idx * 2,
-        sourceKeywords: [product.category, primaryIndustry],
-        intent: 'product'
-      });
-    }
-
-    // 3. Use case + secondary industry if available (e.g., "AI sales conversational AI trends")
-    if (secondaryIndustry && idx === 0) { // Only for top product
-      queries.push({
-        query: `${useCase} ${secondaryIndustry} market trends`,
-        type: 'search',
-        priority: 96,
-        sourceKeywords: [useCase, secondaryIndustry],
-        intent: 'product'
-      });
-    }
-
-    // 4. Product-specific news query
-    if (idx < 2) { // Top 2 products get news queries
-      queries.push({
-        query: `${useCase} ${primaryIndustry} news ${currentYear}`,
+        query: `${contextualQuery} news ${currentYear}`,
         type: 'news',
-        priority: 95 - idx * 3,
-        sourceKeywords: [useCase, primaryIndustry],
+        priority: 95 - idx,
+        sourceKeywords: contextualQuery.split(' '),
         intent: 'product'
       });
     }
 
-    // 5. Product-specific video query (for top product only)
-    if (idx === 0) {
+    // Contextual solutions/tools queries
+    if (idx < 4) { // Top 4 get solutions
       queries.push({
-        query: `${useCase} ${primaryIndustry} ${currentYear}`,
+        query: `${contextualQuery} solutions tools`,
+        type: 'search',
+        priority: 90 - idx,
+        sourceKeywords: contextualQuery.split(' '),
+        intent: 'product'
+      });
+    }
+
+    // Video queries for top contexts
+    if (idx < 3) {
+      queries.push({
+        query: `${contextualQuery} ${currentYear}`,
         type: 'video',
-        priority: 92,
-        sourceKeywords: [useCase, primaryIndustry],
+        priority: 85 - idx,
+        sourceKeywords: contextualQuery.split(' '),
         intent: 'product'
       });
     }
   });
 
+  // Business outcome specific queries
+  const outcomeQueries = [
+    `${businessPurpose.targetIndustry} ${businessPurpose.businessOutcome.primary.replace('_', ' ')}`,
+    `${businessPurpose.targetIndustry} ${businessPurpose.customerRole.department} challenges`,
+    `${businessPurpose.productFunction.description} ${businessPurpose.targetIndustry}`
+  ];
+
+  outcomeQueries.forEach((outcomeQuery, idx) => {
+    queries.push({
+      query: `${outcomeQuery} trends ${currentYear}`,
+      type: 'search',
+      priority: 88 - idx,
+      sourceKeywords: outcomeQuery.split(' '),
+      intent: 'outcome'
+    });
+  });
+
   // =========================================================================
-  // INDUSTRY QUERIES (40% of queries)
+  // BUSINESS PURPOSE-AWARE INDUSTRY QUERIES (30% of queries)
   // =========================================================================
 
-  // 1. Core industry trend query
+  // Industry + product function context queries
+  const productFunctionContext = businessPurpose.productFunction.primary;
+  const targetIndustry = businessPurpose.targetIndustry;
+  const customerRole = businessPurpose.customerRole.department;
+
+  // 1. Core business function + industry trend query
   queries.push({
-    query: `${primaryIndustry} industry trends ${currentYear}`,
+    query: `${targetIndustry} ${productFunctionContext} trends ${currentYear}`,
     type: 'search',
-    priority: 88,
-    sourceKeywords: [primaryIndustry],
+    priority: 82,
+    sourceKeywords: [targetIndustry, productFunctionContext],
     intent: 'trend'
   });
 
-  // 2. Combine industries if we have two (e.g., "AI insurance trends")
-  if (secondaryIndustry) {
-    queries.push({
-      query: `${secondaryIndustry} ${primaryIndustry} trends ${currentYear}`,
-      type: 'search',
-      priority: 86,
-      sourceKeywords: [primaryIndustry, secondaryIndustry],
-      intent: 'trend'
-    });
-  }
+  // 2. Customer role + industry trends
+  queries.push({
+    query: `${targetIndustry} ${customerRole} priorities ${currentYear}`,
+    type: 'search',
+    priority: 80,
+    sourceKeywords: [targetIndustry, customerRole],
+    intent: 'trend'
+  });
+
+  // 3. Business outcome + industry
+  const businessOutcome = businessPurpose.businessOutcome.primary.replace('_', ' ');
+  queries.push({
+    query: `${targetIndustry} ${businessOutcome} strategies`,
+    type: 'search',
+    priority: 78,
+    sourceKeywords: [targetIndustry, businessOutcome],
+    intent: 'trend'
+  });
 
   // =========================================================================
   // PAIN POINT QUERIES (20% of queries)
@@ -1106,68 +1132,66 @@ export function generateTrendQueries(uvp: CompleteUVP): GeneratedQuery[] {
   });
 
   // =========================================================================
-  // SOCIAL/REDDIT QUERIES - Use product use cases
+  // BUSINESS PURPOSE-AWARE SOCIAL/REDDIT QUERIES
   // =========================================================================
 
-  // Use top product use case for social queries
-  const topUseCase = productUseCases[0]?.useCase || primaryIndustry;
-
+  // Business function + industry challenges
   queries.push({
-    query: `${topUseCase} ${primaryIndustry} challenges`,
+    query: `${targetIndustry} ${productFunctionContext} challenges`,
     type: 'social',
-    priority: 78,
-    sourceKeywords: [topUseCase, primaryIndustry],
+    priority: 75,
+    sourceKeywords: [targetIndustry, productFunctionContext],
     intent: 'pain_point'
   });
 
-  // Customer role specific
-  if (keywords.customerDescriptors[0]) {
-    queries.push({
-      query: `${keywords.customerDescriptors[0]} ${primaryIndustry} problems`,
-      type: 'social',
-      priority: 75,
-      sourceKeywords: [keywords.customerDescriptors[0], primaryIndustry],
-      intent: 'pain_point'
-    });
-  }
-
-  // =========================================================================
-  // AI SYNTHESIS QUERIES - Use product use cases for context
-  // =========================================================================
-
-  const customerContext = keywords.customerDescriptors.slice(0, 2).join(', ') || 'businesses';
-  // Use product use cases for better AI context
-  const useCaseContext = productUseCases.slice(0, 2).map(p => p.useCase).join(', ') || 'solutions';
-
+  // Customer role specific problems
   queries.push({
-    query: `What are the top emerging trends in ${primaryIndustry} for ${currentYear}? Focus on trends relevant to ${customerContext} dealing with ${useCaseContext}. Include specific market data and adoption rates.`.trim(),
+    query: `${customerRole} ${targetIndustry} problems frustrations`,
+    type: 'social',
+    priority: 73,
+    sourceKeywords: [customerRole, targetIndustry],
+    intent: 'pain_point'
+  });
+
+  // Business outcome challenges
+  queries.push({
+    query: `${targetIndustry} ${businessOutcome} difficulties`,
+    type: 'social',
+    priority: 70,
+    sourceKeywords: [targetIndustry, businessOutcome],
+    intent: 'pain_point'
+  });
+
+  // =========================================================================
+  // BUSINESS PURPOSE-AWARE AI SYNTHESIS QUERIES
+  // =========================================================================
+
+  // Primary business purpose synthesis
+  queries.push({
+    query: `What are the emerging trends in ${targetIndustry} ${productFunctionContext} for ${currentYear}? Focus on ${businessPurpose.productFunction.description} solutions for ${customerRole} professionals. Include specific market data, vendor innovations, and adoption rates.`,
     type: 'ai',
-    priority: 85,
-    sourceKeywords: [primaryIndustry, ...productUseCases.slice(0, 2).map(p => p.useCase)],
+    priority: 92,
+    sourceKeywords: [targetIndustry, productFunctionContext, customerRole],
     intent: 'trend'
   });
 
-  // Product-specific AI synthesis
-  if (productUseCases[0]) {
-    queries.push({
-      query: `What are the latest innovations and trends in ${productUseCases[0].useCase} for ${primaryIndustry}? Focus on ${productUseCases[0].category || 'technology'} solutions. Include competitor activity and market growth.`,
-      type: 'ai',
-      priority: 90,
-      sourceKeywords: [productUseCases[0].useCase, primaryIndustry],
-      intent: 'product'
-    });
-  }
+  // Business outcome specific synthesis
+  queries.push({
+    query: `How are ${targetIndustry} companies achieving ${businessOutcome} through ${productFunctionContext}? What technologies and strategies are most effective for ${customerRole} teams in ${currentYear}?`,
+    type: 'ai',
+    priority: 90,
+    sourceKeywords: [targetIndustry, businessOutcome, productFunctionContext],
+    intent: 'outcome'
+  });
 
-  // Pain point synthesis
-  if (keywords.painPoints[0]) {
-    queries.push({
-      query: `What market opportunities exist in ${primaryIndustry} for solving ${keywords.painPoints[0]}? Include growth projections and adoption trends.`,
-      type: 'ai',
-      priority: 82,
-      sourceKeywords: [primaryIndustry, keywords.painPoints[0]],
-      intent: 'opportunity'
-    });
-  }
+  // Market opportunity synthesis
+  queries.push({
+    query: `What market opportunities exist in ${targetIndustry} for ${productFunctionContext} solutions that help ${customerRole} achieve ${businessOutcome}? Include growth projections, competitive landscape, and emerging trends for ${currentYear}.`,
+    type: 'ai',
+    priority: 87,
+    sourceKeywords: [targetIndustry, productFunctionContext, customerRole, businessOutcome],
+    intent: 'opportunity'
+  });
 
   // Log generated queries
   console.log('[UVPQueryGen] Generated', queries.length, 'queries');

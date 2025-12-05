@@ -1089,11 +1089,14 @@ class CompetitorStreamingManager extends EventEmitter {
             // Save regardless - even empty battlecard marks that we tried
             await battlecardGenerator.saveBattlecard(brandId, competitor.id, battlecardResult);
 
-            // Update enhanced insights with battlecard
+            // Update enhanced insights with battlecard (convert BattlecardResult to CompetitorBattlecard)
             const existingInsights = this.status.enhancedInsights.get(competitor.id) || {};
             this.status.enhancedInsights.set(competitor.id, {
               ...existingInsights,
-              battlecard: battlecardResult
+              battlecard: {
+                ...battlecardResult,
+                competitor_name: competitor.name
+              }
             });
 
             this.emitEvent({

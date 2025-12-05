@@ -101,17 +101,19 @@ const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
     local_timing: ['openweather', 'newsapi'],
   },
   'national-saas': {
-    // V6 ENTERPRISE FIX: Focus on B2B enterprise content, not consumer
-    // VoC: Enterprise software review platforms + professional tech communities
-    voc: ['apify-g2', 'apify-capterra', 'hackernews', 'apify-linkedin', 'producthunt'],
-    // Community: Enterprise/B2B focused subreddits (r/saas, r/enterprise, r/devops, r/artificial)
-    // Twitter for B2B SaaS discussions, LinkedIn for professional discourse
-    community: ['reddit-enterprise', 'hackernews', 'apify-linkedin', 'apify-twitter'],
-    competitive: ['semrush', 'serper', 'apify-g2'],
+    // V6 VOC FIX: Prioritize ACTUAL REVIEWS over articles
+    // G2/Capterra first (real customer reviews), then Twitter exec voices, then HackerNews discussions
+    // Reddit restored with professional subreddit targeting (r/sales, r/SaaS, r/startups)
+    // VoC priority: Real customer reviews first, then social/community voices
+    // perplexity-reviews added for explicit customer quote extraction
+    voc: ['apify-g2', 'apify-capterra', 'apify-trustradius', 'perplexity-reviews', 'apify-twitter', 'reddit-professional'],
+    // Community: Professional subreddits, LinkedIn B2B, Twitter exec commentary, HackerNews
+    community: ['reddit-professional', 'apify-linkedin', 'apify-twitter', 'hackernews'],
+    competitive: ['semrush', 'serper'],
     // Trends: Tech/enterprise news + professional analysis
-    trends: ['perplexity', 'hackernews', 'newsapi', 'apify-linkedin'],
+    trends: ['perplexity', 'hackernews', 'newsapi'],
     search: ['semrush', 'serper-autocomplete'],
-    // Timing: Industry news + regulatory/compliance updates
+    // Timing: Industry news + SEC filings for public company signals
     local_timing: ['newsapi', 'sec-edgar', 'perplexity'],
   },
   'national-product': {
