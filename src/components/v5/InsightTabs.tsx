@@ -19,7 +19,7 @@
 import React, { useState, useMemo, memo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  MessageSquare,
+  Speech,
   CheckCircle2,
   TrendingUp,
   Target,
@@ -112,7 +112,7 @@ const BASE_TABS: TabConfig[] = [
   {
     id: 'triggers',
     label: 'Voice of Customer',
-    icon: MessageSquare,
+    icon: Speech,
     color: 'text-red-600',
     activeColor: 'bg-red-600',
     description: 'Direct customer language from reviews & testimonials',
