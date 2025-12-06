@@ -21,6 +21,18 @@ import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { SpecializationData } from '@/types/synapse/specialization.types';
 import { supabase } from '@/lib/supabase';
 
+// Dictionary imports for Universal Intelligence Engine
+import {
+  type IndustryDictionary,
+  type AudienceDictionary,
+  type CategoryDictionary,
+  buildIndustryDictionary,
+  buildAudienceDictionary,
+  buildCategoryDictionary,
+} from '@/services/synapse-v6/dictionaries';
+import { type ProfileType, isB2BProfile } from '@/services/synapse-v6/domains';
+import { getCortexWeights, type CortexWeights } from '@/services/synapse-v6/cortex';
+
 /**
  * PHASE 20L: Platform-specific VoC query configuration
  * Each platform needs different query syntax and approach
@@ -97,6 +109,19 @@ export interface BusinessPurpose {
   /** V6 VOC FIX: Review platform search configuration */
   reviewSearch: ReviewSearchConfig;
   confidence: number; // 0-100
+}
+
+/**
+ * PHASE: Universal Intelligence Engine
+ * Brand-specific dictionaries for filtering insights
+ */
+export interface BrandDictionaries {
+  industry: IndustryDictionary;
+  audience: AudienceDictionary;
+  category: CategoryDictionary;
+  profile: ProfileType;
+  isB2B: boolean;
+  cortexWeights: CortexWeights;
 }
 
 export interface ProductFunction {
@@ -1167,6 +1192,126 @@ export class BusinessPurposeDetector {
       'national-product-b2c': 'marketing',
     };
     return mapping[profileType] || 'operations';
+  }
+
+  // ============================================================================
+  // UNIVERSAL INTELLIGENCE ENGINE - Dictionary Building
+  // ============================================================================
+
+  /**
+   * Build all dictionaries from UVP for the Universal Intelligence Engine.
+   * These dictionaries are used to filter API results before connection scoring.
+   */
+  buildBrandDictionaries(uvp: CompleteUVP, profileType?: ProfileType): BrandDictionaries {
+    // Extract industry from UVP
+    const industry = this.extractTargetIndustry(uvp);
+
+    // Extract role from target customer
+    const targetRole = uvp.targetCustomer?.statement ||
+                       uvp.customerProfiles?.[0]?.role ||
+                       'business professional';
+
+    // Extract customer profiles for additional roles
+    const customerProfiles = uvp.customerProfiles?.map(p => ({ role: p.role })) || [];
+
+    // Build dictionaries
+    const industryDict = buildIndustryDictionary(industry);
+    const audienceDict = buildAudienceDictionary(targetRole, customerProfiles);
+
+    // Extract product/service names from complex object
+    const productNames = uvp.productsServices?.categories
+      ?.flatMap(cat => cat.items.map(item => item.name))
+      ?.join(' ') || '';
+
+    // Extract unique solution as string
+    const uniqueSolutionText = typeof uvp.uniqueSolution === 'string'
+      ? uvp.uniqueSolution
+      : uvp.uniqueSolution?.statement || '';
+
+    const categoryDict = buildCategoryDictionary(
+      productNames,
+      uniqueSolutionText
+    );
+
+    // Determine profile type if not provided
+    const profile = profileType || this.detectProfileType(uvp);
+    const isB2B = isB2BProfile(profile);
+    const cortexWeights = getCortexWeights(profile);
+
+    console.log('[BusinessPurposeDetector] Built brand dictionaries:', {
+      profile,
+      isB2B,
+      industryTerms: industryDict.primary.length + industryDict.synonyms.length,
+      audienceRoles: audienceDict.roles.length,
+      categoryTerms: categoryDict.primary.length,
+    });
+
+    return {
+      industry: industryDict,
+      audience: audienceDict,
+      category: categoryDict,
+      profile,
+      isB2B,
+      cortexWeights,
+    };
+  }
+
+  /**
+   * Detect profile type from UVP
+   */
+  detectProfileType(uvp: CompleteUVP): ProfileType {
+    const allText = this.extractAllText(uvp).toLowerCase();
+
+    // Check for B2B indicators
+    const b2bIndicators = ['b2b', 'enterprise', 'saas', 'platform', 'software', 'solution'];
+    const b2cIndicators = ['consumer', 'retail', 'customer', 'personal', 'individual'];
+
+    const b2bScore = b2bIndicators.filter(i => allText.includes(i)).length;
+    const b2cScore = b2cIndicators.filter(i => allText.includes(i)).length;
+
+    // Check for scale indicators
+    const globalIndicators = ['global', 'international', 'worldwide', 'multinational'];
+    const nationalIndicators = ['national', 'nationwide', 'country-wide'];
+    const localIndicators = ['local', 'regional', 'city', 'neighborhood'];
+
+    const isGlobal = globalIndicators.some(i => allText.includes(i));
+    const isNational = nationalIndicators.some(i => allText.includes(i));
+    const isLocal = localIndicators.some(i => allText.includes(i));
+
+    // Determine profile
+    if (b2bScore > b2cScore) {
+      if (isGlobal) return 'global-saas-b2b';
+      if (isNational || allText.includes('saas')) return 'national-saas-b2b';
+      if (isLocal) return 'local-service-b2b';
+      return 'regional-b2b-agency';
+    } else {
+      if (isNational) return 'national-product-b2c';
+      if (isLocal) return 'local-service-b2c';
+      return 'regional-retail-b2c';
+    }
+  }
+
+  /**
+   * Get dictionaries for a stored brand
+   */
+  async getBrandDictionariesForBrand(brandId: string): Promise<BrandDictionaries | null> {
+    // Get brand UVP from database
+    const { data: brand, error } = await supabase
+      .from('brands')
+      .select('uvp_data')
+      .eq('id', brandId)
+      .single();
+
+    if (error || !brand?.uvp_data) {
+      console.error('[BusinessPurposeDetector] Failed to get brand UVP:', error);
+      return null;
+    }
+
+    // Check for stored specialization
+    const storedSpec = await this.getStoredSpecialization(brandId);
+    const profileType = storedSpec?.profile_type as ProfileType | undefined;
+
+    return this.buildBrandDictionaries(brand.uvp_data as CompleteUVP, profileType);
   }
 }
 
