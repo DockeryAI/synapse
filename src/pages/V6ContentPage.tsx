@@ -214,6 +214,18 @@ export function V6ContentPage() {
 
   const selectedInsights = useMemo(() => insights.filter(i => selectedInsightIds.has(i.id)), [insights, selectedInsightIds]);
 
+  // Compute which tabs are currently loading (for spinner display)
+  const loadingTabs = useMemo(() => {
+    const tabs = new Set<string>();
+    const allTabs: InsightTab[] = ['voc', 'community', 'competitive', 'trends', 'search', 'local_timing'];
+    allTabs.forEach(tab => {
+      if (isTabLoading(tab)) {
+        tabs.add(tab);
+      }
+    });
+    return tabs;
+  }, [isTabLoading, v6State.tabs]); // Re-compute when tabs change
+
   // Load UVP and buyer personas
   useEffect(() => {
     async function loadUVPAndPersonas() {
@@ -569,6 +581,7 @@ export function V6ContentPage() {
                 unique_solution: uvp?.uniqueSolution?.statement,
                 transformation: uvp?.transformationGoal?.statement,
               }}
+              loadingTabs={loadingTabs}
             />
           </div>
         </div>

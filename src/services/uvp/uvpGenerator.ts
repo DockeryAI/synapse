@@ -175,11 +175,12 @@ export async function generateUVPs(
   const prompt = buildUVPPrompt(request);
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // SECURITY: Route through ai-proxy edge function instead of direct API call
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
       method: 'POST',
       headers: {
-        'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': SUPABASE_ANON_KEY,
         'content-type': 'application/json'
       },
       body: JSON.stringify({

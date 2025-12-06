@@ -74,7 +74,7 @@ Archive V5 engine, restore V1 from MARBA, implement UVP-driven brand profiles, a
   - `helpers/ConnectionHintGenerator.ts` - embeddings + unexpectedness
   - `helpers/CostEquivalenceCalculator.ts` - behavioral economics
   - `analysis/ContrarianAngleDetector.ts` - differentiation angles
-  - `generation/ContentPsychologyEngine.ts` - 9 psychology principles
+  - `generation/SynapseCortex.ts` - 9 psychology principles (Synapse Cortex)
   - `generation/PowerWordOptimizer.ts` - weak word replacement
   - `generation/HumorOptimizer.ts` - edginess scale
   - `generation/formatters/` - HookPost, DataPost, StoryPost, etc.
@@ -234,7 +234,7 @@ Archive V5 engine, restore V1 from MARBA, implement UVP-driven brand profiles, a
    - B2C: 28 items (lattes, Netflix, gym)
    - B2B: New additions (dev salary, bad hire cost, churn impact)
 
-2. **Content Psychology Engine** (9 principles)
+2. **Synapse Cortex** (9 psychology principles)
    - Curiosity Gap, Narrative Transportation, Social Proof + Authority
    - Cognitive Dissonance, Pattern Interrupt, Scarcity
    - Reciprocity, Commitment/Consistency, Loss Aversion
@@ -1405,3 +1405,1617 @@ Transform VoC intelligence from keyword-based routing system back to V1's outcom
 | HIGH | `src/types/synapse/` | MODIFY | Add CustomerOutcome, OutcomeDifferentiatorMapping types |
 | MEDIUM | `src/config/industry-outcomes.config.ts` | NEW | Industry-specific outcome categories |
 | MEDIUM | `src/components/v5/InsightTabs.tsx` | MODIFY | Outcome-based VoC display |
+
+---
+
+## Phase 15: Specialization Detection & API Pre-fetch (ADDED: 2025-12-05)
+
+**Created:** 2025-12-05
+**Status:** Planned
+**Priority:** CRITICAL - Enables profile-specific intelligence for all 7 business types
+**Estimated:** 18-25 hours
+
+### Overview
+
+Detect business specialization after UVP benefits step, pre-fetch APIs with custom queries while user reviews final UVP, persist to brand profile for all future Synapse actions. Ensures every action is customized to the specific business purpose.
+
+### The 7 Business Profile Categories
+
+| Example | Profile Type |
+|---------|--------------|
+| Local B2C service (wedding bakery) | `local-service-b2c` |
+| Local B2B service (commercial HVAC) | `local-service-b2b` |
+| Regional agency (insurance broker) | `regional-b2b-agency` |
+| Regional franchise (retail chain) | `regional-retail-b2c` |
+| National SaaS B2B (OpenDialog) | `national-saas-b2b` |
+| National product B2C (DTC brand) | `national-product-b2c` |
+| Global enterprise (Salesforce competitor) | `global-saas-b2b` |
+
+### Flow Architecture
+
+```
+Benefits Step Complete
+        │
+        ▼ (background, non-blocking)
+┌─────────────────────────────────────┐
+│  SpecializationDetector runs        │
+│  - Analyzes all UVP fields          │
+│  - Detects profile_type             │
+│  - Extracts specialization_data     │
+│  - Identifies unique differentiators│
+└─────────────────────────────────────┘
+        │
+        ▼ (immediately after detection)
+┌─────────────────────────────────────┐
+│  API Pre-fetch with Custom Queries  │
+│  - VoC APIs with specialization     │
+│  - Community APIs with context      │
+│  - Competitive APIs with differentiators│
+│  - All 6 tabs pre-loaded            │
+└─────────────────────────────────────┘
+        │
+        ▼ (user still reviewing UVP)
+┌─────────────────────────────────────┐
+│  Cache results by brand_id          │
+│  - Ready when user hits Save        │
+│  - Instant tab population           │
+└─────────────────────────────────────┘
+        │
+        ▼ (user clicks Save)
+┌─────────────────────────────────────┐
+│  Persist to brand_profiles          │
+│  - specialization_data JSONB        │
+│  - profile_type                     │
+│  - prefetch_cache_id reference      │
+│  - All future actions use this      │
+└─────────────────────────────────────┘
+```
+
+### Phase 15 Tasks
+
+#### 15A: Database Schema (1-2 hrs)
+**Status:** Planned
+**Priority:** CRITICAL - Sequential first (other tasks depend on schema)
+
+**brand_profiles table additions:**
+- `specialization_data` JSONB - service_type, niche, industry_vertical, unique_method, target_outcome, detected_competitors
+- `prefetch_cache_id` UUID - reference to cached API results
+- `detection_confidence` INT - 0-100 confidence score
+- `detected_at` TIMESTAMP
+
+**prefetch_cache table (new):**
+- `id` UUID
+- `brand_id` UUID FK
+- `tab_data` JSONB - cached results per tab
+- `query_context` JSONB - what queries were used
+- `created_at` TIMESTAMP
+- `expires_at` TIMESTAMP (24hr TTL)
+
+**Files:**
+- `supabase/migrations/20251205_phase15_specialization.sql` (NEW)
+
+---
+
+#### 15B: SpecializationDetector Service (4-6 hrs)
+**Status:** Planned
+**Priority:** CRITICAL
+**Parallel with:** 15C (after 15A completes)
+
+**Detection per profile type:**
+
+| Profile | Detection Logic |
+|---------|-----------------|
+| `local-service-b2c` | Extract: service category (food/beauty/home), niche (wedding/luxury/budget), location radius |
+| `local-service-b2b` | Extract: trade (HVAC/IT/cleaning), sector (commercial/industrial/healthcare), service area |
+| `regional-b2b-agency` | Extract: agency type (insurance/marketing/staffing), specialty vertical, geographic scope |
+| `regional-retail-b2c` | Extract: retail category, positioning (value/premium), location count |
+| `national-saas-b2b` | Extract: product function, industry sold TO (not industry OF), unique method (AI agents, not "software") |
+| `national-product-b2c` | Extract: product category, differentiator angle (sustainable/premium/budget) |
+| `global-saas-b2b` | Extract: enterprise function, scale tier (mid-market/F500), compliance requirements |
+
+**Output:** `SpecializationData` object with all fields populated
+
+**Files:**
+- `src/services/synapse-v6/specialization-detector.service.ts` (NEW)
+
+---
+
+#### 15C: UVP Flow Integration (2-3 hrs)
+**Status:** Planned
+**Priority:** HIGH
+**Parallel with:** 15B (after 15A completes)
+
+**Trigger:** When user completes benefits step and moves to final review
+
+**Action:**
+1. Call `specializationDetector.detect(uvpData)` - non-blocking
+2. On detection complete → call `apiPrefetchService.prefetch(brandId, specialization)`
+3. Cache results in `prefetch_cache` table
+4. Show subtle loading indicator (optional)
+
+**Files:**
+- `src/pages/OnboardingPageV5.tsx` (MODIFY)
+- `src/components/uvp-flow/UVPSynthesisPage.tsx` (MODIFY)
+
+---
+
+#### 15D: API Pre-fetch Service (3-4 hrs)
+**Status:** Planned
+**Priority:** HIGH
+**Parallel with:** 15E (after 15B completes)
+
+**New service responsibilities:**
+- Receives specialization_data
+- Builds custom queries per tab using specialization
+- Calls all 6 tab APIs in parallel
+- Caches results to `prefetch_cache` table
+- Returns cache_id for persistence
+
+**Query building uses:**
+- Profile type → API priority selection
+- Specialization → category-specific queries
+- Differentiators → exclusion lists
+- Target outcome → psychology trigger selection
+
+**Files:**
+- `src/services/synapse-v6/api-prefetch.service.ts` (NEW)
+
+---
+
+#### 15E: Brand Profile Persistence (2-3 hrs)
+**Status:** Planned
+**Priority:** HIGH
+**Parallel with:** 15D (after 15B completes)
+
+**On UVP Save button:**
+1. Save UVP data (existing flow)
+2. Save specialization_data to brand_profiles
+3. Link prefetch_cache_id
+4. Mark detection_confidence
+
+**On future Synapse page load:**
+1. Check if prefetch_cache exists and not expired
+2. If valid → instant tab population
+3. If expired → re-run with saved specialization_data (no re-detection needed)
+
+**Files:**
+- `src/contexts/BrandProfileContext.tsx` (MODIFY)
+- `src/services/supabase/brand-profile.supabase.ts` (MODIFY or NEW)
+
+---
+
+#### 15F: BusinessPurposeDetector Integration (2-3 hrs)
+**Status:** Planned
+**Priority:** HIGH
+**Sequential:** Needs 15B complete
+
+**Update `generateReviewSearchConfig()`:**
+- Read from brand_profiles.specialization_data instead of re-detecting
+- Use stored service_type, niche, industry_vertical
+- No fallback to generic queries - all queries profile-specific
+
+**Update all API transform functions:**
+- Receive specialization context
+- Build queries with stored unique_method and differentiators
+
+**Files:**
+- `src/services/intelligence/business-purpose-detector.service.ts` (MODIFY)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+#### 15G: Testing All 7 Profile Types (3-4 hrs)
+**Status:** Planned
+**Priority:** MEDIUM
+**Sequential:** All features must exist first
+
+**Test URLs:**
+1. Wedding bakery (local-b2c)
+2. Commercial HVAC company (local-b2b)
+3. Independent insurance broker (regional-agency)
+4. Regional grocery chain (regional-retail)
+5. OpenDialog.ai (national-saas)
+6. DTC sustainable apparel brand (national-product)
+7. Enterprise CRM competitor (global-saas)
+
+**Success criteria per profile:**
+- Correct profile_type detected
+- Specialization fields populated
+- API queries use specialization (not generic)
+- VoC results relevant to specific business
+- Data persisted and reused on next visit
+
+---
+
+### Parallel Execution Plan
+
+| Group | Tasks | Parallel? | Reason |
+|-------|-------|-----------|--------|
+| 1 | 15A | Sequential | Schema required by all other tasks |
+| 2 | 15B + 15C | Parallel | Detection service + UVP hook are independent |
+| 3 | 15D + 15E | Parallel | Prefetch + Persistence don't conflict |
+| 4 | 15F | Sequential | Needs 15B detection service complete |
+| 5 | 15G | Sequential | All features must exist to test |
+
+**Quality Gates:**
+- Run /gaps after Group 1 (schema)
+- Run /gaps after Group 2 (detection + integration)
+- Run /gaps after Group 3 (prefetch + persistence)
+- Full E2E test in Group 5
+
+---
+
+### Success Criteria (Phase 15)
+
+- [ ] Specialization detection runs after benefits step (non-blocking)
+- [ ] API pre-fetch completes while user reviews final UVP
+- [ ] All 6 tabs pre-populated when user lands on Synapse page
+- [ ] specialization_data persisted to brand_profiles
+- [ ] Future visits use stored specialization (no re-detection)
+- [ ] All 7 profile types produce profile-specific queries
+- [ ] Zero generic fallback queries ("B2B software")
+- [ ] VoC results match business specialty, not just industry
+
+---
+
+### Files to Create/Modify
+
+| Priority | File | Type | Changes |
+|----------|------|------|---------|
+| CRITICAL | `supabase/migrations/20251205_phase15_specialization.sql` | NEW | Schema additions |
+| CRITICAL | `src/services/synapse-v6/specialization-detector.service.ts` | NEW | Detection logic per profile |
+| CRITICAL | `src/services/synapse-v6/api-prefetch.service.ts` | NEW | Background API calls |
+| HIGH | `src/pages/OnboardingPageV5.tsx` | MODIFY | Trigger detection after benefits |
+| HIGH | `src/components/uvp-flow/UVPSynthesisPage.tsx` | MODIFY | Wire detection trigger |
+| HIGH | `src/services/intelligence/business-purpose-detector.service.ts` | MODIFY | Read from stored specialization |
+| HIGH | `src/services/synapse-v6/api-orchestrator.service.ts` | MODIFY | Use prefetch cache |
+| HIGH | `src/contexts/BrandProfileContext.tsx` | MODIFY | Load specialization_data |
+| MEDIUM | `src/types/synapse/specialization.types.ts` | NEW | TypeScript interfaces |
+
+---
+
+### Estimated Timeline
+
+| Phase | Task | Estimate |
+|-------|------|----------|
+| 15A | Database schema | 1-2 hrs |
+| 15B | SpecializationDetector service | 4-6 hrs |
+| 15C | UVP flow integration | 2-3 hrs |
+| 15D | API pre-fetch service | 3-4 hrs |
+| 15E | Brand profile persistence | 2-3 hrs |
+| 15F | BusinessPurposeDetector integration | 2-3 hrs |
+| 15G | Testing all 7 profiles | 3-4 hrs |
+| **Total** | | **18-25 hrs** |
+
+---
+
+## Phase 16: VoC Quote Engine Overhaul
+
+### Overview
+
+Current VoC cards show article titles and placeholder text instead of real customer quotes. This phase creates proper quote extraction from G2, Capterra, Reddit, Trustpilot, Product Hunt, and HackerNews - targeting 30-50+ real customer quotes per brand with UVP alignment scoring.
+
+**Goal:** 10x the number of real customer quotes with valid source links, filtered for UVP relevance.
+
+---
+
+### Phase 16A: Fix Quote Extraction Logic
+**Status:** Planned
+**Priority:** CRITICAL
+**Parallel Group:** C
+
+**Deliverables:**
+- [ ] Fix `tab-data-adapter.service.ts` to extract `reviewText`, `pros`, `cons`, `body`, `selftext` instead of `title`
+- [ ] Add strict quote validation - reject without first-person language ("I", "we", "our") or quotation marks
+- [ ] Wire up `executiveSummary` and `uvpAlignment` fields to card display
+- [ ] Change VoC card icon back to soundwave (`AudioLines` from lucide)
+
+**Files:**
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+- `src/components/v6/V6InsightCard.tsx` (MODIFY)
+
+---
+
+### Phase 16B: Create G2 Apify Service
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** A
+
+**Deliverables:**
+- [ ] Create `g2-apify-api.ts` using `g2-scraper/g2-users-reviews-products` actor
+- [ ] Extract: `reviewText`, `pros`, `cons`, `rating`, `reviewerRole`, `companySize`, `industry`
+- [ ] Map to V6Insight with explicit `quote` field
+- [ ] Add to VoC API orchestrator pipeline
+
+**Files:**
+- `src/services/intelligence/g2-apify-api.ts` (NEW)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 16C: Create Capterra Apify Service
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** A
+
+**Deliverables:**
+- [ ] Create `capterra-apify-api.ts` using `imadjourney/capterra-reviews-scraper` actor
+- [ ] Extract: `reviewText`, `pros`, `cons`, `rating`, `reviewerRole`, `companySize`
+- [ ] Map to V6Insight with explicit `quote` field
+- [ ] Add to VoC API orchestrator pipeline
+
+**Files:**
+- `src/services/intelligence/capterra-apify-api.ts` (NEW)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 16D: Reddit Subreddit Targeting by Profile Type
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** B
+
+**Deliverables:**
+- [ ] Update Reddit actor to target industry-specific subreddits based on `BusinessProfileType`:
+  - SaaS B2B: r/SaaS, r/startups, r/entrepreneur, r/sales
+  - Local B2C: r/smallbusiness, r/sweatystartup + industry-specific
+  - Insurance: r/insurance, r/insurancepros
+  - Tech: r/sysadmin, r/devops, r/programming
+- [ ] Extract actual comment text (`body` field), not just post titles
+- [ ] Filter for pain point language patterns
+
+**Files:**
+- `src/services/intelligence/reddit-apify-api.ts` (MODIFY)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 16E: Add Trustpilot Apify Service
+**Status:** Planned
+**Priority:** MEDIUM
+**Parallel Group:** A
+
+**Deliverables:**
+- [ ] Create `trustpilot-apify-api.ts` for B2C/local businesses
+- [ ] Extract: `reviewText`, `rating`, `title`, `reviewerName`
+- [ ] Map to V6Insight with explicit `quote` field
+
+**Files:**
+- `src/services/intelligence/trustpilot-apify-api.ts` (NEW)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 16F: Add Product Hunt Apify Service
+**Status:** Planned
+**Priority:** MEDIUM
+**Parallel Group:** A
+
+**Deliverables:**
+- [ ] Create `producthunt-apify-api.ts` for SaaS launch feedback
+- [ ] Extract: `comment`, `voterName`, `productName`, `launchDate`
+- [ ] Map to V6Insight with explicit `quote` field
+
+**Files:**
+- `src/services/intelligence/producthunt-apify-api.ts` (NEW)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 16G: Extend HackerNews to Comments
+**Status:** Planned
+**Priority:** MEDIUM
+**Parallel Group:** B
+
+**Deliverables:**
+- [ ] Extend `hackernews-api.ts` to fetch comment threads, not just stories
+- [ ] Extract actual comment text from discussion threads
+- [ ] Filter for product/SaaS relevant discussions
+
+**Files:**
+- `src/services/intelligence/hackernews-api.ts` (MODIFY)
+
+---
+
+### Phase 16H: Quote Quality Filtering
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** D (Sequential - needs extraction fixed first)
+
+**Deliverables:**
+- [ ] Minimum character length (50+ chars)
+- [ ] Must contain first-person pronouns
+- [ ] Must not be generic ("great product", "highly recommend")
+- [ ] Must relate to UVP keywords (pain points, solutions, outcomes)
+- [ ] Dedupe similar quotes across sources (fuzzy matching)
+
+**Files:**
+- `src/services/synapse-v6/quote-quality-filter.service.ts` (NEW)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Phase 16I: UVP Alignment Scoring
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** E (Sequential - needs quality filter first)
+
+**Deliverables:**
+- [ ] For each quote, score alignment with user's UVP components:
+  - Target customer match
+  - Pain point match
+  - Solution/outcome match
+- [ ] Only surface quotes scoring 60%+ alignment
+- [ ] Generate `uvpAlignment` bullets for expanded card view
+
+**Files:**
+- `src/services/synapse-v6/uvp-alignment-scorer.service.ts` (NEW)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Phase 16J: Theme Clustering Enhancement
+**Status:** Planned
+**Priority:** MEDIUM
+**Parallel Group:** E (Sequential - needs quality filter first)
+
+**Deliverables:**
+- [ ] Use semantic similarity (not just exact title match) to cluster quotes
+- [ ] Auto-generate theme titles from quote content patterns
+- [ ] Show source diversity badge ("4 sources" = more credible)
+
+**Files:**
+- `src/services/synapse-v6/theme-clustering.service.ts` (NEW)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Parallel Execution Plan (Phase 16)
+
+| Group | Tasks | Parallel? | Reason |
+|-------|-------|-----------|--------|
+| A | 16B (G2) + 16C (Capterra) + 16E (Trustpilot) + 16F (Product Hunt) | ✅ Yes | Independent Apify actors, no shared files |
+| B | 16D (Reddit) + 16G (HackerNews) | ✅ Yes | Separate services |
+| C | 16A (Quote Extraction Fix) | ✅ Yes | Can run with A,B |
+| D | 16H (Quality Filtering) | Sequential | Needs 16A extraction fixed first |
+| E | 16I (UVP Alignment) + 16J (Theme Clustering) | Sequential | Needs 16H quality filter first |
+
+**Quality Gates:**
+- Run /gaps after Group A,B,C complete (all sources working)
+- Run /gaps after Group D (quality filter)
+- Full E2E test after Group E
+
+---
+
+### Success Criteria (Phase 16)
+
+- [ ] 30-50+ real customer quotes per brand (vs current 3)
+- [ ] Each quote has valid source link
+- [ ] All quotes filtered for UVP relevance (60%+ alignment)
+- [ ] Theme clustering surfaces patterns across platforms
+- [ ] VoC card shows: Title (theme) + Quote (actual words) + Source (linked)
+- [ ] Expanded card shows: Executive Summary + UVP Alignment bullets + Related Quotes
+- [ ] Zero placeholder text ("Generated from real user reviews")
+- [ ] Zero article titles displayed as quotes
+
+---
+
+### Files to Create/Modify (Phase 16)
+
+| Priority | File | Type | Changes |
+|----------|------|------|---------|
+| CRITICAL | `src/services/synapse-v6/tab-data-adapter.service.ts` | MODIFY | Fix quote extraction, wire quality filter |
+| CRITICAL | `src/components/v6/V6InsightCard.tsx` | MODIFY | Icon fix, summary/UVP display |
+| HIGH | `src/services/intelligence/g2-apify-api.ts` | NEW | G2 review scraper |
+| HIGH | `src/services/intelligence/capterra-apify-api.ts` | NEW | Capterra review scraper |
+| HIGH | `src/services/intelligence/reddit-apify-api.ts` | MODIFY | Subreddit targeting, comment extraction |
+| HIGH | `src/services/synapse-v6/quote-quality-filter.service.ts` | NEW | Quality validation |
+| HIGH | `src/services/synapse-v6/uvp-alignment-scorer.service.ts` | NEW | UVP alignment scoring |
+| MEDIUM | `src/services/intelligence/trustpilot-apify-api.ts` | NEW | Trustpilot scraper |
+| MEDIUM | `src/services/intelligence/producthunt-apify-api.ts` | NEW | Product Hunt scraper |
+| MEDIUM | `src/services/intelligence/hackernews-api.ts` | MODIFY | Comment thread extraction |
+| MEDIUM | `src/services/synapse-v6/theme-clustering.service.ts` | NEW | Semantic clustering |
+| HIGH | `src/services/synapse-v6/api-orchestrator.service.ts` | MODIFY | Add new sources to pipeline |
+
+---
+
+### Phase 16K: Source Weighting & UVP Query Alignment
+**Status:** Planned
+**Priority:** HIGH
+**Parallel Group:** C
+
+**Deliverables:**
+- [ ] Equalize source weighting so all platforms contribute equally (not G2 dominant)
+- [ ] Current weights skewed: G2=100, Reddit=50, Articles=25 → New: all quality sources equal
+- [ ] Pass UVP keywords to all API query builders:
+  - Target customer terms
+  - Pain point phrases
+  - Solution/outcome keywords
+  - Industry-specific terminology
+- [ ] Build UVP-aware search queries for each source:
+  - G2: `"[product] + [UVP pain point]"`
+  - Reddit: `"[UVP pain point] site:reddit.com r/[industry-subreddit]"`
+  - HackerNews: `"[product category] + [outcome keywords]"`
+- [ ] Limit results per source to ensure diversity (max 10 per source)
+
+**Files:**
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY - rebalance weights)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY - UVP query injection)
+- `src/services/synapse-v6/uvp-query-builder.service.ts` (NEW - builds UVP-aligned queries)
+
+---
+
+### Updated Parallel Execution Plan (Phase 16)
+
+| Group | Tasks | Parallel? | Reason |
+|-------|-------|-----------|--------|
+| A | 16B (G2) + 16C (Capterra) + 16E (Trustpilot) + 16F (Product Hunt) | ✅ Yes | Independent Apify actors |
+| B | 16D (Reddit) + 16G (HackerNews) | ✅ Yes | Separate services |
+| C | 16A (Quote Extraction) + 16K (Weighting & UVP Queries) | ✅ Yes | Can run with A,B |
+| D | 16H (Quality Filtering) | Sequential | Needs 16A extraction fixed first |
+| E | 16I (UVP Alignment) + 16J (Theme Clustering) | Sequential | Needs 16H quality filter first |
+
+**Execution Order:**
+1. Groups A + B + C in parallel (spawn 7 subagents max)
+2. /gaps quality gate
+3. Group D sequential
+4. /gaps quality gate
+5. Group E sequential
+6. Final E2E test
+
+---
+
+## Phase 17: VoC API Fixes & Robustness (ADDED: 2025-12-05)
+
+**Created:** 2025-12-05
+**Status:** In Progress
+**Priority:** CRITICAL - Fix failing APIs from Phase 16
+**Based on:** Browser log analysis showing 24/~50 quotes working
+
+### Current API Status (From Browser Logs)
+
+| API | Status | Quotes | Issue |
+|-----|--------|--------|-------|
+| apify-g2 | ✅ Working | 7 | Good quality |
+| apify-capterra | ✅ Working | 7 | Good quality |
+| indiehackers | ✅ Working | 7 | Min 50 char filter needed |
+| perplexity-reviews | ✅ Working | 2 | Request more (8-10) |
+| producthunt | ✅ Working | 1 | Query too complex |
+| sec-edgar | ✅ Fixed | 0→? | Migrated to sec-api.io |
+| apify-trustradius | ❌ Failing | 0 | "Unable to find" - query too niche |
+| hackernews-comments | ❌ Failing | 0 | Query too complex for HN Algolia |
+| reddit-professional | ❌ Failing | 0 | Malformed subreddit URL |
+| apify-twitter | ❌ Failing | 0 | noResults - API broken/rate limited |
+
+### Phase 17A: Fix hackernews-comments Query (CRITICAL)
+**Status:** Planned
+**Priority:** CRITICAL
+
+**Problem:** Query uses full UVP gibberish: "purpose-built agent management convert 15%+"
+**Fix:** Use categoryQuery only with simple keywords
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 17B: Fix reddit-professional URL (CRITICAL)
+**Status:** Planned
+**Priority:** CRITICAL
+
+**Problem:** Malformed URL: `r/SaaS+sales+startups` (plus signs not valid subreddit format)
+**Fix:** Use single subreddit or proper multireddit format
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 17C: Fix apify-trustradius Query (HIGH)
+**Status:** Planned
+**Priority:** HIGH
+
+**Problem:** Query too niche for TrustRadius, Perplexity says "unable to find"
+**Fix:** Broaden category query, use industry-standard terms
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 17D: IndieHackers Quality Filter (MEDIUM)
+**Status:** Planned
+**Priority:** MEDIUM
+
+**Problem:** Short quotes like "Great product!" pass through
+**Fix:** Add minimum 50 character filter for IH quotes
+
+**Files:**
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Phase 17E: Perplexity-Reviews Volume Increase (MEDIUM)
+**Status:** Planned
+**Priority:** MEDIUM
+
+**Problem:** Only requesting 5 quotes, returning 2
+**Fix:** Request 8-10 quotes in prompt
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 17F: ProductHunt Query Simplification (MEDIUM)
+**Status:** Planned
+**Priority:** MEDIUM
+
+**Problem:** Query too complex for PH Algolia search
+**Fix:** Use simple product category terms
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 17G: Exponential Backoff & Rate Limiting (HIGH)
+**Status:** Planned
+**Priority:** HIGH
+**Based on:** Research findings
+
+**Deliverables:**
+- [ ] Add exponential backoff with jitter (200ms, 400ms, 800ms ±20%)
+- [ ] Add User-Agent header to all SEC requests (required by SEC.gov)
+- [ ] Add proper 429 handling for Companies House (retry after Retry-After header)
+- [ ] Add rate limit tracking per API (10/sec SEC, 600/5min CH)
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/lib/api-retry-wrapper.ts` (NEW)
+
+---
+
+### Phase 17H: Loading Spinner on Refresh Button (MEDIUM)
+**Status:** Planned
+**Priority:** MEDIUM
+
+**Problem:** No visual feedback during VoC loading
+**Fix:** Add spinning refresh icon while APIs are fetching
+
+**Files:**
+- `src/components/v5/InsightTabs.tsx` (MODIFY)
+- `src/components/v6/V6InsightCard.tsx` (MODIFY)
+
+---
+
+### Success Criteria (Phase 17)
+
+- [ ] hackernews-comments returning 5+ quotes
+- [ ] reddit-professional returning 5+ quotes
+- [ ] apify-trustradius returning 3+ quotes
+- [ ] 40+ total VoC quotes (vs current 24)
+- [ ] All APIs have exponential backoff
+- [ ] Loading spinner visible during refresh
+
+---
+
+## Phase 18: Companies House Integration (ADDED: 2025-12-05)
+
+**Created:** 2025-12-05
+**Status:** Planned
+**Priority:** HIGH - UK competitor intelligence
+**Based on:** Research findings in `.buildrunner/research/sec_companieshouse_research.md`
+**API Key:** `31c40a3b-f707-49dd-b2d0-8d4e4f05c9ad`
+
+### Overview
+
+Add UK Companies House API for competitive intelligence. Provides:
+- Company filings (accounts, confirmation statements)
+- Officer changes (director appointments/resignations)
+- PSC changes (ownership changes >25%)
+- Insolvency events
+
+Rate limit: 600 requests per 5 minutes (429 on exceed with Retry-After header)
+
+### Phase 18A: Add API Key to Environment
+**Status:** Planned
+**Priority:** CRITICAL
+
+**Files:**
+- `.env` - Add `COMPANIES_HOUSE_API_KEY=31c40a3b-f707-49dd-b2d0-8d4e4f05c9ad`
+- Supabase secrets: `supabase secrets set COMPANIES_HOUSE_API_KEY=...`
+
+---
+
+### Phase 18B: Create Companies House Edge Function
+**Status:** Planned
+**Priority:** CRITICAL
+
+**Endpoints to implement:**
+- `search-companies` - Find companies by name/number
+- `get-company` - Get company profile
+- `get-filing-history` - Get recent filings
+- `get-officers` - Get directors list
+- `get-psc` - Get persons with significant control
+
+**Rate limiting:**
+- 500ms between requests (safe margin)
+- Exponential backoff on 429 with Retry-After header
+
+**Files:**
+- `supabase/functions/companies-house/index.ts` (NEW)
+
+---
+
+### Phase 18C: Add to Competitive Tab
+**Status:** Planned
+**Priority:** HIGH
+
+**Use cases:**
+- Track competitor filing activity
+- Monitor director changes (leadership transitions)
+- Detect ownership changes (acquisitions, funding rounds)
+- Surface insolvency events (competitor weakness)
+
+**API priorities update:**
+```typescript
+competitive: {
+  'local-b2b': ['companies-house', 'semrush', 'serper'],
+  'regional-agency': ['companies-house', 'semrush', 'serper'],
+  'national-saas': ['companies-house', 'sec-api-io', 'semrush'],
+}
+```
+
+**Files:**
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 18D: Streaming API for Real-Time Monitoring (OPTIONAL)
+**Status:** Planned
+**Priority:** LOW (Future enhancement)
+
+**Available streams:**
+- `/companies` - Company profile changes
+- `/filings` - New filings
+- `/officers` - Director changes
+- `/persons-with-significant-control` - PSC changes
+- `/insolvency-cases` - Insolvency events
+
+**Implementation:** Long-running HTTP connection with JSON events
+
+**Files:**
+- `src/services/intelligence/companies-house-stream.service.ts` (NEW - future)
+
+---
+
+### Success Criteria (Phase 18)
+
+- [ ] Companies House API key configured in .env and Supabase
+- [ ] Edge function deployed with all 5 endpoints
+- [ ] 500ms rate limiting with proper 429 handling
+- [ ] Added to Competitive tab for UK-relevant profiles
+- [ ] Returns company filings, officers, PSC data
+
+---
+
+### Files to Create/Modify (Phase 17 & 18)
+
+| Priority | File | Type | Phase | Changes |
+|----------|------|------|-------|---------|
+| CRITICAL | `src/services/synapse-v6/api-orchestrator.service.ts` | MODIFY | 17A-F | Fix all failing API queries |
+| CRITICAL | `supabase/functions/companies-house/index.ts` | NEW | 18B | CH edge function |
+| HIGH | `src/lib/api-retry-wrapper.ts` | NEW | 17G | Exponential backoff |
+| HIGH | `src/services/synapse-v6/brand-profile.service.ts` | MODIFY | 18C | Add CH to competitive |
+| MEDIUM | `src/components/v5/InsightTabs.tsx` | MODIFY | 17H | Loading spinner |
+| MEDIUM | `.env` | MODIFY | 18A | Add CH API key |
+
+---
+
+### Estimated Timeline
+
+| Phase | Task | Estimate |
+|-------|------|----------|
+| 17A | Fix hackernews-comments | 30 min |
+| 17B | Fix reddit-professional | 30 min |
+| 17C | Fix apify-trustradius | 30 min |
+| 17D | IndieHackers quality filter | 15 min |
+| 17E | Perplexity-reviews volume | 15 min |
+| 17F | ProductHunt simplify | 15 min |
+| 17G | Exponential backoff | 1-2 hrs |
+| 17H | Loading spinner | 30 min |
+| 18A | CH API key setup | 15 min |
+| 18B | CH edge function | 2-3 hrs |
+| 18C | Add to Competitive tab | 1 hr |
+| **Total** | | **7-9 hrs** |
+
+---
+
+## Phase 19: Buyer-Focused VoC Query Fix (ADDED: 2025-12-05)
+
+**Created:** 2025-12-05
+**Status:** Planned
+**Priority:** CRITICAL - Root cause of all VoC quality issues
+
+### Overview
+
+VoC queries currently search for PRODUCT CATEGORY reviews ("conversational AI platforms") instead of BUYER PROBLEM discussions ("insurance sales leaders struggling with quote abandonment"). This phase completely rewrites query generation to find what the TARGET BUYER is saying about THEIR PROBLEMS.
+
+### The Core Problem
+
+**Current broken query logic:**
+```
+UVP → BusinessPurposeDetector → reviewCategory: "conversational AI" → Generic chatbot reviews
+```
+
+**Correct query logic:**
+```
+UVP → BuyerProblemExtractor → buyerRole + buyerProblem → Buyer intelligence
+```
+
+### Query Formula (All 7 Profile Types)
+
+```
+CORRECT: "[Buyer Role]" "[Buyer Problem]" discussions OR challenges OR frustrations
+WRONG:   "[Product Category]" reviews OR alternatives OR comparison
+```
+
+### Profile-Specific Query Examples
+
+| Profile | Buyer Role | Buyer Problem | CORRECT Query |
+|---------|-----------|---------------|---------------|
+| Local B2C | Homeowner | Broken AC | "AC broke" "summer heat" frustration |
+| Local B2B | Restaurant owner | Health inspection | "restaurant owner" "health inspection" stress |
+| Regional Agency | Insurance broker | Lead generation | "insurance broker" "finding clients" challenges |
+| Regional Retail | Franchise owner | Staff turnover | "franchise owner" "employee turnover" problems |
+| National SaaS | Insurance sales leader | Quote abandonment | "insurance sales" "quote abandonment" discussions |
+| National Product | Health-conscious parent | Kid snacks | "parents" "healthy snacks kids" opinions |
+| Global Enterprise | CTO | Legacy migration | "CTO" "legacy migration" horror stories |
+
+---
+
+### Phase 19A: Buyer Problem Extractor
+
+**Goal:** Extract buyer intelligence from UVP instead of product category
+
+**Tasks:**
+- [ ] Parse `targetCustomer.statement` for buyer role ("insurance sales leader")
+- [ ] Extract buyer problem from pain points + transformation goal ("quote abandonment")
+- [ ] Extract buyer industry from geography/industry context
+- [ ] Output: `{ buyerRole, buyerProblem, buyerIndustry }`
+
+**File:** `src/services/synapse-v6/uvp-context-builder.service.ts`
+
+---
+
+### Phase 19B: Kill BusinessPurposeDetector reviewCategory
+
+**Goal:** Remove product-category-based query generation
+
+**Tasks:**
+- [ ] Remove `reviewCategory: "conversational AI"` output
+- [ ] Remove all `productFunction` → `reviewCategory` mappings
+- [ ] Replace with buyer-problem queries from Phase 19A
+- [ ] Never search for product category reviews again
+
+**File:** `src/services/synapse-v6/api-orchestrator.service.ts`
+
+---
+
+### Phase 19C: Profile-Specific Query Templates
+
+**Goal:** Scalable query templates for all 7 profile types
+
+**Tasks:**
+- [ ] Create `buyer-query-builder.service.ts` with profile templates
+- [ ] Local B2C: `"[buyer role]" "[problem]" near me frustration`
+- [ ] Local B2B: `"[buyer role]" "[problem]" vendor challenges`
+- [ ] Regional: `"[buyer role]" "[problem]" regional solutions`
+- [ ] National SaaS: `"[buyer role]" "[problem]" enterprise discussions`
+- [ ] National Product: `"[buyer role]" "[problem]" opinions recommendations`
+- [ ] Global Enterprise: `"[buyer role]" "[problem]" fortune 500 experiences`
+
+**File:** NEW `src/services/synapse-v6/buyer-query-builder.service.ts`
+
+---
+
+### Phase 19D: SEC/Companies House for BUYER Intelligence
+
+**Goal:** Query corporate APIs for BUYER company insights, not our competitors
+
+**Tasks:**
+- [ ] SEC-Edgar: Query for buyer companies (insurance carriers, State Farm, Progressive)
+- [ ] Companies House: Query for UK buyer companies
+- [ ] Extract what BUYER executives say about THEIR challenges
+- [ ] Example: "State Farm CTO on digital transformation challenges"
+
+**Files:** `src/services/synapse-v6/api-orchestrator.service.ts`, edge function transforms
+
+---
+
+### Phase 19E: AI-Powered Title/Summary Generation
+
+**Goal:** Replace garbage titles ("Chatbots are feedback") with UVP-relevant summaries
+
+**Tasks:**
+- [ ] Add `generateInsightTitle(quote, uvpContext)` using LLM
+- [ ] Title prompt: "How does this quote relate to [buyer problem]?"
+- [ ] Summary prompt: "Why should [brand] use this insight for content?"
+- [ ] Include buyer role and problem in all summarization
+
+**File:** `src/services/synapse-v6/tab-data-adapter.service.ts`
+
+---
+
+### Phase 19F: Source URL Passthrough
+
+**Goal:** Make insight sources clickable in UI
+
+**Tasks:**
+- [ ] Ensure `sourceUrl` flows from API response → adapter → Insight
+- [ ] Add `sourceUrl` to InsightCard props
+- [ ] Render clickable link in expanded view
+- [ ] Add external link icon
+
+**Files:** `src/services/synapse-v6/tab-data-adapter.service.ts`, `src/components/v5/InsightCards.tsx`
+
+---
+
+### Phase 19G: Verify All VoC APIs Called
+
+**Goal:** Debug missing API calls
+
+**Tasks:**
+- [ ] Check why `apify-g2`, `companies-house-voc` not appearing in logs
+- [ ] Verify edge function deployments
+- [ ] Add logging to confirm all `national-saas` VoC sources execute
+- [ ] Fix any silent failures
+
+**File:** `src/services/synapse-v6/api-orchestrator.service.ts`
+
+---
+
+### Success Criteria (Phase 19)
+
+- [ ] VoC queries contain buyer role + buyer problem, NEVER product category
+- [ ] Zero generic competitor platform reviews (Conversica, Rasa, SAP)
+- [ ] 90%+ insights relevant to brand's target buyer problems
+- [ ] All 7 profile types generate buyer-focused queries
+- [ ] Source URLs clickable in expanded insight view
+- [ ] AI-generated titles/summaries reference buyer problems
+- [ ] All VoC APIs executing (visible in logs)
+
+---
+
+### Files to Create/Modify (Phase 19)
+
+| Priority | File | Type | Changes |
+|----------|------|------|---------|
+| CRITICAL | `src/services/synapse-v6/uvp-context-builder.service.ts` | MODIFY | Add buyerRole/buyerProblem extraction |
+| CRITICAL | `src/services/synapse-v6/api-orchestrator.service.ts` | MODIFY | Remove reviewCategory, use buyer queries |
+| CRITICAL | `src/services/synapse-v6/buyer-query-builder.service.ts` | NEW | Profile-specific query templates |
+| HIGH | `src/services/synapse-v6/tab-data-adapter.service.ts` | MODIFY | AI title/summary, sourceUrl |
+| HIGH | `src/components/v5/InsightCards.tsx` | MODIFY | Display clickable source URLs |
+| MEDIUM | Edge function transforms | MODIFY | Query buyer companies not competitors |
+
+---
+
+### Estimated Timeline
+
+| Phase | Task | Estimate |
+|-------|------|----------|
+| 19A | Buyer Problem Extractor | 2-3 hrs |
+| 19B | Kill reviewCategory | 1-2 hrs |
+| 19C | Profile Query Templates | 2-3 hrs |
+| 19D | SEC/CH for Buyer Intel | 2 hrs |
+| 19E | AI Title/Summary | 2-3 hrs |
+| 19F | Source URL Passthrough | 1 hr |
+| 19G | Debug Missing APIs | 1 hr |
+| **Total** | | **11-15 hrs** |
+
+---
+
+## Phase 20: VoC Anti-Hallucination Overhaul (ADDED: 2025-12-05)
+
+**Created:** 2025-12-05
+**Status:** Planned
+**Priority:** CRITICAL - Eliminates 70%+ hallucination rate in VoC quotes
+**Based on:** Research in `docs/Hallucination-Research.md`, `.buildrunner/research/review_research.md`, `.buildrunner/research/sec_companieshouse_research.md`
+
+### Overview
+
+Current VoC system has ~70% hallucination rate because Perplexity is asked to "find quotes" instead of synthesizing scraped data. This phase implements the anti-hallucination architecture from our research: scrape first, then LLM synthesizes with verifiedSourceId linking.
+
+**Root Cause:** Asking Perplexity to "find real quotes" causes fabrication. LLM invents URLs, authors, and quotes.
+
+**Fix:** RAG architecture where LLM is Scorer, Not Generator.
+
+---
+
+### Current API Status (From Browser Logs)
+
+| API | Status | Data Points | Issue |
+|-----|--------|-------------|-------|
+| apify-g2 | ❌ HALLUCINATING | 7 fake | Perplexity fabricates quotes |
+| apify-capterra | ❌ REFUSED | 0 | "I cannot fulfill this request" |
+| apify-trustradius | ❌ EMPTY | 0 | Query too narrow |
+| perplexity-reviews | ❌ HALLUCINATING | 1 fake | Same fabrication issue |
+| sec-api.io | ⚠️ PARSER FAIL | 0 extracted | Format mismatch |
+| companies-house | ❌ NEVER CALLED | 0 | Also: needs to serve both VoC + Competitive |
+| reddit | ❌ NOT TARGETING | 0 | Need r/SaaS, r/sales, r/Entrepreneur |
+| youtube | ❌ NOT USING | 0 | Have Apify actor but not integrated |
+| twitter | ❌ NOT USING | 0 | Have Apify actor but not integrated |
+| linkedin | ❌ NOT USING | 0 | Can use Serper site: searches |
+
+---
+
+### Architecture Fix: LLM is Scorer, Not Generator
+
+**Principle from Hallucination Research Guide:**
+
+LLM must NEVER generate:
+- URLs
+- Author names
+- Direct quotes
+- Platform identifiers
+
+LLM SHOULD only:
+- Score relevance (0-100)
+- Categorize type (enum selection)
+- Select samples by sampleId
+
+**Required Data Flow:**
+```
+Scrapers → SourceRegistry (immutable, content-hashed)
+         → LLM receives: sample IDs + content (read-only)
+         → LLM outputs: { sampleIds: [3, 7], relevance: 85, type: "pain_point" }
+         → Display layer: Looks up real data from SourceRegistry
+         → User sees: Verbatim quotes, real URLs, actual authors
+```
+
+---
+
+### Phase 20A: Replace Apify-via-Perplexity with Direct Scraping
+
+**Problem:** Apify actors routed through Perplexity proxy which hallucinates.
+
+**Fix:** Call Apify actors directly, get raw JSON/HTML, store in SourceRegistry.
+
+**Tasks:**
+- [ ] Remove Perplexity proxy from apify-g2, apify-capterra, apify-trustradius
+- [ ] Call Apify actors directly via edge function
+- [ ] Extract raw review data: reviewText, pros, cons, rating, author, url
+- [ ] Store in SourceRegistry with content hash
+- [ ] LLM synthesizes scraped data (RAG pattern)
+
+**Actors to activate:**
+- G2 Reviews Scraper (existing)
+- Capterra Scraper (existing)
+- TrustRadius Scraper (existing)
+- Reddit Scraper (existing)
+- HackerNews Scraper (existing)
+- Twitter Scraper (existing - add integration)
+- YouTube Scraper (existing - add integration)
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `supabase/functions/apify-scraper/index.ts` (MODIFY)
+
+---
+
+### Phase 20B: Add Twitter via Apify
+
+**Problem:** Not integrated despite valuable real-time signals.
+
+**Fix:** Use Apify Twitter Scraper actor directly.
+
+**Tasks:**
+- [ ] Add Twitter actor to VoC API priorities
+- [ ] Search for category terms plus pain language
+- [ ] Extract: tweet text, author, url, engagement metrics
+- [ ] Store in SourceRegistry with tweet URL as source
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY)
+
+---
+
+### Phase 20C: Add LinkedIn via Serper
+
+**Problem:** Not integrated, assumed scraping was only option.
+
+**Fix:** Use Serper with site:linkedin.com/posts queries.
+
+**Tasks:**
+- [ ] Add LinkedIn to VoC API priorities via Serper
+- [ ] Query: `"[category]" site:linkedin.com/posts`
+- [ ] Extract: post snippets, author info, engagement
+- [ ] Returns public post snippets without ToS violation
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY)
+
+---
+
+### Phase 20D: Add YouTube via Existing Apify Actor
+
+**Problem:** Have actor but not integrated for VoC.
+
+**Fix:** Use YouTube Apify actor for comment scraping.
+
+**Tasks:**
+- [ ] Search for "[category] review" videos
+- [ ] Scrape comments (authentic user reactions)
+- [ ] Store in SourceRegistry with video URL as source
+- [ ] Free API with 10K units/day
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY)
+
+---
+
+### Phase 20E: Fix sec-api.io Parser
+
+**Problem:** Parser expects bold markdown format but gets numbered lists. Chairman's letter not in standardized sections.
+
+**Fix:** Multi-pattern regex handling all response formats.
+
+**Tasks:**
+- [ ] Add multi-pattern regex: bold, numbered, plain, blockquote formats
+- [ ] For Chairman's letter: full-text search for "letter to shareholders"
+- [ ] Target MD&A Section 7 for forward-looking statements
+- [ ] Target Risk Factors Section 1A for customer concentration
+- [ ] Search CAI companies (MSFT, CRM, NOW), not just insurance
+
+**Use for both tabs:**
+- VoC: Executive quotes, vision statements, chairman's letter
+- Competitive: Risk factors, Form 8-K events, Form 4 insider trades
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Phase 20F: Fix Companies House for Both Tabs
+
+**Problem:** Never called despite being configured. Also treating as Competitive-only.
+
+**Fix:** Activate for both VoC and Competitive tabs.
+
+**Tasks:**
+- [ ] Activate REST API for on-demand lookups
+- [ ] Query filing-history for annual-accounts and confirmation-statement-with-updates
+- [ ] Extract Chairman's Statement and Strategic Report from UK annual reports
+
+**Use for both tabs:**
+- VoC: Chairman's statement quotes, strategic report insights
+- Competitive: PSC changes, director changes, ownership signals
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY)
+
+---
+
+### Phase 20G: Fix Reddit Targeting
+
+**Problem:** Wrong subreddits, queries too narrow.
+
+**Fix:** Target industry-specific subreddits with category terms.
+
+**Tasks:**
+- [ ] Target r/SaaS, r/sales, r/Entrepreneur, r/smallbusiness, r/artificial, r/insurance
+- [ ] Use category terms plus frustration language
+- [ ] Query: `"conversational AI" ("frustrated" OR "looking for" OR "switched from")`
+- [ ] Extract actual comment text, not just post titles
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 20H: Fix Query Patterns
+
+**Problem:** UVP-specific queries return nothing. Searching for "purpose-built agent management convert 15%+" finds zero results.
+
+**Fix:** Use category plus review language patterns.
+
+**Tasks:**
+- [ ] Query pattern: `"conversational AI" ("pros:" OR "cons:" OR "I hate") site:g2.com/products`
+- [ ] Mine all three G2 sections: like, dislike, problems
+- [ ] Target 1-2 star reviews for richest pain language
+- [ ] 88% B2B buyers use reviews - this is THE source
+
+**Files:**
+- `src/services/synapse-v6/uvp-context-builder.service.ts` (MODIFY)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 20I: Implement Output Validation Layer
+
+**Problem:** No guardrails preventing LLM from inventing sources.
+
+**Fix:** Reject LLM outputs containing hallucination signatures.
+
+**Tasks:**
+- [ ] Reject LLM responses containing http://, https://, @username patterns
+- [ ] Reject responses with "quote" or "url" JSON fields
+- [ ] Only accept: `{ sampleIds: number[], score: number, type: enum }`
+- [ ] Pre-display validation confirms all sampleIds exist in registry
+- [ ] Implement verifiedSourceId linking per hallucination-fix tests
+
+**Validation Checkpoints:**
+1. Pre-LLM: Verify all samples have valid source metadata
+2. Post-LLM: Reject output containing URL patterns or @-mentions
+3. Pre-Display: Validate all sampleIds exist in registry
+4. Display: Gray out sources that fail URL HEAD check
+
+**Files:**
+- `src/services/synapse-v6/output-validator.service.ts` (NEW)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Phase 20J: Perplexity Role Change
+
+**Problem:** Using Perplexity to "find" quotes leads to hallucination.
+
+**Fix:** Perplexity for RAG synthesis ONLY.
+
+**Tasks:**
+- [ ] Never ask Perplexity to find or locate quotes
+- [ ] Provide scraped snippets, ask it to categorize pain points
+- [ ] Return sampleIds only, not quotes/urls/authors
+- [ ] Explicit instruction: "DO NOT output URLs, author names, or quotes"
+
+**Prompt template:**
+```
+Here are 15 scraped reviews:
+${scrapedSnippets.join('\n')}
+
+Categorize these pain points. Return sampleIds only.
+DO NOT generate quotes, URLs, or authors.
+```
+
+**Files:**
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY)
+
+---
+
+### Phase 20K: Enforce SourceRegistry
+
+**Problem:** `source-preservation.service.ts` exists but isn't enforced.
+
+**Fix:** Make SourceRegistry the ONLY path for source data.
+
+**Tasks:**
+- [ ] Block any code path that bypasses registry
+- [ ] All scraped data goes to SourceRegistry first
+- [ ] LLM receives sample IDs only, never raw URLs
+- [ ] Display layer looks up real data from registry
+
+**Files:**
+- `src/services/triggers/source-preservation.service.ts` (MODIFY)
+- `src/services/synapse-v6/tab-data-adapter.service.ts` (MODIFY)
+
+---
+
+### Success Criteria (Phase 20)
+
+- [ ] Source verification goes from 4% to 100%
+- [ ] Hallucinated URLs drop from 96% to 0%
+- [ ] Hallucinated quotes drop from ~100% to 0%
+- [ ] All sources become clickable with valid links
+- [ ] Total VoC insights increase from 9 fake to 60-100+ real
+- [ ] Click-through validity at 95%+ (URL HEAD validation)
+- [ ] All Apify actors called directly (not via Perplexity)
+- [ ] Twitter, LinkedIn, YouTube integrated
+- [ ] sec-api.io parser working for all response formats
+- [ ] Companies House serving both VoC and Competitive tabs
+- [ ] Reddit targeting correct subreddits
+- [ ] Output validation layer blocking hallucinated content
+
+---
+
+### Files to Create/Modify (Phase 20)
+
+| Priority | File | Type | Changes |
+|----------|------|------|---------|
+| CRITICAL | `src/services/synapse-v6/api-orchestrator.service.ts` | MODIFY | Direct Apify, remove Perplexity proxy, add Twitter/LinkedIn/YouTube |
+| CRITICAL | `src/services/synapse-v6/output-validator.service.ts` | NEW | Block hallucination signatures |
+| CRITICAL | `supabase/functions/apify-scraper/index.ts` | MODIFY | Direct actor calls |
+| HIGH | `src/services/synapse-v6/brand-profile.service.ts` | MODIFY | Add Twitter, LinkedIn, YouTube to VoC priorities |
+| HIGH | `src/services/synapse-v6/tab-data-adapter.service.ts` | MODIFY | sec-api.io parser, sourceRegistry enforcement |
+| HIGH | `src/services/synapse-v6/uvp-context-builder.service.ts` | MODIFY | Review language patterns |
+| HIGH | `src/services/triggers/source-preservation.service.ts` | MODIFY | Enforce as only path |
+| MEDIUM | Edge function transforms | MODIFY | Multi-format parsing |
+
+---
+
+### Estimated Timeline
+
+| Phase | Task | Estimate |
+|-------|------|----------|
+| 20A | Replace Apify-via-Perplexity | 3-4 hrs |
+| 20B | Add Twitter via Apify | 1-2 hrs |
+| 20C | Add LinkedIn via Serper | 1-2 hrs |
+| 20D | Add YouTube via Apify | 1-2 hrs |
+| 20E | Fix sec-api.io parser | 2-3 hrs |
+| 20F | Fix Companies House for both tabs | 1-2 hrs |
+| 20G | Fix Reddit targeting | 1 hr |
+| 20H | Fix query patterns | 1-2 hrs |
+| 20I | Output validation layer | 2-3 hrs |
+| 20J | Perplexity role change | 1-2 hrs |
+| 20K | Enforce SourceRegistry | 1-2 hrs |
+| **Total** | | **16-25 hrs** |
+
+---
+
+### Implementation Priority Order
+
+**Phase 1 (Fix Hallucinations - CRITICAL):**
+1. 20A: Replace Apify-via-Perplexity with direct scraping
+2. 20I: Output validation layer
+3. 20J: Perplexity role change
+4. 20K: Enforce SourceRegistry
+
+**Phase 2 (Add Sources - HIGH):**
+5. 20B: Add Twitter via Apify
+6. 20C: Add LinkedIn via Serper
+7. 20D: Add YouTube via Apify
+
+**Phase 3 (Fix Existing Sources - HIGH):**
+8. 20E: Fix sec-api.io parser
+9. 20F: Fix Companies House for both tabs
+10. 20G: Fix Reddit targeting
+11. 20H: Fix query patterns
+
+---
+
+### Research Backing
+
+From `docs/Hallucination-Research.md`:
+- Stanford 2024: RAG + Constrained + RLHF + Guardrails = 96% hallucination reduction
+- DoorDash: Two-tier guardrails = 90% hallucination reduction
+- Digits: Never let LLM generate facts = zero hallucinations
+- Perplexity AI: RAG alone still 37% error rate (must preserve verbatim source text)
+- V1 had 100% source verification because sources came from scrapers, not LLM
+
+From `.buildrunner/research/review_research.md`:
+- 88% B2B buyers use reviews
+- Search with review language patterns, not UVP statements
+- Mine ALL three G2 sections: like/dislike/problems
+- Perplexity for synthesis, not extraction
+
+From `.buildrunner/research/sec_companieshouse_research.md`:
+- SEC parser expects bold format, gets numbered lists
+- Multi-pattern regex needed
+- Companies House = both VoC (chairman's statement) and Competitive (PSC changes)
+
+
+---
+
+## Phase 20 Update: Twitter API v2 Integration (UPDATED: 2025-12-05)
+
+**Change:** Replace Apify Twitter actor with native Twitter API v2 (Basic tier)
+
+### Twitter API Credentials Added
+
+**API Key:** `D7SpdULTEZMmRA8oEhKAEUuUe`
+**API Secret:** Configured in .env (TWITTER_API_SECRET)
+**Tier:** Basic ($100/mo, 10K tweets/mo)
+
+### Updated Phase 20B: Twitter via Native API v2
+
+**Problem:** Was planning to use Apify Twitter actor.
+
+**Fix:** Use native Twitter API v2 with our own credentials.
+
+**Tasks:**
+- [x] Add TWITTER_API_KEY and TWITTER_API_SECRET to .env
+- [ ] Create twitter-api edge function using OAuth 2.0 App-Only auth
+- [ ] Implement rate limiting (450 requests/15 min for search)
+- [ ] Add to VoC API priorities for all profile types
+- [ ] Query: `"[category]" ("frustrated" OR "looking for" OR "switched from") lang:en`
+
+**Twitter API v2 Endpoints to Use:**
+- `GET /2/tweets/search/recent` - Search tweets from last 7 days
+- `GET /2/tweets/:id` - Get specific tweet with metrics
+- Rate limit: 450 requests per 15-minute window (Basic tier)
+
+**Edge Function Structure:**
+```
+supabase/functions/twitter-api/
+├── index.ts          # Main handler
+├── auth.ts           # OAuth 2.0 App-Only auth
+└── search.ts         # Tweet search implementation
+```
+
+**Files to Create:**
+- `supabase/functions/twitter-api/index.ts` (NEW)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MODIFY - add twitter-api)
+- `src/services/synapse-v6/brand-profile.service.ts` (MODIFY - add to VoC priorities)
+
+**Benefits over Apify:**
+- Direct API access = no middleman
+- Better rate limit control
+- No hallucination risk (raw data)
+- Cost predictable ($100/mo flat)
+
+---
+
+## Phase 20L: VoC Query Intelligence Enhancement (ADDED: 2025-12-05)
+
+**Problem:** APIs return data but content is IRRELEVANT to buyer problems:
+- G2: "Enterprise Customer Journey Mapping" (generic, not insurance buyer problems)
+- Twitter: "LeBron's 10-point streak" (completely irrelevant)
+- ProductHunt: "Open Source sustainability using git" (wrong audience)
+- IndieHackers: "insurance for digital nomad" (wrong buyer role)
+
+**Root Cause:** API transforms use `buyerIntelligence` but build literal queries like `${buyerIndustry} ${buyerProblem}` without:
+1. Platform-specific query syntax (G2 needs different queries than Reddit)
+2. Profile-type awareness (local-b2c needs different queries than national-saas)
+3. Buyer-ROLE targeting (sales leaders vs IT admins vs business owners)
+
+**Solution:** Enhance `BusinessPurposeDetector` to generate platform-specific VoC query configurations per profile type.
+
+### Phase 20L-1: Enhance BuyerIntelligence Interface
+
+**File:** `src/services/intelligence/business-purpose-detector.service.ts`
+
+**Add to BuyerIntelligence interface:**
+```typescript
+interface VoCQueryConfig {
+  // Platform-specific queries
+  g2Query: string;           // "insurance CRM quote management"
+  redditQuery: string;       // '"insurance sales" OR "quote abandonment"'
+  redditSubreddits: string[]; // ['insurance', 'InsuranceAgent', 'sales']
+  twitterQuery: string;      // '"insurance sales" frustrated OR struggling'
+  linkedinQuery: string;     // 'insurance sales leader quote conversion'
+  youtubeQuery: string;      // 'insurance sales tips quote follow-up'
+  hackerNewsQuery: string;   // 'insurance technology sales automation'
+  productHuntQuery: string;  // 'CRM insurance sales'
+  indieHackersQuery: string; // 'B2B insurance selling'
+}
+
+interface BuyerIntelligence {
+  // Existing fields...
+  buyerRole: string;
+  buyerProblem: string;
+  buyerIndustry: string;
+  painKeywords: string[];
+  confidence: number;
+
+  // NEW: Platform-specific queries
+  vocQueries: VoCQueryConfig;
+}
+```
+
+### Phase 20L-2: Generate Platform-Specific Queries
+
+**File:** `src/services/intelligence/business-purpose-detector.service.ts`
+
+**Add method `generateVoCQueryConfig()`:**
+
+Logic per profile type:
+
+**national-saas (OpenDialog example):**
+- G2: `"[buyerIndustry] [product category]" reviews problems`
+- Reddit: Search industry + role subreddits with pain keywords
+- Twitter: `"[buyerRole]" AND ("[painKeyword1]" OR "[painKeyword2]")`
+- LinkedIn: `[buyerRole] [buyerIndustry] challenges`
+
+**local-b2c (plumber example):**
+- Google Maps: Use address/region from UVP
+- Yelp: Category + location reviews
+- Facebook: Local community groups
+- Reddit: r/HomeImprovement, r/[city]
+
+**local-b2b (commercial cleaning example):**
+- Google Maps: B2B category + region
+- LinkedIn: `facility manager [region] cleaning`
+- Industry subreddits: r/CommercialRealEstate
+
+### Phase 20L-3: Industry-Specific Subreddit Mapping
+
+**File:** `src/services/synapse-v6/api-orchestrator.service.ts`
+
+**Replace hardcoded subreddits with dynamic mapping:**
+
+Current (wrong):
+```typescript
+const subreddits = ['SaaS', 'sales', 'startups', 'B2BMarketing', 'Entrepreneur'];
+```
+
+Fix:
+```typescript
+function getIndustrySubreddits(buyerIndustry: string, buyerRole: string): string[] {
+  const industryMap: Record<string, string[]> = {
+    'insurance': ['insurance', 'InsuranceAgent', 'InsuranceProfessional', 'sales'],
+    'healthcare': ['healthcare', 'HealthIT', 'medicine', 'nursing'],
+    'real estate': ['realtors', 'RealEstate', 'CommercialRealEstate'],
+    'legal': ['LawFirm', 'Lawyers', 'legal'],
+    'finance': ['FinancialCareers', 'CFP', 'accounting'],
+    'saas': ['SaaS', 'startups', 'Entrepreneur', 'B2BMarketing'],
+    'retail': ['retail', 'smallbusiness', 'ecommerce'],
+    'construction': ['Construction', 'Contractor', 'HomeImprovement'],
+  };
+  return industryMap[buyerIndustry.toLowerCase()] || ['business', 'smallbusiness'];
+}
+```
+
+### Phase 20L-4: Fix API Transform Query Building
+
+**File:** `src/services/synapse-v6/api-orchestrator.service.ts`
+
+**Update all VoC API transforms to use vocQueries:**
+
+```typescript
+// BEFORE (wrong)
+const query = `${buyerIndustry} ${buyerProblem}`;
+
+// AFTER (correct)
+const query = reviewConfig?.buyerIntelligence?.vocQueries?.g2Query
+  || `${buyerRole} ${buyerIndustry} challenges`;
+```
+
+APIs to update:
+- [ ] apify-g2 transform
+- [ ] apify-capterra transform
+- [ ] apify-trustradius transform
+- [ ] reddit-professional transform
+- [ ] twitter-api transform
+- [ ] linkedin-serper transform
+- [ ] youtube-comments transform
+- [ ] hackernews-comments transform
+- [ ] producthunt transform
+- [ ] indiehackers transform
+
+### Phase 20L-5: Move companies-house-voc Back to VoC
+
+**File:** `src/services/synapse-v6/brand-profile.service.ts`
+
+**Re-add companies-house-voc to national-saas VoC array:**
+```typescript
+voc: [
+  'apify-g2', 'apify-capterra', 'apify-trustradius',
+  'hackernews-comments', 'producthunt', 'indiehackers',
+  'reddit-professional', 'linkedin-serper', 'twitter-api', 'youtube-comments',
+  'sec-api-io',
+  'companies-house-voc',  // RE-ADDED: Chairman's statement = buyer intel
+],
+```
+
+### Phase 20L-6: Test All Profile Types
+
+**Test matrix (7 profile types × 11 VoC APIs = 77 test cases):**
+
+| Profile Type | Example Brand | Expected Query Pattern |
+|--------------|---------------|------------------------|
+| local-b2c | Joe's Plumbing | "plumber [city]" reviews |
+| local-b2b | CleanCo Commercial | "facility manager" "cleaning service" |
+| regional-agency | Digital Marketing Co | "marketing agency" client challenges |
+| regional-retail | Fashion Chain | "clothing store" customer complaints |
+| national-saas | OpenDialog | "insurance sales leader" quote abandonment |
+| national-product | Widget Corp | "[product]" reviews problems |
+| global-enterprise | Acme Inc | "[industry]" enterprise challenges |
+
+**Success Criteria:**
+- Each API returns content about BUYER PROBLEMS, not product reviews
+- No irrelevant results (sports, unrelated tech, wrong industry)
+- At least 3/11 VoC APIs return usable quotes per profile type
+
+**Files to Modify:**
+- `src/services/intelligence/business-purpose-detector.service.ts` (MAJOR)
+- `src/services/synapse-v6/api-orchestrator.service.ts` (MAJOR)
+- `src/services/synapse-v6/brand-profile.service.ts` (MINOR)
+
+**Estimated Complexity:** HIGH - touches query generation across all VoC APIs
+

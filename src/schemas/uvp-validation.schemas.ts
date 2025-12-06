@@ -24,16 +24,29 @@ export const ConfidenceScoreSchema = z.object({
 });
 
 // DataSource schema - matches SourceCitation.tsx interface
+// Uses coerce for dates to handle both Date objects and ISO strings
 export const DataSourceSchema = z.object({
-  id: z.string(),
-  type: z.enum(['website', 'reviews', 'youtube', 'social', 'competitor', 'api', 'manual', 'manual-input', 'testimonials', 'about', 'services']),
-  name: z.string(),
+  id: z.string().default(() => `src-${Date.now()}`),
+  type: z.enum(['website', 'reviews', 'youtube', 'social', 'competitor', 'api', 'manual', 'manual-input', 'testimonials', 'about', 'services']).default('website'),
+  name: z.string().default('Website'),
   url: z.string().optional(),
-  extractedAt: z.date(),
-  reliability: z.number().min(0).max(100),
-  dataPoints: z.number().min(0),
+  extractedAt: z.coerce.date().default(() => new Date()),
+  reliability: z.number().min(0).max(100).default(70),
+  dataPoints: z.number().min(0).default(1),
   excerpt: z.string().optional(),
 });
+
+// Lenient DataSource for places where source may be incomplete (e.g., differentiators)
+export const LenientDataSourceSchema = z.object({
+  id: z.string().optional(),
+  type: z.enum(['website', 'reviews', 'youtube', 'social', 'competitor', 'api', 'manual', 'manual-input', 'testimonials', 'about', 'services']).optional(),
+  name: z.string().optional(),
+  url: z.string().optional(),
+  extractedAt: z.coerce.date().optional(),
+  reliability: z.number().min(0).max(100).optional(),
+  dataPoints: z.number().min(0).optional(),
+  excerpt: z.string().optional(),
+}).optional();
 
 // MarketGeography schema with defaults
 export const MarketGeographySchema = z.object({
@@ -83,19 +96,19 @@ export const TransformationGoalSchema = z.object({
   customerQuotes: z.array(z.object({
     id: z.string(),
     text: z.string(),
-    source: DataSourceSchema,
+    source: LenientDataSourceSchema,
     emotionalWeight: z.number().min(0).max(100).default(0),
     relevanceScore: z.number().min(0).max(100).default(0),
   })).default([]),
   isManualInput: z.boolean().default(false),
 });
 
-// Differentiator schema
+// Differentiator schema - uses lenient source since differentiators from website analysis may not have full metadata
 export const DifferentiatorSchema = z.object({
-  id: z.string(),
+  id: z.string().default(() => `diff-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`),
   statement: z.string(),
-  evidence: z.string(),
-  source: DataSourceSchema,
+  evidence: z.string().default(''),
+  source: LenientDataSourceSchema,
   strengthScore: z.number().min(0).max(100).default(0),
 });
 
@@ -142,6 +155,7 @@ export const KeyBenefitSchema = z.object({
 });
 
 // CompleteUVP schema with comprehensive null safety
+// Uses coerce for dates to handle both Date objects and ISO strings from database
 export const CompleteUVPSchema = z.object({
   id: z.string(),
   targetCustomer: CustomerProfileSchema,
@@ -159,8 +173,8 @@ export const CompleteUVPSchema = z.object({
   whatStatement: z.string().default(''),
   howStatement: z.string().default(''),
   overallConfidence: ConfidenceScoreSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
   brandVoice: z.object({
     tone: z.array(z.string()).default([]),
     values: z.array(z.string()).default([]),

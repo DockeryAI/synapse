@@ -56,6 +56,9 @@ import { NAICSDetectorService } from '@/services/industry/NAICSDetector.service'
 import type { SpecialtyDetectionInput } from '@/types/specialty-profile.types';
 // Specialty Profile Transform - Phase 6 Integration (UVP → V1 format)
 import { transformUVPToSpecialty } from '@/services/specialty/uvp-to-specialty.transform';
+// Phase 15: Specialization Detection & API Pre-fetch
+import { specializationDetector } from '@/services/synapse-v6/specialization-detector.service';
+import { apiPrefetchService } from '@/services/synapse-v6/api-prefetch.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
 import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
@@ -2026,6 +2029,42 @@ export const OnboardingPageV5: React.FC = () => {
                 // Don't block UVP flow if preload fails
                 console.warn('[UVP Flow] Dashboard preload error (non-blocking):', err);
               });
+
+              // ================================================================
+              // PHASE 15: Specialization Detection & API Pre-fetch
+              // Runs in background while user reviews final UVP
+              // ================================================================
+              console.log('[Phase 15] 🎯 Starting specialization detection...');
+              specializationDetector.detect(synthesizedUVP).then(async (detectionResult) => {
+                if (detectionResult.success && detectionResult.specialization) {
+                  console.log('[Phase 15] ✅ Specialization detected:', {
+                    profile_type: detectionResult.specialization.profile_type,
+                    confidence: detectionResult.confidence,
+                    service_type: detectionResult.specialization.service_type,
+                  });
+
+                  // Store in localStorage for persistence step
+                  localStorage.setItem('phase15_specialization', JSON.stringify(detectionResult.specialization));
+                  localStorage.setItem('phase15_detection_confidence', String(detectionResult.confidence));
+
+                  // Start API pre-fetch (non-blocking background)
+                  console.log('[Phase 15] 🚀 Starting API pre-fetch...');
+                  const prefetchResult = await apiPrefetchService.startPrefetch(
+                    brandId,
+                    detectionResult.specialization
+                  );
+
+                  if (prefetchResult.started) {
+                    console.log('[Phase 15] ✅ API pre-fetch started, cacheId:', prefetchResult.cacheId);
+                    localStorage.setItem('phase15_prefetch_cache_id', prefetchResult.cacheId);
+                  }
+                } else {
+                  console.warn('[Phase 15] ⚠️ Specialization detection failed:', detectionResult.error);
+                }
+              }).catch(err => {
+                // Phase 15 is non-blocking - log error but don't affect UVP flow
+                console.error('[Phase 15] Error (non-blocking):', err);
+              });
             } else {
               console.warn('[UVP Flow] UVP auto-save failed:', result.error);
             }
@@ -3338,6 +3377,47 @@ export const OnboardingPageV5: React.FC = () => {
                     generateSpecialtyProfileFromUVP(brandId, uvpToDisplay)
                       .then(() => console.log('[Specialty Profile] Background generation complete'))
                       .catch(err => console.error('[Specialty Profile] Background generation failed:', err));
+                  }
+
+                  // ================================================================
+                  // PHASE 15: Persist specialization data to brand_profiles
+                  // Reads from localStorage (set during synthesis step)
+                  // ================================================================
+                  const storedSpecialization = localStorage.getItem('phase15_specialization');
+                  const storedConfidence = localStorage.getItem('phase15_detection_confidence');
+                  const storedCacheId = localStorage.getItem('phase15_prefetch_cache_id');
+
+                  if (storedSpecialization && brandId) {
+                    console.log('[Phase 15] 💾 Persisting specialization to brand_profiles...');
+                    try {
+                      const specializationData = JSON.parse(storedSpecialization);
+                      const detectionConfidence = parseInt(storedConfidence || '0', 10);
+
+                      // Update brand_profiles with specialization data
+                      const { error: updateError } = await supabase
+                        .from('brand_profiles')
+                        .update({
+                          specialization_data: specializationData,
+                          detection_confidence: detectionConfidence,
+                          detected_at: new Date().toISOString(),
+                          prefetch_cache_id: storedCacheId || null,
+                        })
+                        .eq('brand_id', brandId);
+
+                      if (updateError) {
+                        // Table might not exist or column missing - log but don't block
+                        console.warn('[Phase 15] Update failed (non-blocking):', updateError.message);
+                      } else {
+                        console.log('[Phase 15] ✅ Specialization persisted to brand_profiles');
+                      }
+
+                      // Clean up localStorage
+                      localStorage.removeItem('phase15_specialization');
+                      localStorage.removeItem('phase15_detection_confidence');
+                      localStorage.removeItem('phase15_prefetch_cache_id');
+                    } catch (parseError) {
+                      console.warn('[Phase 15] Failed to parse stored specialization:', parseError);
+                    }
                   }
 
                   // Navigate to V4 Content immediately - no blocking

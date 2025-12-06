@@ -40,9 +40,10 @@ export class EmbeddingService {
   private cacheMisses = 0;
 
   constructor(apiKey?: string) {
-    this.apiKey = apiKey || import.meta.env.VITE_OPENAI_API_KEY || '';
+    // V6 FIX: Check both VITE_ prefixed and non-prefixed env vars
+    this.apiKey = apiKey || import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY || '';
     if (!this.apiKey) {
-      console.warn('[EmbeddingService] No OpenAI API key provided');
+      console.warn('[EmbeddingService] No OpenAI API key provided. Set VITE_OPENAI_API_KEY in .env');
     }
   }
 

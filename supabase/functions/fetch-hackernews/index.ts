@@ -56,6 +56,7 @@ serve(async (req) => {
     const data = await response.json();
 
     // Transform to normalized format
+    // PHASE 20E: Include comment_text for VoC quote extraction
     const posts = data.hits?.map((hit: any) => ({
       id: hit.objectID,
       title: hit.title || hit.story_title,
@@ -65,6 +66,9 @@ serve(async (req) => {
       comments: hit.num_comments,
       created: hit.created_at,
       source: "hackernews",
+      // PHASE 20E: For comments, include the actual text content
+      text: hit.comment_text || hit.story_text || '',
+      storyTitle: hit.story_title || '',
     })) || [];
 
     return new Response(

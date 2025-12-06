@@ -141,10 +141,12 @@ class APITestSuiteService {
     // Test embeddings endpoint (simpler than Whisper which needs audio file)
     const start = Date.now();
     try {
-      const response = await fetch('https://api.openai.com/v1/embeddings', {
+      // SECURITY: Route through openai-proxy edge function
+      const response = await fetch(`${process.env.VITE_SUPABASE_URL}/functions/v1/openai-proxy`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
+          'Authorization': `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': process.env.VITE_SUPABASE_ANON_KEY,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -431,10 +433,12 @@ class APITestSuiteService {
   private async testSerperEndpoint(apiKey: string, endpoint: string, name: string, body: any): Promise<void> {
     const start = Date.now();
     try {
-      const response = await fetch(`https://google.serper.dev/${endpoint}`, {
+      // SECURITY: Route through fetch-serper edge function
+      const response = await fetch(`${process.env.VITE_SUPABASE_URL}/functions/v1/fetch-serper`, {
         method: 'POST',
         headers: {
-          'X-API-KEY': apiKey,
+          'Authorization': `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': process.env.VITE_SUPABASE_ANON_KEY,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)

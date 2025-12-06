@@ -84,46 +84,47 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       limit: 10,
     }),
   },
-  // V6 VOC FIX: Search for ACTUAL CUSTOMER QUOTES not vendor pages
-  // Uses consolidated BusinessPurposeDetector for category-aware searches
+  // PHASE 19: Use Perplexity to find BUYER DISCUSSIONS, not product reviews
+  // PHASE 20L: G2 via Serper - uses vocQueries.g2Query for platform-specific targeting
   'apify-g2': {
     functionName: 'fetch-serper',
-    timeout: 10000,
+    timeout: 15000,
     queryType: 'short',
-    transform: (_query, _context, _profileType, reviewSearch) => {
-      // Use ReviewSearchConfig from BusinessPurposeDetector
-      const searchQuery = reviewSearch?.categoryQuery || '"B2B software"';
-      const exclusions = reviewSearch?.exclusions.map(e => `-"${e}"`).join(' ') || '';
+    transform: (query, _context, _profileType, reviewSearch) => {
+      // PHASE 20L: Use pre-built platform-specific query from vocQueries
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.g2Query
+        || `${buyerIntel?.buyerIndustry || ''} software ${buyerIntel?.buyerProblem?.split(/\s+/).slice(0, 2).join(' ') || 'challenges'}`;
 
-      console.log('[apify-g2] Using review search config:', {
-        categoryQuery: reviewSearch?.categoryQuery,
-        exclusions: reviewSearch?.exclusions,
-        competitors: reviewSearch?.competitors,
-      });
-
+      console.log('[apify-g2] PHASE 20L vocQueries query:', searchQuery);
       return {
         endpoint: '/search',
         params: {
-          q: `${searchQuery} ("pros:" OR "cons:" OR "I love" OR "I hate" OR "we switched") site:g2.com/products ${exclusions}`,
-          num: 30 // Increased from 20 to get more results
-        },
+          q: `${searchQuery} site:g2.com`,
+          num: 20,
+          hl: 'en'
+        }
       };
     },
   },
+  // PHASE 20L: Capterra via Serper - uses vocQueries.g2Query (same format as G2)
   'apify-capterra': {
     functionName: 'fetch-serper',
-    timeout: 10000,
+    timeout: 15000,
     queryType: 'short',
-    transform: (_query, _context, _profileType, reviewSearch) => {
-      const searchQuery = reviewSearch?.categoryQuery || '"B2B software"';
-      const exclusions = reviewSearch?.exclusions.map(e => `-"${e}"`).join(' ') || '';
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.g2Query
+        || `${buyerIntel?.buyerIndustry || ''} software solutions`;
 
+      console.log('[apify-capterra] PHASE 20L vocQueries query:', searchQuery);
       return {
         endpoint: '/search',
         params: {
-          q: `${searchQuery} ("pros" OR "cons" OR "review" OR "we use") site:capterra.com/reviews ${exclusions}`,
-          num: 30 // Increased from 20
-        },
+          q: `${searchQuery} site:capterra.com`,
+          num: 20,
+          hl: 'en'
+        }
       };
     },
   },
@@ -136,22 +137,88 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       params: { q: `"${query}" site:trustpilot.com`, num: 10 },
     }),
   },
-  // V6 VOC FIX: TrustRadius for enterprise B2B SaaS reviews - search for actual quotes
-  // Uses consolidated BusinessPurposeDetector
+  // PHASE 20L: TrustRadius via Serper - uses vocQueries.g2Query
   'apify-trustradius': {
     functionName: 'fetch-serper',
-    timeout: 10000,
+    timeout: 15000,
     queryType: 'short',
-    transform: (_query, _context, _profileType, reviewSearch) => {
-      const searchQuery = reviewSearch?.categoryQuery || '"B2B software"';
-      const exclusions = reviewSearch?.exclusions.map(e => `-"${e}"`).join(' ') || '';
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.g2Query
+        || `${buyerIntel?.buyerIndustry || ''} enterprise software`;
+
+      console.log('[apify-trustradius] PHASE 20L vocQueries query:', searchQuery);
+      return {
+        endpoint: '/search',
+        params: {
+          q: `${searchQuery} site:trustradius.com`,
+          num: 15,
+          hl: 'en'
+        }
+      };
+    },
+  },
+  // PHASE 20L: Twitter API - uses vocQueries.twitterQuery for emotional pain language
+  'twitter-api': {
+    functionName: 'twitter-api',
+    timeout: 30000,
+    queryType: 'short',
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      // Use pre-built Twitter query (includes industry + pain terms + sentiment)
+      const twitterQuery = buyerIntel?.vocQueries?.twitterQuery
+        || `${buyerIntel?.buyerIndustry || 'business'} frustrated OR struggling`;
+
+      console.log('[twitter-api] PHASE 20L vocQueries query:', twitterQuery);
+
+      return {
+        query: twitterQuery.substring(0, 100), // Twitter API limit
+        maxResults: 20,
+        lang: 'en',
+      };
+    },
+  },
+  // PHASE 20L: LinkedIn via Serper - uses vocQueries.linkedinQuery
+  'linkedin-serper': {
+    functionName: 'fetch-serper',
+    timeout: 15000,
+    queryType: 'short',
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      // linkedinQuery already includes site:linkedin.com
+      const searchQuery = buyerIntel?.vocQueries?.linkedinQuery
+        || `site:linkedin.com ${buyerIntel?.buyerIndustry || 'business'} challenges`;
+
+      console.log('[linkedin-serper] PHASE 20L vocQueries query:', searchQuery);
 
       return {
         endpoint: '/search',
         params: {
-          q: `${searchQuery} ("what I like" OR "what I dislike" OR "best for" OR "not ideal") site:trustradius.com/products ${exclusions}`,
-          num: 30 // Increased from 20
+          q: searchQuery,
+          num: 20,
+          hl: 'en'
         },
+      };
+    },
+  },
+  // PHASE 20L: YouTube via Serper - uses vocQueries.youtubeQuery for tutorial/problem format
+  'youtube-comments': {
+    functionName: 'fetch-serper',
+    timeout: 15000,
+    queryType: 'short',
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.youtubeQuery
+        || `${buyerIntel?.buyerIndustry || 'business'} challenges tips`;
+
+      console.log('[youtube-comments] PHASE 20L vocQueries query:', searchQuery);
+      return {
+        endpoint: '/search',
+        params: {
+          q: `${searchQuery} site:youtube.com`,
+          num: 20,
+          hl: 'en'
+        }
       };
     },
   },
@@ -204,7 +271,7 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
   // V5 FIX: Use correct Twitter scraper config (verified 2025-11-26)
   'apify-twitter': {
     functionName: 'apify-scraper',
-    timeout: 15000,
+    timeout: 30000, // V6 FIX: Increased from 15s - edge functions timing out
     queryType: 'short',
     transform: (query) => ({
       actorId: 'apidojo/tweet-scraper',
@@ -279,6 +346,16 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       params: { q: `${query} events`, type: 'news' },
     }),
   },
+  // V6 FIX: Serper news endpoint replaces newsapi (key not configured)
+  'serper-news': {
+    functionName: 'fetch-serper',
+    timeout: 10000,
+    queryType: 'short',
+    transform: (query) => ({
+      endpoint: '/news',
+      params: { q: query, num: 20 },
+    }),
+  },
 
   // Community APIs - short queries
   // V5 FIX: Use trudax/reddit-scraper with REDDIT scraperType (working config)
@@ -298,37 +375,28 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       },
     }),
   },
-  // V6 VOC FIX: Professional subreddit targeting for B2B SaaS
-  // Searches specific professional subreddits instead of generic Reddit search
-  // INDUSTRY-AGNOSTIC: Requires AI/agent keywords for tech queries to prevent consumer content
+  // PHASE 20L: Reddit Professional - uses vocQueries.redditSubreddits + redditQuery
+  // Now uses industry-specific subreddits from BuyerIntelligence instead of hardcoded
   'reddit-professional': {
     functionName: 'apify-scraper',
-    timeout: 15000,
+    timeout: 30000,
     queryType: 'short',
-    transform: (query, _context, profileType) => {
-      // Map profile type to relevant professional subreddits
-      // For national-saas: B2B tech subreddits focused on AI/automation
-      const subredditMap: Record<string, string[]> = {
-        'national-saas': ['SaaS', 'sales', 'startups', 'B2BMarketing', 'Entrepreneur', 'artificial', 'MachineLearning'],
-        'local-b2c': ['smallbusiness', 'Entrepreneur', 'sweatystartup'],
-        'local-b2b': ['smallbusiness', 'Entrepreneur', 'B2BMarketing', 'msp'],
-        'regional-agency': ['marketing', 'digital_marketing', 'SEO', 'PPC', 'agencies'],
-        'regional-retail': ['smallbusiness', 'retailnews', 'Entrepreneur'],
-        'national-product': ['Entrepreneur', 'ecommerce', 'FulfillmentByAmazon', 'dropship'],
-      };
-      const subreddits = subredditMap[profileType || 'national-saas'] || subredditMap['national-saas'];
+    transform: (query, _context, profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
 
-      // CRITICAL: For national-saas, inject AI/agent requirement into query
-      // This prevents generic industry discussions without AI/tech context
-      let searchQuery = query;
-      if (profileType === 'national-saas') {
-        // Check if query already has AI/agent keywords
-        const hasAIKeywords = /\b(ai|artificial|automation|chatbot|agent|machine learning|conversational)\b/i.test(query);
-        if (!hasAIKeywords) {
-          // Inject AI context to filter for B2B tech discussions
-          searchQuery = `${query} (AI OR automation OR agent OR chatbot)`;
-        }
-      }
+      // PHASE 20L: Use dynamic industry-specific subreddits from vocQueries
+      const subreddits = buyerIntel?.vocQueries?.redditSubreddits || [
+        'SaaS', 'sales', 'startups', 'B2BMarketing', 'Entrepreneur'
+      ];
+
+      // Use redditQuery which has pain language built in
+      const searchQuery = buyerIntel?.vocQueries?.redditQuery
+        || `${buyerIntel?.buyerProblem || query} frustrating OR struggling`;
+
+      console.log('[reddit-professional] PHASE 20L vocQueries:', {
+        subreddits,
+        query: searchQuery.substring(0, 50),
+      });
 
       // Build multi-subreddit search URL
       const subredditPath = subreddits.slice(0, 5).join('+');
@@ -355,6 +423,67 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       hitsPerPage: 20,
     }),
   },
+  // PHASE 20L: HackerNews COMMENTS - uses vocQueries.hackerNewsQuery
+  'hackernews-comments': {
+    functionName: 'fetch-hackernews',
+    timeout: 10000,
+    queryType: 'short',
+    transform: (_query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      // HN needs simple queries - vocQueries.hackerNewsQuery is already formatted
+      const simpleQuery = buyerIntel?.vocQueries?.hackerNewsQuery
+        || `${buyerIntel?.buyerIndustry || 'technology'} ${buyerIntel?.painKeywords?.[0] || 'challenges'}`;
+
+      console.log('[hackernews-comments] PHASE 20L vocQueries query:', simpleQuery);
+
+      return {
+        query: simpleQuery,
+        tags: 'comment',
+        hitsPerPage: 30,
+      };
+    },
+  },
+  // PHASE 20L: Product Hunt - uses vocQueries.productHuntQuery
+  'producthunt': {
+    functionName: 'fetch-serper',
+    timeout: 10000,
+    queryType: 'short',
+    transform: (query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.productHuntQuery
+        || `${buyerIntel?.buyerIndustry || 'B2B'} ${buyerIntel?.painKeywords?.[0] || 'automation'} software`;
+
+      console.log('[producthunt] PHASE 20L vocQueries query:', searchQuery);
+      return {
+        endpoint: '/search',
+        params: {
+          q: `${searchQuery} site:producthunt.com`,
+          num: 20
+        },
+      };
+    },
+  },
+  // PHASE 20L: Indie Hackers - uses vocQueries.indieHackersQuery
+  'indiehackers': {
+    functionName: 'fetch-serper',
+    timeout: 10000,
+    queryType: 'short',
+    transform: (_query, _context, _profileType, reviewSearch) => {
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const searchQuery = buyerIntel?.vocQueries?.indieHackersQuery
+        || `${buyerIntel?.buyerIndustry || 'SaaS'} B2B challenges`;
+
+      console.log('[indiehackers] PHASE 20L vocQueries query:', searchQuery);
+
+      return {
+        endpoint: '/search',
+        params: {
+          q: `${searchQuery} site:indiehackers.com`,
+          num: 15
+        },
+      };
+    },
+  },
 
   // Competitive APIs - domain for SEMrush, short for others
   'semrush': {
@@ -365,6 +494,65 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       domain: query,
       type: 'overview',
     }),
+  },
+  // V6 Phase 18: UK Companies House - competitor intelligence
+  // Filings, officers, PSC (ownership), insolvency events
+  'companies-house': {
+    functionName: 'companies-house',
+    timeout: 30000,
+    queryType: 'short', // Company name search
+    transform: (query) => ({
+      action: 'competitor-intel',
+      params: {
+        companyName: query,
+      },
+    }),
+  },
+  // PHASE 19D: Companies House VoC - UK BUYER company intelligence
+  // Searches for UK companies that ARE the buyer, not generic tech companies
+  'companies-house-voc': {
+    functionName: 'companies-house',
+    timeout: 30000,
+    queryType: 'short',
+    transform: (_query, _context, _profileType, reviewSearch) => {
+      // PHASE 19D: Use buyer intelligence to find UK BUYER companies
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const buyerIndustry = buyerIntel?.buyerIndustry || 'technology';
+      const buyerProblem = buyerIntel?.buyerProblem || '';
+
+      // Map buyer industry to relevant UK companies (companies that HAVE the problem)
+      const ukBuyerCompanies: Record<string, string[]> = {
+        'insurance': ['AVIVA PLC', 'PRUDENTIAL PLC', 'LEGAL & GENERAL', 'ADMIRAL GROUP', 'DIRECT LINE'],
+        'healthcare': ['ASTRAZENECA', 'GLAXOSMITHKLINE', 'SMITH & NEPHEW', 'SPIRE HEALTHCARE'],
+        'financial services': ['HSBC HOLDINGS', 'BARCLAYS PLC', 'LLOYDS BANKING', 'NATWEST', 'STANDARD CHARTERED'],
+        'retail': ['TESCO PLC', 'SAINSBURY', 'MARKS AND SPENCER', 'NEXT PLC', 'OCADO'],
+        'manufacturing': ['ROLLS-ROYCE', 'BAE SYSTEMS', 'GKN', 'IMI PLC'],
+        'real estate': ['BRITISH LAND', 'LAND SECURITIES', 'SEGRO', 'SAVILLS'],
+        'restaurant': ['WHITBREAD', 'MITCHELLS & BUTLERS', 'JD WETHERSPOON', 'GREGGS'],
+        'technology': ['ARM HOLDINGS', 'SAGE GROUP', 'AVEVA GROUP', 'SOFTCAT'],
+      };
+
+      // Find matching buyer industry
+      const industry = Object.keys(ukBuyerCompanies).find(k =>
+        buyerIndustry.toLowerCase().includes(k.toLowerCase())
+      ) || 'technology';
+
+      const companies = ukBuyerCompanies[industry] || ukBuyerCompanies['technology'];
+
+      console.log('[companies-house-voc] PHASE 19D - Searching UK BUYER companies:', {
+        buyerIndustry,
+        buyerProblem,
+        industry,
+        companies: companies.slice(0, 3),
+      });
+
+      return {
+        action: 'competitor-intel',
+        params: {
+          companyName: companies[0],
+        }
+      };
+    },
   },
   'meta-ads': {
     functionName: 'fetch-meta-ads',
@@ -401,27 +589,32 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
       ],
     }),
   },
-  // V6 VOC FIX: Perplexity specifically for extracting REAL customer quotes
-  // Uses ReviewSearchConfig from BusinessPurposeDetector for proper category targeting
+  // PHASE 19: Perplexity for finding BUYER PROBLEM discussions
+  // This is the main VoC API - now searches for what BUYERS say about THEIR PROBLEMS
   'perplexity-reviews': {
     functionName: 'perplexity-proxy',
-    timeout: 30000,
+    timeout: 45000,
     queryType: 'short',
     transform: (_query, _context, _profileType, reviewSearch) => {
-      // Use ReviewSearchConfig for category and exclusions
-      const category = reviewSearch?.categoryQuery || '"B2B software"';
-      const alternatives = reviewSearch?.alternatives?.slice(0, 2).join(', ') || '';
-      const exclusions = reviewSearch?.exclusions?.join(', ') || '';
-      const competitors = reviewSearch?.competitors?.join(', ') || '';
+      // PHASE 19: Extract buyer intelligence for targeted searches
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const buyerRole = buyerIntel?.buyerRole || 'business professional';
+      const buyerProblem = buyerIntel?.buyerProblem || 'operational challenges';
+      const buyerIndustry = buyerIntel?.buyerIndustry || 'business';
+      const painKeywords = buyerIntel?.painKeywords || [];
+      const alternatives = reviewSearch?.alternatives || [];
+      const exclusions = reviewSearch?.exclusions || [];
 
-      // Build rich context for Perplexity
-      const categoryContext = alternatives ? `${category} (also known as: ${alternatives})` : category;
+      // Build context from alternatives
+      const alternativeSearches = alternatives.length > 0
+        ? `Also search for discussions about: ${alternatives.join(', ')}`
+        : '';
 
-      console.log('[perplexity-reviews] Using ReviewSearchConfig:', {
-        category,
-        alternatives,
-        exclusions,
-        competitors,
+      console.log('[perplexity-reviews] PHASE 19 Buyer Intelligence:', {
+        buyerRole,
+        buyerProblem,
+        buyerIndustry,
+        painKeywords,
       });
 
       return {
@@ -429,35 +622,45 @@ const EDGE_FUNCTION_MAP: Record<string, EdgeFunctionConfig> = {
         messages: [
           {
             role: 'system',
-            content: `You are a B2B customer research analyst specializing in enterprise software reviews. Find and return ONLY direct customer quotes from reviews on G2, Capterra, TrustRadius, or Reddit.
+            content: `You are a buyer intelligence researcher. Your job is to find what ${buyerRole}s in ${buyerIndustry} are saying about "${buyerProblem}".
 
 CRITICAL RULES:
-1. Return 8-12 ACTUAL customer quotes (in quotation marks)
-2. Each quote must include: source platform, customer role/company if available, sentiment (positive/negative)
-3. DO NOT summarize or paraphrase - exact words only
-4. DO NOT include vendor marketing content or analyst opinions
-5. Focus on: complaints, frustrations, switching mentions ("we moved from X"), unmet needs ("wish it had")
-${exclusions ? `6. EXCLUDE reviews about: ${exclusions}` : ''}
-${competitors ? `7. Look for reviews comparing to or mentioning: ${competitors}` : ''}
+1. Find 8-12 REAL quotes from ${buyerRole}s discussing their challenges
+2. Search: Reddit (r/sales, r/insurance, industry subreddits), LinkedIn discussions, industry forums, Quora, professional communities
+3. Each quote must be first-person: "I", "We", "Our team", "My company"
+4. Focus on PROBLEM DISCUSSIONS, not product reviews:
+   - "We struggled with..."
+   - "Our biggest challenge was..."
+   - "I wish we could..."
+   - "The hardest part of..."
+   - "What keeps me up at night is..."
+5. DO NOT return:
+   - Product reviews or software comparisons
+   - Marketing content or vendor pitches
+   - Generic advice or how-to content
+${exclusions.length > 0 ? `6. EXCLUDE discussions about: ${exclusions.join(', ')}` : ''}
+${painKeywords.length > 0 ? `7. Prioritize discussions mentioning: ${painKeywords.join(', ')}` : ''}
 
-Priority order for content value:
-1. Pain points and frustrations (highest value)
-2. Switching/migration stories
-3. Unmet needs and feature gaps
-4. Positive differentiators`
+${alternativeSearches}
+
+Format each quote as:
+**[Pain Point Theme]**
+"[Exact quote about their problem]"
+- Source: [Platform], [Role/Title if known]`
           },
           {
             role: 'user',
-            content: `Find real B2B customer reviews and direct quotes about: ${categoryContext}
+            content: `Find real discussions from ${buyerRole}s in ${buyerIndustry} about their challenges with "${buyerProblem}".
 
-Search G2.com, Capterra, TrustRadius, and professional Reddit communities (r/SaaS, r/sales, r/Entrepreneur).
+Search professional communities, industry forums, Reddit, LinkedIn, and Quora for first-person accounts of this problem.
 
-Return only direct quotes from actual enterprise customers - not vendor descriptions, analyst reports, or marketing content. Focus on reviews that mention specific pain points, switching from competitors, or desired features.
+I want to understand:
+1. What frustrates them most about this problem?
+2. What have they tried that didn't work?
+3. What do they wish existed?
+4. How does this problem impact their business?
 
-Format each quote as:
-**[Topic/Theme]**
-"[Exact customer quote]"
-- Source: [Platform], [Role/Company if known], [Positive/Negative]`
+Return direct quotes from real people - not product reviews, marketing content, or vendor descriptions.`
           },
         ],
       };
@@ -495,16 +698,55 @@ Format each quote as:
     }),
   },
 
-  // Local/Timing APIs
-  'sec-edgar': {
-    functionName: 'sec-edgar-proxy',
-    timeout: 20000,
-    queryType: 'short', // Company name
-    transform: (query) => ({
-      company: query,
-      formTypes: ['10-K', '10-Q', '8-K'],
-      limit: 10,
-    }),
+  // PHASE 19D: SEC-API.io for BUYER company intelligence
+  // Now searches for companies that ARE the buyer (target customer's company type)
+  // Instead of generic tech companies, find the buyer's peers
+  'sec-api-io': {
+    functionName: 'sec-api-io',
+    timeout: 45000,
+    queryType: 'short',
+    transform: (_query, _context, _profileType, reviewSearch) => {
+      // PHASE 19D: Use buyer intelligence to find BUYER companies
+      const buyerIntel = reviewSearch?.buyerIntelligence;
+      const buyerIndustry = buyerIntel?.buyerIndustry || 'technology';
+      const buyerProblem = buyerIntel?.buyerProblem || '';
+
+      // Map buyer industry to relevant company tickers (companies that HAVE the problem)
+      const buyerIndustryTickers: Record<string, string[]> = {
+        'insurance': ['MET', 'PRU', 'AIG', 'ALL', 'TRV', 'AFL', 'CINF'],
+        'healthcare': ['UNH', 'CVS', 'CI', 'HUM', 'CNC', 'ANTM'],
+        'financial services': ['JPM', 'BAC', 'WFC', 'GS', 'MS', 'C'],
+        'retail': ['WMT', 'TGT', 'COST', 'HD', 'LOW', 'BBY'],
+        'manufacturing': ['CAT', 'DE', 'MMM', 'GE', 'HON'],
+        'real estate': ['CBRE', 'JLL', 'RE', 'WPC'],
+        'restaurant': ['MCD', 'SBUX', 'CMG', 'DRI', 'YUM'],
+        'technology': ['MSFT', 'GOOGL', 'AMZN', 'CRM', 'NOW'],
+      };
+
+      // Find matching buyer industry tickers
+      const industry = Object.keys(buyerIndustryTickers).find(k =>
+        buyerIndustry.toLowerCase().includes(k.toLowerCase())
+      ) || 'technology';
+
+      const tickers = buyerIndustryTickers[industry] || buyerIndustryTickers['technology'];
+
+      console.log('[sec-api-io] PHASE 19D - Searching BUYER companies:', {
+        buyerIndustry,
+        buyerProblem,
+        industry,
+        tickers: tickers.slice(0, 3),
+      });
+
+      return {
+        action: 'extract-executive-quotes',
+        params: {
+          ticker: tickers[0],
+          industry,
+          // PHASE 19D: Add buyer problem context for better quote extraction
+          searchContext: buyerProblem || undefined,
+        }
+      };
+    },
   },
   'google-places': {
     functionName: 'fetch-google-places',
@@ -518,13 +760,14 @@ Format each quote as:
 };
 
 // Fallback APIs when edge function doesn't exist
-// V5 FIX: ProductHunt and Reddit-enterprise have no edge functions - mark as fallback
+// V5 FIX: Reddit-enterprise has no edge functions - mark as fallback
+// V6 VOC FIX: producthunt, indiehackers, hackernews-comments now have edge function configs
+// V6 FIX: newsapi replaced by serper-news (key not configured)
 const FALLBACK_APIS = new Set([
   'outscraper-multi', 'apify-clutch', 'apify-upwork', 'apify-nextdoor',
   'reddit-marketing', 'reddit-regional', 'reddit-enterprise', 'linkedin', 'facebook-groups',
-  'newsapi-local', 'newsapi-tech', 'newsapi-marketing', 'newsapi-regional',
+  'newsapi', 'newsapi-local', 'newsapi-tech', 'newsapi-marketing', 'newsapi-regional',
   'newsapi-funding', 'newsapi-budgets', 'newsapi-holidays',
-  'producthunt', // No edge function for ProductHunt API
 ]);
 
 /**

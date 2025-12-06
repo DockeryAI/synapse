@@ -21,8 +21,9 @@ export type V6SourceTab =
 export interface V6Insight {
   id: string;
   sourceTab: V6SourceTab;
-  title: string;
-  text: string;
+  title: string;           // Theme summary (e.g., "Looking for AI Sales Agents")
+  text: string;            // Full context or fallback
+  quote?: string;          // Actual customer quote in their words
   source: {
     name: string;
     platform: string;
@@ -30,6 +31,16 @@ export interface V6Insight {
     verified: boolean;
   };
   timestamp: string;
+  // Expanded view content
+  executiveSummary?: string;      // Brief summary for expanded view
+  uvpAlignment?: string[];        // How this aligns with user's UVP
+  // Theme clustering - similar quotes from other sources
+  relatedQuotes?: Array<{
+    quote: string;
+    source: string;
+    platform: string;
+    url?: string;
+  }>;
   // For connection engine
   embedding?: number[];
   // Connection discovery results
@@ -60,25 +71,25 @@ export const V6_TAB_CONFIGS: Record<V6SourceTab, V6TabConfig> = {
     id: 'voc',
     label: 'Voice of Customer',
     description: 'Direct customer language from reviews & testimonials',
-    icon: 'Heart',
-    color: 'text-red-400',
-    bgColor: 'bg-red-950/80',
+    icon: 'Speech',
+    color: 'text-violet-400',
+    bgColor: 'bg-violet-950/80',
   },
   community: {
     id: 'community',
     label: 'Community',
     description: 'Organic conversations from Reddit, forums, social',
     icon: 'Users',
-    color: 'text-green-400',
-    bgColor: 'bg-green-950/80',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-950/80',
   },
   competitive: {
     id: 'competitive',
     label: 'Competitive',
     description: 'Competitor positioning and gaps',
     icon: 'Target',
-    color: 'text-orange-400',
-    bgColor: 'bg-orange-950/80',
+    color: 'text-red-400',
+    bgColor: 'bg-red-950/80',
   },
   trends: {
     id: 'trends',
@@ -107,6 +118,7 @@ export const V6_TAB_CONFIGS: Record<V6SourceTab, V6TabConfig> = {
 };
 
 // Convert adapter output to V6Insight
+// V6 FIX: Preserve quote, executiveSummary, uvpAlignment, relatedQuotes from adapter
 export function toV6Insight(insight: any): V6Insight {
   const title = insight.title || insight.text?.substring(0, 60) + '...';
   return {
@@ -114,9 +126,15 @@ export function toV6Insight(insight: any): V6Insight {
     sourceTab: insight.sourceTab || 'voc',
     title,
     text: insight.text || '',
+    // V6 FIX: Copy quote field - THIS IS THE ACTUAL CUSTOMER QUOTE
+    quote: insight.quote,
+    // V6 FIX: Copy expanded view content
+    executiveSummary: insight.executiveSummary,
+    uvpAlignment: insight.uvpAlignment,
+    relatedQuotes: insight.relatedQuotes,
     source: {
       name: typeof insight.source === 'object' ? insight.source?.name : insight.source || 'Unknown',
-      platform: extractPlatform(insight.source, title),
+      platform: typeof insight.source === 'object' ? insight.source?.platform : extractPlatform(insight.source, title),
       url: typeof insight.source === 'object' ? insight.source?.url : insight.sourceUrl,
       verified: typeof insight.source === 'object' ? insight.source?.verified : false,
     },

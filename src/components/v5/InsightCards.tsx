@@ -14,7 +14,7 @@
 
 import React, { memo } from 'react';
 import {
-  Heart,
+  Speech,
   Target,
   AlertTriangle,
   Zap,
@@ -52,6 +52,54 @@ function normalizeSource(source?: string | { name?: string; url?: string; verifi
   if (!source) return '';
   if (typeof source === 'string') return source;
   return source.name || '';
+}
+
+/**
+ * PHASE 19F: Extract URL from source object if available
+ */
+function getSourceUrl(source?: string | { name?: string; url?: string; verified?: boolean }, sourceUrl?: string): string | undefined {
+  // First check explicit sourceUrl field
+  if (sourceUrl) return sourceUrl;
+  // Then check source object
+  if (source && typeof source !== 'string' && source.url) {
+    return source.url;
+  }
+  return undefined;
+}
+
+/**
+ * PHASE 19F: Clickable source component
+ * Renders source as a link if URL is available, plain text otherwise
+ */
+function SourceDisplay({
+  source,
+  sourceUrl,
+  className = 'text-gray-500 truncate max-w-[60%]',
+}: {
+  source?: string | { name?: string; url?: string; verified?: boolean };
+  sourceUrl?: string;
+  className?: string;
+}) {
+  const displayText = normalizeSource(source);
+  const url = getSourceUrl(source, sourceUrl);
+
+  if (!displayText) return null;
+
+  if (url) {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${className} hover:text-blue-400 hover:underline cursor-pointer`}
+        onClick={(e) => e.stopPropagation()} // Prevent card click when clicking link
+      >
+        {displayText} ↗
+      </a>
+    );
+  }
+
+  return <span className={className}>{displayText}</span>;
 }
 
 // ============================================================================
@@ -219,7 +267,7 @@ const triggerCategoryStyles: Record<string, {
     color: 'text-pink-400',
     bg: 'bg-pink-950/80',
     border: 'border-pink-700',
-    icon: Heart,
+    icon: Speech,
     ringColor: 'ring-pink-500',
   },
   pain: {
@@ -308,11 +356,8 @@ export const TriggerCard = memo(function TriggerCard({
         <span className={`font-semibold ${confidence >= 70 ? 'text-green-400' : confidence >= 45 ? 'text-yellow-400' : 'text-gray-400'}`}>
           {confidence}%
         </span>
-        {normalizeSource(insight.source) && (
-          <span className="text-gray-500 truncate max-w-[60%]">
-            {normalizeSource(insight.source)}
-          </span>
-        )}
+        {/* PHASE 19F: Clickable source link */}
+        <SourceDisplay source={insight.source} sourceUrl={insight.sourceUrl} />
       </div>
     </div>
   );
@@ -383,11 +428,8 @@ export const ProofCard = memo(function ProofCard({
         <span className={`font-semibold ${qualityScore >= 70 ? 'text-green-400' : qualityScore >= 45 ? 'text-yellow-400' : 'text-gray-400'}`}>
           {qualityScore}%
         </span>
-        {normalizeSource(insight.source) && (
-          <span className="text-gray-500 truncate max-w-[60%]">
-            {normalizeSource(insight.source)}
-          </span>
-        )}
+        {/* PHASE 19F: Clickable source link */}
+        <SourceDisplay source={insight.source} sourceUrl={insight.sourceUrl} />
       </div>
     </div>
   );
@@ -520,11 +562,8 @@ export const CompetitorCard = memo(function CompetitorCard({
             {insight.sentiment}
           </span>
         )}
-        {normalizeSource(insight.source) && (
-          <span className="text-gray-500 truncate max-w-[60%]">
-            {normalizeSource(insight.source)}
-          </span>
-        )}
+        {/* PHASE 19F: Clickable source link */}
+        <SourceDisplay source={insight.source} sourceUrl={insight.sourceUrl} />
       </div>
     </div>
   );

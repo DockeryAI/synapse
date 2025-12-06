@@ -39,7 +39,7 @@
 import { useState } from 'react';
 import {
   Flame,
-  Heart,
+  Speech,
   AlertTriangle,
   ShieldQuestion,
   Target,
@@ -99,7 +99,7 @@ const CATEGORY_CONFIG: Record<TriggerCategory, CategoryConfig> = {
     ringColor: 'ring-red-500',
   },
   desire: {
-    icon: Heart,
+    icon: Speech,
     label: 'Desire',
     color: 'text-pink-400',
     bgColor: 'bg-pink-950/80',

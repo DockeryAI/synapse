@@ -32,7 +32,12 @@ import {
   Users,
   Zap,
   Loader2,
+  ChevronDown,
+  Plus,
+  Building2,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useBrand } from '@/hooks/useBrand';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { InsightCard, type Insight, type InsightType, type TriggerInsight, type V6SourceTab } from './InsightCards';
 
@@ -84,6 +89,8 @@ export interface InsightTabsProps {
     completedPasses: number;
     totalPasses: number;
   };
+  /** Per-tab loading state - shows spinner on tab icon when APIs are loading */
+  loadingTabs?: Set<string>;
 }
 
 // ============================================================================
@@ -202,23 +209,32 @@ const DEFAULT_ENABLED_TABS: EnabledTabs = {
 };
 
 // ============================================================================
-// LOADING SKELETON
+// LOADING SKELETON WITH SPINNER
 // ============================================================================
 
 function InsightSkeleton() {
   return (
-    <div className="rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden animate-pulse">
-      <div className="p-3 bg-gray-50 dark:bg-slate-800">
-        <div className="flex items-start gap-2">
-          <div className="w-7 h-7 rounded-lg bg-gray-200 dark:bg-slate-700" />
-          <div className="flex-1 space-y-2">
+    <div className="relative rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden bg-gray-50 dark:bg-slate-800 min-h-[140px]">
+      {/* Skeleton background structure */}
+      <div className="p-4 opacity-30">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gray-300 dark:bg-slate-600" />
+          <div className="flex-1 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="h-4 w-16 bg-gray-200 dark:bg-slate-700 rounded" />
-              <div className="h-4 w-10 bg-gray-200 dark:bg-slate-700 rounded" />
+              <div className="h-4 w-20 bg-gray-300 dark:bg-slate-600 rounded" />
+              <div className="h-4 w-12 bg-gray-300 dark:bg-slate-600 rounded" />
             </div>
-            <div className="h-4 w-full bg-gray-200 dark:bg-slate-700 rounded" />
-            <div className="h-4 w-2/3 bg-gray-200 dark:bg-slate-700 rounded" />
+            <div className="h-4 w-full bg-gray-300 dark:bg-slate-600 rounded" />
+            <div className="h-4 w-3/4 bg-gray-300 dark:bg-slate-600 rounded" />
+            <div className="h-4 w-1/2 bg-gray-300 dark:bg-slate-600 rounded" />
           </div>
+        </div>
+      </div>
+      {/* Centered spinner overlay */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+          <span className="text-xs text-gray-400">Loading...</span>
         </div>
       </div>
     </div>
@@ -240,6 +256,7 @@ export const InsightTabs = memo(function InsightTabs({
   refreshingTab,
   uvpData,
   triggerLoadingState,
+  loadingTabs = new Set(),
 }: InsightTabsProps) {
   // Default to 'triggers' tab so users see ProgressiveLoadingGrid with BorderBeam animation on load
   const [activeFilter, setActiveFilter] = useState<FilterType>('triggers');
@@ -266,6 +283,11 @@ export const InsightTabs = memo(function InsightTabs({
   // Phase 14C + 14E: Psychology analysis and auto-execution
   const [psychologyResults, setPsychologyResults] = useState<any[]>([]);
   const [psychologyLoading, setPsychologyLoading] = useState(false);
+
+  // Brand Switcher for VoC testing (temporary dev feature)
+  const navigate = useNavigate();
+  const { currentBrand, brands, setCurrentBrand } = useBrand();
+  const [showBrandDropdown, setShowBrandDropdown] = useState(false);
 
   // Build available tabs based on enabledTabs
   const availableTabs = useMemo(() => {
@@ -474,12 +496,23 @@ export const InsightTabs = memo(function InsightTabs({
             const TabIcon = tab.icon;
             const insightType = filterToInsightType(tab.id);
             const isRefreshingThisTab = refreshingTab === insightType;
+            // Check if this tab is loading (map FilterType to V6 sourceTab)
+            const sourceTabMap: Record<FilterType, string> = {
+              'all': 'all',
+              'triggers': 'voc',
+              'proof': 'community',
+              'competition': 'competitive',
+              'trends': 'trends',
+              'local': 'search',
+              'weather': 'local_timing',
+            };
+            const isTabCurrentlyLoading = loadingTabs.has(sourceTabMap[tab.id]);
 
             return (
               <div key={tab.id} className="flex items-center gap-1">
                 <button
                   onClick={() => setActiveFilter(tab.id)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                     isActive
                       ? tab.id === 'local' ? 'bg-cyan-600 text-white'
                       : tab.id === 'weather' ? 'bg-sky-600 text-white'
@@ -488,9 +521,15 @@ export const InsightTabs = memo(function InsightTabs({
                   }`}
                   title={tab.description}
                 >
+                  {/* Show spinner when tab is loading, otherwise show tab icon */}
+                  {isTabCurrentlyLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <TabIcon className="w-4 h-4" />
+                  )}
                   {tab.label}
                   {count > 0 && (
-                    <span className="ml-1.5 text-xs opacity-70">
+                    <span className="ml-1 text-xs opacity-70">
                       {count}
                     </span>
                   )}
@@ -618,6 +657,63 @@ export const InsightTabs = memo(function InsightTabs({
           {connectionStats && (
             <span className="text-xs opacity-70">({connectionStats.totalConnections})</span>
           )}
+        </button>
+
+        {/* Brand Switcher Dropdown (DEV: for VoC testing across industries) */}
+        <div className="relative">
+          <button
+            onClick={() => setShowBrandDropdown(!showBrandDropdown)}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-blue-500/50 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-all"
+          >
+            <Building2 className="w-4 h-4" />
+            <span className="max-w-[120px] truncate">
+              {currentBrand?.name || 'Select Brand'}
+            </span>
+            <ChevronDown className={`w-3 h-3 transition-transform ${showBrandDropdown ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {showBrandDropdown && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="absolute top-full mt-1 right-0 z-50 min-w-[200px] max-h-[300px] overflow-y-auto rounded-lg border border-slate-700 bg-slate-800 shadow-xl"
+              >
+                {brands.length === 0 ? (
+                  <div className="px-3 py-2 text-sm text-gray-400">No brands yet</div>
+                ) : (
+                  brands.map((brand) => (
+                    <button
+                      key={brand.id}
+                      onClick={() => {
+                        setCurrentBrand(brand);
+                        setShowBrandDropdown(false);
+                        // Force page reload to refresh all data
+                        window.location.reload();
+                      }}
+                      className={`w-full px-3 py-2 text-sm text-left hover:bg-slate-700 transition-colors ${
+                        currentBrand?.id === brand.id ? 'bg-blue-500/20 text-blue-300' : 'text-gray-300'
+                      }`}
+                    >
+                      <div className="font-medium truncate">{brand.name}</div>
+                      <div className="text-xs text-gray-500 truncate">{brand.industry || 'Unknown industry'}</div>
+                    </button>
+                  ))
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Add Brand Button */}
+        <button
+          onClick={() => navigate('/onboarding-v5')}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-green-500/50 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-all"
+          title="Add a new brand profile"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Add Brand</span>
         </button>
 
         {/* Selected Count */}

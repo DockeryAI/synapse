@@ -11,7 +11,7 @@ import {
   Filter,
   X,
   Flame,
-  Heart,
+  Speech,
   AlertTriangle,
   ShieldQuestion,
   Target,
@@ -65,7 +65,7 @@ interface CategoryOption {
 const CATEGORY_OPTIONS: CategoryOption[] = [
   { value: 'pain', label: 'Pain', icon: Flame, color: 'text-orange-600' },
   { value: 'fear', label: 'Fear', icon: AlertTriangle, color: 'text-red-600' },
-  { value: 'desire', label: 'Desire', icon: Heart, color: 'text-pink-600' },
+  { value: 'desire', label: 'Desire', icon: Speech, color: 'text-pink-600' },
   { value: 'trust', label: 'Trust', icon: Shield, color: 'text-blue-600' },
   { value: 'urgency', label: 'Urgency', icon: Clock, color: 'text-purple-600' },
 ];

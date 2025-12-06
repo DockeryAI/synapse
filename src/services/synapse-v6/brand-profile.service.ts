@@ -62,68 +62,64 @@ export interface BrandProfile {
 }
 
 // Default API priorities by profile type
-// V5 FIX: Updated to use working API configs
+// V6 FIX: Replaced newsapi with serper-news (newsapi key not configured)
 const PROFILE_API_PRIORITIES: Record<BusinessProfileType, TabApiPriorities> = {
   'local-b2c': {
-    // V5 FIX: Added google-maps for local reviews, use apify-yelp
-    voc: ['google-maps', 'outscraper', 'apify-yelp', 'serper'],
+    voc: ['google-maps', 'outscraper', 'apify-yelp', 'youtube-comments', 'serper'],
     community: ['apify-facebook', 'reddit', 'serper'],
     competitive: ['semrush', 'serper'],
-    trends: ['newsapi', 'openweather'],
+    trends: ['serper-news', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
     local_timing: ['openweather', 'serper-events'],
   },
   'local-b2b': {
-    // V5 FIX: Added google-maps for local reviews
-    voc: ['google-maps', 'outscraper', 'apify-linkedin', 'serper'],
-    community: ['apify-linkedin', 'reddit', 'apify-twitter'],
-    competitive: ['semrush', 'serper'],
-    trends: ['newsapi', 'perplexity'],
+    voc: ['google-maps', 'outscraper', 'apify-linkedin', 'linkedin-serper', 'twitter-api', 'serper'],
+    community: ['apify-linkedin', 'reddit', 'twitter-api'],
+    competitive: ['companies-house', 'semrush', 'serper'], // V6 Phase 18: UK company filings
+    trends: ['serper-news', 'perplexity'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi', 'serper-events'],
+    local_timing: ['serper-news', 'serper-events'],
   },
   'regional-agency': {
-    // V5 FIX: Use apify-g2 for Clutch (Serper site: search)
-    voc: ['apify-g2', 'apify-linkedin', 'serper'],
-    community: ['reddit', 'apify-twitter', 'apify-linkedin'],
-    competitive: ['semrush', 'serper'],
-    trends: ['newsapi', 'apify-twitter'],
+    voc: ['apify-g2', 'apify-linkedin', 'linkedin-serper', 'twitter-api', 'serper'],
+    community: ['reddit', 'twitter-api', 'apify-linkedin'],
+    competitive: ['companies-house', 'semrush', 'serper'], // V6 Phase 18: UK company filings
+    trends: ['serper-news', 'twitter-api'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi', 'serper'],
+    local_timing: ['serper-news', 'serper'],
   },
   'regional-retail': {
-    // V5 FIX: Use google-maps and apify-yelp
     voc: ['google-maps', 'apify-yelp', 'outscraper', 'serper'],
     community: ['reddit', 'apify-facebook'],
     competitive: ['semrush', 'serper'],
-    trends: ['newsapi', 'openweather'],
+    trends: ['serper-news', 'openweather'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['openweather', 'newsapi'],
+    local_timing: ['openweather', 'serper-news'],
   },
   'national-saas': {
-    // V6 VOC FIX: Prioritize ACTUAL REVIEWS over articles
-    // G2/Capterra first (real customer reviews), then Twitter exec voices, then HackerNews discussions
-    // Reddit restored with professional subreddit targeting (r/sales, r/SaaS, r/startups)
-    // VoC priority: Real customer reviews first, then social/community voices
-    // perplexity-reviews added for explicit customer quote extraction
-    voc: ['apify-g2', 'apify-capterra', 'apify-trustradius', 'perplexity-reviews', 'apify-twitter', 'reddit-professional'],
-    // Community: Professional subreddits, LinkedIn B2B, Twitter exec commentary, HackerNews
-    community: ['reddit-professional', 'apify-linkedin', 'apify-twitter', 'hackernews'],
-    competitive: ['semrush', 'serper'],
-    // Trends: Tech/enterprise news + professional analysis
-    trends: ['perplexity', 'hackernews', 'newsapi'],
+    // V6 VOC FIX: 10x Quote Volume - Expanded sources for real customer quotes
+    // PHASE 20E: REMOVED perplexity-reviews - generates hallucinated quotes with fake sources
+    // PHASE 20L: RE-ADDED companies-house-voc - chairman's statement = buyer intelligence
+    voc: [
+      'apify-g2', 'apify-capterra', 'apify-trustradius',  // Review platforms
+      'hackernews-comments', 'producthunt', 'indiehackers',  // Tech community
+      'reddit-professional', 'linkedin-serper', 'twitter-api', 'youtube-comments',  // Social
+      'sec-api-io',  // V6 Phase 17: Executive strategy quotes from SEC filings (US)
+      'companies-house-voc',  // PHASE 20L: UK buyer company intelligence (chairman's statement)
+    ],
+    community: ['reddit-professional', 'apify-linkedin', 'twitter-api', 'hackernews'],
+    competitive: ['companies-house', 'sec-api-io', 'semrush', 'serper'], // UK/US company intel
+    trends: ['perplexity', 'hackernews', 'serper-news'],
     search: ['semrush', 'serper-autocomplete'],
-    // Timing: Industry news + SEC filings for public company signals
-    local_timing: ['newsapi', 'sec-edgar', 'perplexity'],
+    local_timing: ['serper-news', 'perplexity'],
   },
   'national-product': {
-    // V5 FIX: Use apify-amazon (now Serper site: search)
     voc: ['apify-amazon', 'apify-trustpilot', 'reddit', 'apify-tiktok'],
     community: ['reddit', 'apify-tiktok', 'apify-instagram'],
     competitive: ['semrush', 'buzzsumo'],
-    trends: ['buzzsumo', 'newsapi', 'youtube', 'apify-tiktok'],
+    trends: ['buzzsumo', 'serper-news', 'youtube', 'apify-tiktok'],
     search: ['semrush', 'serper-autocomplete'],
-    local_timing: ['newsapi', 'openweather'],
+    local_timing: ['serper-news', 'openweather'],
   },
 };
 
@@ -277,7 +273,13 @@ export async function getOrCreateBrandProfile(
 
     if (existing) {
       console.log('[BrandProfileService] Found existing profile:', existing.profile_type);
-      return existing as BrandProfile;
+      // V6 FIX: Always use latest api_priorities from code (not stale DB values)
+      // This ensures new APIs added to PROFILE_API_PRIORITIES are immediately available
+      const latestApiPriorities = PROFILE_API_PRIORITIES[existing.profile_type as BusinessProfileType];
+      return {
+        ...existing,
+        api_priorities: latestApiPriorities,
+      } as BrandProfile;
     }
 
     // Detect profile type
